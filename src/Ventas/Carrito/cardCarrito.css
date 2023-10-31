@@ -3,7 +3,7 @@
     align-items: center;
     border: 1px solid black;
     padding: 10px;
-    max-width: 35%;
+    max-width: 100%;
     background-color: white;
     z-index: 11;
     position: relative;

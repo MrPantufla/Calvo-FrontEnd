@@ -24,8 +24,19 @@ export default function Carrito() {
     const productoExistente = productos.find((producto) => producto.cod_int == codigoSinCantidad);
     
     console.log(productoExistente);
+    
+    const cantidadNumero = (cantidad) => {
+      if ((/^[0-9]+$/.test(cantidad)) || cantidad==null){
+        return true
+      }
+      else{
+        return false;
+      }
+    }
 
-    if (productoExistente) {
+    let band = cantidadNumero(cantidad);
+    console.log("band: " + band)
+    if (productoExistente && band) {
       const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1; // Si no se proporciona cantidad, se agrega 1 por defecto
       añadirElemento(productoExistente.cod_int, productoExistente.detalle, cantidadAAgregar, 777);
       setCodigoErroneo(false);
@@ -65,7 +76,7 @@ export default function Carrito() {
             <OverlayTrigger
               placement="left"
               overlay={
-                <Tooltip id="tooltip-hint">
+                <Tooltip className="tooltip" id="tooltip-hint">
                   {message.split('\n').map((line, index) => (
                     <div key={index}>{line}</div>
                   ))}

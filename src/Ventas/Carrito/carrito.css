@@ -1,8 +1,10 @@
 .contenedorPrincipalCarrito{
     overflow: auto;
+    max-width: 400px;
     position: absolute;
     z-index: 10;
     margin-left: 67%;
+    background-color: #E4D58C;
 }
 
 .textoCarritoVacio{
@@ -18,4 +20,12 @@
 .total{
     background-color: orange;
     font-size: 20px;
+}
+
+.textoInput{
+    width: 100%;
+}
+
+.tooltip{
+    height: 20px;
 }
