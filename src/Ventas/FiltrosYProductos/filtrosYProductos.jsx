@@ -9,6 +9,8 @@ export default function FiltrosYProductos(props) {
   const rubrosUnicos = [...new Set(productos.map((producto) => producto.rubro))];
   const srubrosUnicos = [...new Set(productos.map((producto) => producto.srubro))];
   const [busqueda, setBusqueda] = useState('');
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 10;
 
   function toggleRubro(rubro) {
     if (rubrosActivos.includes(rubro)) {
