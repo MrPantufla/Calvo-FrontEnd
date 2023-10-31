@@ -1,7 +1,7 @@
 .contenedorPrincipalCarrito{
     overflow: auto;
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     margin-left: 67%;
 }
 
@@ -9,4 +9,8 @@
     font-size: 20px;
     text-align: center;
     background-color: #B83A3A ;
+}
+
+.boton{
+    z-index: 10;
 }

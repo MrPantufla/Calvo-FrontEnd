@@ -5,6 +5,8 @@
     padding: 10px;
     max-width: 35%;
     background-color: white;
+    z-index: 11;
+    position: relative;
   }
   
 .imagenYCodigoCardCarrito {
@@ -29,5 +31,9 @@
 .eliminar{
     color: red;
     cursor: pointer;
+}
+
+.boton{
+    z-index: 5;
 }
   
