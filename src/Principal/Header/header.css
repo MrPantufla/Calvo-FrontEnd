@@ -1,0 +1,59 @@
+.contenedorPrincipalHeader{
+    height: 6rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.fila{
+    height: 100%;
+    background: linear-gradient(to right, white 20%, #e51e25);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.secciones{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.seccion{
+    margin-left: 50px;
+    margin-right: 50px;
+    cursor:pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 115%;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    
+}
+
+.logoContainer{
+    display: flex;
+    justify-content: left;
+    margin: 0px;
+}
+
+.logo{
+    height: 90%;
+    width: auto;
+    max-width: calc(33.33vw);
+    object-fit: cover;
+}
+
+.perfil{
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logoPerfil{
+    width: 30%;
+    height: 30%;
+}
+

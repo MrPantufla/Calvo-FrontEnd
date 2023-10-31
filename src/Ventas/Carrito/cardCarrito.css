@@ -1,0 +1,33 @@
+.contenedorPrincipalCardCarrito {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: 10px;
+    max-width: 35%;
+    background-color: white;
+  }
+  
+.imagenYCodigoCardCarrito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.codigo{
+    font-size: 20px;
+}
+  
+.imagenCardCarrito {
+    width: 100%;
+}
+  
+.textoCardCarrito {
+    width: 80%;
+    padding-left: 10px;
+}
+
+.eliminar{
+    color: red;
+    cursor: pointer;
+}
+  

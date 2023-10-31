@@ -1,0 +1,12 @@
+.contenedorPrincipalCarrito{
+    overflow: auto;
+    position: absolute;
+    z-index: 1;
+    margin-left: 67%;
+}
+
+.textoCarritoVacio{
+    font-size: 20px;
+    text-align: center;
+    background-color: #B83A3A ;
+}

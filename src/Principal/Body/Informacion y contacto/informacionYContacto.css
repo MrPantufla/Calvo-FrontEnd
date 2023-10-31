@@ -1,0 +1,15 @@
+.contenedorPrincipalInfoYContacto{
+    background-color: rgb(169, 187, 202);
+}
+
+.divInformacion{
+    display: flex;
+    justify-content: right;
+    padding-right: 10%;
+    padding-top: 2rem;
+}
+
+.divContacto{
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,22 @@
+.filtrosYBusqueda{
+    width: 30%;
+    position: sticky;
+}
+
+.productos{
+    width: 70%;
+    padding-top: 50px;
+}
+
+.contenedorPrincipalFiltrosYProductos{
+    display: flex;
+}
+
+.check{
+    width: 20px;
+}
+
+.filtros{
+    display: flex;
+    flex-direction: column;
+}

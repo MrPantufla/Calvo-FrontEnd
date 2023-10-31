@@ -1,0 +1,21 @@
+.slide{
+    max-width: 70%;
+}
+
+.control{
+    display: flex;
+    align-items: center;
+}
+
+.contenedorPrincipalCarrusel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    margin-top: 25%;
+  }
