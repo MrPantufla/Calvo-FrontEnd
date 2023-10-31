@@ -34,6 +34,10 @@ export default function Carrito() {
     }
   }
 
+  const calcularTotal = (elementos) => {
+    return elementos.reduce((total, elemento) => total + elemento.precio*elemento.cantidad, 0);
+  };
+
   return (
     <div className="contenedorPrincipalCarrito">
       <Button onClick={toggleCarrito} variant="primary">
@@ -66,6 +70,7 @@ export default function Carrito() {
               />
             ))
           )}
+          <p className="total">Total: ${calcularTotal(elementos)}</p>
         </div>
       </Collapse>
     </div>
