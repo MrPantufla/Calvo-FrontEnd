@@ -49,7 +49,7 @@ export default function Contacto() {
                         <label htmlFor="telefono" className="colocar_telefono">
                             Teléfono
                         </label>
-                        <input type="tel" name="introducir_telefono" id="telefono" placeholder="Teléfono" />
+                        <input type="tel" name="introducir_telefono" id="telefono" required={telefonoChecked} placeholder="Teléfono" />
                     </div>
                     <div>
                         <label htmlFor="mensaje" className="colocar_mensaje">
