@@ -37,7 +37,7 @@ export default function Carrito() {
     let band = cantidadNumero(cantidad);
     console.log("band: " + band)
     if (productoExistente && band) {
-      const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1; // Si no se proporciona cantidad, se agrega 1 por defecto
+      const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1;
       añadirElemento(productoExistente.cod_int, productoExistente.detalle, cantidadAAgregar, 777);
       setCodigoErroneo(false);
     } else {
