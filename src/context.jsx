@@ -13,7 +13,7 @@ function CarritoProvider({ children }) {
     const elementoExistente = elementos.find((elemento) => elemento.codigo === codigo);
 
     if (elementoExistente) {
-      elementoExistente.cantidad += 1;
+      elementoExistente.cantidad += cantidad;
       setElementos([...elementos]);
     } else {
       const nuevoElemento = { codigo, detalle, cantidad, precio };

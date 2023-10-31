@@ -9,7 +9,7 @@ export default function CardProducto(args) {
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
 
   const sumarContador = () => {
-    añadirElemento(args.cod_int, args.detalle, cantidad + 1, 777);
+    añadirElemento(args.cod_int, args.detalle, 1, 777);
   }
 
   const restarContador = () => {
