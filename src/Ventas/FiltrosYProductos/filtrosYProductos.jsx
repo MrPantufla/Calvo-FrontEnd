@@ -12,6 +12,13 @@ export default function FiltrosYProductos(props) {
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 10;
 
+  const handleScrollClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
   function toggleRubro(rubro) {
     if (rubrosActivos.includes(rubro)) {
       setRubrosActivos(rubrosActivos.filter((r) => r !== rubro));
@@ -55,6 +62,7 @@ export default function FiltrosYProductos(props) {
                 type="checkbox"
                 checked={rubrosActivos.includes(rubro)}
                 onChange={() => toggleRubro(rubro)}
+                onClick={handleScrollClick}
               />
               <div className="textoRubro">
                 Rubro {rubro}
@@ -69,6 +77,7 @@ export default function FiltrosYProductos(props) {
                 type="checkbox"
                 checked={subrubrosActivos.includes(subrubro)}
                 onChange={() => toggleSubrubro(subrubro)}
+                onClick={handleScrollClick}
               />
               <div className="textoSubrubro">
                 Subrubro {subrubro}
