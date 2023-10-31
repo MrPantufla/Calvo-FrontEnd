@@ -10,7 +10,7 @@ export default function Carrito() {
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
-
+  
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: 1905 2";
 
   const toggleCarrito = () => {
@@ -18,13 +18,18 @@ export default function Carrito() {
   }
 
   const agregarProductoConTexto = (codigo) => {
-    const productoExistente = productos.find((producto) => producto.cod_int == codigo);
+    const [codigoSinCantidad, cantidad] = codigo.split(' ');
+    console.log("codigoSinCantidad " + codigoSinCantidad);
+    console.log("cantidad " + cantidad);
+    const productoExistente = productos.find((producto) => producto.cod_int == codigoSinCantidad);
+    
+    console.log(productoExistente);
 
     if (productoExistente) {
-      añadirElemento(productoExistente.cod_int, productoExistente.detalle, 1, 777);
+      const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1; // Si no se proporciona cantidad, se agrega 1 por defecto
+      añadirElemento(productoExistente.cod_int, productoExistente.detalle, cantidadAAgregar, 777);
       setCodigoErroneo(false);
-    }
-    else {
+    } else {
       setCodigoErroneo(true);
     }
   }
