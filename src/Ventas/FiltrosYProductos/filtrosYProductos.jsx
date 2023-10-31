@@ -39,6 +39,7 @@ export default function FiltrosYProductos(props) {
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="filtrosYBusqueda">
         <input
+          className="busqueda"
           type="text"
           placeholder="Buscar por código interno o detalle"
           value={busqueda}
@@ -46,26 +47,30 @@ export default function FiltrosYProductos(props) {
         />
         <div className="filtros">
           {rubrosUnicos.map((rubro) => (
-            <label key={rubro}>
+            <label className="labelRubros" key={rubro}>
               <input
                 className="check"
                 type="checkbox"
                 checked={rubrosActivos.includes(rubro)}
                 onChange={() => toggleRubro(rubro)}
               />
-              Rubro {rubro}
+              <div className="textoRubro">
+                Rubro {rubro}
+              </div>
             </label>
           ))}
 
           {srubrosUnicos.map((subrubro) => (
-            <label key={subrubro}>
+            <label className="labelSubrubros" key={subrubro}>
               <input
                 className="check"
                 type="checkbox"
                 checked={subrubrosActivos.includes(subrubro)}
                 onChange={() => toggleSubrubro(subrubro)}
               />
-              Subrubro {subrubro}
+              <div className="textoSubrubro">
+                Subrubro {subrubro}
+              </div>
             </label>
           ))}
         </div>

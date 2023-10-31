@@ -1,10 +1,13 @@
 .contenedorPrincipalCarrito{
-    overflow: auto;
     max-width: 400px;
-    position: absolute;
+    position: fixed;
     z-index: 10;
-    margin-left: 67%;
+    left: 69%;
     background-color: #E4D58C;
+}
+
+.contenedorPrincipalCarrito button{
+    width: 400px;
 }
 
 .textoCarritoVacio{
