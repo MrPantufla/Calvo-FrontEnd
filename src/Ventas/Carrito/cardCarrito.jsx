@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
+import './cardCarrito.css';
+import perfil from '../../Imagenes/perfil.jpg';
+import { useCarrito } from '../../context.jsx'
 
-export default function CardCarrito(args) {
-  const [editMode, setEditMode] = useState(false);
 
-  const handleSave = () => {
-    if (!isNaN(args.cantidadEditable) && parseInt(args.cantidadEditable) >= 0) {
-      args.actualizarCantidadEnCarrito(args.codigo, parseInt(args.cantidadEditable));
-      setEditMode(false);
+export default function CardCarrito(args){
+    const { restarElemento, actualizarCantidadElemento, eliminarElemento } = useCarrito();
+
+    const handleRestarCantidad = () => {
+        if (args.cantidad > 1) {
+          actualizarCantidadElemento(args.codigo, args.cantidad - 1);
+        } 
+        else {
+          restarElemento(args.codigo);
+        }
     }
-  };
 
-  return (
-    <div className="cardCarrito">
-      <p className="nombre">{args.nombre}</p>
-      {editMode ? (
-        <div>
-          <input
-            type="number"
-            value={args.cantidadEditable}
-            onChange={(e) => args.setCantidadEditable(e.target.value)}
-          />
-          <button onClick={handleSave}>Guardar</button>
+    const handleSumarCantidad = () => {
+        actualizarCantidadElemento(args.codigo, args.cantidad + 1);
+    }
+
+    const handleEliminar = () => {
+        eliminarElemento(args.codigo);
+    }
+
+    return(
+        <div className="contenedorPrincipalCardCarrito">
+            <div className="imagenYCodigoCardCarrito">
+                <img className="imagenCardCarrito" src={perfil}/>
+                <p className="codigo">CA {args.codigo}</p>
+            </div>
+            <div className="textoCardCarrito">
+                <p>{args.nombre}</p>
+                <p>Total: ${args.precio*args.cantidad}</p>
+                <div className="cantidad">
+                    <button className="boton" onClick={handleRestarCantidad}>-</button>
+                    <p>Cant: {args.cantidad}</p>
+                    <button className="boton" onClick={handleSumarCantidad}>+</button>
+                    <p className="eliminar" onClick={handleEliminar}>Eliminar</p>
+                </div>
+            </div>
         </div>
-      ) : (
-        <p className="cantidad" onClick={() => setEditMode(true)}>
-          Cantidad: {args.cantidad}
-        </p>
-      )}
-      <p className="precio">Precio: {args.precio}</p>
-    </div>
-  );
+    );
 }
