@@ -1,59 +1,52 @@
 .contenedorPrincipalHeader{
-    height: 6rem;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 11;
+    background-color: var(--colorPrimario);
+    margin-top: 5.5rem;
 }
 
 .fila{
-    height: 100%;
-    background: linear-gradient(to right, white 20%, #e51e25);
-    display: flex;
-    flex-wrap: wrap;
+
 }
 
 .secciones{
     display: flex;
+    justify-content: right;
     align-items: center;
-    justify-content: center;
-    user-select: none;
+    width: 61%;
 }
 
 .seccion{
-    margin-left: 50px;
-    margin-right: 50px;
-    cursor:pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 115%;
-    text-decoration: none;
-    color: black;
+    font-family: rajdhani;
     font-weight: bold;
-    
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--colorSecundario);
+    background-color: white;
+    height: 100%;
+    text-align: center;
+    margin: 0 0.2rem;
+    line-height: 2;
+    clip-path: polygon(0 0, 87% 0, 100% 100%, 13% 100%);
+    /* debe tener 118º*/
+    /*68% del width con respecto al height*/
+    /*utilizar rem*/
 }
+
 
 .logoContainer{
     display: flex;
-    justify-content: left;
-    margin: 0px;
+    justify-content: right;
 }
 
 .logo{
-    height: 90%;
-    width: auto;
-    max-width: calc(33.33vw);
-    object-fit: cover;
+    width: 55%;
+
 }
 
 .perfil{
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+
 }
 
 .logoPerfil{
-    width: 30%;
-    height: 30%;
+
 }
 
