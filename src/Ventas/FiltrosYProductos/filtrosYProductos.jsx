@@ -51,6 +51,9 @@ export default function FiltrosYProductos(props) {
   });
 
   const itemsActuales = listaFiltrada.slice(indexPrimerItem, indexUltimoItem);
+  if (itemsActuales.length === 0) {
+    setPaginaActual(1);
+  }
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
   const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
 
