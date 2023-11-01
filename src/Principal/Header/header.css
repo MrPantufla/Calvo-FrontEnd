@@ -7,7 +7,7 @@
 
 .perfil{
     background-color: var(--colorSecundario);
-    width: 25rem;
+    width: 28rem;
     height: 90%;
     margin: 0 -1.2rem;
     display: flex;
@@ -20,10 +20,10 @@
     color: white;
 }
 
-.seccion, .inicioContenedor{
+.seccion{
     text-decoration: none;
     background-color: white;
-    height: 92%;
+    height: 95%;
     margin: 0 -1.1rem;
     display: flex;
     align-items: center;
@@ -33,19 +33,19 @@
 .seccion p{
     font-family: rajdhani;
     font-weight: bold;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     text-align: center;
     color: var(--colorSecundario);
-    margin: 0 4.5rem;
+    margin: 0 5.8rem;
 }
 
 .logoContainer{
     display: flex;
     justify-content: right;
+    padding-right: 5rem;
 }
 
 .logo{
-    width: 55%;
-    
+    width: 60%;
 }
 

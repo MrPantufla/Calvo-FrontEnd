@@ -9,7 +9,7 @@ export default function Header() {
         const handleScroll = () => {
           const scrollPosition = window.scrollY;
           const scrollHeight = document.body.scrollHeight - window.innerHeight;
-          const maxSize = 14.4;
+          const maxSize = 18.4;
           const minSize = 8;
           const minSizeScroll = scrollHeight - 150;
     
