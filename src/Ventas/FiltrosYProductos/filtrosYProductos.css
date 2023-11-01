@@ -7,11 +7,12 @@
 
 .productos{
     width: 70%;
-    padding-top: 50px;
+    margin-left: 27%;
 }
 
 .contenedorPrincipalFiltrosYProductos{
     display: flex;
+    flex-direction: column;
 }
 
 .check{
@@ -36,4 +37,26 @@
 
 .busqueda{
     width: 70%;
+}
+
+.paginacion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagina-actual{
+    border: 2px solid yellow;
+}
+
+.botonPaginacion{
+    width: 50px;
+}
+
+.botonAntSig{
+    width: 70px;
+}
+
+.button{
+    margin: 20px 10px;
 }

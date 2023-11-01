@@ -11,6 +11,12 @@ export default function FiltrosYProductos(props) {
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 10;
+  const indexUltimoItem = paginaActual * itemsPorPagina;
+  const indexPrimerItem = indexUltimoItem - itemsPorPagina;
+
+  const paginar = (numeroDePagina) => {
+    setPaginaActual(numeroDePagina);
+  }
 
   const handleScrollClick = () => {
     window.scrollTo({
@@ -43,6 +49,10 @@ export default function FiltrosYProductos(props) {
     const buscaPorDetalle = p.detalle.toLowerCase().includes(busqueda.toLowerCase());
     return rubroCumple && subrubroCumple && (busqueda === '' || buscaPorCodInt || buscaPorDetalle);
   });
+
+  const itemsActuales = listaFiltrada.slice(indexPrimerItem, indexUltimoItem);
+  const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
+  const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
 
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
@@ -89,12 +99,64 @@ export default function FiltrosYProductos(props) {
 
       <div className="productos">
         <div className="row">
-          {listaFiltrada.map((producto) => (
+          {itemsActuales.map((producto) => (
             <div key={producto.cod_int} className="col-md-3">
               <CardProducto cod_int={producto.cod_int} rubro={producto.rubro} srubro={producto.srubro} detalle={producto.detalle} />
             </div>
           ))}
         </div>
+      </div>
+      <div className="paginacion">
+        <button
+          className="botonAntSig button"
+          onClick={() => paginar(paginaActual - 1)}
+          disabled={paginaActual === 1}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-arrow-right"
+            viewBox="0 0 16 16"
+            style={{ transform: 'rotate(180deg)' }}
+          >
+            <path
+              fillRule="evenodd"
+              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+            />
+          </svg>
+
+        </button>
+        {numerosDePagina.map((numero) => (
+          <button
+            key={numero}
+            onClick={() => paginar(numero)}
+            className={paginaActual === numero ? 'pagina-actual botonPaginacion button' : 'button botonPaginacion'}
+          >
+            {numero}
+          </button>
+        ))}
+        <button
+          className="botonAntSig button"
+          onClick={() => paginar(paginaActual + 1)}
+          disabled={indexUltimoItem >= listaFiltrada.length}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-arrow-right"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fillRule="evenodd"
+              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+            />
+          </svg>
+
+        </button>
       </div>
     </div>
   );
