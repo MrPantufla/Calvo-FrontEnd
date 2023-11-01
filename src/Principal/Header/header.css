@@ -1,12 +1,3 @@
-.contenedorPrincipalHeader {
-    background-color: var(--colorPrimario);
-    height: 14.4rem;
-    display: flex;
-    align-items: center;
-    position: fixed;
-    z-index: 100;
-}
-
 .secciones{
     display: flex;
     justify-content: right;

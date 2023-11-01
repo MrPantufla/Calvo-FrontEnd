@@ -1,9 +1,50 @@
 import './header.css';
 import logo from '../../Imagenes/logo calvo.png';
+import React, { useEffect, useState } from 'react';
 
 export default function Header() {
+    const [headerSize, setHeaderSize] = useState(14.4);
+
+    useEffect(() => {
+        const handleScroll = () => {
+          const scrollPosition = window.scrollY;
+          const scrollHeight = document.body.scrollHeight - window.innerHeight;
+          const maxSize = 14.4;
+          const minSize = 8;
+          const minSizeScroll = scrollHeight - 300; // Ajusta este valor para que el tamaño mínimo se alcance 300px antes del final
+    
+          let newSize;
+    
+          if (scrollHeight - scrollPosition <= minSizeScroll) {
+            newSize = minSize;
+          } else {
+            newSize = minSize - ((scrollHeight - scrollPosition - minSizeScroll) / (scrollHeight - minSizeScroll)) * (minSize - maxSize);
+          }
+    
+          setHeaderSize(newSize);
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+    
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+  
+    const headerStyle = {
+      backgroundColor: 'var(--colorPrimario)',
+      height: `${headerSize}rem`,
+      width: '100%',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      zIndex: 100,
+      display: 'flex',
+      alignItems: 'center'
+    };
+
     return (
-        <div className="container-fluid px-0 contenedorPrincipalHeader" id="header">
+        <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
             <div className="row fila">
                 <div className="col-4 logoContainer columnas">
                     <img className="logo" src={logo} alt="logo_calvo_aluminios" />
