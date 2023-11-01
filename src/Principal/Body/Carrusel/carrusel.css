@@ -1,10 +1,6 @@
 .slide{
-    max-width: 70%;
-}
-
-.control{
-    display: flex;
-    align-items: center;
+    max-width: 75%;
+    aspect-ratio: 40.6%;
 }
 
 .contenedorPrincipalCarrusel {
@@ -12,10 +8,38 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 90rem;
+    z-index: 1;
   }
   
-  .carousel-control-prev,
-  .carousel-control-next {
-    margin-top: 25%;
-  }
+/* Estilo para el contenedor de las flechas */
+.carousel-control-prev,
+.carousel-control-next {
+  background: #f1f1f1; /* Fondo blanco */
+  border-radius: 50%; /* Hace que sea un círculo */
+  width: 40px; /* Ancho del círculo */
+  height: 40px; /* Alto del círculo */
+  line-height: 40px; /* Centra el contenido verticalmente */
+  text-align: center; /* Centra el contenido horizontalmente */
+  top: 50%; /* Alinea en el centro verticalmente */
+  z-index: 2;
+}
+
+/* Estilo para los íconos de flecha dentro del círculo */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  color: black; /* Cambia el color de la flecha usando una variable CSS */
+  font-size: 20px; /* Ajusta el tamaño de la flecha */
+  position: absolute; /* Añade una posición absoluta para ajustar el ícono dentro del círculo */
+  top: 50%; /* Alinea en el centro verticalmente */
+  transform: translateY(-50%); /* Alinea en el centro verticalmente */
+  right: 25%; /* Alinea en el centro horizontalmente */
+  left: auto; /* Evita el desplazamiento a la izquierda */
+  z-index: 3;
+}
+
+/* Estilo para el hover de las flechas (opcional) */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: var(--colorSecundario); /* Cambia el fondo al pasar el mouse (ajusta según tu preferencia) */
+}

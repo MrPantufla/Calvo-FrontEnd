@@ -7,7 +7,7 @@
 
 .perfil{
     background-color: var(--colorSecundario);
-    width: 28rem;
+    width: 23rem;
     height: 90%;
     margin: 0 -1.2rem;
     display: flex;
@@ -23,7 +23,7 @@
 .seccion{
     text-decoration: none;
     background-color: white;
-    height: 95%;
+    height: 90%;
     margin: 0 -1.1rem;
     display: flex;
     align-items: center;
@@ -33,19 +33,19 @@
 .seccion p{
     font-family: rajdhani;
     font-weight: bold;
-    font-size: 2.4rem;
+    font-size: 2rem;
     text-align: center;
     color: var(--colorSecundario);
-    margin: 0 5.8rem;
+    margin: 0 4.8rem;
 }
 
 .logoContainer{
     display: flex;
     justify-content: right;
-    padding-right: 5rem;
+    padding-right: 3rem;
 }
 
 .logo{
-    width: 60%;
+    width: 57%;
 }
 
