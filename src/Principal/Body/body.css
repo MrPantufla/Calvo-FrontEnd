@@ -1,3 +1,4 @@
 .contenedorPrincipalBody{
-    z-index: 4;
+    z-index: 2;
+    background-color: var(--colorPrimario);
 }

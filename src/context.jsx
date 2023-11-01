@@ -34,7 +34,7 @@ function CarritoProvider({ children }) {
 
   function eliminarElemento(codigo){
     const elementoExistente = elementos.find((elemento) => elemento.codigo === codigo);
-    while(elementoExistente.cantidad!=1){
+    while(elementoExistente.cantidad!==1){
       restarElemento(codigo);
     }
     restarElemento(codigo);

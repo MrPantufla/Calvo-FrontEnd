@@ -21,7 +21,7 @@ export default function Carrito() {
     const [codigoSinCantidad, cantidad] = codigo.split(' ');
     console.log("codigoSinCantidad " + codigoSinCantidad);
     console.log("cantidad " + cantidad);
-    const productoExistente = productos.find((producto) => producto.cod_int == codigoSinCantidad);
+    const productoExistente = productos.find((producto) => producto.cod_int === parseInt(codigoSinCantidad));
     
     console.log(productoExistente);
     
