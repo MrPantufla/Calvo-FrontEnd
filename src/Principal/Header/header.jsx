@@ -11,7 +11,7 @@ export default function Header() {
           const scrollHeight = document.body.scrollHeight - window.innerHeight;
           const maxSize = 14.4;
           const minSize = 8;
-          const minSizeScroll = scrollHeight - 300; // Ajusta este valor para que el tamaño mínimo se alcance 300px antes del final
+          const minSizeScroll = scrollHeight - 150;
     
           let newSize;
     
