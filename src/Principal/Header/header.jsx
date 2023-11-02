@@ -59,7 +59,7 @@ export default function Header() {
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
       <div className="row fila">
         <div className="col-4 logoContainer columnas">
-        <NavLink to="/home" onClick={handleReloadClick}><img className="logo" src={logo} alt="logo_calvo_aluminios" /></NavLink>
+        <img className="logo" src={logo} alt="logo_calvo_aluminios" />
         </div>
         <div className="col-8 secciones columnas">
           <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
