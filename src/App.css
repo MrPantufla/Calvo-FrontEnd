@@ -15,9 +15,46 @@ html{
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
+@media (max-width: 4096px) and (orientation: landscape){
+  html{
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 3840px) and (orientation: landscape){
+  html{
+    font-size: 29px;
+  }
+}
+
+@media (max-width: 3500px) and (orientation: landscape){
+  html{
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 3100px) and (orientation: landscape){
+  html{
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 2800px) and (orientation: landscape){
+  html{
+    font-size: 20px;
+  }
+}
+
+
+@media (max-width: 2530px) and (orientation: landscape){
+  html{
+    font-size: 17px;
+  }
+}
+
 @media (max-width: 2020px) and (orientation: landscape){
   html{
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 
