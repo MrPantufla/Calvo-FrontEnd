@@ -1,13 +1,13 @@
 .contenedorPrincipalInfoYContacto{
-    background-color: rgb(169, 187, 202);
-    
+    background-color: var(--cplorSecundario);
+    padding-top: 40rem;  
 }
 
 .divInformacion{
     display: flex;
     justify-content: right;
     padding-right: 10%;
-    padding-top: 2rem;
+    padding-top: 10rem;
 }
 
 .divContacto{
