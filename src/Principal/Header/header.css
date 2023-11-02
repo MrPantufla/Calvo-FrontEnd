@@ -42,10 +42,11 @@
 .logoContainer{
     display: flex;
     justify-content: right;
-    padding-right: 3rem;
+    padding-right: 6rem;
 }
 
 .logo{
     width: 57%;
+    object-fit: contain;
 }
 

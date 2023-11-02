@@ -5,7 +5,6 @@
 }
 
 html{
-  font-size: 10px;
   background-color: var(--colorPrimario);
 }
 
@@ -15,3 +14,16 @@ html{
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@media (max-width: 2020px) and (orientation: landscape){
+  html{
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1600px) and (orientation: landscape){
+  html{
+    font-size: 10px;
+  }
+}
+
