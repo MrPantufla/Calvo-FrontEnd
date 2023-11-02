@@ -1,9 +1,11 @@
 import './header.css';
 import logo from '../../Imagenes/logo calvo.png';
 import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export default function Header() {
   const [headerSize, setHeaderSize] = useState(12);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,17 +45,35 @@ export default function Header() {
     alignItems: 'center'
   };
 
+  const handleInicioClick = () => {
+    if (location.pathname === '/home') {
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const handleReloadClick = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
       <div className="row fila">
         <div className="col-4 logoContainer columnas">
-          <img className="logo" src={logo} alt="logo_calvo_aluminios" />
+        <NavLink to="/home" onClick={handleReloadClick}><img className="logo" src={logo} alt="logo_calvo_aluminios" /></NavLink>
         </div>
         <div className="col-8 secciones columnas">
-          <a className="seccion" href="home"><p>INICIO</p></a>
-          <a className="seccion" href="tienda"><p>TIENDA</p></a>
-          <a className="seccion"><p>QUIÉNES SOMOS</p></a>
-          <a className="seccion"><p>CONTACTO</p></a>
+          <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
+            <p>INICIO</p>
+          </NavLink>
+          <NavLink to="/tienda" className="seccion">
+            <p>TIENDA</p>
+          </NavLink>
+          <NavLink to="/quienes-somos" className="seccion">
+            <p>QUIÉNES SOMOS</p>
+          </NavLink>
+          <NavLink to="/contacto" className="seccion">
+            <p>CONTACTO</p>
+          </NavLink>
           <a className="perfil">
             <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
@@ -64,4 +84,3 @@ export default function Header() {
     </div>
   );
 }
-
