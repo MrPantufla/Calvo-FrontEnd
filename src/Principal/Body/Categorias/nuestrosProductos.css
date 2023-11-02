@@ -1,0 +1,23 @@
+.contenedorPrincipalNuestrosProductos{
+    margin-top: 3rem;
+    margin-bottom: 2.3rem;
+}
+
+.textoNuestrosProductos{
+    font-size: 2.5rem;
+    font-family: rajdhani;
+    color: var(--colorSecundario);
+    
+}
+
+.contenedorh1{
+    width: 47rem;
+    height: 8.6rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    top: 50%; 
+    padding-top: 2.5rem;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+    padding-left: 15.5rem;
+}
