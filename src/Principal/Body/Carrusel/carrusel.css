@@ -1,45 +1,45 @@
 .slide{
-    max-width: 75%;
-    aspect-ratio: 40.6%;
+  display: flex;
+  height: 58rem;
+  z-index: 1;
+  padding-top: 12rem;
+  width: 75%;
 }
 
 .contenedorPrincipalCarrusel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 90rem;
-    z-index: 1;
-  }
-  
-/* Estilo para el contenedor de las flechas */
+  display:flex;
+  justify-content: center;
+}
+
 .carousel-control-prev,
 .carousel-control-next {
-  background: #f1f1f1; /* Fondo blanco */
-  border-radius: 50%; /* Hace que sea un círculo */
-  width: 40px; /* Ancho del círculo */
-  height: 40px; /* Alto del círculo */
-  line-height: 40px; /* Centra el contenido verticalmente */
-  text-align: center; /* Centra el contenido horizontalmente */
-  top: 50%; /* Alinea en el centro verticalmente */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  top: 56%;
+  margin: 0 2.7rem;
   z-index: 2;
+  background: var(--colorSecundario);
+  opacity: 0.3;
 }
 
-/* Estilo para los íconos de flecha dentro del círculo */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  color: black; /* Cambia el color de la flecha usando una variable CSS */
-  font-size: 20px; /* Ajusta el tamaño de la flecha */
-  position: absolute; /* Añade una posición absoluta para ajustar el ícono dentro del círculo */
-  top: 50%; /* Alinea en el centro verticalmente */
-  transform: translateY(-50%); /* Alinea en el centro verticalmente */
-  right: 25%; /* Alinea en el centro horizontalmente */
-  left: auto; /* Evita el desplazamiento a la izquierda */
-  z-index: 3;
+.carousel-control-next{
+  transform: scaleX(-1);
 }
 
-/* Estilo para el hover de las flechas (opcional) */
+.carousel-control-next:hover{
+  transform: scaleX(-1);
+}
+
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background: var(--colorSecundario); /* Cambia el fondo al pasar el mouse (ajusta según tu preferencia) */
+  background: black;
+  opacity: 0.5;
 }
+
+
+
+
+
