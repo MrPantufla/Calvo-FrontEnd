@@ -64,3 +64,9 @@ html{
   }
 }
 
+@media (max-width: 1024px) and (orientation: landscape){
+  html{
+    font-size: 8px;
+  }
+}
+
