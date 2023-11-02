@@ -1,0 +1,11 @@
+.contenedorPrincipalCategorias{
+    display: flex;
+    padding-left: 16.9rem;
+    padding-right: 17.7rem;
+    margin-bottom: 50rem;
+}
+
+.rowCategorias{
+    height: 4rem;
+}
+

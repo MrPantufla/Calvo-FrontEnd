@@ -13,6 +13,7 @@
 .contenedorPrincipalFiltrosYProductos{
     display: flex;
     flex-direction: column;
+    padding-top: 150px;
 }
 
 .check{

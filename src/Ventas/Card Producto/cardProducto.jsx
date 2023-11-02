@@ -18,7 +18,7 @@ export default function CardProducto(args) {
     }
   }
 
-  return (
+  return(
     <div className="card">
       <p className="cod_int">CA {args.cod_int}</p>
       <div className="imagenContainer">
