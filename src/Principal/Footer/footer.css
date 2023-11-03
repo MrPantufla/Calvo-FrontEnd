@@ -1,0 +1,31 @@
+.contenedorPrincipalFooter{
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 500;
+    width: 100%;
+}
+
+.redesSocialesContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+}
+
+.redesSocialesContainer .bi{
+    margin: 0 2rem;
+}
+
+.infoContainer{
+    background-color: var(--colorCuaternario);
+    width: 100%;
+    margin: 0;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+}
+
+.textoFooter{
+    margin: 0;
+}
