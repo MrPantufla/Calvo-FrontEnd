@@ -1,12 +1,10 @@
 import Contacto from './contacto.jsx';
 import Informacion from './informacion.jsx';
 import './informacionYContacto.css';
-import Banner from '../Categorias/banner.jsx';
 
 export default function InformacionYContacto() {
     return (
         <div className="contenedorPrincipalInfoYContacto">
-            <Banner texto="CONTACTANOS" />
             <div className="containerInfoYContactoAux">
                 <div className="containerInfoYContactoAux2">
                     <div className="row containerInfoYContacto">

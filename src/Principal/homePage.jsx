@@ -9,7 +9,6 @@ export default function HomePage(){
         <div className="contenedorHomePage">
             <Header/>
             <Body/>
-            <InformacionYContacto/>
             <Footer/>
         </div>
     );
