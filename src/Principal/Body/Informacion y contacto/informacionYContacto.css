@@ -45,3 +45,7 @@
     padding-right: 6%;
     font-weight: 500;
 }
+
+.divInformacion{
+    background: linear-gradient(90deg, white 0%,white 96.65%, var(--colorPrimario) 96.65%, var(--colorPrimario) 98%, white 98%, white 100%);
+}
