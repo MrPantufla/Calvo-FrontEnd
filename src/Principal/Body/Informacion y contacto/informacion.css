@@ -1,5 +1,6 @@
 .contenedorPrincipalInformacion{
-    padding: 2rem 0;
+    padding: 3rem 0;
+    display: flex;
 }
 
 .contenedorPrincipalInformacion h2{
@@ -22,4 +23,33 @@
 
 .bi-envelope-at{
     fill: #bc3728;
+}
+
+.poligono{
+    width: 1.42rem;
+    height: 0.6rem;
+    background-color: #e31e24;
+    clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
+}
+
+.poligono1{
+    margin-bottom: 11.7rem;
+}
+
+.poligono2{
+    margin-bottom: 8.5rem;
+}
+
+.poligonoContainer{
+    padding-bottom: 0.5rem;
+}
+
+.tituloYPoligono{
+    display: flex;
+    align-items: center;
+}
+
+.poligonoContainer{
+    padding-right: 1rem;
+    padding-top: 1rem;
 }
