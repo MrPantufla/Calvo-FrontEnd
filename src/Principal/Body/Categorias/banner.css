@@ -14,9 +14,8 @@
     height: 8.6rem;
     background-color: white;
     display: flex;
-    align-items: center;
-    top: 50%; 
-    padding-top: 2.5rem;
+    align-items: center; 
+    padding-top: 1rem;
     clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
     padding-left: 15.5rem;
 }

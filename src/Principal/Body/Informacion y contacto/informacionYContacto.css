@@ -8,8 +8,14 @@
     justify-content: center;
 }
 
+.containerInfoYContacto{
+    background-color: white;
+}
+
 .containerInfoYContactoAux2{
-    width: 75%;
+    width: 78.5%;
+    display: flex;
+    justify-content: center;
 }
 
 .col-12{
@@ -22,11 +28,21 @@
 }
 
 .divsInfoYContacto{
-    padding-left: 10rem;   
+    padding-left: 10rem;
 }
 
 .decoracion{  
-    background-color: var(--colorTerciario);
-    width: 100%;
+    background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 58.79%, var(--colorCuaternario) 58.79%, var(--colorCuaternario) 59.51%, var(--colorSecundario) 59.51%, var(--colorSecundario) 100%);
+    width: 82.27%;
     height: 100%;
+    clip-path: polygon(0% 0% , 100% 0%, calc(100% - 3.5rem) 100%, 0% 100%);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    color: white;
+    font-size: 2.5rem;
+    padding-right: 6%;
+    font-weight: 500;
 }
+

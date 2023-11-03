@@ -1,2 +1,25 @@
 .contenedorPrincipalInformacion{
+    padding: 2rem 0;
+}
+
+.contenedorPrincipalInformacion h2{
+    font-weight: 600;
+}
+
+.contenedorPrincipalInformacion p{
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--colorSecundario)
+}
+
+.bi-whatsapp{
+    fill: #1ad03f;
+}
+
+.bi-telephone{
+    fill: #43853F;
+}
+
+.bi-envelope-at{
+    fill: #bc3728;
 }

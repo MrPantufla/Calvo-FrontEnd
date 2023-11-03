@@ -58,13 +58,13 @@ export default function Contacto() {
                 <div className="comunicacion">
                     ¿Cómo preferís que nos comuniquemos?
                     <div className="labelCheckbox">
-                        <label>
+                        <label className="label">
                             <div className="textoCheckbox">
                                 Email
                             </div>
                             <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
                         </label>
-                        <label>
+                        <label className="label">
                             <div className="textoCheckbox">
                                 Teléfono
                             </div>
@@ -72,8 +72,8 @@ export default function Contacto() {
                         </label>
                     </div>
                 </div>
-                <button type="submit" name="enviar_formulario" id="enviar">
-                    <p>Enviar</p>
+                <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario">
+                    <p>ENVIAR</p>
                 </button>
             </form>
         </div>

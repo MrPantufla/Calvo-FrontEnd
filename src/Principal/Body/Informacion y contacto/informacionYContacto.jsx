@@ -12,7 +12,7 @@ export default function InformacionYContacto() {
                     <div className="row containerInfoYContacto">
                         <div className="col-12">
                             <div className="decoracion" >
-                                ENVIA TU CONSULTA
+                                Enviá tu consulta
                             </div>
                         </div>
                         <div className="col-6 divInformacion divsInfoYContacto">
