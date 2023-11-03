@@ -19,11 +19,14 @@
 .infoContainer{
     background-color: var(--colorCuaternario);
     width: 100%;
-    margin: 0;
     height: 3rem;
     display: flex;
     align-items: center;
     padding-left: 1rem;
+}
+
+.infoContainer a{
+    text-decoration: none;
 }
 
 .textoFooter{
