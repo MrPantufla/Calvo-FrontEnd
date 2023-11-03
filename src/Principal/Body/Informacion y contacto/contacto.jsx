@@ -28,7 +28,7 @@ export default function Contacto() {
     }
 
     return (
-        <div className="contenedorPrincipalFormulario">
+        <div className="contenedorPrincipalFormulario" id="contacto">
             <form action="submeter-formulario.php" method="post" onSubmit={handleSubmit}>
                 {formError && <p className="errorFormulario">Debes seleccionar al menos una opción (Email o Teléfono).</p>}
                 <div className="inputContainer">
