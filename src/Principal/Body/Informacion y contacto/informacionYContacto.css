@@ -1,16 +1,32 @@
 .contenedorPrincipalInfoYContacto{
-    background-color: var(--cplorSecundario);
-    padding-top: 40rem;  
+    background-color: var(--colorPrimario);
 }
 
-.divInformacion{
-    display: flex;
-    justify-content: right;
-    padding-right: 10%;
-    padding-top: 10rem;
-}
-
-.divContacto{
+.containerInfoYContactoAux{
+    width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.containerInfoYContactoAux2{
+    width: 75%;
+}
+
+.col-12{
+    height: 6.88rem;
+    padding: 0;
+}
+
+.containerInfoYContactoAux2 .row{
+    width: 100%;
+}
+
+.divsInfoYContacto{
+    padding-left: 10rem;   
+}
+
+.decoracion{  
+    background-color: var(--colorTerciario);
+    width: 100%;
+    height: 100%;
 }

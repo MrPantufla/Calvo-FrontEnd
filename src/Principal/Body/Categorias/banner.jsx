@@ -1,10 +1,10 @@
-import './nuestrosProductos.css';
+import './banner.css';
 
-export default function NuestrosProductos(){
+export default function Banner(args){
     return(
         <div className="contenedorPrincipalNuestrosProductos">
             <div className="contenedorh1">
-                <h1 className="textoNuestrosProductos">NUESTROS PRODUCTOS</h1>
+                <h1 className="textoNuestrosProductos">{args.texto}</h1>
             </div>
         </div>
     );

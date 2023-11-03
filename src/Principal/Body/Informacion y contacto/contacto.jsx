@@ -29,56 +29,53 @@ export default function Contacto() {
 
     return (
         <div className="contenedorPrincipalFormulario">
-            <div className="formulario">
-                <h1>Enviá tu consulta</h1>
-                <form action="submeter-formulario.php" method="post" onSubmit={handleSubmit}>
-                    {formError && <p className="errorFormulario">Debes seleccionar al menos una opción (Email o Teléfono).</p>}
-                    <div>
-                        <label htmlFor="nombre" className="colocar_nombre">
-                            Nombre
+            <form action="submeter-formulario.php" method="post" onSubmit={handleSubmit}>
+                {formError && <p className="errorFormulario">Debes seleccionar al menos una opción (Email o Teléfono).</p>}
+                <div className="inputContainer">
+                    <label htmlFor="nombre" className="colocar_nombre">
+                        NOMBRE:
+                    </label>
+                    <input type="text" name="introducir_nombre" id="nombre" required placeholder="Nombre y Apellido" />
+                </div>
+                <div className="inputContainer">
+                    <label htmlFor="email" className="colocar_email">
+                        E-MAIL:
+                    </label>
+                    <input type="email" name="introducir_email" id="email" required={emailChecked} placeholder="Email" />
+                </div>
+                <div className="inputContainer">
+                    <label htmlFor="telefono" className="colocar_telefono">
+                        TELÉFONO:
+                    </label>
+                    <input type="tel" name="introducir_telefono" id="telefono" required={telefonoChecked} placeholder="Teléfono" />
+                </div>
+                <div className="inputContainer inputMensaje">
+                    <label htmlFor="mensaje" className="colocar_mensaje">
+                        MENSAJE:
+                    </label>
+                    <textarea name="introducir_mensaje" className="texto_mensaje" id="mensaje" required placeholder="Escribí tu consulta"></textarea>
+                </div>
+                <div className="comunicacion">
+                    ¿Cómo preferís que nos comuniquemos?
+                    <div className="labelCheckbox">
+                        <label>
+                            <div className="textoCheckbox">
+                                Email
+                            </div>
+                            <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
                         </label>
-                        <input type="text" name="introducir_nombre" id="nombre" required placeholder="Nombre y Apellido" />
-                    </div>
-                    <div>
-                        <label htmlFor="email" className="colocar_email">
-                            Email
+                        <label>
+                            <div className="textoCheckbox">
+                                Teléfono
+                            </div>
+                            <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
                         </label>
-                        <input type="email" name="introducir_email" id="email" required={emailChecked} placeholder="Email" />
                     </div>
-                    <div>
-                        <label htmlFor="telefono" className="colocar_telefono">
-                            Teléfono
-                        </label>
-                        <input type="tel" name="introducir_telefono" id="telefono" required={telefonoChecked} placeholder="Teléfono" />
-                    </div>
-                    <div>
-                        <label htmlFor="mensaje" className="colocar_mensaje">
-                            Mensaje
-                        </label>
-                        <textarea name="introducir_mensaje" className="texto_mensaje" id="mensaje" required placeholder="Escribí tu consulta"></textarea>
-                    </div>
-                    <div>
-                        ¿Por donde preferís que nos comuniquemos?
-                        <div className="labelCheckbox">
-                            <label>
-                                <div className="textoCheckbox">
-                                    Email
-                                </div>
-                                <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
-                            </label>
-                            <label>
-                                <div className="textoCheckbox">
-                                    Teléfono
-                                </div>
-                                <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
-                            </label>
-                        </div>
-                    </div>
-                    <button type="submit" name="enviar_formulario" id="enviar">
-                        <p>Enviar</p>
-                    </button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" name="enviar_formulario" id="enviar">
+                    <p>Enviar</p>
+                </button>
+            </form>
         </div>
     );
 }
