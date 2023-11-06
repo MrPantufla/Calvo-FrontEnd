@@ -22,12 +22,12 @@
     border-top-right-radius: 3.5rem;
 }
 
-.corner {
+.contenedorPrincipalNuestrosProductos .corner {
     background-color: white;
     width: 5rem;
     height: 7rem;
-    position: absolute; /* Cambia a posición absoluta para anclarlo */
-    top: 1.6rem; /* Ancla en la parte superior */
-    left: 45.48rem; /* Ancla en la parte derecha */
+    position: absolute;
+    top: 1.6rem;
+    left: 45.48rem;
     clip-path: polygon(0 0, 20% 0, 100% 100%, 0 100%);
 }
