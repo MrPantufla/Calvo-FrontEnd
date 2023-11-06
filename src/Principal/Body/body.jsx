@@ -11,9 +11,9 @@ export default function Body(){
             <Carrusel/>
             <Banner texto="NUESTROS PRODUCTOS"/>
             <Categorias/>
-            <Banner texto="SOBRE NOSOTROS"/>
+            <Banner id="quienesSomos" texto="SOBRE NOSOTROS"/>
             <QuienesSomos/>
-            <Banner texto="CONTACTANOS" />
+            <Banner id="contacto" texto="CONTACTANOS" />
             <InformacionYContacto/>
         </div>
         

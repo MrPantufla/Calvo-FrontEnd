@@ -5,9 +5,9 @@ export default function QuienesSomos() {
 
     const backgroundStyle = {
         backgroundImage: `url(${Fondo})`,
-        backgroundSize: '100%', // Tamaño de la imagen de fondo
-        backgroundRepeat: 'no-repeat', // Evitar que la imagen de fondo se repita
-        backgroundPosition: 'center', // Centrar la imagen de fondo
+        backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
     };
 
     const message = "Fundada en 1994, somos una empresa con amplia trayectoria que se ha destacado siempre por su enfoque en el servicio al cliente. \nEntre nuestros valores destacan la honestidad, confianza, responsabilidad y compromiso que ofrecemos tanto dentro del ámbito laboral como con nuestros proveedores y clientes. \n Nos encargamos de la comercialización y distribución de insumos para la carpintería de aluminio y contamos con más de 400 clientes a lo largo de las provincias de Entre Ríos, Corrientes y Misiones, a los que con un sistema de transporte propio, les somos garantía de una calidad de servicio y productos sobresaliente.";

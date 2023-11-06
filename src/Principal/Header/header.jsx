@@ -68,7 +68,7 @@ export default function Header() {
           <NavLink to="/tienda" className="seccion">
             <p>TIENDA</p>
           </NavLink>
-          <a href="" className="seccion">
+          <a href="#quienesSomos" className="seccion">
             <p>QUIÉNES SOMOS</p>
           </a>
           <a href="#contacto" className="seccion">
