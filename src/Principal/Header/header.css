@@ -1,11 +1,11 @@
-.secciones{
+.secciones {
     display: flex;
     justify-content: right;
     align-items: center;
     width: 65.8%;
 }
 
-.perfil{
+.perfil {
     background-color: var(--colorSecundario);
     width: 23rem;
     height: 90%;
@@ -16,7 +16,7 @@
     padding-left: 3.8rem;
 }
 
-.bi-person-fill{
+.bi-person-fill {
     color: white;
 }
 
@@ -44,11 +44,11 @@
 }
 
 .seccion::before {
-    transform: translateX(100%);
+    transform: translateX(-100%); /* Modifica la transformación para cambiar a derecha a izquierda */
 }
 
 .seccion::after {
-    transform: translateX(200%);
+    transform: translateX(-200%); /* Modifica la transformación para cambiar a derecha a izquierda */
 }
 
 .seccion:hover::before {
@@ -56,10 +56,10 @@
 }
 
 .seccion:hover::after {
-    transform: translateX(100%);
+    transform: translateX(-100%); /* Modifica la transformación para cambiar a derecha a izquierda */
 }
 
-.seccion p{
+.seccion p {
     font-weight: bold;
     font-size: 2rem;
     text-align: center;
@@ -68,19 +68,18 @@
     transition: color 0.3s;
 }
 
-.seccion:hover p{
+.seccion:hover p {
     color: white;
     z-index: 1;
 }
 
-.logoContainer{
+.logoContainer {
     display: flex;
     justify-content: right;
     padding-right: 6rem;
 }
 
-.logo{
+.logo {
     width: 57%;
     object-fit: contain;
 }
-
