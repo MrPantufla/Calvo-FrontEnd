@@ -13,13 +13,18 @@
     position: relative;
     background-color: var(--colorSecundario);
     width: 23rem;
-    height: 90%;
+    height: 92%;
     margin: 0 -1.2rem;
     display: flex;
     align-items: center;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
     overflow: hidden;
     cursor: pointer;
+    border: 1px solid var(--colorPrimario);
+}
+
+.perfil:hover{
+    height: 92%
 }
 
 .perfil::before,
@@ -34,15 +39,15 @@
 }
 
 .perfil::before {
-    transform: translateX(-100%); /* Modifica la transformación para cambiar a derecha a izquierda */
+    transform: translateX(-100%);
 }
 
 .perfil::after {
-    transform: translateX(-200%); /* Modifica la transformación para cambiar a derecha a izquierda */
+    transform: translateX(-200%);
 }
 
 .perfil:hover::before {
-    transform: translateX(0);
+    transform: translateX(0%);
 }
 
 .bi-person-fill {
