@@ -1,22 +1,33 @@
-.contenedorPrincipalNuestrosProductos{
+.contenedorPrincipalNuestrosProductos {
+    position: relative; /* Establece el contenedor como posición relativa */
     margin-top: 3rem;
     margin-bottom: 2.3rem;
+    display: flex;
 }
 
-.textoNuestrosProductos{
+.textoNuestrosProductos {
     font-size: 2.5rem;
     font-family: rajdhani;
     color: var(--colorSecundario);
 }
 
-.contenedorh1{
+.contenedorh1 {
     width: 47rem;
     height: 8.6rem;
     background-color: white;
     display: flex;
-    align-items: center; 
+    align-items: center;
     padding-top: 1rem;
-    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
     padding-left: 15.5rem;
-    
+    border-top-right-radius: 30px;
+}
+
+.corner {
+    background-color: white;
+    width: 5rem;
+    height: 7rem;
+    position: absolute; /* Cambia a posición absoluta para anclarlo */
+    top: 1.6rem; /* Ancla en la parte superior */
+    left: 45.7rem; /* Ancla en la parte derecha */
+    clip-path: polygon(0 0, 20% 0, 100% 100%, 0 100%);
 }

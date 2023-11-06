@@ -6,6 +6,7 @@ export default function Banner(args){
             <div id={args.id} className="contenedorh1">
                 <h1 className="textoNuestrosProductos">{args.texto}</h1>
             </div>
+            <div className="corner"/>
         </div>
     );
 }
