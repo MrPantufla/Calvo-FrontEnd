@@ -20,14 +20,43 @@
     color: white;
 }
 
-.seccion{
+.seccion {
+    position: relative;
     text-decoration: none;
-    background-color: white;
+    background: white;
     height: 90%;
     margin: 0 -1.1rem;
     display: flex;
     align-items: center;
     clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
+    overflow: hidden;
+}
+
+.seccion::before,
+.seccion::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--colorSecundario);
+    transition: transform 0.3s;
+    z-index: -1;
+}
+
+.seccion::before {
+    transform: translateX(100%);
+}
+
+.seccion::after {
+    transform: translateX(200%);
+}
+
+.seccion:hover::before {
+    transform: translateX(0);
+}
+
+.seccion:hover::after {
+    transform: translateX(100%);
 }
 
 .seccion p{
@@ -36,6 +65,12 @@
     text-align: center;
     color: var(--colorSecundario);
     margin: 0 4.8rem;
+    transition: color 0.3s;
+}
+
+.seccion:hover p{
+    color: white;
+    z-index: 1;
 }
 
 .logoContainer{
