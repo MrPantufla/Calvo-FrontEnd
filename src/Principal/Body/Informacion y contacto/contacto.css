@@ -68,11 +68,18 @@ input::placeholder, textarea::placeholder {
     justify-content: center;
     height: 3rem;
     border: 2px solid var(--colorTerciario);
+    transition: transform 0.3s;
+}
+
+.enviarFormulario:hover{
+    transform: scale(1.02);
+    font-size: 1.04rem;
 }
 
 .enviarFormulario p{
-    padding-top: 0.3rem;
-    font-size: 1.04rem;
+    padding-top: 0.5rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--colorSecundario);
 }
+
