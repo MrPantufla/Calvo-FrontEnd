@@ -14,3 +14,9 @@
     display: flex;
     justify-content: center;
 }
+
+@media (width: 1600px) {
+    .rowCategorias{
+        margin: 0 15%;
+    }
+}
