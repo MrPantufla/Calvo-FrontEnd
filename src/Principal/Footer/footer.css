@@ -3,6 +3,7 @@
     font-size: 1.3rem;
     font-weight: 500;
     width: 100%;
+    
 }
 
 .redesSocialesContainer{
@@ -14,6 +15,16 @@
 
 .redesSocialesContainer .bi{
     margin: 0 2rem;
+    color: var(--colorSecundario);
+    transition: color 0.3s;
+}
+
+.redesSocialesContainer .bi-facebook:hover{
+    color: #1773ea;
+}
+
+.redesSocialesContainer .bi-instagram:hover{
+    color: #f63b3e;
 }
 
 .infoContainer{
