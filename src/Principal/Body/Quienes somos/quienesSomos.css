@@ -1,0 +1,33 @@
+.contenedorPrincipalQuienesSomos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textoQuienesSomos{
+    width: 70%;
+}
+
+.contenedorImagen{
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    height: 40rem;
+    padding-top: 4%;
+}
+
+.tituloYPoligono h2{
+    font-size: 1.7rem;
+    padding-left: 0.8rem;
+    font-weight: 600;
+}
+
+.parrafoQuienesSomos{
+    padding-top: 2rem;
+    padding-left: 2.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: justify;
+}
+
+
