@@ -13,6 +13,14 @@
     color: var(--colorSecundario)
 }
 
+.bi-whatsapp, .bi-telephone{
+    transition: transform 0.1s;
+}
+
+.bi-telephone:hover, .bi-whatsapp:hover{
+    transform: scale(1.15);
+}
+
 .bi-whatsapp{
     fill: #1ad03f;
 }
