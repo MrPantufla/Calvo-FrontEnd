@@ -17,7 +17,7 @@
     transition: transform 0.1s;
 }
 
-.bi-telephone:hover, .bi-whatsapp:hover{
+.bi-envelope-at:hover, .bi-whatsapp:hover, .bi-telephone:hover{
     transform: scale(1.15);
 }
 
