@@ -70,7 +70,6 @@ export default function Header() {
           <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
             <p>INICIO</p>
           </NavLink>
-          <div className="corner"/>
           <NavLink to="/tienda" className="seccion">
             <p>TIENDA</p>
           </NavLink>
