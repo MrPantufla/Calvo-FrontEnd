@@ -33,6 +33,15 @@ export default function Header() {
     };
   }, []);
 
+  function recargarPagina() {
+    if (window.location.href.includes("/home")){
+      window.location.reload();
+    }
+    else{
+      window.location.href = '/home';
+    }
+  }
+
   const headerStyle = {
     backgroundColor: 'var(--colorPrimario)',
     height: `${headerSize}rem`,
@@ -51,15 +60,11 @@ export default function Header() {
     }
   };
 
-  const handleReloadClick = () => {
-    window.location.reload();
-  };
-
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
       <div className="row fila">
-        <div className="col-4 logoContainer columnas">
-        <img className="logo" src={logo} alt="logo_calvo_aluminios" />
+        <div onClick={recargarPagina} className="col-4 logoContainer columnas">
+        <img className="logo" src={logo} alt="logo_calvo_aluminios"/>
         </div>
         <div className="col-8 secciones columnas">
           <NavLink to="/home" className="seccion" onClick={handleInicioClick}>

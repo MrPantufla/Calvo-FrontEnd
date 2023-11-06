@@ -24,6 +24,7 @@
     width: 24.8rem;
     height: 13.5rem;
     margin: 2%;
+    transition: transform 0.3s;
 }
 
 .sombraInterna {

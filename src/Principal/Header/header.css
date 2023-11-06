@@ -47,6 +47,7 @@
 .bi-person-fill {
     color: white;
     transition: color 0.3s;
+    cursor: pointer;
 }
 
 .perfil:hover .bi-person-fill {
@@ -112,4 +113,5 @@
 .logo {
     width: 57%;
     object-fit: contain;
+    cursor: pointer;
 }
