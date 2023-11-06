@@ -19,6 +19,7 @@
     align-items: center;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
     overflow: hidden;
+    cursor: pointer;
 }
 
 .perfil::before,
@@ -47,7 +48,6 @@
 .bi-person-fill {
     color: white;
     transition: color 0.3s;
-    cursor: pointer;
 }
 
 .perfil:hover .bi-person-fill {
