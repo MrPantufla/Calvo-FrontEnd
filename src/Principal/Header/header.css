@@ -1,166 +1,228 @@
-.secciones {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 65.8%;
-}
-
-.iconoContainer{
-    padding-left: 3.8rem;
-}
-
-.perfil {
-    position: relative;
-    background-color: var(--colorSecundario);
-    width: 23rem;
-    height: 92%;
-    margin: 0 -1.2rem;
-    display: flex;
-    align-items: center;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid var(--colorPrimario);
-}
-
-.perfil:hover{
-    height: 92%
-}
-
-.perfil::before,
-.perfil::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: white;
-    transition: transform 0.3s;
-    z-index: -1;
-}
-
-.perfil::before {
-    transform: translateX(-100%);
-}
-
-.perfil::after {
-    transform: translateX(-200%);
-}
-
-.perfil:hover::before {
-    transform: translateX(0%);
-}
-
-.bi-person-fill {
-    color: white;
-    transition: color 0.3s;
-}
-
-.perfil:hover .bi-person-fill {
-    color: var(--colorSecundario);
-    z-index: 1;
-}
-
-.seccion {
-    position: relative;
-    text-decoration: none;
-    background: white;
-    height: 90%;
-    margin: 0 -1.1rem;
-    display: flex;
-    align-items: center;
-    clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
-    overflow: hidden;
-}
-
-.seccion::before,
-.seccion::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--colorSecundario);
-    transition: transform 0.3s;
-    z-index: -1;
-}
-
-.seccion::before {
-    transform: translateX(-100%); /* Modifica la transformación para cambiar a derecha a izquierda */
-}
-
-.seccion::after {
-    transform: translateX(-200%); /* Modifica la transformación para cambiar a derecha a izquierda */
-}
-
-.seccion:hover::before {
-    transform: translateX(0);
-}
-
-.seccion p {
-    font-weight: bold;
-    font-size: 2rem;
-    text-align: center;
-    color: var(--colorSecundario);
-    margin: 0 4.8rem;
-    transition: color 0.3s;
-}
-
-.seccion:hover p {
-    color: white;
-    z-index: 1;
-}
-
-.logoContainer {
-    display: flex;
-    justify-content: right;
-    padding-right: 6rem;
-}
-
-.logo {
-    width: 57%;
-    object-fit: contain;
-    cursor: pointer;
-}
-
-/*MOBILE*/
-.botonHeader{
-    height: 9rem;
-    width: 9rem;
-    margin-left: 2rem;
-    margin-top: 1rem;
-}
-
-@media (max-width: 767px){
-    .logoHeaderMobile{
-        width: 70%;
-    }
-
-    .headerMobile{
+@media (min-width: 768px) {
+    .secciones {
+        display: flex;
+        justify-content: right;
         align-items: center;
-        width: 100vh;
+        width: 65.8%;
     }
 
-   .containerBotonMobile{
-        width: 20%;
+    .iconoContainer {
+        padding-left: 3.8rem;
     }
 
-    .botonHeader{
-        position: sticky;
+    .perfil {
+        position: relative;
+        background-color: var(--colorSecundario);
+        width: 23rem;
+        height: 92%;
+        margin: 0 -1.2rem;
+        display: flex;
+        align-items: center;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid var(--colorPrimario);
     }
 
-    .containerLogoMobile{
-        width: 80%;
+    .perfil:hover {
+        height: 92%
     }
 
-    .secciones{
-        z-index: 20;
+    .perfil::before,
+    .perfil::after {
+        content: "";
         position: absolute;
-        top: 0;
-        right: 2rem;
-        background-color: rgba(200,196,196, 0.5);
+        width: 100%;
+        height: 100%;
+        background: white;
+        transition: transform 0.3s;
+        z-index: -1;
     }
 
-    .seccion{
-        margin: 10px;
+    .perfil::before {
+        transform: translateX(-100%);
+    }
+
+    .perfil::after {
+        transform: translateX(-200%);
+    }
+
+    .perfil:hover::before {
+        transform: translateX(0%);
+    }
+
+    .bi-person-fill {
+        color: white;
+        transition: color 0.3s;
+    }
+
+    .perfil:hover .bi-person-fill {
+        color: var(--colorSecundario);
+        z-index: 1;
+    }
+
+    .seccion {
+        position: relative;
+        text-decoration: none;
+        background: white;
+        height: 90%;
+        margin: 0 -1.1rem;
+        display: flex;
+        align-items: center;
+        clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
+        overflow: hidden;
+    }
+
+    .seccion::before,
+    .seccion::after {
+        content: "";
+        position: absolute;
         width: 100%;
+        height: 100%;
+        background: var(--colorSecundario);
+        transition: transform 0.3s;
+        z-index: -1;
+    }
+
+    .seccion::before {
+        transform: translateX(-100%);
+        /* Modifica la transformación para cambiar a derecha a izquierda */
+    }
+
+    .seccion::after {
+        transform: translateX(-200%);
+        /* Modifica la transformación para cambiar a derecha a izquierda */
+    }
+
+    .seccion:hover::before {
+        transform: translateX(0);
+    }
+
+    .seccion p {
+        font-weight: bold;
+        font-size: 2rem;
+        text-align: center;
+        color: var(--colorSecundario);
+        margin: 0 4.8rem;
+        transition: color 0.3s;
+    }
+
+    .seccion:hover p {
+        color: white;
+        z-index: 1;
+    }
+
+    .logoContainer {
+        display: flex;
+        justify-content: right;
+        padding-right: 6rem;
+    }
+
+    .logo {
+        width: 57%;
+        object-fit: contain;
+        cursor: pointer;
+    }
+
+    /*MOBILE*/
+    .botonHeader {
+        height: 9rem;
+        width: 9rem;
+        margin-left: 2rem;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 767px) {
+
+    /* Estilos para el botón de alternar el encabezado */
+    #toggleHeaderButton {
+        display: block;
+        /* Asegura que el botón sea visible en dispositivos móviles */
+        position: fixed;
+        z-index: 100;
+    }
+
+    .headerMobile {
+        width: 100%;
+    }
+
+    /* Estilos para el encabezado cuando está abierto en dispositivos móviles */
+    .headerVisible {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        overflow: hidden;
+        transition: height 0.3s;
+    }
+
+    /* Estilos para el encabezado cuando está cerrado en dispositivos móviles */
+    .headerVisible.in {
+        height: 0;
+        overflow: hidden;
+    }
+
+    /* Estilos para el logotipo móvil */
+    .containerLogoMobile {
+        display: flex;
+        justify-content: center;
+        /* Centra el logotipo en dispositivos móviles */
+        width: 50%;
+        /* Aprovecha todo el ancho disponible */
+    }
+
+    /* Ajusta el tamaño del logotipo móvil según tus necesidades */
+    .logoHeaderMobile {
+        max-width: 50%;
+        position: absolute;
+    }
+
+    .secciones {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--colorTerciario);
+        width: 100vh;
+        height: 30rem;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        position: fixed;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .seccion,.perfil{
+        margin: 5px;
+        /* Añade espacio entre las secciones */
+        width: 100%;
+        /* Aprovecha todo el ancho disponible */
+        height: auto;
+        /* Ajusta la altura según el contenido */
+        clip-path: none;
+        /* Elimina el efecto de recorte en dispositivos móviles */
+        font-size: 2rem;
+        text-decoration: none;
+        background-color: white;
+        width: 50%
+    }
+
+    .seccion p {
+        text-align: center;
+    }
+
+    /* Ajusta los estilos del perfil en dispositivos móviles */
+    .perfil {
+        border: none;
+        /* Elimina el borde en dispositivos móviles */
+        display: flex;
+        justify-content: center;
+    }
+
+    .perfil::before,
+    .perfil::after {
+        display: none;
+        /* Oculta los elementos antes y después en dispositivos móviles */
     }
 }
