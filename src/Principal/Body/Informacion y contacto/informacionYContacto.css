@@ -33,7 +33,7 @@
     justify-content: center;
 }
 
-.decoracion{  
+.decoracion, .decoracion2{  
     background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 58.79%, var(--colorCuaternario) 58.79%, var(--colorCuaternario) 59.51%, var(--colorSecundario) 59.51%, var(--colorSecundario) 100%);
     width: 82.27%;
     height: 100%;
@@ -50,4 +50,28 @@
 
 .divInformacion{
     background: linear-gradient(90deg, white 0%,white 96.65%, var(--colorPrimario) 96.65%, var(--colorPrimario) 98%, white 98%, white 100%);
+}
+
+@media (max-width: 767px){
+    .divInformacion{
+        background: white;
+        padding-left: 4.1%
+    }
+
+    .decoracion{
+        justify-content: end;
+        width: 93%;
+        background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 51.79%, var(--colorCuaternario) 51.79%, var(--colorCuaternario) 52.51%, var(--colorSecundario) 52.51%, var(--colorSecundario) 100%);
+    }
+
+    .decoracion2{
+        justify-content: end;
+        width: 93%;
+        background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 51.79%, var(--colorCuaternario) 51.79%, var(--colorCuaternario) 52.51%, var(--colorSecundario) 52.51%, var(--colorSecundario) 100%);
+    }
+
+    .containerInfoYContactoAux2{
+        width: 95%;
+        display: flex;
+    }
 }

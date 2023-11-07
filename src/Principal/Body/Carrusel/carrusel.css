@@ -19,8 +19,8 @@
 .carousel-control-prev,
 .carousel-control-next {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
   line-height: 40px;
   text-align: center;
   top: 56%;

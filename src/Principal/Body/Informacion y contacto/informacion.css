@@ -65,3 +65,9 @@
 .contenedorInfo .bi{
     margin-right: 0.5rem;
 }
+
+@media (max-width: 767px){
+    .contenedorPrincipalInformacion p{
+        font-size: 1.4rem;
+    }
+}

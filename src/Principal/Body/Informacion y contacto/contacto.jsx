@@ -62,20 +62,29 @@ export default function Contacto() {
                     <textarea name="introducir_mensaje" className="texto_mensaje" id="mensaje" required placeholder="Escribí tu consulta"></textarea>
                 </div>
                 <div className="comunicacion">
-                    ¿Cómo preferís que nos comuniquemos?
+                    <div className="textoComunicacion">
+                        ¿Cómo preferís que nos comuniquemos?
+                    </div>
                     <div className="labelCheckbox">
-                        <label className="label">
-                            <div className="textoCheckbox">
-                                Email
+                        <div className="checkboxColumn">
+                            <div className="checkboxRowReverse">
+                                <label className="label">
+                                    <div className="textoCheckbox">
+                                        Email
+                                    </div>
+                                    <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
+                                </label>
                             </div>
-                            <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
-                        </label>
-                        <label className="label">
-                            <div className="textoCheckbox">
-                                Teléfono
+                            <div className="checkboxRowReverse">
+                                <label className="label">
+                                    <div className="textoCheckbox">
+                                        Teléfono
+                                    </div>
+                                    <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
+                                </label>
                             </div>
-                            <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
-                        </label>
+
+                        </div>
                     </div>
                 </div>
                 <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario">
