@@ -98,7 +98,7 @@ export default function Header() {
       </div>
       <Collapse className="headerVisible" in={headerAbierto}>
         <div className="row filaHeader">
-          <div className="col-12 col-sm-4 logoContainer columnas" style={{ display: mobile ? 'none' : 'inline' }}>
+          <div className="col-12 col-sm-4 logoContainer columnas" style={{ display: mobile ? 'none' : 'flex' }}>
             <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
           </div>
           <div className="col-12 col-sm-8 secciones columnas">
