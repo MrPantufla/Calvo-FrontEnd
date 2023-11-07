@@ -9,7 +9,7 @@ export default function Categorias() {
         <div className="contenedorPrincipalCategorias">
             <div className="row rowCategorias">
                 {categorias.map((categoria) => (
-                    <div className="col-3 categoria" key={categoria}>
+                    <div className="col-6 col-md-3 categoria" key={categoria}>
                         <CardCategoria cat={categoria}/>
                     </div>
                 ))}
