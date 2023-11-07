@@ -100,6 +100,10 @@
   .carousel{
     padding-top: 8.5rem;
   }
+
+  .slide{
+    height: 40rem;
+  }
 }
 
 
