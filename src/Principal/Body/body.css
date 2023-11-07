@@ -1,6 +1,7 @@
 .contenedorPrincipalBody{
     z-index: 2;
     background-color: var(--colorPrimario);
+    height: 702rem;
 }
 
 @media (max-width: 767px){
