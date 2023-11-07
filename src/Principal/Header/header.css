@@ -123,22 +123,44 @@
 
 /*MOBILE*/
 .botonHeader{
-    position: sticky;
     height: 9rem;
     width: 9rem;
-    top: 1rem;
-    left: 1rem;
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 
-@media (max-width: 768px){
+@media (max-width: 767px){
+    .logoHeaderMobile{
+        width: 70%;
+    }
+
+    .headerMobile{
+        align-items: center;
+        width: 100vh;
+    }
+
+   .containerBotonMobile{
+        width: 20%;
+    }
+
+    .botonHeader{
+        position: sticky;
+    }
+
+    .containerLogoMobile{
+        width: 80%;
+    }
+
+    .secciones{
+        z-index: 20;
+        position: absolute;
+        top: 0;
+        right: 2rem;
+        background-color: rgba(200,196,196, 0.5);
+    }
+
     .seccion{
-
+        margin: 10px;
+        width: 100%;
     }
-
-    .logoContainer{
-        display: flex;
-        justify-content: center;
-        padding-top: 6rem;
-    }
-    
 }

@@ -7,14 +7,15 @@ import { Collapse } from 'react-bootstrap';
 export default function Header() {
   const [headerSize, setHeaderSize] = useState(12);
   const location = useLocation();
-  const [headerAbierto, setHeaderAbierto] = useState(window.innerWidth > 768);
+  const mobile = (window.innerWidth < 768);
+  const [headerAbierto, setHeaderAbierto] = useState(!mobile);
 
   const toggleHeader = () => {
     setHeaderAbierto(!headerAbierto);
   }
 
   useEffect(() => {
-    if (window.innerWidth > 768) {
+    if (!mobile) {
       const handleScroll = () => {
         const scrollPosition = window.scrollY;
         const scrollHeight = document.body.scrollHeight - window.innerHeight;
@@ -67,7 +68,7 @@ export default function Header() {
     backgroundColor: 'var(--colorPrimario)',
     height: `${headerSize}rem`,
     width: '100%',
-    position: 'fixed',
+    position: mobile ? 'static' : 'fixed',
     top: 0,
     left: 0,
     zIndex: 100,
@@ -83,14 +84,21 @@ export default function Header() {
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
-      <button className="botonHeader" id="toggleHeaderButton" style={{ display: window.innerWidth < 768 ? 'block' : 'none' }} onClick={toggleHeader}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
-          <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-        </svg>
-      </button>
+      <div className="headerMobile" style={{ display: mobile ? 'flex' : 'none' }}>
+        <div className="containerBotonMobile">
+          <button className="botonHeader" id="toggleHeaderButton" onClick={toggleHeader}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
+              <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+            </svg>
+          </button>
+        </div>
+        <div className="containerLogoMobile">
+          <img src={logo} className="logoHeaderMobile" />
+        </div>
+      </div>
       <Collapse className="headerVisible" in={headerAbierto}>
         <div className="row filaHeader">
-          <div className="col-12 col-sm-4 logoContainer columnas">
+          <div className="col-12 col-sm-4 logoContainer columnas" style={{ display: mobile ? 'none' : 'inline' }}>
             <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
           </div>
           <div className="col-12 col-sm-8 secciones columnas">
