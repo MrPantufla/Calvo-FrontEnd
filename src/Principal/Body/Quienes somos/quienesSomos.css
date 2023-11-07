@@ -30,4 +30,14 @@
     text-align: justify;
 }
 
+@media (max-width: 767px){
+    .contenedorImagen{
+        width: 85%;
+    }
+
+    .textoQuienesSomos{
+        width: 90%;
+    }
+}
+
 
