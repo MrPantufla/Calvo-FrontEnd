@@ -1,4 +1,5 @@
 .contenedorPrincipalBody{
     z-index: 2;
     background-color: var(--colorPrimario);
+    height: 355rem;
 }
