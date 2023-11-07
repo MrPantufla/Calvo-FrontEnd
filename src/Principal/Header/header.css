@@ -134,7 +134,6 @@
 }
 
 @media (max-width: 767px) {
-
     /* Estilos para el botón de alternar el encabezado */
     #toggleHeaderButton {
         display: block;
@@ -145,6 +144,7 @@
 
     .headerMobile {
         width: 100%;
+        align-items: center;
     }
 
     /* Estilos para el encabezado cuando está abierto en dispositivos móviles */
@@ -163,13 +163,16 @@
         overflow: hidden;
     }
 
-    /* Estilos para el logotipo móvil */
     .containerLogoMobile {
         display: flex;
+        padding-right: 0%;
+        width: 100%;
         justify-content: center;
-        /* Centra el logotipo en dispositivos móviles */
-        width: 50%;
-        /* Aprovecha todo el ancho disponible */
+        padding-right: 18%;
+    }
+
+    .containerBotonMobile{
+        width: 10%;
     }
 
     /* Ajusta el tamaño del logotipo móvil según tus necesidades */
