@@ -6,6 +6,7 @@
 @media (max-width: 767px){
     .contenedorPrincipalBody{
         /*height: 1000rem; esto es porque creo que está bug el visualizador del navegador en resoluciones chiquitas*/
+        z-index: 2; /*esto es para que no me tire el warning molesto*/
     }
     
 }
