@@ -1,12 +1,11 @@
 .contenedorPrincipalBody{
     z-index: 2;
     background-color: var(--colorPrimario);
-    height: 702rem;
 }
 
 @media (max-width: 767px){
     .contenedorPrincipalBody{
-        height: 702rem;
+        /*height: 1000rem; esto es porque creo que está bug el visualizador del navegador en resoluciones chiquitas*/
     }
     
 }
