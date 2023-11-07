@@ -14,29 +14,31 @@ export default function Header() {
   }
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const scrollHeight = document.body.scrollHeight - window.innerHeight;
-      const maxSize = 12;
-      const minSize = 7;
-      const minSizeScroll = scrollHeight - 150;
+    if (window.innerWidth > 768) {
+      const handleScroll = () => {
+        const scrollPosition = window.scrollY;
+        const scrollHeight = document.body.scrollHeight - window.innerHeight;
+        const maxSize = 12;
+        const minSize = 7;
+        const minSizeScroll = scrollHeight - 150;
 
-      let newSize;
+        let newSize;
 
-      if (scrollHeight - scrollPosition <= minSizeScroll) {
-        newSize = minSize;
-      } else {
-        newSize = minSize - ((scrollHeight - scrollPosition - minSizeScroll) / (scrollHeight - minSizeScroll)) * (minSize - maxSize);
-      }
+        if (scrollHeight - scrollPosition <= minSizeScroll) {
+          newSize = minSize;
+        } else {
+          newSize = minSize - ((scrollHeight - scrollPosition - minSizeScroll) / (scrollHeight - minSizeScroll)) * (minSize - maxSize);
+        }
 
-      setHeaderSize(newSize);
-    };
+        setHeaderSize(newSize);
+      };
 
-    window.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -81,16 +83,17 @@ export default function Header() {
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
-      <button className="botonHeader" id="toggleHeaderButton" style={{ display: window.innerWidth < 768 ? 'block' : 'none' }} onClick={toggleHeader}><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
-        <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-      </svg>
+      <button className="botonHeader" id="toggleHeaderButton" style={{ display: window.innerWidth < 768 ? 'block' : 'none' }} onClick={toggleHeader}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
+          <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
       </button>
       <Collapse className="headerVisible" in={headerAbierto}>
-        <div className="row fila">
-          <div onClick={recargarPagina} className="col-4 logoContainer columnas">
-            <img className="logo" src={logo} alt="logo_calvo_aluminios" />
+        <div className="row filaHeader">
+          <div className="col-12 col-sm-4 logoContainer columnas">
+            <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
           </div>
-          <div className="col-8 secciones columnas">
+          <div className="col-12 col-sm-8 secciones columnas">
             <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
               <p>INICIO</p>
             </NavLink>
