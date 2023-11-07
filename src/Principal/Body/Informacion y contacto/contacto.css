@@ -133,6 +133,7 @@ input::placeholder, textarea::placeholder {
     .checkboxRowReverse{
         display: flex;
         flex-direction: row-reverse;
+        margin: 1rem 0;
     }
 
     .checkboxColunmn{
