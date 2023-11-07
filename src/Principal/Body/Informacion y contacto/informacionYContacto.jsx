@@ -3,7 +3,7 @@ import Informacion from './informacion.jsx';
 import './informacionYContacto.css';
 
 export default function InformacionYContacto() {
-    const mobile = (window.innerWidth < 768);
+    let mobile = (window.innerWidth < 768);
     return (
         <div className="contenedorPrincipalInfoYContacto">
             <div className="containerInfoYContactoAux">
@@ -17,19 +17,9 @@ export default function InformacionYContacto() {
                         <div className="col-11 col-sm-6 divInformacion divsInfoYContacto">
                             {mobile ? <Contacto/> : <Informacion/>}
                         </div>
+                        {mobile ? <col-12><div className="decoracion extraDecoracion">Información de contacto</div></col-12> : mobile=false}
                         <div className="col-11 col-sm-6 divContacto divsInfoYContacto">
-                            {mobile ? 
-                                (<div>
-                                    <div className="col-12">
-                                        <div className="decoracion2" >
-                                            Información de contacto
-                                        </div>
-                                        <Informacion/>
-                                    </div>
-                                </div>)
-                                :
-                                <Contacto/>
-                            }
+                            {mobile ? <Informacion/> : <Contacto/>}
                         </div>
                     </div>
                 </div>

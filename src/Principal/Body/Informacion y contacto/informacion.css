@@ -13,7 +13,7 @@
     color: var(--colorSecundario)
 }
 
-.bi-whatsapp, .bi-telephone{
+.bi-whatsapp, .bi-telephone, .bi-envelope-at{
     transition: transform 0.1s;
 }
 
@@ -68,6 +68,28 @@
 
 @media (max-width: 767px){
     .contenedorPrincipalInformacion p{
-        font-size: 1.4rem;
+        font-size: 2.4rem;
+    }
+
+    .poligono{
+        width: 2rem;
+        height: 1rem;
+    }
+
+    .contenedorInfo h2{
+        font-size: 3rem;
+    }
+
+    p svg{
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .poligono1{
+        margin-bottom: 16.9rem;
+    }
+
+    .poligono2{
+        margin-bottom: 12.3rem;
     }
 }

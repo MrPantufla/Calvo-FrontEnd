@@ -43,10 +43,10 @@ input::placeholder, textarea::placeholder {
 
 .labelCheckbox{
     display: flex;
-    justify-content: space-evenly;
     margin-top: 0.5rem;
     padding-right: 10%;
     margin-bottom: 1.5rem;
+    justify-content: space-evenly;
 }
 
 .label{
@@ -124,6 +124,8 @@ input::placeholder, textarea::placeholder {
 
     .labelCheckbox{
         align-items: end;
+        display: flex;
+        flex-direction: column;
     }
 
     .textoCheckbox{
@@ -134,11 +136,6 @@ input::placeholder, textarea::placeholder {
         display: flex;
         flex-direction: row-reverse;
         margin: 1rem 0;
-    }
-
-    .checkboxColunmn{
-        display: flex;
-        flex-direction: column;
     }
 
     .textoComunicacion{

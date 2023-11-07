@@ -66,24 +66,21 @@ export default function Contacto() {
                         ¿Cómo preferís que nos comuniquemos?
                     </div>
                     <div className="labelCheckbox">
-                        <div className="checkboxColumn">
-                            <div className="checkboxRowReverse">
-                                <label className="label">
-                                    <div className="textoCheckbox">
-                                        Email
-                                    </div>
-                                    <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
-                                </label>
-                            </div>
-                            <div className="checkboxRowReverse">
-                                <label className="label">
-                                    <div className="textoCheckbox">
-                                        Teléfono
-                                    </div>
-                                    <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
-                                </label>
-                            </div>
-
+                        <div className="checkboxRowReverse">
+                            <label className="label">
+                                <div className="textoCheckbox">
+                                    Email
+                                </div>
+                                <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
+                            </label>
+                        </div>
+                        <div className="checkboxRowReverse">
+                            <label className="label">
+                                <div className="textoCheckbox">
+                                    Teléfono
+                                </div>
+                                <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
+                            </label>
                         </div>
                     </div>
                 </div>

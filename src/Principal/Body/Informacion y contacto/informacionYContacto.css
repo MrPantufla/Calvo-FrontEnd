@@ -33,7 +33,7 @@
     justify-content: center;
 }
 
-.decoracion, .decoracion2{  
+.decoracion{  
     background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 58.79%, var(--colorCuaternario) 58.79%, var(--colorCuaternario) 59.51%, var(--colorSecundario) 59.51%, var(--colorSecundario) 100%);
     width: 82.27%;
     height: 100%;
@@ -62,12 +62,12 @@
         justify-content: end;
         width: 93%;
         background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 51.79%, var(--colorCuaternario) 51.79%, var(--colorCuaternario) 52.51%, var(--colorSecundario) 52.51%, var(--colorSecundario) 100%);
+        padding-right: 11rem;
     }
 
-    .decoracion2{
-        justify-content: end;
-        width: 93%;
-        background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 51.79%, var(--colorCuaternario) 51.79%, var(--colorCuaternario) 52.51%, var(--colorSecundario) 52.51%, var(--colorSecundario) 100%);
+    .extraDecoracion{
+        height: 6.9rem;
+        padding-right: 3.5rem;
     }
 
     .containerInfoYContactoAux2{

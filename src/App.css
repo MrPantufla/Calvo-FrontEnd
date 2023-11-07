@@ -72,8 +72,14 @@ html{
   }
 }
 
-@media (max-width: 768px){
+@media (max-width: 500px){
   html{
     font-size: 6px;
+  }
+}
+
+@media (max-width: 390px){
+  html{
+    font-size: 5.4px;
   }
 }
