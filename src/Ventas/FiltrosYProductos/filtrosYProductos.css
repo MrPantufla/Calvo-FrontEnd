@@ -61,3 +61,13 @@
 .button{
     margin: 20px 10px;
 }
+
+.boton{
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+}
+
+.cantidad span{
+    font-size: 2rem;
+}

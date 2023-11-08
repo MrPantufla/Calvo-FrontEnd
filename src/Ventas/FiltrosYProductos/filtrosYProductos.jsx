@@ -103,7 +103,7 @@ export default function FiltrosYProductos(props) {
       <div className="productos">
         <div className="row">
           {itemsActuales.map((producto) => (
-            <div key={producto.cod_int} className="col-md-3">
+            <div key={producto.cod_int} className="col-md-3 producto">
               <CardProducto cod_int={producto.cod_int} rubro={producto.rubro} srubro={producto.srubro} detalle={producto.detalle} />
             </div>
           ))}
