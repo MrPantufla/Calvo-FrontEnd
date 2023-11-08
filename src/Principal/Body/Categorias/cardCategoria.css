@@ -29,7 +29,7 @@
 }
 
 .sombraInterna {
-    position: absolute; /* Establece position: absolute en la sombra interna */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
