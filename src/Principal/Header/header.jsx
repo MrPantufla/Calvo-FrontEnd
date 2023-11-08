@@ -12,6 +12,12 @@ export default function Header() {
 
   const toggleHeader = () => {
     setHeaderAbierto(!headerAbierto);
+    const seccionesElement = document.querySelector('.secciones');
+    if (headerAbierto) {
+      seccionesElement.classList.remove('abierto');
+    } else {
+      seccionesElement.classList.add('abierto');
+    }
   }
 
   useEffect(() => {
@@ -57,7 +63,7 @@ export default function Header() {
         menuAbierto = false;
       }
     });
-});
+  });
 
   function recargarPagina() {
     if (window.location.href.includes("/home")) {
