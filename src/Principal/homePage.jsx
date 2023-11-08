@@ -5,8 +5,10 @@ import InformacionYContacto from './Body/Informacion y contacto/informacionYCont
 import './homePage.css';
 
 export default function HomePage(){
+    const mobile = (window.innerWidth < 768);
     return(
         <div className="contenedorHomePage">
+            
             <Header/>
             <Body/>
             <Footer/>
