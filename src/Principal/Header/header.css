@@ -24,7 +24,7 @@
 }
 
 .perfil:hover {
-    height: 92%
+    height: 92%;
 }
 
 .perfil::before,
@@ -85,12 +85,10 @@
 
 .seccion::before {
     transform: translateX(-100%);
-    /* Modifica la transformación para cambiar a derecha a izquierda */
 }
 
 .seccion::after {
     transform: translateX(-200%);
-    /* Modifica la transformación para cambiar a derecha a izquierda */
 }
 
 .seccion:hover::before {
@@ -123,7 +121,6 @@
     cursor: pointer;
 }
 
-/*MOBILE*/
 .botonHeader {
     height: 9rem;
     width: 9rem;
@@ -152,123 +149,5 @@
 @media (max-width: 768px) {
     .seccion p {
         font-size: 1.6rem;
-    }
-}
-
-@media (max-width: 767px) {
-    .contenedorPrincipalHeader {
-        height: 6rem !important;
-    }
-
-    #toggleHeaderButton {
-        display: block;
-        position: fixed;
-        z-index: 100;
-    }
-
-    .headerMobile {
-        width: 100%;
-        align-items: center;
-    }
-
-    .headerVisible {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-        overflow: hidden;
-        transition: height 0.3s; /* Agrega la transición de altura aquí */
-    }
-
-    .headerVisible.in {
-        height: 0;
-        overflow: hidden;
-    }
-
-    .containerLogoMobile {
-        display: flex;
-        padding-right: 0%;
-        width: 100%;
-        justify-content: center;
-        padding-right: 18%;
-    }
-
-    .containerBotonMobile {
-        width: 10%;
-    }
-
-    .logoHeaderMobile {
-        max-width: 50%;
-        position: absolute;
-    }
-
-    .secciones {
-        display: flex;
-        flex-direction: column;
-        background-color: var(--colorSecundario);
-        width: 100vh;
-        height: 0;
-        top: 0;
-        left: 0;
-        padding-bottom: 3rem;
-        z-index: 50;
-        position: fixed;
-        justify-content: end;
-        align-items: center;
-        transition: height 0.4s;
-    }
-
-    .secciones.abierto {
-        height: 33rem;
-    }
-
-    .seccion, .perfil {
-        margin: 0.6rem;
-        width: 17rem;
-        height: 3.5rem;
-        border-radius: 0.5rem;
-        clip-path: none;
-        text-decoration: none;
-        background-color: white;
-        display: flex;
-        justify-content: center;
-        padding: 0;
-        color: black;
-    }
-
-    .seccion p, .perfil p {
-        text-align: center;
-        font-size: 2rem;
-        margin: 0;
-    }
-
-    .perfil {
-        font-weight: bold;
-        font-size: 2rem;
-        text-align: center;
-        color: var(--colorSecundario);
-        margin: 0 4.8rem;
-        transition: color 0.3s;
-        margin-top: 0.6rem;
-    }
-
-    .perfil::before,
-    .perfil::after {
-        display: none;
-    }
-
-    .logoContainer {
-        display: flex;
-        justify-content: center;
-        margin-top: 2rem;
-        position: fixed;
-        z-index: 100;
-        top: 1rem;
-        right: -5%;
-    }
-
-    .logo {
-        width: 35%;
-        z-index: 100;
     }
 }
