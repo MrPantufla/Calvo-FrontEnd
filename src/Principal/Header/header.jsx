@@ -46,14 +46,18 @@ export default function Header() {
     const toggleHeaderButton = document.getElementById('toggleHeaderButton');
     const header = document.getElementById('header');
 
+    let menuAbierto = false;
+
     toggleHeaderButton.addEventListener('click', function () {
-      if (header.style.display === 'none' || header.style.display === '') {
-        header.style.display = 'block';
+      if (!menuAbierto) {
+        header.style.height = '33rem';
+        menuAbierto = true;
       } else {
-        header.style.display = 'none';
+        header.style.height = '0';
+        menuAbierto = false;
       }
     });
-  });
+});
 
   function recargarPagina() {
     if (window.location.href.includes("/home")) {
@@ -98,7 +102,7 @@ export default function Header() {
       </div>
       <Collapse className="headerVisible" in={headerAbierto}>
         <div className="row filaHeader">
-          <div className="col-12 col-sm-4 logoContainer columnas" style={{ display: mobile ? 'none' : 'flex' }}>
+          <div className="col-12 col-sm-4 logoContainer columnas" /*style={ display: mobile ? 'none' : 'flex' }*/>
             <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
           </div>
           <div className="col-12 col-sm-8 secciones columnas">
@@ -115,11 +119,11 @@ export default function Header() {
               <p>CONTACTO</p>
             </a>
             <a className="perfil">
-              <div className="iconoContainer">
+              {mobile ? <p>PERFIL</p> : <div className="iconoContainer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                 </svg>
-              </div>
+              </div>}
             </a>
           </div>
         </div>

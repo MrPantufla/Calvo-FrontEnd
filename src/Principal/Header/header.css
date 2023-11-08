@@ -133,7 +133,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 1.5rem;
 }
 
 @media (max-width: 1024px) {
@@ -160,10 +161,8 @@
         height: 6rem !important;
     }
 
-    /* Estilos para el botón de alternar el encabezado */
     #toggleHeaderButton {
         display: block;
-        /* Asegura que el botón sea visible en dispositivos móviles */
         position: fixed;
         z-index: 100;
     }
@@ -173,7 +172,6 @@
         align-items: center;
     }
 
-    /* Estilos para el encabezado cuando está abierto en dispositivos móviles */
     .headerVisible {
         display: flex;
         flex-direction: column;
@@ -183,7 +181,6 @@
         transition: height 0.3s;
     }
 
-    /* Estilos para el encabezado cuando está cerrado en dispositivos móviles */
     .headerVisible.in {
         height: 0;
         overflow: hidden;
@@ -201,58 +198,74 @@
         width: 10%;
     }
 
-    /* Ajusta el tamaño del logotipo móvil según tus necesidades */
     .logoHeaderMobile {
         max-width: 50%;
         position: absolute;
     }
 
-    .secciones {
+    .secciones{
         display: flex;
         flex-direction: column;
-        background-color: var(--colorTerciario);
+        background-color: var(--colorSecundario);
         width: 100vh;
-        height: 30rem;
-        overflow: hidden;
+        height: 33rem;
         top: 0;
         left: 0;
+        padding-bottom: 3rem;
         z-index: 50;
         position: fixed;
-        justify-content: center;
+        justify-content: end;
         align-items: center;
+        transition: 0.3s;
     }
 
-    .seccion,
-    .perfil {
-        margin: 5px;
-        /* Añade espacio entre las secciones */
-        width: 100%;
-        /* Aprovecha todo el ancho disponible */
-        height: auto;
-        /* Ajusta la altura según el contenido */
+    .seccion, .perfil {
+        margin: 0.6rem;
+        width: 17rem;
+        height: 3.5rem;
+        border-radius: 0.5rem;
         clip-path: none;
-        /* Elimina el efecto de recorte en dispositivos móviles */
-        font-size: 2rem;
         text-decoration: none;
         background-color: white;
-        width: 50%
-    }
-
-    .seccion p {
-        text-align: center;
-    }
-
-    /* Ajusta los estilos del perfil en dispositivos móviles */
-    .perfil {
-        border: none;
-        /* Elimina el borde en dispositivos móviles */
         display: flex;
         justify-content: center;
+        padding: 0;
+        color: black;
+    }
+
+    .seccion p, .perfil p {
+        text-align: center;
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .perfil {
+        font-weight: bold;
+        font-size: 2rem;
+        text-align: center;
+        color: var(--colorSecundario);
+        margin: 0 4.8rem;
+        transition: color 0.3s;
+        margin-top: 0.6rem;
     }
 
     .perfil::before,
     .perfil::after {
         display: none;
-        /* Oculta los elementos antes y después en dispositivos móviles */
+    }
+
+    .logoContainer{
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        position: fixed;
+        z-index: 100;
+        top: 1rem;
+        right: -5%;
+    }
+
+    .logo{
+        width: 35%;
+        z-index: 100;
     }
 }
