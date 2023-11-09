@@ -46,7 +46,7 @@ export default function HeaderMobile() {
                     </div>
                 </div>
             </div>
-            <Collapse className="containerMenuMobile" in={menuAbierto}>
+            <div className={`containerMenuMobile ${menuAbierto ? 'menuAbierto' : ''}`}>
                 <div className="menu">
                     <div className="containerLogoMenu">
                         <img src={LogoCalvo} />
@@ -69,7 +69,7 @@ export default function HeaderMobile() {
                         </a>
                     </div>
                 </div>
-            </Collapse>
+            </div>
         </div>
     );
 }
