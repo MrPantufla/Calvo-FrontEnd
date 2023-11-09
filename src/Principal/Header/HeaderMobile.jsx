@@ -1,8 +1,8 @@
 import './headerMobile.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Collapse } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
-import LogoCalvo from '../../Imagenes/logo calvo.png'
+import LogoCalvo from '../../Imagenes/logo calvo.png';
 
 export default function HeaderMobile() {
     const [menuAbierto, setMenuAbierto] = useState(false);
@@ -17,6 +17,18 @@ export default function HeaderMobile() {
     const toggleMenu = () => {
         setMenuAbierto(!menuAbierto);
     }
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (menuAbierto) {
+                setMenuAbierto(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [menuAbierto]);
 
     return (
         <div className="containerGeneralHeaderMobile">
@@ -40,19 +52,19 @@ export default function HeaderMobile() {
                         <img src={LogoCalvo} />
                     </div>
                     <div className="elementosMenu">
-                        <NavLink to="/home" className="elemento" onClick={handleInicioClick}>
+                        <NavLink to="/home" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
                             <p>INICIO</p>
                         </NavLink>
-                        <NavLink to="/tienda" className="elemento">
+                        <NavLink to="/tienda" className="elemento" onClick={toggleMenu}>
                             <p>VENTAS</p>
                         </NavLink>
-                        <a href="#quienesSomos" className="elemento">
+                        <a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
                             <p>QUIÉNES SOMOS</p>
                         </a>
-                        <a href="#contacto" className="elemento">
+                        <a href="#contacto" className="elemento" onClick={toggleMenu}>
                             <p>CONTACTO</p>
                         </a>
-                        <a className="elemento">
+                        <a className="elemento" onClick={toggleMenu}>
                             <p>PERFIL</p>
                         </a>
                     </div>

@@ -84,8 +84,3 @@
     font-weight: 700;
     color: var(--colorSecundario);
 }
-
-.containerMenuMobile {
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
-}
