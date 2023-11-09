@@ -71,7 +71,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Email
                                 </div>
-                                <input value="checkMail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
+                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcion" checked={emailChecked} onChange={() => alternarOpcion(1)} />
                             </label>
                         </div>
                         <div className="checkboxRowReverse">
@@ -79,7 +79,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Teléfono
                                 </div>
-                                <input value="checkTelefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
+                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcion" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
                             </label>
                         </div>
                     </div>
