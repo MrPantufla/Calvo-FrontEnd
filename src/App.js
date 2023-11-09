@@ -6,6 +6,7 @@ import Login from './Login/login.jsx';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 function App() {
+  const apiUrl = "http://localhost:8080/api";
   return (
     <Router>
       <Routes>
