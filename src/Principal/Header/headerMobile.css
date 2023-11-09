@@ -7,6 +7,11 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 1.5rem;
+    transition: 0.2s;
+}
+
+.botonHeader:active {
+    transform: scale(0.8);
 }
 
 .containerBotonMobile {
@@ -35,8 +40,23 @@
 .containerMenuMobile {
     position: absolute;
     z-index: 300;
-    background-color: var(--colorSecundario);
-    padding-top: 3rem;
+    height: 8rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+.containerMenuMobile.menuAbierto {
+    height: 20rem;
+    opacity: 1;
+    visibility: visible;
+}
+
+.containerMenuMobile:not(.menuAbierto) {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .menu {
@@ -47,6 +67,7 @@
     align-items: center;
     padding-bottom: 2.5rem;
     position: fixed;
+    background-color: var(--colorSecundario);
 }
 
 .containerElementosMenu {
@@ -64,6 +85,7 @@
 
 .containerLogoMenu img {
     width: 30%;
+    padding-top: 3rem;
 }
 
 .elemento {
@@ -76,6 +98,11 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    transition: 0.1s;
+}
+
+.elemento:active{
+    transform: scale(0.9);
 }
 
 .elemento p {
