@@ -29,37 +29,37 @@ export default function Contacto() {
 
     return (
         <div className="contenedorPrincipalFormulario">
-            <form action="submeter-formulario.php" method="post" onSubmit={handleSubmit}>
+            <form action="http://localhost:8080/procesarFormulario" method="post" onSubmit={handleSubmit}>
                 {formError && <p className="errorFormulario">Debes seleccionar al menos una opción (Email o Teléfono).</p>}
                 <div className="inputContainer">
                     <label htmlFor="nombre" className="colocar_nombre">
-                        NOMBRE:
+                        NOMBRE Y APELLIDO:
                     </label>
-                    <input type="text" name="introducir_nombre" id="nombre" required placeholder="Nombre y Apellido" />
+                    <input type="text" name="nombre" id="nombre" required placeholder="Nombre y Apellido" />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="email" className="colocar_email">
                         E-MAIL:
                     </label>
-                    <input type="email" name="introducir_email" id="email" required={emailChecked} placeholder="Email" />
+                    <input type="email" name="email" id="email" required={emailChecked} placeholder="Email" />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="telefono" className="colocar_telefono">
                         TELÉFONO:
                     </label>
-                    <input type="tel" name="introducir_telefono" id="telefono" required={telefonoChecked} placeholder="Teléfono" />
+                    <input type="tel" name="telefono" id="telefono" required={telefonoChecked} placeholder="Teléfono" />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="telefono" className="colocar_telefono">
                         LOCALIDAD:
                     </label>
-                    <input name="introducir_telefono" id="localidad" required placeholder="Localidad" />
+                    <input name="localidad" id="localidad" required placeholder="Localidad" />
                 </div>
                 <div className="inputContainer inputMensaje">
                     <label htmlFor="mensaje" className="colocar_mensaje">
                         MENSAJE:
                     </label>
-                    <textarea name="introducir_mensaje" className="texto_mensaje" id="mensaje" required placeholder="Escribí tu consulta"></textarea>
+                    <textarea name="mensaje" className="texto_mensaje" id="mensaje" required placeholder="Escribí tu consulta"></textarea>
                 </div>
                 <div className="comunicacion">
                     <div className="textoComunicacion">
@@ -71,7 +71,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Email
                                 </div>
-                                <input value="mail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
+                                <input value="checkMail" className="checkbox" type="checkbox" id="emailCheckbox" name="opciones" checked={emailChecked} onChange={() => alternarOpcion(1)} />
                             </label>
                         </div>
                         <div className="checkboxRowReverse">
@@ -79,7 +79,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Teléfono
                                 </div>
-                                <input value="telefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
+                                <input value="checkTelefono" className="checkbox" type="checkbox" id="telefonoCheckbox" name="opciones" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
                             </label>
                         </div>
                     </div>
