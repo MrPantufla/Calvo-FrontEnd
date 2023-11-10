@@ -1,22 +1,23 @@
 import './filtrosYProductos.css';
-import { productos } from '../../productos.js';
+import { productos } from '../../productos.js';//Este es el json anterior
 import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 
 export default function FiltrosYProductos(props) {
   const [rubrosActivos, setRubrosActivos] = useState([]);
   const [subrubrosActivos, setSubrubrosActivos] = useState([]);
-  const rubrosUnicos = [...new Set(productos.map((producto) => producto.rubro))];
-  const srubrosUnicos = [...new Set(productos.map((producto) => producto.srubro))];
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 20;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const [jsonProductos, setJsonProductos] = useState([]);
+  const srubrosUnicos = [...new Set(jsonProductos.map((producto) => producto.srubro))];
+  const tiposUnicos = [...new Set(productos.map((producto) => producto.tipo_prod))];
+
 
   useEffect(() => {
-    obtenerProductosFiltrados(); // Llama a la función cuando el componente se monta
+    obtenerProductosFiltrados();
   }, []);
 
   const obtenerProductosFiltrados = async (tipo_prod) => {
@@ -24,7 +25,7 @@ export default function FiltrosYProductos(props) {
         const response = await fetch(`http://localhost:8080/api/productos`);
         if (response.ok) {
           const productosObtenidos = await response.json();
-          setJsonProductos(productosObtenidos); // Guarda los productos en el estado
+          setJsonProductos(productosObtenidos);
         } else {
             console.error('Error al obtener productos filtrados:', response.statusText);
         }
@@ -87,7 +88,7 @@ export default function FiltrosYProductos(props) {
           }}
         />
         <div className="filtros">
-          {rubrosUnicos.map((rubro) => (
+          {tiposUnicos.map((rubro) => (
             <label className="labelRubros" key={rubro}>
               <input
                 className="check"
