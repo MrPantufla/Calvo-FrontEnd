@@ -20,7 +20,7 @@ export default function CardProducto(args) {
 
   return(
     <div className="card">
-      <p className="cod_int">CA {args.cod_int}</p>
+      <p className="cod_int">{args.cod_int}</p>
       <div className="imagenContainer">
         <img className="imagenProducto" src={perfil} alt="Producto"></img>
       </div>
