@@ -1,6 +1,6 @@
 import './filtrosYProductos.css';
 import { productos } from '../../productos.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 
 export default function FiltrosYProductos(props) {
@@ -10,10 +10,29 @@ export default function FiltrosYProductos(props) {
   const srubrosUnicos = [...new Set(productos.map((producto) => producto.srubro))];
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
-  const itemsPorPagina = 10;
+  const itemsPorPagina = 20;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
+  const [jsonProductos, setJsonProductos] = useState([]);
 
+  useEffect(() => {
+    obtenerProductosFiltrados(); // Llama a la función cuando el componente se monta
+  }, []);
+
+  const obtenerProductosFiltrados = async (tipo_prod) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/productos`);
+        if (response.ok) {
+          const productosObtenidos = await response.json();
+          setJsonProductos(productosObtenidos); // Guarda los productos en el estado
+        } else {
+            console.error('Error al obtener productos filtrados:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+    }
+}
+  
   const paginar = (numeroDePagina) => {
     setPaginaActual(numeroDePagina);
   }
@@ -42,18 +61,15 @@ export default function FiltrosYProductos(props) {
     }
   }
 
-  const listaFiltrada = productos.filter((p) => {
-    const rubroCumple = rubrosActivos.length === 0 || rubrosActivos.includes(p.rubro);
+  const listaFiltrada = jsonProductos.filter((p) => {
+    const rubroCumple = rubrosActivos.length === 0 || rubrosActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
-    const buscaPorCodInt = p.cod_int.toString().includes(busqueda);
-    const buscaPorDetalle = p.detalle.toLowerCase().includes(busqueda.toLowerCase());
-    return rubroCumple && subrubroCumple && (busqueda === '' || buscaPorCodInt || buscaPorDetalle);
+    const buscaPorCodInt = p.cod_orig.toString().includes(busqueda);
+    return rubroCumple && subrubroCumple && (busqueda === '' || buscaPorCodInt);
   });
 
   const itemsActuales = listaFiltrada.slice(indexPrimerItem, indexUltimoItem);
-  if (itemsActuales.length === 0) {
-    setPaginaActual(1);
-  }
+
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
   const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
 
@@ -65,7 +81,10 @@ export default function FiltrosYProductos(props) {
           type="text"
           placeholder="Buscar por código interno o detalle"
           value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
+          onChange={(e) => {
+            setBusqueda(e.target.value);
+            setPaginaActual(1);
+          }}
         />
         <div className="filtros">
           {rubrosUnicos.map((rubro) => (
@@ -104,7 +123,7 @@ export default function FiltrosYProductos(props) {
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.cod_int} className="col-md-3 producto">
-              <CardProducto cod_int={producto.cod_int} rubro={producto.rubro} srubro={producto.srubro} detalle={producto.detalle} />
+              <CardProducto cod_int={producto.cod_orig} rubro={producto.tipo_prod} srubro={producto.srubro}/>
             </div>
           ))}
         </div>
