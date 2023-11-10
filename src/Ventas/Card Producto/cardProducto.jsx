@@ -30,7 +30,7 @@ export default function CardProducto(args) {
         <button className="boton" onClick={sumarContador}>+</button>
       </div>
       <div className="texto">
-        <p className="rubro">Rubro: {args.rubro}</p>
+        <p className="rubro">Tipo: {args.tipo_prod}</p>
         <p className="srubro">Subrubro: {args.srubro}</p>
       </div>
     </div>

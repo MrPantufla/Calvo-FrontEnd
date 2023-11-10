@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 
 export default function FiltrosYProductos(props) {
-  const [rubrosActivos, setRubrosActivos] = useState([]);
-  const [subrubrosActivos, setSubrubrosActivos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 20;
@@ -13,7 +11,9 @@ export default function FiltrosYProductos(props) {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const [jsonProductos, setJsonProductos] = useState([]);
   const srubrosUnicos = [...new Set(jsonProductos.map((producto) => producto.srubro))];
-  const tiposUnicos = [...new Set(productos.map((producto) => producto.tipo_prod))];
+  const tiposUnicos = [...new Set(jsonProductos.map((producto) => producto.tipo_prod))];
+  const [tiposActivos, setTiposActivos] = useState([]);
+  const [subrubrosActivos, setSubrubrosActivos] = useState([]);
 
 
   useEffect(() => {
@@ -45,12 +45,12 @@ export default function FiltrosYProductos(props) {
     });
   }
 
-  function toggleRubro(rubro) {
-    if (rubrosActivos.includes(rubro)) {
-      setRubrosActivos(rubrosActivos.filter((r) => r !== rubro));
+  function toggleTipo(tipo_prod) {
+    if (tiposActivos.includes(tipo_prod)) {
+      setTiposActivos(tiposActivos.filter((r) => r !== tipo_prod));
     }
     else {
-      setRubrosActivos([...rubrosActivos, rubro]);
+      setTiposActivos([...tiposActivos, tipo_prod]);
     }
   }
 
@@ -63,10 +63,10 @@ export default function FiltrosYProductos(props) {
   }
 
   const listaFiltrada = jsonProductos.filter((p) => {
-    const rubroCumple = rubrosActivos.length === 0 || rubrosActivos.includes(p.tipo_prod);
+    const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
     const buscaPorCodInt = p.cod_orig.toString().includes(busqueda);
-    return rubroCumple && subrubroCumple && (busqueda === '' || buscaPorCodInt);
+    return tipoCumple && subrubroCumple && (busqueda === '' || buscaPorCodInt);
   });
 
   const itemsActuales = listaFiltrada.slice(indexPrimerItem, indexUltimoItem);
@@ -88,17 +88,17 @@ export default function FiltrosYProductos(props) {
           }}
         />
         <div className="filtros">
-          {tiposUnicos.map((rubro) => (
-            <label className="labelRubros" key={rubro}>
+          {tiposUnicos.map((tipo_prod) => (
+            <label className="labelRubros" key={tipo_prod}>
               <input
                 className="check"
                 type="checkbox"
-                checked={rubrosActivos.includes(rubro)}
-                onChange={() => toggleRubro(rubro)}
+                checked={tiposActivos.includes(tipo_prod)}
+                onChange={() => toggleTipo(tipo_prod)}
                 onClick={handleScrollClick}
               />
               <div className="textoRubro">
-                Rubro {rubro}
+                {tipo_prod}
               </div>
             </label>
           ))}
@@ -124,7 +124,7 @@ export default function FiltrosYProductos(props) {
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.cod_int} className="col-md-3 producto">
-              <CardProducto cod_int={producto.cod_orig} rubro={producto.tipo_prod} srubro={producto.srubro}/>
+              <CardProducto cod_int={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro}/>
             </div>
           ))}
         </div>
