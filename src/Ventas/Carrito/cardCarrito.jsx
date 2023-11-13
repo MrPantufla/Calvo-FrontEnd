@@ -27,7 +27,7 @@ export default function CardCarrito(args){
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
                 <img className="imagenCardCarrito" src={perfil} />
-                <p className="codigo">CA {args.codigo}</p>
+                <p className="codigo">{args.codigo}</p>
             </div>
             <div className="textoCardCarrito">
                 <p>{args.nombre}</p>
