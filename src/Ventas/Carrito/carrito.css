@@ -5,6 +5,8 @@
     left: 69%;
     background-color: #E4D58C;
     top: 130px;
+    overflow: auto;
+    max-height: 20rem;
 }
 
 .contenedorPrincipalCarrito button{
