@@ -25,27 +25,32 @@ export default function FiltrosYProductos(props) {
   }
 
   function toggleTipo(tipo_prod) {
-    if (tiposActivos.includes(tipo_prod)) {
-      setTiposActivos(tiposActivos.filter((r) => r !== tipo_prod));
-    }
-    else {
-      setTiposActivos([...tiposActivos, tipo_prod]);
-    }
+    setTiposActivos(prevTiposActivos => {
+      if (prevTiposActivos.includes(tipo_prod)) {
+        return prevTiposActivos.filter((r) => r !== tipo_prod);
+      } else {
+        return [...prevTiposActivos, tipo_prod];
+      }
+    });
   }
-
+  
   function toggleSubrubro(subrubro) {
-    if (subrubrosActivos.includes(subrubro)) {
-      setSubrubrosActivos(subrubrosActivos.filter((s) => s !== subrubro));
-    } else {
-      setSubrubrosActivos([...subrubrosActivos, subrubro]);
-    }
+    setSubrubrosActivos(prevSubrubrosActivos => {
+      if (prevSubrubrosActivos.includes(subrubro)) {
+        return prevSubrubrosActivos.filter((s) => s !== subrubro);
+      } else {
+        return [...prevSubrubrosActivos, subrubro];
+      }
+    });
   }
-
+  
   const listaFiltrada = props.json.filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
+    console.log("tiposActivos: " + tiposActivos);
+    console.log("subrubrosActivos" + subrubrosActivos);
     return tipoCumple && subrubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle);
   });
 
@@ -106,8 +111,8 @@ export default function FiltrosYProductos(props) {
       <div className="productos">
         <div className="row">
           {itemsActuales.map((producto) => (
-            <div key={producto.cod_int} className="col-md-3 producto">
-              <CardProducto cod_int={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle} />
+            <div key={producto.cod_id} className="col-md-3 producto">
+              <CardProducto cod_orig={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle} />
             </div>
           ))}
         </div>
@@ -118,8 +123,8 @@ export default function FiltrosYProductos(props) {
           onClick={() => paginar(1)}
           disabled={paginaActual === 1}
           >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+            <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
         </button>
         <button
@@ -147,7 +152,6 @@ export default function FiltrosYProductos(props) {
           const diff = Math.abs(numero - paginaActual);
 
           const mostrarPagina = totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
-          { console.log(mostrarPagina) }
           return (
             mostrarPagina && (
               <button
@@ -185,8 +189,8 @@ export default function FiltrosYProductos(props) {
           onClick={() => paginar(totalPaginas)}
           disabled={paginaActual === totalPaginas}
           >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+            <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
         </button>
       </div>
