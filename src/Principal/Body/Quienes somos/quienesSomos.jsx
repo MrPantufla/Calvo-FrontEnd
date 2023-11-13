@@ -1,5 +1,6 @@
 import './quienesSomos.css';
 import imagenQuienesSomos from '../../../Imagenes/imagenDeposito.png';
+import imagenQuienesSomos2 from '../../../Imagenes/imagenDeposito2.png';
 import CAquienesSomos from '../../../Imagenes/CAquienesSomos.png';
 
 export default function QuienesSomos() {
@@ -10,24 +11,23 @@ export default function QuienesSomos() {
         <div className="contenedorPrincipalQuienesSomos">
             <div className="fondoContainer">
                 <div className="logoQuienesSomosContainer">
-                    <img className="logoQuienesSomos" src={CAquienesSomos}/>
+                    <img className="logoQuienesSomos" src={CAquienesSomos} />
                 </div>
                 <div className="imagenQuienesSomosContainer">
-                    <img className="imagenQuienesSomos" src={imagenQuienesSomos}/>
+                    <img className="imagenQuienesSomos" src={imagenQuienesSomos} />
                 </div>
             </div>
             <div className="textoQuienesSomos">
-                    <div className="tituloYPoligono">
-                        <div className="poligono" />
-                        <h2>QUIÉNES SOMOS</h2>
-                    </div>
-                    <div className="parrafoQuienesSomos">
-                        {message.split('\n').map((line, index) => (
-                            <div key={index}>{line}</div>
-                        ))}
-                    </div>
+                <div className="tituloYPoligono">
+                    <div className="poligono" />
+                    <h2>QUIÉNES SOMOS</h2>
                 </div>
-             
+                <div className="parrafoQuienesSomos">
+                    {message.split('\n').map((line, index) => (
+                        <div key={index}>{line}</div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
