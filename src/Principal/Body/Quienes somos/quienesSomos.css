@@ -1,6 +1,5 @@
 .contenedorPrincipalQuienesSomos{
     display: flex;
-    align-items: top;
     justify-content: center;
     height: 50rem;
 }
@@ -11,7 +10,6 @@
     height: 100%;
     flex-direction: column;
     background-color: white;
-    align-items: left;
 }
 
 .logoQuienesSomosContainer{
@@ -36,7 +34,6 @@
 }
 
 .imagenQuienesSomos{
-    height: 100%;
     width: 88%;
     object-fit: contain;
 }
@@ -64,12 +61,45 @@
 }
 
 @media (max-width: 767px){
-    .contenedorImagen{
-        width: 85%;
+    .logoQuienesSomosContainer{
+        padding: 0;
     }
 
-    .textoQuienesSomos{
+    .imagenQuienesSomos{
+        width: 100%;
+    }
+}
+
+@media (max-width: 540px){
+    .imagenQuienesSomosContainer{
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (max-width: 430px){
+    .logoQuienesSomos{
         width: 90%;
+    }
+
+    .logoQuienesSomosContainer{
+        height: auto;
+    }
+
+    .imagenQuienesSomosContainer{
+        display: flex;
+        align-items: end;
+        padding-bottom: 3rem;
+    }
+
+    .fondoContainer{
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 280px){
+    .contenedorPrincipalQuienesSomos{
+        height: 57rem;
     }
 }
 
