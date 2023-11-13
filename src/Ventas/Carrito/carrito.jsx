@@ -103,7 +103,7 @@ export default function Carrito(props) {
               />
             ))
           )}
-          <p className="total">Total: ${calcularTotal(elementos)}</p>
+          <Button className="confirmarCarrito">Confirmar compra (${calcularTotal(elementos)})</Button>
         </div>
       </Collapse>
     </div>
