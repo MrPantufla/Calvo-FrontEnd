@@ -1,5 +1,6 @@
 import './quienesSomos.css';
 import Fondo from '../../../Imagenes/fondoQuienesSomos.png';
+import imagenQuienesSomos from '../../../Imagenes/imagenDeposito.png';
 
 export default function QuienesSomos() {
 
@@ -25,6 +26,9 @@ export default function QuienesSomos() {
                             <div key={index}>{line}</div>
                         ))}
                     </div>
+                </div>
+                <div className="imagenQuienesSomosContainer">
+                        <img className="imagenQuienesSomos" src={imagenQuienesSomos}/>
                 </div>
             </div>
         </div>
