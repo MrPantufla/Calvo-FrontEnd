@@ -5,22 +5,22 @@ import { useCarrito } from '../../context.jsx';
 
 export default function CardProducto(args) {
   const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
-  const elementoExistente = elementosCarrito.find((elemento) => elemento.codigo === args.cod_int);
+  const elementoExistente = elementosCarrito.find((elemento) => elemento.codigo === args.cod_orig);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
 
   const sumarContador = () => {
-    añadirElemento(args.cod_int, args.detalle, 1, 777);
+    añadirElemento(args.cod_orig, args.detalle, 1, 777);
   }
 
   const restarContador = () => {
     if (cantidad > 0) {
-      restarElemento(args.cod_int);
+      restarElemento(args.cod_orig);
     }
   }
 
   return(
     <div className="card">
-      <p className="cod_int">{args.cod_int}</p>
+      <p className="cod_orig">{args.cod_orig}</p>
       <div className="imagenContainer">
         <img className="imagenProducto" src={perfil} alt="Producto"></img>
       </div>
