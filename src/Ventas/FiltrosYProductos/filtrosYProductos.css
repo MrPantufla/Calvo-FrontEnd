@@ -73,6 +73,10 @@
     font-size: 2rem;
 }
 
-.primeraPagina{
+.paginaExtremo{
     width: 3rem;
+}
+
+.ultimaPagina{
+    transform: scaleX(-1);
 }
