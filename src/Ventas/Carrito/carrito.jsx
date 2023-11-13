@@ -9,7 +9,7 @@ export default function Carrito(props) {
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
-  
+
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: 1905 2";
 
   const toggleCarrito = () => {
@@ -19,18 +19,18 @@ export default function Carrito(props) {
   const agregarProductoConTexto = (codigo) => {
     const [codigoSinCantidad, cantidad] = codigo.split(' ');
     const productoExistente = props.json.find((producto) => producto.cod_orig == (codigoSinCantidad));
-    
+
     const cantidadNumero = (cantidad) => {
-      if ((/^[0-9]+$/.test(cantidad)) || cantidad==null){
+      if ((/^[0-9]+$/.test(cantidad)) || cantidad == null) {
         return true
       }
-      else{
+      else {
         return false;
       }
     }
 
     let band = cantidadNumero(cantidad);
-    
+
     if (productoExistente && band) {
       const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1;
       añadirElemento(productoExistente.cod_orig, productoExistente.detalle, cantidadAAgregar, 777);
@@ -63,9 +63,12 @@ export default function Carrito(props) {
             <Form.Control
               className="textoInput"
               type="text"
-              placeholder={codigoErroneo ? 'Código incorrecto' : 'Ingrese el código del producto'}
+              placeholder={codigoErroneo ? 'Código incorrecto o cantidad errónea' : 'Ingrese el código del producto'}
               value={codigoProducto}
-              onChange={(e) => setCodigoProducto(e.target.value)}
+              onChange={(e) => {
+                setCodigoProducto(e.target.value);
+                setCodigoErroneo(false);
+              }}
               onKeyPress={handleKeyPress}
             />
             <OverlayTrigger
