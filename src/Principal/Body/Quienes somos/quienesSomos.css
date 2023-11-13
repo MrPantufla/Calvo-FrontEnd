@@ -2,25 +2,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 45rem;
 }
 
-.textoQuienesSomos{
-    width: 70%;
-}
-
-.contenedorImagen{
+.contenedorFondoQuienesSomos{
     display: flex;
-    align-items: center;
     width: 75%;
-    height: 43rem;
-    padding-top: 4%;
-    flex-direction: column;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+}
+
+.fondoYTextoContainer{
+    width: 75%;
+    height: 45rem;
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: center;
 }
 
 .tituloYPoligono h2{
     font-size: 1.7rem;
     padding-left: 0.8rem;
     font-weight: 600;
+}
+
+.textoQuienesSomos{
+    width: 70%;
+    z-index: 2;
+    padding-top: 4%;
 }
 
 .parrafoQuienesSomos{
@@ -30,16 +40,6 @@
     font-weight: 600;
     text-align: justify;
     margin-bottom: 3.8%;
-}
-
-.imagenQuienesSomosContainer{
-    width: 100%;
-    display: flex;
-    align-items: left;
-}
-
-.imagenQuienesSomos{
-    width: 91.1%;
 }
 
 @media (max-width: 767px){

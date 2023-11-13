@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Collapse } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
 import LogoCalvo from '../../Imagenes/logo calvo.png';
+import calvoNegativo from '../../Imagenes/calvoNegativo.png';
 
 export default function HeaderMobile() {
     const [menuAbierto, setMenuAbierto] = useState(false);
@@ -49,7 +50,7 @@ export default function HeaderMobile() {
             <div className={`containerMenuMobile ${menuAbierto ? 'menuAbierto' : ''}`}>
                 <div className="menu">
                     <div className="containerLogoMenu">
-                        <img src={LogoCalvo} />
+                        <img src={calvoNegativo} />
                     </div>
                     <div className="elementosMenu">
                         <NavLink to="/home" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
