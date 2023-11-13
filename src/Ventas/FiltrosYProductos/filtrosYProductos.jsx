@@ -22,18 +22,18 @@ export default function FiltrosYProductos(props) {
 
   const obtenerProductosFiltrados = async (tipo_prod) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/productos`);
-        if (response.ok) {
-          const productosObtenidos = await response.json();
-          setJsonProductos(productosObtenidos);
-        } else {
-            console.error('Error al obtener productos filtrados:', response.statusText);
-        }
+      const response = await fetch(`http://localhost:8080/api/productos`);
+      if (response.ok) {
+        const productosObtenidos = await response.json();
+        setJsonProductos(productosObtenidos);
+      } else {
+        console.error('Error al obtener productos filtrados:', response.statusText);
+      }
     } catch (error) {
-        console.error('Error en la solicitud:', error);
+      console.error('Error en la solicitud:', error);
     }
-}
-  
+  }
+
   const paginar = (numeroDePagina) => {
     setPaginaActual(numeroDePagina);
   }
@@ -66,7 +66,7 @@ export default function FiltrosYProductos(props) {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
-    const buscarPorDetalle= p.detalle.includes(busqueda);
+    const buscarPorDetalle = p.detalle.includes(busqueda);
     return tipoCumple && subrubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle);
   });
 
@@ -96,7 +96,10 @@ export default function FiltrosYProductos(props) {
                 type="checkbox"
                 checked={tiposActivos.includes(tipo_prod)}
                 onChange={() => toggleTipo(tipo_prod)}
-                onClick={handleScrollClick}
+                onClick={() => {
+                  handleScrollClick();
+                  setPaginaActual(1);
+                }}
               />
               <div className="textoRubro">
                 {tipo_prod}
@@ -125,7 +128,7 @@ export default function FiltrosYProductos(props) {
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.cod_int} className="col-md-3 producto">
-              <CardProducto cod_int={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle}/>
+              <CardProducto cod_int={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle} />
             </div>
           ))}
         </div>
@@ -152,15 +155,23 @@ export default function FiltrosYProductos(props) {
           </svg>
 
         </button>
-        {numerosDePagina.map((numero) => (
-          <button
-            key={numero}
-            onClick={() => paginar(numero)}
-            className={paginaActual === numero ? 'pagina-actual botonPaginacion button' : 'button botonPaginacion'}
-          >
-            {numero}
-          </button>
-        ))}
+        {numerosDePagina.map((numero) => {
+          const diff = Math.abs(numero - paginaActual);
+
+          const mostrarPagina = totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
+
+          return (
+            mostrarPagina && (
+              <button
+                key={numero}
+                onClick={() => paginar(numero)}
+                className={paginaActual === numero ? 'pagina-actual botonPaginacion button' : 'button botonPaginacion'}
+              >
+                {numero}
+              </button>
+            )
+          );
+        })}
         <button
           className="botonAntSig button"
           onClick={() => paginar(paginaActual + 1)}
