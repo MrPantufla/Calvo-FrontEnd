@@ -3,9 +3,8 @@ import './carrito.css';
 import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../context.jsx';
 import { Collapse, Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { productos } from '../../productos.js';
 
-export default function Carrito() {
+export default function Carrito(props) {
   const { elementos, añadirElemento } = useCarrito();
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
@@ -19,11 +18,7 @@ export default function Carrito() {
 
   const agregarProductoConTexto = (codigo) => {
     const [codigoSinCantidad, cantidad] = codigo.split(' ');
-    console.log("codigoSinCantidad " + codigoSinCantidad);
-    console.log("cantidad " + cantidad);
-    const productoExistente = productos.find((producto) => producto.cod_int === parseInt(codigoSinCantidad));
-    
-    console.log(productoExistente);
+    const productoExistente = props.json.find((producto) => producto.cod_orig == (codigoSinCantidad));
     
     const cantidadNumero = (cantidad) => {
       if ((/^[0-9]+$/.test(cantidad)) || cantidad==null){
@@ -35,7 +30,7 @@ export default function Carrito() {
     }
 
     let band = cantidadNumero(cantidad);
-    console.log("band: " + band)
+    
     if (productoExistente && band) {
       const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1;
       añadirElemento(productoExistente.cod_int, productoExistente.detalle, cantidadAAgregar, 777);

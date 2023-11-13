@@ -1,5 +1,4 @@
 import './filtrosYProductos.css';
-import { productos } from '../../productos.js';//Este es el json anterior
 import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 
@@ -9,30 +8,10 @@ export default function FiltrosYProductos(props) {
   const itemsPorPagina = 20;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
-  const [jsonProductos, setJsonProductos] = useState([]);
-  const srubrosUnicos = [...new Set(jsonProductos.map((producto) => producto.srubro))];
-  const tiposUnicos = [...new Set(jsonProductos.map((producto) => producto.tipo_prod))];
+  const srubrosUnicos = [...new Set(props.json.map((producto) => producto.srubro))];
+  const tiposUnicos = [...new Set(props.json.map((producto) => producto.tipo_prod))];
   const [tiposActivos, setTiposActivos] = useState([]);
   const [subrubrosActivos, setSubrubrosActivos] = useState([]);
-
-
-  useEffect(() => {
-    obtenerProductosFiltrados();
-  }, []);
-
-  const obtenerProductosFiltrados = async (tipo_prod) => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/productos`);
-      if (response.ok) {
-        const productosObtenidos = await response.json();
-        setJsonProductos(productosObtenidos);
-      } else {
-        console.error('Error al obtener productos filtrados:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error en la solicitud:', error);
-    }
-  }
 
   const paginar = (numeroDePagina) => {
     setPaginaActual(numeroDePagina);
@@ -62,7 +41,7 @@ export default function FiltrosYProductos(props) {
     }
   }
 
-  const listaFiltrada = jsonProductos.filter((p) => {
+  const listaFiltrada = props.json.filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
@@ -81,7 +60,7 @@ export default function FiltrosYProductos(props) {
         <input
           className="busqueda"
           type="text"
-          placeholder="Buscar por código interno o detalle"
+          placeholder="Buscar por código o nombre"
           value={busqueda}
           onChange={(e) => {
             setBusqueda(e.target.value);
@@ -172,6 +151,7 @@ export default function FiltrosYProductos(props) {
             )
           );
         })}
+
         <button
           className="botonAntSig button"
           onClick={() => paginar(paginaActual + 1)}
