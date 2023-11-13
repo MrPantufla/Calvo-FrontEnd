@@ -65,8 +65,9 @@ export default function FiltrosYProductos(props) {
   const listaFiltrada = jsonProductos.filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
-    const buscaPorCodInt = p.cod_orig.toString().includes(busqueda);
-    return tipoCumple && subrubroCumple && (busqueda === '' || buscaPorCodInt);
+    const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
+    const buscarPorDetalle= p.detalle.includes(busqueda);
+    return tipoCumple && subrubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle);
   });
 
   const itemsActuales = listaFiltrada.slice(indexPrimerItem, indexUltimoItem);
@@ -124,7 +125,7 @@ export default function FiltrosYProductos(props) {
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.cod_int} className="col-md-3 producto">
-              <CardProducto cod_int={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro}/>
+              <CardProducto cod_int={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle}/>
             </div>
           ))}
         </div>

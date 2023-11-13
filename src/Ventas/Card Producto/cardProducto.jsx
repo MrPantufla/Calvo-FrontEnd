@@ -24,6 +24,9 @@ export default function CardProducto(args) {
       <div className="imagenContainer">
         <img className="imagenProducto" src={perfil} alt="Producto"></img>
       </div>
+      <div className="detalle">
+        <h3>{args.detalle}</h3>
+      </div>
       <div className="cantidad">
         <button className="boton" onClick={restarContador}>-</button>
         <span>{cantidad}</span>
