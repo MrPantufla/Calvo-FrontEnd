@@ -2,6 +2,7 @@ import Filtros from './FiltrosYProductos/filtrosYProductos';
 import Header from '../Principal/Header/header.jsx';
 import Carrito from './Carrito/carrito';
 import { useState, useEffect } from 'react';
+import Footer from '../Principal/Footer/footer.jsx';
 
 export default function Ventas(){
     const [jsonProductos, setJsonProductos] = useState([]);
@@ -29,6 +30,7 @@ export default function Ventas(){
             <Header/>
             <Carrito json={jsonProductos}/>
             <Filtros json={jsonProductos}/>
+            <Footer/>
         </>
     );
 }
