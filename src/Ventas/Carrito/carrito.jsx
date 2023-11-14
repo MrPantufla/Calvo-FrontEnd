@@ -5,7 +5,7 @@ import { useCarrito } from '../../context.jsx';
 import { Collapse, Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default function Carrito(props) {
-  const { elementos, añadirElemento } = useCarrito();
+  const { elementos, añadirElemento, limpiarCarrito } = useCarrito();
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
@@ -51,6 +51,24 @@ export default function Carrito(props) {
     return elementos.reduce((total, elemento) => total + elemento.precio * elemento.cantidad, 0);
   };
 
+  const confirmarCompra = () => {
+    fetch('http://localhost:8080/api/recibirCarrito', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ elementos }),
+      credentials: 'include',
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Respuesta: ', data)
+    })
+    .catch(error => {
+      console.log("Ocurrió un error al enviar los datos: ", error)
+    })
+  }
+
   return (
     <div className="contenedorPrincipalCarrito">
       <Button onClick={toggleCarrito} variant="primary">
@@ -95,7 +113,7 @@ export default function Carrito(props) {
           ) : (
             elementos.map((elemento, index) => (
               <CardCarrito
-                key={elemento.id}
+                key={index}
                 cod_orig={elemento.cod_orig}
                 cantidad={elemento.cantidad}
                 precio={elemento.precio}
@@ -103,7 +121,7 @@ export default function Carrito(props) {
               />
             ))
           )}
-          <Button className="confirmarCarrito">Confirmar compra (${calcularTotal(elementos)})</Button>
+          <Button className="confirmarCarrito" onClick={() => {confirmarCompra(); limpiarCarrito()}}>Confirmar compra (${calcularTotal(elementos)})</Button>
         </div>
       </Collapse>
     </div>

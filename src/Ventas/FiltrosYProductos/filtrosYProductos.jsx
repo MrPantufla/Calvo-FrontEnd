@@ -49,8 +49,6 @@ export default function FiltrosYProductos(props) {
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
-    console.log("tiposActivos: " + tiposActivos);
-    console.log("subrubrosActivos" + subrubrosActivos);
     return tipoCumple && subrubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle);
   });
 
@@ -111,8 +109,8 @@ export default function FiltrosYProductos(props) {
       <div className="productos">
         <div className="row">
           {itemsActuales.map((producto) => (
-            <div key={producto.cod_id} className="col-md-3 producto">
-              <CardProducto cod_orig={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle} />
+            <div key={producto.id} className="col-md-3 producto">
+              <CardProducto cod_orig={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle} key={producto.id}/>
             </div>
           ))}
         </div>

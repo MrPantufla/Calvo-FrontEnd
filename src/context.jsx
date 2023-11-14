@@ -49,8 +49,12 @@ function CarritoProvider({ children }) {
     }
   }
 
+  function limpiarCarrito(){
+    setElementos([]);
+  }
+
   return (
-    <CarritoContext.Provider value={{ elementos, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{ elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );
