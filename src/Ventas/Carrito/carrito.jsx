@@ -16,8 +16,8 @@ export default function Carrito(props) {
     setCarritoAbierto(!carritoAbierto);
   }
 
-  const agregarProductoConTexto = (codigo) => {
-    const [codigoSinCantidad, cantidad] = codigo.split(' ');
+  const agregarProductoConTexto = (cod_orig) => {
+    const [codigoSinCantidad, cantidad] = cod_orig.split(' ');
     const productoExistente = props.json.find((producto) => producto.cod_orig == (codigoSinCantidad));
 
     const cantidadNumero = (cantidad) => {
@@ -95,8 +95,8 @@ export default function Carrito(props) {
           ) : (
             elementos.map((elemento, index) => (
               <CardCarrito
-                key={elemento.codigo}
-                codigo={elemento.codigo}
+                key={elemento.id}
+                cod_orig={elemento.cod_orig}
                 cantidad={elemento.cantidad}
                 precio={elemento.precio}
                 nombre={elemento.detalle}

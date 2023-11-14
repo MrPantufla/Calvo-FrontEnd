@@ -5,7 +5,7 @@ import { useCarrito } from '../../context.jsx';
 
 export default function CardProducto(args) {
   const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
-  const elementoExistente = elementosCarrito.find((elemento) => elemento.codigo === args.cod_orig);
+  const elementoExistente = elementosCarrito.find((elemento) => elemento.cod_orig === args.cod_orig);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
 
   const sumarContador = () => {

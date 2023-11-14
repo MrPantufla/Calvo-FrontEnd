@@ -8,26 +8,26 @@ export default function CardCarrito(args){
 
     const handleRestarCantidad = () => {
         if (args.cantidad > 1) {
-          actualizarCantidadElemento(args.codigo, args.cantidad - 1);
+          actualizarCantidadElemento(args.cod_orig, args.cantidad - 1);
         } 
         else {
-          restarElemento(args.codigo);
+          restarElemento(args.cod_orig);
         }
     }
 
     const handleSumarCantidad = () => {
-        actualizarCantidadElemento(args.codigo, args.cantidad + 1);
+        actualizarCantidadElemento(args.cod_orig, args.cantidad + 1);
     }
 
     const handleEliminar = () => {
-        eliminarElemento(args.codigo);
+        eliminarElemento(args.cod_orig);
     }
 
     return(
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
                 <img className="imagenCardCarrito" src={perfil} />
-                <p className="codigo">{args.codigo}</p>
+                <p className="codigo">{args.cod_orig}</p>
             </div>
             <div className="textoCardCarrito">
                 <p>{args.nombre}</p>

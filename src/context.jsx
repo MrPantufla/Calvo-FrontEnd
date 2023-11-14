@@ -9,39 +9,39 @@ function useCarrito() {
 function CarritoProvider({ children }) {
   const [elementos, setElementos] = useState([]);
   
-  function añadirElemento(codigo, detalle, cantidad, precio) {
-    const elementoExistente = elementos.find((elemento) => elemento.codigo === codigo);
+  function añadirElemento(cod_orig, detalle, cantidad, precio) {
+    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
 
     if (elementoExistente) {
       elementoExistente.cantidad += cantidad;
       setElementos([...elementos]);
     } else {
-      const nuevoElemento = { codigo, detalle, cantidad, precio };
+      const nuevoElemento = { cod_orig, detalle, cantidad, precio };
       setElementos([...elementos, nuevoElemento]);
     }
   }
 
-  function restarElemento(codigo) {
-    const elementoExistente = elementos.find((elemento) => elemento.codigo === codigo);
+  function restarElemento(cod_orig) {
+    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
 
     if (elementoExistente.cantidad > 1) {
       elementoExistente.cantidad -= 1;
       setElementos([...elementos]);
     } else {
-      setElementos((prevElementos) => prevElementos.filter((elemento) => elemento.codigo !== codigo));
+      setElementos((prevElementos) => prevElementos.filter((elemento) => elemento.cod_orig !== cod_orig));
     }
   }
 
-  function eliminarElemento(codigo){
-    const elementoExistente = elementos.find((elemento) => elemento.codigo === codigo);
+  function eliminarElemento(cod_orig){
+    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
     while(elementoExistente.cantidad!==1){
-      restarElemento(codigo);
+      restarElemento(cod_orig);
     }
-    restarElemento(codigo);
+    restarElemento(cod_orig);
   }
 
-  function actualizarCantidadElemento(codigo, nuevaCantidad) {
-    const elementoExistente = elementos.find((elemento) => elemento.codigo === codigo);
+  function actualizarCantidadElemento(cod_orig, nuevaCantidad) {
+    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
 
     if (elementoExistente) {
       elementoExistente.cantidad = nuevaCantidad;
