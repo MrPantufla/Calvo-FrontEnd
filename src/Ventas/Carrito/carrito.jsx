@@ -10,7 +10,7 @@ export default function Carrito(props) {
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
 
-  const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: 1905 2";
+  const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
 
   const toggleCarrito = () => {
     setCarritoAbierto(!carritoAbierto);
