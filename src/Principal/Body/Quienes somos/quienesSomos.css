@@ -89,13 +89,33 @@
     .imagenQuienesSomos{
         width: 100%;
     }
+
+    .tituloYPoligono h2{
+        font-size: 2.4rem;
+    }
+
+    .parrafoQuienesSomos{
+        font-size: 2rem;
+    }
+
+    .contenedorPrincipalQuienesSomos{
+        height: 77rem;
+    }
+
+    .fondoContainer{
+        width: 90%;
+    }
+
+    .textoQuienesSomos{
+        width: 95%;
+    }
 }
 
 @media (max-width: 540px){
     .imagenQuienesSomosContainer{
         display: flex;
         align-items: center;
-    }
+    } 
 }
 
 @media (max-width: 430px){
@@ -116,11 +136,43 @@
     .fondoContainer{
         justify-content: space-between;
     }
+
+    .contenedorPrincipalQuienesSomos{
+        height: 64rem;
+    }
+}
+
+@media (max-width: 390px){
+    .tituloYPoligono h2{
+        font-size: 3rem;
+    }
+
+    .parrafoQuienesSomos{
+        font-size: 2.4rem;
+    }
+
+    .contenedorPrincipalQuienesSomos{
+        height: 76.5rem;
+    }
+}
+
+@media (max-width: 360px){
+    .tituloYPoligono h2{
+        font-size: 3rem;
+    }
+
+    .parrafoQuienesSomos{
+        font-size: 2.4rem;
+    }
+
+    .contenedorPrincipalQuienesSomos{
+        height: 86rem;
+    }
 }
 
 @media (max-width: 280px){
     .contenedorPrincipalQuienesSomos{
-        height: 57rem;
+        height: 94rem;
     }
 }
 
