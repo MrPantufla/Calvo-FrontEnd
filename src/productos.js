@@ -1,134 +1,86 @@
 export const productos = [
     {
-        cod_int: 1,
-        rubro: 1,
+        id: 1,
+        cod_orig: 1,
+        tipo_prod: 1,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 2,
-        rubro: 1,
+        id: 2,
+        cod_orig: 2,
+        tipo_prod: 2,
         srubro: 2,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 3,
-        rubro: 2,
+        id: 3,
+        cod_orig: 3,
+        tipo_prod: 2,
         srubro: 2,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 4,
-        rubro: 1,
+        id: 4,
+        cod_orig: 4,
+        tipo_prod: 2,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 5,
-        rubro: 2,
-        srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 6,
-        rubro: 2,
-        srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 7,
-        rubro: 2,
-        srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 8,
-        rubro: 1,
+        id: 5,
+        cod_orig: 5,
+        tipo_prod: 1,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 9,
-        rubro: 2,
-        srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 10,
-        rubro: 1,
+        id: 6,
+        cod_orig: 6,
+        tipo_prod: 2,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 11,
-        rubro: 2,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 12,
-        rubro: 2,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 13,
-        rubro: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 14,
-        rubro: 2,
+        id: 7,
+        cod_orig: 7,
+        tipo_prod: 1,
         srubro: 2,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 15,
-        rubro: 1,
+        id: 8,
+        cod_orig: 8,
+        tipo_prod: 2,
         srubro: 2,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 16,
-        rubro: 1,
+        id: 9,
+        cod_orig: 9,
+        tipo_prod: 1,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 17,
-        rubro: 1,
-        srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 18,
-        rubro: 2,
+        id: 10,
+        cod_orig: 10,
+        tipo_prod: 2,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 19,
-        rubro: 2,
-        srubro: 2,
+        id: 11,
+        cod_orig: 11,
+        tipo_prod: 2,
+        srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     },
     {
-        cod_int: 20,
-        rubro: 2,
-        srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 21,
-        rubro: 3,
-        srubro: 3,
-        detalle: "textoDepruebaasdjkashgdjas"
-    },
-    {
-        cod_int: 22,
-        rubro: 4,
-        srubro: 4,
+        id: 12,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
     }
 ]
