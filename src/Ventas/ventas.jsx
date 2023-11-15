@@ -29,8 +29,8 @@ export default function Ventas(){
     return(
         <>
             <Header/>
-            <Carrito json={productos}/>
-            <Filtros json={productos}/>
+            <Carrito json={jsonProductos}/>
+            <Filtros json={jsonProductos}/>
             <Footer/>
         </>
     );
