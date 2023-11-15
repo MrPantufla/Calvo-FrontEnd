@@ -38,8 +38,14 @@
 }
 
 .busqueda{
-    width: 25%;
+    width: 22%;
+    height: 3rem;
     position: fixed;
+    font-size: 2rem;
+}
+
+.busqueda::placeholder{
+    font-size: 2rem;
 }
 
 .paginacion{
