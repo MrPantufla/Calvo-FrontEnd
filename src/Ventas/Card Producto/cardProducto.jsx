@@ -8,18 +8,20 @@ export default function CardProducto(args) {
   const elementoExistente = elementosCarrito.find((elemento) => elemento.cod_orig === args.cod_orig);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
 
-  const sumarContador = () => {
+  const sumarContador = (event) => {
+    event.stopPropagation();
     añadirElemento(args.cod_orig, args.detalle, 1, 777);
   }
 
-  const restarContador = () => {
+  const restarContador = (event) => {
+    event.stopPropagation();
     if (cantidad > 0) {
       restarElemento(args.cod_orig);
     }
   }
 
   return(
-    <div className="card">
+    <div className="card" onClick={args.onClick}>
       <p className="cod_orig">{args.cod_orig}</p>
       <div className="imagenContainer">
         <img className="imagenProducto" src={perfil} alt="Producto"></img>
