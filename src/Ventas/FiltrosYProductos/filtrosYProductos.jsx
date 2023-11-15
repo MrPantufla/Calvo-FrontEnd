@@ -1,6 +1,7 @@
 import './filtrosYProductos.css';
 import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
+import ProductoGrande from './productoGrande';
 
 export default function FiltrosYProductos(props) {
   const [busqueda, setBusqueda] = useState('');
@@ -12,6 +13,15 @@ export default function FiltrosYProductos(props) {
   const tiposUnicos = [...new Set(props.json.map((producto) => producto.tipo_prod))];
   const [tiposActivos, setTiposActivos] = useState([]);
   const [subrubrosActivos, setSubrubrosActivos] = useState([]);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  const handleClickProducto = (producto) => {
+    setProductoSeleccionado(producto);
+  };
+
+  const handleCloseProductoGrande = () => {
+    setProductoSeleccionado(null);
+  };
 
   const paginar = (numeroDePagina) => {
     setPaginaActual(numeroDePagina);
@@ -33,7 +43,7 @@ export default function FiltrosYProductos(props) {
       }
     });
   }
-  
+
   function toggleSubrubro(subrubro) {
     setSubrubrosActivos(prevSubrubrosActivos => {
       if (prevSubrubrosActivos.includes(subrubro)) {
@@ -43,7 +53,7 @@ export default function FiltrosYProductos(props) {
       }
     });
   }
-  
+
   const listaFiltrada = props.json.filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
@@ -110,17 +120,36 @@ export default function FiltrosYProductos(props) {
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.id} className="col-md-3 producto">
-              <CardProducto cod_orig={producto.cod_orig} tipo_prod={producto.tipo_prod} srubro={producto.srubro} detalle={producto.detalle} key={producto.id}/>
+              <CardProducto
+                cod_orig={producto.cod_orig}
+                tipo_prod={producto.tipo_prod}
+                srubro={producto.srubro}
+                detalle={producto.detalle}
+                key={producto.id}
+                onClick={() => {
+                  handleClickProducto(producto);
+                  console.log("productoSeleciconadoEnRender : " + productoSeleccionado)
+                }}
+              />
             </div>
           ))}
         </div>
       </div>
+
+      {productoSeleccionado && (
+        <ProductoGrande
+          cod_orig={productoSeleccionado.cod_orig}
+          detalle={productoSeleccionado.detalle}
+          onClose={handleCloseProductoGrande}
+        />
+      )}
+
       <div className="paginacion">
-        <button 
+        <button
           className="botonAntSig button paginaExtremo"
           onClick={() => paginar(1)}
           disabled={paginaActual === 1}
-          >
+        >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
@@ -182,11 +211,11 @@ export default function FiltrosYProductos(props) {
             />
           </svg>
         </button>
-        <button 
+        <button
           className="botonAntSig button paginaExtremo ultimaPagina"
           onClick={() => paginar(totalPaginas)}
           disabled={paginaActual === totalPaginas}
-          >
+        >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
