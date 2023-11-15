@@ -96,11 +96,14 @@
     width: 5rem;
     text-align: left;
     padding-left: 0.8rem;
+    margin-right: -1rem;
 }
 
 .ultimaPagina{
     transform: scaleX(-1);
     clip-path: polygon(0 0, 100% 0, calc(100% - 2.7rem) 100%, 0 100%);
+    margin-right: 0;
+    margin-left: -1rem;
 }
 
 .primeraPagina{
