@@ -17,6 +17,7 @@
     background-color: white;
     height: 80%;
     width: 80%;
+    display: flex;
 }
 
 .botonCerrarContainer button{
@@ -26,4 +27,17 @@
     position: absolute;
     right: 17rem;
     top: 9.5rem;
+}
+
+.imagenProductoGrande{
+    width: 50rem;
+}
+
+.contenedorPrincipalProductoGrande h1{
+    text-align: center;
+    font-size: 4rem;
+}
+
+.contenedorPrincipalProductoGrande h2{
+    text-align: center;
 }

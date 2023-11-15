@@ -39,7 +39,7 @@ export default function ProductoGrande(props) {
                         <h2>{props.detalle}</h2>
                         <p>asdmhasfdhasfdhasgdv</p>
                     </div>
-                    <img src={perfil} />
+                    <img className="imagenProductoGrande" src={perfil} />
                     <div className="cantidad">
                         <button className="boton" onClick={restarContador}>-</button>
                         <span>{cantidad}</span>
