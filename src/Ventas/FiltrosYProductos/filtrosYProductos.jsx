@@ -107,6 +107,7 @@ export default function FiltrosYProductos(props) {
                 checked={subrubrosActivos.includes(subrubro)}
                 onChange={() => toggleSubrubro(subrubro)}
                 onClick={handleScrollClick}
+                disabled={tiposActivos.length==0}
               />
               <div className="textoSubrubro">
                 Subrubro {subrubro}
