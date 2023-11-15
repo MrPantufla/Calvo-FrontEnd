@@ -1,0 +1,11 @@
+.contenedorPrincipalProductoGrande{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(81 81 81 0.5);
+}
+
+.parteUtilizableProductoGrande{
+    background-color: white;
+}
+
