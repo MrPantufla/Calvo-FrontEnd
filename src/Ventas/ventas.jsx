@@ -3,6 +3,7 @@ import Header from '../Principal/Header/header.jsx';
 import Carrito from './Carrito/carrito';
 import { useState, useEffect } from 'react';
 import Footer from '../Principal/Footer/footer.jsx';
+import { productos } from '../productos.js'; //Por si la base de datos no anda
 
 export default function Ventas(){
     const [jsonProductos, setJsonProductos] = useState([]);
