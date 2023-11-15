@@ -52,7 +52,7 @@
     margin: 2rem 0;
     border: none;
     background-color: white;
-    font-weight: 600;
+    font-weight: 650;
     height: 3rem;
     width: 7rem;
     color: var(--colorSecundario);
@@ -90,10 +90,6 @@
     width: 5rem;
     text-align: left;
     padding-left: 0.8rem;
-}
-
-.paginaExtremo:disabled{
-
 }
 
 .ultimaPagina{
