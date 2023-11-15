@@ -146,7 +146,7 @@ export default function FiltrosYProductos(props) {
 
       <div className="paginacion">
         <button
-          className="botonAntSig button paginaExtremo"
+          className="button paginaExtremo primeraPagina"
           onClick={() => paginar(1)}
           disabled={paginaActual === 1}
         >
@@ -211,8 +211,9 @@ export default function FiltrosYProductos(props) {
             />
           </svg>
         </button>
+
         <button
-          className="botonAntSig button paginaExtremo ultimaPagina"
+          className="button paginaExtremo ultimaPagina"
           onClick={() => paginar(totalPaginas)}
           disabled={paginaActual === totalPaginas}
         >
