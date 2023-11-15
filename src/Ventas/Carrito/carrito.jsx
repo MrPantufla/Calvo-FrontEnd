@@ -60,7 +60,7 @@ export default function Carrito(props) {
       body: JSON.stringify({ elementos }),
       credentials: 'include',
     })
-    .then(response => response.json())
+    .then(response => response.text())
     .then(data => {
       console.log('Respuesta: ', data)
     })
