@@ -129,7 +129,6 @@ export default function FiltrosYProductos(props) {
                 key={producto.id}
                 onClick={() => {
                   handleClickProducto(producto);
-                  console.log("productoSeleciconadoEnRender : " + productoSeleccionado)
                 }}
               />
             </div>
