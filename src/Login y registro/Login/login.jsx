@@ -7,17 +7,25 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = () => {
-    const emailCorrecto = cuentas.find((account) => account.email === email);
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, contrasenia: password }),
+      });
 
-    if (emailCorrecto) {
-      if (emailCorrecto.password === password) {
-        console.log("Ingreso exitoso");
+      if (response.ok) {
+        console.log('Ingreso exitoso');
+        // Aquí podrías redirigir al usuario a la página principal, por ejemplo.
       } else {
-        setErrorMessage("Contraseña incorrecta")
+        const data = await response.json();
+        setErrorMessage(data); // Puede variar dependiendo de cómo estés manejando los errores en tu backend.
       }
-    } else {
-      setErrorMessage('Correo electrónico incorrecto');
+    } catch (error) {
+      console.error('Error al intentar iniciar sesión:', error);
     }
   };
 
