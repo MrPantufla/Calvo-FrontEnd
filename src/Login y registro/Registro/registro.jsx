@@ -18,12 +18,21 @@ export default function Registro() {
             body: JSON.stringify(usuario),
             credentials: 'include',
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.headers.get('content-type') && response.headers.get('content-type').includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text(); // Si no es JSON, leemos la respuesta como texto.
+                }
+            })
             .then(data => {
                 console.log('Respuesta: ', data);
             })
             .catch(error => {
-                console.log('Ocurrió un error al enviar los datos: ', error);
+                console.error('Ocurrió un error al enviar los datos:', error.message);
+                if (error.message.includes('409')) {
+                    console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
+                }
             });
     };
 
