@@ -26,12 +26,18 @@ export default function Registro() {
                 }
             })
             .then(data => {
-                console.log('Respuesta: ', data);
+                if (typeof data === 'string') {
+                    console.log('Respuesta (texto): ', data);
+                    setErrorMessage(data);
+                } else {
+                    console.log('Respuesta (JSON): ', data);
+                }
             })
             .catch(error => {
                 console.error('Ocurrió un error al enviar los datos:', error.message);
                 if (error.message.includes('409')) {
                     console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
+                    setErrorMessage('El correo electrónico ya está en uso.');
                 }
             });
     };
