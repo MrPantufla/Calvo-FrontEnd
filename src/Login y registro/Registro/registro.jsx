@@ -43,19 +43,21 @@ export default function Registro() {
     };
 
     const handleRegistro = () => {
+        // Expresión regular para validar el formato del correo electrónico
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia) {
             setErrorMessage('Por favor, complete todos los campos.');
             return;
-        }
-        else{
-            if (contrasenia !== confirmContrasenia) {
-                setErrorMessage('Las contraseñas no coinciden.');
-                return;
-            }
-            else{
-                console.log('Registro exitoso');
-                confirmarRegistro();
-            }
+        } else if (!emailRegex.test(email)) {
+            setErrorMessage('Ingrese un formato de correo electrónico válido.');
+            return;
+        } else if (contrasenia !== confirmContrasenia) {
+            setErrorMessage('Las contraseñas no coinciden.');
+            return;
+        } else {
+            console.log('Registro exitoso');
+            confirmarRegistro();
         }
     };
 
