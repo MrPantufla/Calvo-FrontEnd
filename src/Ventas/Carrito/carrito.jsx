@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './carrito.css';
 import CardCarrito from './cardCarrito';
-import { useCarrito } from '../../context.jsx';
+import { useCarrito } from '../../contextCarrito.jsx';
 import { Collapse, Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default function Carrito(props) {

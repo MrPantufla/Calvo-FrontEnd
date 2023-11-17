@@ -9,14 +9,25 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
+      // Obtén los valores del formulario en lugar de los del estado
+      const loginForm = document.querySelector('#formularioLogin');
+      const emailValue = loginForm.querySelector('#email').value;
+      const passwordValue = loginForm.querySelector('#password').value;
+  
+      console.log("el email que se va a enviar es: " + emailValue);
+      console.log("la contraseña que se va a enviar es: " + passwordValue);
+  
       const response = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, contrasenia: password }),
+        body: JSON.stringify({ email: emailValue, contrasenia: passwordValue }),
       });
-
+  
+      console.log("el email que se envió es: " + emailValue);
+      console.log("la contraseña que se envió es: " + passwordValue);
+  
       if (response.ok) {
         console.log('Ingreso exitoso');
         // Aquí podrías redirigir al usuario a la página principal, por ejemplo.
@@ -33,7 +44,7 @@ export default function Login() {
     <div className="login-container">
       <h2>Iniciar Sesión</h2>
       <div className="error-message">{errorMessage}</div>
-      <form>
+      <form id="formularioLogin"> 
         <div className="form-group">
           <label htmlFor="email">Correo Electrónico:</label>
           <input
@@ -52,10 +63,21 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleLogin}>
+        <button type="button" onClick={handleLogin} id="botonLogin">
           Iniciar Sesión
         </button>
       </form>
     </div>
   );
 }
+
+const autoLogin = (email, contrasenia) => {
+  const loginForm = document.querySelector('#formularioLogin');
+  const botonLogin = loginForm.querySelector('#botonLogin');
+  loginForm.querySelector('#email').value = email;
+  loginForm.querySelector('#password').value = contrasenia;
+
+  botonLogin.click();
+};
+
+export { autoLogin };

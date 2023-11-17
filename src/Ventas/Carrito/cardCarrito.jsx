@@ -1,6 +1,6 @@
 import './cardCarrito.css';
 import perfil from '../../Imagenes/perfil.jpg';
-import { useCarrito } from '../../context.jsx'
+import { useCarrito } from '../../contextCarrito.jsx'
 
 
 export default function CardCarrito(args){

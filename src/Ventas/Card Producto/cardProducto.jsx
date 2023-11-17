@@ -1,7 +1,7 @@
 import './cardProducto.css';
 import perfil from '../../Imagenes/perfil.jpg';
 import React from 'react';
-import { useCarrito } from '../../context.jsx';
+import { useCarrito } from '../../contextCarrito.jsx';
 
 export default function CardProducto(args) {
   const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
