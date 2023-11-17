@@ -6,6 +6,7 @@ export default function Registro() {
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
     const [apellido, setApellido] = useState('');
+    const [cuit, setCuit] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -21,14 +22,10 @@ export default function Registro() {
         })
         .then(response => {
             if (response.ok) {
-                // Si la respuesta es exitosa, no intentamos parsear JSON
                 console.log('Envío de datos exitoso');
-                // Llamada a autoLogin después de un registro exitoso
-                setTimeout(autoLogin(usuario.email, usuario.contrasenia), 500);
-                // Aquí puedes hacer otras acciones si es necesario
+                autoLogin(usuario.email, usuario.contrasenia);
                 return null;
             } else {
-                // Si no es JSON, leemos la respuesta como texto
                 return response.text();
             }
         })
@@ -53,7 +50,7 @@ export default function Registro() {
         // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
-        if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia) {
+        if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit) {
             setErrorMessage('Por favor, complete todos los campos.');
             return;
         } else if (!emailRegex.test(email)) {
@@ -73,6 +70,7 @@ export default function Registro() {
         apellido: apellido,
         email: email,
         contrasenia: contrasenia,
+        cuit: cuit,
     };
 
     return (
@@ -105,6 +103,14 @@ export default function Registro() {
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="cuit" required> CUIT:</label>
+                    <input 
+                        id="cuit"
+                        value={cuit}
+                        onChange={(e) => setCuit(e.target.value)}
                     />
                 </div>
                 <div className="form-group">

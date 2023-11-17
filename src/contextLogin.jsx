@@ -1,29 +1,54 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
-  const [user, setUser] = useState({
+
+  const [state, setState] = useState({
     logueado: false,
-    emailConfirmado: false,
+    userInfo: {},
   });
 
-  const login = (userData) => {
-    setUser({
+  useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setState({
         logueado: true,
-        emailConfirmado: userData.emailConfirmado,
+        userInfo: userData,
+      });
+    }
+  }, []);
+
+  const login = (userData) => {
+    localStorage.setItem('userData', JSON.stringify(userData));
+    setState({
+      logueado: true,
+      userInfo: userData,
     });
   };
 
   const logout = () => {
-    setUser({
-        logueado: false,
-        emailConfirmado: false,
+    localStorage.removeItem('userData');
+    setState({
+      logueado: false,
+      userInfo: null,
     });
   };
 
+  const updateEmailConfirmationStatus = () => {
+    // Actualizar solo el campo email_confirmado en el estado a true
+    setState((prevState) => ({
+      ...prevState,
+      userInfo: {
+        ...prevState.userInfo,
+        email_confirmado: true,
+      },
+    }));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus }}>
       {children}
     </AuthContext.Provider>
   );
