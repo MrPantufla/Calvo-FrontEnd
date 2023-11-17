@@ -14,9 +14,6 @@ export default function Login() {
       const emailValue = loginForm.querySelector('#email').value;
       const passwordValue = loginForm.querySelector('#password').value;
   
-      console.log("el email que se va a enviar es: " + emailValue);
-      console.log("la contraseña que se va a enviar es: " + passwordValue);
-  
       const response = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: {
@@ -24,10 +21,7 @@ export default function Login() {
         },
         body: JSON.stringify({ email: emailValue, contrasenia: passwordValue }),
       });
-  
-      console.log("el email que se envió es: " + emailValue);
-      console.log("la contraseña que se envió es: " + passwordValue);
-  
+
       if (response.ok) {
         console.log('Ingreso exitoso');
         // Aquí podrías redirigir al usuario a la página principal, por ejemplo.
