@@ -49,7 +49,7 @@ export const LoginProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus }}>
-      {children}
+        {children}
     </AuthContext.Provider>
   );
 };
