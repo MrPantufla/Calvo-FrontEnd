@@ -97,10 +97,10 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="email" required>Correo Electrónico:</label>
+                    <label htmlFor="emailRegistro" required>Correo Electrónico:</label>
                     <input
-                        type="email"
-                        id="email"
+                        type="emailRegistro"
+                        id="emailRegistro"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
