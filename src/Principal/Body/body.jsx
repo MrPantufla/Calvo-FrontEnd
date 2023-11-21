@@ -4,10 +4,12 @@ import Banner from './Banner/banner.jsx';
 import InformacionYContacto from './Informacion y contacto/informacionYContacto.jsx';
 import QuienesSomos from './Quienes somos/quienesSomos.jsx';
 import './body.css';
+import LoginYRegistro from '../../Login y registro/loginYRegistro.jsx';
 
 export default function Body(){
     return(
         <div className="contenedorPrincipalBody">
+            <LoginYRegistro/>
             <Carrusel/>
             <Banner texto="NUESTROS PRODUCTOS"/>
             <Categorias/>

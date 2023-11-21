@@ -1,0 +1,32 @@
+.registro-container h2{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.form-group-registro input{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    width: 51%;
+}
+
+.form-group-registro{
+    display: flex;
+    justify-content: right;
+    padding-right: 25%;
+    font-size: 1.5rem;
+}
+
+.botonRegistroContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.botonEnviarRegistro{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+
+

@@ -6,6 +6,7 @@ import ConfirmacionCodigo from './Confirmacion codigo/confirmacionCodigo';
 import { LoginProvider, ComponentLoadedProvider } from '../contextLogin';
 import { useAuth } from '../contextLogin.jsx';
 
+
 export default function LoginYRegistro() {
     const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
     const auth = useAuth();
@@ -14,42 +15,49 @@ export default function LoginYRegistro() {
         setOpcionSeleccionada(opcion);
     };
 
-    return (
-        <div className="loginORegistro">
-            {auth.state.logueado ?
-                (<ConfirmacionCodigo />)
-                :
-                (<div className="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-                    <input
-                        type="radio"
-                        className="btn-check"
-                        name="vbtn-radio"
-                        id="vbtn-radio1"
-                        autoComplete="off"
-                        checked={opcionSeleccionada === 'login'}
-                        onChange={() => handleOpcionClick('login')}
-                    />
-                    <label className="btn btn-outline-danger" htmlFor="vbtn-radio1">
-                        Iniciar sesión
-                    </label>
+    const verEstado = () =>{
+        console.log("logueado" + auth.state.logueado);
+    }
 
-                    <input
-                        type="radio"
-                        className="btn-check"
-                        name="vbtn-radio"
-                        id="vbtn-radio2"
-                        autoComplete="off"
-                        checked={opcionSeleccionada === 'registro'}
-                        onChange={() => handleOpcionClick('registro')}
-                    />
-                    <label className="btn btn-outline-danger" htmlFor="vbtn-radio2">
-                        Registrarse
-                    </label>
-                    <div className="contenedorComponenteLogin" style={{ display: opcionSeleccionada === 'login' ? 'block' : 'none' }}>
-                        <Login/>
+    return (
+        <div className="contenedorPrincipalLoginYRegistro">
+            {auth.state.logueado ?
+                (auth.state.userInfo.email_confirmado ? <div></div> : <ConfirmacionCodigo />)
+                :
+                (<div className="botonesYFormulariosContainer">
+                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input
+                            type="radio"
+                            className="btn-check"
+                            name="btnradio"
+                            id="btnradio1"
+                            autoComplete="off"
+                            checked={opcionSeleccionada === 'login'}
+                            onChange={() => handleOpcionClick('login')}
+                        />
+                        <label className="btn btn-outline-primary" htmlFor="btnradio1">
+                            Iniciar sesión
+                        </label>
+                        <input
+                            type="radio"
+                            className="btn-check"
+                            name="btnradio"
+                            id="btnradio2"
+                            autoComplete="off"
+                            checked={opcionSeleccionada === 'registro'}
+                            onChange={() => handleOpcionClick('registro')}
+                        />
+                        <label className="btn btn-outline-primary" htmlFor="btnradio2">
+                            Registrarse
+                        </label>
                     </div>
-                    <div className="contenedorComponenteRegistro" style={{ display: opcionSeleccionada === 'registro' ? 'block' : 'none' }}>
-                        <Registro/>
+                    <div className="contenedorFormularios">
+                        <div className="contenedorComponenteLogin" style={{ display: opcionSeleccionada === 'login' ? 'block' : 'none' }}>
+                            <Login />
+                        </div>
+                        <div className="contenedorComponenteRegistro" style={{ display: opcionSeleccionada === 'registro' ? 'block' : 'none' }}>
+                            <Registro />
+                        </div>
                     </div>
                 </div>
                 )}

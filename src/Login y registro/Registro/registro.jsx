@@ -42,7 +42,7 @@ export default function Registro() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de datos exitoso');
-                        autoLogin(usuario.email, usuario.contrasenia);
+                    autoLogin(usuario.email, usuario.contrasenia);
                     return null;
                 } else {
                     return response.text();
@@ -78,7 +78,7 @@ export default function Registro() {
             <h2>Registro</h2>
             <div className="error-message">{errorMessage}</div>
             <form>
-                <div className="form-group">
+                <div className="form-group-registro">
                     <label htmlFor="nombre" required>Nombre:</label>
                     <input
                         type="text"
@@ -87,7 +87,7 @@ export default function Registro() {
                         onChange={(e) => setNombre(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group-registro">
                     <label htmlFor="apellido" required>Apellido:</label>
                     <input
                         type="text"
@@ -96,7 +96,7 @@ export default function Registro() {
                         onChange={(e) => setApellido(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group-registro">
                     <label htmlFor="emailRegistro" required>Correo Electrónico:</label>
                     <input
                         type="emailRegistro"
@@ -105,7 +105,7 @@ export default function Registro() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group-registro">
                     <label htmlFor="cuit" required> CUIT:</label>
                     <input
                         id="cuit"
@@ -113,7 +113,7 @@ export default function Registro() {
                         onChange={(e) => setCuit(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group-registro">
                     <label htmlFor="contrasenia" required>Contraseña:</label>
                     <input
                         type="password"
@@ -122,7 +122,7 @@ export default function Registro() {
                         onChange={(e) => setContrasenia(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group-registro">
                     <label htmlFor="confirmContrasenia" required>Confirmar Contraseña:</label>
                     <input
                         type="password"
@@ -131,9 +131,11 @@ export default function Registro() {
                         onChange={(e) => setConfirmContrasenia(e.target.value)}
                     />
                 </div>
-                <button type="button" onClick={handleRegistro}>
-                    Registrarse
-                </button>
+                <div className="botonRegistroContainer">
+                    <button className="botonEnviarRegistro" type="button" onClick={handleRegistro}>
+                        Registrarse
+                    </button>
+                </div>
             </form>
         </div>
     );

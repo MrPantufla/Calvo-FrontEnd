@@ -1,0 +1,21 @@
+.contenedorPrincipalLoginYRegistro {
+    position: fixed;
+    z-index: 101;
+    right: 0;
+    background-color: var(--colorPrimario);
+    top: 10rem;
+    width: 40rem;
+}
+
+.btn-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorComponenteLogin{
+    width: 100%;
+}
+
+.contenedorFormularios{
+    margin-top: 2rem;
+}

@@ -42,11 +42,16 @@ export default function Login() {
     }
   };
 
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault(); // Evita la recarga de la página al enviar el formulario
+    await handleLogin();
+  };
+
   return (
     <div className="login-container">
       <h2>Iniciar Sesión</h2>
       <div className="error-message">{errorMessage}</div>
-      <form id="formularioLogin">
+      <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
         <div className="form-group">
           <label htmlFor="email">Correo Electrónico:</label>
           <input
@@ -65,9 +70,11 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleLogin} id="botonLogin">
-          Iniciar Sesión
-        </button>
+        <div className="botonLoginContainer">
+          <button className="botonEnviarLogin" type="submit" id="botonLogin">
+            Iniciar Sesión
+          </button>
+        </div>
       </form>
     </div>
   );
