@@ -42,7 +42,7 @@ export default function Registro() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de datos exitoso');
-                    autoLogin(usuario.email, usuario.contrasenia);
+                        autoLogin(usuario.email, usuario.contrasenia);
                     return null;
                 } else {
                     return response.text();
@@ -63,6 +63,7 @@ export default function Registro() {
                 }
             });
     };
+
 
     const usuario = {
         nombre: nombre,
