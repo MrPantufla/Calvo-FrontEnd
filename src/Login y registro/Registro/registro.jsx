@@ -91,7 +91,7 @@ export default function Registro() {
                     <label htmlFor="apellido" required>Apellido:</label>
                     <input
                         type="text"
-                        id="nombre"
+                        id="apellido"
                         value={apellido}
                         onChange={(e) => setApellido(e.target.value)}
                     />
