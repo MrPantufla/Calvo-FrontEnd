@@ -40,6 +40,7 @@ export default function ConfirmacionCodigo() {
   return (
     <div className="contenedorPrincipalConfirmacionCodigo">
       <form>
+        <p>El código de confirmación fue enviado a {userData.email}</p>
         <div className="form-group">
           <label htmlFor="codigo" required></label>
           <input

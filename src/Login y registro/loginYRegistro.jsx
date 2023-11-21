@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Login from './Login/login';
 import Registro from './Registro/registro';
 import ConfirmacionCodigo from './Confirmacion codigo/confirmacionCodigo';
-import { LoginProvider } from '../contextLogin';
+import { LoginProvider, ComponentLoadedProvider } from '../contextLogin';
 import { useAuth } from '../contextLogin.jsx';
 
 export default function LoginYRegistro() {
@@ -45,12 +45,14 @@ export default function LoginYRegistro() {
                     <label className="btn btn-outline-danger" htmlFor="vbtn-radio2">
                         Registrarse
                     </label>
-                    {opcionSeleccionada === 'login' ? <Login /> : <Registro/>}
+                    <div className="contenedorComponenteLogin" style={{ display: opcionSeleccionada === 'login' ? 'block' : 'none' }}>
+                        <Login/>
+                    </div>
+                    <div className="contenedorComponenteRegistro" style={{ display: opcionSeleccionada === 'registro' ? 'block' : 'none' }}>
+                        <Registro/>
+                    </div>
                 </div>
                 )}
-
-
-            
         </div>
     );
 }
