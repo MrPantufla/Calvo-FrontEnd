@@ -11,45 +11,10 @@ export default function Registro() {
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const confirmarRegistro = () => {
-        fetch('http://localhost:8080/api/registro', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(usuario),
-            credentials: 'include',
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log('Envío de datos exitoso');
-                autoLogin(usuario.email, usuario.contrasenia);
-                return null;
-            } else {
-                return response.text();
-            }
-        })
-        .then(data => {
-            if (data !== null) {
-                console.log('Respuesta (texto): ', data);
-                setErrorMessage(data);
-                // Aquí puedes manejar la respuesta según tus necesidades
-            }
-        })
-        .catch(error => {
-            console.error('Ocurrió un error al enviar los datos:', error.message);
-            if (error.message.includes('409')) {
-                console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
-                setErrorMessage('El correo electrónico ya está en uso.');
-            }
-        });
-    };
-    
-    
     const handleRegistro = () => {
         // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit) {
             setErrorMessage('Por favor, complete todos los campos.');
             return;
@@ -63,6 +28,40 @@ export default function Registro() {
             console.log('Registro exitoso');
             confirmarRegistro();
         }
+    };
+
+    const confirmarRegistro = () => {
+        fetch('http://localhost:8080/api/registro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuario),
+            credentials: 'include',
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Envío de datos exitoso');
+                    autoLogin(usuario.email, usuario.contrasenia);
+                    return null;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data !== null) {
+                    console.log('Respuesta (texto): ', data);
+                    setErrorMessage(data);
+                    // Aquí puedes manejar la respuesta según tus necesidades
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al enviar los datos:', error.message);
+                if (error.message.includes('409')) {
+                    console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
+                    setErrorMessage('El correo electrónico ya está en uso.');
+                }
+            });
     };
 
     const usuario = {
@@ -107,7 +106,7 @@ export default function Registro() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="cuit" required> CUIT:</label>
-                    <input 
+                    <input
                         id="cuit"
                         value={cuit}
                         onChange={(e) => setCuit(e.target.value)}

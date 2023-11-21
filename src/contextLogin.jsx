@@ -14,7 +14,7 @@ export const LoginProvider = ({ children }) => {
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
       setState({
-        logueado: true,
+        logueado: false,
         userInfo: userData,
       });
     }
