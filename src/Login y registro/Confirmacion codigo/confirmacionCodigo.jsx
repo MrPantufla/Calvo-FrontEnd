@@ -36,22 +36,22 @@ export default function ConfirmacionCodigo() {
     }
   };
 
-
   return (
     <div className="contenedorPrincipalConfirmacionCodigo">
       <form>
-        <p>El código de confirmación fue enviado a {userData.email}</p>
+        <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
         <div className="form-group">
-          <label htmlFor="codigo" required></label>
+          <label htmlFor="codigo" required/>
           <input
             type="text"
             id="codigo"
             value={codigoConfirmacion}
             onChange={(e) => setCodigoConfirmacion(e.target.value)}
+            placeholder='Código de confirmación'
           />
         </div>
         <button type="button" onClick={enviarCodigo}>
-          Enviar código
+          Confirmar
         </button>
       </form>
     </div>

@@ -1,3 +1,4 @@
+import './loginYRegistro.css';
 import React, { useState } from 'react';
 import Login from './Login/login';
 import Registro from './Registro/registro';
@@ -27,7 +28,6 @@ export default function LoginYRegistro() {
                         autoComplete="off"
                         checked={opcionSeleccionada === 'login'}
                         onChange={() => handleOpcionClick('login')}
-                        onClick={console.log(auth.state)}
                     />
                     <label className="btn btn-outline-danger" htmlFor="vbtn-radio1">
                         Iniciar sesión

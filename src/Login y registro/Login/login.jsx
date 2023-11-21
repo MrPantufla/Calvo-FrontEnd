@@ -31,8 +31,6 @@ export default function Login() {
       if (response.ok) {
         const userData = await response.json();
         auth.login(userData);
-        console.log(userData);
-
         console.log('Ingreso exitoso');
         // Otras acciones después del inicio de sesión
       } else {
