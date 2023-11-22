@@ -8,6 +8,8 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const auth = useAuth();
 
+  const { verifyToken } = useAuth();
+
   const handleLogin = async () => {
     try {
       if (!auth || !auth.login) {
@@ -30,9 +32,23 @@ export default function Login() {
 
       if (response.ok) {
         const userData = await response.json();
-        auth.login(userData);
-        console.log('Ingreso exitoso');
-        // Otras acciones después del inicio de sesión
+        console.log('Token recibido del servidor:', userData.token);
+        // Verificar el token en el frontend antes de realizar acciones adicionales
+        const isTokenValid = verifyToken(userData.token);
+
+        if (isTokenValid) {
+          // Almacenar el token en el contexto de autenticación
+          auth.login({ token: userData.token });
+
+          // Puedes almacenar usuarioParaDevolver en otro contexto o estado según tus necesidades
+          // Ejemplo: setUserDetails(usuarioParaDevolver);
+
+          console.log('Ingreso exitoso');
+          // Otras acciones después del inicio de sesión
+        } else {
+          console.error('Token inválido');
+          // Lógica para manejar un token inválido, por ejemplo, redirigir a la página de inicio de sesión
+        }
       } else {
         const data = await response.json();
         setErrorMessage(data);
