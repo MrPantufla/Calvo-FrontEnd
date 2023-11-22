@@ -32,16 +32,16 @@ export default function Contacto() {
             <form action="http://localhost:8080/procesarFormulario" method="post" onSubmit={handleSubmit}>
                 {formError && <p className="errorFormulario">Debes seleccionar al menos una opción (Email o Teléfono).</p>}
                 <div className="inputContainer">
-                    <label htmlFor="nombre" className="colocar_nombre">
+                    <label htmlFor="nombreYApellido" className="colocar_nombre">
                         NOMBRE Y APELLIDO:
                     </label>
-                    <input type="text" name="nombre" id="nombre" required placeholder="Nombre y Apellido" />
+                    <input type="text" name="nombreYApellido" id="nombreYApellido" required placeholder="Nombre y Apellido" />
                 </div>
                 <div className="inputContainer">
-                    <label htmlFor="email" className="colocar_email">
+                    <label htmlFor="emailFormulario" className="colocar_email">
                         E-MAIL:
                     </label>
-                    <input type="email" name="email" id="email" required={emailChecked} placeholder="Email" />
+                    <input type="email" name="emailFormulario" id="emailFormulario" required={emailChecked} placeholder="Email" />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="telefono" className="colocar_telefono">
