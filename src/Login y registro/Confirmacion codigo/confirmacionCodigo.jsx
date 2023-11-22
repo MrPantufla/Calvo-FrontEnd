@@ -7,9 +7,9 @@ export default function ConfirmacionCodigo() {
   const [codigoConfirmacion, setCodigoConfirmacion] = useState('');
   const [mensajeRespuesta, setMensajeRespuesta] = useState('');
   const { state: userData, updateEmailConfirmationStatus } = useAuth();
-
   const enviarCodigo = async () => {
     try {
+      console.log()
       const response = await fetch('http://localhost:8080/api/confirmacionCodigo', {
         method: 'POST',
         headers: {
