@@ -47,8 +47,32 @@ export const LoginProvider = ({ children }) => {
     }));
   };
 
+  const verifyToken = async (token) => {
+    console.log(token)
+    try {
+      const response = await fetch('http://localhost:8080/api/verificarToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: token,
+      });
+  
+      if (response.ok) {
+        // En este punto, sabemos que el token es válido porque la respuesta fue exitosa (código 200)
+        return true;
+      } else {
+        console.error('Error al verificar el token en el backend');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error al verificar el token:', error);
+      return false;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus }}>
+    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken }}>
         {children}
     </AuthContext.Provider>
   );
