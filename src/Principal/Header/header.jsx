@@ -2,6 +2,7 @@ import './header.css';
 import logo from '../../Imagenes/logo calvo.png';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import Logout from '../../Logout prueba/logout';
 
 export default function Header() {
   const [headerSize, setHeaderSize] = useState(12);
@@ -63,6 +64,7 @@ export default function Header() {
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
+      <Logout/>
       <div className="row filaHeader">
         <div className="col-12 col-sm-4 logoContainer columnas">
           <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
