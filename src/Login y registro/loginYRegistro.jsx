@@ -15,14 +15,10 @@ export default function LoginYRegistro() {
         setOpcionSeleccionada(opcion);
     };
 
-    const verEstado = () =>{
-        console.log("logueado" + auth.state.logueado);
-    }
-
     return (
         <div className="contenedorPrincipalLoginYRegistro">
             {auth.state.logueado ?
-                (auth.state.userInfo.email_confirmado ? <div></div> : <ConfirmacionCodigo />)
+                (auth.state.userInfo.email_confirmado ? <div></div> : <ConfirmacionCodigo/>)
                 :
                 (<div className="botonesYFormulariosContainer">
                     <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -64,3 +60,4 @@ export default function LoginYRegistro() {
         </div>
     );
 }
+

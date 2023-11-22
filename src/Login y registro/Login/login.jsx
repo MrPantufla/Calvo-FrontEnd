@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
 
@@ -9,6 +9,19 @@ export default function Login() {
   const auth = useAuth();
 
   const { verifyToken } = useAuth();
+
+  useEffect(() => {
+    // Verificar si hay un token en el localStorage al cargar la página
+    const storedToken = localStorage.getItem('token');
+    const storedEmail = localStorage.getItem('email');
+    if (storedToken && storedEmail) {
+      const isTokenValid = verifyToken(storedToken);
+
+      if (isTokenValid) {
+        autoLogin(storedEmail, storedToken);
+      }
+    }
+  }, [verifyToken, auth]);
 
   const handleLogin = async () => {
     try {
@@ -38,13 +51,19 @@ export default function Login() {
 
         if (isTokenValid) {
           // Almacenar el token en el contexto de autenticación
-          auth.login({ token: userData.token });
+          auth.login(userData);
+          console.log(auth.state.userInfo)
 
           // Puedes almacenar usuarioParaDevolver en otro contexto o estado según tus necesidades
           // Ejemplo: setUserDetails(usuarioParaDevolver);
 
           console.log('Ingreso exitoso');
+          
           // Otras acciones después del inicio de sesión
+          localStorage.setItem('token', userData.token);
+          localStorage.setItem('email', userData.email);
+
+          console.log(auth.state.logueado)
         } else {
           console.error('Token inválido');
           // Lógica para manejar un token inválido, por ejemplo, redirigir a la página de inicio de sesión
