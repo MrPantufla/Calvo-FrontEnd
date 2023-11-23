@@ -1,0 +1,29 @@
+.contenedorPrincipalConfirmacionCodigo p{
+    font-size: 1.5rem;
+}
+
+.inputContainerCodigo{
+    display: flex;
+    justify-content: center;
+}
+
+.inputContainerCodigo input{
+    height: 3rem;
+    width: 15rem;
+    font-size: 1.5rem;
+}
+
+.inputContainerCodigo input::placeholder{
+    font-size: 1.5rem;
+}
+
+.botonContainerCodigo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.botonContainerCodigo button{
+    margin: 1rem 1rem;
+    font-size: 1.3rem;
+}
