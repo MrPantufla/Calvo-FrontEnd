@@ -11,7 +11,19 @@ export default function Header() {
   const mobile = (window.innerWidth < 768);
 
   const auth = useAuth();
-  const ruta = auth.state.logueado ? "/perfil" : "";
+  let ruta;
+  if(auth.state.logueado){
+    ruta = auth.state.userInfo.email_confirmado ? "/perfil" : "";
+  }
+  else{
+    ruta = "";
+  }
+
+  const handleToggleLogin = () => {
+    if(!auth.state.logueado){
+      auth.setMostrarLogin(true);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,7 +98,7 @@ export default function Header() {
           <a href="#contacto" className="seccion">
             <p>CONTACTO</p>
           </a>
-          <NavLink to={ruta} className="perfil">
+          <NavLink to={ruta} className="perfil" onClick={handleToggleLogin}>
             <div className="iconoContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />

@@ -3,17 +3,28 @@ import './carrito.css';
 import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { Collapse, Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useAuth } from '../../contextLogin.jsx';
 
 export default function Carrito(props) {
   const { elementos, añadirElemento, limpiarCarrito } = useCarrito();
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
-
+  const auth = useAuth();
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
 
   const toggleCarrito = () => {
-    setCarritoAbierto(!carritoAbierto);
+    if (auth.state.logueado) {
+      if (auth.state.userInfo.email_confirmado) {
+        setCarritoAbierto(!carritoAbierto);
+      }
+      else {
+        auth.setMostrarLogin(true);
+      }
+    }
+    else {
+      auth.setMostrarLogin(true);
+    }
   }
 
   const agregarProductoConTexto = (cod_orig) => {
@@ -60,13 +71,13 @@ export default function Carrito(props) {
       body: JSON.stringify({ elementos }),
       credentials: 'include',
     })
-    .then(response => response.text())
-    .then(data => {
-      console.log('Respuesta: ', data)
-    })
-    .catch(error => {
-      console.log("Ocurrió un error al enviar los datos: ", error)
-    })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Respuesta: ', data)
+      })
+      .catch(error => {
+        console.log("Ocurrió un error al enviar los datos: ", error)
+      })
   }
 
   return (
@@ -121,7 +132,7 @@ export default function Carrito(props) {
               />
             ))
           )}
-          <Button className="confirmarCarrito" onClick={() => {confirmarCompra(); limpiarCarrito()}}>Confirmar compra (${calcularTotal(elementos)})</Button>
+          <Button className="confirmarCarrito" onClick={() => { confirmarCompra(); limpiarCarrito() }}>Confirmar compra (${calcularTotal(elementos)})</Button>
         </div>
       </Collapse>
     </div>

@@ -3,10 +3,14 @@ import Header from '../Principal/Header/header.jsx';
 import Carrito from './Carrito/carrito';
 import { useState, useEffect } from 'react';
 import Footer from '../Principal/Footer/footer.jsx';
+import LoginYRegistro from '../Login y registro/loginYRegistro.jsx';
+import { useAuth } from '../contextLogin.jsx';
 import { productos } from '../productos.js'; //Por si la base de datos no anda
 
 export default function Ventas(){
     const [jsonProductos, setJsonProductos] = useState([]);
+
+    const auth = useAuth();
 
     useEffect(() => {
         obtenerProductosFiltrados();
@@ -29,6 +33,7 @@ export default function Ventas(){
     return(
         <>
             <Header/>
+            {auth.mostrarLogin ? <LoginYRegistro/> : <></>}
             <Carrito json={jsonProductos}/>
             <Filtros json={jsonProductos}/>
             <Footer/>

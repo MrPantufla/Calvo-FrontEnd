@@ -2,21 +2,43 @@ import './cardProducto.css';
 import perfil from '../../Imagenes/perfil.jpg';
 import React from 'react';
 import { useCarrito } from '../../contextCarrito.jsx';
+import { useAuth } from '../../contextLogin.jsx';
 
 export default function CardProducto(args) {
   const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
   const elementoExistente = elementosCarrito.find((elemento) => elemento.cod_orig === args.cod_orig);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
+  const auth = useAuth();
 
   const sumarContador = (event) => {
     event.stopPropagation();
-    añadirElemento(args.cod_orig, args.detalle, 1, 777);
+    if(auth.state.logueado){
+      if(auth.state.userInfo.email_confirmado){
+        añadirElemento(args.cod_orig, args.detalle, 1, 777);
+      }
+      else{
+        auth.setMostrarLogin(true);
+      }
+    }
+    else{
+      auth.setMostrarLogin(true);
+    }
   }
 
   const restarContador = (event) => {
     event.stopPropagation();
-    if (cantidad > 0) {
-      restarElemento(args.cod_orig);
+    if(auth.state.logueado){
+      if(auth.state.userInfo.email_confirmado){
+        if (cantidad > 0) {
+          restarElemento(args.cod_orig);
+        }
+      }
+      else{
+        auth.setMostrarLogin(true);
+      }
+    }
+    else{
+      auth.setMostrarLogin(true);
     }
   }
 
