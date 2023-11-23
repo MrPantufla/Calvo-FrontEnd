@@ -45,37 +45,36 @@ export default function Login() {
 
       if (response.ok) {
         const userData = await response.json();
-        console.log('Token recibido del servidor:', userData.token);
         // Verificar el token en el frontend antes de realizar acciones adicionales
         const isTokenValid = verifyToken(userData.token);
 
         if (isTokenValid) {
           // Almacenar el token en el contexto de autenticación
           auth.login(userData);
-          console.log(auth.state.userInfo)
 
           // Puedes almacenar usuarioParaDevolver en otro contexto o estado según tus necesidades
           // Ejemplo: setUserDetails(usuarioParaDevolver);
 
           console.log('Ingreso exitoso');
+
+          console.log(auth.state.logueado)
           
           // Otras acciones después del inicio de sesión
           localStorage.setItem('token', userData.token);
           localStorage.setItem('email', userData.email);
 
-          console.log(auth.state.logueado)
         } else {
           console.error('Token inválido');
           // Lógica para manejar un token inválido, por ejemplo, redirigir a la página de inicio de sesión
         }
       } else {
         const data = await response.json();
-        setErrorMessage(data);
+        setErrorMessage("Email y/o contraseña inválidos");
       }
     } catch (error) {
       console.error('Error al intentar iniciar sesión:', error);
     }
-  };
+  };  
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault(); // Evita la recarga de la página al enviar el formulario
@@ -87,18 +86,20 @@ export default function Login() {
       <h2>Iniciar Sesión</h2>
       <div className="error-message">{errorMessage}</div>
       <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
-        <div className="form-group">
+        <div className="form-group inputFormularioLogin">
           <label htmlFor="email">Correo Electrónico:</label>
           <input
+            required
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group inputFormularioLogin">
           <label htmlFor="password">Contraseña:</label>
           <input
+            required
             type="password"
             id="password"
             value={password}
