@@ -8,20 +8,20 @@
     text-align: center;
 }
 
-.form-group{
+.inputFormularioLogin{
     display: flex;
     justify-content: right;
     padding-right: 25%;
     font-size: 1.5rem;
 }
 
-.form-group input{
+.inputFormularioLogin input{
     margin-left: 1rem;
     width: 51%;
 }
 
 
-.formularioLogin .form-group{
+.formularioLogin .inputFormularioLogin{
     margin: 1rem 0;
 }
 
