@@ -33,6 +33,7 @@ export default function ConfirmacionCodigo() {
 
       if (response.ok) {
         const data = await response.text();
+        auth.setMostrarLogin(false);
         setMensajeRespuesta(data.message);
         updateEmailConfirmationStatus();
       } else {
@@ -46,8 +47,8 @@ export default function ConfirmacionCodigo() {
   };
 
   const reenviarCodigo = () => {
+    console.log("entra")
     if (!isResendButtonEnabled) {
-      setResendButtonEnabled(false);
       console.log('Reenvío de código bloqueado. Espera un momento.');
       return;
     }
@@ -63,6 +64,7 @@ export default function ConfirmacionCodigo() {
       .then(response => {
         if (response.ok) {
           console.log('Envío de datos exitoso');
+          auth.setMostrarLogin(false);
           setResendButtonEnabled(false);
 
           // Set the time remaining to 5 minutes
@@ -79,6 +81,7 @@ export default function ConfirmacionCodigo() {
             setResendButtonEnabled(true);
             setTimeLeft(0);
           }, 5 * 60 * 1000);
+          
 
           return null;
         } else {
@@ -104,7 +107,8 @@ export default function ConfirmacionCodigo() {
 
   return (
     <div className="contenedorPrincipalConfirmacionCodigo">
-      <form>
+      <form className="formConfirmacionCodigo">
+        <h2>Verifica tu email para acceder a tu perfil y realizar pedidos</h2>
         <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
         {error && <div className="error-message">{error}</div>}
         {mensajeRespuesta && <div className="success-message">{mensajeRespuesta}</div>}
