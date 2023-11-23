@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useReducer } from 'react';
 
 const AuthContext = createContext();
 
@@ -48,7 +48,6 @@ export const LoginProvider = ({ children }) => {
   };
 
   const verifyToken = async (token) => {
-    console.log(token)
     try {
       const response = await fetch('http://localhost:8080/api/verificarToken', {
         method: 'POST',
