@@ -1,3 +1,8 @@
+.contenedorPrincipalConfirmacionCodigo{
+    margin: 2rem;
+    padding: 1rem;
+}
+
 .contenedorPrincipalConfirmacionCodigo p{
     font-size: 1.5rem;
 }
@@ -26,4 +31,9 @@
 .botonContainerCodigo button{
     margin: 1rem 1rem;
     font-size: 1.3rem;
+}
+
+.formConfirmacionCodigo h2{
+    text-align: center;
+    font-weight: 600;
 }
