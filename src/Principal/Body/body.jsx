@@ -3,13 +3,16 @@ import Categorias from './Categorias/categorias.jsx';
 import Banner from './Banner/banner.jsx';
 import InformacionYContacto from './Informacion y contacto/informacionYContacto.jsx';
 import QuienesSomos from './Quienes somos/quienesSomos.jsx';
-import './body.css';
 import LoginYRegistro from '../../Login y registro/loginYRegistro.jsx';
+import { useAuth } from '../../contextLogin.jsx';
+import './body.css';
 
 export default function Body(){
+    const auth= useAuth();
+
     return(
         <div className="contenedorPrincipalBody">
-            <LoginYRegistro/>
+            {auth.mostrarLogin ? <LoginYRegistro/> : <></>}
             <Carrusel/>
             <Banner texto="NUESTROS PRODUCTOS"/>
             <Categorias/>
