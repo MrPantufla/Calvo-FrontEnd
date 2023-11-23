@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
+import ConfirmacionCodigo from '../Confirmacion codigo/confirmacionCodigo.jsx';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -19,6 +20,7 @@ export default function Login() {
 
       if (isTokenValid) {
         autoLogin(storedEmail, storedToken);
+        auth.setMostrarLogin(true);
       }
     }
   }, [verifyToken, auth]);
@@ -58,6 +60,8 @@ export default function Login() {
           console.log('Ingreso exitoso');
 
           console.log(auth.state.logueado)
+
+          auth.setMostrarLogin(false);
           
           // Otras acciones después del inicio de sesión
           localStorage.setItem('token', userData.token);
