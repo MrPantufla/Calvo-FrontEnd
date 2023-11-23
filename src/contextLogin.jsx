@@ -4,6 +4,8 @@ const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
 
+  const [mostrarLogin, setMostrarLogin] = useState(false);
+
   const [state, setState] = useState({
     logueado: false,
     userInfo: {},
@@ -71,8 +73,8 @@ export const LoginProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken }}>
-        {children}
+    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin }}>
+      {children}
     </AuthContext.Provider>
   );
 };
