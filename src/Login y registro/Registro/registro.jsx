@@ -133,7 +133,7 @@ export default function Registro() {
                 </div>
                 <div className="botonRegistroContainer">
                     <button className="botonEnviarRegistro" type="button" onClick={handleRegistro}>
-                        Registrarse
+                        Registrar
                     </button>
                 </div>
             </form>
