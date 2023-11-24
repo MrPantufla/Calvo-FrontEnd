@@ -67,7 +67,7 @@ export default function Login() {
 
           // Puedes almacenar usuarioParaDevolver en otro contexto o estado según tus necesidades
           // Ejemplo: setUserDetails(usuarioParaDevolver);
-
+          
           console.log('Ingreso exitoso');
 
           console.log(auth.state.logueado)
