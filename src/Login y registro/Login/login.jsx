@@ -12,18 +12,21 @@ export default function Login() {
   const { verifyToken } = useAuth();
 
   useEffect(() => {
-    // Verificar si hay un token en el localStorage al cargar la página
-    const storedToken = localStorage.getItem('token');
-    const storedEmail = localStorage.getItem('email');
-    if (storedToken && storedEmail) {
-      const isTokenValid = verifyToken(storedToken);
-
-      if (isTokenValid) {
-        autoLogin(storedEmail, storedToken);
-        auth.setMostrarLogin(true);
+    const fetchData = async () => {
+      // Verificar si hay un token en el localStorage al cargar la página
+      const storedToken = localStorage.getItem('token');
+      const storedEmail = localStorage.getItem('email');
+      if (storedToken && storedEmail) {
+        const isTokenValid = await verifyToken(storedToken);
+        console.log("isTokenValid: " + isTokenValid)
+        if (isTokenValid) {
+          autoLogin(storedEmail, storedToken);
+        }
       }
-    }
-  }, [verifyToken, auth]);
+    };
+  
+    fetchData(); // Llamada a la función asincrónica
+  }, [verifyToken, auth])
 
   const handleLogin = async () => {
     try {
@@ -51,6 +54,7 @@ export default function Login() {
         const isTokenValid = verifyToken(userData.token);
 
         if (isTokenValid) {
+          console.log("el token es valido:" + isTokenValid)
           // Almacenar el token en el contexto de autenticación
           auth.login(userData);
 
@@ -88,7 +92,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <h2>Iniciar Sesión</h2>
-      <div className="error-message">{errorMessage}</div>
+      <div className="error-message" >{errorMessage}</div>
       <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
         <div className="form-group inputFormularioLogin">
           <label htmlFor="email">Correo Electrónico:</label>

@@ -10,12 +10,18 @@ export default function LoginYRegistro() {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
   const auth = useAuth();
 
+  useEffect(() => {
+    auth.setMostrarError(false);
+  }, []);
+
   const handleOpcionClick = (opcion) => {
     setOpcionSeleccionada(opcion);
   };
 
   const handleClose = () =>{
+    console.log("mostrarLogin antes: " + auth.mostrarLogin);
     auth.setMostrarLogin(false);
+    console.log("mostrarLogin despues: " + auth.mostrarLogin)
   }
 
   const handleParteUtilizableClick = (event) =>{
@@ -23,7 +29,7 @@ export default function LoginYRegistro() {
   }
 
   return (
-    <div className="contenedorPrincipalLoginYRegistro" onClick={handleClose}>
+    <div className="contenedorPrincipalLoginYRegistro" onClick={handleClose} style={{ display: auth.mostrarLogin ? 'flex' : 'none' }}>
       <div className="contenedorLoginYRegistro" onClick={handleParteUtilizableClick}>
         <div className="content-container">
           {auth.state.logueado ? (

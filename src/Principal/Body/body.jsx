@@ -12,7 +12,7 @@ export default function Body(){
 
     return(
         <div className="contenedorPrincipalBody">
-            {auth.mostrarLogin ? <LoginYRegistro/> : <></>}
+            <LoginYRegistro/>
             <Carrusel/>
             <Banner texto="NUESTROS PRODUCTOS"/>
             <Categorias/>
