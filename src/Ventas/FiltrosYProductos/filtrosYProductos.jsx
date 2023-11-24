@@ -108,6 +108,7 @@ export default function FiltrosYProductos(props) {
                 onChange={() => toggleSubrubro(subrubro)}
                 onClick={handleScrollClick}
                 disabled={tiposActivos.length==0}
+                id={subrubro + "Id"}
               />
               <div className="textoSubrubro">
                 Subrubro {subrubro}
