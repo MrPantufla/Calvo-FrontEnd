@@ -73,9 +73,7 @@ export default function Header() {
   };
 
   const handleInicioClick = () => {
-    if (location.pathname === '/home') {
       window.scrollTo(0, 0);
-    }
   };
 
   return (
@@ -89,7 +87,7 @@ export default function Header() {
           <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
             <p>INICIO</p>
           </NavLink>
-          <NavLink to="/tienda" className="seccion">
+          <NavLink to="/tienda" className="seccion" onClick={handleInicioClick}>
             <p>TIENDA</p>
           </NavLink>
           <a href="#quienesSomos" className="seccion">
