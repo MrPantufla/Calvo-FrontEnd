@@ -33,7 +33,7 @@ export default function Ventas(){
     return(
         <>
             <Header/>
-            {auth.mostrarLogin ? <LoginYRegistro/> : <></>}
+            <LoginYRegistro/>
             <Carrito json={jsonProductos}/>
             <Filtros json={jsonProductos}/>
             <Footer/>
