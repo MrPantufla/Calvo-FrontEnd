@@ -24,7 +24,10 @@ export default function FiltrosYProductos(props) {
   };
 
   const paginar = (numeroDePagina) => {
-    setPaginaActual(numeroDePagina);
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      setPaginaActual(numeroDePagina);
+    }, 350);
   }
 
   const handleScrollClick = () => {
