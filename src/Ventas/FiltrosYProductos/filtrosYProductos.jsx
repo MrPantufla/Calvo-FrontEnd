@@ -92,6 +92,7 @@ export default function FiltrosYProductos(props) {
                   handleScrollClick();
                   setPaginaActual(1);
                 }}
+                id={tipo_prod + "Id"}
               />
               <div className="textoRubro">
                 {tipo_prod}
