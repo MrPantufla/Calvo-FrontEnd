@@ -16,7 +16,7 @@ export default function Ventas(){
         obtenerProductosFiltrados();
     }, []);
 
-    const obtenerProductosFiltrados = async (tipo_prod) => {
+    const obtenerProductosFiltrados = async () => {
         try {
           const response = await fetch(`http://localhost:8080/api/productos`);
           if (response.ok) {
