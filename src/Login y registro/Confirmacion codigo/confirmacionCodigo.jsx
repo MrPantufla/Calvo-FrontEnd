@@ -42,6 +42,7 @@ export default function ConfirmacionCodigo() {
       }
     } catch (error) {
       console.error('Error al enviar el código:', error);
+      auth.setMostrarErrorCodigoConfirmacion(true)
       setError('Código de confirmación incorrecto');
     }
   };
@@ -110,7 +111,7 @@ export default function ConfirmacionCodigo() {
       <form className="formConfirmacionCodigo">
         <h2>Verifica tu email para acceder a tu perfil y realizar pedidos</h2>
         <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message" style={{display: auth.mostrarErrorCodigoConfirmacion ? 'inline' : 'none'}}>{error}</div>}
         {mensajeRespuesta && <div className="success-message">{mensajeRespuesta}</div>}
         <div className="form-group inputContainerCodigo">
           <label htmlFor="codigo" required />
@@ -118,7 +119,10 @@ export default function ConfirmacionCodigo() {
             type="text"
             id="codigo"
             value={codigoConfirmacion}
-            onChange={(e) => setCodigoConfirmacion(e.target.value)}
+            onChange={(e) => {
+              setCodigoConfirmacion(e.target.value);
+              auth.setMostrarErrorCodigoConfirmacion(false);
+            }}
             placeholder='Código de confirmación'
           />
         </div>

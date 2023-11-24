@@ -21,6 +21,7 @@ export default function LoginYRegistro() {
   const handleClose = () =>{
     auth.setMostrarLogin(false);
     auth.setMostrarError(false);
+    auth.setMostrarErrorCodigoConfirmacion(false);
   }
 
   const handleParteUtilizableClick = (event) =>{

@@ -6,10 +6,7 @@ export const LoginProvider = ({ children }) => {
 
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarError, setMostrarError] = useState(false);
-
-  const quitarError = () =>{
-    setMostrarError(false);
-  }
+  const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
 
   const [state, setState] = useState({
     logueado: false,
@@ -78,7 +75,7 @@ export const LoginProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarError, setMostrarError }}>
+    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarError, setMostrarError, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion }}>
       {children}
     </AuthContext.Provider>
   );
