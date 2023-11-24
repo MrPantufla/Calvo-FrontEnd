@@ -1,19 +1,31 @@
 import './productoGrande.css';
 import perfil from '../../Imagenes/perfil.jpg';
 import { useCarrito } from '../../contextCarrito.jsx';
+import { useAuth } from '../../contextLogin.jsx';
 
 export default function ProductoGrande(props) {
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
     const elementoExistente = elementosCarrito.find((elemento) => elemento.cod_orig === props.cod_orig);
     const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
+    const auth = useAuth();
 
     const sumarContador = () => {
-        añadirElemento(props.cod_orig, props.detalle, 1, 777);
+        if (auth.state.userInfo.email_confirmado) {
+            añadirElemento(props.cod_orig, props.detalle, 1, 777);
+        }
+        else {
+            auth.setMostrarLogin(true);
+        }
     }
 
     const restarContador = () => {
-        if (cantidad > 0) {
-            restarElemento(props.cod_orig);
+        if (auth.state.userInfo.email_confirmado) {
+            if (cantidad > 0) {
+                restarElemento(props.cod_orig);
+            }
+        }
+        else {
+            auth.setMostrarLogin(true);
         }
     }
 
