@@ -72,7 +72,9 @@ export default function Login() {
 
           console.log(auth.state.logueado)
 
-          auth.setMostrarLogin(false);
+          {if(!auth.state.userInfo.email_confirmado){
+            auth.setMostrarLogin(false);
+          }}
           
           // Otras acciones después del inicio de sesión
           localStorage.setItem('token', userData.token);
