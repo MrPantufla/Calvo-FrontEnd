@@ -10,9 +10,7 @@ export default function HeaderMobile() {
     const location = useLocation();
 
     const handleInicioClick = () => {
-        if (location.pathname === '/home') {
-            window.scrollTo(0, 0);
-        }
+        window.scrollTo(0, 0);
     };
 
     const toggleMenu = () => {
@@ -56,9 +54,10 @@ export default function HeaderMobile() {
                         <NavLink to="/home" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
                             <p>INICIO</p>
                         </NavLink>
-                        <NavLink to="/tienda" className="elemento" onClick={toggleMenu}>
+                        <NavLink to="/tienda" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
                             <p>VENTAS</p>
                         </NavLink>
+
                         <a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
                             <p>QUIÉNES SOMOS</p>
                         </a>
