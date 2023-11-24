@@ -10,6 +10,7 @@ export default function Carrito(props) {
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
+  const [pedido, setPedido] = useState([]);
   const auth = useAuth();
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
 
@@ -63,12 +64,15 @@ export default function Carrito(props) {
   };
 
   const confirmarCompra = () => {
+    const nuevosElementos = elementos.map(({ cod_orig, cantidad }) => ({ cod_orig, cantidad }));
+    const nuevoPedido = pedido.concat(nuevosElementos, auth.state.userInfo.cuit); //CAMBIAR COD_ORIG POR ID AL ACOMODARLA
+    console.log(pedido);
     fetch('http://localhost:8080/api/recibirCarrito', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ elementos }),
+      body: JSON.stringify(nuevoPedido),
       credentials: 'include',
     })
       .then(response => response.text())
@@ -78,6 +82,7 @@ export default function Carrito(props) {
       .catch(error => {
         console.log("Ocurrió un error al enviar los datos: ", error)
       })
+      setPedido([]);
   }
 
   return (
@@ -132,7 +137,12 @@ export default function Carrito(props) {
               />
             ))
           )}
-          <Button className="confirmarCarrito" onClick={() => { confirmarCompra(); limpiarCarrito() }}>Confirmar compra (${calcularTotal(elementos)})</Button>
+          <Button 
+            className="confirmarCarrito"
+            disabled={!elementos.length>0}
+            onClick={() => { confirmarCompra(); limpiarCarrito() }}>
+              Confirmar compra (${calcularTotal(elementos)})
+          </Button>
         </div>
       </Collapse>
     </div>
