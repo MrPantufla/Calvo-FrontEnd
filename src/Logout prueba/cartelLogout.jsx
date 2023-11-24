@@ -1,6 +1,5 @@
 import './cartelLogout.css';
 import { useAuth } from '../contextLogin';
-import { useEffect } from 'react';
 
 export default function CartelLogout() {
     const auth = useAuth();
