@@ -21,7 +21,12 @@ export default function Header() {
 
   const handleToggleLogin = () => {
     if(!auth.state.logueado){
-      auth.setMostrarLogin(true);
+        auth.setMostrarLogin(true);
+    }
+    else{
+      if(!auth.state.userInfo.email_confirmado){
+        auth.setMostrarLogin(true);
+      }
     }
   };
 
