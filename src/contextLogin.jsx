@@ -7,6 +7,7 @@ export const LoginProvider = ({ children }) => {
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarError, setMostrarError] = useState(false);
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
+  const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
 
   const [state, setState] = useState({
     logueado: false,
@@ -75,7 +76,7 @@ export const LoginProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarError, setMostrarError, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion }}>
+    <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarError, setMostrarError, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
       {children}
     </AuthContext.Provider>
   );

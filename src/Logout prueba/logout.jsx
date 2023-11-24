@@ -7,10 +7,11 @@ export default function Logout() {
     const handleLogout = () => {
         localStorage.clear();
         auth.logout();
+        auth.setMostrarCartelLogout(true);
     }
 
     return (
-        <div className="contenedorPrincipalLogout">
+        <div className="contenedorPrincipalLogout" style={{display: auth.state.logueado? 'inline' : 'none'}}>
             <button className="botonlogout" onClick={handleLogout}>
                 Logout
             </button>
