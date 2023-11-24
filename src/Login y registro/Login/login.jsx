@@ -21,12 +21,19 @@ export default function Login() {
         console.log("isTokenValid: " + isTokenValid)
         if (isTokenValid) {
           autoLogin(storedEmail, storedToken);
+          setEmail('');
+          setPassword('');
         }
       }
     };
   
     fetchData(); // Llamada a la función asincrónica
   }, [verifyToken, auth])
+
+  useEffect (() => {
+    setEmail('');
+    setPassword('');
+  },[auth.mostrarLogin])
 
   const handleLogin = async () => {
     try {
@@ -77,6 +84,7 @@ export default function Login() {
         }
       } else {
         const data = await response.json();
+        auth.setMostrarError(true);
         setErrorMessage("Email y/o contraseña inválidos");
       }
     } catch (error) {
@@ -92,7 +100,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <h2>Iniciar Sesión</h2>
-      <div className="error-message" >{errorMessage}</div>
+      <div className="error-message">{auth.mostrarError ? errorMessage : ""}</div>
       <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
         <div className="form-group inputFormularioLogin">
           <label htmlFor="email">Correo Electrónico:</label>
@@ -101,7 +109,10 @@ export default function Login() {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              auth.setMostrarError(false);
+            }}
           />
         </div>
         <div className="form-group inputFormularioLogin">
@@ -111,7 +122,10 @@ export default function Login() {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value)
+              auth.setMostrarError(false);
+            }}
           />
         </div>
         <div className="botonLoginContainer">

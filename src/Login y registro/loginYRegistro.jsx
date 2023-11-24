@@ -19,9 +19,8 @@ export default function LoginYRegistro() {
   };
 
   const handleClose = () =>{
-    console.log("mostrarLogin antes: " + auth.mostrarLogin);
     auth.setMostrarLogin(false);
-    console.log("mostrarLogin despues: " + auth.mostrarLogin)
+    auth.setMostrarError(false);
   }
 
   const handleParteUtilizableClick = (event) =>{
