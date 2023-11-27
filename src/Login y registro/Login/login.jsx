@@ -69,8 +69,9 @@ export default function Login() {
           // Ejemplo: setUserDetails(usuarioParaDevolver);
           
           console.log('Ingreso exitoso');
-
-          console.log(auth.state.logueado)
+          console.log("logueado? " + auth.state.logueado);
+          console.log("userInfio: " + auth.state.userInfo);
+          console.log("email_verificado? " + auth.state.userInfo.email_confirmado);
 
           {if(!auth.state.userInfo.email_confirmado){
             auth.setMostrarLogin(false);
