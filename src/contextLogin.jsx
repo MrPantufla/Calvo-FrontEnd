@@ -25,7 +25,8 @@ export const LoginProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (userData) => {
+  const login = async (userData) => {
+    await
     localStorage.setItem('userData', JSON.stringify(userData));
     setState({
       logueado: true,
@@ -33,7 +34,8 @@ export const LoginProvider = ({ children }) => {
     });
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await
     localStorage.removeItem('userData');
     setState({
       logueado: false,
