@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './header.jsx';
-import HeaderMobile from './headerMobile';
+import HeaderMobile from './headerMobile.jsx';
 
 export default function RenderHeader() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
