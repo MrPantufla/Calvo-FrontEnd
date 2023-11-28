@@ -25,8 +25,7 @@ export const LoginProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (userData) => {
-    await
+  const login = (userData) => {
     localStorage.setItem('userData', JSON.stringify(userData));
     setState({
       logueado: true,
