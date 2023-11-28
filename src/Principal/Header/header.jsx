@@ -12,19 +12,19 @@ export default function Header() {
 
   const auth = useAuth();
   let ruta;
-  if(auth.state.logueado){
+  if (auth.state.logueado) {
     ruta = auth.state.userInfo.email_confirmado ? "/perfil" : "";
   }
-  else{
+  else {
     ruta = "";
   }
 
   const handleToggleLogin = () => {
-    if(!auth.state.logueado){
-        auth.setMostrarLogin(true);
+    if (!auth.state.logueado) {
+      auth.setMostrarLogin(true);
     }
-    else{
-      if(!auth.state.userInfo.email_confirmado){
+    else {
+      if (!auth.state.userInfo.email_confirmado) {
         auth.setMostrarLogin(true);
       }
     }
@@ -78,12 +78,12 @@ export default function Header() {
   };
 
   const handleInicioClick = () => {
-      window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   };
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
-      <Logout/>
+      <Logout />
       <div className="row filaHeader">
         <div className="col-12 col-sm-4 logoContainer columnas">
           <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
@@ -95,12 +95,29 @@ export default function Header() {
           <NavLink to="/tienda" className="seccion" onClick={handleInicioClick}>
             <p>TIENDA</p>
           </NavLink>
-          <a href="#quienesSomos" className="seccion">
-            <p>QUIÉNES SOMOS</p>
-          </a>
-          <a href="#contacto" className="seccion">
-            <p>CONTACTO</p>
-          </a>
+          {location.pathname === '/home' ?
+            (<a href="#quienesSomos" className="seccion">
+              <p>QUIÉNES SOMOS</p>
+            </a>)
+            :
+            (<NavLink to="/perfil/misCompras" className="seccion">
+              <p>MIS COMPRAS</p>
+            </NavLink>)}
+
+          {location.pathname === '/home' ?
+            (<a href="#contacto" className="seccion">
+              <p>CONTACTO</p>
+            </a>)
+            :
+            (<div className="seccion">
+              <p>
+                CATÁLOGOS
+                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
+                </svg>
+              </p>
+            </div>)}
+
           <NavLink to={ruta} className="perfil" onClick={handleToggleLogin}>
             <div className="iconoContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
