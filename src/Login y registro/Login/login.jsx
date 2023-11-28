@@ -12,7 +12,6 @@ export default function Login() {
   const { verifyToken } = useAuth();
 
   const fetchData = async () => {
-    // Verificar si hay un token en el localStorage al cargar la página
     const storedToken = localStorage.getItem('token');
     const storedEmail = localStorage.getItem('email');
 
@@ -45,7 +44,6 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       if (!auth || !auth.login) {
-        // Manejar el caso donde auth o auth.login no están definidos
         console.error('Auth o auth.login no están definidos.');
         return;
       }
@@ -64,34 +62,25 @@ export default function Login() {
 
       if (response.ok) {
         const userData = await response.json();
-        // Verificar el token en el frontend antes de realizar acciones adicionales
+
         const isTokenValid = await verifyToken(userData.token);
 
         if (isTokenValid) {
-          //console.log("el token es valido:" + isTokenValid)
-          // Almacenar el token en el contexto de autenticación
           auth.login(userData);
 
-          // Puedes almacenar usuarioParaDevolver en otro contexto o estado según tus necesidades
-          // Ejemplo: setUserDetails(usuarioParaDevolver);
-
-          
           console.log("logueado? " + auth.state.logueado);
-          console.log("userInfio: " + auth.state.userInfo);
+          console.log("userInfo: " + JSON.stringify(auth.state.userInfo));
           console.log("email_verificado? " + auth.state.userInfo.email_confirmado);
 
           if (auth.state.userInfo.email_confirmado) {
             auth.setMostrarLogin(false);
           }
-          
 
-          // Otras acciones después del inicio de sesión
           localStorage.setItem('token', userData.token);
           localStorage.setItem('email', userData.email);
 
         } else {
           console.error('Token inválido');
-          // Lógica para manejar un token inválido, por ejemplo, redirigir a la página de inicio de sesión
         }
       } else {
         const data = await response.json();
