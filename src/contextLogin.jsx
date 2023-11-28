@@ -14,28 +14,19 @@ export const LoginProvider = ({ children }) => {
     userInfo: {},
   });
 
-  useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      setState({
-        logueado: false,
-        userInfo: userData,
-      });
-    }
-  }, []);
-
   const login = (userData) => {
+    console.log("Entra al login")
     localStorage.setItem('userData', JSON.stringify(userData));
     setState({
       logueado: true,
       userInfo: userData,
     });
+    console.log("logueado en el login: " + state.logueado)
   };
 
   const logout = async () => {
     await
-    localStorage.removeItem('userData');
+      localStorage.removeItem('userData');
     setState({
       logueado: false,
       userInfo: null,
@@ -62,7 +53,7 @@ export const LoginProvider = ({ children }) => {
         },
         body: token,
       });
-  
+
       if (response.ok) {
         // En este punto, sabemos que el token es válido porque la respuesta fue exitosa (código 200)
         return true;
