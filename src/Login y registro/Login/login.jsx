@@ -11,29 +11,36 @@ export default function Login() {
 
   const { verifyToken } = useAuth();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Verificar si hay un token en el localStorage al cargar la página
-      const storedToken = localStorage.getItem('token');
-      const storedEmail = localStorage.getItem('email');
-      if (storedToken && storedEmail) {
+  const fetchData = async () => {
+    // Verificar si hay un token en el localStorage al cargar la página
+    const storedToken = localStorage.getItem('token');
+    const storedEmail = localStorage.getItem('email');
+
+    if (storedToken && storedEmail) {
+      console.log(storedEmail)
+      try {
         const isTokenValid = await verifyToken(storedToken);
-        console.log("isTokenValid: " + isTokenValid)
+        console.log("isTokenValid: " + isTokenValid);
+
         if (isTokenValid) {
           autoLogin(storedEmail, storedToken);
           setEmail('');
           setPassword('');
         }
+      } catch (error) {
+        console.error('Error al verificar el token:', error);
       }
-    };
-  
-    fetchData(); // Llamada a la función asincrónica
-  }, [verifyToken, auth])
+    }
+  };
 
-  useEffect (() => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     setEmail('');
     setPassword('');
-  },[auth.mostrarLogin])
+  }, [auth.mostrarLogin])
 
   const handleLogin = async () => {
     try {
@@ -58,25 +65,26 @@ export default function Login() {
       if (response.ok) {
         const userData = await response.json();
         // Verificar el token en el frontend antes de realizar acciones adicionales
-        const isTokenValid = verifyToken(userData.token);
+        const isTokenValid = await verifyToken(userData.token);
 
         if (isTokenValid) {
-          console.log("el token es valido:" + isTokenValid)
+          //console.log("el token es valido:" + isTokenValid)
           // Almacenar el token en el contexto de autenticación
           auth.login(userData);
 
           // Puedes almacenar usuarioParaDevolver en otro contexto o estado según tus necesidades
           // Ejemplo: setUserDetails(usuarioParaDevolver);
+
           
-          console.log('Ingreso exitoso');
           console.log("logueado? " + auth.state.logueado);
           console.log("userInfio: " + auth.state.userInfo);
           console.log("email_verificado? " + auth.state.userInfo.email_confirmado);
 
-          {if(!auth.state.userInfo.email_confirmado){
+          if (auth.state.userInfo.email_confirmado) {
             auth.setMostrarLogin(false);
-          }}
+          }
           
+
           // Otras acciones después del inicio de sesión
           localStorage.setItem('token', userData.token);
           localStorage.setItem('email', userData.email);
@@ -93,7 +101,7 @@ export default function Login() {
     } catch (error) {
       console.error('Error al intentar iniciar sesión:', error);
     }
-  };  
+  };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault(); // Evita la recarga de la página al enviar el formulario
