@@ -45,7 +45,7 @@ export default function Carrito(props) {
 
     if (productoExistente && band) {
       const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1;
-      añadirElemento(productoExistente.cod_orig, productoExistente.detalle, cantidadAAgregar, 777);
+      añadirElemento(productoExistente.id, productoExistente.cod_orig, productoExistente.detalle, cantidadAAgregar, productoExistente.precio);
       setCodigoErroneo(false);
     } else {
       setCodigoErroneo(true);
@@ -64,7 +64,7 @@ export default function Carrito(props) {
   };
 
   const confirmarCompra = () => {
-    const nuevosElementos = elementos.map(({ cod_orig, cantidad }) => ({ cod_orig, cantidad }));
+    const nuevosElementos = elementos.map(({ id, cantidad }) => ({ id, cantidad }));
     const nuevoPedido = pedido.concat(nuevosElementos, auth.state.userInfo.cuit); //CAMBIAR COD_ORIG POR ID AL ACOMODARLA
     console.log(pedido);
     fetch('http://localhost:8080/api/recibirCarrito', {
@@ -130,6 +130,7 @@ export default function Carrito(props) {
             elementos.map((elemento, index) => (
               <CardCarrito
                 key={index}
+                id={elemento.id}
                 cod_orig={elemento.cod_orig}
                 cantidad={elemento.cantidad}
                 precio={elemento.precio}

@@ -9,39 +9,39 @@ function useCarrito() {
 function CarritoProvider({ children }) {
   const [elementos, setElementos] = useState([]);
   
-  function añadirElemento(cod_orig, detalle, cantidad, precio) {
+  function añadirElemento(id, cod_orig, detalle, cantidad, precio) {
     const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
 
     if (elementoExistente) {
       elementoExistente.cantidad += cantidad;
       setElementos([...elementos]);
     } else {
-      const nuevoElemento = { cod_orig, detalle, cantidad, precio };
+      const nuevoElemento = {id, cod_orig, detalle, cantidad, precio };
       setElementos([...elementos, nuevoElemento]);
     }
   }
 
-  function restarElemento(cod_orig) {
-    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
+  function restarElemento(id) {
+    const elementoExistente = elementos.find((elemento) => elemento.id === id);
 
     if (elementoExistente.cantidad > 1) {
       elementoExistente.cantidad -= 1;
       setElementos([...elementos]);
     } else {
-      setElementos((prevElementos) => prevElementos.filter((elemento) => elemento.cod_orig !== cod_orig));
+      setElementos((prevElementos) => prevElementos.filter((elemento) => elemento.id !== id));
     }
   }
 
-  function eliminarElemento(cod_orig){
-    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
+  function eliminarElemento(id){
+    const elementoExistente = elementos.find((elemento) => elemento.id === id);
     while(elementoExistente.cantidad!==1){
-      restarElemento(cod_orig);
+      restarElemento(id);
     }
-    restarElemento(cod_orig);
+    restarElemento(id);
   }
 
-  function actualizarCantidadElemento(cod_orig, nuevaCantidad) {
-    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
+  function actualizarCantidadElemento(id, nuevaCantidad) {
+    const elementoExistente = elementos.find((elemento) => elemento.id === id);
 
     if (elementoExistente) {
       elementoExistente.cantidad = nuevaCantidad;

@@ -8,19 +8,19 @@ export default function CardCarrito(args){
 
     const handleRestarCantidad = () => {
         if (args.cantidad > 1) {
-          actualizarCantidadElemento(args.cod_orig, args.cantidad - 1);
+          actualizarCantidadElemento(args.id, args.cantidad - 1);
         } 
         else {
-          restarElemento(args.cod_orig);
+          restarElemento(args.id);
         }
     }
 
     const handleSumarCantidad = () => {
-        actualizarCantidadElemento(args.cod_orig, args.cantidad + 1);
+        actualizarCantidadElemento(args.id, args.cantidad + 1);
     }
 
     const handleEliminar = () => {
-        eliminarElemento(args.cod_orig);
+        eliminarElemento(args.id);
     }
 
     return(

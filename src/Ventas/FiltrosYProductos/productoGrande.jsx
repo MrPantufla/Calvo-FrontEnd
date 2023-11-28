@@ -3,15 +3,15 @@ import perfil from '../../Imagenes/perfil.jpg';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useAuth } from '../../contextLogin.jsx';
 
-export default function ProductoGrande(props) {
+export default function ProductoGrande(args) {
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
-    const elementoExistente = elementosCarrito.find((elemento) => elemento.cod_orig === props.cod_orig);
+    const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
     const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
     const auth = useAuth();
 
     const sumarContador = () => {
         if (auth.state.userInfo.email_confirmado) {
-            añadirElemento(props.cod_orig, props.detalle, 1, 777);
+            añadirElemento(args.id, args.cod_orig, args.detalle, 1, args.precio);
         }
         else {
             auth.setMostrarLogin(true);
@@ -21,7 +21,7 @@ export default function ProductoGrande(props) {
     const restarContador = () => {
         if (auth.state.userInfo.email_confirmado) {
             if (cantidad > 0) {
-                restarElemento(props.cod_orig);
+                restarElemento(args.id);
             }
         }
         else {
@@ -30,7 +30,7 @@ export default function ProductoGrande(props) {
     }
 
     const handleClose = () => {
-        props.onClose();
+        args.onClose();
     };
 
     const handleParteUtilizableClick = (event) => {
@@ -47,9 +47,10 @@ export default function ProductoGrande(props) {
                 </div>
                 <div className="productoGrandeContainer">
                     <div className="informacion">
-                        <h1>{props.cod_orig}</h1>
-                        <h2>{props.detalle}</h2>
+                        <h1>{args.cod_orig}</h1>
+                        <h2>{args.detalle}</h2>
                         <p>asdmhasfdhasfdhasgdv</p>
+                        <p>${args.precio}</p>
                     </div>
                     <img className="imagenProductoGrande" src={perfil} />
                     <p className="textoCantidad">Cantidad en el carrito</p>

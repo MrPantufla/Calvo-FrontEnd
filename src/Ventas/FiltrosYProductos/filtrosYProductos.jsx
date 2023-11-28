@@ -127,10 +127,12 @@ export default function FiltrosYProductos(props) {
           {itemsActuales.map((producto) => (
             <div key={producto.id} className="col-md-3 producto">
               <CardProducto
+                id={producto.id}
                 cod_orig={producto.cod_orig}
                 tipo_prod={producto.tipo_prod}
                 srubro={producto.srubro}
                 detalle={producto.detalle}
+                precio={producto.precio}
                 key={producto.id}
                 onClick={() => {
                   handleClickProducto(producto);
@@ -143,9 +145,11 @@ export default function FiltrosYProductos(props) {
 
       {productoSeleccionado && (
         <ProductoGrande
+          id={productoSeleccionado.id}
           cod_orig={productoSeleccionado.cod_orig}
           detalle={productoSeleccionado.detalle}
           onClose={handleCloseProductoGrande}
+          precio={productoSeleccionado.precio}
         />
       )}
 
