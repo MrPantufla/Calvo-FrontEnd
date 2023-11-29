@@ -1,0 +1,34 @@
+.desplegableCatalogos {
+    background-color: var(--colorSecundario);
+    top: 8.1rem;
+    left: 109.4rem;
+    z-index: 1000;
+    position: fixed;
+    width: 18.8rem;
+    border: none;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-in-out;
+    transition-delay: 0.18s;
+}
+
+.desplegableCatalogos:hover,
+.desplegableCatalogos.open {
+    height: 13rem;
+}
+
+.descargarCatalogosContainer{
+    padding-top: 1rem;
+}
+
+.descargarCatalogosContainer p {
+    font-size: 2rem;
+    color: white;
+    font-weight: 650;
+    text-align: center;
+    cursor: pointer;
+}
+
+.descargarCatalogosContainer p:hover {
+    color: var(--colorCuaternario);
+}
