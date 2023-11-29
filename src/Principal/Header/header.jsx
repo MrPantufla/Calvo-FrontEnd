@@ -92,16 +92,16 @@ export default function Header() {
       }
 
       const catalogosElement = document.getElementById("catalogosHeader");
-      if(catalogosElement){
+      if (catalogosElement) {
         desplegable.setAnchoCatalogos(catalogosElement.offsetWidth);
       }
     };
-  
+
     window.addEventListener("resize", handleResize);
-  
+
     // Esperar hasta que el componente esté completamente cargado
     window.addEventListener("load", handleResize);
-  
+
     // Limpieza del evento al desmontar el componente
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -139,16 +139,11 @@ export default function Header() {
             </a>)
             :
             (
-              <div
-              className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`}
-                onMouseEnter={desplegable.abrirHover}
-                onMouseLeave={desplegable.cerrarHover}
-                id="catalogosHeader"
-              >
+              <div className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`} onMouseEnter={desplegable.abrirHover} onMouseLeave={desplegable.cerrarHover} id="catalogosHeader">
                 <p>
-                  CATÁLOGOS
-                  <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fillRule="currentColor" className="bi bi-arrow-down-short flechaCatalogos" viewBox="0 0 16 16">
-                    <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
+                  CATÁLOGOS 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill flechaCatalogos" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                 </p>
               </div>

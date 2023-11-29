@@ -50,16 +50,6 @@
     transform: translateX(0%);
 }
 
-.bi-person-fill {
-    color: white;
-    transition: color 0.3s;
-}
-
-.perfil:hover .bi-person-fill {
-    color: var(--colorSecundario);
-    z-index: 1;
-}
-
 .seccion {
     position: relative;
     text-decoration: none;
@@ -126,9 +116,24 @@
     cursor: pointer;
 }
 
+.bi-person-fill {
+    color: white;
+    transition: color 0.3s;
+}
+
+.perfil:hover .bi-person-fill {
+    color: var(--colorSecundario);
+    z-index: 1;
+}
+
 .flechaCatalogos {
     fill: var(--colorSecundario);
-    font-weight: bold;
+    transition: fill 0.3s;
+}
+
+.catalogosYArrow:hover p .flechaCatalogos {
+    fill: white;
+    z-index: 1000;
 }
 
 @media (max-width: 1024px) {
