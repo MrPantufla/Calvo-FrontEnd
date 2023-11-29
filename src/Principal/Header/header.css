@@ -109,7 +109,7 @@
 .seccion:hover p,
 .seccion.hovered p,
 .seccion:hover .catalogosYArrow,
-.seccion.hovered .catalogosYArrow {
+.seccion.hovered .catalogosYArrow{
     color: white;
     z-index: 1;
 }
