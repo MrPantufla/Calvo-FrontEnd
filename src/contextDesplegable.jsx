@@ -12,7 +12,6 @@ function DesplegableProvider({ children }) {
     const [anchoCatalogos, setAnchoCatalogos] = useState(0);
 
     useEffect(() => {
-        console.log(anchoCatalogos)
         const nuevoAncho = `${anchoCatalogos}px`;
         const nuevoRight = `${anchoPerfil}px`;
         document.documentElement.style.setProperty('--widthCatalogos', nuevoAncho);
