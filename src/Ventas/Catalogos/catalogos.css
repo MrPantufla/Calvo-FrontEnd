@@ -1,10 +1,9 @@
 .desplegableCatalogos {
     background-color: var(--colorSecundario);
     top: 8.1rem;
-    right: var(--rightAnchoPerfil);
     z-index: 1000;
     position: fixed;
-    width: 18.8rem;
+    width: calc(var(--widthCatalogos) - 2.8rem);
     border: none;
     overflow: hidden;
     height: 0;
@@ -35,4 +34,28 @@
 
 .descargarCatalogosContainer a:hover {
     color: var(--colorCuaternario) !important;
+}
+
+@media (max-width: 4096px){
+    .desplegableCatalogos {
+        right: calc(var(--rightAnchoPerfil) - 2.3rem);
+    }
+}
+
+@media (max-width: 1600px){
+    .desplegableCatalogos {
+        right: calc(var(--rightAnchoPerfil) - 2.1rem);
+    }
+}
+
+@media (max-width: 1440px){
+    .desplegableCatalogos {
+        right: calc(var(--rightAnchoPerfil) - 2.2rem);
+    }
+}
+
+@media (max-width: 1366px){
+    .desplegableCatalogos {
+        right: calc(var(--rightAnchoPerfil) - 2.2rem);
+    }
 }
