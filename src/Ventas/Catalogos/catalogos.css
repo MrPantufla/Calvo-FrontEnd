@@ -3,7 +3,7 @@
     top: 8.1rem;
     z-index: 1000;
     position: fixed;
-    width: calc(var(--widthCatalogos) - 2.8rem);
+    width: calc(var(--widthCatalogos) - 2.7rem);
     border: none;
     overflow: hidden;
     height: 0;
@@ -56,6 +56,6 @@
 
 @media (max-width: 1366px){
     .desplegableCatalogos {
-        right: calc(var(--rightAnchoPerfil) - 2.2rem);
+        right: calc(var(--rightAnchoPerfil) - 2.3rem);
     }
 }
