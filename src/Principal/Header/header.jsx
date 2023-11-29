@@ -82,7 +82,6 @@ export default function Header() {
 
   const handleInicioClick = () => {
     window.scrollTo(0, 0);
-    console.log("anchoperfil=" +  desplegable.anchoPerfil);
   };
 
   useEffect(() => {
@@ -90,6 +89,11 @@ export default function Header() {
       const perfilElement = document.getElementById("perfilHeader");
       if (perfilElement) {
         desplegable.setAnchoPerfil(perfilElement.offsetWidth);
+      }
+
+      const catalogosElement = document.getElementById("catalogosHeader");
+      if(catalogosElement){
+        desplegable.setAnchoCatalogos(catalogosElement.offsetWidth);
       }
     };
   
@@ -139,6 +143,7 @@ export default function Header() {
               className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`}
                 onMouseEnter={desplegable.abrirHover}
                 onMouseLeave={desplegable.cerrarHover}
+                id="catalogosHeader"
               >
                 <p>
                   CATÁLOGOS
