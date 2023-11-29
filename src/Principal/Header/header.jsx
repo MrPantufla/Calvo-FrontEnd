@@ -4,11 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logout from '../../Logout prueba/logout';
 import { useAuth } from '../../contextLogin';
+import { useDesplegable } from '../../contextDesplegable';
 
 export default function Header() {
   const [headerSize, setHeaderSize] = useState(12);
   const location = useLocation();
   const mobile = (window.innerWidth < 768);
+
+  const desplegable = useDesplegable();
 
   const auth = useAuth();
   let ruta;
@@ -109,15 +112,20 @@ export default function Header() {
               <p>CONTACTO</p>
             </a>)
             :
-            (<div className="seccion">
-              <p>
-                CATÁLOGOS
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
-                </svg>
-              </p>
-            </div>)}
-
+            (
+              <div
+              className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`}
+                onMouseEnter={desplegable.abrirHover}
+                onMouseLeave={desplegable.cerrarHover}
+              >
+                <p>
+                  CATÁLOGOS
+                  <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fillRule="currentColor" className="bi bi-arrow-down-short flechaCatalogos" viewBox="0 0 16 16">
+                    <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
+                  </svg>
+                </p>
+              </div>
+            )}
           <NavLink to={ruta} className="perfil" onClick={handleToggleLogin}>
             <div className="iconoContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
@@ -127,6 +135,6 @@ export default function Header() {
           </NavLink>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

@@ -91,11 +91,13 @@
     transform: translateX(-200%);
 }
 
-.seccion:hover::before {
+.seccion:hover::before,
+.seccion.hovered::before {
     transform: translateX(0);
 }
 
-.seccion p {
+.seccion p,
+.seccion .catalogosYArrow {
     font-weight: bold;
     font-size: 2rem;
     text-align: center;
@@ -104,7 +106,10 @@
     transition: color 0.3s;
 }
 
-.seccion:hover p {
+.seccion:hover p,
+.seccion.hovered p,
+.seccion:hover .catalogosYArrow,
+.seccion.hovered .catalogosYArrow {
     color: white;
     z-index: 1;
 }
@@ -119,6 +124,11 @@
     width: 57%;
     object-fit: contain;
     cursor: pointer;
+}
+
+.flechaCatalogos {
+    fill: var(--colorSecundario);
+    font-weight: bold;
 }
 
 @media (max-width: 1024px) {
