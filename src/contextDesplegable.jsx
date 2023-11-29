@@ -9,10 +9,13 @@ function useDesplegable() {
 function DesplegableProvider({ children }) {
     const [hovered, setHovered] = useState(false);
     const [anchoPerfil, setAnchoPerfil] = useState(0);
+    const [anchoCatalogos, setAnchoCatalogos] = useState(0);
 
     useEffect(() => {
-        console.log("cambia")
-        const nuevoRight = `calc(0% + ${anchoPerfil}px - 20px)`;//Modificar para distancia del desplegable
+        console.log(anchoCatalogos)
+        const nuevoAncho = `${anchoCatalogos}px`;
+        const nuevoRight = `${anchoPerfil}px`;
+        document.documentElement.style.setProperty('--widthCatalogos', nuevoAncho);
         document.documentElement.style.setProperty('--rightAnchoPerfil', nuevoRight);
     }, [anchoPerfil]);
 
@@ -25,7 +28,7 @@ function DesplegableProvider({ children }) {
     }
 
     return (
-        <DesplegableContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoPerfil, setAnchoPerfil }}>
+        <DesplegableContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoPerfil, setAnchoPerfil, anchoCatalogos, setAnchoCatalogos }}>
             {children}
         </DesplegableContext.Provider>
     );
