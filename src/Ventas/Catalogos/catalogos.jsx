@@ -14,7 +14,7 @@ export default function Catalogos() {
 
     return (
         <div
-            className={`desplegableCatalogos ${desplegable.hovered ? 'open' : 'open'}`}
+            className={`desplegableCatalogos ${desplegable.hovered ? 'open' : ''}`}
             onMouseEnter={desplegable.abrirHover}
             onMouseLeave={desplegable.cerrarHover}
         >
