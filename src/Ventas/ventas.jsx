@@ -4,6 +4,7 @@ import Carrito from './Carrito/carrito';
 import { useState, useEffect } from 'react';
 import Footer from '../Principal/Footer/footer.jsx';
 import LoginYRegistro from '../Login y registro/loginYRegistro.jsx';
+import Catalogos from './Catalogos/catalogos.jsx';
 import { productos } from '../productos.js'; //Por si la base de datos no anda
 
 export default function Ventas(){
@@ -30,6 +31,7 @@ export default function Ventas(){
     return(
         <>
             <Header/>
+            <Catalogos/>
             <LoginYRegistro/>
             <Carrito json={jsonProductos}/>
             <Filtros json={jsonProductos}/>
