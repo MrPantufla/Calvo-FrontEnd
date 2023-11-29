@@ -82,7 +82,29 @@ export default function Header() {
 
   const handleInicioClick = () => {
     window.scrollTo(0, 0);
+    console.log("anchoperfil=" +  desplegable.anchoPerfil);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const perfilElement = document.getElementById("perfilHeader");
+      if (perfilElement) {
+        desplegable.setAnchoPerfil(perfilElement.offsetWidth);
+      }
+    };
+  
+    window.addEventListener("resize", handleResize);
+  
+    // Esperar hasta que el componente esté completamente cargado
+    window.addEventListener("load", handleResize);
+  
+    // Limpieza del evento al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("load", handleResize);
+    };
+  }, []);
+
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
@@ -126,7 +148,7 @@ export default function Header() {
                 </p>
               </div>
             )}
-          <NavLink to={ruta} className="perfil" onClick={handleToggleLogin}>
+          <NavLink to={ruta} id="perfilHeader" className="perfil" onClick={handleToggleLogin}>
             <div className="iconoContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
