@@ -4,7 +4,10 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/*.log",
+      "folderToIgnore/",
+      "fileToIgnore.js"
     ],
     "rewrites": [
       {
@@ -14,3 +17,4 @@
     ]
   }
 }
+
