@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logout from '../../Logout prueba/logout';
 import { useAuth } from '../../contextLogin';
-import { useDesplegable } from '../../contextDesplegable';
+import { useDesplegable } from '../../contextDesplegableCatalogos';
+import { useDesplegableConfiguracion } from '../../contextDesplegableConfiguracion';
 
 export default function Header() {
   const [headerSize, setHeaderSize] = useState(12);
@@ -12,6 +13,7 @@ export default function Header() {
   const mobile = (window.innerWidth < 768);
 
   const desplegable = useDesplegable();
+  const desplegableConfiguracion = useDesplegableConfiguracion();
 
   const auth = useAuth();
   let ruta;
@@ -95,6 +97,11 @@ export default function Header() {
       if (catalogosElement) {
         desplegable.setAnchoCatalogos(catalogosElement.offsetWidth);
       }
+
+      const configuracionElement = document.getElementById("configuracionHeader");
+      if(configuracionElement){
+        desplegableConfiguracion.setAnchoConfiguracion(configuracionElement.offsetWidth);
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -138,16 +145,20 @@ export default function Header() {
               <p>CONTACTO</p>
             </a>)
             :
-            (
-              <div className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`} onMouseEnter={desplegable.abrirHover} onMouseLeave={desplegable.cerrarHover} id="catalogosHeader">
+            (location.pathname === '/tienda' ?
+              (<div className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`} onMouseEnter={desplegable.abrirHover} onMouseLeave={desplegable.cerrarHover} id="catalogosHeader">
                 <p>
-                  CATÁLOGOS 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill flechaCatalogos" viewBox="0 0 16 16">
+                  CATÁLOGOS
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill flechaCatalogos" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                 </p>
-              </div>
-            )}
+              </div>)
+              :
+              (<div className={`configuracionDesplegable seccion ${desplegableConfiguracion.hovered ? 'hovered' : ''}`} onMouseEnter={desplegableConfiguracion.abrirHover} onMouseLeave={desplegableConfiguracion.cerrarHover} id="configuracionHeader">
+                <p>CONFIGURACIÓN</p>
+              </div>))
+          }
           <NavLink to={ruta} id="perfilHeader" className="perfil" onClick={handleToggleLogin}>
             <div className="iconoContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
