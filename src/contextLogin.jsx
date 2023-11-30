@@ -21,12 +21,10 @@ export const LoginProvider = ({ children }) => {
       logueado: true,
       userInfo: userData,
     });
-    console.log("logueado en el login: " + state.logueado)
   };
 
   const logout = async () => {
-    await
-      localStorage.removeItem('userData');
+    localStorage.removeItem('userData');
     setState({
       logueado: false,
       userInfo: null,
@@ -66,6 +64,17 @@ export const LoginProvider = ({ children }) => {
       return false;
     }
   };
+
+  useEffect(() => {
+    console.log('Efecto en el componente Login activado');
+    if (state.logueado) {
+      console.log(state.userInfo)
+      if (state.userInfo.email_confirmado) {
+        setMostrarLogin(false);
+      }
+    }
+  }, [state]);
+
 
   return (
     <AuthContext.Provider value={{ state, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarError, setMostrarError, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>

@@ -72,10 +72,6 @@ export default function Login() {
           console.log("userInfo: " + JSON.stringify(auth.state.userInfo));
           console.log("email_verificado? " + auth.state.userInfo.email_confirmado);
 
-          if (auth.state.userInfo.email_confirmado) {
-            auth.setMostrarLogin(false);
-          }
-
           localStorage.setItem('token', userData.token);
           localStorage.setItem('email', userData.email);
 
@@ -96,7 +92,7 @@ export default function Login() {
     e.preventDefault(); // Evita la recarga de la página al enviar el formulario
     await handleLogin();
   };
-
+  
   return (
     <div className="login-container">
       <h2>Iniciar Sesión</h2>
