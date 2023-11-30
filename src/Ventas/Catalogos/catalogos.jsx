@@ -1,5 +1,5 @@
 import './catalogos.css';
-import { useDesplegable } from '../../contextDesplegable';
+import { useDesplegable } from '../../contextDesplegableCatalogos';
 import { useState, useEffect } from 'react';
 
 export default function Catalogos() {
