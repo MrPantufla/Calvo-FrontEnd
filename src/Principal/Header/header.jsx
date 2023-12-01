@@ -91,16 +91,19 @@ export default function Header() {
       const perfilElement = document.getElementById("perfilHeader");
       if (perfilElement) {
         desplegable.setAnchoPerfil(perfilElement.offsetWidth);
+        console.log("anchoPerfil en header: " + desplegable.anchoPerfil)
       }
 
       const catalogosElement = document.getElementById("catalogosHeader");
       if (catalogosElement) {
         desplegable.setAnchoCatalogos(catalogosElement.offsetWidth);
+        console.log("anchoCatalogos en header: " + desplegable.anchoCatalogos);
       }
 
       const configuracionElement = document.getElementById("configuracionHeader");
       if(configuracionElement){
         desplegableConfiguracion.setAnchoConfiguracion(configuracionElement.offsetWidth);
+        console.log("anchoConfiguracion en header: " + desplegableConfiguracion.anchoCatalogos);
       }
     };
 
@@ -156,7 +159,12 @@ export default function Header() {
               </div>)
               :
               (<div className={`configuracionDesplegable seccion ${desplegableConfiguracion.hovered ? 'hovered' : ''}`} onMouseEnter={desplegableConfiguracion.abrirHover} onMouseLeave={desplegableConfiguracion.cerrarHover} id="configuracionHeader">
-                <p>CONFIGURACIÓN</p>
+                <p>
+                  CONFIGURACIÓN
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill flechaConfiguracion" viewBox="0 0 16 16">
+                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                  </svg>
+                </p>
               </div>))
           }
           <NavLink to={ruta} id="perfilHeader" className="perfil" onClick={handleToggleLogin}>
