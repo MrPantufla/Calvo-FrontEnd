@@ -7,21 +7,26 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LoginProvider } from './contextLogin';
 import { DesplegableProvider } from './contextDesplegableCatalogos.jsx';
 import { DesplegableProviderConfiguracion } from './contextDesplegableConfiguracion.jsx';
+import { EditarDatosProvider } from './contextEditarDatos.jsx';
 
 function App() {
   const apiUrl = "http://localhost:8080/api";
   return (
     <DesplegableProviderConfiguracion>
       <DesplegableProvider>
-        <LoginProvider>
-          <Router>
-            <Routes>
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/tienda" element={<Ventas />} />
-              <Route path="/perfil" element={<Perfil />} />
-            </Routes>
-          </Router>
-        </LoginProvider>
+        <EditarDatosProvider>
+          <LoginProvider>
+            <Router>
+              <Routes>
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/tienda" element={<Ventas />} />
+
+                <Route path="/perfil" element={<Perfil />} />
+
+              </Routes>
+            </Router>
+          </LoginProvider>
+        </EditarDatosProvider>
       </DesplegableProvider>
     </DesplegableProviderConfiguracion>
   );
