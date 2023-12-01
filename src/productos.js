@@ -82,5 +82,250 @@ export const productos = [
         tipo_prod: 1,
         srubro: 1,
         detalle: "textoDepruebaasdjkashgdjas"
-    }
+    },
+    {
+        id: 13,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 14,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 15,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 16,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 17,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 18,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 19,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 20,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 21,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 22,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 23,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 24,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 24,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 25,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 26,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 27,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 28,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 29,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 30,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 31,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 32,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 33,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 34,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 35,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 36,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 37,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 38,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 39,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 40,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 41,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 42,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 43,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 44,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 45,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
+    {
+        id: 46,
+        cod_orig: 12,
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "textoDepruebaasdjkashgdjas"
+    },
 ]
