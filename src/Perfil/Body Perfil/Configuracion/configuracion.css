@@ -3,13 +3,12 @@
     top: 8.7rem;
     z-index: 1000;
     position: fixed;
-    /*width: calc(var(--widthConfiguracion) - 2.7rem); -----ARREGLAR-----*/ 
-    width: 200px;
+    width: calc(var(--widthConfiguracion) - 2.7rem);
     border: none;
     overflow: hidden;
-    height: 0;
     transition: height 0.3s ease-in-out;
     transition-delay: 0s;
+    height: 0;
 }
 
 .desplegableConfiguracion:hover,
