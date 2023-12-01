@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
-import ConfirmacionCodigo from '../Confirmacion codigo/confirmacionCodigo.jsx';
 
 export default function Login() {
   const [email, setEmail] = useState('');
