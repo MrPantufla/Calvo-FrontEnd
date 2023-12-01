@@ -1,7 +1,7 @@
 .desplegableCatalogos {
     background-color: var(--colorSecundario);
     top: 8.1rem;
-    z-index: 1000;
+    z-index: 101;
     position: fixed;
     width: calc(var(--widthCatalogos) - 2.7rem);
     border: none;
