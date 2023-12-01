@@ -4,8 +4,9 @@ import { autoLogin } from '../Login/login';
 
 export default function Registro() {
     const [nombre, setNombre] = useState('');
-    const [email, setEmail] = useState('');
     const [apellido, setApellido] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefono, setTelefono] = useState('');
     const [cuit, setCuit] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
@@ -14,12 +15,16 @@ export default function Registro() {
     const handleRegistro = () => {
         // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const telefonoRegex= /[0-9]/;
 
-        if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit) {
+        if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono) {
             setErrorMessage('Por favor, complete todos los campos.');
             return;
         } else if (!emailRegex.test(email)) {
             setErrorMessage('Ingrese un formato de correo electrónico válido.');
+            return;
+        } else if (!telefonoRegex.test(telefono)){
+            setErrorMessage('En el campo de teléfono solo ingrese números');
             return;
         } else if (contrasenia !== confirmContrasenia) {
             setErrorMessage('Las contraseñas no coinciden.');
@@ -71,6 +76,7 @@ export default function Registro() {
         email: email,
         contrasenia: contrasenia,
         cuit: cuit,
+        telefono: parseInt(telefono, 10),
     };
 
     return (
@@ -79,7 +85,7 @@ export default function Registro() {
             <div className="error-message">{errorMessage}</div>
             <form>
                 <div className="form-group-registro">
-                    <label htmlFor="nombre" required>Nombre:</label>
+                    <label htmlFor="nombre" required>Nombre/s:</label>
                     <input
                         type="text"
                         id="nombre"
@@ -106,6 +112,16 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
+                    <label htmlFor="telefonoRegistro" required>Teléfono:</label>
+                    <input
+                        type="tel"
+                        id="telefonoRegistro"
+                        value={telefono}
+                        onChange={(e) => setTelefono(e.target.value)
+                        }
+                    />
+                </div>
+                <div className="form-group-registro">
                     <label htmlFor="cuit" required> CUIT:</label>
                     <input
                         id="cuit"
@@ -123,7 +139,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="confirmContrasenia" required>Confirmar Contraseña:</label>
+                    <label htmlFor="confirmContrasenia" required>Repetir Contraseña:</label>
                     <input
                         type="password"
                         id="confirmContrasenia"
