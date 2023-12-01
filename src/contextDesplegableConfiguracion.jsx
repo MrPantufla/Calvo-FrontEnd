@@ -8,18 +8,16 @@ function useDesplegableConfiguracion() {
 
 function DesplegableProviderConfiguracion({ children }) {
     const [hovered, setHovered] = useState(false);
-    const [anchoPerfil, setAnchoPerfil] = useState(0);
     const [anchoConfiguracion, setAnchoConfiguracion] = useState(0);
 
     useEffect(() => {
         const nuevoAncho = `${anchoConfiguracion}px`;
-        const nuevoRight = `${anchoPerfil}px`;
         document.documentElement.style.setProperty('--widthConfiguracion', nuevoAncho);
-        document.documentElement.style.setProperty('--rightAnchoPerfil', nuevoRight);
-    }, [anchoPerfil]);
+    }, [anchoConfiguracion]);
 
     const abrirHover = () => {
         setHovered(true);
+        console.log("anchoConfiguracion:" + anchoConfiguracion);
     }
 
     const cerrarHover = () => {
@@ -27,7 +25,7 @@ function DesplegableProviderConfiguracion({ children }) {
     }
 
     return (
-        <DesplegableConfiguracionContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoPerfil, setAnchoPerfil, anchoConfiguracion, setAnchoConfiguracion }}>
+        <DesplegableConfiguracionContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoConfiguracion, setAnchoConfiguracion }}>
             {children}
         </DesplegableConfiguracionContext.Provider>
     );
