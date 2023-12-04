@@ -1,7 +1,7 @@
 import { useAuth } from '../../contextLogin.jsx';
 import './bodyPerfil.css';
 import Configuracion from './Configuracion/configuracion.jsx';
-import EditarDatos from './Configuracion/editarDatos.jsx';
+import EditarDatos from './Configuracion/Editar Datos/editarDatos.jsx';
 import { useEditarDatos } from '../../contextEditarDatos.jsx';
 
 export default function BodyPerfil(){

@@ -15,7 +15,6 @@ export const LoginProvider = ({ children }) => {
   });
 
   const login = (userData) => {
-    console.log("Entra al login")
     localStorage.setItem('userData', JSON.stringify(userData));
     setState({
       logueado: true,
@@ -66,7 +65,6 @@ export const LoginProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('Efecto en el componente Login activado');
     if (state.logueado) {
       console.log(state.userInfo)
       if (state.userInfo.email_confirmado) {
