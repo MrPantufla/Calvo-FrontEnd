@@ -65,12 +65,13 @@ export default function Carrito(props) {
 
   const confirmarCompra = () => {
     const nuevosElementos = elementos.map(({ id, cantidad }) => ({ id, cantidad }));
-    const nuevoPedido = pedido.concat(nuevosElementos, auth.state.userInfo.cuit); //CAMBIAR COD_ORIG POR ID AL ACOMODARLA
+    const nuevoPedido = pedido.concat(nuevosElementos, auth.state.userInfo.cuit);
     console.log(pedido);
     fetch('http://localhost:8080/api/recibirCarrito', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth.state.userInfo.token}`,
       },
       body: JSON.stringify(nuevoPedido),
       credentials: 'include',

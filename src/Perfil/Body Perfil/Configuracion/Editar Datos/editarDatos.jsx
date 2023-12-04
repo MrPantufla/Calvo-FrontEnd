@@ -52,6 +52,7 @@ export default function EditarDatos() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.state.userInfo.token}`,
             },
             body: JSON.stringify(usuario),
             credentials: 'include',
@@ -198,7 +199,7 @@ export default function EditarDatos() {
                     </div>
                     <div className="botonRegistroContainer">
                         <button className="botonEnviarEdit" type="submit">
-                            Registrar
+                            Confirmar
                         </button>
                     </div>
                 </form>
