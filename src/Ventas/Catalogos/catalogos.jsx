@@ -1,9 +1,9 @@
 import './catalogos.css';
-import { useDesplegable } from '../../contextDesplegableCatalogos';
+import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import { useState, useEffect } from 'react';
 
 export default function Catalogos() {
-    const desplegable = useDesplegable();
+    const desplegable = useDesplegableCatalogos();
     const [catalogosTop, setCatalogosTop] = useState(8.7);
 
     const handleDownload = (filename) => {
