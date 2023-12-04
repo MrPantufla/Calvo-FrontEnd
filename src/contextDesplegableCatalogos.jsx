@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-const DesplegableContext = createContext();
+const DesplegableCatalogosContext = createContext();
 
-function useDesplegable() {
-    return useContext(DesplegableContext);
+function useDesplegableCatalogos() {
+    return useContext(DesplegableCatalogosContext);
 }
 
-function DesplegableProvider({ children }) {
+function DesplegableProviderCatalogos({ children }) {
     const [hovered, setHovered] = useState(false);
     const [anchoPerfil, setAnchoPerfil] = useState(0);
     const [anchoCatalogos, setAnchoCatalogos] = useState(0);
@@ -27,10 +27,10 @@ function DesplegableProvider({ children }) {
     }
 
     return (
-        <DesplegableContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoPerfil, setAnchoPerfil, anchoCatalogos, setAnchoCatalogos }}>
+        <DesplegableCatalogosContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoPerfil, setAnchoPerfil, anchoCatalogos, setAnchoCatalogos }}>
             {children}
-        </DesplegableContext.Provider>
+        </DesplegableCatalogosContext.Provider>
     );
 }
 
-export { DesplegableContext, useDesplegable, DesplegableProvider };
+export { DesplegableCatalogosContext, useDesplegableCatalogos, DesplegableProviderCatalogos };
