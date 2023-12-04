@@ -5,7 +5,7 @@ import Ventas from './Ventas/ventas.jsx';
 import Perfil from './Perfil/perfil.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LoginProvider } from './contextLogin';
-import { DesplegableProvider } from './contextDesplegableCatalogos.jsx';
+import { DesplegableProviderCatalogos } from './contextDesplegableCatalogos.jsx';
 import { DesplegableProviderConfiguracion } from './contextDesplegableConfiguracion.jsx';
 import { EditarDatosProvider } from './contextEditarDatos.jsx';
 
@@ -13,7 +13,7 @@ function App() {
   const apiUrl = "http://localhost:8080/api";
   return (
     <DesplegableProviderConfiguracion>
-      <DesplegableProvider>
+      <DesplegableProviderCatalogos>
         <EditarDatosProvider>
           <LoginProvider>
             <Router>
@@ -27,7 +27,7 @@ function App() {
             </Router>
           </LoginProvider>
         </EditarDatosProvider>
-      </DesplegableProvider>
+      </DesplegableProviderCatalogos>
     </DesplegableProviderConfiguracion>
   );
 }
