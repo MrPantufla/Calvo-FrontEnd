@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logout from '../../Logout prueba/logout';
 import { useAuth } from '../../contextLogin';
-import { useDesplegable } from '../../contextDesplegableCatalogos';
+import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import { useDesplegableConfiguracion } from '../../contextDesplegableConfiguracion';
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
   const location = useLocation();
   const mobile = (window.innerWidth < 768);
 
-  const desplegable = useDesplegable();
+  const desplegable = useDesplegableCatalogos();
   const desplegableConfiguracion = useDesplegableConfiguracion();
 
   const auth = useAuth();
