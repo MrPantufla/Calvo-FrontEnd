@@ -13,7 +13,7 @@ export default function Configuracion() {
             onMouseLeave={desplegable.cerrarHover}
         >
             <div className="configuracionContainer">
-                <a onClick={editarDatos.abrirEditarDatos}>DATOS DE CUENTA</a>
+                <a onClick={editarDatos.abrirEditarDatos}>DATOS DE USUARIO</a>
                 <a>MIS DIRECCIONES</a>
                 <a>HERRAMIENTAS</a>
             </div>
