@@ -15,7 +15,7 @@ export default function Login() {
     const storedEmail = localStorage.getItem('email');
 
     if (storedToken && storedEmail) {
-      console.log(storedEmail)
+      console.log("storedEmail: " + storedEmail)
       try {
         const isTokenValid = await verifyToken(storedToken);
         console.log("isTokenValid: " + isTokenValid);
