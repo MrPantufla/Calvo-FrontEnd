@@ -17,7 +17,6 @@ function DesplegableProviderConfiguracion({ children }) {
 
     const abrirHover = () => {
         setHovered(true);
-        console.log("anchoConfiguracion:" + anchoConfiguracion);
     }
 
     const cerrarHover = () => {
