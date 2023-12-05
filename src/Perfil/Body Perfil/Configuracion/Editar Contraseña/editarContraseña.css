@@ -1,0 +1,52 @@
+.contenedorPrincipalEditarContraseña{
+    background-color: rgba(0,0,0, 50%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parteFuncionalEditarContraseña{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40rem;
+    height: 42rem;
+    flex-direction: column;
+}
+
+.parteFuncionalEditarContraseña h2{
+    font-size: 3rem;
+}
+
+.form-group-editarContraseña{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.form-group-editarContraseña input{
+    height: 2.5rem;
+    width: 20rem;
+    margin: 1rem 1rem;
+    font-size: 1.5rem;
+}
+
+.form-group-editarContraseña label{
+    font-size: 1.8rem;
+}
+
+.botonEditar{
+    border: none;
+    width: 3rem;
+    height: 3rem;
+}
+
+.botonEditar:hover{
+    transform: scale(1.1);
+}
