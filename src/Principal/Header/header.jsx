@@ -12,7 +12,7 @@ export default function Header() {
   const location = useLocation();
   const mobile = (window.innerWidth < 768);
 
-  const desplegable = useDesplegableCatalogos();
+  const desplegableCatalogos = useDesplegableCatalogos();
   const desplegableConfiguracion = useDesplegableConfiguracion();
 
   const auth = useAuth();
@@ -86,39 +86,29 @@ export default function Header() {
     window.scrollTo(0, 0);
   };
 
+  const handleResize = () => {
+    const perfilElement = document.getElementById("perfilHeader");
+    if (perfilElement) {
+      const rect = perfilElement.getBoundingClientRect();
+      desplegableCatalogos.setAnchoPerfil(rect.width);
+    }
+
+    const catalogosElement = document.getElementById("catalogosHeader");
+    if (catalogosElement) {
+      desplegableCatalogos.setAnchoCatalogos(catalogosElement.offsetWidth);
+    }
+
+    const configuracionElement = document.getElementById("configuracionHeader");
+    if (configuracionElement) {
+      desplegableConfiguracion.setAnchoConfiguracion(configuracionElement.offsetWidth);
+    }
+  };
+
   useEffect(() => {
-    const handleResize = () => {
-      const perfilElement = document.getElementById("perfilHeader");
-      if (perfilElement) {
-        desplegable.setAnchoPerfil(perfilElement.offsetWidth);
-        console.log("anchoPerfil en header: " + desplegable.anchoPerfil)
-      }
+    handleResize();
+  });
 
-      const catalogosElement = document.getElementById("catalogosHeader");
-      if (catalogosElement) {
-        desplegable.setAnchoCatalogos(catalogosElement.offsetWidth);
-        console.log("anchoCatalogos en header: " + desplegable.anchoCatalogos);
-      }
-
-      const configuracionElement = document.getElementById("configuracionHeader");
-      if(configuracionElement){
-        desplegableConfiguracion.setAnchoConfiguracion(configuracionElement.offsetWidth);
-        console.log("anchoConfiguracion en header: " + desplegableConfiguracion.anchoCatalogos);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Esperar hasta que el componente esté completamente cargado
-    window.addEventListener("load", handleResize);
-
-    // Limpieza del evento al desmontar el componente
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("load", handleResize);
-    };
-  }, []);
-
+  window.addEventListener("resize", handleResize);
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
@@ -149,7 +139,7 @@ export default function Header() {
             </a>)
             :
             (location.pathname === '/tienda' ?
-              (<div className={`catalogosYArrow seccion ${desplegable.hovered ? 'hovered' : ''}`} onMouseEnter={desplegable.abrirHover} onMouseLeave={desplegable.cerrarHover} id="catalogosHeader">
+              (<div className={`catalogosYArrow seccion ${desplegableCatalogos.hovered ? 'hovered' : ''}`} onMouseEnter={desplegableCatalogos.abrirHover} onMouseLeave={desplegableCatalogos.cerrarHover} id="catalogosHeader">
                 <p>
                   CATÁLOGOS
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill flechaCatalogos" viewBox="0 0 16 16">
