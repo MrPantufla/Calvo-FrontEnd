@@ -1,5 +1,6 @@
 import './productoGrande.css';
 import perfil from '../../Imagenes/perfil.jpg';
+import logoProductoGrande from '../../Imagenes/logoProductoGrande.png';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useAuth } from '../../contextLogin.jsx';
 
@@ -40,24 +41,24 @@ export default function ProductoGrande(args) {
     return (
         <div className="contenedorPrincipalProductoGrande" onClick={handleClose}>
             <div className="parteUtilizableProductoGrande" onClick={handleParteUtilizableClick}>
-                <div className="botonCerrarContainer">
-                    <button className="botonCerrarProductoGrande" onClick={handleClose}>
-                        X
-                    </button>
+                <div className="logoProductoGrandeContainer">
+                    <img className="logoProductoGrande" src={logoProductoGrande} />
                 </div>
-                <div className="productoGrandeContainer">
-                    <div className="informacion">
-                        <h1>{args.cod_orig}</h1>
-                        <h2>{args.detalle}</h2>
-                        <p>asdmhasfdhasfdhasgdv</p>
-                        <p>${args.precio}</p>
-                    </div>
-                    <img className="imagenProductoGrande" src={perfil} />
-                    <p className="textoCantidad">Cantidad en el carrito</p>
-                    <div className="cantidad">
-                        <button className="boton" onClick={restarContador}>-</button>
-                        <span>{cantidad}</span>
-                        <button className="boton" onClick={sumarContador}>+</button>
+                <div className="parteInternaUtilizableProductoGrande">
+                    <div className="productoGrandeContainer">
+                        <div className="informacion">
+                            <h1>{args.cod_orig}</h1>
+                            <h2>{args.detalle}</h2>
+                        </div>
+                        <div className="imagenProductoGrandeContainer">
+                            <img className="imagenProductoGrande" src={perfil} />
+                        </div>
+                        <p className="textoCantidad">CANTIDAD EN EL CARRITO</p>
+                        <div className="cantidad">
+                            <button className="botonProductoGrande" onClick={restarContador}>-</button>
+                            <p className="cantidadProductoGrande">{cantidad}</p>
+                            <button className="botonProductoGrande" onClick={sumarContador}>+</button>
+                        </div>
                     </div>
                 </div>
             </div>
