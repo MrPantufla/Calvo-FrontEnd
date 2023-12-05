@@ -7,6 +7,7 @@ export default function EditarContraseña() {
     const editarContraseña = useEditarContraseña();
     const auth = useAuth();
     const [errorMessage, setErrorMessage] = useState('');
+    const [contraseñaActual, setContraseñaActual] = useState('');
     const [nuevaContraseña, setNuevaContraseña] = useState('');
     const [repetirContraseña, setRepetirContraseña] = useState('');
 
@@ -14,18 +15,18 @@ export default function EditarContraseña() {
         event.stopPropagation();
     }
 
-    const vaciarError = () =>{
+    const vaciarError = () => {
         setErrorMessage('');
     }
 
-    const handleEditarContraseña = (event) =>{
+    const handleEditarContraseña = (event) => {
         event.preventDefault();
 
-        if(!nuevaContraseña || !repetirContraseña){
+        if (!nuevaContraseña || !repetirContraseña || !contraseñaActual) {
             setErrorMessage("Por favor, complete todos los campos.");
             return;
         }
-        else{
+        else {
             console.log("Formulario cambio de contraseña enviado");
             confirmarEditarContraseña();
         }
@@ -70,7 +71,8 @@ export default function EditarContraseña() {
 
     const emailYContraseña = {
         email: auth.state.userInfo.email,
-        nuevaContraseña: nuevaContraseña
+        nuevaContraseña: nuevaContraseña,
+        contraseñaActual: contraseñaActual
     }
 
     return (
@@ -79,6 +81,16 @@ export default function EditarContraseña() {
                 <h2>CAMBIAR CONTRASEÑA</h2>
                 <div className="error-message">{errorMessage}</div>
                 <form id="formularioEditarContraseña" onSubmit={handleEditarContraseña}>
+                    <div className="form-group-editarContraseña">
+                        <label htmlFor="contraseñaActual" id="contraseñaActual" required onFocus={vaciarError}>Contraseña actual</label>
+                        <input
+                            type="password"
+                            id="contraseñaActual"
+                            value={contraseñaActual}
+                            required
+                            onChange={(e) => setContraseñaActual(e.target.value)}
+                        />
+                    </div>
                     <div className="form-group-editarContraseña">
                         <label htmlFor="nuevaContraseña" id="contraseña" required onFocus={vaciarError}>Nueva contraseña</label>
                         <input
