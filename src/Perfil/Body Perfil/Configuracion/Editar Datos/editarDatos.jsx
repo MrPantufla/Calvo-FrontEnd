@@ -197,7 +197,7 @@ export default function EditarDatos() {
                                 </svg>)}
                         </button>
                     </div>
-                    <div className="botonRegistroContainer">
+                    <div className="botonEditarDatosContainer">
                         <button className="botonEnviarEdit" type="submit">
                             Confirmar
                         </button>
