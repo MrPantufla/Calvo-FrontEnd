@@ -13,6 +13,7 @@ html{
   --colorSecundario: #4e4e4d;
   --colorTerciario: #c4c4c5;
   --colorCuaternario: #989899;
+  --colorRojo: #e31e24;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');

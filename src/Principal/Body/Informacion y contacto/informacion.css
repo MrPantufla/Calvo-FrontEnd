@@ -36,7 +36,7 @@
 .poligono{
     width: 1.42rem;
     height: 0.6rem;
-    background-color: #e31e24;
+    background-color: var(--colorRojo);
     clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
 }
 
