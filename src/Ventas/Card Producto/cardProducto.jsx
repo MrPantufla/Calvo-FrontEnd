@@ -12,54 +12,56 @@ export default function CardProducto(args) {
 
   const sumarContador = (event) => {
     event.stopPropagation();
-    if(auth.state.logueado){
-      if(auth.state.userInfo.email_confirmado){
+    if (auth.state.logueado) {
+      if (auth.state.userInfo.email_confirmado) {
         añadirElemento(args.id, args.cod_orig, args.detalle, 1, args.precio);
       }
-      else{
+      else {
         auth.setMostrarLogin(true);
       }
     }
-    else{
+    else {
       auth.setMostrarLogin(true);
     }
   }
 
   const restarContador = (event) => {
     event.stopPropagation();
-    if(auth.state.logueado){
-      if(auth.state.userInfo.email_confirmado){
+    if (auth.state.logueado) {
+      if (auth.state.userInfo.email_confirmado) {
         if (cantidad > 0) {
           restarElemento(args.id);
         }
       }
-      else{
+      else {
         auth.setMostrarLogin(true);
       }
     }
-    else{
+    else {
       auth.setMostrarLogin(true);
     }
   }
 
-  return(
-    <div className="card" onClick={args.onClick}>
-      <p className="cod_orig">{args.cod_orig}</p>
-      <div className="imagenContainer">
-        <img className="imagenProducto" src={perfil} alt="Producto"></img>
-      </div>
-      <div className="detalle">
-        <h3>{args.detalle}</h3>
-      </div>
-      <div className="cantidad">
-        <button className="boton" onClick={restarContador}>-</button>
-        <span>{cantidad}</span>
-        <button className="boton" onClick={sumarContador}>+</button>
-      </div>
-      <div className="texto">
-        <p className="rubro">Tipo: {args.tipo_prod}</p>
-        <p className="precio">Precio aproximado: ${args.precio}</p>
-        <p className="srubro">Subrubro: {args.srubro}</p>
+  return (
+    <div className="contenedorPrincipalCardProducto" onClick={args.onClick}>
+      <div className="cod_origContainer">
+          <p className="cod_orig">    {args.cod_orig}    </p>
+        </div>
+      <div className="contenedorCardProducto">
+        <div className="imagenContainer">
+          <img className="imagenProducto" src={perfil} alt="Producto"></img>
+        </div>
+        <div className="detalle">
+          <h3>{args.detalle}</h3>
+        </div>
+        <div className="cantidadCardProducto">
+          <button className="boton" onClick={restarContador}>-</button>
+          <span>{cantidad}</span>
+          <button className="boton" onClick={sumarContador}>+</button>
+        </div>
+        <div className="precioContainer">
+          <p className="precio">${args.precio}</p>
+        </div>
       </div>
     </div>
   );
