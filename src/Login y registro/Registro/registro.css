@@ -1,20 +1,23 @@
-.registro-container h2{
-    text-align: center;
-    display: flex;
-    justify-content: center;
+.registro-container{
+    height: 36rem;
+    padding-top: 2rem;
 }
 
 .form-group-registro input{
     margin-left: 1rem;
+    width: 65%;
+    border: 1px solid var(--colorTerciario);
+    border-radius: 0;
+    height: 3rem;
     margin-bottom: 1rem;
-    width: 51%;
 }
 
 .form-group-registro{
     display: flex;
     justify-content: right;
-    padding-right: 25%;
     font-size: 1.5rem;
+    padding-right: 2rem;
+    color: var(--colorSecundario);
 }
 
 .botonRegistroContainer{
@@ -24,8 +27,22 @@
 }
 
 .botonEnviarRegistro{
-    font-size: 1.5rem;
+    width: 10rem;
+    font-size: 1.4rem;
     margin-bottom: 1rem;
+    border: 1.5px solid var(--colorTerciario);
+    height: 3rem;
+    background-color: var(--colorPrimario);
+    color: var(--colorSecundario);
+    transition: color(0.3s);
+}
+
+.botonEnviarRegistro:hover{
+    background-color: var(--colorTerciario);
+}
+
+.botonRegistroContainer{
+    padding-top: 1rem;
 }
 
 
