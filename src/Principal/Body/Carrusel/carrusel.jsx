@@ -1,7 +1,5 @@
 import './carrusel.css';
 import carrusel1 from '../../../Imagenes/carrusel1.jpg';
-import carrusel2 from '../../../Imagenes/carrusel2.jpg';
-import carrusel3 from '../../../Imagenes/carrusel3.jpg';
 import Carousel from 'react-bootstrap/Carousel';
 
 export default function Carrusel() {
