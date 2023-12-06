@@ -13,8 +13,8 @@
   }
 
   .contenedorLoginYRegistro{
-    width: 50rem;
-    background-color: var(--colorPrimario);
+    width: 45rem;
+    /*background-color: var(--colorPrimario);*/
   }
   
   .content-container {
@@ -24,6 +24,7 @@
   .btn-group {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.5rem;
   }
   
   .contenedorComponenteLogin {
@@ -31,10 +32,25 @@
   }
   
   .contenedorFormularios {
-    margin-top: 2rem;
+    background-color: var(--colorPrimario);
   }
   
-  .btn {
+  .btn-outline-secondary{
     font-size: 1.5rem;
+    height: 3.2rem;
+    border-radius: 0;
+    border: none;
+    color: var(--colorSecundario);
+    font-weight: 500;
+    background-color: var(--colorPrimario);
+  }
+
+  input[type="radio"].btn-check:hover + label.btn-outline-secondary {
+    background-color: var(--colorTerciario);
+    color: black;
   }
   
+  input[type="radio"].btn-check:checked + label.btn-outline-secondary {
+    background-color: var(--colorSecundario);
+    color: white;
+  }
