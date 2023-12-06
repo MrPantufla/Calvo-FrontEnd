@@ -2,22 +2,23 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
-
-.login-container h2{
-    text-align: center;
+    height: 16.5rem;
 }
 
 .inputFormularioLogin{
     display: flex;
     justify-content: right;
-    padding-right: 25%;
     font-size: 1.5rem;
+    padding-right: 2rem;
+    color: var(--colorSecundario);
 }
 
 .inputFormularioLogin input{
     margin-left: 1rem;
-    width: 51%;
+    width: 65%;
+    border: 1px solid var(--colorTerciario);
+    border-radius: 0;
+    height: 3rem;
 }
 
 
@@ -27,13 +28,29 @@
 
 .botonEnviarLogin{
     width: 10rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 1rem;
+    border: 1.5px solid var(--colorTerciario);
+    height: 3rem;
+    background-color: var(--colorPrimario);
+    color: var(--colorSecundario);
+    transition: color(0.3s);
+}
+
+.error-message{
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.botonEnviarLogin:hover{
+    background-color: var(--colorTerciario);
 }
 
 .botonLoginContainer{
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-top: 1rem;
 }
 
