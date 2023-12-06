@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
+import logoLoginYRegistro from '../../Imagenes/logoLoginYRegistro.jpeg';
 
 export default function Login() {
   const [email, setEmail] = useState('');
