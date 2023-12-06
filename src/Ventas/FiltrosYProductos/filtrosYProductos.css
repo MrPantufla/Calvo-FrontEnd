@@ -1,20 +1,25 @@
 .filtrosYBusqueda{
-    width: 30%;
+    width: 25%;
     position: sticky;
     display: flex;
     justify-content: center;
 }
 
 .productos{
-    width: 70%;
-    margin-left: 27%;
+    margin-left: 25%;
 }
 
 .contenedorPrincipalFiltrosYProductos{
     display: flex;
     flex-direction: column;
-    padding-top: 150px;
-    background-color: var(--colorPrimario);
+    padding-top: 12rem;
+    padding-right: 2rem;
+    background-color: #C8C8C8;
+    background-image: url('../../Imagenes/CA.png');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left 12rem;
 }
 
 .check{
@@ -27,7 +32,7 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 23rem;
+    top: 20rem;
 }
 
 .labelRubros, .labelSubrubros{
@@ -42,6 +47,7 @@
     height: 3rem;
     position: fixed;
     font-size: 2rem;
+    top: 15rem;
 }
 
 .busqueda::placeholder{
@@ -57,7 +63,7 @@
 .button{
     margin: 2rem 0;
     border: none;
-    background-color: white;
+    background-color: var(--colorPrimario);
     font-weight: 650;
     height: 3rem;
     width: 7rem;
