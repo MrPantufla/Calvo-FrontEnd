@@ -18,13 +18,13 @@ export default function LoginYRegistro() {
     setOpcionSeleccionada(opcion);
   };
 
-  const handleClose = () =>{
+  const handleClose = () => {
     auth.setMostrarLogin(false);
     auth.setMostrarError(false);
     auth.setMostrarErrorCodigoConfirmacion(false);
   }
 
-  const handleParteUtilizableClick = (event) =>{
+  const handleParteUtilizableClick = (event) => {
     event.stopPropagation();
   }
 
@@ -50,8 +50,8 @@ export default function LoginYRegistro() {
                   checked={opcionSeleccionada === 'login'}
                   onChange={() => handleOpcionClick('login')}
                 />
-                <label className="btn btn-outline-primary" htmlFor="btnradio1">
-                  Iniciar sesión
+                <label className="btn btn-outline-secondary" htmlFor="btnradio1">
+                  INICIAR SESIÓN
                 </label>
                 <input
                   type="radio"
@@ -62,8 +62,8 @@ export default function LoginYRegistro() {
                   checked={opcionSeleccionada === 'registro'}
                   onChange={() => handleOpcionClick('registro')}
                 />
-                <label className="btn btn-outline-primary" htmlFor="btnradio2">
-                  Registrarme
+                <label className="btn btn-outline-secondary" htmlFor="btnradio2">
+                  REGISTRARME
                 </label>
               </div>
               <div className="contenedorFormularios">
