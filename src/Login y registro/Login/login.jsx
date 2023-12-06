@@ -5,7 +5,6 @@ import { useAuth } from '../../contextLogin.jsx';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const auth = useAuth();
 
   const { verifyToken } = useAuth();
@@ -76,8 +75,7 @@ export default function Login() {
         }
       } else {
         const data = await response.json();
-        auth.setMostrarError(true);
-        setErrorMessage("Email y/o contraseña inválidos");
+        auth.setErrorMessage("Email y/o contraseña inválidos");
       }
     } catch (error) {
       console.error('Error al intentar iniciar sesión:', error);
@@ -91,7 +89,7 @@ export default function Login() {
   
   return (
     <div className="login-container">
-      <div className="error-message">{auth.mostrarError ? errorMessage : ""}</div>
+      <div className="error-message">{auth.errorMessage}</div>
       <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
         <div className="form-group inputFormularioLogin">
           <label htmlFor="email">Correo Electrónico</label>
@@ -103,7 +101,7 @@ export default function Login() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            onFocus={auth.setMostrarError(false)}
+            onFocus={() => auth.setErrorMessage('')}
           />
         </div>
         <div className="form-group inputFormularioLogin">
@@ -116,7 +114,7 @@ export default function Login() {
             onChange={(e) => {
               setPassword(e.target.value)
             }}
-            onFocus={auth.setMostrarError(false)}
+            onFocus={() => auth.setErrorMessage('')}
           />
         </div>
         <div className="botonLoginContainer">

@@ -11,7 +11,6 @@ export default function Registro() {
     const [cuit, setCuit] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
 
     const auth = useAuth();
 
@@ -21,21 +20,17 @@ export default function Registro() {
         const telefonoRegex= /[0-9]/;
 
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono) {
-            setErrorMessage('Por favor, complete todos los campos.');
-            auth.setMostrarError(true);
-            console.log(errorMessage);
+            auth.setErrorMessage('Por favor, complete todos los campos.');
+            console.log(auth.errorMessage);
             return;
         } else if (!emailRegex.test(email)) {
-            setErrorMessage('Ingrese un formato de correo electrónico válido.');
-            auth.setMostrarError(true);
+            auth.setErrorMessage('Ingrese un formato de correo electrónico válido.');
             return;
         } else if (!telefonoRegex.test(telefono)){
-            setErrorMessage('En el campo de teléfono solo ingrese números');
-            auth.setMostrarError(true);
+            auth.setErrorMessage('En el campo de teléfono solo ingrese números');
             return;
         } else if (contrasenia !== confirmContrasenia) {
-            setErrorMessage('Las contraseñas no coinciden.');
-            auth.setMostrarError(true);
+            auth.setErrorMessage('Las contraseñas no coinciden.');
             return;
         } else {
             console.log('Registro exitoso');
@@ -64,7 +59,7 @@ export default function Registro() {
             .then(data => {
                 if (data !== null) {
                     console.log('Respuesta (texto): ', data);
-                    setErrorMessage(data);
+                    auth.setErrorMessage(data);
                     // Aquí puedes manejar la respuesta según tus necesidades
                 }
             })
@@ -72,11 +67,10 @@ export default function Registro() {
                 console.error('Ocurrió un error al enviar los datos:', error.message);
                 if (error.message.includes('409')) {
                     console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
-                    setErrorMessage('El correo electrónico ya está en uso.');
+                    auth.setErrorMessage('El correo electrónico ya está en uso.');
                 }
             });
     };
-
 
     const usuario = {
         nombre: nombre,
@@ -89,7 +83,7 @@ export default function Registro() {
 
     return (
         <div className="registro-container">
-            <div className="error-message">{auth.mostrarError ? errorMessage : ""}</div>
+            <div className="error-message">{auth.errorMessage}</div>
             <form>
                 <div className="form-group-registro">
                     <label htmlFor="nombre" required>Nombre/s</label>
@@ -98,7 +92,7 @@ export default function Registro() {
                         id="nombre"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="form-group-registro">
@@ -108,7 +102,7 @@ export default function Registro() {
                         id="apellido"
                         value={apellido}
                         onChange={(e) => setApellido(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="form-group-registro">
@@ -118,7 +112,7 @@ export default function Registro() {
                         id="emailRegistro"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="form-group-registro">
@@ -128,7 +122,7 @@ export default function Registro() {
                         id="telefonoRegistro"
                         value={telefono}
                         onChange={(e) => setTelefono(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="form-group-registro">
@@ -137,7 +131,7 @@ export default function Registro() {
                         id="cuit"
                         value={cuit}
                         onChange={(e) => setCuit(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="form-group-registro">
@@ -147,7 +141,7 @@ export default function Registro() {
                         id="contrasenia"
                         value={contrasenia}
                         onChange={(e) => setContrasenia(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="form-group-registro">
@@ -157,7 +151,7 @@ export default function Registro() {
                         id="confirmContrasenia"
                         value={confirmContrasenia}
                         onChange={(e) => setConfirmContrasenia(e.target.value)}
-                        onFocus={auth.setMostrarError(false)}
+                        onFocus={() => auth.setErrorMessage('')}
                     />
                 </div>
                 <div className="botonRegistroContainer">
