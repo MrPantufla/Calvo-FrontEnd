@@ -6,7 +6,7 @@ import ProductoGrande from './productoGrande';
 export default function FiltrosYProductos(props) {
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
-  const itemsPorPagina = 20;
+  const itemsPorPagina = 21;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const srubrosUnicos = [...new Set(props.json.map((producto) => producto.srubro))];
@@ -125,7 +125,7 @@ export default function FiltrosYProductos(props) {
       <div className="productos">
         <div className="row">
           {itemsActuales.map((producto) => (
-            <div key={producto.id} className="col-md-3 producto">
+            <div key={producto.id} className="col-12 col-md-4 producto">
               <CardProducto
                 id={producto.id}
                 cod_orig={producto.cod_orig}
