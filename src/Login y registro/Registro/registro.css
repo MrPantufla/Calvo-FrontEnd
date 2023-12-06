@@ -1,6 +1,9 @@
 .registro-container{
     height: 38rem;
     padding-top: 1rem;
+    background-image: url('../../Imagenes/logoLoginYRegistro.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .form-group-registro input{
