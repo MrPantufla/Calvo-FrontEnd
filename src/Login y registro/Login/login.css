@@ -3,6 +3,9 @@
     justify-content: center;
     flex-direction: column;
     height: 16.5rem;
+    background-image: url('../../Imagenes/logoLoginYRegistro.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .inputFormularioLogin{
