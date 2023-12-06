@@ -1,6 +1,6 @@
 .registro-container{
-    height: 36rem;
-    padding-top: 2rem;
+    height: 38rem;
+    padding-top: 1rem;
 }
 
 .form-group-registro input{
@@ -11,6 +11,10 @@
     height: 3rem;
     margin-bottom: 1rem;
     padding-left: 0.5rem;
+}
+
+.registro-container form{
+    padding-top: 1rem;
 }
 
 .form-group-registro{
