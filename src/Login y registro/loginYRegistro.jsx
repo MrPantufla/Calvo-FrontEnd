@@ -11,7 +11,7 @@ export default function LoginYRegistro() {
   const auth = useAuth();
 
   useEffect(() => {
-    auth.setMostrarError(false);
+    auth.setErrorMessage('');
   }, []);
 
   const handleOpcionClick = (opcion) => {
@@ -20,8 +20,8 @@ export default function LoginYRegistro() {
 
   const handleClose = () => {
     auth.setMostrarLogin(false);
-    auth.setMostrarError(false);
     auth.setMostrarErrorCodigoConfirmacion(false);
+    auth.setErrorMessage('');
   }
 
   const handleParteUtilizableClick = (event) => {
