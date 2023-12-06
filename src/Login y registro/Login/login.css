@@ -19,6 +19,7 @@
     border: 1px solid var(--colorTerciario);
     border-radius: 0;
     height: 3rem;
+    padding-left: 0.5rem;
 }
 
 
