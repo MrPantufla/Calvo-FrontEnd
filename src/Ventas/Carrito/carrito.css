@@ -1,26 +1,29 @@
 .contenedorPrincipalCarrito{
     max-width: 400px;
     position: fixed;
-    z-index: 10;
-    left: 69%;
+    z-index: 200;
+    left: 5rem;
     background-color: #E4D58C;
-    top: 12rem;
-    overflow: auto;
+    top: 10rem;
     max-height: 50rem;
 }
 
-.contenedorPrincipalCarrito button{
-    width: 400px;
+.contenedorPrincipalCarrito .btn-primary{
+    width: 5rem;
+    height: 4rem;
+    border: none;
+    background-color: var(--colorCuaternario);
+}
+
+.btn-primary .bg-danger{
+    font-size: 1.5rem;
+    background-color: var(--colorRojo) !important;
 }
 
 .textoCarritoVacio{
     font-size: 20px;
     text-align: center;
     background-color: #B83A3A ;
-}
-
-.boton{
-    z-index: 10;
 }
 
 .total{
