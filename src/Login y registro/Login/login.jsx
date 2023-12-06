@@ -91,11 +91,10 @@ export default function Login() {
   
   return (
     <div className="login-container">
-      <h2>Iniciar Sesión</h2>
       <div className="error-message">{auth.mostrarError ? errorMessage : ""}</div>
       <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
         <div className="form-group inputFormularioLogin">
-          <label htmlFor="email">Correo Electrónico:</label>
+          <label htmlFor="email">Correo Electrónico</label>
           <input
             required
             type="email"
@@ -103,12 +102,12 @@ export default function Login() {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              auth.setMostrarError(false);
             }}
+            onFocus={auth.setMostrarError(false)}
           />
         </div>
         <div className="form-group inputFormularioLogin">
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="password">Contraseña</label>
           <input
             required
             type="password"
@@ -116,13 +115,13 @@ export default function Login() {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value)
-              auth.setMostrarError(false);
             }}
+            onFocus={auth.setMostrarError(false)}
           />
         </div>
         <div className="botonLoginContainer">
           <button className="botonEnviarLogin" type="submit" id="botonLogin">
-            Iniciar Sesión
+            Ingresar
           </button>
         </div>
       </form>
