@@ -1,331 +1,866 @@
 export const productos = [
     {
         id: 1,
-        cod_orig: 1,
+        cod_orig: "CA1",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PESADO",
+        precio: 1245
     },
     {
         id: 2,
-        cod_orig: 2,
+        cod_orig: "CA2",
         tipo_prod: 2,
         srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
     },
     {
         id: 3,
-        cod_orig: 3,
+        cod_orig: "CA3",
         tipo_prod: 2,
         srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
     },
     {
         id: 4,
-        cod_orig: 4,
+        cod_orig: "CA4",
         tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
     },
     {
         id: 5,
-        cod_orig: 5,
+        cod_orig: "CA5",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MOSQUITERO",
+        precio: 3456
     },
     {
         id: 6,
-        cod_orig: 6,
+        cod_orig: "CA6",
         tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
     },
     {
         id: 7,
-        cod_orig: 7,
+        cod_orig: "CA7",
         tipo_prod: 1,
         srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
     },
     {
         id: 8,
-        cod_orig: 8,
+        cod_orig: "CA8",
         tipo_prod: 2,
         srubro: 2,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
     },
     {
         id: 9,
-        cod_orig: 9,
+        cod_orig: "CA9",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
     },
     {
         id: 10,
-        cod_orig: 10,
+        cod_orig: "CA10",
         tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
     },
     {
         id: 11,
-        cod_orig: 11,
+        cod_orig: "CA11",
         tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "ZOCALO ALTO",
+        precio: 1234
     },
     {
         id: 12,
-        cod_orig: 12,
+        cod_orig: "CA12",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
     },
     {
-        id: 13,
-        cod_orig: 12,
+        id: 1,
+        cod_orig: "CA1",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PESADO",
+        precio: 1245
     },
     {
-        id: 14,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
     },
     {
-        id: 15,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
     },
     {
-        id: 16,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
     },
     {
-        id: 17,
-        cod_orig: 12,
+        id: 5,
+        cod_orig: "CA5",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MOSQUITERO",
+        precio: 3456
     },
     {
-        id: 18,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
     },
     {
-        id: 19,
-        cod_orig: 12,
+        id: 7,
+        cod_orig: "CA7",
         tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
     },
     {
-        id: 20,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
     },
     {
-        id: 21,
-        cod_orig: 12,
+        id: 9,
+        cod_orig: "CA9",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
     },
     {
-        id: 22,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
     },
     {
-        id: 23,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "ZOCALO ALTO",
+        precio: 1234
     },
     {
-        id: 24,
-        cod_orig: 12,
+        id: 12,
+        cod_orig: "CA12",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
     },
     {
-        id: 24,
-        cod_orig: 12,
+        id: 1,
+        cod_orig: "CA1",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PESADO",
+        precio: 1245
     },
     {
-        id: 25,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
     },
     {
-        id: 26,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
     },
     {
-        id: 27,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
     },
     {
-        id: 28,
-        cod_orig: 12,
+        id: 5,
+        cod_orig: "CA5",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MOSQUITERO",
+        precio: 3456
     },
     {
-        id: 29,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
     },
     {
-        id: 30,
-        cod_orig: 12,
+        id: 7,
+        cod_orig: "CA7",
         tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
     },
     {
-        id: 31,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
     },
     {
-        id: 32,
-        cod_orig: 12,
+        id: 9,
+        cod_orig: "CA9",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
     },
     {
-        id: 33,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
     },
     {
-        id: 34,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "ZOCALO ALTO",
+        precio: 1234
     },
     {
-        id: 35,
-        cod_orig: 12,
+        id: 12,
+        cod_orig: "CA12",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
     },
     {
-        id: 36,
-        cod_orig: 12,
+        id: 1,
+        cod_orig: "CA1",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PESADO",
+        precio: 1245
     },
     {
-        id: 37,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
     },
     {
-        id: 38,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
     },
     {
-        id: 39,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
     },
     {
-        id: 40,
-        cod_orig: 12,
+        id: 5,
+        cod_orig: "CA5",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MOSQUITERO",
+        precio: 3456
     },
     {
-        id: 41,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
     },
     {
-        id: 42,
-        cod_orig: 12,
+        id: 7,
+        cod_orig: "CA7",
         tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
     },
     {
-        id: 43,
-        cod_orig: 12,
-        tipo_prod: 1,
-        srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
     },
     {
-        id: 44,
-        cod_orig: 12,
+        id: 9,
+        cod_orig: "CA9",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
     },
     {
-        id: 45,
-        cod_orig: 12,
-        tipo_prod: 1,
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
     },
     {
-        id: 46,
-        cod_orig: 12,
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "ZOCALO ALTO",
+        precio: 1234
+    },
+    {
+        id: 12,
+        cod_orig: "CA12",
         tipo_prod: 1,
         srubro: 1,
-        detalle: "textoDepruebaasdjkashgdjas"
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
+    },
+    {
+        id: 1,
+        cod_orig: "CA1",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PESADO",
+        precio: 1245
+    },
+    {
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
+    },
+    {
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
+    },
+    {
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
+    },
+    {
+        id: 5,
+        cod_orig: "CA5",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MOSQUITERO",
+        precio: 3456
+    },
+    {
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
+    },
+    {
+        id: 7,
+        cod_orig: "CA7",
+        tipo_prod: 1,
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
+    },
+    {
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
+    },
+    {
+        id: 9,
+        cod_orig: "CA9",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
+    },
+    {
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
+    },
+    {
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "ZOCALO ALTO",
+        precio: 1234
+    },
+    {
+        id: 12,
+        cod_orig: "CA12",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
+    },
+    {
+        id: 1,
+        cod_orig: "CA1",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PESADO",
+        precio: 1245
+    },
+    {
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
+    },
+    {
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
+    },
+    {
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
+    },
+    {
+        id: 5,
+        cod_orig: "CA5",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MOSQUITERO",
+        precio: 3456
+    },
+    {
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
+    },
+    {
+        id: 7,
+        cod_orig: "CA7",
+        tipo_prod: 1,
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
+    },
+    {
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
+    },
+    {
+        id: 9,
+        cod_orig: "CA9",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
+    },
+    {
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
+    },
+    {
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "ZOCALO ALTO",
+        precio: 1234
+    },
+    {
+        id: 12,
+        cod_orig: "CA12",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
+    },
+    {
+        id: 1,
+        cod_orig: "CA1",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PESADO",
+        precio: 1245
+    },
+    {
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
+    },
+    {
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
+    },
+    {
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
+    },
+    {
+        id: 5,
+        cod_orig: "CA5",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MOSQUITERO",
+        precio: 3456
+    },
+    {
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
+    },
+    {
+        id: 7,
+        cod_orig: "CA7",
+        tipo_prod: 1,
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
+    },
+    {
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
+    },
+    {
+        id: 9,
+        cod_orig: "CA9",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
+    },
+    {
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
+    },
+    {
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "ZOCALO ALTO",
+        precio: 1234
+    },
+    {
+        id: 12,
+        cod_orig: "CA12",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
+    },
+    {
+        id: 1,
+        cod_orig: "CA1",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PESADO",
+        precio: 1245
+    },
+    {
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
+    },
+    {
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
+    },
+    {
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
+    },
+    {
+        id: 5,
+        cod_orig: "CA5",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MOSQUITERO",
+        precio: 3456
+    },
+    {
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
+    },
+    {
+        id: 7,
+        cod_orig: "CA7",
+        tipo_prod: 1,
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
+    },
+    {
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
+    },
+    {
+        id: 9,
+        cod_orig: "CA9",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
+    },
+    {
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
+    },
+    {
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "ZOCALO ALTO",
+        precio: 1234
+    },
+    {
+        id: 12,
+        cod_orig: "CA12",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
+    },
+    {
+        id: 1,
+        cod_orig: "CA1",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PESADO",
+        precio: 1245
+    },
+    {
+        id: 2,
+        cod_orig: "CA2",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "DINTEL UMBRAL HOJA CORREDIZA",
+        precio: 2423
+    },
+    {
+        id: 3,
+        cod_orig: "CA3",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "PARANTE LATERAL HOJA",
+        precio: 6243
+    },
+    {
+        id: 4,
+        cod_orig: "CA4",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "PARANTE CENTRAL HOJA",
+        precio: 1325
+    },
+    {
+        id: 5,
+        cod_orig: "CA5",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MOSQUITERO",
+        precio: 3456
+    },
+    {
+        id: 6,
+        cod_orig: "CA6",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PAÑO FIJO PESADO",
+        precio: 35674
+    },
+    {
+        id: 7,
+        cod_orig: "CA7",
+        tipo_prod: 1,
+        srubro: 2,
+        detalle: "CONTRA VIDRIO UNIVERSAL P/BURLETE DE GOMA",
+        precio: 123
+    },
+    {
+        id: 8,
+        cod_orig: "CA8",
+        tipo_prod: 2,
+        srubro: 2,
+        detalle: "CONTRAVIDRIO UNIVERSAL P/VIDRIO REPARTIDO",
+        precio: 2345
+    },
+    {
+        id: 9,
+        cod_orig: "CA9",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "MARCO PUERTA VAIVEN",
+        precio: 3457
+    },
+    {
+        id: 10,
+        cod_orig: "CA10",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "MARCO PROYECTANTE Y BANDEROLA",
+        precio: 5432
+    },
+    {
+        id: 11,
+        cod_orig: "CA11",
+        tipo_prod: 2,
+        srubro: 1,
+        detalle: "ZOCALO ALTO",
+        precio: 1234
+    },
+    {
+        id: 12,
+        cod_orig: "CA12",
+        tipo_prod: 1,
+        srubro: 1,
+        detalle: "BISAGRA ENCOLIZADA PARA POSTIGON 25MM",
+        precio: 1234
     },
 ]
