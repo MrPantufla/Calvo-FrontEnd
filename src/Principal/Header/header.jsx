@@ -2,7 +2,7 @@ import './header.css';
 import logo from '../../Imagenes/logo calvo.png';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import Logout from '../../Logout prueba/logout';
+import Logout from '../../Logout/logout';
 import { useAuth } from '../../contextLogin';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import { useDesplegableConfiguracion } from '../../contextDesplegableConfiguracion';
