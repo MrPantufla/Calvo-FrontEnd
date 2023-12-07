@@ -48,7 +48,7 @@ export default function CardProducto(args) {
           <p className="cod_orig">    {args.cod_orig}    </p>
         </div>
       <div className="contenedorCardProducto">
-        <div className="imagenContainer">
+        <div className="imagenContainerCardProducto">
           <img className="imagenProducto" src={perfil} alt="Producto"></img>
         </div>
         <div className="detalle">
