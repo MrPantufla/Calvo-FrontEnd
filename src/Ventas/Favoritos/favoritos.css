@@ -1,0 +1,21 @@
+.contenedorPrincipalFavoritos{
+    max-width: 400px;
+    position: fixed;
+    z-index: 100;
+    left: 13rem;
+    background-color: #E4D58C;
+    top: 10rem;
+    max-height: 50rem;
+}
+
+.contenedorPrincipalFavoritos .btn-primary{
+    width: 5rem;
+    height: 4rem;
+    border: none;
+    background-color: var(--colorCuaternario);
+}
+
+.contenedorPrincipalFavoritos .btn-primary:hover{
+    background-color: var(--colorTerciario);
+    color: var(--colorRojo);
+}
