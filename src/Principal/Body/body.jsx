@@ -4,7 +4,7 @@ import Banner from './Banner/banner.jsx';
 import InformacionYContacto from './Informacion y contacto/informacionYContacto.jsx';
 import QuienesSomos from './Quienes somos/quienesSomos.jsx';
 import LoginYRegistro from '../../Login y registro/loginYRegistro.jsx';
-import CartelLogout from '../../Logout prueba/cartelLogout.jsx';
+import CartelLogout from '../../Logout/cartelLogout.jsx';
 import { useAuth } from '../../contextLogin.jsx';
 import './body.css';
 
