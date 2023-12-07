@@ -1,7 +1,7 @@
 .contenedorPrincipalCarrito{
     max-width: 400px;
     position: fixed;
-    z-index: 200;
+    z-index: 100;
     left: 5rem;
     background-color: #E4D58C;
     top: 10rem;
@@ -13,6 +13,11 @@
     height: 4rem;
     border: none;
     background-color: var(--colorCuaternario);
+}
+
+.contenedorPrincipalCarrito .btn-primary:hover{
+    background-color: var(--colorTerciario);
+    color: var(--colorRojo);
 }
 
 .btn-primary .bg-danger{
