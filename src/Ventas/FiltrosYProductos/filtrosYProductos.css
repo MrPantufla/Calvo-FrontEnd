@@ -14,12 +14,12 @@
     flex-direction: column;
     padding-top: 12rem;
     padding-right: 2rem;
-    background-color: #C8C8C8;
+    background-color: #D5D5D5;
     background-image: url('../../Imagenes/CA.png');
-    background-size: 70%;
+    background-size: 60%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: left 12rem;
+    background-position: left 8rem;
 }
 
 .check{
@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 20rem;
+    top: 22rem;
 }
 
 .labelRubros, .labelSubrubros{
@@ -42,12 +42,38 @@
     margin-bottom: 10px;
 }
 
-.busqueda{
-    width: 22%;
-    height: 3rem;
+.busquedaEIcono{
+    width: 30rem;
+    height: 4rem;
     position: fixed;
-    font-size: 2rem;
     top: 15rem;
+    left: 1rem;
+    border: 2px solid var(--colorCuaternario);
+    display: flex;
+}
+
+.lupaContainer{
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--colorCuaternario);
+}
+
+.lupaContainer .bi-search{
+    color: white;
+}
+
+.busquedaEIcono input{
+    font-size: 2rem;
+    width: 90%;
+    border: none;
+    height: 100%;
+    padding-left: 0.5rem;
+}
+
+.busquedaEIcono input:focus{
+    outline: none;
 }
 
 .busqueda::placeholder{
