@@ -13,17 +13,20 @@
     border-image-slice: 1;
 }
 
-.imagenContainer{
+.imagenContainerCardProducto{
+    width: 100%;
+    position: relative;
     display: flex;
     margin: 0px;
     align-items: center;
     justify-content: center;
-    height: 48%;
+    max-height: 48%;
     margin-bottom: 0.5rem;
+    padding-top: 1rem;
 }
 
 .imagenProducto{
-    width: 95%;
+    width: 80%;
 }
 
 
