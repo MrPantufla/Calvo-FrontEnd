@@ -5,7 +5,7 @@ export default function CardCategoria(args) {
     return (
         <div className="contenedorPrincipalCardCategoria">
             <p className="nombreCategoria">{args.cat}</p>
-            <div className="imagenContainer">
+            <div className="imagenContainerCategoria">
                 <div className="sombraInterna"></div>
                 <img className="imagenCategoria" src={imagen} alt="Imagen de la categoría"/>
             </div>
