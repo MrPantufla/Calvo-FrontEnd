@@ -15,7 +15,7 @@
     padding-top: 12rem;
     padding-right: 2rem;
     background-color: #D5D5D5;
-    background-image: url('../../Imagenes/CA.png');
+    background-image: url('../../Imagenes/ca.png');
     background-size: 60%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -24,8 +24,7 @@
 
 .check{
     width: 15px;
-    margin-top: -9px;
-    margin-right: 20px;
+    margin-right: 1rem;
 }
 
 .filtros{
@@ -36,10 +35,30 @@
 }
 
 .labelRubros, .labelSubrubros{
-    height: 30px;
+    height: 4rem;
+    width: 16rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 550;
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.labelRubros .check{
+    width: 0;
+    height: 0;
+    float: left;
+}
+
+label.checked{
+    background-color: var(--colorSecundario);
+    color: white;
+    user-select: none;
 }
 
 .busquedaEIcono{

@@ -86,14 +86,14 @@ export default function FiltrosYProductos(props) {
           >
           </input>
           <div className="lupaContainer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
             </svg>
           </div>
         </div>
         <div className="filtros">
           {tiposUnicos.map((tipo_prod) => (
-            <label className="labelRubros" key={tipo_prod}>
+            <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`} key={tipo_prod}>
               <input
                 className="check"
                 type="checkbox"
@@ -111,7 +111,7 @@ export default function FiltrosYProductos(props) {
             </label>
           ))}
 
-          {srubrosUnicos.map((subrubro) => (
+          {/*srubrosUnicos.map((subrubro) => (
             <label className="labelSubrubros" key={subrubro}>
               <input
                 className="check"
@@ -126,7 +126,7 @@ export default function FiltrosYProductos(props) {
                 Subrubro {subrubro}
               </div>
             </label>
-          ))}
+          ))*/}
         </div>
       </div>
 
@@ -190,7 +190,6 @@ export default function FiltrosYProductos(props) {
               d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
             />
           </svg>
-
         </button>
         {numerosDePagina.map((numero) => {
           const diff = Math.abs(numero - paginaActual);
