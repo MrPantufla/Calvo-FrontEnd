@@ -31,9 +31,8 @@
 }
 
 .imagenProductoGrandeContainer{
-    width: 50rem;
-    height: 35rem;
-    background-color: white;
+    width: 47rem;
+    height: 33rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,4 +102,13 @@
     font-size: 3.5rem;
     margin: 0 3rem;
     margin-top: 1rem;
+}
+
+.coloresProductoGrande{
+    width: 8rem;
+}
+
+.coloresProductoGrande .color{
+    margin: 0.2rem 0;
+    cursor: pointer;
 }
