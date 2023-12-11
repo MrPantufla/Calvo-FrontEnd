@@ -1,5 +1,10 @@
 import './cardProducto.css';
-import perfil from '../../Imagenes/perfil.jpg';
+//import perfil from '../../Imagenes/perfil.jpg';
+import perfil1 from '../../Imagenes/perfil1.png';
+import perfil2 from '../../Imagenes/perfil2.png';
+import perfil3 from '../../Imagenes/perfil3.png';
+import perfil4 from '../../Imagenes/perfil4.png';
+import perfil5 from '../../Imagenes/perfil5.png';
 import React from 'react';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useAuth } from '../../contextLogin.jsx';
@@ -45,11 +50,23 @@ export default function CardProducto(args) {
   return (
     <div className="contenedorPrincipalCardProducto" onClick={args.onClick}>
       <div className="cod_origContainer">
-          <p className="cod_orig">    {args.cod_orig}    </p>
-        </div>
+        <p className="cod_orig">    {args.cod_orig}    </p>
+      </div>
       <div className="contenedorCardProducto">
         <div className="imagenContainerCardProducto">
-          <img className="imagenProducto" src={perfil} alt="Producto"></img>
+          <img className="imagenProducto" src={args.id % 5 == 0 ?
+            (perfil1)
+            :
+            (args.id % 5 == 1 ?
+              (perfil2)
+              :
+              (args.id % 5 == 2 ?
+                (perfil3)
+                :
+                (args.id % 5 == 3 ?
+                  (perfil4)
+                  :
+                  (perfil5))))} alt="Producto"></img>
         </div>
         <div className="detalle">
           <h3>{args.detalle}</h3>
@@ -58,6 +75,13 @@ export default function CardProducto(args) {
           <button className="boton" onClick={restarContador}>-</button>
           <span>{cantidad}</span>
           <button className="boton" onClick={sumarContador}>+</button>
+
+          <div className="colores">
+            <div className="color natural" />
+            <div className="color blanco" />
+            <div className="color negro" />
+            <div className="color madera" />
+          </div>
         </div>
         <div className="precioContainer">
           <p className="precio">${args.precio}</p>
