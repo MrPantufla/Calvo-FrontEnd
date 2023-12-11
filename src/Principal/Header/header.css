@@ -20,6 +20,7 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
     overflow: hidden;
     cursor: pointer;
+    
 }
 
 .perfil:hover {
@@ -33,7 +34,7 @@
     width: 100%;
     height: 100%;
     background: white;
-    transition: transform 0.3s;
+    transition: transform 0.3s, border 0.3s ease;
     z-index: -1;
     border: 3px solid white;
 }
