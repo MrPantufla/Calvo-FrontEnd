@@ -88,17 +88,19 @@ export default function Carrito(props) {
 
   return (
     <div className="contenedorPrincipalCarrito">
-      <button type="button" className="btn btn-primary position-relative" onClick={toggleCarrito}>
-        {carritoAbierto ?
-          ("Cerrar carrito")
-          :
-          (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-cart2" viewBox="0 0 16 16">
+      <div className="contenedorBotonCarrito">
+      <button type="button" className="botonCarrito" onClick={toggleCarrito}>
+          {carritoAbierto ?
+            ("Cerrar carrito")
+            :
+            (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
           </svg>)}
-        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ display: carritoAbierto ? 'none' : 'block' }}>
-          {elementos.length}
+        </button>
+        <span className="cantidadEnCarrito" style={{ display: carritoAbierto ? 'none' : 'block' }}>
+            {elementos.length}
         </span>
-      </button>
+      </div>
 
       <Collapse in={carritoAbierto}>
         <div className="elementosVisiblesCarrito">

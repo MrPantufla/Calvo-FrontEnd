@@ -2,8 +2,7 @@
     max-width: 400px;
     position: fixed;
     z-index: 100;
-    left: 5rem;
-    background-color: #E4D58C;
+    left: 5rem;  
     top: 10rem;
     max-height: 50rem;
 }
@@ -47,5 +46,36 @@
 .confirmarCarrito{
     top: 31rem;
     z-index: 200;
+}
 
+.contenedorBotonCarrito{
+    display: flex;
+}
+
+.botonCarrito{
+    background-color: var(--colorRojo);
+    border-radius: 0px;
+    border: none;
+    width: 5rem;
+    height: 4.5rem;
+    border: 1px solid var(--colorTerciario);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.cantidadEnCarrito{
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--colorSecundario);
+    color: white;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-left: 0.1rem;
+    padding-top: 0.2rem;
+}
+
+.botonCarrito:hover{
+    background-color: var(--colorCuaternario);
+    color: var(--colorRojo);
 }
