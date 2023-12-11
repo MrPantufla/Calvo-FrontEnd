@@ -18,7 +18,7 @@
     width: 5rem;
     height: 4.5rem;
     border: 1px solid var(--colorTerciario);
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.1s, color 0.1s;
     color: white;
 }
 
