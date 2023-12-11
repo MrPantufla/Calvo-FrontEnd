@@ -4,6 +4,7 @@ import Footer from '../Principal/Footer/footer.jsx';
 import LoginYRegistro from '../Login y registro/loginYRegistro.jsx';
 import { EditarContraseñaProvider } from '../contextEditarContraseña.jsx';
 import { EditarDatosProvider } from '../contextEditarDatos.jsx';
+import { DireccionesProvider } from '../contextDireciones.jsx';
 
 export default function Perfil() {
     return (
@@ -11,12 +12,14 @@ export default function Perfil() {
             <Header />
             <LoginYRegistro />
 
-            <EditarDatosProvider>
-                <EditarContraseñaProvider>
-                    <BodyPerfil />
-                </EditarContraseñaProvider>
-            </EditarDatosProvider>
-
+            <DireccionesProvider>
+                <EditarDatosProvider>
+                    <EditarContraseñaProvider>
+                        <BodyPerfil />
+                    </EditarContraseñaProvider>
+                </EditarDatosProvider>
+            </DireccionesProvider>
+            
             <Footer />
         </div>
     );
