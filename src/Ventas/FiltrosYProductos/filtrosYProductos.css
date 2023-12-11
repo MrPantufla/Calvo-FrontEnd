@@ -46,6 +46,7 @@
     background-color: white;
     justify-content: center;
     cursor: pointer;
+    color: var(--colorSecundario);
     transition: background-color 0.2s, color 0.2s;
 }
 
@@ -55,10 +56,18 @@
     float: left;
 }
 
-label.checked{
+.labelRubros.checked{
     background-color: var(--colorSecundario);
     color: white;
     user-select: none;
+}
+
+.labelRubros:hover{
+    color: black;
+}
+
+.labelRubros.checked:hover{
+    color: var(--colorCuaternario);
 }
 
 .busquedaEIcono{
