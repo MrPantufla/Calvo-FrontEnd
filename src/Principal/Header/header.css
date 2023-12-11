@@ -20,7 +20,6 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
     overflow: hidden;
     cursor: pointer;
-    
 }
 
 .perfil:hover {
@@ -125,16 +124,6 @@
 .perfil:hover .bi-person-fill {
     color: var(--colorSecundario);
     z-index: 1;
-}
-
-.flechaCatalogos {
-    fill: var(--colorSecundario);
-    transition: fill 0.3s;
-}
-
-.catalogosYArrow:hover p .flechaCatalogos {
-    fill: white;
-    z-index: 1000;
 }
 
 @media (max-width: 1024px) {
