@@ -3,19 +3,38 @@
     position: fixed;
     z-index: 100;
     left: 13rem;
-    background-color: #E4D58C;
     top: 10rem;
     max-height: 50rem;
 }
 
-.contenedorPrincipalFavoritos .btn-primary{
-    width: 5rem;
-    height: 4rem;
-    border: none;
-    background-color: var(--colorCuaternario);
+.contenedorBotonFavoritos{
+    display: flex;
 }
 
-.contenedorPrincipalFavoritos .btn-primary:hover{
-    background-color: var(--colorTerciario);
-    color: var(--colorRojo);
+.botonFavoritos{
+    background-color: var(--colorRojo);
+    border-radius: 0px;
+    border: none;
+    width: 5rem;
+    height: 4.5rem;
+    border: 1px solid var(--colorTerciario);
+    transition: background-color 0.2s, color 0.2s;
+    color: white;
+}
+
+.cantidadFavoritos{
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--colorSecundario);
+    color: white;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-left: 0.1rem;
+    padding-top: 0.2rem;
+}
+
+.botonFavoritos:hover{
+    background-color: var(--colorCuaternario);
 }
