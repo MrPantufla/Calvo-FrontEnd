@@ -49,29 +49,10 @@ export default function CardProducto(args) {
     }
   }
 
-  const toggleFavorito = (id, e) =>{
+  const toggleFavorito = (id, e) => {
     e.stopPropagation();
     favoritos.toggleFavorito(id);
-    actualizarFavoritos();
-  }
-
-  const actualizarFavoritos = () =>{
-    const listaFavoritos = favoritos.favoritos;
-    fetch('http://localhost:8080/api/actualizarFavoritos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: auth.state.userInfo.email, favoritos: listaFavoritos }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Manejar la respuesta del servidor, si es necesario
-      })
-      .catch(error => {
-        console.error('Error al enviar la lista de favoritos al servidor:', error);
-      });
-  }
+  };
 
   return (
     <div className="contenedorPrincipalCardProducto" onClick={args.onClick}>
