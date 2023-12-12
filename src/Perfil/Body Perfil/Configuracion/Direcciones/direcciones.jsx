@@ -1,7 +1,7 @@
 import './direcciones.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDirecciones } from '../../../../contextDireciones';
-import { useAuth } from '../../../../contextLogin'; 
+import { useAuth } from '../../../../contextLogin';
 
 export default function Direcciones() {
     const [formularioAbierto, setFormularioAbierto] = useState(false);
@@ -16,23 +16,11 @@ export default function Direcciones() {
 
     const abrirFormulario = () => {
         setFormularioAbierto(true);
-        console.log("abrirFormulario");
-    }
-
-    const cancelarEnviarDireccion = () => {
-        setCalle('');
-        setNumero('');
-        setCp('');
-        setLocalidad('');
-        setProvincia('');
-        setFormularioAbierto(false);
-        cerrarFormulario();
     }
 
     const cerrarFormulario = () => {
         setFormularioAbierto(false);
-        console.log("cerrarFormulario");
-        console.log("formularioAbierto: " + formularioAbierto)
+        direcciones.cerrarDirecciones();
     }
 
     const handleParteUtilizableClick = (event) => {
@@ -81,9 +69,50 @@ export default function Direcciones() {
         email_usuario: auth.state.userInfo.email
     };
 
+    const obtenerDireccionUsuario = () => {
+        fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
+            method: 'GET',
+            //credentials: 'include',
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (typeof data === 'object') {
+                    // La respuesta es un objeto, probablemente la dirección del usuario
+                    console.log('Dirección del usuario:', data);
+                    setFormularioAbierto(true);
+                    setCalle(data.calle);
+                    setNumero(data.numero);
+                    setCp(data.cp);
+                    setLocalidad(data.localidad);
+                    setProvincia(data.provincia);
+                    // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
+                } else {
+                    // La respuesta es un texto, probablemente un mensaje de error
+                    console.error('Respuesta (texto): ', data);
+                    auth.setErrorMessage(data);
+                    setFormularioAbierto(false);
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al realizar la solicitud:', error.message);
+                // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+            });
+    }
+
+    useEffect(() => {
+        obtenerDireccionUsuario();
+    }, []);
+
     return (
         <div className="contenedorPrincipalDirecciones" onClick={direcciones.cerrarDirecciones}>
             <div className="parteUtilizableDirecciones" onClick={handleParteUtilizableClick}>
+                <h2>DIRECCIÓN DE ENVÍO</h2>
                 {formularioAbierto ?
                     (<div className="formularioAgregarDireccion">
                         <form>
@@ -142,11 +171,6 @@ export default function Direcciones() {
                                     onFocus={() => direcciones.setErrorMessage('')}
                                 />
                             </div>
-                            <div className="botonCancelarDireccionContainer">
-                                <button className="botonCancelarDireccion" type="button" onClick={cancelarEnviarDireccion}>
-                                    Cancelar
-                                </button>
-                            </div>
                             <div className="botonEnviarDireccionContainer">
                                 <button className="botonEnviarDireccion" type="button" onClick={handleEnviarDireccion}>
                                     Aceptar
@@ -155,8 +179,10 @@ export default function Direcciones() {
                         </form>
                     </div>)
                     :
-                    (<button className="botonAgregarDireccion" onClick={abrirFormulario}>Añadir dirección</button>
-
+                    (<div className="direccionFaltante">
+                        <h2>Todavía no hay una dirección agregada</h2>
+                        <button className="botonAgregarDireccion" onClick={abrirFormulario}>Añadir dirección</button>
+                    </div>
                     )
                 }
             </div>

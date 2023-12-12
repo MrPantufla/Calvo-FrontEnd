@@ -10,7 +10,46 @@
     align-items: center;
 }
 
-.botonAgregarDireccion{
-    width: 10rem;
+.parteUtilizableDirecciones{
+    background-color: white;
+    width: 40rem;
+    height: 45rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3rem;
+}
+
+.formularioAgregarDireccion{
+    width: 100%;
+}
+
+.form-group-direcciones{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-right: 5rem;
+    font-size: 1.6rem;
+    margin: 1rem 0;
+}
+
+.form-group-direcciones input{
     height: 3rem;
+    width: 20rem;
+    margin-left: 1rem;
+}
+
+.form-group-direcciones label{
+    display: flex;
+    align-items: center;
+}
+
+.botonEnviarDireccionContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.botonEnviarDireccion{
+    width: 8rem;
+    height: 3.5rem;
 }
