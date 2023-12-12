@@ -11,10 +11,10 @@ import { LoginProvider } from './contextLogin.jsx';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <LoginProvider>
-  <CarritoProvider>
-    <FavoritosProvider>
-      <App />
-    </FavoritosProvider>
-  </CarritoProvider>
+    <CarritoProvider>
+      <FavoritosProvider>
+        <App />
+      </FavoritosProvider>
+    </CarritoProvider>
   </LoginProvider>
 );

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
+import { useFavoritos } from './favoritosContext';
 
 const AuthContext = createContext();
 
@@ -8,6 +9,7 @@ export const LoginProvider = ({ children }) => {
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const favoritos = useFavoritos();
 
   const [state, setState] = useState({
     logueado: false,
@@ -72,6 +74,15 @@ export const LoginProvider = ({ children }) => {
       }
     }
   }, [state]);
+
+  /*useEffect(() => {
+    if(state.logueado){
+      const favoritosString = state.userInfo.favoritos;
+      const numerosComoArray = favoritosString.split(' ').map(Number);
+      //favoritos.setFavoritos(numerosComoArray);
+      //console.log(favoritos.favoritos)
+    }
+  }, [state.logueado])*/
 
   return (
     <AuthContext.Provider value={{ state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
