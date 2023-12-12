@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './contextLogin';
 
 const FavoritosContext = createContext();
 
@@ -8,6 +9,7 @@ function useFavoritos() {
 
 function FavoritosProvider({ children }) {
   const [favoritos, setFavoritos] = useState([]);
+  const auth = useAuth();
 
   function agregarFavorito(idArticulo) {
     if (!favoritos.includes(idArticulo)) {
@@ -23,9 +25,35 @@ function FavoritosProvider({ children }) {
     esFavorito(idArticulo) ? (quitarFavorito(idArticulo)) : (agregarFavorito(idArticulo));
   }
 
+  useEffect(() => {
+    actualizarFavoritos()
+  },[toggleFavorito])
+
   function esFavorito(idArticulo) {
     return favoritos.includes(idArticulo);
   }
+
+  const actualizarFavoritos = () => {
+    // Obtén la lista de favoritos del estado local
+    const listaFavoritos = favoritos;
+    // Convierte la lista de favoritos a una cadena separada por espacios
+    const listaFavoritosString = listaFavoritos.join(' ');
+
+    fetch('http://localhost:8080/api/actualizarFavoritos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: auth.state.userInfo.email, favoritos: listaFavoritosString }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Manejar la respuesta del servidor, si es necesario
+      })
+      .catch(error => {
+        console.error('Error al enviar la lista de favoritos al servidor:', error);
+      });
+  };
 
   return (
     <FavoritosContext.Provider value={{ favoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
