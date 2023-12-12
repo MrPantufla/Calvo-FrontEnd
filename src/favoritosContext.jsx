@@ -25,10 +25,6 @@ function FavoritosProvider({ children }) {
     esFavorito(idArticulo) ? (quitarFavorito(idArticulo)) : (agregarFavorito(idArticulo));
   }
 
-  useEffect(() => {
-    actualizarFavoritos()
-  },[toggleFavorito])
-
   function esFavorito(idArticulo) {
     return favoritos.includes(idArticulo);
   }
@@ -55,8 +51,22 @@ function FavoritosProvider({ children }) {
       });
   };
 
+  /*useEffect(() => {
+    // Verificar si ya se ha inicializado
+    if (inicializado) {
+      if (auth.state.logueado) {
+        actualizarFavoritos();
+        console.log("se activa igual")
+      }
+    } else {
+      // Marcar como inicializado
+      setInicializado(true);
+      console.log("entra en else")
+    }
+  }, [toggleFavorito]); REVISAR ESTO Y VER COMO METERLO*/
+
   return (
-    <FavoritosContext.Provider value={{ favoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
+    <FavoritosContext.Provider value={{ actualizarFavoritos, favoritos, setFavoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
       {children}
     </FavoritosContext.Provider>
   );
