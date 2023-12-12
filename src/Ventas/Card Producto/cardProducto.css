@@ -157,3 +157,22 @@
     background-color: #b4ac7c;
     margin-bottom: 0;
 }
+
+.botonAñadirFavoritos{
+    width: 3.3rem;
+    height: 3.2rem;
+    border: none;
+    background-color: transparent;
+}
+
+.botonAñadirFavoritos .bi-heart{
+    fill: var(--colorSecundario);
+}
+
+.botonAñadirFavoritos .bi-heart:hover{
+    fill: var(--colorRojo)
+}
+
+.botonAñadirFavoritos .bi-heart-fill{
+    fill: var(--colorRojo);
+}
