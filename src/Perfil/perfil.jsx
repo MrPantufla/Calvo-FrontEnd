@@ -11,7 +11,6 @@ export default function Perfil() {
         <div className="contenedorPrincipalPerfil">
             <Header />
             <LoginYRegistro />
-
             <DireccionesProvider>
                 <EditarDatosProvider>
                     <EditarContraseñaProvider>
@@ -19,7 +18,6 @@ export default function Perfil() {
                     </EditarContraseñaProvider>
                 </EditarDatosProvider>
             </DireccionesProvider>
-            
             <Footer />
         </div>
     );
