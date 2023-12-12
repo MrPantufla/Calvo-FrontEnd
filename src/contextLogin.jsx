@@ -73,7 +73,6 @@ export const LoginProvider = ({ children }) => {
     }
   }, [state]);
 
-
   return (
     <AuthContext.Provider value={{ state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
       {children}
