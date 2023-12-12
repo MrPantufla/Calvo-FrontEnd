@@ -33,7 +33,7 @@ export default function Ventas() {
 
   return (
     <>
-      <FavoritosProvider>
+      
         <Header />
         <Catalogos />
         <LoginYRegistro />
@@ -42,7 +42,6 @@ export default function Ventas() {
         <Favoritos />
         <Filtros json={jsonProductos} />
         <Footer />
-      </FavoritosProvider>
     </>
   );
 }
