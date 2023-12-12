@@ -4,7 +4,6 @@ import HomePage from './Principal/homePage';
 import Ventas from './Ventas/ventas.jsx';
 import Perfil from './Perfil/perfil.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { LoginProvider } from './contextLogin';
 import { DesplegableProviderCatalogos } from './contextDesplegableCatalogos.jsx';
 import { DesplegableProviderConfiguracion } from './contextDesplegableConfiguracion.jsx';
 
@@ -13,7 +12,6 @@ function App() {
   return (
     <DesplegableProviderConfiguracion>
       <DesplegableProviderCatalogos>
-        <LoginProvider>
           <Router>
             <Routes>
               <Route path="/home" element={<HomePage />} />
@@ -21,7 +19,6 @@ function App() {
               <Route path="/perfil" element={<Perfil />} />
             </Routes>
           </Router>
-        </LoginProvider>
       </DesplegableProviderCatalogos>
     </DesplegableProviderConfiguracion>
   );
