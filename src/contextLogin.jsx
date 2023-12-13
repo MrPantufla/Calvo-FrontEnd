@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
-import { useFavoritos } from './favoritosContext';
 
 const AuthContext = createContext();
 
@@ -9,7 +8,6 @@ export const LoginProvider = ({ children }) => {
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const favoritos = useFavoritos();
 
   const [state, setState] = useState({
     logueado: false,
