@@ -51,7 +51,12 @@ export default function CardProducto(args) {
 
   const toggleFavorito = (id, e) => {
     e.stopPropagation();
-    favoritos.toggleFavorito(id);
+    if (auth.state.logueado) {
+      favoritos.toggleFavorito(id);
+    }
+    else {
+      auth.setMostrarLogin(true);
+    }
   };
 
   return (
