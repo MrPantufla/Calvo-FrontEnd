@@ -4,8 +4,9 @@ import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { Collapse, Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useAuth } from '../../contextLogin.jsx';
+import { useProductos } from '../../contextProductos.jsx';
 
-export default function Carrito(props) {
+export default function Carrito() {
   const { elementos, añadirElemento, limpiarCarrito } = useCarrito();
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
@@ -13,6 +14,7 @@ export default function Carrito(props) {
   const [pedido, setPedido] = useState([]);
   const auth = useAuth();
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
+  const productos = useProductos();
 
   const toggleCarrito = () => {
     if (auth.state.logueado) {
@@ -30,7 +32,9 @@ export default function Carrito(props) {
 
   const agregarProductoConTexto = (cod_orig) => {
     const [codigoSinCantidad, cantidad] = cod_orig.split(' ');
-    const productoExistente = props.json.find((producto) => producto.cod_orig == (codigoSinCantidad));
+    console.log(productos.productosIndexado)
+    console.log(typeof(productos.productosIndexado))
+    /*const productoExistente = productos.productosIndexado.find((producto) => producto.cod_orig == (codigoSinCantidad));
 
     const cantidadNumero = (cantidad) => {
       if ((/^[0-9]+$/.test(cantidad)) || cantidad == null) {
@@ -49,7 +53,7 @@ export default function Carrito(props) {
       setCodigoErroneo(false);
     } else {
       setCodigoErroneo(true);
-    }
+    }*/
   }
 
   const handleKeyPress = (e) => {
