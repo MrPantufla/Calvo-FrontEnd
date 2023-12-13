@@ -2,15 +2,16 @@ import './filtrosYProductos.css';
 import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 import ProductoGrande from './productoGrande';
+import { useProductos } from '../../contextProductos';
 
-export default function FiltrosYProductos(props) {
+export default function FiltrosYProductos() {
+  const productos = useProductos();
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 21;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
-  const srubrosUnicos = [...new Set(props.json.map((producto) => producto.srubro))];
-  const tiposUnicos = [...new Set(props.json.map((producto) => producto.tipo_prod))];
+  const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
   const [tiposActivos, setTiposActivos] = useState([]);
   const [subrubrosActivos, setSubrubrosActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
@@ -47,17 +48,7 @@ export default function FiltrosYProductos(props) {
     });
   }
 
-  function toggleSubrubro(subrubro) {
-    setSubrubrosActivos(prevSubrubrosActivos => {
-      if (prevSubrubrosActivos.includes(subrubro)) {
-        return prevSubrubrosActivos.filter((s) => s !== subrubro);
-      } else {
-        return [...prevSubrubrosActivos, subrubro];
-      }
-    });
-  }
-
-  const listaFiltrada = props.json.filter((p) => {
+    const listaFiltrada = Object.values(productos.productosIndexado).filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const subrubroCumple = subrubrosActivos.length === 0 || subrubrosActivos.includes(p.srubro);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
