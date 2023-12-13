@@ -55,7 +55,7 @@ function FavoritosProvider({ children }) {
   }
 
   const actualizarFavoritos = () => {
-    const listaFavoritos = favoritos;
+    const listaFavoritos = [...favoritos];
     const listaFavoritosString = listaFavoritos.join(' ');
 
     fetch('http://localhost:8080/api/actualizarFavoritos', {
