@@ -37,3 +37,8 @@
 .botonFavoritos:hover{
     background-color: var(--colorCuaternario);
 }
+
+.elementosFavoritos{
+    height: 50rem;
+    overflow: auto;
+}
