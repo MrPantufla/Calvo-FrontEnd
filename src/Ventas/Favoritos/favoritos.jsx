@@ -38,7 +38,7 @@ export default function Favoritos() {
             </div>
             <Collapse in={favoritosAbierto}>
                 <div className="elementosFavoritos">
-                    {favoritos.favoritos.map((favorito) => {
+                    {auth.state.logueado && favoritos.favoritos ? (favoritos.favoritos.map((favorito) => {
                         const producto = productos.productosIndexado[favorito];
                         if (producto) {
                             console.log(producto);
@@ -49,7 +49,8 @@ export default function Favoritos() {
                             );
                         }
                         return null;
-                    })}
+                    })) : ('')}
+                    
                 </div>
             </Collapse>
         </div>
