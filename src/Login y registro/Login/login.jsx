@@ -65,7 +65,10 @@ export default function Login() {
         const isTokenValid = await verifyToken(userData.token);
 
         if (isTokenValid) {
-          auth.login(userData);
+          auth.login(userData)
+            .then(() => {
+              //PONER ACÁ LO DE ACTUALIZAR EL ESTADO LOCAL AL LOGUEARSE
+            })
           console.log("userInfo: " + JSON.stringify(auth.state.userInfo));
 
           localStorage.setItem('token', userData.token);
@@ -87,7 +90,7 @@ export default function Login() {
     e.preventDefault(); // Evita la recarga de la página al enviar el formulario
     await handleLogin();
   };
-  
+
   return (
     <div className="login-container">
       <div className="error-message">{auth.errorMessage}</div>

@@ -17,10 +17,17 @@ export const LoginProvider = ({ children }) => {
   });
 
   const login = (userData) => {
-    localStorage.setItem('userData', JSON.stringify(userData));
-    setState({
-      logueado: true,
-      userInfo: userData,
+    return new Promise((resolve, reject) => {
+      try {
+        localStorage.setItem('userData', JSON.stringify(userData));
+        setState({
+          logueado: true,
+          userInfo: userData,
+        });
+        resolve(userData); // Puedes pasar datos adicionales si es necesario
+      } catch (error) {
+        reject(error);
+      }
     });
   };
 
@@ -33,7 +40,6 @@ export const LoginProvider = ({ children }) => {
   };
 
   const updateEmailConfirmationStatus = () => {
-    // Actualizar solo el campo email_confirmado en el estado a true
     setState((prevState) => ({
       ...prevState,
       userInfo: {
