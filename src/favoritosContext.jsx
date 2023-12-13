@@ -20,8 +20,8 @@ function FavoritosProvider({ children }) {
   }, [favoritos, actualizarFavoritosPending]);
 
   useEffect(() => {
-    if (auth.state.logueado) {
-      const listaFavoritos = auth.state.userInfo.favoritos.split(' ');
+    if (auth.state.logueado && auth.state.userInfo.favoritos!=null) {
+      const listaFavoritos = auth.state.userInfo.favoritos.trim() !== '' ? auth.state.userInfo.favoritos.split(' ').map(Number) : [];
       setFavoritos(listaFavoritos);
     }
   }, [auth.state.logueado]);

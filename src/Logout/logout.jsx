@@ -1,11 +1,14 @@
 import { useAuth } from '../contextLogin.jsx';
 import './logout.css';
+import { useFavoritos } from '../favoritosContext.jsx';
 
 export default function Logout() {
+    const favoritos = useFavoritos();
     const auth = useAuth();
 
     const handleLogout = () => {
         localStorage.clear();
+        favoritos.setFavoritos('');
         auth.logout();
         auth.setMostrarCartelLogout(true);
     }
