@@ -10,19 +10,33 @@ function useFavoritos() {
 function FavoritosProvider({ children }) {
   const [favoritos, setFavoritos] = useState([]);
   const auth = useAuth();
+  const [actualizarFavoritosPending, setActualizarFavoritosPending] = useState(false);
+
+  useEffect(() => {
+    if (actualizarFavoritosPending) {
+      actualizarFavoritos();
+      setActualizarFavoritosPending(false);
+    }
+  }, [favoritos, actualizarFavoritosPending]);
 
   function agregarFavorito(idArticulo) {
     if (!favoritos.includes(idArticulo)) {
       setFavoritos([...favoritos, idArticulo]);
+      setActualizarFavoritosPending(true);
     }
   }
 
   function quitarFavorito(idArticulo) {
     setFavoritos(favoritos.filter((id) => id !== idArticulo));
+    setActualizarFavoritosPending(true);
   }
 
-  function toggleFavorito(idArticulo){
-    esFavorito(idArticulo) ? (quitarFavorito(idArticulo)) : (agregarFavorito(idArticulo));
+  function toggleFavorito(idArticulo) {
+    if (esFavorito(idArticulo)) {
+      quitarFavorito(idArticulo);
+    } else {
+      agregarFavorito(idArticulo);
+    }
   }
 
   function esFavorito(idArticulo) {
@@ -30,9 +44,7 @@ function FavoritosProvider({ children }) {
   }
 
   const actualizarFavoritos = () => {
-    // Obtén la lista de favoritos del estado local
     const listaFavoritos = favoritos;
-    // Convierte la lista de favoritos a una cadena separada por espacios
     const listaFavoritosString = listaFavoritos.join(' ');
 
     fetch('http://localhost:8080/api/actualizarFavoritos', {
@@ -50,20 +62,6 @@ function FavoritosProvider({ children }) {
         console.error('Error al enviar la lista de favoritos al servidor:', error);
       });
   };
-
-  /*useEffect(() => {
-    // Verificar si ya se ha inicializado
-    if (inicializado) {
-      if (auth.state.logueado) {
-        actualizarFavoritos();
-        console.log("se activa igual")
-      }
-    } else {
-      // Marcar como inicializado
-      setInicializado(true);
-      console.log("entra en else")
-    }
-  }, [toggleFavorito]); REVISAR ESTO Y VER COMO METERLO*/
 
   return (
     <FavoritosContext.Provider value={{ actualizarFavoritos, favoritos, setFavoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
