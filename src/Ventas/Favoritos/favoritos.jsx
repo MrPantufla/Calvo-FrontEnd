@@ -1,10 +1,12 @@
 import './favoritos.css';
 import { useState } from 'react';
 import { useAuth } from '../../contextLogin';
+import { useFavoritos } from '../../favoritosContext';
 
 export default function Favoritos() {
     const auth = useAuth();
     const [favoritosAbierto, setFavoritosAbierto] = useState(false);
+    const favoritos = useFavoritos();
 
     const toggleFavoritos = () => {
         if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
@@ -27,7 +29,7 @@ export default function Favoritos() {
                         </svg>)}
                 </button>
                 <span className="cantidadFavoritos" style={{ display: favoritosAbierto ? 'none' : 'block' }}>
-                    {4/*elementos.length*/}
+                    {favoritos.favoritos.length}
                 </span>
             </div>
         </div>
