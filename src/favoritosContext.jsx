@@ -19,16 +19,27 @@ function FavoritosProvider({ children }) {
     }
   }, [favoritos, actualizarFavoritosPending]);
 
+  useEffect(() => {
+    if (auth.state.logueado) {
+      const listaFavoritos = auth.state.userInfo.favoritos.split(' ');
+      setFavoritos(listaFavoritos);
+    }
+  }, [auth.state.logueado]);
+
   function agregarFavorito(idArticulo) {
     if (!favoritos.includes(idArticulo)) {
       setFavoritos([...favoritos, idArticulo]);
       setActualizarFavoritosPending(true);
     }
+    console.log("agregar a favoritos el elemento " + idArticulo)
+    console.log("lista completa: " + favoritos)
   }
 
   function quitarFavorito(idArticulo) {
     setFavoritos(favoritos.filter((id) => id !== idArticulo));
     setActualizarFavoritosPending(true);
+    console.log("quitar de favoritos el elemento " + idArticulo)
+    console.log("lista completa: " + favoritos)
   }
 
   function toggleFavorito(idArticulo) {

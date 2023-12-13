@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
 import logoLoginYRegistro from '../../Imagenes/logoLoginYRegistro.jpeg';
+import { useFavoritos } from '../../favoritosContext.jsx';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = useAuth();
+  const favoritos = useFavoritos();
 
   const { verifyToken } = useAuth();
 
@@ -67,7 +69,7 @@ export default function Login() {
         if (isTokenValid) {
           auth.login(userData)
             .then(() => {
-              //PONER ACÁ LO DE ACTUALIZAR EL ESTADO LOCAL AL LOGUEARSE
+              //favoritos.extraerFavoritos();
             })
           console.log("userInfo: " + JSON.stringify(auth.state.userInfo));
 
