@@ -2,11 +2,15 @@ import './favoritos.css';
 import { useState } from 'react';
 import { useAuth } from '../../contextLogin';
 import { useFavoritos } from '../../favoritosContext';
+import { Collapse } from 'react-bootstrap';
+import CardFavoritos from './cardFavoritos';
+import { useProductos } from '../../contextProductos';
 
 export default function Favoritos() {
     const auth = useAuth();
     const [favoritosAbierto, setFavoritosAbierto] = useState(false);
     const favoritos = useFavoritos();
+    const productos = useProductos();
 
     const toggleFavoritos = () => {
         if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
@@ -32,6 +36,22 @@ export default function Favoritos() {
                     {favoritos.favoritos.length}
                 </span>
             </div>
+            <Collapse in={favoritosAbierto}>
+                <div className="elementosFavoritos">
+                    {favoritos.favoritos.map((favorito) => {
+                        const producto = productos.productosIndexado[favorito];
+                        if (producto) {
+                            console.log(producto);
+                            return (
+                                <div key={producto.id}>
+                                    <CardFavoritos key={producto.id} id={producto.id} cod_orig={producto.cod_orig} detalle={producto.detalle} precio={producto.precio} />
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
+                </div>
+            </Collapse>
         </div>
     );
 }
