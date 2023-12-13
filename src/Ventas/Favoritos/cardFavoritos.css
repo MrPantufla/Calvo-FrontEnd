@@ -1,0 +1,22 @@
+.contenedorPrincipalCardFavoritos{
+    background-color: white;
+    width: 30rem;
+    height: 10rem;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+}
+
+.imagenCardCarrito{
+    width: 50%;
+}
+
+.botonQuitarFavoritoContainer{
+    background-color: transparent;
+}
+
+.botonQuitarFavorito{
+    fill: var(--colorRojo);
+    border: none;
+    background-color: transparent;
+}
