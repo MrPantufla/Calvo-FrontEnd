@@ -10,8 +10,9 @@ import { DesplegableProviderConfiguracion } from './contextDesplegableConfigurac
 function App() {
   const apiUrl = "http://localhost:8080/api";
   return (
-    <DesplegableProviderConfiguracion>
-      <DesplegableProviderCatalogos>
+
+      <DesplegableProviderConfiguracion>
+        <DesplegableProviderCatalogos>
           <Router>
             <Routes>
               <Route path="/home" element={<HomePage />} />
@@ -19,8 +20,8 @@ function App() {
               <Route path="/perfil" element={<Perfil />} />
             </Routes>
           </Router>
-      </DesplegableProviderCatalogos>
-    </DesplegableProviderConfiguracion>
+        </DesplegableProviderCatalogos>
+      </DesplegableProviderConfiguracion>
   );
 }
 
