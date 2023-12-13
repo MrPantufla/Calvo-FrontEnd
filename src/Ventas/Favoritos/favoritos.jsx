@@ -50,7 +50,6 @@ export default function Favoritos() {
                         }
                         return null;
                     })) : ('')}
-                    
                 </div>
             </Collapse>
         </div>
