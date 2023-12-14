@@ -1,7 +1,7 @@
 import './favoritos.css';
 import { useState } from 'react';
 import { useAuth } from '../../contextLogin';
-import { useFavoritos } from '../../favoritosContext';
+import { useFavoritos } from '../../contextFavoritos';
 import { Collapse } from 'react-bootstrap';
 import CardFavoritos from './cardFavoritos';
 import { useProductos } from '../../contextProductos';

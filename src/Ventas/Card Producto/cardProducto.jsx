@@ -7,7 +7,7 @@ import perfil5 from '../../Imagenes/perfil5.png';
 import React from 'react';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useAuth } from '../../contextLogin.jsx';
-import { useFavoritos } from '../../favoritosContext.jsx';
+import { useFavoritos } from '../../contextFavoritos.jsx';
 import { useProductos } from '../../contextProductos.jsx';
 
 export default function CardProducto(args) {

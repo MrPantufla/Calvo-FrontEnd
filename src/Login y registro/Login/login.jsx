@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
 import logoLoginYRegistro from '../../Imagenes/logoLoginYRegistro.jpeg';
-import { useFavoritos } from '../../favoritosContext.jsx';
+import { useFavoritos } from '../../contextFavoritos.jsx';
 
 export default function Login() {
   const [email, setEmail] = useState('');

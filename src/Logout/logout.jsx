@@ -1,6 +1,6 @@
 import { useAuth } from '../contextLogin.jsx';
 import './logout.css';
-import { useFavoritos } from '../favoritosContext.jsx';
+import { useFavoritos } from '../contextFavoritos.jsx';
 
 export default function Logout() {
     const favoritos = useFavoritos();

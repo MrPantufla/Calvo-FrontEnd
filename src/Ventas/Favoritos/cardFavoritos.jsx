@@ -1,6 +1,6 @@
 import './cardFavoritos.css';
 import perfil from '../../Imagenes/perfil.jpg';
-import { useFavoritos } from '../../favoritosContext';
+import { useFavoritos } from '../../contextFavoritos';
 import { useState } from 'react';
 
 export default function CardFavoritos(args) {
