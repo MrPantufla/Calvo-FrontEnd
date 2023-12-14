@@ -1,19 +1,15 @@
 import "./editarContraseña.css"
 import { useState } from "react";
-import { useEditarContraseña } from "../../../../contextEditarContraseña";
 import { useAuth } from "../../../../contextLogin";
+import { useConfiguracion } from '../../../../contextConfiguracion';
 
 export default function EditarContraseña() {
-    const editarContraseña = useEditarContraseña();
     const auth = useAuth();
+    const configuracion = useConfiguracion();
     const [errorMessage, setErrorMessage] = useState('');
     const [contraseñaActual, setContraseñaActual] = useState('');
     const [nuevaContraseña, setNuevaContraseña] = useState('');
     const [repetirContraseña, setRepetirContraseña] = useState('');
-
-    const handleParteUtilizableClick = (event) => {
-        event.stopPropagation();
-    }
 
     const vaciarError = () => {
         setErrorMessage('');
@@ -48,7 +44,6 @@ export default function EditarContraseña() {
                     console.log('Envío de datos exitoso.');
                     setNuevaContraseña('');
                     setRepetirContraseña('');
-                    editarContraseña.cerrarEditarContraseña();
                     return null;
                 } else {
                     return response.text();
@@ -75,9 +70,25 @@ export default function EditarContraseña() {
         contraseñaActual: contraseñaActual
     }
 
+    const toggleCollapse = () =>{
+        configuracion.contraseñaAbierto ? (configuracion.cerrarContraseña()) : (configuracion.abrirContraseña())
+    }
+
     return (
-        <div className="contenedorPrincipalEditarContraseña" onClick={editarContraseña.cerrarEditarContraseña}>
-            <div className="parteFuncionalEditarContraseña" onClick={handleParteUtilizableClick}>
+        <div className="contenedorPrincipalEditar">
+            <div className="headEditar">
+                <div className="textoHeadEditarContraseña">
+                    <h1>CONTRASEÑA</h1>
+                </div>
+                <div className="botonCollapseEditarContainer">
+                    <button className="botonCollapseEditar" onClick={toggleCollapse}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16" style={{ transform: configuracion.contraseñaAbierto ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}>
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div className={`colapsableEditarContraseña ${configuracion.contraseñaAbierto ? 'open' : ''}`}>
                 <h2>CAMBIAR CONTRASEÑA</h2>
                 <div className="error-message">{errorMessage}</div>
                 <form id="formularioEditarContraseña" onSubmit={handleEditarContraseña}>
