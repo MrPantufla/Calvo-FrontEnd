@@ -9,10 +9,23 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  /*const [state, setState] = useState({
+    logueado: true,
+    userInfo: {
+      apellido: "Pizzio", 
+      cuit: "12364856",
+      email: "juanmapizzioo@gmail.com",
+      email_confirmado: true,
+      favoritos: "2",
+      id: 1,
+      nombre: "Juan",
+      telefono: 34564140162},
+  });*/ //Descomentar para version de muestra
+
   const [state, setState] = useState({
     logueado: false,
-    userInfo: {},
-  });
+    userInfo:{}
+  }); //Comentar para version de muestra
 
   const login = (userData) => {
     return new Promise((resolve, reject) => {

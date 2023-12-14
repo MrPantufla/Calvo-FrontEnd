@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { productos } from './productos.js';
 
 const ProductosContext = createContext();
 
@@ -10,7 +11,8 @@ function ProductosProvider({ children }) {
     const [jsonProductos, setJsonProductos] = useState([]);
 
     useEffect(() => {
-        obtenerProductosFiltrados();
+        obtenerProductosFiltrados();   //Comentar para version de muestra
+        //setJsonProductos(productos); //Descomentar para version de muestra
     }, []);
 
     const obtenerProductosFiltrados = async () => {
