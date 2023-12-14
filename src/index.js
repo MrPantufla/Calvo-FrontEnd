@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { CarritoProvider } from './contextCarrito.jsx';
-import { FavoritosProvider } from './favoritosContext.jsx';
+import { FavoritosProvider } from './contextFavoritos.jsx';
 import { LoginProvider } from './contextLogin.jsx';
 import { ProductosProvider } from './contextProductos.jsx';
 
