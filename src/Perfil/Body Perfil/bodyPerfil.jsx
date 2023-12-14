@@ -1,26 +1,21 @@
 import { useAuth } from '../../contextLogin.jsx';
 import './bodyPerfil.css';
-import Configuracion from './Configuracion/configuracion.jsx';
 import EditarDatos from './Configuracion/Editar Datos/editarDatos.jsx';
-import { useEditarDatos } from '../../contextEditarDatos.jsx';
 import EditarContraseña from './Configuracion/Editar Contraseña/editarContraseña.jsx';
-import { useEditarContraseña } from '../../contextEditarContraseña.jsx';
-import { useDirecciones } from '../../contextDireciones.jsx';
-import Direcciones from './Configuracion/Direcciones/direcciones.jsx';
+import Direcciones from './Configuracion/Direcciones/editarDireccion.jsx';
 
 export default function BodyPerfil(){
     const auth = useAuth();
-    const editarDatos = useEditarDatos();
-    const editarContraseña = useEditarContraseña();
-    const direcciones = useDirecciones();
 
     return(
         <div className="contenedorPrincipalBodyPerfil">
-            <Configuracion/>
-            {editarDatos.editarDatosAbierto ? (<EditarDatos/>) : (<></>) }
-            {direcciones.direccionesAbierto ? (<Direcciones/>) : (<></>)}
-            {editarContraseña.editarContraseñaAbierto ? (<EditarContraseña/>) : (<></>)}
-            <h1>Hola, {auth.state.userInfo.nombre}</h1>
+            <div className="nombreYEmailContainer">
+                <h1>{auth.state.userInfo.nombre} {auth.state.userInfo.apellido}</h1>
+                <h2>{auth.state.userInfo.email}</h2>
+            </div>
+            <EditarDatos/>
+            <Direcciones/>
+            <EditarContraseña/>
         </div>
     );
 }
