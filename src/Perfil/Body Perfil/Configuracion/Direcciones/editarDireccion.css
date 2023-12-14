@@ -1,0 +1,49 @@
+.colapsableEditarDireccion{
+    background-color: white;
+    width: 40rem;
+    height: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    overflow: hidden;
+    transition: height 0.3s;
+}
+
+.colapsableEditarDireccion.open{
+    height: 28rem;
+}
+
+.formularioAgregarDireccion{
+    width: 100%;
+}
+
+.form-group-direcciones{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-right: 5rem;
+    font-size: 1.6rem;
+    margin: 1rem 0;
+}
+
+.form-group-direcciones input{
+    height: 3rem;
+    width: 20rem;
+    margin-left: 1rem;
+}
+
+.form-group-direcciones label{
+    display: flex;
+    align-items: center;
+}
+
+.botonEnviarDireccionContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.botonEnviarDireccion{
+    width: 8rem;
+    height: 3.5rem;
+}

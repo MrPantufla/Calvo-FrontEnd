@@ -1,23 +1,18 @@
-.contenedorPrincipalEditarContraseña{
-    background-color: rgba(0,0,0, 50%);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.parteFuncionalEditarContraseña{
+.colapsableEditarContraseña{
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40rem;
-    height: 42rem;
+    height: 0;
     flex-direction: column;
+    overflow: hidden;
+    border: 1px solid black;
+    transition: height 0.3s;
+}
+
+.colapsableEditarContraseña.open{
+    height: 23rem;
 }
 
 .parteFuncionalEditarContraseña h2{
