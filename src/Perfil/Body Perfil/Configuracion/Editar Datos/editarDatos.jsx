@@ -85,7 +85,7 @@ export default function EditarDatos() {
         <div className="contenedorPrincipalEditar">
             <div className="headEditar">
                 <div className="textoHeadEditar">
-                    <h1>DATOS DE USUARIO</h1>
+                    <h1 onClick={toggleCollapse}>DATOS DE USUARIO</h1>
                 </div>
                 <div className="botonCollapseEditarContainer">
                     <button className="botonCollapseEditar" onClick={toggleCollapse}>
