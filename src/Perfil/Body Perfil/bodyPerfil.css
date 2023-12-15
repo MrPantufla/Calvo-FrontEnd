@@ -58,3 +58,7 @@
     border: none;
     background-color: transparent;
 }
+
+.textoHeadEditar{
+    cursor: pointer;
+}
