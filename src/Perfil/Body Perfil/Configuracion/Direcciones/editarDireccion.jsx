@@ -98,8 +98,8 @@ export default function Direcciones() {
     return (
         <div className="contenedorPrincipalEditar">
             <div className="headEditar">
-                <div className="textoHeadEditarDireccion">
-                    <h1>DIRECCIÓN DE ENVÍO</h1>
+                <div className="textoHeadEditar">
+                    <h1 onClick={toggleCollapse}>DIRECCIÓN DE ENVÍO</h1>
                 </div>
                 <div className="botonCollapseEditarContainer">
                     <button className="botonCollapseEditar" onClick={toggleCollapse}>
