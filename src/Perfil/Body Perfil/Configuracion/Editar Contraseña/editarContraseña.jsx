@@ -77,8 +77,8 @@ export default function EditarContraseña() {
     return (
         <div className="contenedorPrincipalEditar">
             <div className="headEditar">
-                <div className="textoHeadEditarContraseña">
-                    <h1>CONTRASEÑA</h1>
+                <div className="textoHeadEditar">
+                    <h1 onClick={toggleCollapse}>CONTRASEÑA</h1>
                 </div>
                 <div className="botonCollapseEditarContainer">
                     <button className="botonCollapseEditar" onClick={toggleCollapse}>
