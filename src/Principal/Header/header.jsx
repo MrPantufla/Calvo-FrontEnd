@@ -122,7 +122,7 @@ export default function Header() {
               <p>QUIÉNES SOMOS</p>
             </a>)
             :
-            (<NavLink to="/perfil/misCompras" className="seccion">
+            (<NavLink to="/misCompras" className="seccion">
               <p>MIS COMPRAS</p>
             </NavLink>)}
 
