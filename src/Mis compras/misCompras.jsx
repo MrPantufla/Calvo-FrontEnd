@@ -2,6 +2,7 @@ import './misCompras.css';
 import { useAuth } from '../contextLogin';
 import { useEffect, useState } from 'react';
 import CardMisCompras from './cardMisCompras';
+import LoginYRegistro from '../Login y registro/loginYRegistro';
 
 export default function MisCompras() {
     const auth = useAuth();
@@ -42,13 +43,14 @@ export default function MisCompras() {
             fetchData();
         }
 
-    }, [auth.state.logueado, auth.state.userInfo.email]);
+    }, [auth.state.logueado]);
 
     return (
         <div className="contenedorPrincipalMisCompras">
+            <LoginYRegistro/>
             <div className="misComprasContainer">
                 {historial.map((item) => (
-                    <CardMisCompras key={item.id} data={item} xd={"asd"} />
+                    <CardMisCompras key={item.id} data={item}/>
                 ))}
             </div>
         </div>
