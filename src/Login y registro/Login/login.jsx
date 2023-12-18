@@ -17,10 +17,8 @@ export default function Login() {
     const storedEmail = localStorage.getItem('email');
 
     if (storedToken && storedEmail) {
-      console.log("storedEmail: " + storedEmail)
       try {
         const isTokenValid = await verifyToken(storedToken);
-        console.log("isTokenValid: " + isTokenValid);
 
         if (isTokenValid) {
           autoLogin(storedEmail, storedToken);
@@ -68,10 +66,6 @@ export default function Login() {
 
         if (isTokenValid) {
           auth.login(userData)
-            .then(() => {
-              //favoritos.extraerFavoritos();
-            })
-          console.log("userInfo: " + JSON.stringify(auth.state.userInfo));
 
           localStorage.setItem('token', userData.token);
           localStorage.setItem('email', userData.email);

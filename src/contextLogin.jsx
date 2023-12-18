@@ -85,7 +85,6 @@ export const LoginProvider = ({ children }) => {
 
   useEffect(() => {
     if (state.logueado) {
-      console.log(state.userInfo)
       if (state.userInfo.email_confirmado) {
         setMostrarLogin(false);
       }
