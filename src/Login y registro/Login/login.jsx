@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './login.css';
 import { useAuth } from '../../contextLogin.jsx';
 import logoLoginYRegistro from '../../Imagenes/logoLoginYRegistro.jpeg';
-import { useFavoritos } from '../../contextFavoritos.jsx';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = useAuth();
-  const favoritos = useFavoritos();
 
   const { verifyToken } = useAuth();
 
