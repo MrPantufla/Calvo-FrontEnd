@@ -99,11 +99,8 @@ export default function CardProducto(args) {
           <span>{cantidad}</span>
           <button className="boton" onClick={sumarContador}>+</button>
 
-          <div className="colores">
-            <div className="color natural" />
-            <div className="color blanco" />
-            <div className="color negro" />
-            <div className="color madera" />
+          <div className="colorCardProducto">
+            <p>Color: {args.color}</p>
           </div>
         </div>
         <div className="precioContainer">
