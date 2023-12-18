@@ -39,7 +39,6 @@ function CarritoProvider({ children }) {
   }
 
   useEffect(() => {
-    console.log("se ejecuta")
     if (!primeraAccion) {
       actualizarCarrito();
     }
@@ -49,7 +48,6 @@ function CarritoProvider({ children }) {
   }, [elementos]);
 
   function toggleCarrito() {
-    console.log(elementos)
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         setCarritoAbierto(!carritoAbierto);
@@ -99,9 +97,6 @@ function CarritoProvider({ children }) {
       const listaCarrito = [...elementos];
       const productos = listaCarrito.map(item => item.id).join(' ');
       const cantidades = listaCarrito.map(item => item.cantidad).join(' ');
-      console.log("PRODUCTOS: " + productos)
-      console.log("CANTIDADES: " + cantidades)
-
       const ActualizacionCarrito = {
         productos: productos,
         cantidades: cantidades
@@ -133,7 +128,7 @@ function CarritoProvider({ children }) {
   useEffect(() => {
     setBand(false);
 
-    if (auth.state.logueado && auth.state.userInfo.cantidades_carrito != null && auth.state.userInfo.productos_carrito.length == auth.state.userInfo.cantidades_carrito.length) {
+    if (auth.state.logueado && auth.state.userInfo.cantidades_carrito.length>0 && auth.state.userInfo.productos_carrito.length == auth.state.userInfo.cantidades_carrito.length) {
       const productosArray = auth.state.userInfo.productos_carrito.split(' ').map(Number);
       const cantidadesArray = auth.state.userInfo.cantidades_carrito.split(' ').map(Number);
 
@@ -141,8 +136,9 @@ function CarritoProvider({ children }) {
         añadirElemento(productosArray[i], cantidadesArray[i])
       }
 
-      setBand(true);
+      
     }
+    setBand(true);
   }, [auth.state.logueado, productos.productosIndexado]);
 
   return (
