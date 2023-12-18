@@ -11,16 +11,26 @@ function CarritoProvider({ children }) {
   const productos = useProductos();
   const [elementos, setElementos] = useState([]);
   
-  function añadirElemento(id, cod_orig, detalle, cantidad, precio) {
-    const elementoExistente = elementos.find((elemento) => elemento.cod_orig === cod_orig);
-
-    if (elementoExistente) {
-      elementoExistente.cantidad += cantidad;
-      setElementos([...elementos]);
-    } else {
-      const nuevoElemento = {id, cod_orig, detalle, cantidad, precio };
-      setElementos([...elementos, nuevoElemento]);
-    }
+  function añadirElemento(id, cantidad) {
+    setElementos(prevElementos => {
+      const producto = productos.productosIndexado[id];
+      const cod_origProducto = producto.cod_orig;
+      const detalleProducto = producto.detalle;
+      const precioProducto = producto.precio;
+      const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
+  
+      if (elementoExistente) {
+        elementoExistente.cantidad += cantidad;
+        return [...prevElementos];
+      } else {
+        const nuevoElemento = { id, cod_origProducto, cantidad, detalleProducto, precioProducto };
+        console.log(nuevoElemento);
+        return [...prevElementos, nuevoElemento];
+      }
+    });
+  
+    console.log("ID: " + id + " CANTIDAD: " + cantidad);
+    console.log(elementos);
   }
 
   function restarElemento(id) {
@@ -44,7 +54,6 @@ function CarritoProvider({ children }) {
 
   function actualizarCantidadElemento(id, nuevaCantidad) {
     const elementoExistente = elementos.find((elemento) => elemento.id === id);
-
     if (elementoExistente) {
       elementoExistente.cantidad = nuevaCantidad;
       setElementos([...elementos]);
