@@ -1,6 +1,6 @@
 import './productoHistorial.css';
-import perfil from '../Imagenes/perfil.jpg';
-import { useProductos } from '../contextProductos';
+import perfil from '../../Imagenes/perfil.jpg';
+import { useProductos } from '../../contextProductos';
 import { useEffect, useState } from 'react';
 
 export default function ProductoHistorial(args){
