@@ -35,12 +35,12 @@ export default function CardMisCompras(args) {
             if (producto && typeof producto === 'object' && producto !== null) {
                 console.log(`ID: ${producto.id}, Cod. Orig: ${producto.cod_orig}, Cantidad: ${arrayCantidades[index]} ,Detalle: ${producto.detalle}, Precio: ${producto.precio}`);
                 
-                carrito.añadirElemento(producto.id, producto.cod_orig, producto.detalle, arrayCantidades[index], producto.precio);
+                carrito.añadirElemento(producto.id, arrayCantidades[index]);
             } else {
                 console.warn(`No se encontró un objeto válido para el índice ${arrayProductos[index]}`);
             }
     
-            return null; // Asegúrate de devolver algo dentro del map
+            return null;
         });
     };
     
@@ -68,7 +68,7 @@ export default function CardMisCompras(args) {
                     <h2>Precio actual: ${totalActual}</h2>
                 </div>
                 <div className="botonRepetirCompraContainer">
-                    <button className="botonRepetirCompra" onClick={repetirCompra}>
+                    <button className="botonRepetirCompra" onClick={repetirCompra} >
                         Repetir compra
                     </button>
                 </div>

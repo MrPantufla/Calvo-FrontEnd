@@ -21,7 +21,7 @@ export default function CardProducto(args) {
     event.stopPropagation();
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
-        añadirElemento(args.id, args.cod_orig, args.detalle, 1, args.precio);
+        añadirElemento(args.id, 1);
       }
       else {
         auth.setMostrarLogin(true);

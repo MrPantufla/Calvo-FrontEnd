@@ -1,10 +1,11 @@
 import './cardCarrito.css';
 import perfil from '../../Imagenes/perfil.jpg';
 import { useCarrito } from '../../contextCarrito.jsx'
-
+import { useProductos } from '../../contextProductos.jsx';
 
 export default function CardCarrito(args){
     const { restarElemento, actualizarCantidadElemento, eliminarElemento } = useCarrito();
+    const producto = useProductos().productosIndexado[args.id];
 
     const handleRestarCantidad = () => {
         if (args.cantidad > 1) {
@@ -27,11 +28,11 @@ export default function CardCarrito(args){
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
                 <img className="imagenCardCarrito" src={perfil} />
-                <p className="codigo">{args.cod_orig}</p>
+                <p className="codigo">{producto.cod_orig}</p>
             </div>
             <div className="textoCardCarrito">
-                <p>{args.nombre}</p>
-                <p>Total: ${args.precio*args.cantidad}</p>
+                <p>{producto.detalle}</p>
+                <p>Total: ${producto.precio*args.cantidad}</p>
                 <div className="cantidad">
                     <button className="boton" onClick={handleRestarCantidad}>-</button>
                     <p>Cant: {args.cantidad}</p>

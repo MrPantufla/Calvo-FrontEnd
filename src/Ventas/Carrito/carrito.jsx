@@ -55,7 +55,7 @@ export default function Carrito() {
 
     if (productoExistente && band) {
       const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1;
-      añadirElemento(productoExistente.id, productoExistente.cod_orig, productoExistente.detalle, cantidadAAgregar, productoExistente.precio);
+      añadirElemento(productoExistente.id, cantidadAAgregar);
       setCodigoErroneo(false);
     } else {
       setCodigoErroneo(true);
@@ -70,11 +70,11 @@ export default function Carrito() {
   }
 
   const calcularTotal = (elementos) => {
-    return elementos.reduce((total, elemento) => total + elemento.precio * elemento.cantidad, 0);
+    return elementos.reduce((total, elemento) => total + elemento.precioProducto * elemento.cantidad, 0);
   };
 
   const confirmarCompra = () => {
-    const nuevosElementos = elementos.map(({ id, cantidad, precio }) => ({ id, cantidad, precio }));
+    const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
     const nuevoPedido = pedido.concat(nuevosElementos, auth.state.userInfo.email);
     console.log(pedido);
     fetch('http://localhost:8080/api/recibirCarrito', {
@@ -152,10 +152,7 @@ export default function Carrito() {
               <CardCarrito
                 key={index}
                 id={elemento.id}
-                cod_orig={elemento.cod_orig}
                 cantidad={elemento.cantidad}
-                precio={elemento.precio}
-                nombre={elemento.detalle}
               />
             ))
           )}
