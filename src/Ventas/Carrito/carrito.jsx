@@ -8,27 +8,13 @@ import { useProductos } from '../../contextProductos.jsx';
 
 export default function Carrito() {
   const { elementos, añadirElemento, limpiarCarrito } = useCarrito();
-  const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
   const [pedido, setPedido] = useState([]);
   const auth = useAuth();
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
   const productos = useProductos();
-
-  const toggleCarrito = () => {
-    if (auth.state.logueado) {
-      if (auth.state.userInfo.email_confirmado) {
-        setCarritoAbierto(!carritoAbierto);
-      }
-      else {
-        auth.setMostrarLogin(true);
-      }
-    }
-    else {
-      auth.setMostrarLogin(true);
-    }
-  }
+  const carrito = useCarrito();
 
   const agregarProductoConTexto = (cod_orig) => {
     const [codigoSinCantidad, cantidad] = cod_orig.split(' ');
@@ -99,20 +85,20 @@ export default function Carrito() {
   return (
     <div className="contenedorPrincipalCarrito">
       <div className="contenedorBotonCarrito">
-        <button type="button" className="botonCarrito" onClick={toggleCarrito}>
-          {carritoAbierto ?
+        <button type="button" className="botonCarrito" onClick={carrito.toggleCarrito}>
+          {carrito.carritoAbierto ?
             ("Cerrar carrito")
             :
             (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
               <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
             </svg>)}
         </button>
-        <span className="cantidadEnCarrito" style={{ display: carritoAbierto ? 'none' : 'block' }}>
+        <span className="cantidadEnCarrito" style={{ display: carrito.carritoAbierto ? 'none' : 'block' }}>
           {elementos.length}
         </span>
       </div>
 
-      <Collapse in={carritoAbierto}>
+      <Collapse in={carrito.carritoAbierto}>
         <div className="elementosVisiblesCarrito">
           <InputGroup className={`textoInput ${codigoErroneo ? 'error-text' : ''}`}>
             <Form.Control

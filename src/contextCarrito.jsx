@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { useProductos } from './contextProductos';
+import { useAuth } from './contextLogin';
 
 const CarritoContext = createContext();
 
@@ -10,6 +11,8 @@ function useCarrito() {
 function CarritoProvider({ children }) {
   const productos = useProductos();
   const [elementos, setElementos] = useState([]);
+  const [carritoAbierto, setCarritoAbierto] = useState(false);
+  const auth = useAuth();
   
   function añadirElemento(id, cantidad) {
     setElementos(prevElementos => {
@@ -24,13 +27,23 @@ function CarritoProvider({ children }) {
         return [...prevElementos];
       } else {
         const nuevoElemento = { id, cod_origProducto, cantidad, detalleProducto, precioProducto };
-        console.log(nuevoElemento);
         return [...prevElementos, nuevoElemento];
       }
     });
-  
-    console.log("ID: " + id + " CANTIDAD: " + cantidad);
-    console.log(elementos);
+  }
+
+  function toggleCarrito(){
+    if (auth.state.logueado) {
+      if (auth.state.userInfo.email_confirmado) {
+        setCarritoAbierto(!carritoAbierto);
+      }
+      else {
+        auth.setMostrarLogin(true);
+      }
+    }
+    else {
+      auth.setMostrarLogin(true);
+    }
   }
 
   function restarElemento(id) {
@@ -65,7 +78,7 @@ function CarritoProvider({ children }) {
   }
 
   return (
-    <CarritoContext.Provider value={{ elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{ toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );
