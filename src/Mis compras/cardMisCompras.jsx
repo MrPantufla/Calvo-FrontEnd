@@ -1,16 +1,16 @@
 import './cardMisCompras.css';
-import { useState } from 'react';
-import perfil from '../Imagenes/perfil.jpg'
+import { useState, useEffect } from 'react';
 import ProductoHistorial from './productoHistorial';
 import { useProductos } from '../contextProductos';
+import { useCarrito } from '../contextCarrito';
 
 export default function CardMisCompras(args) {
-    const [cardMisComprasAbierto, setCardMisComprasAbierto] = useState(false);
     const arrayProductos = args.data.productos.split(' ').map((str) => parseInt(str, 10));
     const arrayCantidades = args.data.cantidades.split(' ').map((str) => parseInt(str, 10));
     const arrayPrecios = args.data.precios.split(' ').map((str) => parseInt(str, 10));
     const [cardComprasAbierto, setCardComprasAbierto] = useState(false);
     const productos = useProductos();
+    const carrito = useCarrito();
 
     const toggleCardCompras = () => {
         setCardComprasAbierto(!cardComprasAbierto);
@@ -21,10 +21,29 @@ export default function CardMisCompras(args) {
     }, 0);
 
     const totalActual = arrayProductos.reduce((accumulator, _, index) => {
-        if(productos.productosIndexado[index]){ 
-            return accumulator + productos.productosIndexado[arrayProductos[index]].precio*arrayCantidades[index];
+        if (productos.productosIndexado[arrayProductos[index]]) {
+            return accumulator + productos.productosIndexado[arrayProductos[index]].precio * arrayCantidades[index];
         }
     }, 0);
+
+    const repetirCompra = () => {
+        Array.from({ length: arrayProductos.length }).map((_, index) => {
+            console.log(`Iteración ${index + 1}:`);
+    
+            const producto = productos.productosIndexado[arrayProductos[index]];
+    
+            if (producto && typeof producto === 'object' && producto !== null) {
+                console.log(`ID: ${producto.id}, Cod. Orig: ${producto.cod_orig}, Cantidad: ${arrayCantidades[index]} ,Detalle: ${producto.detalle}, Precio: ${producto.precio}`);
+                
+                carrito.añadirElemento(producto.id, producto.cod_orig, producto.detalle, arrayCantidades[index], producto.precio);
+            } else {
+                console.warn(`No se encontró un objeto válido para el índice ${arrayProductos[index]}`);
+            }
+    
+            return null; // Asegúrate de devolver algo dentro del map
+        });
+    };
+    
 
     return (
         <div className="contenedorPrincipalCardMisCompras">
@@ -39,12 +58,19 @@ export default function CardMisCompras(args) {
                 </div>
             </div>
             <div className={`bodyMisCompras ${cardComprasAbierto ? 'open' : ''}`}>
-                {Array.from({ length: arrayProductos.length }).map((_, index) => (
-                    <ProductoHistorial key={index} id={arrayProductos[index]} cantidad={arrayCantidades[index]} precio={arrayPrecios[index]} />
-                ))}
+                <div className="productosHistorialContainer">
+                    {Array.from({ length: arrayProductos.length }).map((_, index) => (
+                        <ProductoHistorial key={index} id={arrayProductos[index]} cantidad={arrayCantidades[index]} precio={arrayPrecios[index]} />
+                    ))}
+                </div>
                 <div className="totalYBotonContainer">
                     <h2>TOTAL: ${total}</h2>
                     <h2>Precio actual: ${totalActual}</h2>
+                </div>
+                <div className="botonRepetirCompraContainer">
+                    <button className="botonRepetirCompra" onClick={repetirCompra}>
+                        Repetir compra
+                    </button>
                 </div>
             </div>
         </div>
