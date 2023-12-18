@@ -42,7 +42,7 @@ export default function EditarDatos() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${auth.state.userInfo.token}`,
+                'Authorization': auth.state.userInfo.token,
             },
             body: JSON.stringify(usuario),
             credentials: 'include',

@@ -67,7 +67,7 @@ export default function Carrito() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${auth.state.userInfo.token}`,
+        'Authorization': auth.state.userInfo.token,
       },
       body: JSON.stringify(nuevoPedido),
       credentials: 'include',

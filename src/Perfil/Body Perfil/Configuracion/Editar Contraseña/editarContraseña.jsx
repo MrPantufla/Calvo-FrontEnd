@@ -34,7 +34,7 @@ export default function EditarContraseña() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${auth.state.userInfo.token}`,
+                'Authorization': auth.state.userInfo.token,
             },
             body: JSON.stringify(emailYContraseña),
             credentials: 'include',
