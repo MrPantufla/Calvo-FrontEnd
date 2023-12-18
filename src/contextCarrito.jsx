@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useProductos } from './contextProductos';
 import { useAuth } from './contextLogin';
 
@@ -13,26 +13,43 @@ function CarritoProvider({ children }) {
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const auth = useAuth();
-  
+  const [primeraAccion, setPrimeraAccion] = useState(true);
+  const [band, setBand] = useState(true);
+
   function añadirElemento(id, cantidad) {
-    setElementos(prevElementos => {
-      const producto = productos.productosIndexado[id];
-      const cod_origProducto = producto.cod_orig;
-      const detalleProducto = producto.detalle;
-      const precioProducto = producto.precio;
-      const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
-  
-      if (elementoExistente) {
-        elementoExistente.cantidad += cantidad;
-        return [...prevElementos];
-      } else {
-        const nuevoElemento = { id, cod_origProducto, cantidad, detalleProducto, precioProducto };
-        return [...prevElementos, nuevoElemento];
-      }
-    });
+    if (Object.keys(productos.productosIndexado).length !== 0) {
+      setElementos(prevElementos => {
+        if (productos.productosIndexado) {
+          const producto = productos.productosIndexado[id];
+          const cod_origProducto = producto.cod_orig;
+          const detalleProducto = producto.detalle;
+          const precioProducto = producto.precio;
+          const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
+
+          if (elementoExistente) {
+            elementoExistente.cantidad += cantidad;
+            return [...prevElementos];
+          } else {
+            const nuevoElemento = { id, cod_origProducto, cantidad, detalleProducto, precioProducto };
+            return [...prevElementos, nuevoElemento];
+          }
+        }
+      });
+    }
   }
 
-  function toggleCarrito(){
+  useEffect(() => {
+    console.log("se ejecuta")
+    if (!primeraAccion) {
+      actualizarCarrito();
+    }
+    else {
+      setPrimeraAccion(false);
+    }
+  }, [elementos]);
+
+  function toggleCarrito() {
+    console.log(elementos)
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         setCarritoAbierto(!carritoAbierto);
@@ -57,9 +74,9 @@ function CarritoProvider({ children }) {
     }
   }
 
-  function eliminarElemento(id){
+  function eliminarElemento(id) {
     const elementoExistente = elementos.find((elemento) => elemento.id === id);
-    while(elementoExistente.cantidad!==1){
+    while (elementoExistente.cantidad !== 1) {
       restarElemento(id);
     }
     restarElemento(id);
@@ -73,9 +90,60 @@ function CarritoProvider({ children }) {
     }
   }
 
-  function limpiarCarrito(){
+  function limpiarCarrito() {
     setElementos([]);
   }
+
+  const actualizarCarrito = () => {
+    if (band == true) {
+      const listaCarrito = [...elementos];
+      const productos = listaCarrito.map(item => item.id).join(' ');
+      const cantidades = listaCarrito.map(item => item.cantidad).join(' ');
+      console.log("PRODUCTOS: " + productos)
+      console.log("CANTIDADES: " + cantidades)
+
+      const ActualizacionCarrito = {
+        productos: productos,
+        cantidades: cantidades
+      }
+
+      fetch('http://localhost:8080/api/actualizarCarrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': auth.state.userInfo.token
+        },
+        body: JSON.stringify(ActualizacionCarrito),
+      })
+        .then(response => {
+          if (response.ok) {
+            // Procesar la respuesta exitosa
+            console.log('Envío de carrito exitoso');
+          } else {
+            // Procesar la respuesta de error
+            console.error('Error en el envío de carrito:', response.statusText);
+          }
+        })
+        .catch(error => {
+          console.error('Error al enviar la lista del carrito al servidor:', error);
+        });
+    }
+  }
+
+  useEffect(() => {
+    setBand(false);
+
+    if (auth.state.logueado && auth.state.userInfo.cantidades_carrito != null && auth.state.userInfo.productos_carrito.length == auth.state.userInfo.cantidades_carrito.length) {
+      const productosArray = auth.state.userInfo.productos_carrito.split(' ').map(Number);
+      const cantidadesArray = auth.state.userInfo.cantidades_carrito.split(' ').map(Number);
+
+      for (let i = 0; i < productosArray.length; i++) {
+        añadirElemento(productosArray[i], cantidadesArray[i])
+      }
+
+      setBand(true);
+    }
+  }, [auth.state.logueado, productos.productosIndexado]);
 
   return (
     <CarritoContext.Provider value={{ toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
