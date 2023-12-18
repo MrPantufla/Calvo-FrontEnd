@@ -35,6 +35,7 @@ export const LoginProvider = ({ children }) => {
           logueado: true,
           userInfo: userData,
         });
+        console.log(userData);
         resolve(userData); // Puedes pasar datos adicionales si es necesario
       } catch (error) {
         reject(error);
@@ -90,15 +91,6 @@ export const LoginProvider = ({ children }) => {
       }
     }
   }, [state]);
-
-  /*useEffect(() => {
-    if(state.logueado){
-      const favoritosString = state.userInfo.favoritos;
-      const numerosComoArray = favoritosString.split(' ').map(Number);
-      //favoritos.setFavoritos(numerosComoArray);
-      //console.log(favoritos.favoritos)
-    }
-  }, [state.logueado])*/
 
   return (
     <AuthContext.Provider value={{ state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
