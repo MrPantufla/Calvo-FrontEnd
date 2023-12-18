@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { useProductos } from './contextProductos';
 
 const CarritoContext = createContext();
 
@@ -7,6 +8,7 @@ function useCarrito() {
 }
 
 function CarritoProvider({ children }) {
+  const productos = useProductos();
   const [elementos, setElementos] = useState([]);
   
   function añadirElemento(id, cod_orig, detalle, cantidad, precio) {
