@@ -132,6 +132,7 @@ export default function FiltrosYProductos() {
                 srubro={producto.srubro}
                 detalle={producto.detalle}
                 precio={producto.precio}
+                color={producto.color}
                 key={producto.id}
                 onClick={() => {
                   handleClickProducto(producto);
@@ -149,6 +150,7 @@ export default function FiltrosYProductos() {
           detalle={productoSeleccionado.detalle}
           onClose={handleCloseProductoGrande}
           precio={productoSeleccionado.precio}
+          color={productoSeleccionado.color}
         />
       )}
 
