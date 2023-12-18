@@ -1,0 +1,22 @@
+.headCardMisCompras{
+    width: 50rem;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+.bodyMisCompras{
+    display: flex;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s;
+}
+
+.bodyMisCompras.open{
+    height: 200rem;
+}
+
+.botonCollapseCardComprasContainer{
+    display: flex;
+    align-items: center;
+}
