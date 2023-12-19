@@ -57,13 +57,15 @@ function FavoritosProvider({ children }) {
   const actualizarFavoritos = () => {
     const listaFavoritos = [...favoritos];
     const listaFavoritosString = listaFavoritos.join(' ');
+    console.log(listaFavoritosString)
 
     fetch('http://localhost:8080/api/actualizarFavoritos', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/text',
+        'Authorization': auth.state.userInfo.token,
       },
-      body: JSON.stringify({ email: auth.state.userInfo.email, favoritos: listaFavoritosString }),
+      body:  listaFavoritosString || ' ',
     })
       .then(response => {
         if (response.ok) {

@@ -17,9 +17,8 @@ export default function MisCompras() {
                     const response = await fetch('http://localhost:8080/api/misCompras', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Authorization': auth.state.userInfo.token,
                         },
-                        body: JSON.stringify(auth.state.userInfo.email),
                         credentials: 'include',
                     });
 

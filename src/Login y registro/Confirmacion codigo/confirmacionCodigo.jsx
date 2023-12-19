@@ -58,9 +58,8 @@ export default function ConfirmacionCodigo() {
     fetch('http://localhost:8080/api/reenviarCodigo', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': auth.state.userInfo.token
       },
-      body: auth.state.userInfo.email,
       credentials: 'include',
     })
       .then(response => {
@@ -83,7 +82,7 @@ export default function ConfirmacionCodigo() {
             setResendButtonEnabled(true);
             setTimeLeft(0);
           }, 5 * 60 * 1000);
-          
+
 
           return null;
         } else {
@@ -112,7 +111,7 @@ export default function ConfirmacionCodigo() {
       <form className="formConfirmacionCodigo">
         <h2>Verifica tu email para acceder a tu perfil y realizar pedidos</h2>
         <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
-        {error && <div className="error-message" style={{display: auth.mostrarErrorCodigoConfirmacion ? 'inline' : 'none'}}>{error}</div>}
+        {error && <div className="error-message" style={{ display: auth.mostrarErrorCodigoConfirmacion ? 'inline' : 'none' }}>{error}</div>}
         {mensajeRespuesta && <div className="success-message">{mensajeRespuesta}</div>}
         <div className="form-group inputContainerCodigo">
           <label htmlFor="codigo" required />
