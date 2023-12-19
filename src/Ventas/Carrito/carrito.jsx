@@ -7,10 +7,9 @@ import { useAuth } from '../../contextLogin.jsx';
 import { useProductos } from '../../contextProductos.jsx';
 
 export default function Carrito() {
-  const { elementos, añadirElemento, limpiarCarrito } = useCarrito();
+  const { elementos, añadirElemento, limpiarCarrito, confirmarCompra, setConfirmarCompraAbierto } = useCarrito();
   const [codigoProducto, setCodigoProducto] = useState('');
   const [codigoErroneo, setCodigoErroneo] = useState(false);
-  const [pedido, setPedido] = useState([]);
   const auth = useAuth();
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
   const productos = useProductos();
@@ -58,27 +57,6 @@ export default function Carrito() {
   const calcularTotal = (elementos) => {
     return elementos.reduce((total, elemento) => total + elemento.precioProducto * elemento.cantidad, 0);
   };
-
-  const confirmarCompra = () => {
-    const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
-    fetch('http://localhost:8080/api/recibirCarrito', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': auth.state.userInfo.token,
-      },
-      body: JSON.stringify(nuevosElementos),
-      credentials: 'include',
-    })
-      .then(response => response.text())
-      .then(data => {
-        console.log('Respuesta: ', data)
-      })
-      .catch(error => {
-        console.log("Ocurrió un error al enviar los datos: ", error)
-      })
-    setPedido([]);
-  }
 
   return (
     <div className="contenedorPrincipalCarrito">
@@ -143,7 +121,7 @@ export default function Carrito() {
           <Button
             className="confirmarCarrito"
             disabled={!elementos.length > 0}
-            onClick={() => { confirmarCompra(); limpiarCarrito() }}>
+            onClick={() => { setConfirmarCompraAbierto(true)}}>
             Confirmar compra (${calcularTotal(elementos)})
           </Button>
         </div>
