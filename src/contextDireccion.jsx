@@ -14,6 +14,7 @@ function DireccionProvider({ children }) {
     const [localidad, setLocalidad] = useState(['']);
     const [provincia, setProvincia] = useState(['']);
     const auth = useAuth();
+    const [primeraAccion, setPrimeraAccion] = useState(true);
 
     const obtenerDireccionUsuario = () => {
         fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
@@ -49,12 +50,16 @@ function DireccionProvider({ children }) {
     }
 
     useEffect(() => {
-        console.log("Se ejecuta obtener direcciones")
-        obtenerDireccionUsuario();
+        if (!primeraAccion) {
+            obtenerDireccionUsuario();
+        }
+        else {
+            setPrimeraAccion(false);
+        }
     }, [auth.state.logueado]);
 
     return (
-        <DireccionContext.Provider value={{setCalle, setNumero, setCp, setLocalidad, setProvincia, calle, numero, cp, localidad, provincia}}>
+        <DireccionContext.Provider value={{ setCalle, setNumero, setCp, setLocalidad, setProvincia, calle, numero, cp, localidad, provincia }}>
             {children}
         </DireccionContext.Provider>
     );
