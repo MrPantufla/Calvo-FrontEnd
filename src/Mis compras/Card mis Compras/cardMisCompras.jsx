@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ProductoHistorial from '../Producto Historial/productoHistorial';
 import { useProductos } from '../../contextProductos';
 import { useCarrito } from '../../contextCarrito';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function CardMisCompras(args) {
     const arrayProductos = args.data.productos.split(' ').map((str) => parseInt(str, 10));
