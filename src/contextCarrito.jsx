@@ -15,6 +15,8 @@ function CarritoProvider({ children }) {
   const auth = useAuth();
   const [primeraAccion, setPrimeraAccion] = useState(true);
   const [band, setBand] = useState(true);
+  const [carritoConfirmado, setCarritoConfirmado] = useState(false);
+  const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
 
   function añadirElemento(id, cantidad) {
     if (Object.keys(productos.productosIndexado).length !== 0) {
@@ -125,6 +127,26 @@ function CarritoProvider({ children }) {
     }
   }
 
+  const confirmarCompra = () => {
+    const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
+    fetch('http://localhost:8080/api/recibirCarrito', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': auth.state.userInfo.token,
+      },
+      body: JSON.stringify(nuevosElementos),
+      credentials: 'include',
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Respuesta: ', data)
+      })
+      .catch(error => {
+        console.log("Ocurrió un error al enviar los datos: ", error)
+      })
+  }
+
   useEffect(() => {
     setBand(false);
 
@@ -135,14 +157,12 @@ function CarritoProvider({ children }) {
       for (let i = 0; i < productosArray.length; i++) {
         añadirElemento(productosArray[i], cantidadesArray[i])
       }
-
-      
     }
     setBand(true);
   }, [auth.state.logueado, productos.productosIndexado]);
 
   return (
-    <CarritoContext.Provider value={{ toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{confirmarCompraAbierto, setConfirmarCompraAbierto ,carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );
