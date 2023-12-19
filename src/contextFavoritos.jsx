@@ -31,15 +31,11 @@ function FavoritosProvider({ children }) {
       setFavoritos([...favoritos, idArticulo]);
       setActualizarFavoritosPending(true);
     }
-    console.log("agregar a favoritos el elemento " + idArticulo)
-    console.log("lista completa: " + favoritos)
   }
 
   function quitarFavorito(idArticulo) {
     setFavoritos(favoritos.filter((id) => id !== idArticulo));
     setActualizarFavoritosPending(true);
-    console.log("quitar de favoritos el elemento " + idArticulo)
-    console.log("lista completa: " + favoritos)
   }
 
   function toggleFavorito(idArticulo) {
@@ -57,7 +53,6 @@ function FavoritosProvider({ children }) {
   const actualizarFavoritos = () => {
     const listaFavoritos = [...favoritos];
     const listaFavoritosString = listaFavoritos.join(' ');
-    console.log(listaFavoritosString)
 
     fetch('http://localhost:8080/api/actualizarFavoritos', {
       method: 'POST',
