@@ -18,7 +18,7 @@ function DireccionProvider({ children }) {
     const [direccionConfirmada, setDireccionConfirmada] = useState(false);
 
     const obtenerDireccionUsuario = () => {
-        if (auth.state.login) {
+        if (auth.state.logueado) {
             fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
                 method: 'GET',
                 headers: {
