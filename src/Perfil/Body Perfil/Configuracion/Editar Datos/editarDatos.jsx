@@ -96,14 +96,13 @@ export default function EditarDatos() {
                 </div>
             </div>
             <div className={`colapsableEditarDatos ${configuracion.datosAbierto ? 'open' : ''}`}>
-                <h2>EDITAR DATOS DE USUARIO</h2>
                 <form id="formularioEditarDatos" onSubmit={confirmarEditarDatos}>
                     <div className="form-group-editarDatos">
-                        <label htmlFor="nombre" id="editarNombre" required>Nombre/s:</label>
+                        <label htmlFor="editarNombre" id="editarNombre" required>Nombre/s:</label>
                         <input
                             disabled={nombreDisabled}
                             type="text"
-                            id="nombre"
+                            id="editarNombre"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
@@ -120,11 +119,11 @@ export default function EditarDatos() {
                         </button>
                     </div>
                     <div className="form-group-editarDatos">
-                        <label htmlFor="apellido" id="editarApellido" required>Apellido:</label>
+                        <label htmlFor="editarApellido" id="editarApellido" required>Apellido:</label>
                         <input
                             disabled={apellidoDisabled}
                             type="text"
-                            id="apellido"
+                            id="editarApellido"
                             value={apellido}
                             onChange={(e) => setApellido(e.target.value)}
                             required
@@ -141,11 +140,11 @@ export default function EditarDatos() {
                         </button>
                     </div>
                     <div className="form-group-editarDatos">
-                        <label htmlFor="telefonoEdit" id="editarTelefono" required>Teléfono:</label>
+                        <label htmlFor="editarTelefono" id="editarTelefono" required>Teléfono:</label>
                         <input
                             disabled={telefonoDisabled}
                             type="tel"
-                            id="telefonoEdit"
+                            id="editarTelefono"
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
                             required
@@ -162,10 +161,10 @@ export default function EditarDatos() {
                         </button>
                     </div>
                     <div className="form-group-editarDatos">
-                        <label htmlFor="cuit" id="editarCuit" required> CUIT:</label>
+                        <label htmlFor="editarCuit" id="editarCuit" required> CUIT:</label>
                         <input
                             disabled={cuitDisabled}
-                            id="cuit"
+                            id="editarCuit"
                             value={cuit}
                             onChange={(e) => setCuit(e.target.value)}
                             required
