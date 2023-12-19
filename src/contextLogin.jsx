@@ -35,7 +35,6 @@ export const LoginProvider = ({ children }) => {
           logueado: true,
           userInfo: userData,
         });
-        console.log(userData);
         resolve(userData); // Puedes pasar datos adicionales si es necesario
       } catch (error) {
         reject(error);
