@@ -128,7 +128,7 @@ function CarritoProvider({ children }) {
   useEffect(() => {
     setBand(false);
 
-    if (auth.state.logueado && auth.state.userInfo.cantidades_carrito.length>0 && auth.state.userInfo.productos_carrito.length == auth.state.userInfo.cantidades_carrito.length) {
+    if (auth.state.logueado && auth.state.userInfo.cantidades_carrito) {
       const productosArray = auth.state.userInfo.productos_carrito.split(' ').map(Number);
       const cantidadesArray = auth.state.userInfo.cantidades_carrito.split(' ').map(Number);
 
