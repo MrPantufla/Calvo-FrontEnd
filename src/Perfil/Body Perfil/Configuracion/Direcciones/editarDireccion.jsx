@@ -2,24 +2,21 @@ import './editarDireccion.css';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../../contextLogin';
 import { useConfiguracion } from '../../../../contextConfiguracion';
+import { useDireccion } from '../../../../contextDireccion';
 
 export default function Direcciones() {
-    const [calle, setCalle] = useState('');
-    const [numero, setNumero] = useState('');
-    const [cp, setCp] = useState('');
-    const [localidad, setLocalidad] = useState('');
-    const [provincia, setProvincia] = useState('');
-
     const auth = useAuth();
     const configuracion = useConfiguracion();
+    const direccion = useDireccion();
 
     const handleEnviarDireccion = () => {
         fetch('http://localhost:8080/api/direcciones', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': auth.state.userInfo.token
             },
-            body: JSON.stringify(direccion),
+            body: JSON.stringify(direccionEstructura),
             credentials: 'include',
         })
             .then(response => {
@@ -45,51 +42,13 @@ export default function Direcciones() {
             });
     };
 
-    const direccion = {
-        calle: calle,
-        numero: numero,
-        cp: cp,
-        localidad: localidad,
-        provincia: provincia,
-        email_usuario: auth.state.userInfo.email
+    const direccionEstructura = {
+        calle: direccion.calle,
+        numero: direccion.numero,
+        cp: direccion.cp,
+        localidad: direccion.localidad,
+        provincia: direccion.provincia
     };
-
-    const obtenerDireccionUsuario = () => {
-        fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
-            method: 'GET',
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    return response.text();
-                }
-            })
-            .then(data => {
-                if (typeof data === 'object') {
-                    // La respuesta es un objeto, probablemente la dirección del usuario
-                    console.log('Dirección del usuario:', data);
-                    setCalle(data.calle);
-                    setNumero(data.numero);
-                    setCp(data.cp);
-                    setLocalidad(data.localidad);
-                    setProvincia(data.provincia);
-                    // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
-                } else {
-                    // La respuesta es un texto, probablemente un mensaje de error
-                    console.error('Respuesta (texto): ', data);
-                    auth.setErrorMessage(data);
-                }
-            })
-            .catch(error => {
-                console.error('Ocurrió un error al realizar la solicitud:', error.message);
-                // Manejar el error, por ejemplo, mostrar un mensaje al usuario
-            });
-    }
-
-    useEffect(() => {
-        obtenerDireccionUsuario();
-    }, []);
 
     const toggleCollapse = () =>{
         configuracion.direccionAbierto ? (configuracion.cerrarDireccion()) : (configuracion.abrirDireccion())
@@ -119,8 +78,8 @@ export default function Direcciones() {
                                 required
                                 type="text"
                                 id="calle"
-                                value={calle}
-                                onChange={(e) => setCalle(e.target.value)}
+                                value={direccion.calle}
+                                onChange={(e) => direccion.setCalle(e.target.value)}
                             />
                         </div>
                         <div className="form-group-direcciones">
@@ -129,8 +88,8 @@ export default function Direcciones() {
                                 required
                                 type="text"
                                 id="numero"
-                                value={numero}
-                                onChange={(e) => setNumero(e.target.value)}
+                                value={direccion.numero}
+                                onChange={(e) => direccion.setNumero(e.target.value)}
                             />
                         </div>
                         <div className="form-group-direcciones">
@@ -139,8 +98,8 @@ export default function Direcciones() {
                                 required
                                 type="text"
                                 id="cp"
-                                value={cp}
-                                onChange={(e) => setCp(e.target.value)}
+                                value={direccion.cp}
+                                onChange={(e) => direccion.setCp(e.target.value)}
                             />
                         </div>
                         <div className="form-group-direcciones">
@@ -149,8 +108,8 @@ export default function Direcciones() {
                                 required
                                 type="text"
                                 id="localidad"
-                                value={localidad}
-                                onChange={(e) => setLocalidad(e.target.value)}
+                                value={direccion.localidad}
+                                onChange={(e) => direccion.setLocalidad(e.target.value)}
                             />
                         </div>
                         <div className="form-group-direcciones">
@@ -159,8 +118,8 @@ export default function Direcciones() {
                                 required
                                 type="text"
                                 id="provincia"
-                                value={provincia}
-                                onChange={(e) => setProvincia(e.target.value)}
+                                value={direccion.provincia}
+                                onChange={(e) => direccion.setProvincia(e.target.value)}
                             />
                         </div>
                         <div className="botonEnviarDireccionContainer">
