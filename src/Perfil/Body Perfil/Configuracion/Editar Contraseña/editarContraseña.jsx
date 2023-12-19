@@ -44,6 +44,7 @@ export default function EditarContraseña() {
                     console.log('Envío de datos exitoso.');
                     setNuevaContraseña('');
                     setRepetirContraseña('');
+                    configuracion.cerrarContraseña();
                     return null;
                 } else {
                     return response.text();

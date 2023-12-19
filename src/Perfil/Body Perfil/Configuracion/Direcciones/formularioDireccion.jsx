@@ -1,9 +1,11 @@
 import { useDireccion } from "../../../../contextDireccion";
 import { useAuth } from "../../../../contextLogin";
+import { useConfiguracion } from "../../../../contextConfiguracion";
 
 export default function FormularioDireccion() {
     const direccion = useDireccion();
     const auth = useAuth();
+    const configuracion = useConfiguracion();
 
     const handleEnviarDireccion = () => {
         direccion.setDireccionConfirmada(true);
@@ -19,6 +21,7 @@ export default function FormularioDireccion() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de dirección exitoso');
+                    configuracion.cerrarDireccion();
                     return null;
                 } else {
                     return response.text();
