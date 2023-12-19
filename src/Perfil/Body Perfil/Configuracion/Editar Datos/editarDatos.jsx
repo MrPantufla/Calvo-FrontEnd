@@ -9,15 +9,24 @@ export default function EditarDatos() {
     const configuracion = useConfiguracion();
     const [errorMessage, setErrorMessage] = useState('');
 
-    const [nombre, setNombre] = useState(auth.state.userInfo.nombre);
-    const [apellido, setApellido] = useState(auth.state.userInfo.apellido);
-    const [telefono, setTelefono] = useState(auth.state.userInfo.telefono);
-    const [cuit, setCuit] = useState(auth.state.userInfo.cuit);
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [cuit, setCuit] = useState('');
 
     const [nombreDisabled, setNombreDisabled] = useState(true);
     const [apellidoDisabled, setApellidoDisabled] = useState(true);
     const [telefonoDisabled, setTelefonoDisabled] = useState(true);
     const [cuitDisabled, setCuitDisabled] = useState(true);
+
+    useEffect(() => {
+        if(auth.state.logueado){
+            setNombre(auth.state.userInfo.nombre);
+            setApellido(auth.state.userInfo.apellido);
+            setTelefono(auth.state.userInfo.telefono);
+            setCuit(auth.state.userInfo.cuit);
+        }
+    },[auth.state.logueado])
 
     const handleChangeNombre = () => {
         setNombreDisabled(!nombreDisabled);
@@ -50,6 +59,7 @@ export default function EditarDatos() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de datos exitoso.');
+                    configuracion.cerrarDatos();
                     return null;
                 } else {
                     return response.text();
