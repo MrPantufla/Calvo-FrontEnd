@@ -4,24 +4,24 @@ import { useCarrito } from '../../contextCarrito.jsx'
 import { useProductos } from '../../contextProductos.jsx';
 
 export default function CardCarrito(args){
-    const { restarElemento, actualizarCantidadElemento, eliminarElemento } = useCarrito();
+    const carrito = useCarrito();
     const producto = useProductos().productosIndexado[args.id];
 
     const handleRestarCantidad = () => {
         if (args.cantidad > 1) {
-          actualizarCantidadElemento(args.id, args.cantidad - 1);
+          carrito.actualizarCantidadElemento(args.id, args.cantidad - 1);
         } 
         else {
-          restarElemento(args.id);
+          carrito.restarElemento(args.id);
         }
     }
 
     const handleSumarCantidad = () => {
-        actualizarCantidadElemento(args.id, args.cantidad + 1);
+       carrito.actualizarCantidadElemento(args.id, args.cantidad + 1);
     }
 
     const handleEliminar = () => {
-        eliminarElemento(args.id);
+        carrito.eliminarElemento(args.id);
     }
 
     return(
@@ -32,7 +32,7 @@ export default function CardCarrito(args){
             </div>
             <div className="textoCardCarrito">
                 <p>{producto.detalle}</p>
-                <p>Total: ${producto.precio*args.cantidad}</p>
+                <p>Total: ${producto.precio*args.cantidad} ({args.cantidad} x ${producto.precio})</p>
                 <div className="cantidad">
                     <button className="boton" onClick={handleRestarCantidad}>-</button>
                     <p>Cant: {args.cantidad}</p>
