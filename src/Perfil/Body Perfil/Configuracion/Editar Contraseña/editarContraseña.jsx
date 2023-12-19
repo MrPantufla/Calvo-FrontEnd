@@ -88,7 +88,6 @@ export default function EditarContraseña() {
                 </div>
             </div>
             <div className={`colapsableEditarContraseña ${configuracion.contraseñaAbierto ? 'open' : ''}`}>
-                <h2>CAMBIAR CONTRASEÑA</h2>
                 <div className="error-message">{errorMessage}</div>
                 <form id="formularioEditarContraseña" onSubmit={handleEditarContraseña}>
                     <div className="form-group-editarContraseña">
