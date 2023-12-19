@@ -61,15 +61,13 @@ export default function Carrito() {
 
   const confirmarCompra = () => {
     const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
-    const nuevoPedido = pedido.concat(nuevosElementos, auth.state.userInfo.email);
-    console.log(pedido);
     fetch('http://localhost:8080/api/recibirCarrito', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': auth.state.userInfo.token,
       },
-      body: JSON.stringify(nuevoPedido),
+      body: JSON.stringify(nuevosElementos),
       credentials: 'include',
     })
       .then(response => response.text())
