@@ -28,7 +28,6 @@ function ConfiguracionProvider({ children }) {
         setContraseñaAbierto(true);
         cerrarDatos();
         cerrarDireccion();
-        console.log("abrir contraseña")
     }
 
     const cerrarDatos = () =>{
@@ -41,7 +40,6 @@ function ConfiguracionProvider({ children }) {
 
     const cerrarContraseña = () =>{
         setContraseñaAbierto(false);
-        console.log("cerrar contraseña")
     }
 
     return (
