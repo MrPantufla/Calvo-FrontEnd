@@ -36,7 +36,7 @@ export default function EditarContraseña() {
                 'Content-Type': 'application/json',
                 'Authorization': auth.state.userInfo.token,
             },
-            body: JSON.stringify(emailYContraseña),
+            body: JSON.stringify(contraseñaNueva),
             credentials: 'include',
         })
             .then(response => {
@@ -64,8 +64,7 @@ export default function EditarContraseña() {
             });
     };
 
-    const emailYContraseña = {
-        email: auth.state.userInfo.email,
+    const contraseñaNueva = {
         nuevaContraseña: nuevaContraseña,
         contraseñaActual: contraseñaActual
     }
