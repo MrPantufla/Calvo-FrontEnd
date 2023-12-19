@@ -41,7 +41,6 @@ export default function Favoritos() {
                     {auth.state.logueado && favoritos.favoritos ? (favoritos.favoritos.map((favorito) => {
                         const producto = productos.productosIndexado[favorito];
                         if (producto) {
-                            console.log(producto);
                             return (
                                 <div key={producto.id}>
                                     <CardFavoritos key={producto.id} id={producto.id} cod_orig={producto.cod_orig} detalle={producto.detalle} precio={producto.precio} />
