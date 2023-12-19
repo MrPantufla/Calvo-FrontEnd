@@ -7,22 +7,25 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { DesplegableProviderCatalogos } from './contextDesplegableCatalogos.jsx';
 import MisCompras from './Mis compras/misCompras.jsx';
 import { DireccionProvider } from './contextDireccion.jsx';
+import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 
 function App() {
   const apiUrl = "http://localhost:8080/api";
   return (
-    <DireccionProvider>
-      <DesplegableProviderCatalogos>
-        <Router>
-          <Routes>
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/tienda" element={<Ventas />} />
-            <Route path="/perfil" element={<Perfil />} />
-            <Route path="/misCompras" element={<MisCompras />} />
-          </Routes>
-        </Router>
-      </DesplegableProviderCatalogos>
-    </DireccionProvider>
+    <ConfiguracionProvider>
+      <DireccionProvider>
+        <DesplegableProviderCatalogos>
+          <Router>
+            <Routes>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/tienda" element={<Ventas />} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/misCompras" element={<MisCompras />} />
+            </Routes>
+          </Router>
+        </DesplegableProviderCatalogos>
+      </DireccionProvider>
+    </ConfiguracionProvider>
   );
 }
 
