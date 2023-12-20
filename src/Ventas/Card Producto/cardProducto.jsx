@@ -17,9 +17,9 @@ export default function CardProducto(args) {
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
   const auth = useAuth();
   const favoritos = useFavoritos();
+  const colorCorregido = (args.color).replace(/\s+/g, '-');
 
   const sumarContador = (event) => {
-    event.stopPropagation();
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         añadirElemento(args.id, 1);
@@ -34,7 +34,6 @@ export default function CardProducto(args) {
   }
 
   const restarContador = (event) => {
-    event.stopPropagation();
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         if (cantidad > 0) {
@@ -75,8 +74,8 @@ export default function CardProducto(args) {
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
           </svg>)}
       </button>
-      <div className="imagenContainerCardProducto" onClick={args.onClick}>
-        <img className="imagenProducto" src={args.id % 5 == 0 ?
+      <div className="imagenContainerCardProducto">
+        <img onClick={args.onClick} className="imagenProducto" src={args.id % 5 == 0 ?
           (perfil1)
           :
           (args.id % 5 == 1 ?
@@ -109,7 +108,7 @@ export default function CardProducto(args) {
             <p>Color:</p>
             <p className="cantidadAtributo">{args.color}</p>
           </div>
-          <div className="muestraColor" />
+          <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} />
         </div>
       </div>
       <div className="precioContainer">
