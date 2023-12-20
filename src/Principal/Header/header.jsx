@@ -69,7 +69,7 @@ export default function Header() {
   }
 
   const headerStyle = {
-    backgroundColor: 'var(--colorPrimario)',
+    //backgroundColor: 'var(--colorPrimario)', 
     height: `${headerSize}rem`,
     width: '100%',
     position: 'fixed',
@@ -77,8 +77,13 @@ export default function Header() {
     left: 0,
     zIndex: 100,
     display: mobile ? 'none' : 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'right'
   };
+
+  const decoracionStyle = {
+    clipPath: `polygon(0 0, 100% 0, 100% 100%, ${headerSize * 0.68}rem 100%)`
+  }
 
   const handleInicioClick = () => {
     window.scrollTo(0, 0);
@@ -97,15 +102,19 @@ export default function Header() {
     }
   };
 
-  useEffect(() => {
+  const handleLoad = () => {
     handleResize();
-  });
+  };
 
   window.addEventListener("resize", handleResize);
+  window.addEventListener('load', handleLoad);
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
       <Logout />
+      <div className="decoracionGris decoracionHeader" style={decoracionStyle}>
+        <div className="decoracionRoja decoracionHeader" style={decoracionStyle}/>
+      </div>
       <div className="row filaHeader">
         <div className="col-12 col-sm-4 logoContainer columnas">
           <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
@@ -145,7 +154,7 @@ export default function Header() {
           }
           <NavLink to={ruta} id="perfilHeader" className="perfil" onClick={handleToggleLogin}>
             <div className="iconoContainer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
               </svg>
             </div>
