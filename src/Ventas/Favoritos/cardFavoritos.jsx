@@ -1,7 +1,7 @@
 import './cardFavoritos.css';
 import perfil from '../../Imagenes/perfil.jpg';
 import { useFavoritos } from '../../contextFavoritos';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CardFavoritos(args) {
     const favoritos = useFavoritos();

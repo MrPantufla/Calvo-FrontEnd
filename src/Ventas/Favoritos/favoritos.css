@@ -2,23 +2,30 @@
     max-width: 400px;
     position: fixed;
     z-index: 100;
-    left: 13rem;
     top: 10rem;
     max-height: 50rem;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    overflow: hidden;
+    right: 0;
+    padding-right: 1rem;
 }
 
 .contenedorBotonFavoritos{
     display: flex;
+    flex-direction: column;
 }
 
 .botonFavoritos{
-    background-color: var(--colorRojo);
+    background-color: var(--colorPrimario);
     border-radius: 0px;
     border: none;
-    width: 5rem;
-    height: 4.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     transition: background-color 0.1s, color 0.1s;
     color: white;
+    border-radius: 2px;
 }
 
 .cantidadFavoritos{
@@ -39,6 +46,13 @@
 }
 
 .elementosFavoritos{
-    height: 50rem;
-    overflow: auto;
+    height: 0;
+    width: 3.5rem;
+    overflow: hidden;
+    transition: height 0.3s;
+}
+
+.elementosFavoritos.open{
+    height: 40rem;
+    width: auto;
 }

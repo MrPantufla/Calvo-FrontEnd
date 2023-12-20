@@ -1,11 +1,16 @@
 .contenedorPrincipalCarrito{
     max-width: 400px;
     position: fixed;
-    z-index: 100;
-    left: 5rem;  
-    top: 10rem;
+    z-index: 101; 
     max-height: 50rem;
     font-size: 1.5rem;
+    right: 4rem;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    overflow: auto;
+    right: 4.6rem;
+    padding-right: 1rem;
 }
 
 .contenedorPrincipalCarrito .btn-primary{
@@ -51,14 +56,15 @@
 
 .contenedorBotonCarrito{
     display: flex;
+    flex-direction: column;
 }
 
 .botonCarrito{
-    background-color: var(--colorRojo);
-    border-radius: 0px;
+    background-color: var(--colorPrimario);
+    border-radius: 2px;
     border: none;
-    width: 5rem;
-    height: 4.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     transition: background-color 0.1s, color 0.1s;
 }
 

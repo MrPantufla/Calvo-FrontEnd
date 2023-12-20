@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './carrito.css';
 import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
@@ -14,6 +14,37 @@ export default function Carrito() {
   const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
   const productos = useProductos();
   const carrito = useCarrito();
+
+  const [carritoTop, setCarritoTop] = useState(4.2);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const maxCarritoTop = 4.2; // ajusta el valor máximo de altura según tus necesidades
+      const minCarritoTop = 1.7; // ajusta el valor mínimo de altura según tus necesidades
+      const alturaHeader = 150; // ajusta según tus necesidades
+
+      // Calcula la nueva posición top en función del scroll
+      let newTop =
+        maxCarritoTop -
+        (maxCarritoTop - minCarritoTop) * (scrollPosition / alturaHeader);
+
+      // Asegúrate de que newTop no sea menor que el valor mínimo de 7
+      newTop = Math.max(minCarritoTop, newTop);
+
+      // Establece la nueva posición top
+      setCarritoTop(newTop);
+      console.log(carritoTop)
+    };
+
+    // Agrega el event listener para el scroll
+    window.addEventListener('scroll', handleScroll);
+
+    // Limpia el event listener al desmontar el componente
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const agregarProductoConTexto = (cod_orig) => {
     const [codigoSinCantidad, cantidad] = cod_orig.split(' ');
@@ -59,13 +90,16 @@ export default function Carrito() {
   };
 
   return (
-    <div className="contenedorPrincipalCarrito">
+    <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
       <div className="contenedorBotonCarrito">
-        <button type="button" className="botonCarrito" onClick={carrito.toggleCarrito}>
+        <button type="button" 
+          className="botonCarrito" 
+          onClick={carrito.toggleCarrito} 
+        >
           {carrito.carritoAbierto ?
             ("Cerrar carrito")
             :
-            (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
+            (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="var(--colorSecundario)" className="bi bi-cart2" viewBox="0 0 16 16">
               <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
             </svg>)}
         </button>
@@ -121,7 +155,7 @@ export default function Carrito() {
           <Button
             className="confirmarCarrito"
             disabled={!elementos.length > 0}
-            onClick={() => { setConfirmarCompraAbierto(true)}}>
+            onClick={() => { setConfirmarCompraAbierto(true) }}>
             Confirmar compra (${calcularTotal(elementos)})
           </Button>
         </div>
