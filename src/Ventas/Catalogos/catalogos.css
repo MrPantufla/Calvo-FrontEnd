@@ -37,24 +37,24 @@
 
 @media (max-width: 4096px){
     .desplegableCatalogos {
-        right: calc(var(--rightAnchoPerfil) - 2.3rem);
+        right: calc(var(--rightAnchoPerfil) - 2.3rem + 10rem);
     }
 }
 
 @media (max-width: 1600px){
     .desplegableCatalogos {
-        right: calc(var(--rightAnchoPerfil) - 2.1rem);
+        right: calc(var(--rightAnchoPerfil) - 2.1rem + 10rem);
     }
 }
 
 @media (max-width: 1440px){
     .desplegableCatalogos {
-        right: calc(var(--rightAnchoPerfil) - 2.2rem);
+        right: calc(var(--rightAnchoPerfil) - 2.2rem + 10rem);
     }
 }
 
 @media (max-width: 1366px){
     .desplegableCatalogos {
-        right: calc(var(--rightAnchoPerfil) - 2.3rem);
+        right: calc(var(--rightAnchoPerfil) - 2.3rem + 10rem);
     }
 }
