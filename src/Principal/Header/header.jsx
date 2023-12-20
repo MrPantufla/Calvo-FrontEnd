@@ -119,7 +119,7 @@ export default function Header() {
         <div className="col-12 col-sm-4 logoContainer columnas">
           <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
         </div>
-        <div className="col-12 col-sm-8 secciones columnas">
+        <div className="col-12 col-sm-8 secciones columnas" style={{ paddingRight: location.pathname === '/tienda' ? '11rem' : '0' }}>
           <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
             <p>INICIO</p>
           </NavLink>
@@ -152,7 +152,13 @@ export default function Header() {
               :
               (<></>))
           }
-          <NavLink to={ruta} id="perfilHeader" className="perfil" onClick={handleToggleLogin}>
+          <NavLink 
+            to={ruta} 
+            id="perfilHeader" 
+            className="perfil" 
+            onClick={handleToggleLogin}
+            style={{ width: location.pathname === '/tienda' ? '15rem' : '23rem' }}
+          >
             <div className="iconoContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />

@@ -16,7 +16,6 @@
 .perfil {
     position: relative;
     background-color: var(--colorSecundario);
-    width: 23rem;
     height: 3.5rem;
     margin: 0 -1.2rem;
     display: flex;
