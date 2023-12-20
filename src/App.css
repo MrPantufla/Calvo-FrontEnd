@@ -11,12 +11,45 @@ html{
 :root{
   --colorPrimario: #e5e5e5;
   --colorSecundario: #4e4e4d;
-  --colorTerciario: #0d0d0e;
+  --colorTerciario: #b8bcbc;
   --colorCuaternario: #989899;
   --colorQuinario: #a3a4a8;
   --colorRojo: #fb0404;
   --colorAzulOscuro: #38647c;
   --colorAzulClaro: #5d8398;
+
+  --Natural: #bdbdbd;
+  --Ind: white;
+  --Varios: white;
+  --Cristal: #a8d4dc;
+  --Blanco: white;
+  --Fume: #504434;
+  --Azul: blue;
+  --Verde: green;
+  --Oro: #d8b43c;
+  --Negro: black;
+  --Bronce: #c06424;
+  --Zinc: #988c8c;
+  --Naranja: orange;
+  --Acero: #88848c;
+  --Platil: #847c84;
+  --Gris: #8D8D8D;
+  --Anodizado: #949890;
+  --Varios: #FFFFFF;
+  --Incoloro: #FFFFFF;
+  --Rojo: red;
+  --Bronce-pulido: linear-gradient(#b47c3c, #fccc74, #b47c3c);
+  --Satinado: #FFFFFF;
+  --Bronce-satinado: #c06424;
+  --Simil-madera: #94542b;
+  --Guatambu: #c39454;
+  --Marron-claro: #d4a86c;
+  --Marron-oscuro: #603414;
+  --Peltre: #796e6d;
+  --Champagne: #f0dcbc;
+  --Bronce: #c06424;
+  --Bronce-medio: #74634b;
+  --Bronce-oscuro: #544341;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
