@@ -158,7 +158,7 @@ export default function FiltrosYProductos() {
 
       <div className="paginacion">
         <button
-          className="button paginaExtremo primeraPagina"
+          className="buttonPag paginaExtremo primeraPagina"
           onClick={() => paginar(1)}
           disabled={paginaActual === 1}
         >
@@ -167,7 +167,7 @@ export default function FiltrosYProductos() {
           </svg>
         </button>
         <button
-          className="botonAntSig button"
+          className="botonAntSig buttonPag"
           onClick={() => paginar(paginaActual - 1)}
           disabled={paginaActual === 1}
         >
@@ -195,7 +195,7 @@ export default function FiltrosYProductos() {
               <button
                 key={numero}
                 onClick={() => paginar(numero)}
-                className={paginaActual === numero ? 'pagina-actual botonPaginacion button' : 'button botonPaginacion'}
+                className={paginaActual === numero ? 'pagina-actual botonPaginacion buttonPag' : 'buttonPag botonPaginacion'}
               >
                 {numero}
               </button>
@@ -204,7 +204,7 @@ export default function FiltrosYProductos() {
         })}
 
         <button
-          className="botonAntSig button"
+          className="botonAntSig buttonPag"
           onClick={() => paginar(paginaActual + 1)}
           disabled={indexUltimoItem >= listaFiltrada.length}
         >
@@ -224,7 +224,7 @@ export default function FiltrosYProductos() {
         </button>
 
         <button
-          className="button paginaExtremo ultimaPagina"
+          className="buttonPag paginaExtremo ultimaPagina"
           onClick={() => paginar(totalPaginas)}
           disabled={paginaActual === totalPaginas}
         >

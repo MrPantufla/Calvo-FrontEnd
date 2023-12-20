@@ -126,7 +126,7 @@
     justify-content: center;
 }
 
-.button{
+.buttonPag{
     margin: 2rem 0;
     border: none;
     background-color: var(--colorPrimario);
@@ -135,11 +135,14 @@
     width: 7rem;
     color: var(--colorSecundario);
     font-size: 1.5rem;
-    
+}
+
+.buttonPag:hover{
+    background-color: var(--colorCuaternario);
 }
 
 .pagina-actual{
-    background-color: var(--colorCuaternario);
+    background-color: var(--colorTerciario);
 }
 
 .boton{
