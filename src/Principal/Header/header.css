@@ -1,3 +1,7 @@
+.contenedorPrincipalHeader{
+    background: linear-gradient(to right, var(--colorPrimario) 3%, var(--colorQuinario) 45%);
+}
+
 .secciones {
     display: flex;
     justify-content: right;
@@ -13,7 +17,7 @@
     position: relative;
     background-color: var(--colorSecundario);
     width: 23rem;
-    height: 92%;
+    height: 3.5rem;
     margin: 0 -1.2rem;
     display: flex;
     align-items: center;
@@ -23,7 +27,7 @@
 }
 
 .perfil:hover {
-    height: 92%;
+    height: 3.5rem;
 }
 
 .perfil::before,
@@ -54,7 +58,7 @@
     position: relative;
     text-decoration: none;
     background: white;
-    height: 90%;
+    height: 3.5rem;
     margin: 0 -1.1rem;
     display: flex;
     align-items: center;
@@ -67,7 +71,7 @@
     content: "";
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 3.5rem;
     background: var(--colorSecundario);
     transition: transform 0.3s;
     z-index: -1;
@@ -126,9 +130,32 @@
     z-index: 1;
 }
 
-@media (max-width: 1024px) {
-    .seccion p {
+.decoracionHeader{
+    position: absolute;
+    height: 100%;
+}
+
+.decoracionGris{
+    width: 65%;
+    background-color: var(--colorCuaternario);
+    display: flex;
+    justify-content: right;
+}
+
+.decoracionRoja{
+    width: 58%;
+    background-color: var(--colorRojo);
+}
+
+@media (max-width: 2048px){
+    .seccion p{
         font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 1920px){
+    .seccion p{
+        font-size: 1.5rem;
     }
 }
 
