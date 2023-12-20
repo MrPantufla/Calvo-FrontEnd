@@ -1,6 +1,5 @@
 .desplegableCatalogos {
     background-color: var(--colorSecundario);
-    top: 8.1rem;
     z-index: 101;
     position: fixed;
     width: calc(var(--widthCatalogos) - 2.7rem);
@@ -13,7 +12,7 @@
 
 .desplegableCatalogos:hover,
 .desplegableCatalogos.open {
-    height: 13rem;
+    height: 10.5rem;
     transition-delay: 0.18s;
 }
 
@@ -24,7 +23,7 @@
 }
 
 .descargarCatalogosContainer a {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: white !important;
     font-weight: 650;
     text-align: center;
