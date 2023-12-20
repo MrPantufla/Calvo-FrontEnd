@@ -1,16 +1,11 @@
 .contenedorPrincipalCardProducto{
     margin-top: 15px; 
     box-shadow: 0 0 6px 1px gray;
-    cursor: pointer;
     aspect-ratio: 3 / 2;
-    padding: 1.6rem;
-    background-color: var(--colorPrimario);
-}
-
-.contenedorCardProducto{
-    border: 3px solid;
-    border-image: linear-gradient(to bottom, var(--colorRojo), white);
-    border-image-slice: 1;
+    padding: 1rem;
+    padding-bottom: 0;
+    background-color:var(--colorPrimario);
+    position: relative;
 }
 
 .imagenContainerCardProducto{
@@ -21,6 +16,7 @@
     justify-content: center;
     height: 14rem;
     padding-top: 1rem;
+    cursor: pointer;
 }
 
 .imagenProducto{
@@ -28,76 +24,75 @@
     max-height: 100%;
 }
 
-.detalle{
-    bottom: 37%;
-    width: 100%;
-    height: 4.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.imagenProducto:hover{
+    scale: 1.04;
 }
 
-.detalle h3{
+.detalleYCod_orig{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+}
+
+.detalleYCod_orig h3{
     text-align: center;
     font-size: 1.8rem;
-    font-weight: 520;
+    font-weight: 500;
 }
 
-.precioContainer{
-    width: 100%;
-    font-size: 2rem;
-    float: right;
-    margin-top: -1.2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.precio{
-    width: 9rem;
-    background-color: var(--colorPrimario);
-    z-index: 1;
-    text-align: center;
-    font-weight: 600;
-    height: 2.7rem;
-}
-
-.cantidadCardProducto{
+.kgCantidadYColorContainer{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
-    display: flex;
     font-weight: 600;
 }
 
-.cantidadCardProducto .boton{
-    width: 3rem;
-    height: 3rem;
-    border: 2px solid var(--colorTerciario);
+.kgCantidadYColorContainer .boton{
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
     display: flex;
     align-items: center;
+    background-color: var(--colorRojo);
     justify-content: center;
+    border-radius: 3px;
     transition: background-color 0.2s ease, color 0.2s ease;
-    font-weight: 550;
-    font-size: 2.7rem;
+    font-weight: 500;
+    font-size: 2rem;
+    color: white;
 }
 
-.cantidadCardProducto .boton:hover{
-    background-color: var(--colorTerciario);
+.kgCantidadYColorContainer .boton:hover{
+    background-color: var(--colorSecundario);
 }
 
-.cantidadCardProducto span{
+.kgCantidadYColorContainer .boton:active {
+    transform: scale(0.95);
+}
+
+.cantidadProducto{
     font-size: 2rem;
     width: 2rem;
     text-align: center;
 }
 
-.codigo{
-    font-weight: bold;
+.precioContainer{
+    width: 100%;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.contenedorPrincipalCardProducto:hover {
-    transform: scale(1.05);
+.precio{
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    z-index: 1;
+    text-align: center;
+    font-weight: 600;
+    height: 2.4rem;
 }
 
 .cod_origContainer{
@@ -110,61 +105,69 @@
     margin-top: -1.3rem;
 }
 
-.cod_orig{
-    font-size: 2.3rem;
-    text-align: center;
-    margin-bottom: -0.4rem;
-    z-index: 1;
-    background-color: var(--colorPrimario);
-    color: var(--colorRojo);
-    font-weight: 600;
+.codOrig{
+    color: var(--colorRojo)
 }
 
-.colores{
-    width: 5rem;
-    height: 4rem;
-    margin-left: 0.5rem;
+.colorCardProducto{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
 }
 
-.color{
-    width: 100%;
-    margin: 0.1rem 0;
-    height: 1.5rem;
-}
-
-.color:hover{
-    transform: scale(1.1);
-}
-
-.natural{
-    background-color: #c8c4c4;
-    margin-top: 0;
-}
-
-.blanco{
-    border: 1px solid #c8c4c4;
+.muestraColor{
+    width: 2rem;
+    height: 2rem;
     background-color: white;
 }
 
-.negro{
-    background-color: black;
+.textoColorCardProducto{
+    margin-right: 1rem;
 }
 
-.madera{
-    background-color: #b4ac7c;
-    margin-bottom: 0;
+.kgProducto, .colorCardProducto{
+    width: 12rem;
+    display: flex;
+    justify-content: center;
+}
+
+.kgProducto{
+    flex-direction: column;
+}
+
+.colorCardProducto p, .kgProducto p{
+    font-size: 1.4rem;
+    text-align: center;
+    margin: 0;
+}
+
+.decoracionCardProducto{
+    width: 100%;
+    height: 2rem;
+    background-color: var(--colorRojo);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.contenedorPrincipalCardProducto:hover .decoracionCardProducto{
+    background-color: var(--colorSecundario);
+}
+
+.logoDecoracionCardProducto{
+    max-height: 75%;
 }
 
 .botonAñadirFavoritos{
     width: 3.3rem;
     height: 3.2rem;
     border: none;
-    background-color: var(--colorPrimario);
+    background-color: transparent;
+    margin-top: 0.5rem;
+    margin-bottom: -4rem;
     float: right;
-    margin-top: -2.8rem;
-    margin-right: -1.5rem;
 }
 
 .botonAñadirFavoritos .bi-heart{

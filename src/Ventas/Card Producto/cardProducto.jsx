@@ -4,6 +4,7 @@ import perfil2 from '../../Imagenes/perfil2.png';
 import perfil3 from '../../Imagenes/perfil3.png';
 import perfil4 from '../../Imagenes/perfil4.png';
 import perfil5 from '../../Imagenes/perfil5.png';
+import logoBlanco from '../../Imagenes/ca.png'
 import React from 'react';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useAuth } from '../../contextLogin.jsx';
@@ -60,9 +61,9 @@ export default function CardProducto(args) {
   };
 
   return (
-    <div className="contenedorPrincipalCardProducto" onClick={args.onClick}>
-      <div className="cod_origContainer">
-        <p className="cod_orig">    {args.cod_orig}    </p>
+    <div className="contenedorPrincipalCardProducto" >
+      <div className="decoracionCardProducto">
+        <img className="logoDecoracionCardProducto" src={logoBlanco} />
       </div>
       <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(args.id, e)}>
         {favoritos.esFavorito(args.id) ?
@@ -74,38 +75,45 @@ export default function CardProducto(args) {
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
           </svg>)}
       </button>
-      <div className="contenedorCardProducto">
-        <div className="imagenContainerCardProducto">
-          <img className="imagenProducto" src={args.id % 5 == 0 ?
-            (perfil1)
+      <div className="imagenContainerCardProducto" onClick={args.onClick}>
+        <img className="imagenProducto" src={args.id % 5 == 0 ?
+          (perfil1)
+          :
+          (args.id % 5 == 1 ?
+            (perfil2)
             :
-            (args.id % 5 == 1 ?
-              (perfil2)
+            (args.id % 5 == 2 ?
+              (perfil3)
               :
-              (args.id % 5 == 2 ?
-                (perfil3)
+              (args.id % 5 == 3 ?
+                (perfil4)
                 :
-                (args.id % 5 == 3 ?
-                  (perfil4)
-                  :
-                  (perfil5))))} alt="Producto">
-          </img>
+                (perfil5))))} alt="Producto">
+        </img>
+      </div>
+      <div className="detalleYCod_orig">
+        <h3><span className="codOrig">{args.cod_orig}</span> - {args.detalle}</h3>
+      </div>
+      <div className="kgCantidadYColorContainer">
+        <div className="kgProducto">
+          <p>Peso promedio:</p>
+          <p className="cantidadAtributo">{args.kg}kg</p>
         </div>
-        <div className="detalle">
-          <h3>{args.detalle}</h3>
-        </div>
-        <div className="cantidadCardProducto">
-          <button className="boton" onClick={restarContador}>-</button>
-          <span>{cantidad}</span>
-          <button className="boton" onClick={sumarContador}>+</button>
 
-          <div className="colorCardProducto">
-            <p>Color: {args.color}</p>
+        <button className="boton" onClick={restarContador}>-</button>
+        <span className="cantidadProducto">{cantidad}</span>
+        <button className="boton" onClick={sumarContador}>+</button>
+
+        <div className="colorCardProducto">
+          <div className="textoColorCardProducto">
+            <p>Color:</p>
+            <p className="cantidadAtributo">{args.color}</p>
           </div>
+          <div className="muestraColor" />
         </div>
-        <div className="precioContainer">
-          <p className="precio">${args.precio}</p>
-        </div>
+      </div>
+      <div className="precioContainer">
+        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("Precio aproximado: $") : ("$")} {args.precio}</p>
       </div>
     </div>
   );
