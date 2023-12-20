@@ -9,11 +9,14 @@ html{
 }
 
 :root{
-  --colorPrimario: #EAEAEA;
+  --colorPrimario: #e5e5e5;
   --colorSecundario: #4e4e4d;
-  --colorTerciario: #c4c4c5;
+  --colorTerciario: #0d0d0e;
   --colorCuaternario: #989899;
-  --colorRojo: #e31e24;
+  --colorQuinario: #a3a4a8;
+  --colorRojo: #fb0404;
+  --colorAzulOscuro: #38647c;
+  --colorAzulClaro: #5d8398;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
