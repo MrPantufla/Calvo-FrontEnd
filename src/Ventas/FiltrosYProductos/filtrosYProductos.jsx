@@ -63,6 +63,7 @@ export default function FiltrosYProductos() {
 
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
+      <div className="decoracionTienda"/>
       <div className="filtrosYBusqueda">
         <div className="busquedaEIcono">
           <input
@@ -133,6 +134,7 @@ export default function FiltrosYProductos() {
                 detalle={producto.detalle}
                 precio={producto.precio}
                 color={producto.color}
+                kg={producto.kg}
                 key={producto.id}
                 onClick={() => {
                   handleClickProducto(producto);

@@ -1,12 +1,12 @@
 .filtrosYBusqueda{
-    width: 25%;
+    width: 20%;
     position: sticky;
     display: flex;
     justify-content: center;
 }
 
 .productos{
-    margin-left: 25%;
+    margin-left: 21%;
 }
 
 .contenedorPrincipalFiltrosYProductos{
@@ -14,12 +14,23 @@
     flex-direction: column;
     padding-top: 12rem;
     padding-right: 2rem;
-    background-color: #D5D5D5;
-    background-image: url('../../Imagenes/ca.png');
+    background-color: var(--colorAzulClaro);
+    /*background-image: url('../../Imagenes/ca.png');*/
     background-size: 60%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left 8rem;
+}
+
+.decoracionTienda{
+    position: fixed;
+    height: 100%;
+    width: 65%;
+    background-color: var(--colorAzulOscuro);
+    right: 0;
+    top: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100vh*0.68) 100%);
+    z-index: 0;
 }
 
 .check{
@@ -32,11 +43,12 @@
     flex-direction: column;
     position: fixed;
     top: 22rem;
+    left: 1.4rem;
 }
 
 .labelRubros, .labelSubrubros{
     height: 4rem;
-    width: 16rem;
+    width: 25rem;
     text-align: center;
     font-size: 2rem;
     font-weight: 550;
@@ -71,11 +83,11 @@
 }
 
 .busquedaEIcono{
-    width: 30rem;
+    width: 25rem;
     height: 4rem;
     position: fixed;
     top: 15rem;
-    left: 1rem;
+    left: 1.4rem;
     border: 2px solid var(--colorCuaternario);
     display: flex;
 }
@@ -93,7 +105,7 @@
 }
 
 .busquedaEIcono input{
-    font-size: 2rem;
+    font-size: 1.8rem;
     width: 90%;
     border: none;
     height: 100%;
@@ -105,7 +117,7 @@
 }
 
 .busqueda::placeholder{
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .paginacion{
