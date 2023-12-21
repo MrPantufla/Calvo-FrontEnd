@@ -1,0 +1,36 @@
+.desplegablePerfil {
+    background-color: white;
+    z-index: 101;
+    position: fixed;
+    border: none;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-in-out;
+    transition-delay: 0s;
+    width: calc(var(--rightAnchoPerfil) - 2.7rem);
+}
+
+.desplegablePerfil:hover,
+.desplegablePerfil.open {
+    height: 7.5rem;
+    transition-delay: 0.18s;
+}
+
+.descargarPerfilContainer{
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.descargarPerfilContainer a {
+    font-size: 1.5rem;
+    color: var(--colorSecundario) !important;
+    font-weight: 650;
+    text-align: center;
+    cursor: pointer;
+    margin: 0.3rem 0;
+}
+
+.descargarPerfilContainer a:hover {
+    color: var(--colorCuaternario) !important;
+}
