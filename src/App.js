@@ -8,6 +8,8 @@ import { DesplegableProviderCatalogos } from './contextDesplegableCatalogos.jsx'
 import MisCompras from './Mis compras/misCompras.jsx';
 import { DireccionProvider } from './contextDireccion.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
+import { DesplegableProviderPerfil } from './contextDesplegablePerfil.jsx';
+import { LoginProvider } from './contextLogin.jsx';
 
 function App() {
   const apiUrl = "http://localhost:8080/api";
@@ -15,14 +17,16 @@ function App() {
     <ConfiguracionProvider>
       <DireccionProvider>
         <DesplegableProviderCatalogos>
-          <Router>
-            <Routes>
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/tienda" element={<Ventas />} />
-              <Route path="/perfil" element={<Perfil />} />
-              <Route path="/misCompras" element={<MisCompras />} />
-            </Routes>
-          </Router>
+          <DesplegableProviderPerfil>
+            <Router>
+              <Routes>
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/tienda" element={<Ventas />} />
+                <Route path="/perfil" element={<Perfil />} />
+                <Route path="/misCompras" element={<MisCompras />} />
+              </Routes>
+            </Router>
+          </DesplegableProviderPerfil>
         </DesplegableProviderCatalogos>
       </DireccionProvider>
     </ConfiguracionProvider>
