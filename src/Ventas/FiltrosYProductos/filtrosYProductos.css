@@ -12,7 +12,7 @@
 .contenedorPrincipalFiltrosYProductos{
     display: flex;
     flex-direction: column;
-    padding-top: 12rem;
+    padding-top: 10rem;
     padding-right: 2rem;
     background-color: var(--colorAzulClaro);
     background-image: url('../../Imagenes/caAzul.png');
