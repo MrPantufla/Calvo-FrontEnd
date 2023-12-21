@@ -30,7 +30,6 @@ export default function Favoritos() {
 
             // Establece la nueva posición top
             setFavoritosTop(newTop);
-            console.log(favoritosTop)
         };
 
         // Agrega el event listener para el scroll
