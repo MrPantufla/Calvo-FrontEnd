@@ -5,6 +5,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logout from '../../Logout/logout';
 import { useAuth } from '../../contextLogin';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
+import Carrito from '../../Ventas/Carrito/carrito';
+import Favoritos from '../../Ventas/Favoritos/favoritos';
 
 export default function Header() {
   const [headerSize, setHeaderSize] = useState(12);
@@ -69,7 +71,6 @@ export default function Header() {
   }
 
   const headerStyle = {
-    //backgroundColor: 'var(--colorPrimario)', 
     height: `${headerSize}rem`,
     width: '100%',
     position: 'fixed',
@@ -165,6 +166,14 @@ export default function Header() {
               </svg>
             </div>
           </NavLink>
+          {location.pathname == '/tienda' ? (
+            <>
+              <Carrito />
+              <Favoritos />
+            </>)
+            :
+            (<></>)
+          }
         </div>
       </div>
     </div >
