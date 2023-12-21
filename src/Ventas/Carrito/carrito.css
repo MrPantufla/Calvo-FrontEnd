@@ -8,7 +8,7 @@
     display: flex;
     align-items: end;
     flex-direction: column;
-    overflow: auto;
+    overflow: hidden;
     right: 4.6rem;
     padding-right: 1rem;
 }
@@ -69,8 +69,8 @@
 }
 
 .cantidadEnCarrito{
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     background-color: var(--colorSecundario);
     color: white;
     display: flex !important;
@@ -82,6 +82,9 @@
 }
 
 .botonCarrito:hover{
-    background-color: var(--colorCuaternario);
-    color: var(--colorRojo);
+    background-color: var(--colorSecundario);
+}
+
+.botonCarrito:hover .bi-cart2{
+    fill: var(--colorRojo);
 }
