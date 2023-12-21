@@ -15,11 +15,11 @@
     padding-top: 12rem;
     padding-right: 2rem;
     background-color: var(--colorAzulClaro);
-    /*background-image: url('../../Imagenes/ca.png');*/
+    background-image: url('../../Imagenes/caAzul.png');
     background-size: 60%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: left 8rem;
+    background-position: left 9rem;
 }
 
 .decoracionTienda{
@@ -138,11 +138,11 @@
 }
 
 .buttonPag:hover{
-    background-color: var(--colorCuaternario);
+    background-color: var(--colorTerciario);
 }
 
 .pagina-actual{
-    background-color: var(--colorTerciario);
+    background-color: var(--colorCuaternario);
 }
 
 .boton{
