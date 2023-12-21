@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect, useReducer } from 'reac
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
-
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
@@ -92,7 +92,7 @@ export const LoginProvider = ({ children }) => {
   }, [state]);
 
   return (
-    <AuthContext.Provider value={{ state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
+    <AuthContext.Provider value={{ opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
       {children}
     </AuthContext.Provider>
   );

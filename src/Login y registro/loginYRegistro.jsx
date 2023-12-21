@@ -7,7 +7,7 @@ import { useAuth } from '../contextLogin.jsx';
 import './loginYRegistro.css';
 
 export default function LoginYRegistro() {
-  const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
+  
   const auth = useAuth();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function LoginYRegistro() {
   }, []);
 
   const handleOpcionClick = (opcion) => {
-    setOpcionSeleccionada(opcion);
+    auth.setOpcionSeleccionada(opcion);
   };
 
   const handleClose = () => {
@@ -47,7 +47,7 @@ export default function LoginYRegistro() {
                   name="btnradio"
                   id="btnradio1"
                   autoComplete="off"
-                  checked={opcionSeleccionada === 'login'}
+                  checked={auth.opcionSeleccionada === 'login'}
                   onChange={() => handleOpcionClick('login')}
                 />
                 <label className="btn btn-outline-secondary" htmlFor="btnradio1">
@@ -59,7 +59,7 @@ export default function LoginYRegistro() {
                   name="btnradio"
                   id="btnradio2"
                   autoComplete="off"
-                  checked={opcionSeleccionada === 'registro'}
+                  checked={auth.opcionSeleccionada === 'registro'}
                   onChange={() => handleOpcionClick('registro')}
                 />
                 <label className="btn btn-outline-secondary" htmlFor="btnradio2">
@@ -69,13 +69,13 @@ export default function LoginYRegistro() {
               <div className="contenedorFormularios">
                 <div
                   className="contenedorComponenteLogin"
-                  style={{ display: opcionSeleccionada === 'login' ? 'block' : 'none' }}
+                  style={{ display: auth.opcionSeleccionada === 'login' ? 'block' : 'none' }}
                 >
                   <Login />
                 </div>
                 <div
                   className="contenedorComponenteRegistro"
-                  style={{ display: opcionSeleccionada === 'registro' ? 'block' : 'none' }}
+                  style={{ display: auth.opcionSeleccionada === 'registro' ? 'block' : 'none' }}
                 >
                   <Registro />
                 </div>
