@@ -1,6 +1,27 @@
 .contenedorPrincipalBody{
     z-index: 2;
-    background-color: var(--colorPrimario);
+    background-color: var(--colorSenario);
+    background-image: url('../../Imagenes/caGris.png');
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left 9rem;
+}
+
+.restoBody{
+    z-index: 2;
+    position: relative;
+}
+
+.decoracionBody{
+    position: absolute;
+    width: 65%;
+    height: 100vh;
+    background-color: var(--colorTerciario);
+    right: 0;
+    position: fixed;
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100vh*0.68) 100%);
 }
 
 @media (max-width: 767px){

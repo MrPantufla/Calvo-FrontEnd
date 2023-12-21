@@ -8,21 +8,24 @@ import CartelLogout from '../../Logout/cartelLogout.jsx';
 import { useAuth } from '../../contextLogin.jsx';
 import './body.css';
 
-export default function Body(){
-    const auth= useAuth();
+export default function Body() {
+    const auth = useAuth();
 
-    return(
+    return (
         <div className="contenedorPrincipalBody">
-            <LoginYRegistro/>
-            <CartelLogout/>
-            <Carrusel/>
-            <Banner texto="NUESTROS PRODUCTOS"/>
-            <Categorias/>
-            <Banner id="quienesSomos" texto="SOBRE NOSOTROS"/>
-            <QuienesSomos/>
-            <Banner id="contacto" texto="CONTACTANOS" />
-            <InformacionYContacto/>
+            <div className="decoracionBody" />
+            <div className="restoBody">
+                <LoginYRegistro />
+                <CartelLogout />
+                <Carrusel />
+                <Banner texto="NUESTROS PRODUCTOS" />
+                <Categorias />
+                <Banner id="quienesSomos" texto="SOBRE NOSOTROS" />
+                <QuienesSomos />
+                <Banner id="contacto" texto="CONTACTANOS" />
+                <InformacionYContacto />
+            </div>
         </div>
-        
+
     );
 }
