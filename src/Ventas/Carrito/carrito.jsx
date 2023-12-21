@@ -15,12 +15,12 @@ export default function Carrito() {
   const productos = useProductos();
   const carrito = useCarrito();
 
-  const [carritoTop, setCarritoTop] = useState(4.2);
+  const [carritoTop, setCarritoTop] = useState(3.2);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const maxCarritoTop = 4.2; // ajusta el valor máximo de altura según tus necesidades
+      const maxCarritoTop = 3.2; // ajusta el valor máximo de altura según tus necesidades
       const minCarritoTop = 1.7; // ajusta el valor mínimo de altura según tus necesidades
       const alturaHeader = 150; // ajusta según tus necesidades
 

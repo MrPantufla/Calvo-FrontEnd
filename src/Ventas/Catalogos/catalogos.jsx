@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function Catalogos() {
     const desplegable = useDesplegableCatalogos();
-    const [catalogosTop, setCatalogosTop] = useState(8.1);
+    const [catalogosTop, setCatalogosTop] = useState(7.1);
 
     const handleDownload = (filename) => {
         const filePath = `${process.env.PUBLIC_URL}/Archivos/${filename}.pdf`;
@@ -17,7 +17,7 @@ export default function Catalogos() {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            const maxCatalogosTop = 8.1; // ajusta el valor máximo de altura según tus necesidades
+            const maxCatalogosTop = 7.1; // ajusta el valor máximo de altura según tus necesidades
             const minCatalogosTop = 5.6; // ajusta el valor mínimo de altura según tus necesidades
             const alturaHeader = 150; // ajusta según tus necesidades
 

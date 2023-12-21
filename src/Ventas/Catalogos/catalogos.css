@@ -37,7 +37,7 @@
 
 @media (max-width: 4096px){
     .desplegableCatalogos {
-        right: calc(var(--rightAnchoPerfil) - 2.3rem + 10rem);
+        right: calc(var(--rightAnchoPerfil) - 2.2rem + 10rem);
     }
 }
 
