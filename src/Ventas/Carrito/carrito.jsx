@@ -34,7 +34,6 @@ export default function Carrito() {
 
       // Establece la nueva posición top
       setCarritoTop(newTop);
-      console.log(carritoTop)
     };
 
     // Agrega el event listener para el scroll
