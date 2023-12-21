@@ -11,12 +11,12 @@ export default function Favoritos() {
     const [favoritosAbierto, setFavoritosAbierto] = useState(false);
     const favoritos = useFavoritos();
     const productos = useProductos();
-    const [favoritosTop, setFavoritosTop] = useState(4.2);
+    const [favoritosTop, setFavoritosTop] = useState(3.2);
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            const maxFavoritosTop = 4.2; // ajusta el valor máximo de altura según tus necesidades
+            const maxFavoritosTop = 3.2; // ajusta el valor máximo de altura según tus necesidades
             const minFavoritosTop = 1.7; // ajusta el valor mínimo de altura según tus necesidades
             const alturaHeader = 150; // ajusta según tus necesidades
 
