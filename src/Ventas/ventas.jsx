@@ -6,6 +6,7 @@ import Catalogos from './Catalogos/catalogos.jsx';
 import CartelLogout from '../Logout/cartelLogout.jsx';
 import { useCarrito } from '../contextCarrito.jsx';
 import ConfirmarCompra from './Confirmar compra/confirmarCompra.jsx';
+import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil.jsx';
 import { productos } from '../productos.js'; //Por si la base de datos no anda
 
 export default function Ventas() {
@@ -13,6 +14,7 @@ export default function Ventas() {
   return (
     <>
       <Header />
+      <DesplegablePerfil/>
       <Catalogos />
       <LoginYRegistro />
       <CartelLogout />
