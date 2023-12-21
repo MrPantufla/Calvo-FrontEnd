@@ -7,22 +7,17 @@ import { useAuth } from '../../contextLogin';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import Carrito from '../../Ventas/Carrito/carrito';
 import Favoritos from '../../Ventas/Favoritos/favoritos';
+import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
 
 export default function Header() {
-  const [headerSize, setHeaderSize] = useState(12);
+  const [headerSize, setHeaderSize] = useState(10);
   const location = useLocation();
   const mobile = (window.innerWidth < 768);
 
   const desplegableCatalogos = useDesplegableCatalogos();
+  const desplegablePerfil = useDesplegablePerfil();
 
   const auth = useAuth();
-  let ruta;
-  if (auth.state.logueado) {
-    ruta = auth.state.userInfo.email_confirmado ? "/perfil" : "";
-  }
-  else {
-    ruta = "";
-  }
 
   const handleToggleLogin = () => {
     if (!auth.state.logueado) {
@@ -39,7 +34,7 @@ export default function Header() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const scrollHeight = document.body.scrollHeight - window.innerHeight;
-      const maxSize = 12;
+      const maxSize = 10;
       const minSize = 7;
       const minSizeScroll = scrollHeight - 150;
 
@@ -55,6 +50,8 @@ export default function Header() {
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    handleResize();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -93,22 +90,19 @@ export default function Header() {
   const handleResize = () => {
     const perfilElement = document.getElementById("perfilHeader");
     if (perfilElement) {
-      const rect = perfilElement.getBoundingClientRect();
-      desplegableCatalogos.setAnchoPerfil(rect.width);
+      desplegableCatalogos.setAnchoPerfil(perfilElement.offsetWidth);
     }
 
     const catalogosElement = document.getElementById("catalogosHeader");
     if (catalogosElement) {
       desplegableCatalogos.setAnchoCatalogos(catalogosElement.offsetWidth);
     }
-  };
 
-  const handleLoad = () => {
-    handleResize();
+    console.log("catalogos: " + desplegableCatalogos.anchoCatalogos);
   };
 
   window.addEventListener("resize", handleResize);
-  window.addEventListener('load', handleLoad);
+  window.addEventListener('load', handleResize);
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
@@ -153,10 +147,9 @@ export default function Header() {
               :
               (<></>))
           }
-          <NavLink 
-            to={ruta} 
+          <div 
             id="perfilHeader" 
-            className="perfil" 
+            className={`perfil ${desplegablePerfil.perfilHovered ? 'perfilHovered' : ''}`} onMouseEnter={desplegablePerfil.abrirPerfil} onMouseLeave={desplegablePerfil.cerrarPerfil}  
             onClick={handleToggleLogin}
             style={{ width: location.pathname === '/tienda' ? '15rem' : '23rem' }}
           >
@@ -165,7 +158,7 @@ export default function Header() {
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
               </svg>
             </div>
-          </NavLink>
+          </div>
           {location.pathname == '/tienda' ? (
             <>
               <Carrito />
