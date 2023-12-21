@@ -29,8 +29,8 @@
 }
 
 .cantidadFavoritos{
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     background-color: var(--colorSecundario);
     color: white;
     display: flex !important;
@@ -42,17 +42,19 @@
 }
 
 .botonFavoritos:hover{
-    background-color: var(--colorCuaternario);
+    background-color: var(--colorSecundario);
+}
+
+.botonFavoritos:hover .bi-heart{
+    fill: var(--colorRojo);
 }
 
 .elementosFavoritos{
     height: 0;
-    width: 3.5rem;
     overflow: hidden;
     transition: height 0.3s;
 }
 
 .elementosFavoritos.open{
     height: 40rem;
-    width: auto;
 }
