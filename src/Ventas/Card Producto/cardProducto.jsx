@@ -19,6 +19,15 @@ export default function CardProducto(args) {
   const favoritos = useFavoritos();
   const colorCorregido = (args.color).replace(/\s+/g, '-');
 
+  const usarBlanco = (args.color == 'Negro' ||
+    args.color == 'Azul' ||
+    args.color == 'Marron oscuro' ||
+    args.color == 'Bronce oscuro' ||
+    args.color == 'Simil madera' ||
+    args.color == 'Platil' ||
+    args.color == 'Peltre'
+  );
+
   const sumarContador = (event) => {
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
@@ -95,8 +104,8 @@ export default function CardProducto(args) {
       </div>
       <div className="kgCantidadYColorContainer">
         <div className="kgProducto">
-          <p>Peso promedio:</p>
-          <p className="cantidadAtributo">{args.kg}kg</p>
+          <p>PESO PROM</p>
+          <p>{args.kg}kg</p>
         </div>
 
         <button className="boton" onClick={restarContador}>-</button>
@@ -104,15 +113,15 @@ export default function CardProducto(args) {
         <button className="boton" onClick={sumarContador}>+</button>
 
         <div className="colorCardProducto">
-          <div className="textoColorCardProducto">
-            <p>Color:</p>
-            <p className="cantidadAtributo">{args.color}</p>
+          <p>COLOR </p><div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
+            <p className="cantidadAtributo" style={usarBlanco ? { color: 'white' } : {}}>
+              {args.color.toUpperCase()}
+            </p>          
           </div>
-          <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} />
         </div>
       </div>
       <div className="precioContainer">
-        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("Precio aproximado: $") : ("$")} {args.precio}</p>
+        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("$")} {args.precio}</p>
       </div>
     </div>
   );
