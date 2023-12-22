@@ -108,38 +108,40 @@ export default function ConfirmacionCodigo() {
 
   return (
     <div className="contenedorPrincipalConfirmacionCodigo">
-      <form className="formConfirmacionCodigo">
-        <h2>Verifica tu email para acceder a tu perfil y realizar pedidos</h2>
-        <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
-        {error && <div className="error-message" style={{ display: auth.mostrarErrorCodigoConfirmacion ? 'inline' : 'none' }}>{error}</div>}
-        {mensajeRespuesta && <div className="success-message">{mensajeRespuesta}</div>}
-        <div className="form-group inputContainerCodigo">
-          <label htmlFor="codigo" required />
-          <input
-            type="text"
-            id="codigo"
-            value={codigoConfirmacion}
-            onChange={(e) => {
-              setCodigoConfirmacion(e.target.value);
-              auth.setMostrarErrorCodigoConfirmacion(false);
-            }}
-            placeholder='Código de confirmación'
-          />
-        </div>
-        <div className="botonContainerCodigo">
-          <button type="button" onClick={enviarCodigo}>
-            Confirmar
-          </button>
-          <button type="button" onClick={reenviarCodigo} disabled={!isResendButtonEnabled}>
-            Reenviar código
-          </button>
-          {timeLeft > 0 && (
-            <div className="contadorTiempoRestante">
-              Tiempo restante: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
-            </div>
-          )}
-        </div>
-      </form>
+      <div className="parteUtilizableConfirmacionCodigo">
+        <form className="formConfirmacionCodigo">
+          <h2>Verifica tu email para acceder a tu perfil y realizar pedidos</h2>
+          <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
+          {error && <div className="error-message" style={{ display: auth.mostrarErrorCodigoConfirmacion ? 'inline' : 'none' }}>{error}</div>}
+          {mensajeRespuesta && <div className="success-message">{mensajeRespuesta}</div>}
+          <div className="form-group inputContainerCodigo">
+            <label htmlFor="codigo" required />
+            <input
+              type="text"
+              id="codigo"
+              value={codigoConfirmacion}
+              onChange={(e) => {
+                setCodigoConfirmacion(e.target.value);
+                auth.setMostrarErrorCodigoConfirmacion(false);
+              }}
+              placeholder='Código de confirmación'
+            />
+          </div>
+          <div className="botonContainerCodigo">
+            <button type="button" onClick={enviarCodigo}>
+              Confirmar
+            </button>
+            <button type="button" onClick={reenviarCodigo} disabled={!isResendButtonEnabled}>
+              Reenviar código
+            </button>
+            {timeLeft > 0 && (
+              <div className="contadorTiempoRestante">
+                Tiempo restante: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
