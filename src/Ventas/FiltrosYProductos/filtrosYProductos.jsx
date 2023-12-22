@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 import ProductoGrande from './productoGrande';
 import { useProductos } from '../../contextProductos';
+import { useTienda } from '../../contextTienda';
 
 export default function FiltrosYProductos() {
   const productos = useProductos();
@@ -12,10 +13,10 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
-  const [tiposActivos, setTiposActivos] = useState([]);
   const [subrubrosActivos, setSubrubrosActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
+  const {tiposActivos, setTiposActivos} = useTienda();
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
