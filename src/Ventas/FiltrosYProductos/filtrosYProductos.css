@@ -46,6 +46,19 @@
     left: 1.4rem;
 }
 
+.ordenamiento{
+    width: 20rem;
+    height: 3rem;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.ordenamiento p{
+    font-size: 2rem;
+}
+
 .labelRubros, .labelSubrubros{
     height: 4rem;
     width: 25rem;
