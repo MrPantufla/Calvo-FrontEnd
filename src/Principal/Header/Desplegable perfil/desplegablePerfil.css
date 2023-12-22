@@ -7,19 +7,22 @@
     height: 0;
     transition: height 0.3s ease-in-out;
     transition-delay: 0s;
-    width: calc(var(--rightAnchoPerfil) - 2.7rem);
 }
 
 .desplegablePerfil:hover,
 .desplegablePerfil.open {
     height: 7.5rem;
-    transition-delay: 0.18s;
+    transition-delay: 0.2s;
 }
 
 .descargarPerfilContainer{
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
+}
+
+.miPerfilNavLink{
+    text-decoration: none;
 }
 
 .descargarPerfilContainer a {

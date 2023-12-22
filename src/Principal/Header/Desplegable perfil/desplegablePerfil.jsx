@@ -12,6 +12,7 @@ export default function DesplegablePerfil() {
     const [perfilTop, setPerfilTop] = useState(7.1);
     const auth = useAuth();
     const favoritos = useFavoritos();
+    const catalogos = useDesplegableCatalogos();
 
     const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
 
@@ -23,10 +24,21 @@ export default function DesplegablePerfil() {
         ruta = "";
     }
 
+    const handleToggleLogin = () => {
+        if (!auth.state.logueado) {
+          auth.setMostrarLogin(true);
+        }
+        else {
+          if (!auth.state.userInfo.email_confirmado) {
+            auth.setMostrarLogin(true);
+          }
+        }
+    };
+
     const stylePerfil = {
         right: rightDesplegablePerfil,
         top: `${perfilTop}rem`,
-    }
+        width: location.pathname == "/tienda" ? `calc(var(--rightAnchoPerfil) - 2.7rem)` : `calc(var(--rightAnchoPerfil) - 3.4rem)`}
 
     const handleCerrarSesion = () => {
         localStorage.clear();
@@ -76,14 +88,17 @@ export default function DesplegablePerfil() {
     return (
         <div
             className={`desplegablePerfil ${perfil.perfilHovered ? 'open' : ''}`}
-            onMouseEnter={perfil.abrirPerfil}
+            onMouseEnter={() => {
+                perfil.abrirPerfil();
+                console.log(catalogos.anchoPerfil);
+              }}
             onMouseLeave={perfil.cerrarPerfil}
             style={stylePerfil}
         >
             <div className="descargarPerfilContainer">
                 {auth.state.logueado ? 
                     (<>
-                        <NavLink to={ruta}>MI PERFIL</NavLink>
+                        <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink">MI PERFIL</NavLink>
                         <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
                     </>)
                     : 
