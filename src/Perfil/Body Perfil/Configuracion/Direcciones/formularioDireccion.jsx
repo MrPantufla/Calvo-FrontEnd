@@ -1,3 +1,4 @@
+import './formularioDireccion.css'
 import { useDireccion } from "../../../../contextDireccion";
 import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from "../../../../contextConfiguracion";
@@ -54,45 +55,53 @@ export default function FormularioDireccion() {
         <>
             <div className="formularioAgregarDireccion">
                 <form>
-                    <div className="form-group-direcciones">
-                        <label htmlFor="calle">Calle*</label>
-                        <input
-                            required
-                            type="text"
-                            id="calle"
-                            value={direccion.calle}
-                            onChange={(e) => direccion.setCalle(e.target.value)}
-                        />
+                    <div className="calleYNumero">
+                        <div className="form-group-direcciones">
+                            <label htmlFor="calle">Calle*</label>
+                            <input
+                                required
+                                type="text"
+                                id="calle"
+                                value={direccion.calle}
+                                onChange={(e) => direccion.setCalle(e.target.value)}
+                                className="direccionCalleInput"
+                            />
+                        </div>
+                        <div className="form-group-direcciones">
+                            <label htmlFor="numero">Número*</label>
+                            <input
+                                required
+                                type="text"
+                                id="numero"
+                                value={direccion.numero}
+                                onChange={(e) => direccion.setNumero(e.target.value)}
+                                className="direccionNumeroInput"
+                            />
+                        </div>
                     </div>
-                    <div className="form-group-direcciones">
-                        <label htmlFor="numero">Numero*</label>
-                        <input
-                            required
-                            type="text"
-                            id="numero"
-                            value={direccion.numero}
-                            onChange={(e) => direccion.setNumero(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group-direcciones">
-                        <label htmlFor="cp">Código postal*</label>
-                        <input
-                            required
-                            type="text"
-                            id="cp"
-                            value={direccion.cp}
-                            onChange={(e) => direccion.setCp(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group-direcciones">
-                        <label htmlFor="localidad">Localidad*</label>
-                        <input
-                            required
-                            type="text"
-                            id="localidad"
-                            value={direccion.localidad}
-                            onChange={(e) => direccion.setLocalidad(e.target.value)}
-                        />
+                    <div className="cpYLocalidad">
+                        <div className="form-group-direcciones">
+                            <label htmlFor="cp">CP*</label>
+                            <input
+                                required
+                                type="text"
+                                id="cp"
+                                value={direccion.cp}
+                                onChange={(e) => direccion.setCp(e.target.value)}
+                                className="direccionCpInput"
+                            />
+                        </div>
+                        <div className="form-group-direcciones">
+                            <label htmlFor="localidad">Localidad*</label>
+                            <input
+                                required
+                                type="text"
+                                id="localidad"
+                                value={direccion.localidad}
+                                onChange={(e) => direccion.setLocalidad(e.target.value)}
+                                className="direccionCiudadInput"
+                            />
+                        </div>
                     </div>
                     <div className="form-group-direcciones">
                         <label htmlFor="provincia">Provincia*</label>
@@ -102,6 +111,7 @@ export default function FormularioDireccion() {
                             id="provincia"
                             value={direccion.provincia}
                             onChange={(e) => direccion.setProvincia(e.target.value)}
+                            className="direccionProvinciaInput"
                         />
                     </div>
                     <div className="botonEnviarDireccionContainer">

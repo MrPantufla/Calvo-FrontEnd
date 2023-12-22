@@ -1,0 +1,42 @@
+.form-group-direcciones{
+    width: 100%;
+    display: flex;
+    font-size: 1.6rem;
+    margin: 1rem 0;
+}
+
+.form-group-direcciones input{
+    height: 3rem;
+    margin-left: 1rem;
+}
+
+.form-group-direcciones label{
+    display: flex;
+    align-items: center;
+}
+
+.direccionCalleInput{
+    width: 12rem;
+}
+
+.direccionNumeroInput{
+    width: 5rem;
+}
+
+.calleYNumero{
+    display: flex;
+    flex-direction: row;
+}
+
+.direccionCpInput{
+    width: 5rem;
+}
+
+.direccionCiudadInput{
+    width: 13rem;
+}
+
+.cpYLocalidad{
+    display: flex;
+    flex-direction: row;
+}
