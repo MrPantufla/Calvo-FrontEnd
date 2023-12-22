@@ -35,7 +35,7 @@
 }
 
 .decoracion{  
-    background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 58.79%, var(--colorCuaternario) 58.79%, var(--colorCuaternario) 59.51%, var(--colorSecundario) 59.51%, var(--colorSecundario) 100%);
+    background: linear-gradient(90deg, var(--colorPrimario) 0%, var(--colorPrimario) 58.79%, var(--colorCuaternario) 58.79%, var(--colorCuaternario) 59.51%, var(--colorSecundario) 59.51%, var(--colorSecundario) 100%);
     width: 82.27%;
     height: 100%;
     clip-path: polygon(0% 0% , 100% 0%, calc(100% - 3.5rem) 100%, 0% 100%);
