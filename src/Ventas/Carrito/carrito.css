@@ -60,12 +60,13 @@
 }
 
 .botonCarrito{
-    background-color: var(--colorPrimario);
+    background-color: var(--colorSecundario);
     border-radius: 2px;
     border: none;
     width: 3.5rem;
     height: 3.5rem;
     transition: background-color 0.1s, color 0.1s;
+    margin-bottom: 0.2rem;
 }
 
 .cantidadEnCarrito{
@@ -82,9 +83,9 @@
 }
 
 .botonCarrito:hover{
-    background-color: var(--colorSecundario);
+    background-color: white;
 }
 
 .botonCarrito:hover .bi-cart2{
-    fill: var(--colorRojo);
+    fill: var(--colorSecundario);
 }

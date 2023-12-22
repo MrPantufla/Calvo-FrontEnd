@@ -18,7 +18,7 @@
 }
 
 .botonFavoritos{
-    background-color: var(--colorPrimario);
+    background-color: var(--colorSecundario);
     border-radius: 0px;
     border: none;
     width: 3.5rem;
@@ -26,6 +26,7 @@
     transition: background-color 0.1s, color 0.1s;
     color: white;
     border-radius: 2px;
+    margin-bottom: 0.2rem;
 }
 
 .cantidadFavoritos{
@@ -42,7 +43,7 @@
 }
 
 .botonFavoritos:hover{
-    background-color: var(--colorSecundario);
+    background-color: white;
 }
 
 .botonFavoritos:hover .bi-heart{
