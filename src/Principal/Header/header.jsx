@@ -2,7 +2,6 @@ import './header.css';
 import logo from '../../Imagenes/logo calvo.png';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import Logout from '../../Logout/logout';
 import { useAuth } from '../../contextLogin';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import Carrito from '../../Ventas/Carrito/carrito';
@@ -18,17 +17,6 @@ export default function Header() {
   const desplegablePerfil = useDesplegablePerfil();
 
   const auth = useAuth();
-
-  const handleToggleLogin = () => {
-    if (!auth.state.logueado) {
-      auth.setMostrarLogin(true);
-    }
-    else {
-      if (!auth.state.userInfo.email_confirmado) {
-        auth.setMostrarLogin(true);
-      }
-    }
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,8 +85,6 @@ export default function Header() {
     if (catalogosElement) {
       desplegableCatalogos.setAnchoCatalogos(catalogosElement.offsetWidth);
     }
-
-    console.log("catalogos: " + desplegableCatalogos.anchoCatalogos);
   };
 
   window.addEventListener("resize", handleResize);
@@ -106,7 +92,6 @@ export default function Header() {
 
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
-      <Logout />
       <div className="decoracionGris decoracionHeader" style={decoracionStyle}>
         <div className="decoracionRoja decoracionHeader" style={decoracionStyle}/>
       </div>
@@ -149,8 +134,7 @@ export default function Header() {
           }
           <div 
             id="perfilHeader" 
-            className={`perfil ${desplegablePerfil.perfilHovered ? 'perfilHovered' : ''}`} onMouseEnter={desplegablePerfil.abrirPerfil} onMouseLeave={desplegablePerfil.cerrarPerfil}  
-            onClick={handleToggleLogin}
+            className={`perfil ${desplegablePerfil.perfilHovered ? 'perfilHovered' : ''}`} onMouseEnter={desplegablePerfil.abrirPerfil} onMouseLeave={desplegablePerfil.cerrarPerfil}
             style={{ width: location.pathname === '/tienda' ? '15rem' : '23rem' }}
           >
             <div className="iconoContainer">
