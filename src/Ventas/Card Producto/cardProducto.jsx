@@ -104,8 +104,12 @@ export default function CardProducto(args) {
       </div>
       <div className="kgCantidadYColorContainer">
         <div className="kgProducto">
-          <p>PESO PROM</p>
-          <p>{args.kg}kg</p>
+          {args.kg != 0 ? (
+            <>
+              <p>PESO PROM</p>
+              <p>{args.kg}kg</p>
+            </>
+          ) : (<></>)}
         </div>
 
         <button className="boton" onClick={restarContador}>-</button>
@@ -116,7 +120,7 @@ export default function CardProducto(args) {
           <p>COLOR </p><div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
             <p className="cantidadAtributo" style={usarBlanco ? { color: 'white' } : {}}>
               {args.color.toUpperCase()}
-            </p>          
+            </p>
           </div>
         </div>
       </div>
