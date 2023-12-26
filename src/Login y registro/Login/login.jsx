@@ -7,18 +7,23 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const auth = useAuth();
 
-  const { verifyToken } = useAuth();
-
   const fetchData = async () => {
-    const storedToken = localStorage.getItem('token');
-    const storedEmail = localStorage.getItem('email');
-
-    if (storedToken && storedEmail) {
+    const rawToken = (document.cookie.split('; ').find(cookie => cookie.startsWith('jwtToken=')));
+    
+    if(rawToken){
+      console.log("RAWTOKEN: " + rawToken)
+      const token = rawToken.slice(9);
+    
+      const storedEmail = localStorage.getItem('email');
+      auth.actualizarToken(token);
+      console.log(token)
+    
+    if (token && storedEmail) {
       try {
-        const isTokenValid = await verifyToken(storedToken);
+        const isTokenValid = await auth.verifyToken(token);
 
         if (isTokenValid) {
-          autoLogin(storedEmail, storedToken);
+          autoLogin(storedEmail, token);
           setEmail('');
           setPassword('');
         }
@@ -26,7 +31,19 @@ export default function Login() {
         console.error('Error al verificar el token:', error);
       }
     }
-  };
+  }
+};
+
+  function getCookieValue(cookieName) {
+    const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+      const [name, value] = cookie.split('=');
+      if (name === cookieName) {
+        return value;
+      }
+    }
+    return null;
+  }
 
   useEffect(() => {
     fetchData();
@@ -53,23 +70,20 @@ export default function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ email: emailValue, contrasenia: passwordValue }),
       });
 
       if (response.ok) {
         const userData = await response.json();
 
-        const isTokenValid = await verifyToken(userData.token);
 
-        if (isTokenValid) {
-          auth.login(userData)
 
-          localStorage.setItem('token', userData.token);
-          localStorage.setItem('email', userData.email);
+        auth.login(userData)
 
-        } else {
-          console.error('Token inválido');
-        }
+        localStorage.setItem('email', userData.email);
+
+
       } else {
         const data = await response.json();
         auth.setErrorMessage("Email y/o contraseña inválidos");

@@ -14,7 +14,7 @@ export default function FormularioDireccion() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': auth.state.userInfo.token
+                'Authorization': auth.tokenCookie
             },
             body: JSON.stringify(direccionEstructura),
             credentials: 'include',
@@ -30,7 +30,6 @@ export default function FormularioDireccion() {
             })
             .then(data => {
                 if (data !== null) {
-                    console.log('Respuesta (texto): ', data);
                     auth.setErrorMessage(data);
                 }
             })

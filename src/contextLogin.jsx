@@ -8,7 +8,20 @@ export const LoginProvider = ({ children }) => {
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [token, setToken] = useState('');
 
+  const actualizarToken = (args) =>{
+    setToken(args)
+  }
+
+  useEffect (() => {
+    const rawTokenAux = (document.cookie.split('; ').find(cookie => cookie.startsWith('jwtToken=')));
+    console.log(rawTokenAux)
+    if(rawTokenAux){
+      setToken(rawTokenAux.slice(9));
+    }
+  },[document.cookie])
+  
   /*const [state, setState] = useState({
     logueado: true,
     userInfo: {
@@ -25,7 +38,7 @@ export const LoginProvider = ({ children }) => {
   const [state, setState] = useState({
     logueado: false,
     userInfo:{}
-  }); //Comentar para version de muestra
+  }) //Comentar para version de muestra
 
   const login = (userData) => {
     return new Promise((resolve, reject) => {
@@ -44,10 +57,12 @@ export const LoginProvider = ({ children }) => {
 
   const logout = async () => {
     localStorage.removeItem('userData');
+    document.cookie = 'jwtToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     setState({
       logueado: false,
       userInfo: null,
     });
+    
   };
 
   const updateEmailConfirmationStatus = () => {
@@ -92,7 +107,7 @@ export const LoginProvider = ({ children }) => {
   }, [state]);
 
   return (
-    <AuthContext.Provider value={{ opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
+    <AuthContext.Provider value={{token, actualizarToken, opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
       {children}
     </AuthContext.Provider>
   );

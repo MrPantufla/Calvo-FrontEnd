@@ -24,13 +24,14 @@ export default function ConfirmacionCodigo() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': auth.state.userInfo.token,
+          'Authorization': auth.tokenCookie,
         },
         body: JSON.stringify({
           codigoConfirmacion,
           email: userData.userInfo.email,
         }),
       });
+      console.log("TOKEN ALMACENADO: " + auth.tokenCookie)
 
       if (response.ok) {
         const data = await response.text();
@@ -58,7 +59,7 @@ export default function ConfirmacionCodigo() {
     fetch('http://localhost:8080/api/reenviarCodigo', {
       method: 'POST',
       headers: {
-        'Authorization': auth.state.userInfo.token
+        'Authorization': auth.tokenCookie
       },
       credentials: 'include',
     })

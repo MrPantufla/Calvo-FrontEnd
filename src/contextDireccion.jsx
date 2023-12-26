@@ -22,7 +22,7 @@ function DireccionProvider({ children }) {
             fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': auth.state.userInfo.token
+                    'Authorization': auth.tokenCookie
                 },
             })
                 .then(response => {
@@ -35,7 +35,6 @@ function DireccionProvider({ children }) {
                 .then(data => {
                     if (typeof data === 'object') {
                         // La respuesta es un objeto, probablemente la dirección del usuario
-                        console.log('Dirección del usuario:', data);
                         setCalle(data.calle);
                         setNumero(data.numero);
                         setCp(data.cp);

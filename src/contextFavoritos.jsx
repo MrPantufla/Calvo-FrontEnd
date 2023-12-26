@@ -58,7 +58,7 @@ function FavoritosProvider({ children }) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/text',
-        'Authorization': auth.state.userInfo.token,
+        'Authorization': auth.tokenCookie,
       },
       body:  listaFavoritosString || ' ',
     })

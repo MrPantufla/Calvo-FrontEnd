@@ -108,7 +108,7 @@ function CarritoProvider({ children }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': auth.state.userInfo.token
+          'Authorization': auth.tokenCookie
         },
         body: JSON.stringify(ActualizacionCarrito),
       })
@@ -133,7 +133,7 @@ function CarritoProvider({ children }) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': auth.state.userInfo.token,
+        'Authorization': auth.tokenCookie,
       },
       body: JSON.stringify(nuevosElementos),
       credentials: 'include',
