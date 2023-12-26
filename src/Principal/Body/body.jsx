@@ -14,6 +14,7 @@ export default function Body() {
     return (
         <div className="contenedorPrincipalBody">
             <div className="decoracionBody" />
+            <div className="decoracionDosBody"/>
             <div className="restoBody">
                 <LoginYRegistro />
                 <CartelLogout />
@@ -26,6 +27,5 @@ export default function Body() {
                 <InformacionYContacto />
             </div>
         </div>
-
     );
 }

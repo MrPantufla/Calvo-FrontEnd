@@ -1,7 +1,6 @@
 .contenedorPrincipalBody{
     z-index: 2;
-    background-color: var(--colorSenario);
-    background-image: url('../../Imagenes/caGris.png');
+    background-color: #e8e4e4;
     background-size: 60%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -17,11 +16,21 @@
     position: absolute;
     width: 65%;
     height: 100vh;
-    background-color: var(--colorTerciario);
+    background-color: #e0d4d4;
     right: 0;
     position: fixed;
     z-index: 1;
     clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100vh*0.68) 100%);
+}
+
+.decoracionDosBody{
+    background-color: var(--colorSenario);
+    position: fixed;
+    height: 100vh;
+    width: 37.7%;
+    right: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100vh*0.68) 100%);
+    z-index: 2;
 }
 
 @media (max-width: 767px){
