@@ -75,6 +75,7 @@ export default function Header() {
     window.scrollTo(0, 0);
   };
 
+  
   const handleResize = () => {
     const perfilElement = document.getElementById("perfilHeader");
     if (perfilElement) {
@@ -93,7 +94,7 @@ export default function Header() {
   return (
     <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
       <div className="decoracionGris decoracionHeader" style={decoracionStyle}>
-        <div className="decoracionRoja decoracionHeader" style={decoracionStyle}/>
+        <div className="decoracionRoja decoracionHeader" style={decoracionStyle} />
       </div>
       <div className="row filaHeader">
         <div className="col-12 col-sm-4 logoContainer columnas">
@@ -132,8 +133,8 @@ export default function Header() {
               :
               (<></>))
           }
-          <div 
-            id="perfilHeader" 
+          <div
+            id="perfilHeader"
             className={`perfil ${desplegablePerfil.perfilHovered ? 'perfilHovered' : ''}`} onMouseEnter={desplegablePerfil.abrirPerfil} onMouseLeave={desplegablePerfil.cerrarPerfil}
             style={{ width: location.pathname === '/tienda' ? '15rem' : '23rem' }}
           >
