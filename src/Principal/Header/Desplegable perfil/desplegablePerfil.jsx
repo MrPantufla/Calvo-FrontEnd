@@ -90,7 +90,6 @@ export default function DesplegablePerfil() {
             className={`desplegablePerfil ${perfil.perfilHovered ? 'open' : ''}`}
             onMouseEnter={() => {
                 perfil.abrirPerfil();
-                console.log(catalogos.anchoPerfil);
               }}
             onMouseLeave={perfil.cerrarPerfil}
             style={stylePerfil}
