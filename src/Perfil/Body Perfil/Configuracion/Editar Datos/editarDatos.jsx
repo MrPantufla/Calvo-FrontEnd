@@ -30,7 +30,6 @@ export default function EditarDatos() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': auth.tokenCookie,
             },
             body: JSON.stringify(usuario),
             credentials: 'include',

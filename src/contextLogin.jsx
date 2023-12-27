@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
-
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
@@ -8,20 +7,7 @@ export const LoginProvider = ({ children }) => {
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [token, setToken] = useState('');
 
-  const actualizarToken = (args) =>{
-    setToken(args)
-  }
-
-  useEffect (() => {
-    const rawTokenAux = (document.cookie.split('; ').find(cookie => cookie.startsWith('jwtToken=')));
-    console.log(rawTokenAux)
-    if(rawTokenAux){
-      setToken(rawTokenAux.slice(9));
-    }
-  },[document.cookie])
-  
   /*const [state, setState] = useState({
     logueado: true,
     userInfo: {
@@ -37,13 +23,12 @@ export const LoginProvider = ({ children }) => {
 
   const [state, setState] = useState({
     logueado: false,
-    userInfo:{}
+    userInfo: {}
   }) //Comentar para version de muestra
 
   const login = (userData) => {
     return new Promise((resolve, reject) => {
       try {
-        localStorage.setItem('userData', JSON.stringify(userData));
         setState({
           logueado: true,
           userInfo: userData,
@@ -55,18 +40,32 @@ export const LoginProvider = ({ children }) => {
     });
   };
 
-  const logout = async () => {
-    localStorage.removeItem('userData');
-    document.cookie = 'jwtToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    setState({
-      logueado: false,
-      userInfo: null,
+  const borrarCookie = async () => {
+    fetch('http://localhost:8080/api/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
     });
-    
+  }
+
+  const logout = async () => {
+    await borrarCookie();
+  
+    setTimeout(() => {
+      setState({
+        logueado: false,
+        userInfo: null,
+      });
+      console.log("logout activado. logueado: " + state.logueado);
+      console.log("userInfo: " + state.userInfo);
+      setMostrarCartelLogout(true);
+    }, 200); // Ajusta el valor del timeout según sea necesario
   };
 
   const updateEmailConfirmationStatus = () => {
-    setState((prevState) => ({
+    setState(prevState => ({
       ...prevState,
       userInfo: {
         ...prevState.userInfo,
@@ -75,14 +74,14 @@ export const LoginProvider = ({ children }) => {
     }));
   };
 
-  const verifyToken = async (token) => {
+  const verifyToken = async () => {
     try {
       const response = await fetch('http://localhost:8080/api/verificarToken', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: token,
+        credentials: 'include'
       });
 
       if (response.ok) {
@@ -106,8 +105,38 @@ export const LoginProvider = ({ children }) => {
     }
   }, [state]);
 
+  const handleLogin = async (args) => {
+    try {
+      if (!login) {
+        console.error('login no está definido');
+        return;
+      }
+
+      const response = await fetch('http://localhost:8080/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email: args.email, contrasenia: args.password }),
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+
+        login(userData)
+
+      } else {
+        const data = await response.json();
+        setErrorMessage("Email y/o contraseña inválidos");
+      }
+    } catch (error) {
+      console.error('Error al intentar iniciar sesión:', error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{token, actualizarToken, opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
+    <AuthContext.Provider value={{ handleLogin, opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
       {children}
     </AuthContext.Provider>
   );

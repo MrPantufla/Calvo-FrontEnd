@@ -14,7 +14,6 @@ export default function FormularioDireccion() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': auth.tokenCookie
             },
             body: JSON.stringify(direccionEstructura),
             credentials: 'include',

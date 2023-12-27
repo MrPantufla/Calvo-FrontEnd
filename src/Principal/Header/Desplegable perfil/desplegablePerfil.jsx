@@ -26,25 +26,24 @@ export default function DesplegablePerfil() {
 
     const handleToggleLogin = () => {
         if (!auth.state.logueado) {
-          auth.setMostrarLogin(true);
+            auth.setMostrarLogin(true);
         }
         else {
-          if (!auth.state.userInfo.email_confirmado) {
-            auth.setMostrarLogin(true);
-          }
+            if (!auth.state.userInfo.email_confirmado) {
+                auth.setMostrarLogin(true);
+            }
         }
     };
 
     const stylePerfil = {
         right: rightDesplegablePerfil,
         top: `${perfilTop}rem`,
-        width: location.pathname == "/tienda" ? `calc(var(--rightAnchoPerfil) - 2.7rem)` : `calc(var(--rightAnchoPerfil) - 3.4rem)`}
+        width: location.pathname == "/tienda" ? `calc(var(--rightAnchoPerfil) - 2.7rem)` : `calc(var(--rightAnchoPerfil) - 3.4rem)`
+    }
 
-    const handleCerrarSesion = () => {
-        localStorage.clear();
-        favoritos.setFavoritos('');
+    const handleCerrarSesion = async () => {
         auth.logout();
-        auth.setMostrarCartelLogout(true);
+        favoritos.setFavoritos('');
     }
 
     useEffect(() => {
@@ -75,12 +74,12 @@ export default function DesplegablePerfil() {
         };
     }, []);
 
-    const mostrarIniciarSesion = () =>{
+    const mostrarIniciarSesion = () => {
         auth.setOpcionSeleccionada('login');
         auth.setMostrarLogin(true);
     }
 
-    const mostrarRegistro = () =>{
+    const mostrarRegistro = () => {
         auth.setOpcionSeleccionada('registro');
         auth.setMostrarLogin(true);
     }
@@ -90,17 +89,17 @@ export default function DesplegablePerfil() {
             className={`desplegablePerfil ${perfil.perfilHovered ? 'open' : ''}`}
             onMouseEnter={() => {
                 perfil.abrirPerfil();
-              }}
+            }}
             onMouseLeave={perfil.cerrarPerfil}
             style={stylePerfil}
         >
             <div className="descargarPerfilContainer">
-                {auth.state.logueado ? 
+                {auth.state.logueado ?
                     (<>
                         <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink">MI PERFIL</NavLink>
                         <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
                     </>)
-                    : 
+                    :
                     (<>
                         <a onClick={mostrarIniciarSesion}>INICIAR SESIÓN</a>
                         <a onClick={mostrarRegistro}>REGISTRARME</a>

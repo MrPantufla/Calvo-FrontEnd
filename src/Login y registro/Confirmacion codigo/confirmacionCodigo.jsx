@@ -24,11 +24,11 @@ export default function ConfirmacionCodigo() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': auth.tokenCookie,
         },
         body: JSON.stringify({
           codigoConfirmacion,
           email: userData.userInfo.email,
+          credentials: 'include'
         }),
       });
       console.log("TOKEN ALMACENADO: " + auth.tokenCookie)

@@ -21,9 +21,7 @@ function DireccionProvider({ children }) {
         if (auth.state.logueado) {
             fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': auth.tokenCookie
-                },
+                credentials: 'include',
             })
                 .then(response => {
                     if (response.ok) {

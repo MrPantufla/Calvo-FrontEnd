@@ -17,7 +17,6 @@ export default function MisCompras() {
                     const response = await fetch('http://localhost:8080/api/misCompras', {
                         method: 'POST',
                         headers: {
-                            'Authorization': auth.tokenCookie,
                         },
                         credentials: 'include',
                     });
