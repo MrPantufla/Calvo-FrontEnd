@@ -5,7 +5,7 @@ export default function Footer() {
         <>
             <div className="contenedorPrincipalFooter">
                 <div className="infoContainer">
-                    <p className="textoFooter">Copyright 2023 Calvo Aluminios. Desarrollo: <a href="https://www.linkedin.com/in/juan-manuel-pizzio-2b1477262/">Juan Manuel Pizzio</a> / Diseño: <a href="https://www.instagram.com/impressa_chajari/">IMPRESSA</a></p>
+                    <p className="textoFooter">Copyright 2024 Calvo Aluminios. Desarrollo: <a href="https://www.linkedin.com/in/juan-manuel-pizzio-2b1477262/">Juan Manuel Pizzio</a> / Diseño: <a href="https://www.instagram.com/impressa_chajari/">IMPRESSA</a></p>
                 </div>
             </div>
         </>
