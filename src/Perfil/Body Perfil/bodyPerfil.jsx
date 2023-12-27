@@ -3,6 +3,7 @@ import './bodyPerfil.css';
 import EditarDatos from './Configuracion/Editar Datos/editarDatos.jsx';
 import EditarContraseña from './Configuracion/Editar Contraseña/editarContraseña.jsx';
 import Direcciones from './Configuracion/Direcciones/editarDireccion.jsx';
+import EditarEmail from './Configuracion/Editar email/editarEmail.jsx';
 
 export default function BodyPerfil(){
     const auth = useAuth();
@@ -16,6 +17,7 @@ export default function BodyPerfil(){
             <EditarDatos/>
             <Direcciones/>
             <EditarContraseña/>
+            <EditarEmail/>
         </div>
     );
 }
