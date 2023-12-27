@@ -43,13 +43,11 @@ function DireccionProvider({ children }) {
                         // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
                     } else {
                         // La respuesta es un texto, probablemente un mensaje de error
-                        console.error('Respuesta (texto): ', data);
                         auth.setErrorMessage(data);
                     }
                 })
                 .catch(error => {
-                    console.error('Ocurrió un error al realizar la solicitud:', error.message);
-                    // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+                    auth.setErrorMessage('Ocurrió un error al realizar la solicitud:', error.message);
                 });
         }
     }
