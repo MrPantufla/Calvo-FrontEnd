@@ -11,23 +11,34 @@ function ConfiguracionProvider({ children }) {
     const [datosAbierto, setDatosAbierto] = useState(false);
     const [direccionAbierto, setDireccionAbierto] = useState(false);
     const [contraseñaAbierto, setContraseñaAbierto] = useState(false);
+    const [emailAbierto, setEmailAbierto] = useState(false);
+
+    const abrirEmail = () =>{
+        setEmailAbierto(true);
+        cerrarDireccion();
+        cerrarContraseña();
+        cerrarDatos();
+    }
 
     const abrirDatos = () =>{
         setDatosAbierto(true);
         cerrarDireccion();
         cerrarContraseña();
+        cerrarEmail();
     }
 
     const abrirDireccion = () =>{
         setDireccionAbierto(true);
         cerrarDatos();
         cerrarContraseña();
+        cerrarEmail();
     }
 
     const abrirContraseña = () =>{
         setContraseñaAbierto(true);
         cerrarDatos();
         cerrarDireccion();
+        cerrarEmail();
     }
 
     const cerrarDatos = () =>{
@@ -42,8 +53,12 @@ function ConfiguracionProvider({ children }) {
         setContraseñaAbierto(false);
     }
 
+    const cerrarEmail= () =>{
+        setEmailAbierto(false);
+    }
+
     return (
-        <ConfiguracionContext.Provider value={{ datosAbierto, direccionAbierto, contraseñaAbierto, abrirDatos, abrirDireccion, abrirContraseña, cerrarDatos, cerrarDireccion, cerrarContraseña}}>
+        <ConfiguracionContext.Provider value={{abrirEmail, cerrarEmail, emailAbierto, setEmailAbierto, datosAbierto, direccionAbierto, contraseñaAbierto, abrirDatos, abrirDireccion, abrirContraseña, cerrarDatos, cerrarDireccion, cerrarContraseña}}>
             {children}
         </ConfiguracionContext.Provider>
     );

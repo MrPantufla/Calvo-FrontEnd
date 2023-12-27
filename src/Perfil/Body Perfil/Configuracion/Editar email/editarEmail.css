@@ -1,0 +1,47 @@
+.colapsableEditarEmail{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40rem;
+    height: 0;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid black;
+    transition: height 0.3s;
+}
+
+.colapsableEditarEmail.open{
+    height: 23rem;
+}
+
+.parteFuncionalEditarEmail h2{
+    font-size: 3rem;
+}
+
+.form-group-editarEmail{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.form-group-editarEmail input{
+    height: 2.5rem;
+    width: 20rem;
+    margin: 1rem 1rem;
+    font-size: 1.5rem;
+}
+
+.form-group-editarEmail label{
+    font-size: 1.8rem;
+}
+
+.botonEditar{
+    border: none;
+    width: 3rem;
+    height: 3rem;
+}
+
+.botonEditar:hover{
+    transform: scale(1.1);
+}
