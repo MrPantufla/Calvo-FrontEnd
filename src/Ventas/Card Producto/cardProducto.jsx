@@ -9,7 +9,6 @@ import React from 'react';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useAuth } from '../../contextLogin.jsx';
 import { useFavoritos } from '../../contextFavoritos.jsx';
-import { useProductos } from '../../contextProductos.jsx';
 
 export default function CardProducto(args) {
   const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
