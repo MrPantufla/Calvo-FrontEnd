@@ -7,7 +7,7 @@ import { useAuth } from '../contextLogin.jsx';
 import './loginYRegistro.css';
 
 export default function LoginYRegistro() {
-  
+
   const auth = useAuth();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function LoginYRegistro() {
         <div className="content-container">
           {auth.state.logueado ? (
             auth.state.userInfo.email_confirmado ? (
-              <div></div>
+              <></>
             ) : (
               <ConfirmacionCodigo />
             )

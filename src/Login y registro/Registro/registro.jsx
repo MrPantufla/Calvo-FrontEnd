@@ -1,6 +1,5 @@
 import './registro.css';
 import { useState } from 'react';
-import { autoLogin } from '../Login/login';
 import { useAuth } from '../../contextLogin';
 
 export default function Registro() {
@@ -50,7 +49,7 @@ export default function Registro() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de datos exitoso');
-                    autoLogin(usuario.email, usuario.contrasenia);
+                    auth.handleLogin({email: usuario.email, password: usuario.contrasenia});
                     return null;
                 } else {
                     return response.text();

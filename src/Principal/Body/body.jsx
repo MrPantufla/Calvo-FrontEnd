@@ -5,11 +5,9 @@ import InformacionYContacto from './Informacion y contacto/informacionYContacto.
 import QuienesSomos from './Quienes somos/quienesSomos.jsx';
 import LoginYRegistro from '../../Login y registro/loginYRegistro.jsx';
 import CartelLogout from '../../Logout/cartelLogout.jsx';
-import { useAuth } from '../../contextLogin.jsx';
 import './body.css';
 
 export default function Body() {
-    const auth = useAuth();
 
     return (
         <div className="contenedorPrincipalBody">
