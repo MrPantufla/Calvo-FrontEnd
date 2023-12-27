@@ -1,0 +1,114 @@
+.contenedorPrincipalProductoGrande {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    
+    z-index: 100;
+}
+
+.parteUtilizableProductoGrande {
+    background-color: var(--colorPrimario);
+    height: 90%;
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2rem;
+}
+
+.parteInternaUtilizableProductoGrande{
+    border: 2.5px solid white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.imagenProductoGrandeContainer{
+    width: 47rem;
+    height: 33rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.imagenProductoGrande{
+    object-fit: contain;
+    width: 100%;
+}
+
+.contenedorPrincipalProductoGrande h1{
+    text-align: center;
+    font-size: 5rem;
+    font-weight: 600;
+    color: var(--colorRojo);
+}
+
+.contenedorPrincipalProductoGrande h2{
+    text-align: center;
+    font-size: 3rem;
+}
+
+.textoCantidad{
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.logoProductoGrandeContainer{
+    height: 8rem;
+    width: 10.5rem;
+    display: flex;
+    position: absolute;
+    top: 7.7%;
+    left: 18.8%;
+    background-color: #EAEAEA;
+    align-items: start;
+}
+
+.logoProductoGrande{
+    width: 100%;
+    object-fit: contain;
+}
+
+.informacion{
+    padding-top: 1rem;
+}
+
+.cantidad{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8rem;
+}
+
+.cantidadProductoGrande{
+    font-size: 4rem;
+    font-weight: 500;
+    width: 5rem;
+    text-align: center;
+}
+
+.botonProductoGrande{
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid var(--colorTerciario);
+    font-size: 3.5rem;
+    margin: 0 3rem;
+    margin-top: 1rem;
+}
+
+.coloresProductoGrande{
+    width: 8rem;
+}
+
+.coloresProductoGrande .color{
+    margin: 0.2rem 0;
+    cursor: pointer;
+}

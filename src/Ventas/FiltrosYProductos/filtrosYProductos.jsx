@@ -1,7 +1,7 @@
 import './filtrosYProductos.css';
 import { useState, useEffect } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
-import ProductoGrande from './productoGrande';
+import ProductoGrande from '../Card Producto/productoGrande';
 import { useProductos } from '../../contextProductos';
 import { useTienda } from '../../contextTienda';
 
