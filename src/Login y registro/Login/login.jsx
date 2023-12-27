@@ -11,12 +11,10 @@ export default function Login() {
     const rawToken = (document.cookie.split('; ').find(cookie => cookie.startsWith('jwtToken=')));
     
     if(rawToken){
-      console.log("RAWTOKEN: " + rawToken)
       const token = rawToken.slice(9);
     
       const storedEmail = localStorage.getItem('email');
       auth.actualizarToken(token);
-      console.log(token)
     
     if (token && storedEmail) {
       try {
