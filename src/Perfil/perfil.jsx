@@ -24,7 +24,7 @@ export default function Perfil() {
             <DesplegablePerfil />
             <LoginYRegistro />
             <BodyPerfil />
-            {/*<Footer />*/}
+            <Footer />
         </div>
     );
 }
