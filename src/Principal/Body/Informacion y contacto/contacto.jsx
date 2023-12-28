@@ -25,6 +25,7 @@ export default function Contacto() {
             setFormError(false);
             event.target.submit();
         }
+
     }
 
     return (
