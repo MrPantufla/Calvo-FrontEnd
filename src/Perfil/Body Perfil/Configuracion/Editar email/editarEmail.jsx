@@ -8,22 +8,30 @@ export default function EditarEmail() {
     const configuracion = useConfiguracion();
     const [errorMessage, setErrorMessage] = useState('');
     const [nuevoEmail, setNuevoEmail] = useState('');
-    const [repetirEmail, setRepetirEmail] = useState('');
+    const [codigoEmailActual, setCodigoEmailActual] = useState('');
+    const [codigoNuevoEmail, setCodigoNuevoEmail] = useState('');
+    const [nuevoEmailEnviado, setNuevoEmailEnviado] = useState(false);
+    const [codigoEmailActualEnviado, setCodigoEmailActualEnviado] = useState(false);
+    const [codigoNuevoEmailEnviado, setCodigoNuevoEmailEnviado] = useState(false);
+
 
     const vaciarError = () => {
         setErrorMessage('');
     }
 
-    const handleEditarEmail = (event) => {
+    const handleNuevoEmail = (event) => {
         event.preventDefault();
 
-        if (!nuevoEmail || !repetirEmail) {
+        if (!nuevoEmail) {
             setErrorMessage("Por favor, complete todos los campos.");
             return;
         }
+        else if (nuevoEmail == auth.state.userInfo.email) {
+            setErrorMessage("Ingrese un email diferente al ya asociado.");
+            return;
+        }
         else {
-            console.log("Formulario cambio de email enviado");
-            confirmarEditarEmail();
+            corroborarEmail();
         }
     }
 
@@ -40,9 +48,6 @@ export default function EditarEmail() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de datos exitoso.');
-                    setNuevoEmail('');
-                    setRepetirEmail('');
-                    configuracion.cerrarEmail();
                     return null;
                 } else {
                     return response.text();
@@ -63,8 +68,82 @@ export default function EditarEmail() {
             });
     };
 
-    const toggleCollapse = () =>{
+    const corroborarEmail = () => {
+        fetch('http://localhost:8080/api/corroborarEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: nuevoEmail,
+            credentials: 'include',
+        })
+            .then(response => {
+                if (response.ok) {
+                    setNuevoEmailEnviado(true);
+                    return null;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data !== null) {
+                    console.log('Respuesta (texto): ', data);
+                    setErrorMessage(data);
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al enviar los datos:', error.message);
+                if (error.message.includes('409')) {
+                    console.error('Conflicto al intentar cambiar el email');
+                    setErrorMessage('Ocurrió un error inesperado');
+                }
+            });
+    }
+
+    const toggleCollapse = () => {
         configuracion.emailAbierto ? (configuracion.cerrarEmail()) : (configuracion.abrirEmail())
+    }
+
+    const enviarCodigo = (args) => {
+        fetch('http://localhost:8080/api/codigoEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: args.email,
+            credentials: 'include',
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Se envió la solicitud de código.');
+                    if(args.tipo=='actual'){
+                        setCodigoEmailActualEnviado(true);
+                    }
+                    else{
+                        setCodigoNuevoEmailEnviado(true);
+                    }
+                    return null;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data !== null) {
+                    console.log('Respuesta (texto): ', data);
+                    setErrorMessage(data);
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al enviar los datos:', error.message);
+                if (error.message.includes('409')) {
+                    console.error('Conflicto al intentar cambiar el email');
+                    setErrorMessage('Ocurrió un error inesperado');
+                }
+            });
+    }
+
+    const borrarError = () => {
+        setErrorMessage('');
     }
 
     return (
@@ -83,33 +162,69 @@ export default function EditarEmail() {
             </div>
             <div className={`colapsableEditarEmail ${configuracion.emailAbierto ? 'open' : ''}`}>
                 <div className="error-message">{errorMessage}</div>
-                <form id="formularioEditarEmail" onSubmit={handleEditarEmail}>
-                    <div className="form-group-editarEmail">
-                        <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>Nuevo email</label>
-                        <input
-                            type="text"
-                            id="nuevoEmail"
-                            value={nuevoEmail}
-                            required
-                            onChange={(e) => setNuevoEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group-editarEmail">
-                        <label htmlFor="repetirEmail" id="repetirEmail" required onFocus={vaciarError}>Repetir email</label>
-                        <input
-                            type="text"
-                            id="repetirEmail"
-                            value={repetirEmail}
-                            required
-                            onChange={(e) => setRepetirEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="botonNuevaEmailContainer">
-                        <button className="botonEnviarEditarEmail" type="submit">
-                            Confirmar
+                {nuevoEmailEnviado ?
+                    (<>
+                        <div className="envioCodigosContainer">
+                            <div className="emailActualYBoton">
+                                <p>{auth.state.userInfo.email}</p>
+                                {codigoEmailActualEnviado ?
+                                    (<>
+                                        <label htmlFor="codigoEmailActual" id="codigoEmailActual"/>
+                                        <input
+                                            type="text"
+                                            id="codigoEmailActual"
+                                            value={codigoEmailActual}
+                                            required
+                                            onChange={(e) => setCodigoEmailActual(e.target.value)}
+                                            onFocus={borrarError}
+                                            placeholder="Ingresa el código"
+                                        />
+                                    </>)
+                                    :
+                                    (<button onClick={() => enviarCodigo({ email: auth.state.userInfo.email, tipo:'actual' })}>Enviar código</button>)
+                                }
+                            </div>
+                            <div className="nuevoEmailYBoton">
+                                <p>{nuevoEmail}</p>
+                                {codigoNuevoEmailEnviado ?
+                                    (<>
+                                        <label htmlFor="codigoNuevoEmail" id="codigoNuevoEmail"/>
+                                        <input
+                                            type="text"
+                                            id="codigoEmailActual"
+                                            value={codigoEmailActual}
+                                            required
+                                            onChange={(e) => setCodigoNuevoEmail(e.target.value)}
+                                            onFocus={borrarError}
+                                            placeholder="Ingresa el código"
+                                        />
+                                    </>)
+                                    :
+                                    (<button onClick={() => enviarCodigo({ email: nuevoEmail, tipo:'nuevo' })}>Enviar código</button>)
+                                }
+                            </div>
+                        </div>
+                    </>)
+                    :
+                    (<div className="formularioEnviarNuevoEmail">
+                        <form id="formularioEditarEmail">
+                            <div className="form-group-editarDatos">
+                                <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>Nuevo email</label>
+                                <input
+                                    type="text"
+                                    id="nuevoEmail"
+                                    value={nuevoEmail}
+                                    required
+                                    onChange={(e) => setNuevoEmail(e.target.value)}
+                                    onFocus={borrarError}
+                                />
+                            </div>
+                        </form>
+                        <button className="botonEnviarNuevoEmail" onClick={handleNuevoEmail}>
+                            Aceptar
                         </button>
-                    </div>
-                </form>
+                    </div>)
+                }
             </div>
         </div>
     );
