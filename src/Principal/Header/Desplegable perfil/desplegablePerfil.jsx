@@ -5,6 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../contextLogin';
 import { useFavoritos } from '../../../contextFavoritos';
 import { useDesplegableCatalogos } from '../../../contextDesplegableCatalogos';
+import { useNavigate } from 'react-router-dom';
 
 export default function DesplegablePerfil() {
     const location = useLocation();
@@ -13,6 +14,7 @@ export default function DesplegablePerfil() {
     const auth = useAuth();
     const favoritos = useFavoritos();
     const catalogos = useDesplegableCatalogos();
+    const navigate = useNavigate();
 
     const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
 
@@ -42,6 +44,7 @@ export default function DesplegablePerfil() {
     }
 
     const handleCerrarSesion = async () => {
+        navigate('/home');
         auth.logout();
         favoritos.setFavoritos('');
     }
