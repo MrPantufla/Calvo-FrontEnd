@@ -1,6 +1,6 @@
 .contenedorPrincipalBodyPerfil{
     width: 100%;
-    height: calc(100vh - 3rem);
+    min-height: calc(100vh - 3rem);
     padding-top: 14rem;
     display: flex;
     flex-direction: column;
