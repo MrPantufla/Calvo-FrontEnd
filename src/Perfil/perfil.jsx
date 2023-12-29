@@ -12,8 +12,7 @@ export default function Perfil() {
     const auth = useAuth();
 
     useEffect(() => {
-        console.log("ENTRADA")
-        if (!auth.state.logueado) {
+        if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
             navigate("/home");
         }
     })
