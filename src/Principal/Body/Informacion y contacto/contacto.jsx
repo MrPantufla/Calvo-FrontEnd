@@ -2,15 +2,24 @@ import './contacto.css';
 import { useState } from 'react';
 
 export default function Contacto() {
+    const [nombreYApellido, setNombreYApellido] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [localidad, setLocalidad]= useState('');
+    const [mensaje, setMensaje] = useState('');
+    const [opcion, setOpcion] = useState('');
     const [emailChecked, setEmailChecked] = useState(false);
     const [telefonoChecked, setTelefonoChecked] = useState(false);
-    const [formError, setFormError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [formularioEnviado, setFormularioEnviado] = useState(false);
 
-    function alternarOpcion(opcion) {
-        if (opcion === 1) {
+    function alternarOpcion(opcionCheck) {
+        if (opcionCheck === 1) {
+            setOpcion('email');
             setEmailChecked(!emailChecked);
             setTelefonoChecked(false);
-        } else if (opcion === 2) {
+        } else if (opcionCheck === 2) {
+            setOpcion('telefono');
             setTelefonoChecked(!telefonoChecked);
             setEmailChecked(false);
         }
@@ -19,52 +28,135 @@ export default function Contacto() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        if (!emailChecked && !telefonoChecked) {
-            setFormError(true);
-        } else {
-            setFormError(false);
-            event.target.submit();
+        if(nombreYApellido==('') || email ==('') || telefono ==('') || localidad ==('') || mensaje == ('') ){
+            setErrorMessage("Debes completar todos los campos obligatorios")
         }
-
+        else if (!emailChecked && !telefonoChecked) {
+            setErrorMessage("Debes seleccionar al menos una opción (Email o Teléfono)")
+        }
+        else if (!/^\d+$/.test(telefono)) {
+            setErrorMessage("El campo 'teléfono' solo acepta números")
+        }
+        else {
+            setNombreYApellido('');
+            setEmail('');
+            setTelefono('');
+            setLocalidad('');
+            setMensaje('');
+            enviarFormulario();
+            setFormularioEnviado(true);
+        }
     }
+    
+    const enviarFormulario = () =>{
+        fetch('http://localhost:8080/api/procesarFormulario', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formulario),
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Envío de formulario exitoso');
+                    return null;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data !== null) {
+                    console.log('Respuesta (texto): ', data);
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al enviar los datos:', error.message);
+                if (error.message.includes('409')) {
+                    console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
+                }
+            });
+    }
+
+    const formulario = {
+        nombreYApellido: nombreYApellido,
+        email: email,
+        telefono: telefono,
+        localidad: localidad,
+        mensaje: mensaje,
+        opcion: opcion
+    };
 
     return (
         <div className="contenedorPrincipalFormulario">
-            <form action="http://localhost:8080/procesarFormulario" method="post" onSubmit={handleSubmit}>
-                {formError && <p className="errorFormulario">Debes seleccionar al menos una opción (Email o Teléfono).</p>}
+            <form method="post" onSubmit={handleSubmit}>
+                <p className="errorFormulario">{errorMessage}</p>
                 <div className="inputContainer">
                     <label htmlFor="nombreYApellido" className="colocar_nombre">
-                        NOMBRE Y APELLIDO:
+                        NOMBRE Y APELLIDO*
                     </label>
-                    <input type="text" name="nombreYApellido" id="nombreYApellido" required placeholder="Nombre y Apellido" />
+                    <input 
+                        type="text" 
+                        name="nombreYApellido" 
+                        id="nombreYApellido" 
+                        placeholder="Nombre y Apellido" 
+                        onFocus={()=>setErrorMessage('')}
+                        onChange={(e) => setNombreYApellido(e.target.value)}
+                    />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="emailFormulario" className="colocar_email">
-                        E-MAIL:
+                        E-MAIL{emailChecked ? ("*") : ("")}
                     </label>
-                    <input type="email" name="emailFormulario" id="emailFormulario" required={emailChecked} placeholder="Email" />
+                    <input 
+                        type="email" 
+                        name="emailFormulario" 
+                        id="emailFormulario" 
+                        placeholder="Email" 
+                        onFocus={()=>setErrorMessage('')}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="telefono" className="colocar_telefono">
-                        TELÉFONO:
+                        TELÉFONO{telefonoChecked ? ("*") : ("")}
                     </label>
-                    <input type="tel" name="telefono" id="telefono" required={telefonoChecked} placeholder="Teléfono" />
+                    <input 
+                        type="tel" 
+                        name="telefono" 
+                        id="telefono" 
+                        placeholder="Teléfono" 
+                        onFocus={()=>setErrorMessage('')}
+                        onChange={(e) => setTelefono(e.target.value)}
+                    />
                 </div>
                 <div className="inputContainer">
                     <label htmlFor="telefono" className="colocar_telefono">
-                        LOCALIDAD:
+                        LOCALIDAD*
                     </label>
-                    <input name="localidad" id="localidad" required placeholder="Localidad" />
+                    <input 
+                        name="localidad" 
+                        id="localidad" 
+                        placeholder="Localidad" 
+                        onFocus={()=>setErrorMessage('')}
+                        onChange={(e) => setLocalidad(e.target.value)}
+                    />
                 </div>
                 <div className="inputContainer inputMensaje">
                     <label htmlFor="mensaje" className="colocar_mensaje">
-                        MENSAJE:
+                        MENSAJE*
                     </label>
-                    <textarea name="mensaje" className="texto_mensaje" id="mensaje" required placeholder="Escribí tu consulta"></textarea>
+                    <textarea 
+                        name="mensaje" 
+                        className="texto_mensaje" 
+                        id="mensaje" 
+                        placeholder="Escribí tu consulta" 
+                        onFocus={()=>setErrorMessage('')}
+                        onChange={(e) => setMensaje(e.target.value)}
+                    />
                 </div>
                 <div className="comunicacion">
                     <div className="textoComunicacion">
-                        ¿Cómo preferís que nos comuniquemos?
+                        ¿Cómo preferís que nos comuniquemos?*
                     </div>
                     <div className="labelCheckbox">
                         <div className="checkboxRowReverse">
@@ -72,7 +164,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Email
                                 </div>
-                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcion" checked={emailChecked} onChange={() => alternarOpcion(1)} />
+                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcionCheck" checked={emailChecked} onChange={() => alternarOpcion(1)} />
                             </label>
                         </div>
                         <div className="checkboxRowReverse">
@@ -80,12 +172,12 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Teléfono
                                 </div>
-                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcion" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
+                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcionCheck" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
                             </label>
                         </div>
                     </div>
                 </div>
-                <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario">
+                <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario" disabled={formularioEnviado}>
                     <p>ENVIAR</p>
                 </button>
             </form>
