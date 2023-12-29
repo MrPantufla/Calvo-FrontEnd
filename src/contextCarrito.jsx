@@ -100,7 +100,6 @@ function CarritoProvider({ children }) {
   }
 
   function actualizarCantidadElemento(id, nuevaCantidad) {
-    console.log("ENTRA EN ACTUALIZARCANTIDADELEMENTO")
     const elementoExistente = elementos.find((elemento) => elemento.id === id);
     if (elementoExistente) {
       elementoExistente.cantidad = nuevaCantidad;
@@ -113,8 +112,6 @@ function CarritoProvider({ children }) {
   }
 
   const actualizarCarrito = () => {
-    console.log("ENTRA EN ACTUALIZARCARRITO");
-
     const listaCarrito = [...elementos];
     const productos = listaCarrito.map(item => item.id).join(' ');
     const cantidades = listaCarrito.map(item => item.cantidad).join(' ');
