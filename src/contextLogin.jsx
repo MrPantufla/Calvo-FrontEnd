@@ -52,14 +52,12 @@ export const LoginProvider = ({ children }) => {
 
   const logout = async () => {
     await borrarCookie();
-  
+
     setTimeout(() => {
       setState({
         logueado: false,
         userInfo: null,
       });
-      console.log("logout activado. logueado: " + state.logueado);
-      console.log("userInfo: " + state.userInfo);
       setMostrarCartelLogout(true);
     }, 200); // Ajusta el valor del timeout según sea necesario
   };
@@ -123,17 +121,52 @@ export const LoginProvider = ({ children }) => {
 
       if (response.ok) {
         const userData = await response.json();
-
         login(userData)
+        renovarToken({email: userData.email})
 
       } else {
-        const data = await response.json();
+        const data = await response.text();
         setErrorMessage("Email y/o contraseña inválidos");
       }
     } catch (error) {
       console.error('Error al intentar iniciar sesión:', error);
     }
   };
+
+  const renovarToken = async(args) => {
+    console.log("ENTRA EN RENOVARTOKEN")
+    const response = await fetch('http://localhost:8080/api/renovarTokenAuth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(args.email),
+    });
+
+    if (response.ok) {
+      const data = response.text();
+
+    } else {
+      const data = response.text();
+      setErrorMessage("Email y/o contraseña inválidos");
+    }
+  }
+
+  useEffect(() => {
+    const renewTokenInterval = setInterval(() => {
+      console.log("TOKEN RENOVADO AUTOMATICAMENTE")
+      console.log("LOGUEADO?: " + state.logueado)
+      if (state.logueado) {
+        console.log("LOGUEADO?: " + state.logueado)
+        console.log(state.userInfo)
+        renovarToken({ email: state.userInfo.email });
+      }
+    },29 * 60 * 1000);
+
+    // Limpiar el intervalo cuando el componente se desmonta
+    return () => clearInterval(renewTokenInterval);
+  }, [state.logueado]);
 
   return (
     <AuthContext.Provider value={{ handleLogin, opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
