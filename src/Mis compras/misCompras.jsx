@@ -4,10 +4,19 @@ import { useEffect, useState } from 'react';
 import CardMisCompras from './Card mis Compras/cardMisCompras';
 import LoginYRegistro from '../Login y registro/loginYRegistro';
 import Header from '../Principal/Header/header';
+import { useNavigate } from 'react-router-dom';
 
 export default function MisCompras() {
     const auth = useAuth();
     const [historial, setHistorial] = useState([]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
+            navigate("/home");
+        }
+    })
 
     useEffect(() => {
         const fetchData = async () => {
