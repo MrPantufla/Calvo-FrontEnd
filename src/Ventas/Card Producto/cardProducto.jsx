@@ -116,11 +116,13 @@ export default function CardProducto(args) {
         <button className="boton" onClick={sumarContador}>+</button>
 
         <div className="colorCardProducto">
-          <p>COLOR </p><div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
+          {args.color == "Ind" ? (<></>) : (<><p>COLOR </p>
+          <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
             <p className="cantidadAtributo" style={usarBlanco ? { color: 'white' } : {}}>
               {args.color.toUpperCase()}
             </p>
-          </div>
+          </div></>)}
+          
         </div>
       </div>
       <div className="precioContainer">
