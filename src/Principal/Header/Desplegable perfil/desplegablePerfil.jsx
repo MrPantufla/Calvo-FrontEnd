@@ -53,7 +53,7 @@ export default function DesplegablePerfil() {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
             const maxPerfilTop = 7.1; // ajusta el valor máximo de altura según tus necesidades
-            const minPerfilTop = 5.6; // ajusta el valor mínimo de altura según tus necesidades
+            const minPerfilTop = 6.1; // ajusta el valor mínimo de altura según tus necesidades
             const alturaHeader = 150; // ajusta según tus necesidades
 
             // Calcula la nueva posición top en función del scroll

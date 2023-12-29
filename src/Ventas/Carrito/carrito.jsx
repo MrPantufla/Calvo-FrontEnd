@@ -21,7 +21,7 @@ export default function Carrito() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const maxCarritoTop = 3.2; // ajusta el valor máximo de altura según tus necesidades
-      const minCarritoTop = 1.7; // ajusta el valor mínimo de altura según tus necesidades
+      const minCarritoTop = 2.2; // ajusta el valor mínimo de altura según tus necesidades
       const alturaHeader = 150; // ajusta según tus necesidades
 
       // Calcula la nueva posición top en función del scroll
