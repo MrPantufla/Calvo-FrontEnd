@@ -22,6 +22,10 @@ export default function EditarContraseña() {
             setErrorMessage("Por favor, complete todos los campos.");
             return;
         }
+        else if(repetirContraseña!==nuevaContraseña){
+            setErrorMessage("Las contraseñas no coinciden");
+            return;
+        }
         else {
             console.log("Formulario cambio de contraseña enviado");
             confirmarEditarContraseña();
@@ -41,6 +45,7 @@ export default function EditarContraseña() {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de datos exitoso.');
+                    setContraseñaActual('');
                     setNuevaContraseña('');
                     setRepetirContraseña('');
                     configuracion.cerrarContraseña();
@@ -69,7 +74,7 @@ export default function EditarContraseña() {
         contraseñaActual: contraseñaActual
     }
 
-    const toggleCollapse = () =>{
+    const toggleCollapse = () => {
         configuracion.contraseñaAbierto ? (configuracion.cerrarContraseña()) : (configuracion.abrirContraseña())
     }
 
@@ -88,7 +93,11 @@ export default function EditarContraseña() {
                 </div>
             </div>
             <div className={`colapsableEditarContraseña ${configuracion.contraseñaAbierto ? 'open' : ''}`}>
-                <div className="error-message">{errorMessage}</div>
+                <div className="errorEditarContraseña errorFormulario">
+                    {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                        <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>) : (<></>)}  {errorMessage}
+                </div>
                 <form id="formularioEditarContraseña" onSubmit={handleEditarContraseña}>
                     <div className="form-group-editarContraseña">
                         <label htmlFor="contraseñaActual" id="contraseñaActual" required onFocus={vaciarError}>Contraseña actual</label>
@@ -96,8 +105,8 @@ export default function EditarContraseña() {
                             type="password"
                             id="contraseñaActual"
                             value={contraseñaActual}
-                            required
                             onChange={(e) => setContraseñaActual(e.target.value)}
+                            onFocus={()=>setErrorMessage('')}
                         />
                     </div>
                     <div className="form-group-editarContraseña">
@@ -106,8 +115,8 @@ export default function EditarContraseña() {
                             type="password"
                             id="nuevaContraseña"
                             value={nuevaContraseña}
-                            required
                             onChange={(e) => setNuevaContraseña(e.target.value)}
+                            onFocus={()=>setErrorMessage('')}
                         />
                     </div>
                     <div className="form-group-editarContraseña">
@@ -116,8 +125,8 @@ export default function EditarContraseña() {
                             type="password"
                             id="repetirContraseña"
                             value={repetirContraseña}
-                            required
                             onChange={(e) => setRepetirContraseña(e.target.value)}
+                            onFocus={()=>setErrorMessage('')}
                         />
                     </div>
                     <div className="botonNuevaContraseñaContainer">

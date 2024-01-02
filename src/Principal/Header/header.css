@@ -151,6 +151,10 @@
     background-color: var(--colorRojo);
 }
 
+.misCompras{
+    cursor: pointer;
+}
+
 @media (max-width: 2048px){
     .seccion p{
         font-size: 1.9rem;

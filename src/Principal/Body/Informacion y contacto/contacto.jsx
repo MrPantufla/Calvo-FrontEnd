@@ -5,7 +5,7 @@ export default function Contacto() {
     const [nombreYApellido, setNombreYApellido] = useState('');
     const [email, setEmail] = useState('');
     const [telefono, setTelefono] = useState('');
-    const [localidad, setLocalidad]= useState('');
+    const [localidad, setLocalidad] = useState('');
     const [mensaje, setMensaje] = useState('');
     const [opcion, setOpcion] = useState('');
     const [emailChecked, setEmailChecked] = useState(false);
@@ -28,7 +28,7 @@ export default function Contacto() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        if(nombreYApellido == ('') || email == ('') || telefono == ('') || localidad == ('') || mensaje == ('') ){
+        if (nombreYApellido == ('') || email == ('') || telefono == ('') || localidad == ('') || mensaje == ('')) {
             setErrorMessage("Debes completar todos los campos obligatorios")
         }
         else if (!emailChecked && !telefonoChecked) {
@@ -47,8 +47,8 @@ export default function Contacto() {
             setFormularioEnviado(true);
         }
     }
-    
-    const enviarFormulario = () =>{
+
+    const enviarFormulario = () => {
         fetch('http://localhost:8080/api/procesarFormulario', {
             method: 'POST',
             headers: {
@@ -89,17 +89,21 @@ export default function Contacto() {
     return (
         <div className="contenedorPrincipalFormulario">
             <form method="post" onSubmit={handleSubmit}>
-                <p className="errorFormulario">{errorMessage}</p>
+                <div className="errorFormulario errorContacto">
+                    {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                        <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>) : (<></>)}  {errorMessage}
+                </div>
                 <div className="inputContainer">
                     <label htmlFor="nombreYApellido" className="colocar_nombre">
                         NOMBRE Y APELLIDO*
                     </label>
-                    <input 
-                        type="text" 
-                        name="nombreYApellido" 
-                        id="nombreYApellido" 
-                        placeholder="Nombre y Apellido" 
-                        onFocus={()=>setErrorMessage('')}
+                    <input
+                        type="text"
+                        name="nombreYApellido"
+                        id="nombreYApellido"
+                        placeholder="Nombre y Apellido"
+                        onFocus={() => setErrorMessage('')}
                         onChange={(e) => setNombreYApellido(e.target.value)}
                         disabled={formularioEnviado}
                     />
@@ -108,12 +112,12 @@ export default function Contacto() {
                     <label htmlFor="emailFormulario" className="colocar_email">
                         E-MAIL{emailChecked ? ("*") : ("")}
                     </label>
-                    <input 
-                        type="email" 
-                        name="emailFormulario" 
-                        id="emailFormulario" 
-                        placeholder="Email" 
-                        onFocus={()=>setErrorMessage('')}
+                    <input
+                        type="email"
+                        name="emailFormulario"
+                        id="emailFormulario"
+                        placeholder="Email"
+                        onFocus={() => setErrorMessage('')}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={formularioEnviado}
                     />
@@ -122,12 +126,12 @@ export default function Contacto() {
                     <label htmlFor="telefono" className="colocar_telefono">
                         TELÉFONO{telefonoChecked ? ("*") : ("")}
                     </label>
-                    <input 
-                        type="tel" 
-                        name="telefono" 
-                        id="telefono" 
-                        placeholder="Teléfono" 
-                        onFocus={()=>setErrorMessage('')}
+                    <input
+                        type="tel"
+                        name="telefono"
+                        id="telefono"
+                        placeholder="Teléfono"
+                        onFocus={() => setErrorMessage('')}
                         onChange={(e) => setTelefono(e.target.value)}
                         disabled={formularioEnviado}
                     />
@@ -136,11 +140,11 @@ export default function Contacto() {
                     <label htmlFor="telefono" className="colocar_telefono">
                         LOCALIDAD*
                     </label>
-                    <input 
-                        name="localidad" 
-                        id="localidad" 
-                        placeholder="Localidad" 
-                        onFocus={()=>setErrorMessage('')}
+                    <input
+                        name="localidad"
+                        id="localidad"
+                        placeholder="Localidad"
+                        onFocus={() => setErrorMessage('')}
                         onChange={(e) => setLocalidad(e.target.value)}
                         disabled={formularioEnviado}
                     />
@@ -149,12 +153,12 @@ export default function Contacto() {
                     <label htmlFor="mensaje" className="colocar_mensaje">
                         MENSAJE*
                     </label>
-                    <textarea 
-                        name="mensaje" 
-                        className="texto_mensaje" 
-                        id="mensaje" 
-                        placeholder="Escribí tu consulta" 
-                        onFocus={()=>setErrorMessage('')}
+                    <textarea
+                        name="mensaje"
+                        className="texto_mensaje"
+                        id="mensaje"
+                        placeholder="Escribí tu consulta"
+                        onFocus={() => setErrorMessage('')}
                         onChange={(e) => setMensaje(e.target.value)}
                         disabled={formularioEnviado}
                     />
@@ -169,7 +173,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Email
                                 </div>
-                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcionCheck" checked={emailChecked} onChange={() => alternarOpcion(1)} disabled={formularioEnviado}/>
+                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcionCheck" checked={emailChecked} onChange={() => alternarOpcion(1)} disabled={formularioEnviado} />
                             </label>
                         </div>
                         <div className="checkboxRowReverse">
@@ -177,7 +181,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Teléfono
                                 </div>
-                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcionCheck" checked={telefonoChecked} onChange={() => alternarOpcion(2)} disabled={formularioEnviado}/>
+                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcionCheck" checked={telefonoChecked} onChange={() => alternarOpcion(2)} disabled={formularioEnviado} />
                             </label>
                         </div>
                     </div>

@@ -41,7 +41,7 @@
     transition: color(0.3s);
 }
 
-.error-message{
+.errorLogin{
     display: flex;
     justify-content: center;
     font-size: 1.2rem;
