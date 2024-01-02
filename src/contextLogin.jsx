@@ -90,7 +90,7 @@ export const LoginProvider = ({ children }) => {
         return false;
       }
     } catch (error) {
-      console.error('Error al verificar el token:', error);
+      console.error('Error al intentar iniciar sesión:', error);
       return false;
     }
   };
@@ -119,21 +119,37 @@ export const LoginProvider = ({ children }) => {
         body: JSON.stringify({ email: args.email, contrasenia: args.password }),
       });
 
+      console.log(args.email)
+      console.log(args.password)
+
       if (response.ok) {
         const userData = await response.json();
         login(userData)
-        renovarToken({email: userData.email})
+        renovarToken({ email: userData.email })
 
       } else {
         const data = await response.text();
-        setErrorMessage("Email y/o contraseña inválidos");
+        if (response.status === 401) {
+          if (data.toLowerCase().includes('email')) {
+            setErrorMessage("Email incorrecto");
+          } else if (data.toLowerCase().includes('contraseña')) {
+            setErrorMessage("Contraseña incorrecta");
+          } else {
+            setErrorMessage("");
+          }
+        } else if (response.status === 500) {
+          setErrorMessage("Error interno del servidor");
+        } else {
+          // Otros códigos de estado
+          setErrorMessage("Error al intentar iniciar sesión");
+        }
       }
     } catch (error) {
       console.error('Error al intentar iniciar sesión:', error);
     }
   };
 
-  const renovarToken = async(args) => {
+  const renovarToken = async (args) => {
     console.log("ENTRA EN RENOVARTOKEN")
     const response = await fetch('http://localhost:8080/api/renovarTokenAuth', {
       method: 'POST',
@@ -162,7 +178,7 @@ export const LoginProvider = ({ children }) => {
         console.log(state.userInfo)
         renovarToken({ email: state.userInfo.email });
       }
-    },29 * 60 * 1000);
+    }, 29 * 60 * 1000);
 
     // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(renewTokenInterval);

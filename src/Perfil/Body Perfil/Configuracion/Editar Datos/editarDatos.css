@@ -45,3 +45,9 @@
 .botonEditar:hover{
     transform: scale(1.1);
 }
+
+.errorEditarDatos{
+    font-size: 1.5rem;
+    color: var(--colorRojo);
+    margin-bottom: 0.5rem;
+}

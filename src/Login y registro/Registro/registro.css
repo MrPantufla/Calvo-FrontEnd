@@ -53,5 +53,7 @@
     padding-top: 1rem;
 }
 
-
-
+.error-message{
+    font-size: 1.5rem;
+    color: var(--colorRojo);
+}

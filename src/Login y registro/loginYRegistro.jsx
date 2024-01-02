@@ -15,6 +15,7 @@ export default function LoginYRegistro() {
   }, []);
 
   const handleOpcionClick = (opcion) => {
+    auth.setErrorMessage('');
     auth.setOpcionSeleccionada(opcion);
   };
 

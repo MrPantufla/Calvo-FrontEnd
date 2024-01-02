@@ -16,7 +16,7 @@ export default function Registro() {
     const handleRegistro = () => {
         // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const telefonoRegex= /[0-9]/;
+        const telefonoRegex = /[0-9]/;
 
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono) {
             auth.setErrorMessage('Por favor, complete todos los campos.');
@@ -25,51 +25,49 @@ export default function Registro() {
         } else if (!emailRegex.test(email)) {
             auth.setErrorMessage('Ingrese un formato de correo electrónico válido.');
             return;
-        } else if (!telefonoRegex.test(telefono)){
+        } else if (!telefonoRegex.test(telefono)) {
             auth.setErrorMessage('En el campo de teléfono solo ingrese números');
             return;
         } else if (contrasenia !== confirmContrasenia) {
             auth.setErrorMessage('Las contraseñas no coinciden.');
             return;
         } else {
-            console.log('Registro exitoso');
             confirmarRegistro();
+            console.log('Registro exitoso');
         }
     };
 
-    const confirmarRegistro = () => {
-        fetch('http://localhost:8080/api/registro', {
+    const confirmarRegistro = async (event) => {
+        event.preventDefault();
+        const response = await fetch('http://localhost:8080/api/registro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(usuario),
             credentials: 'include',
-        })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Envío de datos exitoso');
-                    auth.handleLogin({email: usuario.email, password: usuario.contrasenia});
-                    return null;
-                } else {
-                    return response.text();
-                }
-            })
-            .then(data => {
-                if (data !== null) {
+        });
+
+        if (response.ok) {
+            console.log('Envío de datos exitoso');
+            auth.handleLogin({ email: usuario.email, password: usuario.contrasenia });
+            return null;
+        } else {
+            const data = await response.text();
+            if (response.status === 401) {
+                if (data.includes('Email')) {
+                    console.log("EMAIL YA REGISTRADO")
+                    auth.setErrorMessage('Email ya registrado');
+                } else if (data.includes('Cuit')) {
+                    auth.setErrorMessage('Cuit ya registrado');
+                } else if (data !== null) {
                     console.log('Respuesta (texto): ', data);
                     auth.setErrorMessage(data);
-                    // Aquí puedes manejar la respuesta según tus necesidades
                 }
-            })
-            .catch(error => {
-                console.error('Ocurrió un error al enviar los datos:', error.message);
-                if (error.message.includes('409')) {
-                    console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
-                    auth.setErrorMessage('El correo electrónico ya está en uso.');
-                }
-            });
+            }
+        }
     };
+
 
     const usuario = {
         nombre: nombre,
@@ -82,7 +80,11 @@ export default function Registro() {
 
     return (
         <div className="registro-container">
-            <div className="error-message">{auth.errorMessage}</div>
+            <div className="error-message">
+                {auth.errorMessage!=('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                    <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg>) : (<></>)}  {auth.errorMessage}
+            </div>
             <form>
                 <div className="form-group-registro">
                     <label htmlFor="nombre" required>Nombre/s</label>
