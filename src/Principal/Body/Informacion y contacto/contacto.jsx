@@ -28,7 +28,7 @@ export default function Contacto() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        if(nombreYApellido==('') || email ==('') || telefono ==('') || localidad ==('') || mensaje == ('') ){
+        if(nombreYApellido == ('') || email == ('') || telefono == ('') || localidad == ('') || mensaje == ('') ){
             setErrorMessage("Debes completar todos los campos obligatorios")
         }
         else if (!emailChecked && !telefonoChecked) {
@@ -38,12 +38,12 @@ export default function Contacto() {
             setErrorMessage("El campo 'teléfono' solo acepta números")
         }
         else {
+            enviarFormulario();
             setNombreYApellido('');
             setEmail('');
             setTelefono('');
             setLocalidad('');
             setMensaje('');
-            enviarFormulario();
             setFormularioEnviado(true);
         }
     }
@@ -101,6 +101,7 @@ export default function Contacto() {
                         placeholder="Nombre y Apellido" 
                         onFocus={()=>setErrorMessage('')}
                         onChange={(e) => setNombreYApellido(e.target.value)}
+                        disabled={formularioEnviado}
                     />
                 </div>
                 <div className="inputContainer">
@@ -114,6 +115,7 @@ export default function Contacto() {
                         placeholder="Email" 
                         onFocus={()=>setErrorMessage('')}
                         onChange={(e) => setEmail(e.target.value)}
+                        disabled={formularioEnviado}
                     />
                 </div>
                 <div className="inputContainer">
@@ -127,6 +129,7 @@ export default function Contacto() {
                         placeholder="Teléfono" 
                         onFocus={()=>setErrorMessage('')}
                         onChange={(e) => setTelefono(e.target.value)}
+                        disabled={formularioEnviado}
                     />
                 </div>
                 <div className="inputContainer">
@@ -139,6 +142,7 @@ export default function Contacto() {
                         placeholder="Localidad" 
                         onFocus={()=>setErrorMessage('')}
                         onChange={(e) => setLocalidad(e.target.value)}
+                        disabled={formularioEnviado}
                     />
                 </div>
                 <div className="inputContainer inputMensaje">
@@ -152,6 +156,7 @@ export default function Contacto() {
                         placeholder="Escribí tu consulta" 
                         onFocus={()=>setErrorMessage('')}
                         onChange={(e) => setMensaje(e.target.value)}
+                        disabled={formularioEnviado}
                     />
                 </div>
                 <div className="comunicacion">
@@ -164,7 +169,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Email
                                 </div>
-                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcionCheck" checked={emailChecked} onChange={() => alternarOpcion(1)} />
+                                <input value="Mail" className="checkbox" type="radio" id="emailCheckbox" name="opcionCheck" checked={emailChecked} onChange={() => alternarOpcion(1)} disabled={formularioEnviado}/>
                             </label>
                         </div>
                         <div className="checkboxRowReverse">
@@ -172,7 +177,7 @@ export default function Contacto() {
                                 <div className="textoCheckbox">
                                     Teléfono
                                 </div>
-                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcionCheck" checked={telefonoChecked} onChange={() => alternarOpcion(2)} />
+                                <input value="Telefono" className="checkbox" type="radio" id="telefonoCheckbox" name="opcionCheck" checked={telefonoChecked} onChange={() => alternarOpcion(2)} disabled={formularioEnviado}/>
                             </label>
                         </div>
                     </div>
