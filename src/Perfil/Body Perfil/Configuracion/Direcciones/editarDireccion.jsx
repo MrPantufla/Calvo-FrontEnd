@@ -1,8 +1,5 @@
 import './editarDireccion.css';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../../../../contextLogin';
 import { useConfiguracion } from '../../../../contextConfiguracion';
-import { useDireccion } from '../../../../contextDireccion';
 import FormularioDireccion from './formularioDireccion';
 
 export default function Direcciones() {
