@@ -1,7 +1,7 @@
 import './header.css';
 import logo from '../../Imagenes/logo calvo.png';
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contextLogin';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import Carrito from '../../Ventas/Carrito/carrito';
@@ -9,6 +9,7 @@ import Favoritos from '../../Ventas/Favoritos/favoritos';
 import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
 
 export default function Header() {
+  const navigate = useNavigate();
   const [headerSize, setHeaderSize] = useState(10);
   const location = useLocation();
   const mobile = (window.innerWidth < 768);
@@ -75,7 +76,7 @@ export default function Header() {
     window.scrollTo(0, 0);
   };
 
-  
+
   const handleResize = () => {
     const perfilElement = document.getElementById("perfilHeader");
     if (perfilElement) {
@@ -112,10 +113,9 @@ export default function Header() {
               <p>QUIÉNES SOMOS</p>
             </a>)
             :
-            (<NavLink to="/misCompras" className="seccion">
+            <a className="seccion  misCompras" onClick={auth.state.logueado ? () => navigate("/misCompras") : () => auth.setMostrarLogin(true)}>
               <p>MIS COMPRAS</p>
-            </NavLink>)}
-
+            </a>}
           {location.pathname === '/home' ?
             (<a href="#contacto" className="seccion">
               <p>CONTACTO</p>
