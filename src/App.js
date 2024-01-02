@@ -9,7 +9,7 @@ import MisCompras from './Mis compras/misCompras.jsx';
 import { DireccionProvider } from './contextDireccion.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { DesplegableProviderPerfil } from './contextDesplegablePerfil.jsx';
-import { TiendaContext, TiendaProvider } from './contextTienda.jsx';
+import { TiendaProvider } from './contextTienda.jsx';
 
 function App() {
   const apiUrl = "http://localhost:8080/api";
