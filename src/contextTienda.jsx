@@ -10,8 +10,12 @@ function TiendaProvider({ children }) {
   const [tiposActivos, setTiposActivos] = useState([]);
   const [coloresActivos, setColoresActivos] = useState([]);
 
+  const limpiarColoresActivos = () =>{
+    setColoresActivos([]);
+  }
+
   return (
-    <TiendaContext.Provider value={{ tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{ limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
       {children}
     </TiendaContext.Provider>
   );
