@@ -48,8 +48,7 @@
     left: 1.4rem;
 }
 
-.labelRubros, .labelSubrubros{
-    height: 4rem;
+.labelRubros{
     width: 25rem;
     text-align: center;
     font-size: 2rem;
@@ -59,9 +58,22 @@
     margin-bottom: 0.5rem;
     background-color: white;
     justify-content: center;
+    flex-direction: column;
     cursor: pointer;
     color: var(--colorSecundario);
     transition: background-color 0.2s, color 0.2s;
+}
+
+.bodyFiltro{
+    display: flex;
+    flex-direction: column;
+    height: 0;
+    transition: height 0.3s;
+    overflow: auto;
+}
+
+.bodyFiltroPerfil.checked{
+    height: 40rem;
 }
 
 .labelRubros .check{
@@ -190,4 +202,5 @@
 .botonesOrdenamientoContainer{
     position: fixed;
     top: 40rem;
+    z-index: 1;
 }

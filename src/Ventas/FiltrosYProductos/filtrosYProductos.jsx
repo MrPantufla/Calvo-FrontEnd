@@ -15,7 +15,7 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const { tiposActivos, setTiposActivos } = useTienda();
+  const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos } = useTienda();
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -49,11 +49,22 @@ export default function FiltrosYProductos() {
     });
   }
 
+  function toggleColor(color) {
+    setColoresActivos(prevColoresActivos => {
+      if (prevColoresActivos.includes(color)) {
+        return prevColoresActivos.filter((r) => r !== color);
+      } else {
+        return [...prevColoresActivos, color]
+      }
+    })
+  }
+
   const listaFiltrada = Object.values(productos.productosIndexado).filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
+    const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
-    return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle);
+    return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple;
   });
 
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
@@ -92,26 +103,51 @@ export default function FiltrosYProductos() {
         <div className="filtros">
           {tiposUnicos.map((tipo_prod) => (
             <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`} key={tipo_prod}>
-              <input
-                className="check"
-                type="checkbox"
-                checked={tiposActivos.includes(tipo_prod)}
-                onChange={() => toggleTipo(tipo_prod)}
-                onClick={() => {
-                  handleScrollClick();
-                  setPaginaActual(1);
-                }}
-                id={tipo_prod + "Id"}
-              />
-              <div className="textoRubro">
-                {tipo_prod}
+              <div className="headFiltro">
+                <input
+                  className="check"
+                  type="checkbox"
+                  checked={tiposActivos.includes(tipo_prod)}
+                  onChange={() => toggleTipo(tipo_prod)}
+                  onClick={() => {
+                    handleScrollClick();
+                    setPaginaActual(1);
+                  }}
+                  id={tipo_prod + "Id"}
+                />
+                <div className="textoRubro">
+                  {tipo_prod}
+                </div>
               </div>
+              {tipo_prod == 'PERFIL' ?
+                (<div className={`bodyFiltro bodyFiltroPerfil ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`}>
+                  {coloresUnicosPerfiles.map((color) => (
+                    <label className={`labelColores ${coloresActivos.includes(color) ? 'checked' : ''}`} key={color}>
+                      <input
+                        className="colorCheck"
+                        type="checkbox"
+                        checked={coloresActivos.includes(color)}
+                        onChange={() => toggleColor(color)}
+                        onClick={() => {
+                          handleScrollClick();
+                          setPaginaActual(1);
+                        }}
+                        id={color + "Id"}
+                      />
+                      <div className="textoColor">
+                        {color}
+                      </div>
+                    </label>
+                  ))}
+                </div>)
+                :
+                (<></>)}
             </label>
           ))}
         </div>
       </div>
       <div className="botonesOrdenamientoContainer">
-        <BotonesOrdenamiento/>
+        <BotonesOrdenamiento />
       </div>
       <div className="productos">
         <div className="row">
