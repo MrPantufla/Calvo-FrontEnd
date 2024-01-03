@@ -144,6 +144,14 @@
     color: var(--colorCuaternario);
 }
 
+.bi-caret-down-fill{
+    transition: transform 0.3s;
+}
+
+.labelRubros.checked .textoRubro .bi-caret-down-fill{
+    transform: rotate(180deg);
+}
+
 .busquedaEIcono {
     width: 25rem;
     height: 4rem;
