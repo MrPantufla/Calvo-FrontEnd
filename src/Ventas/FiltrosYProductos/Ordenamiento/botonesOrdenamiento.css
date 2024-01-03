@@ -1,0 +1,19 @@
+.ordenamiento{
+    width: 20rem;
+    height: 3rem;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+    user-select: none;
+}
+
+.ordenamientoActivo{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.ordenamiento p{
+    font-size: 2rem;
+}
