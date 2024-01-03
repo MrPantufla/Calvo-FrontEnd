@@ -59,7 +59,7 @@ export default function EditarDatos() {
 
     const editarDatos = (event) => {
         event.preventDefault();
-        const letrasRegex = /^[A-Za-z]+$/;
+        const letrasRegex = /^[A-Za-z\s]+$/;
         const numerosRegex = /[0-9]/;
         if (!nombre || !apellido || !telefono || !cuit) {
             setErrorMessage('Por favor, completa todos los datos');

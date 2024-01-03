@@ -37,6 +37,12 @@ export default function Contacto() {
         else if (!/^\d+$/.test(telefono)) {
             setErrorMessage("El campo 'teléfono' solo acepta números")
         }
+        else if(!/^[A-Za-z\s]+$/.test(nombreYApellido)){
+            setErrorMessage("Nombre y Apellido solo puede contener letras")
+        }
+        else if(!/^[A-Za-z\s]+$/.test(localidad)){
+            setErrorMessage("Localidad solo puede contene letras")
+        }
         else {
             enviarFormulario();
             setNombreYApellido('');

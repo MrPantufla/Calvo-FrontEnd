@@ -45,7 +45,7 @@ export default function FormularioDireccion() {
 
     const enviarDireccion = (event) => {
         event.preventDefault();
-        const letrasRegex = /^[A-Za-z]+$/;
+        const letrasRegex = /^[A-Za-z\s]+$/;
         const numerosRegex = /[0-9]/;
         if (!direccion.calle || !direccion.numero || !direccion.cp || !direccion.localidad || !direccion.provincia) {
             setErrorMessage('Por favor, completa todos los datos');
