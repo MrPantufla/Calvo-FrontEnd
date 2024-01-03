@@ -8,12 +8,13 @@ function useTienda() {
 
 function TiendaProvider({ children }) {
   const [tiposActivos, setTiposActivos] = useState([]);
+  const [coloresActivos, setColoresActivos] = useState([]);
 
-    return (
-      <TiendaContext.Provider value={{ tiposActivos, setTiposActivos }}>
-        {children}
-      </TiendaContext.Provider>
-    );
-  }
+  return (
+    <TiendaContext.Provider value={{ tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+      {children}
+    </TiendaContext.Provider>
+  );
+}
 
-  export { TiendaContext, useTienda, TiendaProvider };
+export { TiendaContext, useTienda, TiendaProvider };
