@@ -15,7 +15,7 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos } = useTienda();
+  const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos } = useTienda();
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -102,16 +102,19 @@ export default function FiltrosYProductos() {
         </div>
         <div className="filtros">
           {tiposUnicos.map((tipo_prod) => (
-            <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`} key={tipo_prod}>
+            <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
               <div className="headFiltro">
                 <input
                   className="check"
                   type="checkbox"
                   checked={tiposActivos.includes(tipo_prod)}
-                  onChange={() => toggleTipo(tipo_prod)}
+                  onChange={() => {
+                    toggleTipo(tipo_prod);
+                  }}
                   onClick={() => {
                     handleScrollClick();
                     setPaginaActual(1);
+                    limpiarColoresActivos();
                   }}
                   id={tipo_prod + "Id"}
                 />
@@ -145,10 +148,11 @@ export default function FiltrosYProductos() {
             </label>
           ))}
         </div>
+        <div className="botonesOrdenamientoContainer">
+          <BotonesOrdenamiento />
+        </div>
       </div>
-      <div className="botonesOrdenamientoContainer">
-        <BotonesOrdenamiento />
-      </div>
+
       <div className="productos">
         <div className="row">
           {itemsActuales.map((producto) => (
@@ -255,7 +259,7 @@ export default function FiltrosYProductos() {
           onClick={() => paginar(totalPaginas)}
           disabled={paginaActual === totalPaginas}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
         </button>
