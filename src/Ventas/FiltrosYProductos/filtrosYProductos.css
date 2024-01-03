@@ -48,26 +48,6 @@
     left: 1.4rem;
 }
 
-.ordenamiento{
-    width: 20rem;
-    height: 3rem;
-    background-color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    transition: background-color 0.2s, color 0.2s;
-    user-select: none;
-}
-
-.ordenamientoActivo{
-    background-color: var(--colorSecundario);
-    color: white;
-}
-
-.ordenamiento p{
-    font-size: 2rem;
-}
-
 .labelRubros, .labelSubrubros{
     height: 4rem;
     width: 25rem;
@@ -205,4 +185,9 @@
 
 .primeraPagina{
     clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% calc(2.7rem), 100% 100%, 0% 100%);
+}
+
+.botonesOrdenamientoContainer{
+    position: fixed;
+    top: 40rem;
 }

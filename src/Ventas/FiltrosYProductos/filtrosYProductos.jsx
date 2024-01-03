@@ -4,6 +4,7 @@ import CardProducto from '../Card Producto/cardProducto';
 import ProductoGrande from '../Card Producto/productoGrande';
 import { useProductos } from '../../contextProductos';
 import { useTienda } from '../../contextTienda';
+import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 
 export default function FiltrosYProductos() {
   const productos = useProductos();
@@ -14,12 +15,7 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
   const { tiposActivos, setTiposActivos } = useTienda();
-  const [precioAscActivo, setPrecioAscActivo] = useState(false);
-  const [precioDescActivo, setPrecioDescActivo] = useState(false);
-  const [kgAscActivo, setKgAscActivo] = useState(false);
-  const [kgDescActivo, setKgDescActivo] = useState(false);
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -60,99 +56,10 @@ export default function FiltrosYProductos() {
     return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle);
   });
 
-  const ordenarPorPrecioAsc = (productos) => {
-    return productos.sort((prodA, prodB) => prodA.precio - prodB.precio);
-  }
-
-  const ordenarPorPrecioDesc = (productos) => {
-    return productos.sort((prodA, prodB) => prodB.precio - prodA.precio);
-  }
-
-  const ordenarPorKgAsc = (productos) => {
-    return productos.sort((prodA, prodB) => prodA.kg - prodB.kg);
-  }
-
-  const ordenarPorKgDesc = (productos) => {
-    const nuevosProductos = productos.sort((prodA, prodB) => prodB.kg - prodA.kg);
-    return nuevosProductos;
-  }
-
-  const ordenarPorDetalleAsc = (prodA, prodB) => {
-    if (!prodA || !prodB || !prodA.detalle || !prodB.detalle) {
-      console.error("Producto o propiedad indefinida:", prodA, prodB);
-      return 0;
-    }
-    return prodA.detalle.localeCompare(prodB.detalle);
-  }
-
-  const ordenarPorDetalleDesc = (prodA, prodB) => {
-    if (!prodA || !prodB || !prodA.detalle || !prodB.detalle) {
-      console.error("Producto o propiedad indefinida:", prodA, prodB);
-      return 0;
-    }
-    return prodB.detalle.localeCompare(prodA.detalle);
-  }
-
-  const ordenarProductos = (productos) => {
-    switch (ordenamientoActivo) {
-      case 'precioAsc':
-        return ordenarPorPrecioAsc(productos);
-      case 'precioDesc':
-        return ordenarPorPrecioDesc(productos);
-      case 'kgAsc':
-        return ordenarPorKgAsc(productos);
-      case 'kgDesc':
-        return ordenarPorKgDesc(productos);
-      case 'detalleAsc':
-        return ordenarPorDetalleAsc(productos);
-      case 'detalleDesc':
-        return ordenarPorDetalleDesc(productos);
-      default:
-        return productos;
-    }
-  }
-
-  const productosOrdenados = ordenarProductos(listaFiltrada);
-
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
   const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
+  const productosOrdenados = productos.ordenarProductos(listaFiltrada);
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
-
-  const seleccionarPrecioAsc = () => {
-    setPrecioAscActivo(true);
-    setPrecioDescActivo(false);
-    setKgAscActivo(false);
-    setKgDescActivo(false);
-  }
-
-  const seleccionarPrecioDesc = () => {
-    setPrecioAscActivo(false);
-    setPrecioDescActivo(true);
-    setKgAscActivo(false);
-    setKgDescActivo(false);
-  }
-
-  const seleccionarKgAsc = () => {
-    setPrecioAscActivo(false);
-    setPrecioDescActivo(false);
-    setKgAscActivo(true);
-    setKgDescActivo(false);
-  }
-
-  const seleccionarKgDesc = () => {
-    setPrecioAscActivo(false);
-    setPrecioDescActivo(false);
-    setKgAscActivo(false);
-    setKgDescActivo(true);
-  }
-  const toggleOrdenar = (prop) => {
-    if (prop == ordenamientoActivo) {
-      setOrdenamientoActivo(null);
-    }
-    else {
-      setOrdenamientoActivo(prop);
-    }
-  }
 
   const coloresUnicosPerfiles = Array.from(new Set(
     Object.values(productos.productosIndexado)
@@ -201,43 +108,11 @@ export default function FiltrosYProductos() {
               </div>
             </label>
           ))}
-          <div className="ordenarPor">
-            <div className="headOrdenarPor">
-              ORDENAR POR
-            </div>
-            <div className="bodyOrdenarPor">
-              <div
-                className={precioAscActivo ? "ordenamiento ordenamientoActivo" : "ordenamiento"}
-                onClick={() => { precioAscActivo ? setPrecioAscActivo(false) : (seleccionarPrecioAsc()); toggleOrdenar("precioAsc") }}
-              >
-                <p>Menor precio</p>
-              </div>
-
-              <div
-                className={precioDescActivo ? "ordenamiento ordenamientoActivo" : "ordenamiento"}
-                onClick={() => { precioDescActivo ? setPrecioDescActivo(false) : (seleccionarPrecioDesc()); toggleOrdenar("precioDesc") }}
-              >
-                <p>Mayor precio</p>
-              </div>
-
-              <div
-                className={kgAscActivo ? "ordenamiento ordenamientoActivo" : "ordenamiento"}
-                onClick={() => { kgAscActivo ? setKgAscActivo(false) : (seleccionarKgAsc()); toggleOrdenar("kgAsc") }}
-              >
-                <p>Menor peso</p>
-              </div>
-
-              <div
-                className={kgDescActivo ? "ordenamiento ordenamientoActivo" : "ordenamiento"}
-                onClick={() => { kgDescActivo ? setKgDescActivo(false) : (seleccionarKgDesc()); toggleOrdenar("kgDesc") }}
-              >
-                <p>Mayor peso</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-
+      <div className="botonesOrdenamientoContainer">
+        <BotonesOrdenamiento/>
+      </div>
       <div className="productos">
         <div className="row">
           {itemsActuales.map((producto) => (
