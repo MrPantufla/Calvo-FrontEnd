@@ -74,6 +74,7 @@ export default function Header() {
 
   const handleInicioClick = () => {
     window.scrollTo(0, 0);
+    console.log(auth.state.userInfo)/*QUITAR DESPUES*/
   };
 
 
