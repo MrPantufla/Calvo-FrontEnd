@@ -2,7 +2,7 @@ import './botonesOrdenamiento.css';
 import { useProductos } from "../../../contextProductos";
 
 export function BotonesOrdenamiento() {
-    const { 
+    const {
         precioAscActivo,
         precioDescActivo,
         setPrecioAscActivo,
@@ -11,6 +11,10 @@ export function BotonesOrdenamiento() {
         kgDescActivo,
         setKgAscActivo,
         setKgDescActivo,
+        cod_origAscActivo,
+        setCod_origAscActivo,
+        cod_origDescActivo,
+        setCod_origDescActivo,
         ordenamientoActivo,
         setOrdenamientoActivo
     } = useProductos();
@@ -20,6 +24,8 @@ export function BotonesOrdenamiento() {
         setPrecioDescActivo(false);
         setKgAscActivo(false);
         setKgDescActivo(false);
+        setCod_origAscActivo(false);
+        setCod_origDescActivo(false);
     }
 
     const seleccionarPrecioDesc = () => {
@@ -27,6 +33,8 @@ export function BotonesOrdenamiento() {
         setPrecioDescActivo(true);
         setKgAscActivo(false);
         setKgDescActivo(false);
+        setCod_origAscActivo(false);
+        setCod_origDescActivo(false);
     }
 
     const seleccionarKgAsc = () => {
@@ -34,6 +42,8 @@ export function BotonesOrdenamiento() {
         setPrecioDescActivo(false);
         setKgAscActivo(true);
         setKgDescActivo(false);
+        setCod_origAscActivo(false);
+        setCod_origDescActivo(false);
     }
 
     const seleccionarKgDesc = () => {
@@ -41,6 +51,26 @@ export function BotonesOrdenamiento() {
         setPrecioDescActivo(false);
         setKgAscActivo(false);
         setKgDescActivo(true);
+        setCod_origAscActivo(false);
+        setCod_origDescActivo(false);
+    }
+
+    const seleccionarCod_origAsc = () => {
+        setPrecioAscActivo(false);
+        setPrecioDescActivo(false);
+        setKgAscActivo(false);
+        setKgDescActivo(false);
+        setCod_origAscActivo(true);
+        setCod_origDescActivo(false);
+    }
+
+    const seleccionarCod_origDesc = () => {
+        setPrecioAscActivo(false);
+        setPrecioDescActivo(false);
+        setKgAscActivo(false);
+        setKgDescActivo(false);
+        setCod_origAscActivo(false);
+        setCod_origDescActivo(true);
     }
 
     const toggleOrdenar = (prop) => {
@@ -54,8 +84,8 @@ export function BotonesOrdenamiento() {
 
     return (
         <div className="ordenarPor">
-            <div className="headOrdenarPor">
-                ORDENAR POR
+            <div className="textoOrdenarPorContainer">
+                <p className="textoOrdenarPor">ORDENAR POR</p>
             </div>
             <div className="bodyOrdenarPor">
                 <div
@@ -84,6 +114,20 @@ export function BotonesOrdenamiento() {
                     onClick={() => { kgDescActivo ? setKgDescActivo(false) : (seleccionarKgDesc()); toggleOrdenar("kgDesc") }}
                 >
                     <p>Mayor peso</p>
+                </div>
+
+                <div
+                    className={cod_origAscActivo ? "ordenamiento ordenamientoActivo" : "ordenamiento"}
+                    onClick={() => { cod_origAscActivo ? setCod_origAscActivo(false) : (seleccionarCod_origAsc()); toggleOrdenar("cod_origAsc") }}
+                >
+                    <p>Código A-Z</p>
+                </div>
+
+                <div
+                    className={cod_origDescActivo ? "ordenamiento ordenamientoActivo" : "ordenamiento"}
+                    onClick={() => { cod_origDescActivo ? setCod_origDescActivo(false) : (seleccionarCod_origDesc()); toggleOrdenar("cod_origDesc") }}
+                >
+                    <p>Código Z-A</p>
                 </div>
             </div>
         </div>
