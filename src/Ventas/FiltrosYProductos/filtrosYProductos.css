@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     padding-top: 10rem;
-    padding-right: 2rem;
+    padding-right: 1.5rem;
     background-color: var(--colorAzulClaro);
     background-image: url('../../Imagenes/caAzul.png');
     background-size: 60%;
@@ -44,10 +44,15 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 17rem;
+    top: 16rem;
     left: 1.4rem;
-    z-index: 2;
     user-select: none;
+    overflow: auto;
+    height: calc(100vh - 18rem);
+}
+
+.filtros::-webkit-scrollbar{
+    width: 0;
 }
 
 .labelRubros {
@@ -156,7 +161,7 @@
     width: 25rem;
     height: 4rem;
     position: fixed;
-    top: 11.5rem;
+    top: 11.1rem;
     left: 1.4rem;
     border: 2px solid var(--colorCuaternario);
     display: flex;
@@ -232,7 +237,7 @@
 }
 
 .botonAntSig {
-    width: 70px;
+    width: 7rem;
     clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
     margin: 0 -0.5rem;
 }
