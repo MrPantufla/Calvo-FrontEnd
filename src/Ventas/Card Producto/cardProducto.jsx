@@ -24,7 +24,8 @@ export default function CardProducto(args) {
     args.color == 'Bronce oscuro' ||
     args.color == 'Simil madera' ||
     args.color == 'Platil' ||
-    args.color == 'Peltre'
+    args.color == 'Peltre' ||
+    args.color == 'Fume'
   );
 
   const sumarContador = (event) => {
@@ -126,7 +127,7 @@ export default function CardProducto(args) {
         </div>
       </div>
       <div className="precioContainer">
-        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("$")} {args.precio}</p>
+        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("$")} {parseInt(args.kg > 0 ? (args.precio*args.kg) : (args.precio) )}</p>
       </div>
     </div>
   );
