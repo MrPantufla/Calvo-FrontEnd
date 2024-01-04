@@ -1,12 +1,49 @@
+.ordenarPor{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: -1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.textoOrdenarPor{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: 1rem;
+    padding-top: 1rem;
+}
+
+.bodyOrdenarPor{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
 .ordenamiento{
-    width: 20rem;
-    height: 3rem;
+    width: 10rem;
+    height: 2rem;
     background-color: white;
     cursor: pointer;
     display: flex;
     justify-content: center;
     transition: background-color 0.2s, color 0.2s;
     user-select: none;
+    margin: 0 2px;
+}
+
+.ordenamiento:hover{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.ordenamiento:first-child{
+    margin-left: 0;
+}
+
+.ordenamiento:last-child{
+    margin-right: 0;
 }
 
 .ordenamientoActivo{
@@ -15,5 +52,5 @@
 }
 
 .ordenamiento p{
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
