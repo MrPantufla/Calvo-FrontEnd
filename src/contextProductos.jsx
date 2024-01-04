@@ -17,7 +17,7 @@ function ProductosProvider({ children }) {
     const [cod_origAscActivo, setCod_origAscActivo] = useState(false);
     const [cod_origDescActivo, setCod_origDescActivo] = useState(false);
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
-    const [jsonProductos, setJsonProductos] = useState([]);
+    const [productosIndexado, setProductosIndexado] = useState([]);
 
     useEffect(() => {
         obtenerProductosFiltrados();   //Comentar para version de muestra
@@ -29,7 +29,10 @@ function ProductosProvider({ children }) {
             const response = await fetch(`http://localhost:8080/api/productos`);
             if (response.ok) {
                 const productosObtenidos = await response.json();
-                setJsonProductos(productosObtenidos);
+                setProductosIndexado(productosObtenidos.reduce((acc, el) => {
+                    acc[el.id] = el;
+                    return acc;
+                }, {}));
             } else {
                 console.error('Error al obtener productos filtrados:', response.statusText);
             }
@@ -37,11 +40,6 @@ function ProductosProvider({ children }) {
             console.error('Error en la solicitud:', error);
         }
     }
-
-    const productosIndexado = jsonProductos.reduce((acc, el) => {
-        acc[el.id] = el;
-        return acc;
-    }, {});
 
     const ordenarPorPrecioAsc = (productos) => {
         return productos.sort((prodA, prodB) => {
