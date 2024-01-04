@@ -10,6 +10,7 @@ function useProductos() {
 
 function ProductosProvider({ children }) {
     const auth = useAuth();
+    const [loginLoaded, setLoginLoaded] = useState(false);
     const [precioAscActivo, setPrecioAscActivo] = useState(false);
     const [precioDescActivo, setPrecioDescActivo] = useState(false);
     const [kgAscActivo, setKgAscActivo] = useState(false);
@@ -136,6 +137,7 @@ function ProductosProvider({ children }) {
             setKgAscActivo,
             setKgDescActivo,
             ordenarProductos,
+            setProductosIndexado,
             productosIndexado,
             ordenamientoActivo,
             setOrdenamientoActivo

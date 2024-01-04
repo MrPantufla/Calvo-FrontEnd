@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
+import { useProductos } from './contextProductos';
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
