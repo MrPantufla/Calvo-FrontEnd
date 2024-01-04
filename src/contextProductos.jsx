@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { productos } from './productos.js';
+import { useAuth } from './contextLogin.jsx';
 
 const ProductosContext = createContext();
 
@@ -8,6 +9,7 @@ function useProductos() {
 }
 
 function ProductosProvider({ children }) {
+    const auth = useAuth();
     const [precioAscActivo, setPrecioAscActivo] = useState(false);
     const [precioDescActivo, setPrecioDescActivo] = useState(false);
     const [kgAscActivo, setKgAscActivo] = useState(false);
