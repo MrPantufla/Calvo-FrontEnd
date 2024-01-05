@@ -1,14 +1,12 @@
 import './filtrosYProductos.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CardProducto from '../Card Producto/cardProducto';
 import ProductoGrande from '../Card Producto/productoGrande';
 import { useProductos } from '../../contextProductos';
 import { useTienda } from '../../contextTienda';
 import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
-import { useAuth } from '../../contextLogin';
 
 export default function FiltrosYProductos() {
-  const auth = useAuth();
   const productos = useProductos();
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
@@ -18,37 +16,6 @@ export default function FiltrosYProductos() {
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos } = useTienda();
-
-  const actualizarPrecios = () => {
-    
-    if (auth.state.logueado) {
-      console.log("CONFIRMAMOS LOGUEADO")
-      if (auth.state.userInfo.categoria == 'MAYORISTA') {
-        console.log("CONFIRMAMOS MAYORISTA")
-        productos.setProductosIndexado((prevProductosIndexado) => {
-          const nuevosProductos = { ...prevProductosIndexado };
-          Object.keys(nuevosProductos).forEach((id) => {
-            const producto = nuevosProductos[id];
-            if (producto.precioMayorista) {
-              producto.precio = producto.precioMayorista;
-            }
-          });
-          return nuevosProductos;
-        });
-      }
-      else{
-        console.log("NO ES MAYORISTA, ES: " + auth.state.userInfo.categoria)
-      }
-    }
-    else{
-      console.log("NO ESTÁ LOGUEADO, ESTÁ: " + auth.state.logueado)
-    }
-  }
-
-  useEffect(() => {
-    console.log("ENTRA A ACTUALIZAR PRECIOS");
-      actualizarPrecios();
-  }, [auth.state.logueado]);
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
