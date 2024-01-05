@@ -3,6 +3,7 @@ import { useProductos } from './contextProductos';
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
+  const productos = useProductos();
   const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
@@ -125,10 +126,12 @@ export const LoginProvider = ({ children }) => {
 
       if (response.ok) {
         const userData = await response.json();
+        productos.obtenerProductosFiltrados(userData.categoria);
         login(userData)
         renovarToken({ email: userData.email })
 
       } else {
+        productos.obtenerProductosFiltrados();
         const data = await response.text();
         if (response.status === 401) {
           if (data.toLowerCase().includes('email')) {

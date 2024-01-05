@@ -10,7 +10,6 @@ function useProductos() {
 
 function ProductosProvider({ children }) {
     const auth = useAuth();
-    const [loginLoaded, setLoginLoaded] = useState(false);
     const [precioAscActivo, setPrecioAscActivo] = useState(false);
     const [precioDescActivo, setPrecioDescActivo] = useState(false);
     const [kgAscActivo, setKgAscActivo] = useState(false);
@@ -20,17 +19,29 @@ function ProductosProvider({ children }) {
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
     const [productosIndexado, setProductosIndexado] = useState([]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         obtenerProductosFiltrados();   //Comentar para version de muestra
         //setJsonProductos(productos); //Descomentar para version de muestra
-    }, []);
+    }, []);*/
 
-    const obtenerProductosFiltrados = async () => {
+    const obtenerProductosFiltrados = async (categoria) => {
         try {
             const response = await fetch(`http://localhost:8080/api/productos`);
             if (response.ok) {
                 const productosObtenidos = await response.json();
-                setProductosIndexado(productosObtenidos.reduce((acc, el) => {
+    
+                // Realizar actualizaciones según la categoría
+                const productosActualizados = productosObtenidos.map((producto) => {
+                    if (categoria === 'MAYORISTA' && producto.precioMayorista) {
+                        // Si es mayorista y hay precio mayorista, actualizar precio
+                        return { ...producto, precio: producto.precioMayorista };
+                    }
+                    // Mantener el producto sin cambios
+                    return producto;
+                });
+    
+                // Indexar los productos actualizados
+                setProductosIndexado(productosActualizados.reduce((acc, el) => {
                     acc[el.id] = el;
                     return acc;
                 }, {}));
@@ -40,7 +51,7 @@ function ProductosProvider({ children }) {
         } catch (error) {
             console.error('Error en la solicitud:', error);
         }
-    }
+    };
 
     const ordenarPorPrecioAsc = (productos) => {
         return productos.sort((prodA, prodB) => {
@@ -140,7 +151,8 @@ function ProductosProvider({ children }) {
             setProductosIndexado,
             productosIndexado,
             ordenamientoActivo,
-            setOrdenamientoActivo
+            setOrdenamientoActivo,
+            obtenerProductosFiltrados
         }}>
             {children}
         </ProductosContext.Provider>
