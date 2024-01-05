@@ -12,7 +12,7 @@ export default function LoginYRegistro() {
 
   useEffect(() => {
     auth.setErrorMessage('');
-  }, []);
+  }, [auth.mostrarLogin]);
 
   const handleOpcionClick = (opcion) => {
     auth.setErrorMessage('');
