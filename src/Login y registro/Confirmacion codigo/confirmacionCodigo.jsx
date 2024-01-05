@@ -24,14 +24,14 @@ export default function ConfirmacionCodigo() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': auth.tokenCookie,
         },
+        credentials: 'include',
         body: JSON.stringify({
           codigoConfirmacion,
           email: userData.userInfo.email,
-          credentials: 'include'
         }),
       });
-      console.log("TOKEN ALMACENADO: " + auth.tokenCookie)
 
       if (response.ok) {
         const data = await response.text();
