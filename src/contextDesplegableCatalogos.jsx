@@ -16,7 +16,7 @@ function DesplegableProviderCatalogos({ children }) {
         const nuevoRight = `${anchoPerfil}px`;
         document.documentElement.style.setProperty('--widthCatalogos', nuevoAncho);
         document.documentElement.style.setProperty('--rightAnchoPerfil', nuevoRight);
-    }, [anchoPerfil]);
+    }, [anchoPerfil, anchoCatalogos]);
 
     const abrirHover = () => {
         setHovered(true);
