@@ -5,6 +5,7 @@ import CardMisCompras from './Card mis Compras/cardMisCompras';
 import LoginYRegistro from '../Login y registro/loginYRegistro';
 import Header from '../Principal/Header/header';
 import { useNavigate } from 'react-router-dom';
+import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil';
 
 export default function MisCompras() {
     const auth = useAuth();
@@ -55,6 +56,7 @@ export default function MisCompras() {
 
     return (
         <div className="contenedorPrincipalMisCompras">
+            <DesplegablePerfil/>
             <Header/>
             <LoginYRegistro/>
             <div className="misComprasContainer">
