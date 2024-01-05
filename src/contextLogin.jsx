@@ -134,13 +134,7 @@ export const LoginProvider = ({ children }) => {
         productos.obtenerProductosFiltrados();
         const data = await response.text();
         if (response.status === 401) {
-          if (data.toLowerCase().includes('email')) {
-            setErrorMessage("Email incorrecto");
-          } else if (data.toLowerCase().includes('contraseña')) {
-            setErrorMessage("Contraseña incorrecta");
-          } else {
-            setErrorMessage("");
-          }
+          setErrorMessage(data)
         } else if (response.status === 500) {
           setErrorMessage("Error interno del servidor");
         } else {
