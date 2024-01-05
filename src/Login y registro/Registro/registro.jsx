@@ -37,8 +37,7 @@ export default function Registro() {
         }
     };
 
-    const confirmarRegistro = async (event) => {
-        event.preventDefault();
+    const confirmarRegistro = async () => {
         const response = await fetch('http://localhost:8080/api/registro', {
             method: 'POST',
             headers: {
