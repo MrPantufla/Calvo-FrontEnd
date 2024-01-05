@@ -153,7 +153,7 @@ export default function FiltrosYProductos() {
       </div>
 
       <div className="productos">
-        <BotonesOrdenamiento />
+        <BotonesOrdenamiento onClick={paginar(1)}/>
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.id} className="col-12 col-md-4 producto">
