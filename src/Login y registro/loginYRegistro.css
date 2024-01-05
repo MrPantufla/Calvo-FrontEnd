@@ -10,11 +10,11 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0,0,0, 50%);
+    padding-top: 5rem;
   }
 
   .contenedorLoginYRegistro{
     width: 45rem;
-    /*background-color: var(--colorPrimario);*/
   }
   
   .content-container {
