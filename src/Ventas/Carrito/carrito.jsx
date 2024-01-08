@@ -1,99 +1,146 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './carrito.css';
 import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
-import { Collapse, Button, Form, InputGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { useAuth } from '../../contextLogin.jsx';
 import { useProductos } from '../../contextProductos.jsx';
 
 export default function Carrito() {
-  const { elementos, añadirElemento, limpiarCarrito, confirmarCompra, setConfirmarCompraAbierto } = useCarrito();
-  const [codigoProducto, setCodigoProducto] = useState('');
-  const [codigoErroneo, setCodigoErroneo] = useState(false);
-  const auth = useAuth();
-  const message = "Ingrese el código del producto a agregar.\nPara añadir una cantidad personalizada escríbala separada por un espacio.\nEj: CA1905 2";
+  const { elementos, añadirElemento, setConfirmarCompraAbierto } = useCarrito();
+  const [codigoAgregadoRapido, setCodigoAgregadoRapido] = useState('');
+  const [colorAgregadoRapido, setColorAgregadoRapido] = useState('');
+  const [cantidadAgregadoRapido, setCantidadAgregadoRapido] = useState('');
   const productos = useProductos();
   const carrito = useCarrito();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [productosEncontrados, setProductosEncontrados] = useState();
+  const [productoSeleccionado, setProductoSeleccionado] = useState();
+  const [codigoValido, setCodigoValido] = useState();
+  const [colorValido, setColorValido] = useState();
+  const [cantidadValida, setCantidadValida] = useState();
+  const codigoInputRef = useRef(null);
+  const colorInputRef = useRef(null);
+  const cantidadInputRef = useRef(null);
+
 
   const [carritoTop, setCarritoTop] = useState(3.2);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const maxCarritoTop = 3.2; // ajusta el valor máximo de altura según tus necesidades
-      const minCarritoTop = 2.2; // ajusta el valor mínimo de altura según tus necesidades
-      const alturaHeader = 150; // ajusta según tus necesidades
+      const maxCarritoTop = 3.2;
+      const minCarritoTop = 2.2;
+      const alturaHeader = 150;
 
-      // Calcula la nueva posición top en función del scroll
       let newTop =
         maxCarritoTop -
         (maxCarritoTop - minCarritoTop) * (scrollPosition / alturaHeader);
 
-      // Asegúrate de que newTop no sea menor que el valor mínimo de 7
       newTop = Math.max(minCarritoTop, newTop);
 
-      // Establece la nueva posición top
       setCarritoTop(newTop);
     };
 
-    // Agrega el event listener para el scroll
     window.addEventListener('scroll', handleScroll);
 
-    // Limpia el event listener al desmontar el componente
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const agregarProductoConTexto = (cod_orig) => {
-    const [codigoSinCantidad, cantidad] = cod_orig.split(' ');
-
-    let productoExistente;
-    for (const key in productos.productosIndexado) {
-      const producto = productos.productosIndexado[key];
-      if (producto.cod_orig === codigoSinCantidad) {
-        productoExistente = producto;
-        break;
-      }
-    }
-
-    const cantidadNumero = (cantidad) => {
-      if ((/^[0-9]+$/.test(cantidad)) || cantidad == null) {
-        return true
-      }
-      else {
-        return false;
-      }
-    }
-
-    let band = cantidadNumero(cantidad);
-
-    if (productoExistente && band) {
-      const cantidadAAgregar = cantidad ? parseInt(cantidad) : 1;
-      añadirElemento(productoExistente.id, cantidadAAgregar);
-      setCodigoErroneo(false);
-    } else {
-      setCodigoErroneo(true);
-    }
-  }
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      agregarProductoConTexto(codigoProducto);
-      setCodigoProducto('');
-    }
-  }
-
   const calcularTotal = (elementos) => {
     return elementos.reduce((total, elemento) => total + elemento.precioProducto * elemento.cantidad, 0);
   };
 
+  const handleEnterCodigo = (e, nextInputRef) => {
+    if (e.key === 'Enter' || e.key === 'Tab') {
+      e.preventDefault();
+      const codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
+      if (codigoIngresado !== '') {
+        const productosEncontrados = Object.values(productos.productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+
+        if (!productosEncontrados.length > 0) {
+          setErrorMessage("El código ingresado no existe");
+          setCodigoValido(false);
+          setCodigoAgregadoRapido('');
+        }
+        else {
+          setProductosEncontrados(productosEncontrados);
+          setCodigoValido(true);
+          nextInputRef.current.focus();
+        }
+      }
+    }
+  };
+
+  const handleEnterColor = (e, nextInputRef) => {
+    if (e.key === 'Enter' || e.key === 'Tab') {
+      e.preventDefault();
+      const colorIngresado = colorAgregadoRapido.toUpperCase().trim();
+
+      if (colorIngresado !== '') {
+        const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
+        if (colorExistente) {
+          const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
+          if (colorProductoExistente) {
+            setProductoSeleccionado(colorProductoExistente)
+            setColorValido(true);
+            nextInputRef.current.focus();
+          }
+          else {
+            setColorValido(false);
+            setColorAgregadoRapido('');
+            setErrorMessage("No existe el color ingresado para el producto indicado")
+          }
+        }
+        else {
+          setColorValido(false);
+          setColorAgregadoRapido('');
+          setErrorMessage("El color ingresado no existe")
+        }
+      }
+    }
+  };
+
+  const handleEnterCantidad = (e, nextInputRef) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (cantidadAgregadoRapido > 0 || cantidadAgregadoRapido==('')) {
+        setCantidadValida(true);
+        if (codigoValido && colorValido) {
+          setProductosEncontrados();
+          setCodigoAgregadoRapido('');
+          setProductoSeleccionado();
+          setColorAgregadoRapido('');
+          setCantidadAgregadoRapido('');
+          setCodigoValido();
+          setColorValido();
+          setCantidadValida();
+          if(cantidadAgregadoRapido==('')){
+            añadirElemento(productoSeleccionado.id, 1);
+          }
+          else{
+            añadirElemento(productoSeleccionado.id, parseInt(cantidadAgregadoRapido));
+          }
+          nextInputRef.current.focus();
+        }
+        else {
+          setErrorMessage('Corrige los campos inválidos')
+        }
+      }
+      else{
+        setCantidadValida(false);
+        setCantidadAgregadoRapido('');
+        setErrorMessage('Ingresa una cantidad válida')
+      }
+    }
+  }
+
   return (
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
       <div className="contenedorBotonCarrito">
-        <button type="button" 
-          className="botonCarrito" 
-          onClick={carrito.toggleCarrito} 
+        <button type="button"
+          className="botonCarrito"
+          onClick={carrito.toggleCarrito}
         >
           {carrito.carritoAbierto ?
             ("Cerrar carrito")
@@ -107,39 +154,53 @@ export default function Carrito() {
         </span>
       </div>
 
-      <Collapse in={carrito.carritoAbierto}>
+      <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`}>
+        <div className="errorCarritoContainer">
+          {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+            <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+          </svg>) : (<></>)}  {errorMessage}
+        </div>
         <div className="elementosVisiblesCarrito">
-          <InputGroup className={`textoInput ${codigoErroneo ? 'error-text' : ''}`}>
-            <Form.Control
-              className="textoInput"
+          <form className="agregadoRapido">
+            <input
+              ref={codigoInputRef}
+              className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
               type="text"
-              placeholder={codigoErroneo ? 'Código incorrecto o cantidad errónea' : 'Ingrese el código del producto'}
-              value={codigoProducto}
+              placeholder={'Código'}
+              value={codigoAgregadoRapido}
               onChange={(e) => {
-                setCodigoProducto(e.target.value);
-                setCodigoErroneo(false);
+                setCodigoAgregadoRapido(e.target.value);
+                setCodigoValido();
+                setErrorMessage('');
               }}
-              onKeyPress={handleKeyPress}
+              onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
             />
-            <OverlayTrigger
-              placement="left"
-              overlay={
-                <Tooltip className="tooltip" id="tooltip-hint">
-                  {message.split('\n').map((line, index) => (
-                    <div key={index}>{line}</div>
-                  ))}
-                </Tooltip>
-              }
-            >
-              <InputGroup.Text>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-question-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
-                </svg>
-              </InputGroup.Text>
-            </OverlayTrigger>
-          </InputGroup>
-
+            <input
+              ref={colorInputRef}
+              className={`colorAgregadoRapido form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
+              type="text"
+              placeholder={'Color'}
+              value={colorAgregadoRapido}
+              onChange={(e) => {
+                setColorAgregadoRapido(e.target.value);
+                setColorValido();
+                setErrorMessage('');
+              }}
+              onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
+            />
+            <input
+              ref={cantidadInputRef}
+              className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
+              placeholder={'Cant'}
+              value={cantidadAgregadoRapido}
+              onChange={(e) => {
+                setCantidadAgregadoRapido(e.target.value);
+                setErrorMessage('');
+                setCantidadValida();
+              }}
+              onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
+            />
+          </form>
           {elementos.length === 0 ? (
             <p className="textoCarritoVacio">El carrito está vacío</p>
           ) : (
@@ -151,14 +212,14 @@ export default function Carrito() {
               />
             ))
           )}
-          <Button
+          <button
             className="confirmarCarrito"
             disabled={!elementos.length > 0}
             onClick={() => { setConfirmarCompraAbierto(true) }}>
             Confirmar compra (${calcularTotal(elementos)})
-          </Button>
+          </button>
         </div>
-      </Collapse>
+      </div>
     </div>
   );
 }
