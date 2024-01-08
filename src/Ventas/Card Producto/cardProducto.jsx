@@ -28,7 +28,7 @@ export default function CardProducto(args) {
     args.color == 'Fume'
   );
 
-  const sumarContador = (event) => {
+  const sumarContador = () => {
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         añadirElemento(args.id, 1);
@@ -42,7 +42,7 @@ export default function CardProducto(args) {
     }
   }
 
-  const restarContador = (event) => {
+  const restarContador = () => {
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         if (cantidad > 0) {
