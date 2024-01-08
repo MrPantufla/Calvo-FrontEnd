@@ -11,6 +11,7 @@
     overflow: hidden;
     right: 4.6rem;
     padding-right: 1rem;
+    background-color: var(--colorPrimario);
 }
 
 .contenedorPrincipalCarrito .btn-primary{
@@ -25,15 +26,53 @@
     color: var(--colorRojo);
 }
 
+.valido{
+    border: 2px solid green;
+}
+
+.invalido{
+    border: 2px solid var(--colorRojo);
+}
+
 .btn-primary .bg-danger{
     font-size: 1.5rem;
     background-color: var(--colorRojo) !important;
+}
+
+.elementosVisiblesCarrito{
+    width: 40rem;
 }
 
 .textoCarritoVacio{
     font-size: 20px;
     text-align: center;
     background-color: #B83A3A ;
+}
+
+.bodyCarrito{
+    height: 0;
+    transition: height 0.3s;
+}
+
+.bodyCarrito.open{
+    height: 30rem;
+}
+
+.agregadoRapido{
+    display: flex;
+    flex-direction: row;
+}
+
+.codigoAgregadorRapido{
+    width: 35%;
+}
+
+.colorAgregadoRapido{
+    width: 40%;
+}
+
+.cantidadAgregadoRapido{
+    width: 25%;
 }
 
 .total{
