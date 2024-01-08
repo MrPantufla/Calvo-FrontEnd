@@ -18,6 +18,8 @@ function ProductosProvider({ children }) {
     const [cod_origDescActivo, setCod_origDescActivo] = useState(false);
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
     const [productosIndexado, setProductosIndexado] = useState([]);
+    const [coloresArray, setColoresArray] = useState([]); 
+    const nuevosColores = new Set();
 
     /*useEffect(() => {
         obtenerProductosFiltrados();   //Comentar para version de muestra
@@ -29,7 +31,7 @@ function ProductosProvider({ children }) {
             const response = await fetch(`http://localhost:8080/api/productos`);
             if (response.ok) {
                 const productosObtenidos = await response.json();
-    
+
                 // Realizar actualizaciones según la categoría
                 const productosActualizados = productosObtenidos.map((producto) => {
                     if (categoria === 'MAYORISTA' && producto.precioMayorista) {
@@ -39,12 +41,18 @@ function ProductosProvider({ children }) {
                     // Mantener el producto sin cambios
                     return producto;
                 });
-    
+
                 // Indexar los productos actualizados
                 setProductosIndexado(productosActualizados.reduce((acc, el) => {
                     acc[el.id] = el;
+
+                    const colorEnMayusculas = el.color.trim().toUpperCase();
+                    nuevosColores.add(colorEnMayusculas);
+
                     return acc;
                 }, {}));
+
+                setColoresArray([...nuevosColores]);
             } else {
                 console.error('Error al obtener productos filtrados:', response.statusText);
             }
@@ -152,7 +160,8 @@ function ProductosProvider({ children }) {
             productosIndexado,
             ordenamientoActivo,
             setOrdenamientoActivo,
-            obtenerProductosFiltrados
+            obtenerProductosFiltrados,
+            coloresArray
         }}>
             {children}
         </ProductosContext.Provider>
