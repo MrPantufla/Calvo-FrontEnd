@@ -1,5 +1,4 @@
 .contenedorPrincipalCarrito{
-    max-width: 400px;
     position: fixed;
     z-index: 101; 
     max-height: 50rem;
@@ -26,12 +25,37 @@
     color: var(--colorRojo);
 }
 
+.form-group-agregadoRapido{
+    font-weight: 600;
+    max-width: 100%;
+}
+
+.form-group-agregadoRapido:focus{
+    outline: none;
+}
+
 .valido{
     border: 2px solid green;
 }
 
 .invalido{
     border: 2px solid var(--colorRojo);
+}
+
+.sugerenciaColor {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    left: 0.2rem;
+}
+
+.textoSugerencia{
+    padding-top: 1rem;
+    position: relative;
 }
 
 .btn-primary .bg-danger{
@@ -69,6 +93,7 @@
 
 .colorAgregadoRapido{
     width: 40%;
+    position: relative;
 }
 
 .cantidadAgregadoRapido{

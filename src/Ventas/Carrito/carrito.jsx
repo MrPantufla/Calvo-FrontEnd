@@ -20,7 +20,7 @@ export default function Carrito() {
   const codigoInputRef = useRef(null);
   const colorInputRef = useRef(null);
   const cantidadInputRef = useRef(null);
-
+  const [sugerenciaColor, setSugerenciaColor] = useState('');
 
   const [carritoTop, setCarritoTop] = useState(3.2);
 
@@ -73,38 +73,44 @@ export default function Carrito() {
   };
 
   const handleEnterColor = (e, nextInputRef) => {
+    let colorIngresado;
     if (e.key === 'Enter' || e.key === 'Tab') {
+      if (e.key === 'Tab' && sugerenciaColor) {
+        setColorAgregadoRapido(sugerenciaColor)
+        colorIngresado=sugerenciaColor;
+      }
+      else{
+        colorIngresado = colorAgregadoRapido.toUpperCase().trim();
+      }
+
       e.preventDefault();
-      const colorIngresado = colorAgregadoRapido.toUpperCase().trim();
 
       if (colorIngresado !== '') {
         const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
         if (colorExistente) {
           const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
           if (colorProductoExistente) {
-            setProductoSeleccionado(colorProductoExistente)
+            setProductoSeleccionado(colorProductoExistente);
             setColorValido(true);
             nextInputRef.current.focus();
-          }
-          else {
+          } else {
             setColorValido(false);
             setColorAgregadoRapido('');
-            setErrorMessage("No existe el color ingresado para el producto indicado")
+            setErrorMessage("No existe el color ingresado para el producto indicado");
           }
-        }
-        else {
+        } else {
           setColorValido(false);
           setColorAgregadoRapido('');
-          setErrorMessage("El color ingresado no existe")
+          setErrorMessage("El color ingresado no existe");
         }
       }
     }
   };
 
   const handleEnterCantidad = (e, nextInputRef) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === 'Tab') {
       e.preventDefault();
-      if (cantidadAgregadoRapido > 0 || cantidadAgregadoRapido==('')) {
+      if (cantidadAgregadoRapido > 0 || cantidadAgregadoRapido == ('')) {
         setCantidadValida(true);
         if (codigoValido && colorValido) {
           setProductosEncontrados();
@@ -115,10 +121,10 @@ export default function Carrito() {
           setCodigoValido();
           setColorValido();
           setCantidadValida();
-          if(cantidadAgregadoRapido==('')){
+          if (cantidadAgregadoRapido == ('')) {
             añadirElemento(productoSeleccionado.id, 1);
           }
-          else{
+          else {
             añadirElemento(productoSeleccionado.id, parseInt(cantidadAgregadoRapido));
           }
           nextInputRef.current.focus();
@@ -127,13 +133,25 @@ export default function Carrito() {
           setErrorMessage('Corrige los campos inválidos')
         }
       }
-      else{
+      else {
         setCantidadValida(false);
         setCantidadAgregadoRapido('');
         setErrorMessage('Ingresa una cantidad válida')
       }
     }
   }
+
+  const obtenerSugerenciaColor = () => {
+    const palabra = colorAgregadoRapido.toUpperCase().trim();
+    const sugerenciasFiltradas = productos.coloresArray.filter(
+      (sugerencia) => sugerencia.toLowerCase().startsWith(palabra.toLowerCase())
+    );
+    return (sugerenciasFiltradas.length > 0 && colorAgregadoRapido.length > 0) ? sugerenciasFiltradas[0] : '';
+  };
+
+  useEffect(() => {
+    setSugerenciaColor(obtenerSugerenciaColor().toUpperCase());
+  }, [colorAgregadoRapido]);
 
   return (
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
@@ -166,35 +184,42 @@ export default function Carrito() {
               ref={codigoInputRef}
               className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
               type="text"
-              placeholder={'Código'}
+              placeholder={'CÓDIGO'}
               value={codigoAgregadoRapido}
               onChange={(e) => {
-                setCodigoAgregadoRapido(e.target.value);
+                setCodigoAgregadoRapido(e.target.value.toUpperCase());
                 setCodigoValido();
                 setErrorMessage('');
               }}
               onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
             />
-            <input
-              ref={colorInputRef}
-              className={`colorAgregadoRapido form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
-              type="text"
-              placeholder={'Color'}
-              value={colorAgregadoRapido}
-              onChange={(e) => {
-                setColorAgregadoRapido(e.target.value);
-                setColorValido();
-                setErrorMessage('');
-              }}
-              onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
-            />
+            <div className="colorAgregadoRapido">
+              <input
+                ref={colorInputRef}
+                className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
+                type="text"
+                placeholder={'COLOR'}
+                value={colorAgregadoRapido}
+                onChange={(e) => {
+                  setColorAgregadoRapido(e.target.value.toUpperCase());
+                  setColorValido();
+                  setErrorMessage('');
+                }}
+                onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
+              />
+              {sugerenciaColor && (
+                <div className="sugerenciaColor sugerencia">
+                  <p className="textoSugerencia"> {sugerenciaColor}</p>
+                </div>
+              )}
+            </div>
             <input
               ref={cantidadInputRef}
               className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
-              placeholder={'Cant'}
+              placeholder={'CANT'}
               value={cantidadAgregadoRapido}
               onChange={(e) => {
-                setCantidadAgregadoRapido(e.target.value);
+                setCantidadAgregadoRapido(e.target.value.toUpperCase());
                 setErrorMessage('');
                 setCantidadValida();
               }}
