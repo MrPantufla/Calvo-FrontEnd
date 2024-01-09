@@ -75,11 +75,11 @@ export default function Carrito() {
   const handleEnterColor = (e, nextInputRef) => {
     let colorIngresado;
     if (e.key === 'Enter' || e.key === 'Tab') {
-      if (e.key === 'Tab' && sugerenciaColor) {
+      if (sugerenciaColor) {
         setColorAgregadoRapido(sugerenciaColor)
-        colorIngresado=sugerenciaColor;
+        colorIngresado = sugerenciaColor;
       }
-      else{
+      else {
         colorIngresado = colorAgregadoRapido.toUpperCase().trim();
       }
 
@@ -89,14 +89,16 @@ export default function Carrito() {
         const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
         if (colorExistente) {
           const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
-          if (colorProductoExistente) {
-            setProductoSeleccionado(colorProductoExistente);
-            setColorValido(true);
-            nextInputRef.current.focus();
-          } else {
-            setColorValido(false);
-            setColorAgregadoRapido('');
-            setErrorMessage("No existe el color ingresado para el producto indicado");
+          if (codigoAgregadoRapido) {
+            if (colorProductoExistente) {
+              setProductoSeleccionado(colorProductoExistente);
+              setColorValido(true);
+              nextInputRef.current.focus();
+            } else {
+              setColorValido(false);
+              setColorAgregadoRapido('');
+              setErrorMessage("No existe el color ingresado para el producto indicado");
+            }
           }
         } else {
           setColorValido(false);
@@ -144,7 +146,7 @@ export default function Carrito() {
   const obtenerSugerenciaColor = () => {
     const palabra = colorAgregadoRapido.toUpperCase().trim();
     const sugerenciasFiltradas = productos.coloresArray.filter(
-      (sugerencia) => sugerencia.toLowerCase().startsWith(palabra.toLowerCase())
+      (sugerencia) => sugerencia.toUpperCase().startsWith(palabra.toUpperCase())
     );
     return (sugerenciasFiltradas.length > 0 && colorAgregadoRapido.length > 0) ? sugerenciasFiltradas[0] : '';
   };
