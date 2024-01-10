@@ -1,19 +1,19 @@
-.contenedorPrincipalCardMisCompras{
+.contenedorPrincipalCardMisCompras {
     width: 100%;
 }
 
-.headCardMisCompras{
+.headCardMisCompras {
     display: flex;
     flex-direction: column;
     background-color: white;
     border: 1px solid var(--colorAzulOscuro);
     border-radius: 7px;
     align-items: center;
-    border-width: 1px; 
+    border-width: 1px;
     border-style: solid;
 }
 
-.fechaCardMisComprasContainer{
+.fechaCardMisComprasContainer {
     border-radius: 4px 4px 0 0;
     width: 100%;
     background-color: var(--colorAzulOscuro);
@@ -21,19 +21,19 @@
     justify-content: center;
 }
 
-.fechaCardMisCompras{
+.fechaCardMisCompras {
     color: white;
     font-size: 1.8rem;
     margin-top: 0.5rem;
 }
 
-.divisorHeadMisCompras{
+.divisorHeadMisCompras {
     background-color: var(--colorTerciario);
     height: 1px;
     width: 100%;
 }
 
-.cantidadYBotonesCaontainer{
+.cantidadYBotonesCaontainer {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -43,30 +43,30 @@
     padding: 0 4rem;
 }
 
-.cantidadYPoliginosContainer{
+.cantidadYPoliginosContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.poligonoMisCompras{
+.poligonoMisCompras {
     width: 1.8rem;
     height: 0.8rem;
     margin-bottom: 0.5rem;
 }
 
-.cantidadYPoliginosContainer h1{
+.cantidadYPoliginosContainer h1 {
     font-size: 1.8rem;
     color: var(--colorRojo);
     font-weight: 600;
 }
 
-.botonesContainer{
+.botonesContainer {
     display: flex;
     flex-direction: column;
 }
 
-.botonesContainer button{
+.botonesContainer button {
     width: 20rem;
     border: none;
     margin: 0.2rem 0;
@@ -75,14 +75,13 @@
     border-radius: 4px;
 }
 
-.botonRepetirCompra{
+.botonRepetirCompra {
     background-color: var(--colorAzulOscuro);
     color: white;
 }
 
-.bodyCardMisCompras{
+.bodyCardMisCompras {
     display: flex;
-    height: 0;
     overflow: hidden;
     position: relative;
     z-index: 1;
@@ -92,31 +91,39 @@
     background-color: var(--colorPrimario);
     width: 97%;
     margin-left: 1.5%;
+    max-height: 0;
+    transition: max-height 0.3s;
+    overflow: auto;
 }
 
 .bodyCardMisCompras.open {
-    height: auto;
-    border-width: 1px; 
+    max-height: 100rem;
+    border-width: 1px;
     border-style: solid;
     border-color: transparent var(--colorSecundario) var(--colorSecundario) var(--colorSecundario);
+    box-shadow: 0px 10px 16px 1px gray;
 }
 
-.botonCollapseCardComprasContainer{
+.bodyCardMisCompras::-webkit-scrollbar {
+    width: 0;
+}
+
+.botonCollapseCardComprasContainer {
     display: flex;
     align-items: center;
 }
 
-.botonCollapseCardCompras{
+.botonCollapseCardCompras {
     transition: background-color 0.2s, color 0.2s, transform 0.2s;
 }
 
-.botonCollapseCardCompras.open{
+.botonCollapseCardCompras.open {
     background-color: var(--colorSecundario);
     color: white;
     transform: scale(1.03);
 }
 
-.totalContainer{
+.totalContainer {
     background-color: var(--colorSecundario);
     display: flex;
     flex-direction: column;
@@ -125,7 +132,7 @@
     padding-top: 0.5rem;
 }
 
-.totalContainer h2{
+.totalContainer h2 {
     text-align: center;
     color: white;
     font-size: 1.7rem;

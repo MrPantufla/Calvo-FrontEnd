@@ -6,6 +6,7 @@ import LoginYRegistro from '../Login y registro/loginYRegistro';
 import Header from '../Principal/Header/header';
 import { useNavigate } from 'react-router-dom';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil';
+import Footer from '../Principal/Footer/footer.jsx';
 
 export default function MisCompras() {
     const auth = useAuth();
@@ -55,24 +56,27 @@ export default function MisCompras() {
 
     }, [auth.state.logueado]);
 
-    const aumentarKey = () =>{
-        setKey(key+1);
+    const aumentarKey = () => {
+        setKey(key + 1);
     }
 
     return (
-        <div className="contenedorPrincipalMisCompras">
-            <DesplegablePerfil />
-            <Header />
-            <div className="decoracionBody decoracionMisCompras" />
-            <div className="decoracionDosBody decoracionDosMisCompras" />
-            <LoginYRegistro />
-            <div className="misComprasContainer row">
-                {historial.map((item, index) => (
-                    <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index}>
-                        <CardMisCompras data={item} />
-                    </div>
-                ))}
+        <>
+            <div className="contenedorPrincipalMisCompras">
+                <DesplegablePerfil />
+                <Header />
+                <div className="decoracionBody decoracionMisCompras" />
+                <div className="decoracionDosBody decoracionDosMisCompras" />
+                <LoginYRegistro />
+                <div className="misComprasContainer row">
+                    {historial.map((item, index) => (
+                        <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{height: "auto", alignItems: "flex-start"}}>
+                            <CardMisCompras data={item} />
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 }
