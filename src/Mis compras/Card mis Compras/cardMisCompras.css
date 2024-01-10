@@ -1,22 +1,108 @@
+.contenedorPrincipalCardMisCompras{
+    width: 100%;
+    height: 11rem;
+}
+
 .headCardMisCompras{
-    width: 50rem;
     display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid var(--colorAzulOscuro);
+    border-radius: 7px;
+    align-items: center;
+}
+
+.fechaCardMisComprasContainer{
+    border-radius: 4px 4px 0 0;
+    width: 100%;
+    background-color: var(--colorAzulOscuro);
+    display: flex;
+    justify-content: center;
+}
+
+.fechaCardMisCompras{
+    color: white;
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+}
+
+.divisorHeadMisCompras{
+    background-color: var(--colorTerciario);
+    height: 1px;
+    width: 100%;
+}
+
+.cantidadYBotonesCaontainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    border: 1px solid black;
+    align-items: center;
+    height: 7rem;
+    padding: 0 4rem;
+}
+
+.cantidadYPoliginosContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.poligonoMisCompras{
+    width: 1.8rem;
+    height: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.cantidadYPoliginosContainer h1{
+    font-size: 1.8rem;
+    color: var(--colorRojo);
+    font-weight: 600;
+}
+
+.botonesContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.botonesContainer button{
+    width: 20rem;
+    border: none;
+    margin: 0.2rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.botonRepetirCompra{
+    background-color: var(--colorAzulOscuro);
+    color: white;
 }
 
 .bodyMisCompras{
     display: flex;
     height: 0;
     overflow: hidden;
-    transition: height 0.3s;
+    position: relative;
+    z-index: 1;
+    background-color: white;
 }
 
 .bodyMisCompras.open{
-    height: 200rem;
+    height: auto;
 }
 
 .botonCollapseCardComprasContainer{
     display: flex;
     align-items: center;
+}
+
+.botonCollapseCardCompras{
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.botonCollapseCardCompras.open{
+    background-color: var(--colorSecundario);
+    color: white;
+    transform: scale(1.03);
 }

@@ -4,6 +4,7 @@ import ProductoHistorial from '../Producto Historial/productoHistorial';
 import { useProductos } from '../../contextProductos';
 import { useCarrito } from '../../contextCarrito';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 export default function CardMisCompras(args) {
     const arrayProductos = args.data.productos.split(' ').map((str) => parseInt(str, 10));
@@ -31,34 +32,45 @@ export default function CardMisCompras(args) {
     const repetirCompra = () => {
         Array.from({ length: arrayProductos.length }).map((_, index) => {
             console.log(`Iteración ${index + 1}:`);
-    
+
             const producto = productos.productosIndexado[arrayProductos[index]];
-    
+
             if (producto && typeof producto === 'object' && producto !== null) {
                 console.log(`ID: ${producto.id}, Cod. Orig: ${producto.cod_orig}, Cantidad: ${arrayCantidades[index]} ,Detalle: ${producto.detalle}, Precio: ${producto.precio}`);
-                
+
                 carrito.añadirElemento(producto.id, arrayCantidades[index]);
             } else {
                 console.warn(`No se encontró un objeto válido para el índice ${arrayProductos[index]}`);
             }
-    
+
             return null;
         });
         navigate('/tienda');
         carrito.setCarritoAbierto(true);
     };
-    
+
+    const fechaFormateada = format(new Date(args.data.fecha), 'dd - MM - yyyy');
 
     return (
         <div className="contenedorPrincipalCardMisCompras">
             <div className="headCardMisCompras">
-                <h1>{args.data.fecha} - {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0)} productos</h1>
-                <div className="botonCollapseCardComprasContainer">
-                    <button className="botonCollapseCardCompras" onClick={toggleCardCompras}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                        </svg>
-                    </button>
+                <div className="fechaCardMisComprasContainer">
+                    <h1 className="fechaCardMisCompras">{fechaFormateada}</h1>
+                </div>
+                <div className="divisorHeadMisCompras" />
+                <div className="cantidadYBotonesCaontainer">
+                    <div className="cantidadYPoliginosContainer">
+                        <div className="poligono poligonoMisCompras" />
+                        <h1>  {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0)} PRODUCTOS</h1>
+                    </div>
+                    <div className="botonesContainer">
+                        <button className={`botonCollapseCardCompras ${cardComprasAbierto ? 'open' : ''}`} onClick={toggleCardCompras}>
+                            VER COMPRA
+                        </button>
+                        <button className="botonRepetirCompra" onClick={repetirCompra} >
+                            VOLVER A COMPRAR
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className={`bodyMisCompras ${cardComprasAbierto ? 'open' : ''}`}>
@@ -70,11 +82,6 @@ export default function CardMisCompras(args) {
                 <div className="totalYBotonContainer">
                     <h2>TOTAL: ${total}</h2>
                     <h2>Precio actual: ${totalActual}</h2>
-                </div>
-                <div className="botonRepetirCompraContainer">
-                    <button className="botonRepetirCompra" onClick={repetirCompra} >
-                        Repetir compra
-                    </button>
                 </div>
             </div>
         </div>
