@@ -75,10 +75,15 @@
 .bodyCarrito{
     height: 0;
     transition: height 0.3s;
+    overflow: auto;
 }
 
 .bodyCarrito.open{
     height: 30rem;
+}
+
+.bodyCarrito::-webkit-scrollbar{
+    width: 0;
 }
 
 .agregadoRapido{
