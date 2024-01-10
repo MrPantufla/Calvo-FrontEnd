@@ -11,15 +11,19 @@ import Footer from '../Principal/Footer/footer.jsx';
 export default function MisCompras() {
     const auth = useAuth();
     const [historial, setHistorial] = useState([]);
-    const [key, setKey] = useState(1);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        /*if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
-            navigate("/home");
-        }*/
-    })
+        const timeoutId = setTimeout(() => {
+            if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
+                navigate("/home");
+            }
+        }, 200);
+    
+        // Limpiar el temporizador si el componente se desmonta antes de que expire el tiempo
+        return () => clearTimeout(timeoutId);
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -56,10 +60,6 @@ export default function MisCompras() {
 
     }, [auth.state.logueado]);
 
-    const aumentarKey = () => {
-        setKey(key + 1);
-    }
-
     return (
         <>
             <div className="contenedorPrincipalMisCompras">
@@ -70,7 +70,7 @@ export default function MisCompras() {
                 <LoginYRegistro />
                 <div className="misComprasContainer row">
                     {historial.map((item, index) => (
-                        <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{height: "auto", alignItems: "flex-start"}}>
+                        <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{ height: "auto" }}>
                             <CardMisCompras data={item} />
                         </div>
                     ))}
