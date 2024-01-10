@@ -1,5 +1,5 @@
 .contenedorPrincipalMisCompras{
-    min-height: 100vh;
+    min-height: calc(100vh - 3rem);
     background-color: var(--colorSenario);
     display: flex;
 }
@@ -21,7 +21,8 @@
 .columnaMisCompras{
     display: flex;
     justify-content: center;
-    height: 12rem;
+    margin-bottom: 1.5rem;
+    width: 50vw;
 }
 
 .par{
