@@ -29,6 +29,7 @@ export default function FiltrosYProductos() {
     window.scrollTo(0, 0);
     setTimeout(() => {
       setPaginaActual(numeroDePagina);
+      console.log(numeroDePagina)
     }, 350);
   }
 
@@ -153,7 +154,7 @@ export default function FiltrosYProductos() {
       </div>
 
       <div className="productos">
-        <BotonesOrdenamiento onClick={paginar(1)}/>
+        <BotonesOrdenamiento onClick={() => paginar(1)} />
         <div className="row">
           {itemsActuales.map((producto) => (
             <div key={producto.id} className="col-12 col-md-4 producto">
