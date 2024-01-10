@@ -21,7 +21,6 @@ export default function MisCompras() {
             }
         }, 200);
     
-        // Limpiar el temporizador si el componente se desmonta antes de que expire el tiempo
         return () => clearTimeout(timeoutId);
     });
 
