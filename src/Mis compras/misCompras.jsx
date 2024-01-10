@@ -27,7 +27,6 @@ export default function MisCompras() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Verifica si ya está logueado antes de intentar la solicitud
                 if (auth.state.logueado) {
                     const response = await fetch('http://localhost:8080/api/misCompras', {
                         method: 'POST',
@@ -44,7 +43,6 @@ export default function MisCompras() {
                     setHistorial(data);
 
                 } else {
-                    // Si no está logueado, puedes manejarlo de acuerdo a tus necesidades
                     console.log('El usuario no está logueado');
                 }
             } catch (error) {
@@ -52,7 +50,6 @@ export default function MisCompras() {
             }
         };
 
-        // Solo ejecuta fetchData si está logueado
         if (auth.state.logueado) {
             fetchData();
         }
