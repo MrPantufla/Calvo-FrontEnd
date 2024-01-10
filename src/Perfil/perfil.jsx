@@ -12,10 +12,14 @@ export default function Perfil() {
     const auth = useAuth();
 
     useEffect(() => {
-        if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
-            navigate("/home");
-        }
-    })
+        const timeoutId = setTimeout(() => {
+            if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
+                navigate("/home");
+            }
+        }, 200);
+    
+        return () => clearTimeout(timeoutId);
+    });
 
     return (
         <div className="contenedorPrincipalPerfil">
