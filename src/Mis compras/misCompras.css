@@ -1,3 +1,33 @@
 .contenedorPrincipalMisCompras{
+    height: 100vh;
+    background-color: var(--colorSenario);
+    display: flex;
+}
+
+.decoracionMisCompras{
+    background-color: var(--colorPrimario);
+}
+
+.decoracionDosMisCompras{
+    background-color: var(--colorTerciario);
+}
+
+.misComprasContainer{
     padding-top: 12rem;
+    z-index: 10;
+    position: relative;
+}
+
+.columnaMisCompras{
+    display: flex;
+    justify-content: center;
+    height: 12rem;
+}
+
+.par{
+    padding-left: 7rem;
+}
+
+.impar{
+    padding-right: 7rem;
 }

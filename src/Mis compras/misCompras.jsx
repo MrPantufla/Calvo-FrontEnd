@@ -10,13 +10,14 @@ import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegabl
 export default function MisCompras() {
     const auth = useAuth();
     const [historial, setHistorial] = useState([]);
+    const [key, setKey] = useState(1);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
+        /*if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
             navigate("/home");
-        }
+        }*/
     })
 
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function MisCompras() {
                         throw new Error(`Error: ${response.status} - ${response.statusText}`);
                     }
                     const data = await response.json();
-                    console.log('Respuesta: ', data);
+                    console.log(data);
                     setHistorial(data);
 
                 } else {
@@ -54,14 +55,22 @@ export default function MisCompras() {
 
     }, [auth.state.logueado]);
 
+    const aumentarKey = () =>{
+        setKey(key+1);
+    }
+
     return (
         <div className="contenedorPrincipalMisCompras">
-            <DesplegablePerfil/>
-            <Header/>
-            <LoginYRegistro/>
-            <div className="misComprasContainer">
-                {historial.map((item) => (
-                    <CardMisCompras key={item.id} data={item}/>
+            <DesplegablePerfil />
+            <Header />
+            <div className="decoracionBody decoracionMisCompras" />
+            <div className="decoracionDosBody decoracionDosMisCompras" />
+            <LoginYRegistro />
+            <div className="misComprasContainer row">
+                {historial.map((item, index) => (
+                    <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index}>
+                        <CardMisCompras data={item} />
+                    </div>
                 ))}
             </div>
         </div>
