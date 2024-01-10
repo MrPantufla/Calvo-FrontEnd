@@ -63,6 +63,7 @@
     align-items: center;
     clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
     overflow: hidden;
+    z-index: 102;
 }
 
 .seccion::before,
@@ -109,7 +110,6 @@
 
 .catalogosYArrow{
     position: relative;
-    z-index: 102;
 }
 
 .logoContainer {
