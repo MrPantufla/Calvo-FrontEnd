@@ -1,5 +1,5 @@
 import './productoHistorial.css';
-import perfil from '../../Imagenes/perfil.jpg';
+import perfil1 from '../../Imagenes/perfil1.png';
 import { useProductos } from '../../contextProductos';
 import { useEffect, useState } from 'react';
 
@@ -9,23 +9,26 @@ export default function ProductoHistorial(args){
     const producto = productos.productosIndexado[args.id];
     const [cod_orig, setCod_orig] = useState("CA");
     const [detalle, setDetalle] = useState("detalle");
+    const [color, setColor] = useState("color")
 
     useEffect(() => {
         if (producto && producto.cod_orig && producto.detalle) {
             setCod_orig(producto.cod_orig);
             setDetalle(producto.detalle);
+            setColor(producto.color.toUpperCase())
         }
     }, [producto]);
 
     return(
         <div className="contenedorPrincipalProductoHistorial">
             <div className="imagenProductoHistorialContainer">
-                <img src={perfil}/>
+                <img src={perfil1}/>
+                <p><span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle}</p>
             </div>
             <div className="informacionProductoHistorialContainer">
-                <h2>{cod_orig} - {detalle}</h2>
-                <h2>Cantidad: {args.cantidad}</h2>
-                <h2>Total: ${args.precio*args.cantidad} ({args.cantidad} x ${args.precio})</h2>
+                <p>COLOR: {color}</p>
+                <p>CANTIDAD: {args.cantidad}</p>
+                <p>PRECIO: ${args.precio*args.cantidad} ({args.cantidad} x ${args.precio})</p>
             </div>
         </div>
     );

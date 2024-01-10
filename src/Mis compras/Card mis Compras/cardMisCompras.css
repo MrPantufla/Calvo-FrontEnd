@@ -1,6 +1,5 @@
 .contenedorPrincipalCardMisCompras{
     width: 100%;
-    height: 11rem;
 }
 
 .headCardMisCompras{
@@ -10,6 +9,8 @@
     border: 1px solid var(--colorAzulOscuro);
     border-radius: 7px;
     align-items: center;
+    border-width: 1px; 
+    border-style: solid;
 }
 
 .fechaCardMisComprasContainer{
@@ -79,17 +80,25 @@
     color: white;
 }
 
-.bodyMisCompras{
+.bodyCardMisCompras{
     display: flex;
     height: 0;
     overflow: hidden;
     position: relative;
     z-index: 1;
     background-color: white;
+    flex-direction: column;
+    border-radius: 0 0 7px 7px;
+    background-color: var(--colorPrimario);
+    width: 97%;
+    margin-left: 1.5%;
 }
 
-.bodyMisCompras.open{
+.bodyCardMisCompras.open {
     height: auto;
+    border-width: 1px; 
+    border-style: solid;
+    border-color: transparent var(--colorSecundario) var(--colorSecundario) var(--colorSecundario);
 }
 
 .botonCollapseCardComprasContainer{
@@ -105,4 +114,19 @@
     background-color: var(--colorSecundario);
     color: white;
     transform: scale(1.03);
+}
+
+.totalContainer{
+    background-color: var(--colorSecundario);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 5.5rem;
+    padding-top: 0.5rem;
+}
+
+.totalContainer h2{
+    text-align: center;
+    color: white;
+    font-size: 1.7rem;
 }

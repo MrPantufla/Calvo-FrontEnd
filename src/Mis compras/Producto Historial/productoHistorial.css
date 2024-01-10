@@ -1,0 +1,49 @@
+.contenedorPrincipalProductoHistorial{
+    display: flex;
+    flex-direction: row;
+    height: 18rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.imagenProductoHistorialContainer{
+    height: 100%;
+    margin-left: 5rem;
+    padding: 1rem 0;
+    width: 23rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imagenProductoHistorialContainer img{
+    height: 80%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.imagenProductoHistorialContainer p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center; 
+}
+
+.cod_origProductoHistorial{
+    color: var(--colorRojo);
+}
+
+.informacionProductoHistorialContainer{
+    margin-right: 5rem;
+}
+
+.informacionProductoHistorialContainer p{
+    text-align: center;
+    font-size: 1.5rem;
+    width: 21rem;
+    font-weight: 600;
+    border: 1px solid white;
+    border-radius: 4px;
+    background-color: white;
+    margin: 0.3rem 0;
+}

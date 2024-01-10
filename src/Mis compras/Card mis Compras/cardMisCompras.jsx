@@ -73,15 +73,15 @@ export default function CardMisCompras(args) {
                     </div>
                 </div>
             </div>
-            <div className={`bodyMisCompras ${cardComprasAbierto ? 'open' : ''}`}>
+            <div className={`bodyCardMisCompras ${cardComprasAbierto ? 'open' : ''}`}>
                 <div className="productosHistorialContainer">
                     {Array.from({ length: arrayProductos.length }).map((_, index) => (
                         <ProductoHistorial key={index} id={arrayProductos[index]} cantidad={arrayCantidades[index]} precio={arrayPrecios[index]} />
                     ))}
                 </div>
-                <div className="totalYBotonContainer">
-                    <h2>TOTAL: ${total}</h2>
-                    <h2>Precio actual: ${totalActual}</h2>
+                <div className="totalContainer">
+                    <h2>TOTAL DE LA COMPRA: ${total}</h2>
+                    <h2>PRECIO ACTUAL: <span className="totalCompra">${totalActual}</span></h2>
                 </div>
             </div>
         </div>
