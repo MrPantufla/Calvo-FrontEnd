@@ -11,10 +11,10 @@
     align-items: center;
     border-width: 1px;
     border-style: solid;
+    overflow: hidden;
 }
 
 .fechaCardMisComprasContainer {
-    border-radius: 4px 4px 0 0;
     width: 100%;
     background-color: var(--colorAzulOscuro);
     display: flex;
