@@ -94,6 +94,7 @@
     max-height: 0;
     transition: max-height 0.3s;
     overflow: auto;
+    border: none;
 }
 
 .bodyCardMisCompras.open {
