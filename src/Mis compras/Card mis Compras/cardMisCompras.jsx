@@ -15,10 +15,6 @@ export default function CardMisCompras(args) {
     const carrito = useCarrito();
     const navigate = useNavigate();
 
-    const cerrarCard = () =>{
-        setCardComprasAbierto(false);
-    }
-
     const toggleCardCompras = () => {
         setCardComprasAbierto(!cardComprasAbierto);
     }
