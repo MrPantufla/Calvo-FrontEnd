@@ -127,19 +127,19 @@ export default function EditarEmail() {
             .then(response => {
                 if (response.ok) {
                     console.log('Código aceptado.');
-                    if(args.email==auth.state.userInfo.email){
+                    if (args.email == auth.state.userInfo.email) {
                         setCodigoEmailActualAceptado(true)
                     }
-                    else{
+                    else {
                         setCodigoNuevoEmailAceptado(true)
                     }
                     return null;
                 } else {
                     console.log("Código rechazado")
-                    if(args.email==auth.state.userInfo.email){
+                    if (args.email == auth.state.userInfo.email) {
                         setCodigoEmailActualAceptado(false)
                     }
-                    else{
+                    else {
                         setCodigoNuevoEmailAceptado(false)
                     }
                     return response.text();
@@ -160,7 +160,7 @@ export default function EditarEmail() {
             });
     };
 
-    const confirmarCambio = (args) =>{
+    const confirmarCambio = (args) => {
         fetch('http://localhost:8080/api/confirmarCambio', {
             method: 'POST',
             headers: {
@@ -200,10 +200,10 @@ export default function EditarEmail() {
     const enviarCambioEmail = (event) => {
         event.preventDefault();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(nuevoEmail)){
+        if (!emailRegex.test(nuevoEmail)) {
             setErrorMessage("Inserte una dirección de email válida")
         }
-        else{
+        else {
             handleNuevoEmail();
         }
     };
@@ -227,7 +227,7 @@ export default function EditarEmail() {
                 </div>
             </div>
             <div className={`colapsableEditarEmail ${configuracion.emailAbierto ? 'open' : ''}`}>
-            <div className="errorEditarEmail errorFormulario">
+                <div className="errorEditarEmail errorFormulario">
                     {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
                         <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                     </svg>) : (<></>)}  {errorMessage}
@@ -250,7 +250,7 @@ export default function EditarEmail() {
                                             placeholder="Ingresa el código"
                                             disabled={codigoEmailActualAceptado == true}
                                         />
-                                        <button onClick={() => verificarCodigo({codigo: codigoEmailActual, email: auth.state.userInfo.email})} disabled={codigoEmailActualAceptado == true}>
+                                        <button onClick={() => verificarCodigo({ codigo: codigoEmailActual, email: auth.state.userInfo.email })} disabled={codigoEmailActualAceptado == true}>
                                             {codigoEmailActualAceptado == true ?
                                                 (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-send-check" viewBox="0 0 16 16">
                                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
@@ -293,7 +293,7 @@ export default function EditarEmail() {
                                             placeholder="Ingresa el código"
                                             disabled={codigoNuevoEmailAceptado == true}
                                         />
-                                        <button onClick={() => verificarCodigo({codigo: codigoNuevoEmail, email:nuevoEmail})} disabled={codigoNuevoEmailAceptado == true}>
+                                        <button onClick={() => verificarCodigo({ codigo: codigoNuevoEmail, email: nuevoEmail })} disabled={codigoNuevoEmailAceptado == true}>
                                             {codigoNuevoEmailAceptado == true ?
                                                 (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-send-check" viewBox="0 0 16 16">
                                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
@@ -324,7 +324,7 @@ export default function EditarEmail() {
                             </div>
                         </div>
                         <div className="confirmarCambioContainer">
-                            <button className="confirmarCambio" disabled={codigoNuevoEmailAceptado != true || codigoEmailActualAceptado != true} onClick={()=>confirmarCambio({emailActual: auth.state.userInfo.email, nuevoEmail: nuevoEmail})}>Confirmar cambio de email</button>
+                            <button className="confirmarCambio" disabled={codigoNuevoEmailAceptado != true || codigoEmailActualAceptado != true} onClick={() => confirmarCambio({ emailActual: auth.state.userInfo.email, nuevoEmail: nuevoEmail })}>Confirmar cambio de email</button>
                         </div>
                         <p>Tendrás que iniciar sesión con tu nuevo email una vez efectuado el cambio</p>
                     </>)
@@ -332,7 +332,7 @@ export default function EditarEmail() {
                     (<div className="formularioEnviarNuevoEmail">
                         <form id="formularioEditarEmail">
                             <div className="form-group-editarDatos">
-                                <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>Nuevo email</label>
+                                <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>NUEVO EMAIL</label>
                                 <input
                                     type="text"
                                     id="nuevoEmail"
@@ -343,9 +343,11 @@ export default function EditarEmail() {
                                 />
                             </div>
                         </form>
-                        <button className="botonEnviarNuevoEmail" onClick={enviarCambioEmail}>
-                            Aceptar
-                        </button>
+                        <div className="botonEnviarNuevoEmailContainer">
+                            <button className="botonEnviarNuevoEmail" onClick={enviarCambioEmail}>
+                                Aceptar
+                            </button>
+                        </div>
                     </div>)
                 }
             </div>

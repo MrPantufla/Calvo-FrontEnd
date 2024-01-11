@@ -25,22 +25,31 @@
 }
 
 .form-group-editarEmail input{
-    height: 2.5rem;
+    height: 3.2rem;
     width: 20rem;
     margin: 1rem 1rem;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    border: 1px solid var(--colorPrimario);
+    border-radius: 4px;
+    padding-left: 0.5rem;
 }
 
 .form-group-editarEmail label{
     font-size: 1.8rem;
 }
 
-.botonEditar{
+.botonEnviarNuevoEmail{
     border: none;
-    width: 3rem;
+    width: 12rem;
     height: 3rem;
+    color: white;
+    font-size: 1.5rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
 }
 
-.botonEditar:hover{
-    transform: scale(1.1);
+.botonEnviarNuevoEmailContainer{
+    display: flex;
+    justify-content: center;
 }
