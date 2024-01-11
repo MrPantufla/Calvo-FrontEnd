@@ -125,7 +125,7 @@ export default function FormularioDireccion() {
                                 id="localidad"
                                 value={direccion.localidad}
                                 onChange={(e) => direccion.setLocalidad(e.target.value)}
-                                className="direccionCiudadInput"
+                                className="direccionLocalidadInput"
                                 onFocus={()=>setErrorMessage('')}
                             />
                         </div>

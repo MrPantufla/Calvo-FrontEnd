@@ -11,6 +11,7 @@ export default function EditarEmail() {
     const favoritos = useFavoritos();
     const configuracion = useConfiguracion();
     const [errorMessage, setErrorMessage] = useState('');
+    const [advertenceMessage, setAdvertenceMessage] = useState('');
     const [nuevoEmail, setNuevoEmail] = useState('');
     const [codigoEmailActual, setCodigoEmailActual] = useState('');
     const [codigoNuevoEmail, setCodigoNuevoEmail] = useState('');
@@ -212,6 +213,10 @@ export default function EditarEmail() {
         setErrorMessage('');
     }
 
+    const borrarAdvertence = () =>{
+        setAdvertenceMessage('');
+    }
+
     return (
         <div className="contenedorPrincipalEditar">
             <div className="headEditar">
@@ -228,17 +233,29 @@ export default function EditarEmail() {
             </div>
             <div className={`colapsableEditarEmail ${configuracion.emailAbierto ? 'open' : ''}`}>
                 <div className="errorEditarEmail errorFormulario">
-                    {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
-                        <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                    </svg>) : (<></>)}  {errorMessage}
+                    {advertenceMessage === '' ? (
+                        errorMessage !== '' ? (
+                            <>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                                    <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                </svg>{' '}
+                                {errorMessage}
+                            </>
+                        ) : (
+                            <>{advertenceMessage}</>
+                        )
+                    ) : (
+                        advertenceMessage
+                    )}
+
                 </div>
                 {nuevoEmailEnviado ?
                     (<>
                         <div className="envioCodigosContainer">
-                            <div className="emailActualYBoton">
+                            <div className="emailYBoton">
                                 <p>{auth.state.userInfo.email}</p>
                                 {codigoEmailActualEnviado ?
-                                    (<>
+                                    (<div className="codigoYBoton">
                                         <label htmlFor="codigoEmailActual" id="codigoEmailActual" />
                                         <input
                                             type="text"
@@ -246,11 +263,11 @@ export default function EditarEmail() {
                                             value={codigoEmailActual}
                                             required
                                             onChange={(e) => setCodigoEmailActual(e.target.value)}
-                                            onFocus={borrarError}
+                                            onFocus={() => { borrarError(); borrarAdvertence(); }}
                                             placeholder="Ingresa el código"
                                             disabled={codigoEmailActualAceptado == true}
                                         />
-                                        <button onClick={() => verificarCodigo({ codigo: codigoEmailActual, email: auth.state.userInfo.email })} disabled={codigoEmailActualAceptado == true}>
+                                        <button className="botonVerificarCodigoEmail" onClick={() => verificarCodigo({ codigo: codigoEmailActual, email: auth.state.userInfo.email })} disabled={codigoEmailActualAceptado == true}>
                                             {codigoEmailActualAceptado == true ?
                                                 (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-send-check" viewBox="0 0 16 16">
                                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
@@ -273,15 +290,15 @@ export default function EditarEmail() {
                                                 )
                                             }
                                         </button>
-                                    </>)
+                                    </div>)
                                     :
-                                    (<button onClick={() => enviarCodigo({ email: auth.state.userInfo.email, tipo: 'actual' })}>Enviar código</button>)
+                                    <button className="botonEnviarCodigoEditarEmail" onClick={() => { enviarCodigo({ email: auth.state.userInfo.email, tipo: 'actual' }); setAdvertenceMessage(`Código enviado a ${auth.state.userInfo.email}`); }}>Enviar código</button>
                                 }
                             </div>
-                            <div className="nuevoEmailYBoton">
+                            <div className="emailYBoton">
                                 <p>{nuevoEmail}</p>
                                 {codigoNuevoEmailEnviado ?
-                                    (<>
+                                    (<div className="codigoYBoton">
                                         <label htmlFor="codigoNuevoEmail" id="codigoNuevoEmail" />
                                         <input
                                             type="text"
@@ -289,11 +306,11 @@ export default function EditarEmail() {
                                             value={codigoNuevoEmail}
                                             required
                                             onChange={(e) => setCodigoNuevoEmail(e.target.value)}
-                                            onFocus={borrarError}
+                                            onFocus={() => { borrarError(); borrarAdvertence(); }}
                                             placeholder="Ingresa el código"
                                             disabled={codigoNuevoEmailAceptado == true}
                                         />
-                                        <button onClick={() => verificarCodigo({ codigo: codigoNuevoEmail, email: nuevoEmail })} disabled={codigoNuevoEmailAceptado == true}>
+                                        <button className="botonVerificarCodigoEmail" onClick={() => verificarCodigo({ codigo: codigoNuevoEmail, email: nuevoEmail })} disabled={codigoNuevoEmailAceptado == true}>
                                             {codigoNuevoEmailAceptado == true ?
                                                 (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" className="bi bi-send-check" viewBox="0 0 16 16">
                                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z" />
@@ -317,21 +334,23 @@ export default function EditarEmail() {
                                                 )
                                             }
                                         </button>
-                                    </>)
+                                    </div>)
                                     :
-                                    (<button onClick={() => enviarCodigo({ email: nuevoEmail, tipo: 'nuevo' })}>Enviar código</button>)
+                                    <button className="botonEnviarCodigoEditarEmail" onClick={() => { enviarCodigo({ email: nuevoEmail, tipo: 'nuevo' }); setAdvertenceMessage(`Código enviado a ${nuevoEmail}`); }}>Enviar código</button>
                                 }
                             </div>
                         </div>
                         <div className="confirmarCambioContainer">
                             <button className="confirmarCambio" disabled={codigoNuevoEmailAceptado != true || codigoEmailActualAceptado != true} onClick={() => confirmarCambio({ emailActual: auth.state.userInfo.email, nuevoEmail: nuevoEmail })}>Confirmar cambio de email</button>
                         </div>
-                        <p>Tendrás que iniciar sesión con tu nuevo email una vez efectuado el cambio</p>
+                        <p className="advertenciaCambioEmail"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                        </svg> Tendrás que iniciar sesión con tu nuevo email una vez efectuado el cambio</p>
                     </>)
                     :
                     (<div className="formularioEnviarNuevoEmail">
-                        <form id="formularioEditarEmail">
-                            <div className="form-group-editarDatos">
+                        <form className="formularioEditarEmail" id="formularioEditarEmail">
+                            <div className="form-group-editarEmail">
                                 <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>NUEVO EMAIL</label>
                                 <input
                                     type="text"

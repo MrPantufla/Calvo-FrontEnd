@@ -1,33 +1,35 @@
 .colapsableEditarEmail{
     background-color: white;
     display: flex;
-    justify-content: center;
     align-items: center;
     width: 55rem;
     height: 0;
     flex-direction: column;
     overflow: hidden;
     transition: height 0.3s;
+    padding: 0 8rem;
 }
 
 .colapsableEditarEmail.open{
-    height: 23rem;
+    height: auto;
+    max-height: 23rem;
 }
 
-.parteFuncionalEditarEmail h2{
-    font-size: 3rem;
+.errorEditarEmail{
+    margin: 1rem 0;
+    height: 2rem;
 }
 
 .form-group-editarEmail{
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     align-items: center;
 }
 
 .form-group-editarEmail input{
     height: 3.2rem;
-    width: 20rem;
-    margin: 1rem 1rem;
+    width: 27rem;
+    margin-bottom: 1rem;
     font-size: 1.8rem;
     border: 1px solid var(--colorPrimario);
     border-radius: 4px;
@@ -38,9 +40,25 @@
     font-size: 1.8rem;
 }
 
-.botonEnviarNuevoEmail{
+.envioCodigosContainer{
+    width: 100%;
+}
+
+.emailYBoton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.emailYBoton p{
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-right: 1rem;
+}
+
+.emailYBoton button{
     border: none;
-    width: 12rem;
+    width: 17rem;
     height: 3rem;
     color: white;
     font-size: 1.5rem;
@@ -49,7 +67,73 @@
     font-weight: 600;
 }
 
+.botonEnviarNuevoEmail{
+    border: none;
+    width: 100%;
+    height: 3rem;
+    color: white;
+    font-size: 1.5rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+    margin-bottom: 3rem;
+}
+
 .botonEnviarNuevoEmailContainer{
     display: flex;
     justify-content: center;
+}
+
+.formularioEditarEmail{
+    width: 100%;
+}
+
+.formularioEnviarNuevoEmail{
+    width: 100%;
+}
+
+.confirmarCambioContainer{
+    width: 100%;
+}
+
+.confirmarCambio{
+    border: none;
+    width: 100%;
+    height: 3rem;
+    color: white;
+    font-size: 1.5rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.confirmarCambio:disabled {
+    background-color: grey;
+}
+
+.advertenciaCambioEmail{
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.botonVerificarCodigoEmail{
+    width: 6rem !important;
+}
+
+.codigoYBoton{
+    display: flex;
+    justify-content: right;
+}
+
+.codigoYBoton input{
+    margin-right: 1rem;
+    height: 3.2rem;
+    width: 10rem;
+    border: 1px solid var(--colorPrimario);
+    font-size: 1.8rem;
+    border-radius: 4px;
+    padding: 0;
+    padding-left: 0.5rem;
 }
