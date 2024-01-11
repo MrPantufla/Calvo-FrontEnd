@@ -15,17 +15,23 @@ export default function CardMisCompras(args) {
     const carrito = useCarrito();
     const navigate = useNavigate();
 
+    const cerrarCard = () =>{
+        setCardComprasAbierto(false);
+    }
+
     const toggleCardCompras = () => {
         setCardComprasAbierto(!cardComprasAbierto);
     }
 
     const total = arrayProductos.reduce((accumulator, _, index) => {
-        return accumulator + arrayCantidades[index] * arrayPrecios[index];
+        if (productos.productosIndexado[arrayProductos[index]]) {
+            return parseInt(accumulator + arrayCantidades[index] * arrayPrecios[index] * productos.productosIndexado[arrayProductos[index]].kg);
+        }
     }, 0);
 
     const totalActual = arrayProductos.reduce((accumulator, _, index) => {
         if (productos.productosIndexado[arrayProductos[index]]) {
-            return accumulator + productos.productosIndexado[arrayProductos[index]].precio * arrayCantidades[index];
+            return parseInt(accumulator + productos.productosIndexado[arrayProductos[index]].precio * productos.productosIndexado[arrayProductos[index]].kg * arrayCantidades[index]);
         }
     }, 0);
 
@@ -61,7 +67,12 @@ export default function CardMisCompras(args) {
                 <div className="cantidadYBotonesCaontainer">
                     <div className="cantidadYPoliginosContainer">
                         <div className="poligono poligonoMisCompras" />
-                        <h1>  {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0)} PRODUCTOS</h1>
+                        <h1>
+                             
+                            {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}
+                             
+                            {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0) === 1 ? 'PRODUCTO' : 'PRODUCTOS'}
+                        </h1>
                     </div>
                     <div className="botonesContainer">
                         <button className={`botonCollapseCardCompras ${cardComprasAbierto ? 'open' : ''}`} onClick={toggleCardCompras}>
