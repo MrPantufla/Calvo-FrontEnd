@@ -17,13 +17,15 @@ export default function Perfil() {
                 navigate("/home");
             }
         }, 200);
-    
+
         return () => clearTimeout(timeoutId);
     });
 
     return (
         <div className="contenedorPrincipalPerfil">
             <Header />
+            <div className="decoracionBody decoracionMisCompras"/>
+            <div className="decoracionDosBody decoracionDosMisCompras" />
             <DesplegablePerfil />
             <LoginYRegistro />
             <BodyPerfil />

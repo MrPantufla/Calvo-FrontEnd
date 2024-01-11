@@ -1,9 +1,6 @@
 import { useAuth } from '../../contextLogin.jsx';
 import './bodyPerfil.css';
-import EditarDatos from './Configuracion/Editar Datos/editarDatos.jsx';
-import EditarContraseña from './Configuracion/Editar Contraseña/editarContraseña.jsx';
-import Direcciones from './Configuracion/Direcciones/editarDireccion.jsx';
-import EditarEmail from './Configuracion/Editar email/editarEmail.jsx';
+import Configuracion from './Configuracion/configuracion.jsx';
 
 export default function BodyPerfil(){
     const auth = useAuth();
@@ -14,10 +11,7 @@ export default function BodyPerfil(){
                 <h1>{auth.state.userInfo.nombre} {auth.state.userInfo.apellido}</h1>
                 <h2>{auth.state.userInfo.email}</h2>
             </div>
-            <EditarDatos/>
-            <Direcciones/>
-            <EditarContraseña/>
-            <EditarEmail/>
+            <Configuracion/>
         </div>
     );
 }

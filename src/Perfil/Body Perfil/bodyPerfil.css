@@ -5,18 +5,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--colorPrimario);
+    background-color: var(--colorSenario);
 }
 
 .nombreYEmailContainer{
-    border: 1px solid black;
-    width: 40rem;
-    height: 13rem;
+    width: 60rem;
+    height: 8rem;
     padding: 0 6rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+    z-index: 3;
+    background-color: white;
+    border-radius: 10px;
+    color: var(--colorRojo);
+    border: 0px solid var(--colorAzulOscuro);
 }
 
 .nombreYEmailContainer h1{
@@ -34,17 +39,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid black;
-    width: 40rem;
+    width: 55rem;
+    margin: 0.5rem 0;
 }
 
 .headEditar{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 3rem;
     width: 100%;
-    height: 7rem;
+    height: 5.5rem;
+    flex-direction: column;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    background-color: var(--colorPrimario);
 }
 
 .botonCollapseEditarContainer{
@@ -62,4 +70,12 @@
 
 .textoHeadEditar{
     cursor: pointer;
+    background-color: var(--colorAzulOscuro);
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+.textoHeadEditar h1{
+    font-size: 1.8rem;
 }
