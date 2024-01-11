@@ -3,11 +3,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40rem;
+    width: 55rem;
     height: 0;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid black;
     transition: height 0.3s;
 }
 

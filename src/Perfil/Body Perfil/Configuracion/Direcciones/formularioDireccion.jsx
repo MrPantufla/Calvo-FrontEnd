@@ -70,7 +70,7 @@ export default function FormularioDireccion() {
     };
 
     return (
-        <>
+        <div className="contenedorPrincipalEditarDireccion">
             <div className="errorEditarDireccion errorFormulario">
                 {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
                     <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
@@ -80,7 +80,7 @@ export default function FormularioDireccion() {
                 <form>
                     <div className="calleYNumero">
                         <div className="form-group-direcciones">
-                            <label htmlFor="calle">Calle*</label>
+                            <label htmlFor="calle">CALLE*</label>
                             <input
                                 required
                                 type="text"
@@ -92,7 +92,7 @@ export default function FormularioDireccion() {
                             />
                         </div>
                         <div className="form-group-direcciones">
-                            <label htmlFor="numero">Número*</label>
+                            <label htmlFor="numero">NÚM*</label>
                             <input
                                 required
                                 type="text"
@@ -118,7 +118,7 @@ export default function FormularioDireccion() {
                             />
                         </div>
                         <div className="form-group-direcciones">
-                            <label htmlFor="localidad">Localidad*</label>
+                            <label htmlFor="localidad">LOCALIDAD*</label>
                             <input
                                 required
                                 type="text"
@@ -131,7 +131,7 @@ export default function FormularioDireccion() {
                         </div>
                     </div>
                     <div className="form-group-direcciones">
-                        <label htmlFor="provincia">Provincia*</label>
+                        <label htmlFor="provincia">PROVINCIA*</label>
                         <input
                             required
                             type="text"
@@ -149,6 +149,6 @@ export default function FormularioDireccion() {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     );
 }

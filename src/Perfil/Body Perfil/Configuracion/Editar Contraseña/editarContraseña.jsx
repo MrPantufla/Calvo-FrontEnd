@@ -100,7 +100,7 @@ export default function EditarContraseña() {
                 </div>
                 <form id="formularioEditarContraseña" onSubmit={handleEditarContraseña}>
                     <div className="form-group-editarContraseña">
-                        <label htmlFor="contraseñaActual" id="contraseñaActual" required onFocus={vaciarError}>Contraseña actual</label>
+                        <label htmlFor="contraseñaActual" id="contraseñaActual" required onFocus={vaciarError}>CONTRASEÑA ACTUAL</label>
                         <input
                             type="password"
                             id="contraseñaActual"
@@ -110,7 +110,7 @@ export default function EditarContraseña() {
                         />
                     </div>
                     <div className="form-group-editarContraseña">
-                        <label htmlFor="nuevaContraseña" id="contraseña" required onFocus={vaciarError}>Nueva contraseña</label>
+                        <label htmlFor="nuevaContraseña" id="contraseña" required onFocus={vaciarError}>NUEVA CONTRASEÑA</label>
                         <input
                             type="password"
                             id="nuevaContraseña"
@@ -120,7 +120,7 @@ export default function EditarContraseña() {
                         />
                     </div>
                     <div className="form-group-editarContraseña">
-                        <label htmlFor="repetirContraseña" id="repetirContraseña" required onFocus={vaciarError}>Repetir contraseña</label>
+                        <label htmlFor="repetirContraseña" id="repetirContraseña" required onFocus={vaciarError}>REPETIR CONTRASEÑA</label>
                         <input
                             type="password"
                             id="repetirContraseña"

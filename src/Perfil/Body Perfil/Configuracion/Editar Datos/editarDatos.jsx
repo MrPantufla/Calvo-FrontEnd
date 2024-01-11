@@ -114,7 +114,7 @@ export default function EditarDatos() {
                 </div>
                 <form id="formularioEditarDatos">
                     <div className="form-group-editarDatos">
-                        <label htmlFor="editarNombre" id="editarNombre" required>Nombre/s*</label>
+                        <label htmlFor="editarNombre" id="editarNombre" required>NOMBRE/S*</label>
                         <input
                             type="text"
                             id="editarNombre"
@@ -124,7 +124,7 @@ export default function EditarDatos() {
                         />
                     </div>
                     <div className="form-group-editarDatos">
-                        <label htmlFor="editarApellido" id="editarApellido" required>Apellido*</label>
+                        <label htmlFor="editarApellido" id="editarApellido" required>APELLIDO*</label>
                         <input
                             type="text"
                             id="editarApellido"
@@ -134,7 +134,7 @@ export default function EditarDatos() {
                         />
                     </div>
                     <div className="form-group-editarDatos">
-                        <label htmlFor="editarTelefono" id="editarTelefono" required>Teléfono*</label>
+                        <label htmlFor="editarTelefono" id="editarTelefono" required>TELÉFONO*</label>
                         <input
                             type="tel"
                             id="editarTelefono"

@@ -3,20 +3,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40rem;
+    width: 55rem;
     height: 0;
     flex-direction: column;
-    border: 1px solid black;
     overflow: hidden;
     transition: height 0.3s;
 }
 
 .colapsableEditarDatos.open{
-    height: 26rem;
-}
-
-.parteFuncionalEditarDatos h2{
-    font-size: 3rem;
+    height: 28rem;
 }
 
 .form-group-editarDatos{
@@ -26,26 +21,32 @@
 }
 
 .form-group-editarDatos input{
-    height: 2.5rem;
-    width: 20rem;
+    height: 3.2rem;
+    width: 28rem;
     margin: 1rem 1rem;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    border: 1px solid var(--colorPrimario);
+    border-radius: 4px;
+    padding-left: 0.5rem;
 }
 
 .form-group-editarDatos label{
     font-size: 1.8rem;
+    font-weight: 500;
 }
 
-.botonEditar{
+.botonEditarDatosContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.botonEnviarEdit{
     border: none;
-    width: 3rem;
+    width: 12rem;
     height: 3rem;
-}
-
-.botonEditar:hover{
-    transform: scale(1.1);
-}
-
-.errorEditarDatos{
-    margin-bottom: 0.5rem;
+    color: white;
+    font-size: 1.5rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
 }
