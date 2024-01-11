@@ -133,8 +133,12 @@
     border: none;
     width: 3.5rem;
     height: 3.5rem;
-    transition: background-color 0.1s, color 0.1s;
+    transition: background-color 0.2s, color 0.2s;
     margin-bottom: 0.2rem;
+}
+
+.botonCarrito .bi-cart2{
+    transition: fill 0.3s;
 }
 
 .cantidadEnCarrito{
@@ -156,4 +160,12 @@
 
 .botonCarrito:hover .bi-cart2{
     fill: var(--colorSecundario);
+}
+
+.botonCarrito.open .bi-cart2{
+    fill: var(--colorSecundario);
+}
+
+.botonCarrito.open{
+    background-color: white;
 }
