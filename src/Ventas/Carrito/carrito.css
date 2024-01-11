@@ -1,7 +1,7 @@
 .contenedorPrincipalCarrito{
     position: fixed;
     z-index: 101; 
-    max-height: 50rem;
+    max-height: 70rem;
     font-size: 1.5rem;
     right: 4rem;
     display: flex;
@@ -22,6 +22,10 @@
 .contenedorPrincipalCarrito .btn-primary:hover{
     background-color: var(--colorTerciario);
     color: var(--colorRojo);
+}
+
+.tituloCarritoRapido{
+    height: 3rem;
 }
 
 .form-group-agregadoRapido{
@@ -92,11 +96,11 @@
 }
 
 .codigoAgregadorRapido{
-    width: 35%;
+    width: 30%;
 }
 
 .colorAgregadoRapido{
-    width: 40%;
+    width: 45%;
     position: relative;
 }
 
@@ -167,5 +171,9 @@
 }
 
 .botonCarrito.open{
+    background-color: white;
+}
+
+.periferiaCarrito{
     background-color: white;
 }

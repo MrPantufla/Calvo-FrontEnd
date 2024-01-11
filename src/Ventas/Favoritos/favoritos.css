@@ -29,6 +29,14 @@
     margin-bottom: 0.2rem;
 }
 
+.botonFavoritos.open{
+    background-color: white;
+}
+
+.botonFavoritos.open .bi-heart{
+    fill: var(--colorRojo);
+}
+
 .cantidadFavoritos{
     width: 1.5rem;
     height: 1.5rem;

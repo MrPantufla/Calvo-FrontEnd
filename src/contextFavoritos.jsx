@@ -11,6 +11,7 @@ function FavoritosProvider({ children }) {
   const [favoritos, setFavoritos] = useState([]);
   const auth = useAuth();
   const [actualizarFavoritosPending, setActualizarFavoritosPending] = useState(false);
+  const [favoritosAbierto, setFavoritosAbierto] = useState(false);
 
   useEffect(() => {
     if (actualizarFavoritosPending) {
@@ -77,7 +78,7 @@ function FavoritosProvider({ children }) {
     }
 
     return (
-      <FavoritosContext.Provider value={{ actualizarFavoritos, favoritos, setFavoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
+      <FavoritosContext.Provider value={{favoritosAbierto, setFavoritosAbierto, actualizarFavoritos, favoritos, setFavoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
         {children}
       </FavoritosContext.Provider>
     );

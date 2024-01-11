@@ -3,6 +3,7 @@ import './carrito.css';
 import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useProductos } from '../../contextProductos.jsx';
+import { useFavoritos } from '../../contextFavoritos.jsx';
 
 export default function Carrito() {
   const { elementos, añadirElemento, setConfirmarCompraAbierto } = useCarrito();
@@ -21,6 +22,8 @@ export default function Carrito() {
   const colorInputRef = useRef(null);
   const cantidadInputRef = useRef(null);
   const [sugerenciaColor, setSugerenciaColor] = useState('');
+  const favoritos = useFavoritos();
+  const [inputFocused, setInputFocused] = useState('');
 
   const [carritoTop, setCarritoTop] = useState(3.2);
 
@@ -97,7 +100,7 @@ export default function Carrito() {
             } else {
               setColorValido(false);
               setColorAgregadoRapido('');
-              setErrorMessage("No existe el color ingresado para el producto indicado");
+              setErrorMessage("Color inválido para este producto");
             }
           }
         } else {
@@ -155,12 +158,17 @@ export default function Carrito() {
     setSugerenciaColor(obtenerSugerenciaColor().toUpperCase());
   }, [colorAgregadoRapido]);
 
+  const leaveFocus = () =>{
+    setInputFocused('');
+    setErrorMessage('');
+  }
+
   return (
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
       <div className="contenedorBotonCarrito">
         <button type="button"
           className={`botonCarrito ${carrito.carritoAbierto ? 'open' : ''}`}
-          onClick={carrito.toggleCarrito}
+          onClick={() => { carrito.toggleCarrito(); favoritos.setFavoritosAbierto(false); }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
@@ -172,76 +180,82 @@ export default function Carrito() {
       </div>
 
       <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`}>
-        <div className="errorCarritoContainer">
-          {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
-            <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-          </svg>) : (<></>)}  {errorMessage}
-        </div>
-        <div className="elementosVisiblesCarrito">
-          <form className="agregadoRapido">
-            <input
-              ref={codigoInputRef}
-              className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
-              type="text"
-              placeholder={'CÓDIGO'}
-              value={codigoAgregadoRapido}
-              onChange={(e) => {
-                setCodigoAgregadoRapido(e.target.value.toUpperCase());
-                setCodigoValido();
-                setErrorMessage('');
-              }}
-              onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
-            />
-            <div className="colorAgregadoRapido">
+        <div className="periferiaCarrito">
+          <div className="tituloCarritoRapido">
+            <p>CARRITO RÁPIDO</p>
+          </div>
+          <div className="elementosVisiblesCarrito">
+            <form className="agregadoRapido">
               <input
-                ref={colorInputRef}
-                className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
+                ref={codigoInputRef}
+                className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
                 type="text"
-                placeholder={'COLOR'}
-                value={colorAgregadoRapido}
+                placeholder={`${errorMessage!='' && inputFocused=='codigo' ? errorMessage : 'CÓDIGO'}`}
+                value={codigoAgregadoRapido}
                 onChange={(e) => {
-                  setColorAgregadoRapido(e.target.value.toUpperCase());
-                  setColorValido();
+                  setCodigoAgregadoRapido(e.target.value.toUpperCase());
+                  setCodigoValido();
                   setErrorMessage('');
                 }}
-                onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
+                onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
+                onFocus={() => setInputFocused('codigo')}
+                onBlur={leaveFocus}
               />
-              {sugerenciaColor && (
-                <div className="sugerenciaColor sugerencia">
-                  <p className="textoSugerencia"> {sugerenciaColor}</p>
-                </div>
-              )}
-            </div>
-            <input
-              ref={cantidadInputRef}
-              className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
-              placeholder={'CANT'}
-              value={cantidadAgregadoRapido}
-              onChange={(e) => {
-                setCantidadAgregadoRapido(e.target.value.toUpperCase());
-                setErrorMessage('');
-                setCantidadValida();
-              }}
-              onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
-            />
-          </form>
-          {elementos.length === 0 ? (
-            <p className="textoCarritoVacio">El carrito está vacío</p>
-          ) : (
-            elementos.map((elemento, index) => (
-              <CardCarrito
-                key={index}
-                id={elemento.id}
-                cantidad={elemento.cantidad}
+              <div className="colorAgregadoRapido">
+                <input
+                  ref={colorInputRef}
+                  className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
+                  type="text"
+                  placeholder={`${errorMessage!='' && inputFocused=='color' ? errorMessage : 'COLOR'}`}
+                  value={colorAgregadoRapido}
+                  onChange={(e) => {
+                    setColorAgregadoRapido(e.target.value.toUpperCase());
+                    setColorValido();
+                    setErrorMessage('');
+                  }}
+                  onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
+                  onFocus={() => setInputFocused('color')}
+                  onBlur={leaveFocus}
+                />
+                {sugerenciaColor && (
+                  <div className="sugerenciaColor sugerencia">
+                    <p className="textoSugerencia"> {sugerenciaColor}</p>
+                  </div>
+                )}
+              </div>
+              <input
+                ref={cantidadInputRef}
+                className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
+                placeholder={`${errorMessage!='' && inputFocused=='cantidad' ? errorMessage : 'CANT'}`}
+                value={cantidadAgregadoRapido}
+                onChange={(e) => {
+                  setCantidadAgregadoRapido(e.target.value.toUpperCase());
+                  setErrorMessage('');
+                  setCantidadValida();
+                }}
+                onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
+                onFocus={() => setInputFocused('cantidad')}
+                onBlur={leaveFocus}
               />
-            ))
-          )}
-          <button
-            className="confirmarCarrito"
-            disabled={!elementos.length > 0}
-            onClick={() => { setConfirmarCompraAbierto(true) }}>
-            Confirmar compra (${calcularTotal(elementos)})
-          </button>
+            </form>
+            {elementos.length === 0 ? (
+              <p className="textoCarritoVacio">El carrito está vacío</p>
+            ) : (
+              elementos.map((elemento, index) => (
+                <CardCarrito
+                  key={index}
+                  id={elemento.id}
+                  cantidad={elemento.cantidad}
+                />
+              ))
+            )}
+            <button
+              className="confirmarCarrito"
+              disabled={!elementos.length > 0}
+              onClick={() => { setConfirmarCompraAbierto(true) }}>
+              Confirmar compra (${calcularTotal(elementos)})
+            </button>
+          </div>
         </div>
       </div>
     </div>
