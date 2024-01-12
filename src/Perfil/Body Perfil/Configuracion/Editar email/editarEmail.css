@@ -67,6 +67,10 @@
     font-weight: 600;
 }
 
+.emailYBoton button:active{
+    transform: scale(0.95);
+}
+
 .botonEnviarNuevoEmail{
     border: none;
     width: 100%;
@@ -118,10 +122,6 @@
     text-align: center;
 }
 
-.botonVerificarCodigoEmail{
-    width: 6rem !important;
-}
-
 .codigoYBoton{
     display: flex;
     justify-content: right;
@@ -136,4 +136,17 @@
     border-radius: 4px;
     padding: 0;
     padding-left: 0.5rem;
+}
+
+.inputCodigoEmail{
+    text-align: center;
+}
+
+.botonVerificarCodigoEmail{
+    width: 6rem !important;
+}
+
+.emailAceptado{
+    background-color: #6EB660 !important;
+    cursor: default !important;
 }
