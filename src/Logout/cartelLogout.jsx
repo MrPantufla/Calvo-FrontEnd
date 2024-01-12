@@ -15,7 +15,7 @@ export default function CartelLogout() {
     return (
         <div className="contenedorPrincipalCartelLogout" onClick={handleCloseLogout} style={{ display: auth.mostrarCartelLogout ? 'flex' : 'none' }}>
             <div className="contenedorCartelLogout" onClick={noCerrar}>
-                <h2>Sesión cerrada</h2>
+                <h2>SESIÓN CERRADA</h2>
                 <button onClick={handleCloseLogout}>Aceptar</button>
             </div>
         </div>
