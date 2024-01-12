@@ -9,7 +9,6 @@ export default function BodyPerfil(){
         <div className="contenedorPrincipalBodyPerfil">
             <div className="nombreYEmailContainer">
                 <h1>{auth.state.userInfo.nombre} {auth.state.userInfo.apellido}</h1>
-                <h2>{auth.state.userInfo.email}</h2>
             </div>
             <Configuracion/>
         </div>
