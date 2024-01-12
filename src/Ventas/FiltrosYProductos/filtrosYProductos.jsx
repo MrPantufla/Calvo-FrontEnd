@@ -90,7 +90,7 @@ export default function FiltrosYProductos() {
             placeholder="Buscar por código o nombre"
             value={busqueda}
             onChange={(e) => {
-              setBusqueda(e.target.value);
+              setBusqueda(e.target.value.toUpperCase());
               setPaginaActual(1);
             }}
           >

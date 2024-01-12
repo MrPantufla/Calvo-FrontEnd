@@ -180,11 +180,13 @@
 }
 
 .busquedaEIcono input {
-    font-size: 1.8rem;
+    font-size: 2rem;
     width: 90%;
     border: none;
     height: 100%;
     padding-left: 0.5rem;
+    font-weight: 550;
+    color: var(--colorSecundario);
 }
 
 .busquedaEIcono input:focus {
