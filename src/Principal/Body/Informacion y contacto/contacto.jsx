@@ -37,10 +37,10 @@ export default function Contacto() {
         else if (!/^\d+$/.test(telefono)) {
             setErrorMessage("El campo 'teléfono' solo acepta números")
         }
-        else if(!/^[A-Za-z\s]+$/.test(nombreYApellido)){
+        else if (!/^[A-Za-z\s]+$/.test(nombreYApellido)) {
             setErrorMessage("Nombre y Apellido solo puede contener letras")
         }
-        else if(!/^[A-Za-z\s]+$/.test(localidad)){
+        else if (!/^[A-Za-z\s]+$/.test(localidad)) {
             setErrorMessage("Localidad solo puede contene letras")
         }
         else {
@@ -108,7 +108,6 @@ export default function Contacto() {
                         type="text"
                         name="nombreYApellido"
                         id="nombreYApellido"
-                        placeholder="Nombre y Apellido"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setNombreYApellido(e.target.value)}
                         disabled={formularioEnviado}
@@ -122,7 +121,6 @@ export default function Contacto() {
                         type="email"
                         name="emailFormulario"
                         id="emailFormulario"
-                        placeholder="Email"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={formularioEnviado}
@@ -136,7 +134,6 @@ export default function Contacto() {
                         type="tel"
                         name="telefono"
                         id="telefono"
-                        placeholder="Teléfono"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setTelefono(e.target.value)}
                         disabled={formularioEnviado}
@@ -149,7 +146,6 @@ export default function Contacto() {
                     <input
                         name="localidad"
                         id="localidad"
-                        placeholder="Localidad"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setLocalidad(e.target.value)}
                         disabled={formularioEnviado}
@@ -163,15 +159,14 @@ export default function Contacto() {
                         name="mensaje"
                         className="texto_mensaje"
                         id="mensaje"
-                        placeholder="Escribí tu consulta"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setMensaje(e.target.value)}
                         disabled={formularioEnviado}
                     />
                 </div>
                 <div className="comunicacion">
-                    <div className="textoComunicacion">
-                        ¿Cómo preferís que nos comuniquemos?*
+                    <div>
+                        <p className="textoComunicacion">¿Cómo preferís que nos comuniquemos?*</p>
                     </div>
                     <div className="labelCheckbox">
                         <div className="checkboxRowReverse">
@@ -192,9 +187,11 @@ export default function Contacto() {
                         </div>
                     </div>
                 </div>
-                <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario" disabled={formularioEnviado}>
-                    <p>{formularioEnviado ? ("FORMULARIO ENVIADO") : ("ENVIAR")}</p>
-                </button>
+                <div className="enviar_formularioContainer">
+                    <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario" disabled={formularioEnviado}>
+                        <p>{formularioEnviado ? ("Formulario enviado") : ("Enviar")}</p>
+                    </button>
+                </div>
             </form>
         </div>
     );
