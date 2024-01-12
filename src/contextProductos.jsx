@@ -21,11 +21,6 @@ function ProductosProvider({ children }) {
     const [coloresArray, setColoresArray] = useState([]); 
     const nuevosColores = new Set();
 
-    /*useEffect(() => {
-        obtenerProductosFiltrados();   //Comentar para version de muestra
-        //setJsonProductos(productos); //Descomentar para version de muestra
-    }, []);*/
-
     const obtenerProductosFiltrados = async (categoria) => {
         try {
             const response = await fetch(`http://localhost:8080/api/productos`);
