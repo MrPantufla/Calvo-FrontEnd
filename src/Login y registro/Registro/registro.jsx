@@ -86,7 +86,7 @@ export default function Registro() {
             </div>
             <form>
                 <div className="form-group-registro">
-                    <label htmlFor="nombre" required>Nombre/s</label>
+                    <label htmlFor="nombre" required>NOMBRE/S</label>
                     <input
                         type="text"
                         id="nombre"
@@ -96,7 +96,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="apellido" required>Apellido</label>
+                    <label htmlFor="apellido" required>APELLIDO</label>
                     <input
                         type="text"
                         id="apellido"
@@ -106,7 +106,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="emailRegistro" required>Correo Electrónico</label>
+                    <label htmlFor="emailRegistro" required>CORREO ELECTRÓNICO</label>
                     <input
                         type="emailRegistro"
                         id="emailRegistro"
@@ -116,7 +116,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="telefonoRegistro" required>Teléfono</label>
+                    <label htmlFor="telefonoRegistro" required>TELÉFONO</label>
                     <input
                         type="tel"
                         id="telefonoRegistro"
@@ -135,7 +135,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="contrasenia" required>Contraseña</label>
+                    <label htmlFor="contrasenia" required>CONTRASEÑA</label>
                     <input
                         type="password"
                         id="contrasenia"
@@ -145,7 +145,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="confirmContrasenia" required>Repetir Contraseña</label>
+                    <label htmlFor="confirmContrasenia" required>REPETIR CONTRASEÑA</label>
                     <input
                         type="password"
                         id="confirmContrasenia"

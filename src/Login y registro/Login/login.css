@@ -1,44 +1,53 @@
 .login-container{
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    height: 16.5rem;
+    height: 20rem;
     background-image: url('../../Imagenes/logoLoginYRegistro.jpeg');
     background-size: contain;
     background-repeat: no-repeat;
+    padding: 0 4rem;
+    align-items: center;
 }
 
 .inputFormularioLogin{
     display: flex;
-    justify-content: right;
     font-size: 1.5rem;
     padding-right: 2rem;
     color: var(--colorSecundario);
+    margin: 0.3rem 0;
+    flex-direction: column;
 }
 
 .inputFormularioLogin input{
-    margin-left: 1rem;
-    width: 65%;
-    border: 1px solid var(--colorTerciario);
-    border-radius: 0;
-    height: 3rem;
-    padding-left: 0.5rem;
+    display: block;
+    width: 22rem;
+    height: 2.7rem;
+    border: 2px solid var(--colorTerciario);
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
+    font-size: 1.5rem;
 }
 
-
-.formularioLogin .inputFormularioLogin{
-    margin: 1rem 0;
+.inputFormularioLogin label{
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
 }
 
 .botonEnviarLogin{
-    width: 10rem;
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    border: 1.5px solid var(--colorTerciario);
+    border: none;
+    width: 12rem;
     height: 3rem;
-    background-color: var(--colorPrimario);
-    color: var(--colorSecundario);
-    transition: color(0.3s);
+    color: white;
+    font-size: 1.4rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.botonEnviarLogin:active{
+    scale: 0.95;
 }
 
 .errorLogin{

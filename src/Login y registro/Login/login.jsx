@@ -38,7 +38,7 @@ export default function Login() {
       </div>
       <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
         <div className="form-group inputFormularioLogin">
-          <label htmlFor="email">Correo Electrónico</label>
+          <label htmlFor="email">CORREO ELECTRÓNICO</label>
           <input
             type="email"
             id="email"
@@ -50,7 +50,7 @@ export default function Login() {
           />
         </div>
         <div className="form-group inputFormularioLogin">
-          <label htmlFor="password">Contraseña</label>
+          <label htmlFor="password">CONTRASEÑA</label>
           <input
             type="password"
             id="password"
