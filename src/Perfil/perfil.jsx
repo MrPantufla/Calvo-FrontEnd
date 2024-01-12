@@ -1,3 +1,4 @@
+import './perfil.css';
 import Header from '../Principal/Header/header';
 import BodyPerfil from './Body Perfil/bodyPerfil';
 import Footer from '../Principal/Footer/footer.jsx';
@@ -24,8 +25,8 @@ export default function Perfil() {
     return (
         <div className="contenedorPrincipalPerfil">
             <Header />
-            <div className="decoracionBody decoracionMisCompras"/>
-            <div className="decoracionDosBody decoracionDosMisCompras" />
+            <div className="decoracionBody decoracionPerfil"/>
+            <div className="decoracionDosBody decoracionDosPerfil" />
             <DesplegablePerfil />
             <LoginYRegistro />
             <BodyPerfil />
