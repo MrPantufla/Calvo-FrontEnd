@@ -168,6 +168,7 @@ export default function FiltrosYProductos() {
                 color={producto.color}
                 kg={producto.kg}
                 key={producto.id}
+                cod_int={producto.cod_int}
                 onClick={() => {
                   handleClickProducto(producto);
                 }}
