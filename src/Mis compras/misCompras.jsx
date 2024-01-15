@@ -63,7 +63,6 @@ export default function MisCompras() {
                 <Header />
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
-                <LoginYRegistro />
                 <div className="misComprasContainer row">
                     {historial.map((item, index) => (
                         <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{ height: "auto" }}>

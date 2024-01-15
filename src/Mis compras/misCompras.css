@@ -2,6 +2,7 @@
     min-height: calc(100vh - 3rem);
     background-color: var(--colorSenario);
     display: flex;
+    overflow: hidden;
 }
 
 .decoracionMisCompras{
@@ -16,13 +17,15 @@
     padding-top: 12rem;
     z-index: 10;
     position: relative;
+    display: flex;
+    justify-content: space-between;
 }
 
 .columnaMisCompras{
     display: flex;
     justify-content: center;
     margin-bottom: 1.5rem;
-    width: 50vw;
+    width: 49vw;
 }
 
 .par{

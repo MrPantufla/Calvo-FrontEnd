@@ -76,7 +76,7 @@
 }
 
 .botonRepetirCompra {
-    background-color: var(--colorAzulOscuro);
+    background-color: var(--colorRojo);
     color: white;
 }
 
@@ -101,7 +101,7 @@
     max-height: 100rem;
     border-width: 1px;
     border-style: solid;
-    border-color: transparent var(--colorSecundario) var(--colorSecundario) var(--colorSecundario);
+    border-color: transparent var(--colorSecundario) var(--colorRojo) var(--colorSecundario);
 }
 
 .bodyCardMisCompras::-webkit-scrollbar {
@@ -127,8 +127,7 @@
     background-color: var(--colorSecundario);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 5.5rem;
+    height: 5rem;
     padding-top: 0.5rem;
 }
 
@@ -136,4 +135,8 @@
     text-align: center;
     color: white;
     font-size: 1.7rem;
+}
+
+.precioActual{
+    background-color: var(--colorRojo);
 }
