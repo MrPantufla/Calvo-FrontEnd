@@ -124,17 +124,21 @@
 }
 
 .totalContainer {
-    background-color: var(--colorSecundario);
     display: flex;
     flex-direction: column;
     height: 5rem;
-    padding-top: 0.5rem;
+    padding-top: 1rem;
 }
 
 .totalContainer h2 {
     text-align: center;
     color: white;
     font-size: 1.7rem;
+}
+
+.precioViejo{
+    background-color: var(--colorSecundario);
+    margin: 0;
 }
 
 .precioActual{

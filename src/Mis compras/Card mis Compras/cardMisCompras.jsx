@@ -87,7 +87,7 @@ export default function CardMisCompras(args) {
                     ))}
                 </div>
                 <div className="totalContainer">
-                    <h2>TOTAL DE LA COMPRA: ${total}</h2>
+                    <h2 className="precioViejo">TOTAL DE LA COMPRA: ${total}</h2>
                     <h2 className="precioActual">PRECIO ACTUAL: <span className="totalCompra">${totalActual}</span></h2>
                 </div>
             </div>
