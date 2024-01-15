@@ -6,12 +6,14 @@ export default function Contacto() {
     const [email, setEmail] = useState('');
     const [telefono, setTelefono] = useState('');
     const [localidad, setLocalidad] = useState('');
+    const [provincia, setProvincia] = useState('');
     const [mensaje, setMensaje] = useState('');
     const [opcion, setOpcion] = useState('');
     const [emailChecked, setEmailChecked] = useState(false);
     const [telefonoChecked, setTelefonoChecked] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [formularioEnviado, setFormularioEnviado] = useState(false);
+    
 
     function alternarOpcion(opcionCheck) {
         if (opcionCheck === 1) {
@@ -89,7 +91,8 @@ export default function Contacto() {
         telefono: telefono,
         localidad: localidad,
         mensaje: mensaje,
-        opcion: opcion
+        opcion: opcion,
+        provincia: provincia
     };
 
     return (
@@ -140,7 +143,7 @@ export default function Contacto() {
                     />
                 </div>
                 <div className="inputContainer">
-                    <label htmlFor="telefono" className="colocar_telefono">
+                    <label htmlFor="localidad" className="colocar_localidad">
                         LOCALIDAD*
                     </label>
                     <input
@@ -148,6 +151,18 @@ export default function Contacto() {
                         id="localidad"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setLocalidad(e.target.value)}
+                        disabled={formularioEnviado}
+                    />
+                </div>
+                <div className="inputContainer">
+                    <label htmlFor="telefono" className="colocar_telefono">
+                        PROVINCIA*
+                    </label>
+                    <input
+                        name="provincia"
+                        id="provincia"
+                        onFocus={() => setErrorMessage('')}
+                        onChange={(e) => setProvincia(e.target.value)}
                         disabled={formularioEnviado}
                     />
                 </div>
