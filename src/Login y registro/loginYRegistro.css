@@ -1,5 +1,6 @@
 .contenedorPrincipalLoginYRegistro {
   position: fixed;
+  top: 0;
   z-index: 101;
   background-color: var(--colorPrimario);
   width: 100%;
@@ -10,7 +11,6 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 50%);
-  padding-top: 7rem;
 }
 
 .contenedorLoginYRegistro {

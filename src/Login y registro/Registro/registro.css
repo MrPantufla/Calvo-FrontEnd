@@ -1,5 +1,5 @@
 .registro-container{
-    height: 44rem;
+    height: 48rem;
     padding-top: 1rem;
     background-image: url('../../Imagenes/logoLoginYRegistro.jpeg');
     background-size: contain;
@@ -37,6 +37,7 @@
     padding-right: 2rem;
     color: var(--colorSecundario);
     flex-direction: column;
+    margin: 0.5rem 0;
 }
 
 .botonRegistroContainer{

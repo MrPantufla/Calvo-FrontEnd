@@ -234,7 +234,7 @@ export default function EditarEmail() {
                 </div>
             </div>
             <div className={`colapsableEditarEmail ${configuracion.emailAbierto ? 'open' : ''}`}>
-                <div className="errorEditarEmail errorFormulario">
+                <div className="errorEditarEmail errorFormulario formularioPerfil">
                     {advertenceMessage === '' ? (
                         errorMessage !== '' ? (
                             <>
@@ -257,7 +257,7 @@ export default function EditarEmail() {
                             <div className="emailYBoton">
                                 <p>{auth.state.userInfo.email}</p>
                                 {codigoEmailActualEnviado ?
-                                    (<div className="codigoYBoton">
+                                    (<div className="codigoYBoton form-group-editarPerfil">
                                         <label htmlFor="codigoEmailActual" id="codigoEmailActual" />
                                         <input
                                             type="text"
@@ -292,7 +292,7 @@ export default function EditarEmail() {
                             <div className="emailYBoton">
                                 <p>{nuevoEmail}</p>
                                 {codigoNuevoEmailEnviado ?
-                                    (<div className="codigoYBoton">
+                                    (<div className="codigoYBoton form-group-editarPerfil">
                                         <label htmlFor="codigoNuevoEmail" id="codigoNuevoEmail" />
                                         <input
                                             type="text"
@@ -336,7 +336,7 @@ export default function EditarEmail() {
                     :
                     (<div className="formularioEnviarNuevoEmail">
                         <form className="formularioEditarEmail" id="formularioEditarEmail">
-                            <div className="form-group-editarEmail">
+                            <div className="form-group-editarEmail form-group-editarPerfil">
                                 <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>NUEVO EMAIL</label>
                                 <input
                                     type="text"

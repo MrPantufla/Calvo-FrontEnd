@@ -7,42 +7,20 @@
     flex-direction: column;
     overflow: hidden;
     transition: height 0.3s;
-    padding: 0 8rem;
 }
 
 .colapsableEditarDatos.open{
-    height: 31rem;
+    height: 34rem;
 }
 
 .errorEditarDatos{
     margin: 1rem 0;
 }
 
-.form-group-editarDatos{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.form-group-editarDatos input{
-    height: 3.2rem;
-    width: 28rem;
-    margin: 0 0 2rem 1rem;
-    font-size: 1.8rem;
-    border: 1px solid var(--colorPrimario);
-    border-radius: 4px;
-    padding: 0;
-    padding-left: 0.5rem;
-}
-
-.form-group-editarDatos label{
-    font-size: 1.8rem;
-    font-weight: 500;
-}
-
 .botonEditarDatosContainer{
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .botonEnviarEdit{
@@ -54,4 +32,12 @@
     background-color: var(--colorRojo);
     border-radius: 4px;
     font-weight: 600;
+}
+
+.formularioEditarDatos{
+    width: 100%;
+}
+
+.formEditarDatos{
+    padding: 0.5rem 0;
 }

@@ -8,11 +8,18 @@
     overflow: hidden;
     transition: height 0.3s;
     position: relative;
-    padding: 0 8rem;
+}
+
+.formEditarContraseña{
+    margin: 1rem 0;
+}
+
+.formEditarContraseña input{
+    width: 100%;
 }
 
 .colapsableEditarContraseña.open{
-    height: 25rem;
+    height: 28rem;
 }
 
 .errorEditarContraseña{
@@ -21,26 +28,6 @@
 
 .formularioEditarContraseña{
     width: 100%;
-}
-
-.form-group-editarContraseña{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-}
-
-.form-group-editarContraseña input{
-    height: 3.2rem;
-    width: 21rem;
-    font-size: 1.8rem;
-    border: 1px solid var(--colorPrimario);
-    border-radius: 4px;
-    padding-left: 0.5rem;
-}
-
-.form-group-editarContraseña label{
-    font-size: 1.8rem;
-    font-weight: 500;
 }
 
 .botonEnviarEditarContraseña{
@@ -52,6 +39,7 @@
     background-color: var(--colorRojo);
     border-radius: 4px;
     font-weight: 600;
+    margin-top: 0.5rem;
 }
 
 .botonNuevaContraseñaContainer{

@@ -7,7 +7,6 @@
     flex-direction: column;
     overflow: hidden;
     transition: height 0.3s;
-    padding: 0 8rem;
 }
 
 .colapsableEditarEmail.open{
@@ -23,21 +22,20 @@
 .form-group-editarEmail{
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .form-group-editarEmail input{
     height: 3.2rem;
     width: 27rem;
     margin-bottom: 1rem;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     border: 1px solid var(--colorPrimario);
     border-radius: 4px;
     padding-left: 0.5rem;
 }
 
 .form-group-editarEmail label{
-    font-size: 1.8rem;
+    font-size: 1.4rem;
 }
 
 .envioCodigosContainer{

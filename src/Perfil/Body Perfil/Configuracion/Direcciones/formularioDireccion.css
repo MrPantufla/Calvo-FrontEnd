@@ -1,51 +1,40 @@
-.form-group-direcciones{
+.contenedorPrincipalEditarDireccion{
     width: 100%;
-    display: flex;
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    justify-content: space-between;
 }
 
-.form-group-direcciones input{
-    height: 3.2rem;
-    margin-left: 1rem;
-    font-size: 1.8rem;
-    border: 1px solid var(--colorPrimario);
-    border-radius: 4px;
-    padding-left: 0.5rem;
-}
-
-.form-group-direcciones label{
-    font-size: 1.8rem;
-    font-weight: 500;
+.seccionesDireccion{
+    width: 100%;
+    margin: 1rem 0;
 }
 
 .direccionCalleInput{
-    width: 20rem;
+    width: 75%;
     margin-right: 1.5rem;
 }
 
 .direccionNumeroInput{
-    width: 6rem;
+    width: 20%;
 }
 
 .calleYNumero{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .direccionCpInput{
-    width: 6rem;
+    width: 20%;
     margin-right: 1rem;
 }
 
 .direccionLocalidadInput{
-    width: 18rem;
+    width: 75%;
 }
 
 .cpYLocalidad{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .direccionProvinciaInput{
@@ -54,4 +43,8 @@
 
 .errorEditarDireccion{
     margin: 1rem 0;
+}
+
+.botonEnviarDireccionContainer{
+    margin-top: 1.5rem;
 }

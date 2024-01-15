@@ -7,11 +7,10 @@
     flex-direction: column;
     overflow: hidden;
     transition: height 0.3s;
-    padding: 0 8rem;
 }
 
 .colapsableEditarDireccion.open{
-    height: 26rem;
+    height: 27rem;
 }
 
 .formularioAgregarDireccion{
