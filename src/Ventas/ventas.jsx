@@ -15,7 +15,6 @@ export default function Ventas() {
       <RenderHeader/>
       <DesplegablePerfil/>
       <Catalogos />
-      <LoginYRegistro />
       <CartelLogout />
       <Filtros />
       {carrito.confirmarCompraAbierto ? (<ConfirmarCompra/>) : (<></>)}

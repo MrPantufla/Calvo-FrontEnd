@@ -28,7 +28,6 @@ export default function Perfil() {
             <div className="decoracionBody decoracionPerfil"/>
             <div className="decoracionDosBody decoracionDosPerfil" />
             <DesplegablePerfil />
-            <LoginYRegistro />
             <BodyPerfil />
             <Footer />
         </div>
