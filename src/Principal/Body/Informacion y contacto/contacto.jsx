@@ -93,7 +93,7 @@ export default function Contacto() {
     };
 
     return (
-        <div className="contenedorPrincipalFormulario">
+        <div className="contenedorPrincipalFormulario" id="contacto">
             <form method="post" onSubmit={handleSubmit}>
                 <div className="errorFormulario errorContacto">
                     {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
