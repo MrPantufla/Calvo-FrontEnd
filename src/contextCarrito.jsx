@@ -16,6 +16,7 @@ function CarritoProvider({ children }) {
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [carritoConfirmado, setCarritoConfirmado] = useState(false);
   const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
+  const [mostrarCartelError, setMostrarCartelError] = useState(false);
 
   useEffect(() => {
     // Esta función se ejecutará cada vez que elementos cambie
@@ -50,26 +51,39 @@ function CarritoProvider({ children }) {
   }, [elementos]);
 
   function añadirElemento(id, cantidad) {
-    if (Object.keys(productos.productosIndexado).length !== 0) {
-      setElementos(prevElementos => {
-        if (productos.productosIndexado) {
-          const producto = productos.productosIndexado[id];
-          const cod_origProducto = producto.cod_orig;
-          const detalleProducto = producto.detalle;
-          const precioProducto = producto.precio;
-          const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
-
-          if (elementoExistente) {
-            elementoExistente.cantidad += cantidad;
-            // Si ya existe, solo actualiza la cantidad y deja que el useEffect maneje la actualización del carrito
-            return [...prevElementos];
-          } else {
-            // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
-            return [...prevElementos, { id, cod_origProducto, cantidad, detalleProducto, precioProducto }];
-          }
-        }
-      });
+    if(!auth.state.userInfo.cliente && productos.productosIndexado[id].tipo_prod=='PERFIL'){
+      mostrarCartel();
     }
+    else{
+      if (Object.keys(productos.productosIndexado).length !== 0) {
+        setElementos(prevElementos => {
+          if (productos.productosIndexado) {
+            const producto = productos.productosIndexado[id];
+            const cod_origProducto = producto.cod_orig;
+            const detalleProducto = producto.detalle;
+            const precioProducto = producto.precio;
+            const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
+  
+            if (elementoExistente) {
+              elementoExistente.cantidad += cantidad;
+              // Si ya existe, solo actualiza la cantidad y deja que el useEffect maneje la actualización del carrito
+              return [...prevElementos];
+            } else {
+              // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
+              return [...prevElementos, { id, cod_origProducto, cantidad, detalleProducto, precioProducto }];
+            }
+          }
+        });
+      }
+    }
+  }
+
+  const mostrarCartel = () => {
+    setMostrarCartelError(true);
+  }
+
+  const ocultarCartel = () => {
+    setMostrarCartelError(false);
   }
 
   function restarElemento(id) {
@@ -173,7 +187,7 @@ function CarritoProvider({ children }) {
   }, [productos.productosIndexado]);
 
   return (
-    <CarritoContext.Provider value={{ actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{mostrarCartel, ocultarCartel ,mostrarCartelError, actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );

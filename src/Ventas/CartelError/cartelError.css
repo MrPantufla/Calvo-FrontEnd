@@ -1,0 +1,60 @@
+.contenedorPrincipalCartelError{
+    background-color: rgba(0, 0, 0, 50%);
+    width: 0;
+    height: 0;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 102;
+    top: 0;
+    overflow: hidden;
+}
+
+.contenedorPrincipalCartelError.open{
+    width: 100vw;
+    height: 100vh;
+}
+
+.parteUtilizableCartelError{
+    width: 40rem;
+    height: 15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    flex-direction: column;
+    padding: 3rem 8rem;
+    border-radius: 4px;
+}
+
+.parteUtilizableCartelError h2{
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--colorSecundario);
+}
+
+.parteUtilizableCartelError button{
+    border: none;
+    width: 80%;
+    height: 3rem;
+    color: white;
+    font-size: 1.4rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.parteUtilizableCartelError a{
+    font-size: 1.2rem;
+    text-decoration: underline !important;
+    color: blue !important;
+    cursor: pointer;
+}
+
+.parteUtilizableCartelError button:active{
+    transform: scale(0.95);
+}

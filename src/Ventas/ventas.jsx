@@ -7,6 +7,7 @@ import { useCarrito } from '../contextCarrito.jsx';
 import ConfirmarCompra from './Confirmar compra/confirmarCompra.jsx';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
+import CartelError from './CartelError/cartelError.jsx';
 
 export default function Ventas() {
   const carrito = useCarrito();
@@ -18,6 +19,7 @@ export default function Ventas() {
       <CartelLogout />
       <Filtros />
       {carrito.confirmarCompraAbierto ? (<ConfirmarCompra/>) : (<></>)}
+      <CartelError/>
       <Footer />
     </>
   );
