@@ -87,6 +87,10 @@ input::placeholder, textarea::placeholder {
     font-size: 1.04rem;
 }
 
+.enviarFormulario.enviado{
+    background-color: #f39c9c;
+}
+
 .enviarFormulario p{
     padding-top: 0.5rem;
     font-size: 1.3rem;

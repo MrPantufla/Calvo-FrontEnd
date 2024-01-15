@@ -203,7 +203,7 @@ export default function Contacto() {
                     </div>
                 </div>
                 <div className="enviar_formularioContainer">
-                    <button type="submit" name="enviar_formulario" id="enviar" className="enviarFormulario" disabled={formularioEnviado}>
+                    <button type="submit" name="enviar_formulario" id="enviar" className={`enviarFormulario ${formularioEnviado ? 'enviado' : ''}`} disabled={formularioEnviado}>
                         <p>{formularioEnviado ? ("Formulario enviado") : ("Enviar")}</p>
                     </button>
                 </div>
