@@ -15,30 +15,30 @@ function ConfiguracionProvider({ children }) {
 
     const abrirEmail = () =>{
         setEmailAbierto(true);
-        cerrarDireccion();
+        /*cerrarDireccion();
         cerrarContraseña();
-        cerrarDatos();
+        cerrarDatos();*/
     }
 
     const abrirDatos = () =>{
         setDatosAbierto(true);
-        cerrarDireccion();
+        /*cerrarDireccion();
         cerrarContraseña();
-        cerrarEmail();
+        cerrarEmail();*/
     }
 
     const abrirDireccion = () =>{
         setDireccionAbierto(true);
-        cerrarDatos();
+        /*cerrarDatos();
         cerrarContraseña();
-        cerrarEmail();
+        cerrarEmail();*/
     }
 
     const abrirContraseña = () =>{
         setContraseñaAbierto(true);
-        cerrarDatos();
+        /*cerrarDatos();
         cerrarDireccion();
-        cerrarEmail();
+        cerrarEmail();*/
     }
 
     const cerrarDatos = () =>{
