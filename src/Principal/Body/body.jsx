@@ -14,7 +14,6 @@ export default function Body() {
             <div className="decoracionBody" />
             <div className="decoracionDosBody"/>
             <div className="restoBody">
-                <LoginYRegistro />
                 <CartelLogout />
                 <Carrusel />
                 <Banner texto="NUESTROS PRODUCTOS" />
