@@ -10,6 +10,7 @@ import { DireccionProvider } from './contextDireccion.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { DesplegableProviderPerfil } from './contextDesplegablePerfil.jsx';
 import { TiendaProvider } from './contextTienda.jsx';
+import LoginYRegistro from './Login y registro/loginYRegistro.jsx';
 
 function App() {
   const apiUrl = "http://localhost:8080/api";
@@ -27,11 +28,13 @@ function App() {
                   <Route path="/misCompras" element={<MisCompras />} />
                 </Routes>
               </Router>
+              <LoginYRegistro/>
             </DesplegableProviderPerfil>
           </DesplegableProviderCatalogos>
         </DireccionProvider>
       </ConfiguracionProvider>
     </TiendaProvider>
+    
   );
 }
 
