@@ -186,6 +186,7 @@ export default function FiltrosYProductos() {
           onClose={handleCloseProductoGrande}
           precio={productoSeleccionado.precio}
           color={productoSeleccionado.color}
+          kg={productoSeleccionado.kg}
         />
       )}
 

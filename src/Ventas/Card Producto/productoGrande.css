@@ -27,12 +27,13 @@
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .imagenProductoGrandeContainer{
-    width: 47rem;
-    height: 33rem;
+    width: 42rem;
+    height: 26rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,7 +60,7 @@
 .textoCantidad{
     text-align: center;
     font-size: 2.5rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .logoProductoGrandeContainer{
@@ -69,7 +70,7 @@
     position: absolute;
     top: 7.7%;
     left: 18.8%;
-    background-color: #EAEAEA;
+    background-color: var(--colorPrimario);
     align-items: start;
 }
 
@@ -84,8 +85,9 @@
 
 .cantidad{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 8rem;
+    align-items: center;
 }
 
 .cantidadProductoGrande{
@@ -93,15 +95,23 @@
     font-weight: 500;
     width: 5rem;
     text-align: center;
+    padding-top: 0rem;
+    margin: 0 1rem;
 }
 
 .botonProductoGrande{
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid var(--colorTerciario);
-    font-size: 3.5rem;
-    margin: 0 3rem;
-    margin-top: 1rem;
+    width: 4rem;
+    height: 4rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    background-color: var(--colorRojo);
+    justify-content: center;
+    border-radius: 3px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+    font-size: 4rem;
+    color: white;
 }
 
 .coloresProductoGrande{
@@ -111,4 +121,62 @@
 .coloresProductoGrande .color{
     margin: 0.2rem 0;
     cursor: pointer;
+}
+
+.kgCantidadColorContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.textoPesoPromedio{
+    padding-top: 1rem;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.kgProductoGrandeContainer{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.kgProductoGrandeContainer p{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.conjuntoCantidad{
+    width: 70%;
+}
+
+.colorProductoGrandeContainer{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.colorProductoGrandeContainer p, .muestraColorProductoGrande{
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.textoColorProductoGrande{
+    padding-top: 1rem;
+    margin: 0;
+}
+
+.muestraColorProductoGrande{
+    height: 3.5rem;
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 3px;
 }
