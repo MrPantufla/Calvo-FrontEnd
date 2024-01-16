@@ -20,7 +20,7 @@ export default function MisCompras() {
                 navigate("/home");
             }
         }, 200);
-    
+
         return () => clearTimeout(timeoutId);
     });
 
@@ -64,7 +64,7 @@ export default function MisCompras() {
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
                 <div className="misComprasContainer row">
-                    {historial.map((item, index) => (
+                    {historial.slice().reverse().map((item, index) => (
                         <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{ height: "auto" }}>
                             <CardMisCompras data={item} />
                         </div>

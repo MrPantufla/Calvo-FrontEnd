@@ -6,6 +6,7 @@ import { useCarrito } from '../../contextCarrito';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
+
 export default function CardMisCompras(args) {
     const arrayProductos = args.data.productos.split(' ').map((str) => parseInt(str, 10));
     const arrayCantidades = args.data.cantidades.split(' ').map((str) => parseInt(str, 10));
@@ -21,13 +22,7 @@ export default function CardMisCompras(args) {
 
     const total = arrayProductos.reduce((accumulator, _, index) => {
         if (productos.productosIndexado[arrayProductos[index]]) {
-            return parseInt(accumulator + arrayCantidades[index] * arrayPrecios[index] * productos.productosIndexado[arrayProductos[index]].kg);
-        }
-    }, 0);
-
-    const totalActual = arrayProductos.reduce((accumulator, _, index) => {
-        if (productos.productosIndexado[arrayProductos[index]]) {
-            return parseInt(accumulator + productos.productosIndexado[arrayProductos[index]].precio * productos.productosIndexado[arrayProductos[index]].kg * arrayCantidades[index]);
+            return parseInt(accumulator + arrayCantidades[index] * arrayPrecios[index] * (productos.productosIndexado[arrayProductos[index]].kg || 1));
         }
     }, 0);
 
@@ -51,7 +46,9 @@ export default function CardMisCompras(args) {
         carrito.setCarritoAbierto(true);
     };
 
-    const fechaFormateada = format(new Date(args.data.fecha), 'dd - MM - yyyy');
+    const fechaString = args.data.fecha; // Supongamos que fechaString es "2024-01-16"
+    const partesFecha = fechaString.split('-');
+    const fechaFormateada = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
 
     return (
         <div className="contenedorPrincipalCardMisCompras">
@@ -64,10 +61,10 @@ export default function CardMisCompras(args) {
                     <div className="cantidadYPoliginosContainer">
                         <div className="poligono poligonoMisCompras" />
                         <h1>
-                             
+
                             {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}
-                             
-                            {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0) === 1 ? 'PRODUCTO' : 'PRODUCTOS'}
+
+                            {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0) === 1 ? ' PRODUCTO' : ' PRODUCTOS'}
                         </h1>
                     </div>
                     <div className="botonesContainer">
@@ -87,8 +84,7 @@ export default function CardMisCompras(args) {
                     ))}
                 </div>
                 <div className="totalContainer">
-                    <h2 className="precioViejo">TOTAL DE LA COMPRA: ${total}</h2>
-                    <h2 className="precioActual">PRECIO ACTUAL: <span className="totalCompra">${totalActual}</span></h2>
+                    <h2 className="precioViejo">TOTAL: ${total}</h2>
                 </div>
             </div>
         </div>

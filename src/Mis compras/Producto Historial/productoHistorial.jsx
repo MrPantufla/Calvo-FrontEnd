@@ -30,7 +30,7 @@ export default function ProductoHistorial(args){
             <div className="informacionProductoHistorialContainer">
                 <p>COLOR: {color}</p>
                 <p>CANTIDAD: {args.cantidad}</p>
-                <p>PRECIO: ${parseInt(args.precio*args.cantidad*kg)} ({args.cantidad} x ${parseInt(args.precio*kg)})</p>
+                <p>PRECIO: ${parseInt(args.precio*args.cantidad*(kg || 1))} ({args.cantidad} x ${parseInt(args.precio*(kg || 1))})</p>
             </div>
         </div>
     );
