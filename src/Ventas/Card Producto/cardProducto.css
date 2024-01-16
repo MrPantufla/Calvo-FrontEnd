@@ -65,6 +65,14 @@
     color: white;
 }
 
+.conjuntoCantidadCardProducto{
+    width: 33%;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .kgCantidadYColorContainer .boton:active {
     transform: scale(0.95);
 }
@@ -110,11 +118,11 @@
 }
 
 .colorCardProducto{
-    margin-right: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 33%;
 }
 
 .muestraColor{
@@ -124,13 +132,13 @@
 }
 
 .kgProducto, .colorCardProducto{
-    width: 12rem;
     display: flex;
     justify-content: center;
 }
 
 .kgProducto{
     flex-direction: column;
+    width: 33%;
 }
 
 .kgProducto p{
