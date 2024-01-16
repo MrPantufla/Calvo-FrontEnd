@@ -77,12 +77,11 @@ export default function FormularioDireccion() {
                 </svg>) : (<></>)}  {errorMessage}
             </div>
             <div className="formularioPerfil formularioAgregarDireccion">
-                <form>
+                <form onSubmit={enviarDireccion}>
                     <div className="calleYNumero seccionesDireccion">
                         <div className="form-group-editarPerfil direccionCalleInput">
                             <label htmlFor="calle">CALLE</label>
                             <input
-                                required
                                 type="text"
                                 id="calle"
                                 value={direccion.calle}
@@ -93,7 +92,6 @@ export default function FormularioDireccion() {
                         <div className="form-group-editarPerfil direccionNumeroInput">
                             <label htmlFor="numero">NÚMERO</label>
                             <input
-                                required
                                 type="text"
                                 id="numero"
                                 value={direccion.numero}
@@ -106,7 +104,6 @@ export default function FormularioDireccion() {
                         <div className="form-group-editarPerfil direccionCpInput">
                             <label htmlFor="cp">CP</label>
                             <input
-                                required
                                 type="text"
                                 id="cp"
                                 value={direccion.cp}
@@ -117,7 +114,6 @@ export default function FormularioDireccion() {
                         <div className="form-group-editarPerfil direccionLocalidadInput">
                             <label htmlFor="localidad">LOCALIDAD</label>
                             <input
-                                required
                                 type="text"
                                 id="localidad"
                                 value={direccion.localidad}
@@ -129,7 +125,6 @@ export default function FormularioDireccion() {
                     <div className="form-group-editarPerfil seccionesDireccion direccionProvinciaInput">
                         <label htmlFor="provincia">PROVINCIA</label>
                         <input
-                            required
                             type="text"
                             id="provincia"
                             value={direccion.provincia}
@@ -138,7 +133,7 @@ export default function FormularioDireccion() {
                         />
                     </div>
                     <div className="botonEnviarDireccionContainer">
-                        <button className="botonEnviarDireccion" type="button" onClick={enviarDireccion}>
+                        <button className="botonEnviarDireccion" type="submit">
                             Confirmar
                         </button>
                     </div>

@@ -4,7 +4,6 @@ import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from '../../../../contextConfiguracion';
 
 export default function EditarContraseña() {
-    const auth = useAuth();
     const configuracion = useConfiguracion();
     const [errorMessage, setErrorMessage] = useState('');
     const [contraseñaActual, setContraseñaActual] = useState('');
@@ -77,7 +76,7 @@ export default function EditarContraseña() {
     const toggleCollapse = () => {
         configuracion.contraseñaAbierto ? (configuracion.cerrarContraseña()) : (configuracion.abrirContraseña())
     }
-
+    
     return (
         <div className="contenedorPrincipalEditar">
             <div className="headEditar">
