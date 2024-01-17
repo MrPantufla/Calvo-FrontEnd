@@ -1,7 +1,9 @@
 .contenedorPrincipalCategorias{
     display: flex;
     justify-content: center;
+    margin: 0 auto;
     margin-bottom: 42rem;
+    width: 95%;
 }
 
 .rowCategorias{
@@ -15,23 +17,20 @@
     justify-content: center;
 }
 
-@media (width: 1600px) {
-    .rowCategorias{
-        margin: 0 15%;
-    }
-}
-
 @media (max-width: 767px){
-    .rowCategorias{
-        margin: 0 8rem;
-    }
-
-    .categoria{
-        margin: 1.4rem 0px;
-    }
-
     .contenedorPrincipalCategorias{
-        height: 105rem;
+        height: 63rem;
         margin-bottom: 0;
     }
 }
+
+@media (max-width: 360px) {
+    .categoria {
+      width: 100%;
+    }
+
+    .contenedorPrincipalCategorias{
+        height: 128rem;
+        margin-bottom: 0;
+    }
+  }

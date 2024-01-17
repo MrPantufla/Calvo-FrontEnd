@@ -21,8 +21,8 @@
 }
 
 .contenedorPrincipalCardCategoria{
-    width: 24.8rem;
-    height: 13.5rem;
+    width: 34rem;
+    height: 20rem;
     margin: 2%;
     transition: transform 0.3s;
     cursor: pointer;

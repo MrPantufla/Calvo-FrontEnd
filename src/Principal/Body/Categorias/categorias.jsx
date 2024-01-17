@@ -2,14 +2,13 @@ import CardCategoria from './cardCategoria';
 import './categorias.css';
 
 export default function Categorias() {
-    const categorias = ["PERFILES", "TRATAMIENTOS", "ACCESORIOS", "PANELES", "PUERTAS", "POLICARBONATOS",
-        "POLIESTIRENOS", "CORTINAS", "AUTOMATIZACION", "MAQUINAS Y HERRAMIENTAS", "CIELORRASOS", "SOFTWARE"];
+    const categorias = ["PERFILES", "ACCESORIOS", "COMPLEMENTOS", "MÁQUINAS Y HERRAMIENTAS", "CORTINAS", "SOFTWARE"];
 
     return (
         <div className="contenedorPrincipalCategorias">
             <div className="row rowCategorias">
                 {categorias.map((categoria) => (
-                    <div className="col-6 col-md-3 categoria" key={categoria}>
+                    <div className="col-6 col-md-4 categoria" key={categoria}>
                         <CardCategoria cat={categoria}/>
                     </div>
                 ))}
