@@ -1,12 +1,12 @@
 import './productoGrande.css';
-import perfil1 from '../../Imagenes/perfil1.png';
-import perfil2 from '../../Imagenes/perfil2.png';
-import perfil3 from '../../Imagenes/perfil3.png';
-import perfil4 from '../../Imagenes/perfil4.png';
-import perfil5 from '../../Imagenes/perfil5.png';
-import ca from '../../Imagenes/ca.png';
-import { useCarrito } from '../../contextCarrito.jsx';
-import { useAuth } from '../../contextLogin.jsx';
+import perfil1 from '../../../Imagenes/perfil1.png';
+import perfil2 from '../../../Imagenes/perfil2.png';
+import perfil3 from '../../../Imagenes/perfil3.png';
+import perfil4 from '../../../Imagenes/perfil4.png';
+import perfil5 from '../../../Imagenes/perfil5.png';
+import ca from '../../../Imagenes/ca.png';
+import { useCarrito } from '../../../contextCarrito.jsx';
+import { useAuth } from '../../../contextLogin.jsx';
 
 export default function ProductoGrande(args) {
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
