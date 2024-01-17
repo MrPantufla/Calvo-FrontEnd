@@ -69,10 +69,15 @@
     .extraDecoracion{
         height: 6.9rem;
         padding-right: 3.5rem;
+
     }
 
     .containerInfoYContactoAux2{
         width: 95%;
         display: flex;
+    }
+
+    .decoracionContainer{
+        padding: 0 !important;
     }
 }

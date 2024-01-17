@@ -181,7 +181,7 @@ export default function Contacto() {
                 </div>
                 <div className="comunicacion">
                     <div>
-                        <p className="textoComunicacion">¿Cómo preferís que nos comuniquemos?*</p>
+                        <p className="textoComunicacion">¿Cómo preferís que nos comuniquemos?</p>
                     </div>
                     <div className="labelCheckbox">
                         <div className="checkboxRowReverse">

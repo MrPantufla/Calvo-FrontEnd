@@ -4,6 +4,7 @@ import './informacionYContacto.css';
 
 export default function InformacionYContacto() {
     let mobile = (window.innerWidth < 768);
+    let fold = (window.innerWidth <= 280);
     return (
         <div className="contenedorPrincipalInfoYContacto">
             <div className="containerInfoYContactoAux">
@@ -17,7 +18,7 @@ export default function InformacionYContacto() {
                         <div className="col-11 col-sm-6 divInformacion divsInfoYContacto">
                             {mobile ? <Contacto/> : <Informacion/>}
                         </div>
-                        {mobile ? <col-12><div className="decoracion extraDecoracion">Información de contacto</div></col-12> : mobile=false}
+                        {mobile ? <div className="decoracionContainer"><div className="decoracion extraDecoracion">Información de contacto</div></div> : mobile=false}
                         <div className="col-11 col-sm-6 divContacto divsInfoYContacto">
                             {mobile ? <Informacion/> : <Contacto/>}
                         </div>

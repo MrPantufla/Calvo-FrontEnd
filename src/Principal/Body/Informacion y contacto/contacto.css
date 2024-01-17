@@ -172,6 +172,7 @@ input::placeholder, textarea::placeholder {
 
     .textoComunicacion{
         margin-right: 7rem;
+        font-size: 2.5rem;
     }
 
     .enviarFormulario{
@@ -181,5 +182,13 @@ input::placeholder, textarea::placeholder {
 
     .enviarFormulario p{
         font-size: 2.4rem;
+    }
+
+    .inputContainer input{
+        height: 4rem;
+    }
+
+    .label input{
+        width: 3rem;
     }
 }
