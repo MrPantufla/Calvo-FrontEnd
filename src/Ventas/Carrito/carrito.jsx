@@ -108,7 +108,8 @@ export default function Carrito() {
           else{
             setColorValido(false);
             setColorAgregadoRapido('');
-            setErrorMessage("Ingresa un producto válido antes")
+            setErrorMessage("Ingresa un producto válido antes");
+            codigoInputRef.current.focus();
           }
         } else {
           setColorValido(false);
