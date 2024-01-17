@@ -91,17 +91,24 @@ export default function Carrito() {
       if (colorIngresado !== '') {
         const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
         if (colorExistente) {
-          const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
-          if (codigoAgregadoRapido) {
-            if (colorProductoExistente) {
-              setProductoSeleccionado(colorProductoExistente);
-              setColorValido(true);
-              nextInputRef.current.focus();
-            } else {
-              setColorValido(false);
-              setColorAgregadoRapido('');
-              setErrorMessage("Color inválido para este producto");
+          if (codigoValido) {
+            const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
+            if (codigoAgregadoRapido) {
+              if (colorProductoExistente) {
+                setProductoSeleccionado(colorProductoExistente);
+                setColorValido(true);
+                nextInputRef.current.focus();
+              } else {
+                setColorValido(false);
+                setColorAgregadoRapido('');
+                setErrorMessage("Color inválido para este producto");
+              }
             }
+          }
+          else{
+            setColorValido(false);
+            setColorAgregadoRapido('');
+            setErrorMessage("Ingresa un producto válido antes")
           }
         } else {
           setColorValido(false);
@@ -158,7 +165,7 @@ export default function Carrito() {
     setSugerenciaColor(obtenerSugerenciaColor().toUpperCase());
   }, [colorAgregadoRapido]);
 
-  const leaveFocus = () =>{
+  const leaveFocus = () => {
     setInputFocused('');
     setErrorMessage('');
   }
@@ -190,7 +197,7 @@ export default function Carrito() {
                 ref={codigoInputRef}
                 className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
                 type="text"
-                placeholder={`${errorMessage!='' && inputFocused=='codigo' ? errorMessage : 'CÓDIGO'}`}
+                placeholder={`${errorMessage != '' && inputFocused == 'codigo' ? errorMessage : 'CÓDIGO'}`}
                 value={codigoAgregadoRapido}
                 onChange={(e) => {
                   setCodigoAgregadoRapido(e.target.value.toUpperCase());
@@ -206,7 +213,7 @@ export default function Carrito() {
                   ref={colorInputRef}
                   className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
                   type="text"
-                  placeholder={`${errorMessage!='' && inputFocused=='color' ? errorMessage : 'COLOR'}`}
+                  placeholder={`${errorMessage != '' && inputFocused == 'color' ? errorMessage : 'COLOR'}`}
                   value={colorAgregadoRapido}
                   onChange={(e) => {
                     setColorAgregadoRapido(e.target.value.toUpperCase());
@@ -226,7 +233,7 @@ export default function Carrito() {
               <input
                 ref={cantidadInputRef}
                 className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
-                placeholder={`${errorMessage!='' && inputFocused=='cantidad' ? errorMessage : 'CANT'}`}
+                placeholder={`${errorMessage != '' && inputFocused == 'cantidad' ? errorMessage : 'CANT'}`}
                 value={cantidadAgregadoRapido}
                 onChange={(e) => {
                   setCantidadAgregadoRapido(e.target.value.toUpperCase());
