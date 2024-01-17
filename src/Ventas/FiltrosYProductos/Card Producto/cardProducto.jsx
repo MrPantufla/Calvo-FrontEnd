@@ -1,14 +1,14 @@
 import './cardProducto.css';
-import perfil1 from '../../Imagenes/perfil1.png';
-import perfil2 from '../../Imagenes/perfil2.png';
-import perfil3 from '../../Imagenes/perfil3.png';
-import perfil4 from '../../Imagenes/perfil4.png';
-import perfil5 from '../../Imagenes/perfil5.png';
-import logoBlanco from '../../Imagenes/ca.png'
+import perfil1 from '../../../Imagenes/perfil1.png';
+import perfil2 from '../../../Imagenes/perfil2.png';
+import perfil3 from '../../../Imagenes/perfil3.png';
+import perfil4 from '../../../Imagenes/perfil4.png';
+import perfil5 from '../../../Imagenes/perfil5.png';
+import logoBlanco from '../../../Imagenes/ca.png'
 import React from 'react';
-import { useCarrito } from '../../contextCarrito.jsx';
-import { useAuth } from '../../contextLogin.jsx';
-import { useFavoritos } from '../../contextFavoritos.jsx';
+import { useCarrito } from '../../../contextCarrito.jsx';
+import { useAuth } from '../../../contextLogin.jsx';
+import { useFavoritos } from '../../../contextFavoritos.jsx';
 
 export default function CardProducto(args) {
   const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
@@ -106,7 +106,7 @@ export default function CardProducto(args) {
         <div className="kgProducto">
           {args.kg != 0 ? (
             <>
-              <p>PESO PROM</p>
+              <p>PESO PROMEDIO</p>
               <p>{args.kg}kg</p>
             </>
           ) : (<></>)}
@@ -117,7 +117,7 @@ export default function CardProducto(args) {
           <button className="boton" onClick={sumarContador}>+</button>
         </div>
         <div className="colorCardProducto">
-          {args.color == "Ind" ? (<></>) : (<><p>COLOR </p>
+          {args.color == "Ind" ? (<></>) : (<><p>COLOR</p>
             <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
               <p className="cantidadAtributo" style={usarBlanco ? { color: 'white' } : {}}>
                 {args.color.toUpperCase()}
