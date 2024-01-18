@@ -104,10 +104,10 @@ export default function CardProducto(args) {
       </div>
       <div className="kgCantidadYColorContainer">
         <div className="kgProducto">
-          {args.kg != 0 ? (
+          {args.kg > 0 ? (
             <>
               <p>PESO PROMEDIO</p>
-              <p>{args.kg}kg</p>
+              <p><span className="pesoYColorTextoCardProducto">{args.kg}kg</span></p>
             </>
           ) : (<></>)}
         </div>
@@ -117,17 +117,20 @@ export default function CardProducto(args) {
           <button className="boton" onClick={sumarContador}>+</button>
         </div>
         <div className="colorCardProducto">
-          {args.color == "Ind" ? (<></>) : (<><p>COLOR</p>
-            <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
-              <p className="cantidadAtributo" style={usarBlanco ? { color: 'white' } : {}}>
-                {args.color.toUpperCase()}
-              </p>
-            </div></>)}
+          {args.color == "Ind" ? (<></>) : (
+            <>
+              <p>COLOR</p>
+              <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
+                <p className="pesoYColorTextoCardProducto" style={usarBlanco ? { color: 'white' } : {}}>
+                  {args.color.toUpperCase()}
+                </p>
+              </div>
+            </>)}
 
         </div>
       </div>
       <div className="precioContainer">
-        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("$")} {parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
+        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("PRECIO: $")}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
       </div>
     </div>
   );
