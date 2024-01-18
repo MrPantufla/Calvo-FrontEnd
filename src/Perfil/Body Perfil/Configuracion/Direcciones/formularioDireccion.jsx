@@ -46,12 +46,16 @@ export default function FormularioDireccion() {
     const enviarDireccion = (event) => {
         event.preventDefault();
         const letrasRegex = /^[A-Za-z\s]+$/;
-        const numerosRegex = /[0-9]/;
+        const numerosRegex = /^[0-9]+$/;
+        const letrasYNumerosRegex = /^[a-zA-Z0-9]+$/;
         if (!direccion.calle || !direccion.numero || !direccion.cp || !direccion.localidad || !direccion.provincia) {
             setErrorMessage('Por favor, completa todos los datos');
         }
         else if (!numerosRegex.test(direccion.numero)) {
-            setErrorMessage('Número solo puede contener números');
+            setErrorMessage('Número solo puede contener números enteros');
+        }
+        else if (!letrasYNumerosRegex.test(direccion.cp)){
+            setErrorMessage('CP solo puede contener letras o números')
         }
         else if (!letrasRegex.test(direccion.provincia)) {
             setErrorMessage('Provicia solo puede contener letras');
@@ -107,7 +111,7 @@ export default function FormularioDireccion() {
                                 type="text"
                                 id="cp"
                                 value={direccion.cp}
-                                onChange={(e) => direccion.setCp(e.target.value)}
+                                onChange={(e) => direccion.setCp(e.target.value.toUpperCase())}
                                 onFocus={()=>setErrorMessage('')}
                             />
                         </div>
