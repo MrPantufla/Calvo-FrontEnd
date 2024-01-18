@@ -6,6 +6,7 @@ import { useAuth } from '../../../contextLogin';
 import { useFavoritos } from '../../../contextFavoritos';
 import { useDesplegableCatalogos } from '../../../contextDesplegableCatalogos';
 import { useNavigate } from 'react-router-dom';
+import { useCarrito } from '../../../contextCarrito';
 
 export default function DesplegablePerfil() {
     const location = useLocation();
@@ -15,6 +16,7 @@ export default function DesplegablePerfil() {
     const favoritos = useFavoritos();
     const catalogos = useDesplegableCatalogos();
     const navigate = useNavigate();
+    const carrito = useCarrito();
 
     const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
 
@@ -47,6 +49,7 @@ export default function DesplegablePerfil() {
         navigate('/home');
         auth.logout();
         favoritos.setFavoritos('');
+        carrito.limpiarCarrito();
     }
 
     useEffect(() => {
