@@ -190,7 +190,7 @@ export default function Carrito() {
       <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`}>
         <div className="periferiaCarrito">
           <div className="tituloCarritoRapido">
-            <p>CARRITO RÁPIDO</p>
+            <p>CARRITO - COMPRA RÁPIDA</p>
           </div>
           <div className="elementosVisiblesCarrito">
             <form className="agregadoRapido">
@@ -261,7 +261,7 @@ export default function Carrito() {
               className="confirmarCarrito"
               disabled={!elementos.length > 0}
               onClick={() => { setConfirmarCompraAbierto(true) }}>
-              Confirmar compra (${calcularTotal(elementos)})
+              CONFIRMAR PEDIDO (${calcularTotal(elementos)})
             </button>
           </div>
         </div>

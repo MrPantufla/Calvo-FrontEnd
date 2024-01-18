@@ -1,40 +1,183 @@
 .contenedorPrincipalCardCarrito {
     display: flex;
-    align-items: center;
-    border: 1px solid black;
-    padding: 10px;
+    border-style: solid;
+    border-color: var(--colorSecundario);
+    border-width: 2px 2px 0px 2px;
     max-width: 100%;
-    background-color: white;
+    background: linear-gradient(to right, white 0%, white 60%, var(--colorPrimario) 60%, var(--colorPrimario) 100%);
     z-index: 11;
     position: relative;
-    /*La imagen debe tener proporcion de 1x0.42*/
-  }
-  
-.imagenYCodigoCardCarrito {
+    height: 20rem;
+    flex-direction: row;
+}
+
+.imagenYCodigoCardCarrito{
+    width: 60%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.imagenCardCarritoContainer{
+    width: 100%;
+    height: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagenCardCarrito{
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+.kgCardCarrito{
+    text-align: center;
+    font-weight: 500;
+}
+
+.codigoYDetalleCardCarrito{
+    font-weight: 600;
+    text-align: center;
+}
+
+.codigoYDetalleCardCarrito span{
+    color: var(--colorRojo);
+}
+
+.restoCardCarrito{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.cantidadCardCarrito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 2.6rem;
+}
+
+.cantidadCardCarrito button{
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background-color: var(--colorRojo);
+    color: white;
+    font-weight: 500;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.08s;
+}
+
+.cantidadCardCarrito button:active{
+    transform: scale(0.95);
+}
+
+.botonSumarCardCarrito{
+    border-radius: 0 3px 3px 0;
+    margin-right: 1rem;
+}
+
+.botonRestarCardCarrito{
+    border-radius: 3px 0 0 3px;
+}
+
+.cantidadCardCarrito div{
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cantidadCardCarrito p{
+    margin: 0;
+    font-weight: 500;
+    font-size: 2rem;
+}
+
+.eliminarCardCarrito{
+    cursor:pointer;
+    transition: color 0.2s;
+    padding-bottom: 0.2rem;
+}
+
+.eliminarCardCarrito:hover{
+    color: var(--colorRojo);
+}
+
+.colorCardCarritoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 9rem;
+}
+
+.colorCardCarritoContainer p{
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.muestraColor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.textoColorCardCarrito{
+    font-size: 1.2rem !important;
+    font-weight: 600;
+}
+
+.colorCardCarrito{
+    font-weight: 700;
+}
+
+.precioContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.codigo{
-    font-size: 20px;
-}
-  
-.imagenCardCarrito {
-    width: 100%;
-}
-  
-.textoCardCarrito {
-    width: 80%;
-    padding-left: 10px;
+.precioContainer p{
+    margin: 0;
 }
 
-.eliminar{
-    color: red;
-    cursor: pointer;
+.textoPrecioCardCarrito{
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
-.boton{
-    z-index: 5;
+.precioProductoCardCarrito{
+    font-weight: 700;
+    font-size: 1.5rem;
+    background-color: white;
+    width: 9rem;
+    border-radius: 3px 3px 0 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.2rem;
 }
-  
+
+.precioUnitarioCardCarrito{
+    font-weight: 500;
+    font-size: 1.4rem;
+    background-color: var(--colorTerciario);
+    width: 9rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 0 0 3px 3px;
+    padding-top: 0.2rem;
+}
