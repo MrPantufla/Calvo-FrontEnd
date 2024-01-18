@@ -37,7 +37,7 @@ export default function Contacto() {
             setErrorMessage("Debes seleccionar al menos una opción (Email o Teléfono)")
         }
         else if (!/^\d+$/.test(telefono)) {
-            setErrorMessage("El campo 'teléfono' solo acepta números")
+            setErrorMessage("El campo 'teléfono' solo acepta números enteros")
         }
         else if (!/^[A-Za-z\s]+$/.test(nombreYApellido)) {
             setErrorMessage("Nombre y Apellido solo puede contener letras")
