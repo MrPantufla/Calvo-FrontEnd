@@ -39,6 +39,8 @@ export default function EditarDatos() {
                     configuracion.cerrarDatos();
                     return null;
                 } else {
+                    console.log(response);
+                    setErrorMessage(response)
                     return response.text();
                 }
             })
