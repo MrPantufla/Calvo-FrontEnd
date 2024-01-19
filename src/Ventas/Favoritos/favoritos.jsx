@@ -46,19 +46,19 @@ export default function Favoritos() {
             auth.setMostrarLogin(true);
         }
         else {
-            if(favoritos.favoritos.length > 0){
+            if (favoritos.favoritos.length > 0) {
                 favoritos.setFavoritosAbierto(!favoritos.favoritosAbierto);
                 carrito.setCarritoAbierto(false);
             }
         }
     }
 
-    const cerrarFavoritos = () =>{
+    const cerrarFavoritos = () => {
         favoritos.setFavoritosAbierto(false);
     }
 
-    useEffect (() => {
-        if(favoritos.favoritos.length == 0 ){
+    useEffect(() => {
+        if (favoritos.favoritos.length == 0) {
             cerrarFavoritos();
         }
     }, [favoritos.favoritos.length])
@@ -67,28 +67,31 @@ export default function Favoritos() {
         <div className="contenedorPrincipalFavoritos" style={{ top: `${favoritosTop}rem` }}>
             <div className="contenedorBotonFavoritos">
                 <button type="button" className={`botonFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} onClick={toggleFavoritos}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                        </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                    </svg>
                 </button>
                 <span className="cantidadFavoritos" style={{ display: favoritos.favoritosAbierto ? 'none' : 'block' }}>
                     {favoritos.favoritos.length}
                 </span>
             </div>
-
-            <div className={`elementosFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`}>
-                {auth.state.logueado && favoritos.favoritos ? (favoritos.favoritos.map((favorito) => {
-                    const producto = productos.productosIndexado[favorito];
-                    if (producto) {
-                        return (
-                            <div key={producto.id}>
-                                <CardFavoritos key={producto.id} id={producto.id} cod_orig={producto.cod_orig} detalle={producto.detalle} precio={producto.precio} />
-                            </div>
-                        );
-                    }
-                    return null;
-                })) : ('')}
-
+            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`}>
+                <div className="tituloFavoritos">
+                    <p>FAVORITOS</p>
+                </div>
+                <div className="elementosFavoritos">
+                    {auth.state.logueado && favoritos.favoritos ? (favoritos.favoritos.map((favorito) => {
+                        const producto = productos.productosIndexado[favorito];
+                        if (producto) {
+                            return (
+                                <div key={producto.id}>
+                                    <CardFavoritos key={producto.id} producto={producto} />
+                                </div>
+                            );
+                        }
+                        return null;
+                    })) : ('')}
+                </div>
             </div>
         </div>
     );

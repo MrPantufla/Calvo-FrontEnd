@@ -1,15 +1,40 @@
 .contenedorPrincipalFavoritos{
-    max-width: 400px;
+    width: 40rem;
     position: fixed;
     z-index: 100;
     top: 10rem;
-    max-height: 50rem;
+    max-height: 80rem;
     display: flex;
     align-items: end;
     flex-direction: column;
     overflow: hidden;
-    right: 0;
-    padding-right: 1rem;
+    right: 1rem;
+}
+
+.bodyFavoritos{
+    height: 0;
+    transition: height 0.3s;
+    overflow: auto;
+}
+
+.bodyFavoritos.open{
+    height: 50rem;
+}
+
+.bodyFavoritos::-webkit-scrollbar{
+    width: 0;
+}
+
+.tituloFavoritos{
+    height: 3rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: var(--colorSecundario);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .contenedorBotonFavoritos{
@@ -56,14 +81,4 @@
 
 .botonFavoritos:hover .bi-heart{
     fill: var(--colorRojo);
-}
-
-.elementosFavoritos{
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s;
-}
-
-.elementosFavoritos.open{
-    height: 40rem;
 }

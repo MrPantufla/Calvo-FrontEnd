@@ -1,19 +1,141 @@
-.contenedorPrincipalCardFavoritos{
+.contenedorPrincipalCardFavoritos {
     background-color: white;
-    width: 30rem;
-    height: 13rem;
-    border: 1px solid red;
+    width: 40rem;
+    height: 20rem;
     display: flex;
+    align-items: center;
+    border-color: var(--colorSecundario);
+    border-width: 0px 2px 2px 2px;
+    border-style: solid;
+}
+
+.imagenYCodigoCardFavoritos {
+    width: 60%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.imagenCardFavoritosContainer {
+    width: 100%;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagenCardFavoritos {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    cursor: pointer;
+    transition: scale 0.2s;
+}
+
+.imagenCardFavoritos:hover{
+    scale: 1.05;
+}
+
+.codigoYDetalleCardFavoritosContainer{
+    height: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.codigoYDetalleCardFavoritos {
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.codigoYDetalleCardFavoritos span{
+    color: var(--colorRojo);
+}
+
+.restoCardFavoritos {
+    width: 40%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--colorPrimario);
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.botonQuitarFavoritoContainer{
+.botonQuitarFavoritoContainer {
     background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28%;
 }
 
 .botonQuitarFavorito{
+    transition: scale 0.1s;
+}
+
+.botonQuitarFavorito:active{
+    scale: 0.95;
+}
+
+.botonQuitarFavorito .bi-heart{
+    fill: var(--colorRojo);
+}
+
+.colorCardFavoritosContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 40%;
+    width: 9rem;
+    padding-bottom: 1rem;
+}
+
+.botonAñadirACarritoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33%;
+    width: 100%;
+}
+
+.botonAñadirACarritoContainer button{
+    border: none;
+    background-color: var(--colorRojo);
+    color: white;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: scale 0.1s;
+}
+
+.botonAñadirACarritoContainer button:active{
+    scale: 0.95;
+}
+
+.colorCardFavoritosContainer p{
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.colorCardFavoritos{
+    font-weight: 700;
+}
+
+.textoColorCardFavoritos{
+    font-size: 1.2rem !important;
+    font-weight: 600;
+}
+
+.botonQuitarFavorito {
     fill: var(--colorRojo);
     border: none;
     background-color: transparent;
 }
-
