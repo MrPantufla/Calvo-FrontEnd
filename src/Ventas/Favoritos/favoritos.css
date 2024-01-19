@@ -15,6 +15,7 @@
     height: 0;
     transition: height 0.3s;
     overflow: auto;
+    margin-top: 1rem;
 }
 
 .bodyFavoritos.open{
