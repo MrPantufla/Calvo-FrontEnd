@@ -16,6 +16,10 @@ html{
   align-items: center;
 }
 
+p{
+  margin: 0;
+}
+
 :root{
   --colorPrimario: #e5e5e5;
   --colorSecundario: #4e4e4d;
