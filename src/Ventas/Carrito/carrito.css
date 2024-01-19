@@ -76,7 +76,6 @@
 }
 
 .textoSugerencia{
-    padding-top: 1rem;
     position: relative;
 }
 
@@ -89,10 +88,25 @@
     width: 40rem;
 }
 
-.textoCarritoVacio{
-    font-size: 20px;
-    text-align: center;
-    background-color: #B83A3A ;
+.carritoVacioContainer{
+    border-style: solid;
+    border-color: var(--colorSecundario);
+    border-width: 1px 2px 2px 2px;
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carritoVacioContainer img{
+    object-fit: contain;
+    max-height: 55%;
+    margin-right: 2rem;
+}
+
+.carritoVacioContainer p{
+    font-weight: 700;
+    color: var(--colorCuaternario)
 }
 
 .bodyCarrito{

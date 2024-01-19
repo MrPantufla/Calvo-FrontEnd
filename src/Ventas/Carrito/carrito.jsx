@@ -4,6 +4,7 @@ import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useProductos } from '../../contextProductos.jsx';
 import { useFavoritos } from '../../contextFavoritos.jsx';
+import carritoVacioImg from '../../Imagenes/carritoVacio.png';
 
 export default function Carrito() {
   const { elementos, añadirElemento, setConfirmarCompraAbierto } = useCarrito();
@@ -24,7 +25,6 @@ export default function Carrito() {
   const [sugerenciaColor, setSugerenciaColor] = useState('');
   const favoritos = useFavoritos();
   const [inputFocused, setInputFocused] = useState('');
-
   const [carritoTop, setCarritoTop] = useState(3.2);
 
   useEffect(() => {
@@ -88,35 +88,38 @@ export default function Carrito() {
 
       e.preventDefault();
 
-      if (colorIngresado !== '') {
-        const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
-        if (colorExistente) {
-          if (codigoValido) {
-            const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
-            if (codigoAgregadoRapido) {
-              if (colorProductoExistente) {
-                setProductoSeleccionado(colorProductoExistente);
-                setColorValido(true);
-                nextInputRef.current.focus();
-              } else {
-                setColorValido(false);
-                setColorAgregadoRapido('');
-                setErrorMessage("Color inválido para este producto");
-              }
+      if (colorIngresado == '') {
+        colorIngresado = 'IND';
+      }
+      
+      const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
+      if (colorExistente) {
+        if (codigoValido) {
+          const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
+          if (codigoAgregadoRapido) {
+            if (colorProductoExistente) {
+              setProductoSeleccionado(colorProductoExistente);
+              setColorValido(true);
+              nextInputRef.current.focus();
+            } else {
+              setColorValido(false);
+              setColorAgregadoRapido('');
+              setErrorMessage("Color inválido para este producto");
             }
           }
-          else{
-            setColorValido(false);
-            setColorAgregadoRapido('');
-            setErrorMessage("Ingresa un producto válido antes");
-            codigoInputRef.current.focus();
-          }
-        } else {
+        }
+        else {
           setColorValido(false);
           setColorAgregadoRapido('');
-          setErrorMessage("El color ingresado no existe");
+          setErrorMessage("Ingresa un producto antes");
+          codigoInputRef.current.focus();
         }
+      } else {
+        setColorValido(false);
+        setColorAgregadoRapido('');
+        setErrorMessage("El color ingresado no existe");
       }
+
     }
   };
 
@@ -170,6 +173,8 @@ export default function Carrito() {
     setInputFocused('');
     setErrorMessage('');
   }
+
+  const elementosReverse = [...elementos].reverse();
 
   return (
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
@@ -227,7 +232,7 @@ export default function Carrito() {
                 />
                 {sugerenciaColor && (
                   <div className="sugerenciaColor sugerencia">
-                    <p className="textoSugerencia"> {sugerenciaColor}</p>
+                    <p className="textoSugerencia"> {!colorValido ? (sugerenciaColor) : ('')}</p>
                   </div>
                 )}
               </div>
@@ -247,22 +252,29 @@ export default function Carrito() {
               />
             </form>
             {elementos.length === 0 ? (
-              <p className="textoCarritoVacio">El carrito está vacío</p>
+              <div className="carritoVacioContainer">
+                <img src={carritoVacioImg}/>
+                <p>TU CARRITO ESTÁ VACÍO</p>
+              </div>
             ) : (
-              elementos.map((elemento, index) => (
-                <CardCarrito
-                  key={index}
-                  id={elemento.id}
-                  cantidad={elemento.cantidad}
-                />
-              ))
+              <>
+                {elementosReverse.map((elemento, index) => (
+                  <CardCarrito
+                    key={index}
+                    id={elemento.id}
+                    cantidad={elemento.cantidad}
+                  />
+                ))}
+                <button
+                  className="confirmarCarrito"
+                  disabled={!elementos.length > 0}
+                  onClick={() => { setConfirmarCompraAbierto(true) }}
+                >
+                  CONFIRMAR PEDIDO (${calcularTotal(elementos)})
+                </button>
+              </>
             )}
-            <button
-              className="confirmarCarrito"
-              disabled={!elementos.length > 0}
-              onClick={() => { setConfirmarCompraAbierto(true) }}>
-              CONFIRMAR PEDIDO (${calcularTotal(elementos)})
-            </button>
+
           </div>
         </div>
       </div>
