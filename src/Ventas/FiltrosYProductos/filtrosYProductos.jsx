@@ -14,8 +14,7 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos } = useTienda();
+  const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);

@@ -9,13 +9,14 @@ function useTienda() {
 function TiendaProvider({ children }) {
   const [tiposActivos, setTiposActivos] = useState([]);
   const [coloresActivos, setColoresActivos] = useState([]);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   const limpiarColoresActivos = () =>{
     setColoresActivos([]);
   }
 
   return (
-    <TiendaContext.Provider value={{ limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
       {children}
     </TiendaContext.Provider>
   );
