@@ -13,6 +13,14 @@
     color: var(--colorSecundario)
 }
 
+.ventas{
+    margin-bottom: 2.5rem;
+}
+
+.facturacion{
+    margin-bottom: 1.4rem;
+}
+
 .bi-whatsapp, .bi-telephone, .bi-envelope-at{
     transition: transform 0.1s;
 }
