@@ -91,7 +91,7 @@ export default function Carrito() {
       if (colorIngresado == '') {
         colorIngresado = 'IND';
       }
-      
+
       const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
       if (colorExistente) {
         if (codigoValido) {
@@ -152,7 +152,6 @@ export default function Carrito() {
       else {
         setCantidadValida(false);
         setCantidadAgregadoRapido('');
-        setErrorMessage('Ingresa una cantidad válida')
       }
     }
   }
@@ -194,8 +193,11 @@ export default function Carrito() {
 
       <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`}>
         <div className="periferiaCarrito">
-          <div className="tituloCarritoRapido">
-            <p>CARRITO - COMPRA RÁPIDA</p>
+          <div className="tituloYHintCarrito">
+            <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
+            <div className="hintCarrito" title="Para utilizar la compra rápida escriba el código del producto que desea agregar, el color y la cantidad. Valide los datos presionando Enter o Tab al terminar de escribirlos">
+              <p>?</p>
+            </div>
           </div>
           <div className="elementosVisiblesCarrito">
             <form className="agregadoRapido">
@@ -253,7 +255,7 @@ export default function Carrito() {
             </form>
             {elementos.length === 0 ? (
               <div className="carritoVacioContainer">
-                <img src={carritoVacioImg}/>
+                <img src={carritoVacioImg} />
                 <p>TU CARRITO ESTÁ VACÍO</p>
               </div>
             ) : (

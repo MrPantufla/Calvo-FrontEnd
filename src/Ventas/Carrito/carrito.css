@@ -24,7 +24,7 @@
     color: var(--colorRojo);
 }
 
-.tituloCarritoRapido{
+.tituloYHintCarrito{
     height: 3rem;
     font-size: 1.6rem;
     font-weight: 600;
@@ -35,8 +35,30 @@
     align-items: center;
 }
 
-.tituloCarritoRapido p{
-    margin: 0;
+.tituloYHintCarrito p{
+    cursor: default;
+    padding-top: 0.2rem;
+}
+
+.tituloCarrito{
+    width: 90%;
+    text-align: center;
+    padding-left: 2rem;
+}
+
+.hintCarrito{
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--colorPrimario);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.hintCarrito p{
+    color: var(--colorRojo);
+    font-size: 1.6rem;
 }
 
 .form-group-agregadoRapido{
@@ -113,6 +135,7 @@
     height: 0;
     transition: height 0.3s;
     overflow: auto;
+    margin-top: 1rem;
 }
 
 .bodyCarrito.open{
