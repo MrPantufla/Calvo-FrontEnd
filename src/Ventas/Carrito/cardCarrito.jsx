@@ -2,11 +2,13 @@ import './cardCarrito.css';
 import perfil from '../../Imagenes/perfil2.png';
 import { useCarrito } from '../../contextCarrito.jsx'
 import { useProductos } from '../../contextProductos.jsx';
+import { useTienda } from '../../contextTienda.jsx';
 
 export default function CardCarrito(args) {
     const carrito = useCarrito();
     const producto = useProductos().productosIndexado[args.id];
     const colorCorregido = (producto.color).replace(/\s+/g, '-');
+    const tienda = useTienda();
 
     const usarBlanco = (producto.color == 'Negro' ||
         producto.color == 'Azul' ||
@@ -15,7 +17,8 @@ export default function CardCarrito(args) {
         producto.color == 'Simil madera' ||
         producto.color == 'Platil' ||
         producto.color == 'Peltre' ||
-        producto.color == 'Fume'
+        producto.color == 'Fume' ||
+        producto.color == 'Verde'
     );
 
     const handleRestarCantidad = () => {
@@ -39,10 +42,12 @@ export default function CardCarrito(args) {
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
                 <div className="imagenCardCarritoContainer">
-                    <img className="imagenCardCarrito" src={perfil} />
+                    <img className="imagenCardCarrito" src={perfil} onClick={()=> tienda.setProductoSeleccionado(producto)}/>
                 </div>
-                <p className="kgCardCarrito">- {producto.kg > 0 ? (producto.kg) : ('')}kg -</p>
-                <p className="codigoYDetalleCardCarrito"><span>{producto.cod_orig}</span> - {producto.detalle}</p>
+                <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
+                <div className="codigoYDetalleCardCarritoContainer">
+                    <p className="codigoYDetalleCardCarrito"><span>{producto.cod_orig}</span> - {producto.detalle}</p>
+                </div>
             </div>
             <div className="restoCardCarrito">
                 <div className="cantidadCardCarrito">
@@ -56,12 +61,14 @@ export default function CardCarrito(args) {
                     </svg></p>
                 </div>
                 <div className="colorCardCarritoContainer">
-                    {producto.color == "Ind" ? (<></>) : (<><p className="textoColorCardCarrito">COLOR</p>
+                    <>
+                        <p className="textoColorCardCarrito">COLOR</p>
                         <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                             <p className="colorCardCarrito" style={usarBlanco ? { color: 'white' } : {}}>
-                                {producto.color.toUpperCase()}
+                                {producto.color == 'Ind' ? ('-') : (producto.color.toUpperCase()) }
                             </p>
-                        </div></>)}
+                        </div>
+                    </>
                 </div>
                 <div className="precioContainer">
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
