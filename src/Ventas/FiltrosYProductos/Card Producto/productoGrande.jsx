@@ -97,7 +97,7 @@ export default function ProductoGrande(args) {
                         <div className="colorProductoGrandeContainer">
                             {args.color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
                                 <div className="muestraColorProductoGrande" style={{ backgroundColor: `var(--${colorCorregido})` }} >
-                                    <p className="cantidadAtributo" style={usarBlanco ? { color: 'white' } : {}}>
+                                    <p className="colorAtributo" style={usarBlanco ? { color: 'white' } : {}}>
                                         {args.color.toUpperCase()}
                                     </p>
                                 </div></>)}
