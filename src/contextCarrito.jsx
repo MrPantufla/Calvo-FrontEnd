@@ -133,12 +133,10 @@ function CarritoProvider({ children }) {
     else{
       setPrimeraAccion(false);
     }
-    console.log(elementos)
   }, [elementos]);
 
   const confirmarCompra = () => {
     const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
-    console.log(nuevosElementos)
     fetch('http://localhost:8080/api/recibirCarrito', {
       method: 'POST',
       headers: {
