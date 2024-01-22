@@ -27,6 +27,8 @@ export default function CardFavoritos(args) {
         carrito.añadirElemento(args.producto.id, 1);
     }
 
+    
+
     return (
         <div className="contenedorPrincipalCardFavoritos">
             <div className="imagenYCodigoCardFavoritos">

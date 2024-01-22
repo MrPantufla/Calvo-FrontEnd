@@ -12,6 +12,7 @@ export default function Favoritos() {
     const productos = useProductos();
     const [favoritosTop, setFavoritosTop] = useState(3.2);
     const carrito = useCarrito();
+    const [favoritosHeight, setFavoritosHeight] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -63,6 +64,19 @@ export default function Favoritos() {
         }
     }, [favoritos.favoritos.length])
 
+    useEffect(() => {
+        if (favoritos.favoritosAbierto) {
+          if (favoritos.favoritos.length > 0) {
+            setFavoritosHeight(3 + favoritos.favoritos.length * 20);
+          }
+          else {
+            setFavoritosHeight(0);
+          }
+        } else {
+          setFavoritosHeight(0);
+        }
+      }, [favoritos.favoritosAbierto, favoritos.favoritos.length]);
+
     return (
         <div className="contenedorPrincipalFavoritos" style={{ top: `${favoritosTop}rem` }}>
             <div className="contenedorBotonFavoritos">
@@ -75,7 +89,7 @@ export default function Favoritos() {
                     {favoritos.favoritos.length}
                 </span>
             </div>
-            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`}>
+            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`, maxHeight: `50rem` }}>
                 <div className="tituloFavoritos">
                     <p>FAVORITOS</p>
                 </div>
