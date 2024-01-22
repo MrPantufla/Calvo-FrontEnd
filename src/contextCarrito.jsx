@@ -17,38 +17,7 @@ function CarritoProvider({ children }) {
   const [carritoConfirmado, setCarritoConfirmado] = useState(false);
   const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
   const [mostrarCartelError, setMostrarCartelError] = useState(false);
-
-  useEffect(() => {
-    // Esta función se ejecutará cada vez que elementos cambie
-    const listaCarrito = [...elementos];
-    const productos = listaCarrito.map(item => item.id).join(' ');
-    const cantidades = listaCarrito.map(item => item.cantidad).join(' ');
-    const ActualizacionCarrito = {
-      productos: productos,
-      cantidades: cantidades
-    }
-    fetch('http://localhost:8080/api/actualizarCarrito', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(ActualizacionCarrito),
-    })
-      .then(response => {
-        if (response.ok) {
-          // Procesar la respuesta exitosa
-          console.log('Envío de carrito exitoso');
-        } else {
-          // Procesar la respuesta de error
-          console.error('Error en el envío de carrito:', response.statusText);
-        }
-      })
-      .catch(error => {
-        console.error('Error al enviar la lista del carrito al servidor:', error);
-      });
-
-  }, [elementos]);
+  const [primeraAccion, setPrimeraAccion] = useState(true);
 
   function añadirElemento(id, cantidad) {
     if(!auth.state.userInfo.cliente && productos.productosIndexado[id].tipo_prod=='PERFIL'){
@@ -62,6 +31,7 @@ function CarritoProvider({ children }) {
             const cod_origProducto = producto.cod_orig;
             const detalleProducto = producto.detalle;
             const precioProducto = producto.precio;
+            const kg = producto.kg;
             const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
   
             if (elementoExistente) {
@@ -70,7 +40,7 @@ function CarritoProvider({ children }) {
               return [...prevElementos];
             } else {
               // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
-              return [...prevElementos, { id, cod_origProducto, cantidad, detalleProducto, precioProducto }];
+              return [...prevElementos, { id, cod_origProducto, cantidad, detalleProducto, precioProducto, kg }];
             }
           }
         });
@@ -156,8 +126,19 @@ function CarritoProvider({ children }) {
       });
   }
 
+  useEffect(() => {
+    if(!primeraAccion){
+      actualizarCarrito();
+    }
+    else{
+      setPrimeraAccion(false);
+    }
+    console.log(elementos)
+  }, [elementos]);
+
   const confirmarCompra = () => {
     const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
+    console.log(nuevosElementos)
     fetch('http://localhost:8080/api/recibirCarrito', {
       method: 'POST',
       headers: {
