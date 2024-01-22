@@ -105,6 +105,44 @@ export const LoginProvider = ({ children }) => {
     }
   }, [state]);
 
+  const obtenerDescuentos = async (args) => {
+    try {
+      const response = await fetch('http://localhost:8080/api/obtenerDescuentos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(parseInt(args.cuit)),
+      });
+  
+      if (response.ok) {
+        const descuentos = await response.json();
+
+        const descuentosSinCero = descuentos.filter(element => element.por_a !== 0);
+
+        const descuentosPorRubro = descuentosSinCero.reduce((result, element) => {
+          result[element.rubro] = element.por_a;
+          return result;
+        }, {});
+
+        return descuentosPorRubro;
+      } else {
+        const data = await response.text();
+        if (response.status === 401) {
+          setErrorMessage(data);
+        } else if (response.status === 500) {
+          setErrorMessage("Error interno del servidor");
+        } else {
+          // Otros códigos de estado
+          setErrorMessage("Error al obtener descuentos");
+        }
+      }
+    } catch (error) {
+      console.error('Error al encontrar al usuario:', error);
+    }
+  };  
+
   const handleLogin = async (args) => {
     try {
       if (!login) {
@@ -126,6 +164,7 @@ export const LoginProvider = ({ children }) => {
 
       if (response.ok) {
         const userData = await response.json();
+        /*ACÁ SE DEBE ASIGNAR EL DESCUENTO A USERDATA*/
         productos.obtenerProductosFiltrados(userData.categoria);
         login(userData)
         renovarToken({ email: userData.email })
