@@ -73,10 +73,10 @@ export default function CardCarrito(args) {
                 <div className="precioContainer">
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
                     <div className="precioProductoCardCarrito">
-                        <p>${producto.precio * args.cantidad}</p>
+                        <p>${parseInt(producto.precio * producto.kg * args.cantidad)}</p>
                     </div>
                     <div className="precioUnitarioCardCarrito">
-                        <p>({args.cantidad} x ${producto.precio})</p>
+                        <p>({args.cantidad} x ${parseInt(producto.precio * producto.kg)})</p>
                     </div>
                 </div>
             </div>
