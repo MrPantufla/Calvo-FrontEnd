@@ -21,7 +21,7 @@ function ProductosProvider({ children }) {
     const [coloresArray, setColoresArray] = useState([]); 
     const nuevosColores = new Set();
 
-    const obtenerProductosFiltrados = async (categoria) => {
+    const obtenerProductosFiltrados = async (categoria, descuentos) => {
         try {
             const response = await fetch(`http://localhost:8080/api/productos`);
             if (response.ok) {
@@ -29,12 +29,17 @@ function ProductosProvider({ children }) {
 
                 // Realizar actualizaciones según la categoría
                 const productosActualizados = productosObtenidos.map((producto) => {
+                    let precioFinal = producto.precio; // Precio inicial
                     if (categoria === 'MAYORISTA' && producto.precioMayorista) {
                         // Si es mayorista y hay precio mayorista, actualizar precio
-                        return { ...producto, precio: producto.precioMayorista };
+                        precioFinal = producto.precioMayorista;
                     }
-                    // Mantener el producto sin cambios
-                    return producto;
+                    if (descuentos != null && descuentos[producto.rubro]) {
+                        // Aplicar descuento si descuentos no es nulo y hay un valor en producto[rubro]
+                        precioFinal -= parseInt(descuentos[producto.rubro]/100*producto.precio);
+                    }
+                
+                    return { ...producto, precio: precioFinal };
                 });
 
                 // Indexar los productos actualizados

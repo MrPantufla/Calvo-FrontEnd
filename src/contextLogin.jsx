@@ -105,7 +105,7 @@ export const LoginProvider = ({ children }) => {
     }
   }, [state]);
 
-  const obtenerDescuentos = async (args) => {
+  const obtenerDescuentos = async (cuit) => {
     try {
       const response = await fetch('http://localhost:8080/api/obtenerDescuentos', {
         method: 'POST',
@@ -113,7 +113,7 @@ export const LoginProvider = ({ children }) => {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify(parseInt(args.cuit)),
+        body: JSON.stringify(parseInt(cuit)),
       });
   
       if (response.ok) {
@@ -159,13 +159,10 @@ export const LoginProvider = ({ children }) => {
         body: JSON.stringify({ email: args.email, contrasenia: args.password }),
       });
 
-      console.log(args.email)
-      console.log(args.password)
-
       if (response.ok) {
         const userData = await response.json();
-        /*ACÁ SE DEBE ASIGNAR EL DESCUENTO A USERDATA*/
-        productos.obtenerProductosFiltrados(userData.categoria);
+        userData.descuentos = await obtenerDescuentos(userData.cuit);
+        productos.obtenerProductosFiltrados(userData.categoria, userData.descuentos);
         login(userData)
         renovarToken({ email: userData.email })
 
@@ -187,7 +184,6 @@ export const LoginProvider = ({ children }) => {
   };
 
   const renovarToken = async (args) => {
-    console.log("ENTRA EN RENOVARTOKEN")
     const response = await fetch('http://localhost:8080/api/renovarTokenAuth', {
       method: 'POST',
       headers: {
@@ -209,10 +205,7 @@ export const LoginProvider = ({ children }) => {
   useEffect(() => {
     const renewTokenInterval = setInterval(() => {
       console.log("TOKEN RENOVADO AUTOMATICAMENTE")
-      console.log("LOGUEADO?: " + state.logueado)
       if (state.logueado) {
-        console.log("LOGUEADO?: " + state.logueado)
-        console.log(state.userInfo)
         renovarToken({ email: state.userInfo.email });
       }
     }, 29 * 60 * 1000);
