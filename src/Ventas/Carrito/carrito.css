@@ -1,7 +1,6 @@
 .contenedorPrincipalCarrito{
     position: fixed;
     z-index: 101; 
-    max-height: 70rem;
     font-size: 1.5rem;
     right: 4rem;
     display: flex;
@@ -136,10 +135,6 @@
     transition: height 0.3s;
     overflow: auto;
     margin-top: 1rem;
-}
-
-.bodyCarrito.open{
-    height: 50rem;
 }
 
 .bodyCarrito::-webkit-scrollbar{

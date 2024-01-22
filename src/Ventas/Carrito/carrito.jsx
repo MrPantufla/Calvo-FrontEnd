@@ -26,6 +26,7 @@ export default function Carrito() {
   const favoritos = useFavoritos();
   const [inputFocused, setInputFocused] = useState('');
   const [carritoTop, setCarritoTop] = useState(3.2);
+  const [carritoHeight, setCarritoHeight] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +52,7 @@ export default function Carrito() {
   }, []);
 
   const calcularTotal = (elementos) => {
-    return elementos.reduce((total, elemento) => total + elemento.precioProducto * elemento.cantidad, 0);
+    return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * elemento.kg * elemento.cantidad), 0);
   };
 
   const handleEnterCodigo = (e, nextInputRef) => {
@@ -175,6 +176,19 @@ export default function Carrito() {
 
   const elementosReverse = [...elementos].reverse();
 
+  useEffect(() => {
+    if (carrito.carritoAbierto) {
+      if (elementos.length > 0) {
+        setCarritoHeight(0.5 + 5 + 20 * elementos.length + 3);
+      }
+      else {
+        setCarritoHeight(0.5 + 5 + 10);
+      }
+    } else {
+      setCarritoHeight(0);
+    }
+  }, [carrito.carritoAbierto, elementos.length]);
+
   return (
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
       <div className="contenedorBotonCarrito">
@@ -191,7 +205,7 @@ export default function Carrito() {
         </span>
       </div>
 
-      <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`}>
+      <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem`, maxHeight: `50rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
             <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
@@ -276,7 +290,6 @@ export default function Carrito() {
                 </button>
               </>
             )}
-
           </div>
         </div>
       </div>
