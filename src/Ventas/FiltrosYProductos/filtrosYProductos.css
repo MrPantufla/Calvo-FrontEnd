@@ -5,8 +5,14 @@
     justify-content: center;
 }
 
+.filtrosYProductosContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .productos {
-    margin-left: 21%;
+    width: 80%;
     min-height: calc(100vh - 20rem);
 }
 
@@ -22,6 +28,7 @@
     background-attachment: fixed;
     background-position: left 9rem;
     min-height: calc(100vh - 3rem);
+    align-items: center;
 }
 
 .decoracionTienda {

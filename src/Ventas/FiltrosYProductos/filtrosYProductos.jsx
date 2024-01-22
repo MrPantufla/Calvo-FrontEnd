@@ -81,102 +81,103 @@ export default function FiltrosYProductos() {
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
-      <div className="filtrosYBusqueda">
-        <div className="busquedaEIcono">
-          <input
-            className="busqueda"
-            type="text"
-            placeholder="Buscar por código o nombre"
-            value={busqueda}
-            onChange={(e) => {
-              setBusqueda(e.target.value.toUpperCase());
-              setPaginaActual(1);
-            }}
-          >
-          </input>
-          <div className="lupaContainer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
+      <div className="filtrosYProductosContainer">
+        <div className="filtrosYBusqueda">
+          <div className="busquedaEIcono">
+            <input
+              className="busqueda"
+              type="text"
+              placeholder="Buscar por código o nombre"
+              value={busqueda}
+              onChange={(e) => {
+                setBusqueda(e.target.value.toUpperCase());
+                setPaginaActual(1);
+              }}
+            >
+            </input>
+            <div className="lupaContainer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+              </svg>
+            </div>
+          </div>
+          <div className="filtros">
+            {tiposUnicos.map((tipo_prod) => (
+              <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
+                <div className="headFiltro">
+                  <input
+                    className="check"
+                    type="checkbox"
+                    checked={tiposActivos.includes(tipo_prod)}
+                    onChange={() => {
+                      toggleTipo(tipo_prod);
+                    }}
+                    onClick={() => {
+                      handleScrollClick();
+                      setPaginaActual(1);
+                      limpiarColoresActivos();
+                    }}
+                    id={tipo_prod + "Id"}
+                  />
+                  <div className="textoRubro">
+                    {tipo_prod} {tipo_prod == 'PERFIL' ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>) : (<></>)}
+                  </div>
+                </div>
+                {tipo_prod == 'PERFIL' ?
+                  (<div className={`bodyFiltro bodyFiltroPerfil ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`}>
+                    {coloresUnicosPerfiles.map((color) => (
+                      <label className={`labelColores ${coloresActivos.includes(color) ? 'checked' : ''}`} key={color}>
+                        <input
+                          className="colorCheck"
+                          type="checkbox"
+                          checked={coloresActivos.includes(color)}
+                          onChange={() => toggleColor(color)}
+                          onClick={() => {
+                            handleScrollClick();
+                            setPaginaActual(1);
+                          }}
+                          id={color + "Id"}
+                        />
+                        <div className="textoColor">
+                          {color}
+                        </div>
+                      </label>
+                    ))}
+                  </div>)
+                  :
+                  (<></>)}
+              </label>
+            ))}
           </div>
         </div>
-        <div className="filtros">
-          {tiposUnicos.map((tipo_prod) => (
-            <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
-              <div className="headFiltro">
-                <input
-                  className="check"
-                  type="checkbox"
-                  checked={tiposActivos.includes(tipo_prod)}
-                  onChange={() => {
-                    toggleTipo(tipo_prod);
-                  }}
+
+        <div className="productos">
+          <BotonesOrdenamiento onClick={() => paginar(1)} />
+          <div className="row">
+            {itemsActuales.map((producto) => (
+              <div key={producto.id} className="col-12 col-md-4 producto">
+                <CardProducto
+                  id={producto.id}
+                  cod_orig={producto.cod_orig}
+                  tipo_prod={producto.tipo_prod}
+                  srubro={producto.srubro}
+                  detalle={producto.detalle}
+                  precio={producto.precio}
+                  color={producto.color}
+                  kg={producto.kg}
+                  key={producto.id}
+                  cod_int={producto.cod_int}
                   onClick={() => {
-                    handleScrollClick();
-                    setPaginaActual(1);
-                    limpiarColoresActivos();
+                    handleClickProducto(producto);
                   }}
-                  id={tipo_prod + "Id"}
                 />
-                <div className="textoRubro">
-                  {tipo_prod} {tipo_prod == 'PERFIL' ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                  </svg>) : (<></>)}
-                </div>
               </div>
-              {tipo_prod == 'PERFIL' ?
-                (<div className={`bodyFiltro bodyFiltroPerfil ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`}>
-                  {coloresUnicosPerfiles.map((color) => (
-                    <label className={`labelColores ${coloresActivos.includes(color) ? 'checked' : ''}`} key={color}>
-                      <input
-                        className="colorCheck"
-                        type="checkbox"
-                        checked={coloresActivos.includes(color)}
-                        onChange={() => toggleColor(color)}
-                        onClick={() => {
-                          handleScrollClick();
-                          setPaginaActual(1);
-                        }}
-                        id={color + "Id"}
-                      />
-                      <div className="textoColor">
-                        {color}
-                      </div>
-                    </label>
-                  ))}
-                </div>)
-                :
-                (<></>)}
-            </label>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className="productos">
-        <BotonesOrdenamiento onClick={() => paginar(1)} />
-        <div className="row">
-          {itemsActuales.map((producto) => (
-            <div key={producto.id} className="col-12 col-md-4 producto">
-              <CardProducto
-                id={producto.id}
-                cod_orig={producto.cod_orig}
-                tipo_prod={producto.tipo_prod}
-                srubro={producto.srubro}
-                detalle={producto.detalle}
-                precio={producto.precio}
-                color={producto.color}
-                kg={producto.kg}
-                key={producto.id}
-                cod_int={producto.cod_int}
-                onClick={() => {
-                  handleClickProducto(producto);
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
       {productoSeleccionado && (
         <ProductoGrande
           id={productoSeleccionado.id}
