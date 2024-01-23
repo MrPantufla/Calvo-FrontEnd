@@ -1,6 +1,5 @@
 import './headerMobile.css';
 import { useState, useEffect } from 'react';
-import { Collapse } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
 import LogoCalvo from '../../Imagenes/logo calvo.png';
 import calvoNegativo from '../../Imagenes/calvoNegativo.png';
@@ -41,7 +40,7 @@ export default function HeaderMobile() {
                 </div>
                 <div className="containerContainerLogoMobile">
                     <div className="containerLogoMobile">
-                        <img src={LogoCalvo} />
+                    <img src={location.pathname === '/home' ? LogoCalvo : calvoNegativo} alt="Logo" />
                     </div>
                 </div>
             </div>

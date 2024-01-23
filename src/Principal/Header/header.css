@@ -64,6 +64,7 @@
     clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
     overflow: hidden;
     z-index: 102;
+    justify-content: center;
 }
 
 .seccion::before,
@@ -155,9 +156,15 @@
     cursor: pointer;
 }
 
-@media (max-width: 2048px){
+@media (max-width: 4096px){
     .seccion p{
-        font-size: 1.9rem;
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 2560px){
+    .seccion p{
+        font-size: 1.7rem;
     }
 }
 
@@ -169,7 +176,17 @@
 
 @media (max-width: 820px) {
     .seccion p {
-        font-size: 1.5rem;
+        font-size: 2rem;
+        width: 25rem;
+    }
+
+    .seccion{
+        height: 5rem;
+    }
+
+    .perfil{
+        height: 5rem;
+        width: 25rem !important;
     }
 }
 

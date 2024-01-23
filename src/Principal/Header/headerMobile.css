@@ -24,18 +24,21 @@
 .containerContainerLogoMobile {
     width: 100%;
     position: absolute;
-    top: 3rem;
+    top: 1rem;
     z-index: 3;
+    height: 9rem;
 }
 
 .containerLogoMobile {
     width: 100%;
     display: flex;
     justify-content: center;
+    height: 100%;
 }
 
 .containerLogoMobile img {
     width: 55%;
+    object-fit: contain;
 }
 
 .containerMenuMobile {
@@ -102,7 +105,7 @@
     transition: 0.1s;
 }
 
-.elemento:active{
+.elemento:active {
     transform: scale(0.9);
 }
 
