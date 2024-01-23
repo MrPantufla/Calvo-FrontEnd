@@ -55,3 +55,29 @@
     font-size: 1.5rem;
     font-weight: 600;
 }
+
+@media (max-width: 820px){
+    .ordenarPor{
+        height: 4rem;
+        margin-top: 1rem;
+    }
+
+    .textoOrdenarPor{
+        font-size: 2rem;
+    }
+
+    .bodyOrdenarPor{
+        height: 100%
+    }
+
+    .ordenamiento{
+        height: 100%;
+        width: 12rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .ordenamiento p{
+        font-size: 2rem;
+    }
+}

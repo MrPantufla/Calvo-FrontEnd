@@ -14,8 +14,8 @@
 
 .parteUtilizableProductoGrande {
     background-color: var(--colorPrimario);
-    height: 90%;
-    width: 65%;
+    height: 55rem;
+    width: 90rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,8 +68,8 @@
     width: 10.5rem;
     display: flex;
     position: absolute;
-    top: 7.7%;
-    left: 18.8%;
+    top: calc(50vh - 26rem);
+    left: calc(50vw - 44rem);
     background-color: var(--colorPrimario);
     align-items: start;
 }

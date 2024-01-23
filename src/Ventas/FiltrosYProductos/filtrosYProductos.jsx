@@ -1,5 +1,5 @@
 import './filtrosYProductos.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CardProducto from './Card Producto/cardProducto';
 import ProductoGrande from './Card Producto/productoGrande';
 import { useProductos } from '../../contextProductos';
@@ -15,6 +15,21 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
   const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
+  const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.1);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
+  const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 820);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -78,11 +93,54 @@ export default function FiltrosYProductos() {
       .map(producto => producto.color)
   ));
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const maxBusquedaYFiltrosTop = 10.1;
+      const minBusquedaYFiltrosTop = 8.1;
+      const alturaHeader = 150;
+
+      let newTop =
+        maxBusquedaYFiltrosTop -
+        (maxBusquedaYFiltrosTop - minBusquedaYFiltrosTop) * (scrollPosition / alturaHeader);
+
+      newTop = Math.max(minBusquedaYFiltrosTop, newTop);
+
+      setBusquedaYFiltrosTop(newTop);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const toggleFiltros = () => {
+    setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
+  }
+
+  const estilosMobileFiltrosYBusqueda = {
+    backgroundColor: 'var(--colorPrimario)',
+    width: '30%',
+    height: '100vh',
+    zIndex: 3,
+    top: '0',
+    paddingTop: '14rem',
+  }
+
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
-        <div className="filtrosYBusqueda">
+        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
+          <button className="botonMostrarFiltros" onClick={toggleFiltros}>FILTRAR</button>
+        </div>
+        <div
+          className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
+          id="filtrosYBusqueda"
+          style={isMobile ? (filtrosYBusquedaOpen ? estilosMobileFiltrosYBusqueda : { width: '0' }) : { top: `${busquedaYFiltrosTop}rem`, width: '20%' }}
+        >
           <div className="busquedaEIcono">
             <input
               className="busqueda"
@@ -152,12 +210,11 @@ export default function FiltrosYProductos() {
             ))}
           </div>
         </div>
-
-        <div className="productos">
+        <div className="productos" style={isMobile ? ({ width: '100%', marginLeft: '1rem' }) : ({ width: '80%' })}>
           <BotonesOrdenamiento onClick={() => paginar(1)} />
           <div className="row">
             {itemsActuales.map((producto) => (
-              <div key={producto.id} className="col-12 col-md-4 producto">
+              <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
                 <CardProducto
                   id={producto.id}
                   cod_orig={producto.cod_orig}
@@ -196,7 +253,7 @@ export default function FiltrosYProductos() {
           onClick={() => paginar(1)}
           disabled={paginaActual === 1}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
         </button>
@@ -207,8 +264,8 @@ export default function FiltrosYProductos() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="1.6rem"
+            height="1.6rem"
             fill="currentColor"
             className="bi bi-arrow-right"
             viewBox="0 0 16 16"
@@ -244,8 +301,8 @@ export default function FiltrosYProductos() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="1.6rem"
+            height="1.6rem"
             fill="currentColor"
             className="bi bi-arrow-right"
             viewBox="0 0 16 16"

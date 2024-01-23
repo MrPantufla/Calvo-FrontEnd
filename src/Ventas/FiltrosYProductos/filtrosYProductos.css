@@ -1,19 +1,46 @@
 .filtrosYBusqueda {
-    width: 20%;
-    position: sticky;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    left: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.5rem;
+    transition: width 0.3s;
+}
+
+.filtrosYBusqueda.open{
+    width: 20%;
 }
 
 .filtrosYProductosContainer{
-    display: flex;
-    justify-content: space-between;
     width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.botonMostrarFiltros{
+    width: 10rem;
+    height: 4rem;
+    position: absolute;
+    border: none;
+    color: white;
+    background-color: var(--colorSecundario);
+    font-size: 2rem;
+    right: 1.5rem;
+    z-index: 3;
+    top: 11rem;
+    transition: transform 0.08s;
+}
+
+.botonMostrarFiltros:active{
+    transform: scale(0.95);
 }
 
 .productos {
-    width: 80%;
     min-height: calc(100vh - 20rem);
+    margin-left: 20%;
 }
 
 .contenedorPrincipalFiltrosYProductos {
@@ -50,12 +77,12 @@
 .filtros {
     display: flex;
     flex-direction: column;
-    position: fixed;
     top: 16rem;
     left: 1.4rem;
     user-select: none;
     overflow: auto;
     height: calc(100vh - 18rem);
+    width: 90%;
 }
 
 .filtros::-webkit-scrollbar{
@@ -63,7 +90,7 @@
 }
 
 .labelRubros {
-    width: 25rem;
+    width: 100%;
     text-align: center;
     font-size: 2rem;
     font-weight: 550;
@@ -165,11 +192,9 @@
 }
 
 .busquedaEIcono {
-    width: 25rem;
+    width: 90%;
     height: 4rem;
-    position: fixed;
-    top: 11.1rem;
-    left: 1.4rem;
+    margin-bottom: 0.5rem;
     border: 2px solid var(--colorCuaternario);
     display: flex;
 }
@@ -202,6 +227,7 @@
 
 .busqueda::placeholder {
     font-size: 1.8rem;
+    font-weight: 600;
 }
 
 .paginacion {
@@ -272,4 +298,21 @@
 .botonesOrdenamientoContainer {
     position: fixed;
     top: 40rem;
+}
+
+@media (min-width: 1920px){
+    .busquedaEIcono input::placeholder {
+        font-size: 1.6rem;
+    }
+
+    .productos .row{
+        margin-top: 0.5rem;
+    }
+}
+
+@media (min-width: 2560px){
+    .productos .row{
+        margin-top: 1rem;
+    }
+
 }

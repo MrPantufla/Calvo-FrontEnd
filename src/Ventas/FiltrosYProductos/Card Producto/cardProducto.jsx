@@ -70,6 +70,7 @@ export default function CardProducto(args) {
 
   return (
     <div className="contenedorPrincipalCardProducto" >
+      <div className="informacionContainer">
       <div className="decoracionCardProducto">
         <img className="logoDecoracionCardProducto" src={logoBlanco} />
       </div>
@@ -129,8 +130,9 @@ export default function CardProducto(args) {
 
         </div>
       </div>
-      <div className="precioContainer">
-        <p className="precio">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("PRECIO: $")}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
+      </div>
+      <div className="precioContainerCardProducto">
+        <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("PRECIO: $")}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
       </div>
     </div>
   );
