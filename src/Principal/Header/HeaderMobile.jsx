@@ -40,7 +40,7 @@ export default function HeaderMobile() {
                 </div>
                 <div className="containerContainerLogoMobile">
                     <div className="containerLogoMobile">
-                    <img src={location.pathname === '/home' ? LogoCalvo : calvoNegativo} alt="Logo" />
+                        <img src={location.pathname === '/tienda' ?  calvoNegativo : LogoCalvo} alt="Logo" />
                     </div>
                 </div>
             </div>
