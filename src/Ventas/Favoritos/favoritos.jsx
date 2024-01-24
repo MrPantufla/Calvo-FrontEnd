@@ -5,6 +5,7 @@ import { useFavoritos } from '../../contextFavoritos';
 import CardFavoritos from './cardFavoritos';
 import { useProductos } from '../../contextProductos';
 import { useCarrito } from '../../contextCarrito';
+import { useTienda } from '../../contextTienda';
 
 export default function Favoritos() {
     const auth = useAuth();
@@ -13,19 +14,7 @@ export default function Favoritos() {
     const [favoritosTop, setFavoritosTop] = useState(3.2);
     const carrito = useCarrito();
     const [favoritosHeight, setFavoritosHeight] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 820);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    const tienda = useTienda();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -80,7 +69,7 @@ export default function Favoritos() {
     useEffect(() => {
         if (favoritos.favoritosAbierto) {
             if (favoritos.favoritos.length > 0) {
-                if(isMobile){
+                if(tienda.isMobile){
                     setFavoritosHeight(2.2 + 25 * favoritos.favoritos.length)
                 }
                 else{
@@ -107,7 +96,7 @@ export default function Favoritos() {
                     {favoritos.favoritos.length}
                 </span>
             </div>
-            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`, maxHeight: isMobile ? '80rem' : '50rem' }}>
+            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`, maxHeight: tienda.isMobile ? '80rem' : '50rem' }}>
                 <div className="tituloFavoritos">
                     <p>FAVORITOS</p>
                 </div>

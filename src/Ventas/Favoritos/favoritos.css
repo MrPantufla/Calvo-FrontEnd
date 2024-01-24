@@ -113,3 +113,9 @@
         font-size: 2rem;
     }
 } 
+
+@media (max-width: 280px){
+    .bodyFavoritos{
+        width: 44rem;
+    }
+}

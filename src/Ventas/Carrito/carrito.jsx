@@ -4,6 +4,7 @@ import CardCarrito from './cardCarrito';
 import { useCarrito } from '../../contextCarrito.jsx';
 import { useProductos } from '../../contextProductos.jsx';
 import { useFavoritos } from '../../contextFavoritos.jsx';
+import { useTienda } from '../../contextTienda.jsx';
 import carritoVacioImg from '../../Imagenes/carritoVacio.png';
 
 export default function Carrito() {
@@ -27,19 +28,7 @@ export default function Carrito() {
   const [inputFocused, setInputFocused] = useState('');
   const [carritoTop, setCarritoTop] = useState(3.2);
   const [carritoHeight, setCarritoHeight] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 820);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const tienda = useTienda();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -192,7 +181,7 @@ export default function Carrito() {
   useEffect(() => {
     if (carrito.carritoAbierto) {
       if (elementos.length > 0) {
-        if(isMobile){
+        if(tienda.isMobile){
           setCarritoHeight(8 + 27 * elementos.length + 5);
         }
         else{
@@ -200,7 +189,7 @@ export default function Carrito() {
         }
       }
       else {
-        if(isMobile){
+        if(tienda.isMobile){
           setCarritoHeight(4 + 14.1);
         }
         else{

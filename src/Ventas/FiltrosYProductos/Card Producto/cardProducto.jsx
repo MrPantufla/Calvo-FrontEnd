@@ -85,20 +85,7 @@ export default function CardProducto(args) {
           </svg>)}
       </button>
       <div className="imagenContainerCardProducto">
-        <img onClick={args.onClick} className="imagenProducto" src={args.id % 5 == 0 ?
-          (perfil1)
-          :
-          (args.id % 5 == 1 ?
-            (perfil2)
-            :
-            (args.id % 5 == 2 ?
-              (perfil3)
-              :
-              (args.id % 5 == 3 ?
-                (perfil4)
-                :
-                (perfil5))))} alt="Producto">
-        </img>
+        <img onClick={args.onClick} className="imagenProducto" src={perfil1}/>
       </div>
       <div className="detalleYCod_orig">
         <h3><span className="codOrig">{args.cod_orig}</span> - {args.detalle}</h3>

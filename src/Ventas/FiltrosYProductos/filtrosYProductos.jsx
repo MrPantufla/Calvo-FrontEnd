@@ -16,22 +16,9 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
-  const { tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
+  const {isFold, isMobile, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
   const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.1);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 820);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -112,7 +99,6 @@ export default function FiltrosYProductos() {
     };
 
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -135,8 +121,8 @@ export default function FiltrosYProductos() {
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
-        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
-          <button className="botonMostrarFiltros" onClick={toggleFiltros}>FILTROS</button>
+      <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none', zIndex: isFold ? '103' : '100' }}>
+          <button className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
         </div>
         {isMobile ?
           (<>
@@ -150,7 +136,7 @@ export default function FiltrosYProductos() {
           id="filtrosYBusqueda"
           style={isMobile ? (filtrosYBusquedaOpen ? estilosMobileFiltrosYBusqueda : { width: '0' }) : { top: `${busquedaYFiltrosTop}rem`, width: '20%' }}
         >
-          <div className="busquedaEIcono">
+          <div className="busquedaEIcono" style={isMobile && !filtrosYBusquedaOpen ? {padding: '0', margin: '0', border: '0' } : {}}>
             <input
               className="busqueda"
               type="text"
@@ -160,7 +146,7 @@ export default function FiltrosYProductos() {
                 setBusqueda(e.target.value.toUpperCase());
                 setPaginaActual(1);
               }}
-            >
+              style={isMobile && !filtrosYBusquedaOpen ? {padding: '0' } : {}}>
             </input>
             <div className="lupaContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">

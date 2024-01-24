@@ -315,4 +315,14 @@
         height: 4.5rem;
         font-size: 2.2rem;
     }
-} 
+}
+
+@media (max-width: 280px){
+    .bodyCarrito{
+        width: 44rem;
+    }
+
+    .elementosVisiblesCarrito{
+        width: 100%;
+    }
+}

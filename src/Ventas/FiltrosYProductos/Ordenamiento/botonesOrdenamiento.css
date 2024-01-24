@@ -21,6 +21,11 @@
     position: relative;
 }
 
+.botonesArriba, .botonesAbajo{
+    display: flex;
+    flex-direction: row;
+}
+
 .ordenamiento{
     width: 10rem;
     height: 2rem;
@@ -85,17 +90,11 @@
 @media (max-width: 430px){
     .ordenarPor{
         width: 70%;
-        height: 5rem;
     }
 
     .bodyOrdenarPor{
         display: flex;
         flex-direction: column;
-    }
-
-    .botonesArriba, .botonesAbajo{
-        display: flex;
-        flex-direction: row;
     }
 
     .botonesArriba{
@@ -105,5 +104,11 @@
     .ordenamiento{
         height: 3.5rem;
         width: 14rem;
+    }
+}
+
+@media (max-width: 280px){
+    .ordenamiento{
+        width: 12.9rem;
     }
 }

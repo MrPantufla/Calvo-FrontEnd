@@ -261,3 +261,14 @@
         font-size: 2rem;
     }
 } 
+
+@media (max-width: 280px){
+    .imagenYCodigoCardCarrito{
+        width: 43%;
+    }
+
+    .restoCardCarrito{
+        width: 57%;
+        background-color: var(--colorTerciario);
+    }
+}
