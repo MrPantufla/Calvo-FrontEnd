@@ -10,13 +10,28 @@ function TiendaProvider({ children }) {
   const [tiposActivos, setTiposActivos] = useState([]);
   const [coloresActivos, setColoresActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
+  const [isFold, setIsFold] = useState(window.innerWidth <= 280);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 820);
+      setIsFold(window.innerWidth <= 280);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const limpiarColoresActivos = () =>{
     setColoresActivos([]);
   }
 
   return (
-    <TiendaContext.Provider value={{productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{isFold ,isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
       {children}
     </TiendaContext.Provider>
   );

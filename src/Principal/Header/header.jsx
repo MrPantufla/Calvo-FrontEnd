@@ -7,13 +7,13 @@ import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import Carrito from '../../Ventas/Carrito/carrito';
 import Favoritos from '../../Ventas/Favoritos/favoritos';
 import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
+import { useTienda } from '../../contextTienda';
 
 export default function Header() {
   const navigate = useNavigate();
   const [headerSize, setHeaderSize] = useState(10);
   const location = useLocation();
-  const mobile = (window.innerWidth < 768);
-
+  const tienda = useTienda();
   const desplegableCatalogos = useDesplegableCatalogos();
   const desplegablePerfil = useDesplegablePerfil();
 
@@ -63,7 +63,7 @@ export default function Header() {
     top: 0,
     left: 0,
     zIndex: 100,
-    display: mobile ? 'none' : 'flex',
+    display: tienda.mobile ? 'none' : 'flex',
     alignItems: 'center',
     justifyContent: 'right'
   };

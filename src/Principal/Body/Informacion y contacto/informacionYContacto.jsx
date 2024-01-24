@@ -1,9 +1,10 @@
 import Contacto from './contacto.jsx';
 import Informacion from './informacion.jsx';
 import './informacionYContacto.css';
+import { useTienda } from '../../../contextTienda.jsx';
 
 export default function InformacionYContacto() {
-    let mobile = (window.innerWidth < 768);
+    const tienda = useTienda();
     let fold = (window.innerWidth <= 280);
     return (
         <div className="contenedorPrincipalInfoYContacto">
@@ -16,11 +17,11 @@ export default function InformacionYContacto() {
                             </div>
                         </div>
                         <div className="col-11 col-sm-6 divInformacion divsInfoYContacto">
-                            {mobile ? <Contacto/> : <Informacion/>}
+                            {tienda.mobile ? <Contacto/> : <Informacion/>}
                         </div>
-                        {mobile ? <div className="decoracionContainer"><div className="decoracion extraDecoracion">Información de contacto</div></div> : mobile=false}
+                        {tienda.mobile ? <div className="decoracionContainer"><div className="decoracion extraDecoracion">Información de contacto</div></div> : tienda.mobile=false}
                         <div className="col-11 col-sm-6 divContacto divsInfoYContacto">
-                            {mobile ? <Informacion/> : <Contacto/>}
+                            {tienda.mobile ? <Informacion/> : <Contacto/>}
                         </div>
                     </div>
                 </div>
