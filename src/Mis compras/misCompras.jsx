@@ -2,11 +2,10 @@ import './misCompras.css';
 import { useAuth } from '../contextLogin';
 import { useEffect, useState } from 'react';
 import CardMisCompras from './Card mis Compras/cardMisCompras';
-import LoginYRegistro from '../Login y registro/loginYRegistro';
-import Header from '../Principal/Header/header';
 import { useNavigate } from 'react-router-dom';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil';
 import Footer from '../Principal/Footer/footer.jsx';
+import RenderHeader from '../Principal/Header/renderHeader.jsx';
 
 export default function MisCompras() {
     const auth = useAuth();
@@ -69,15 +68,15 @@ export default function MisCompras() {
     }, [auth.state.logueado]);
 
     return (
-        <>
+        <div className="contenedorPaginaMisCompras">
             <div className="contenedorPrincipalMisCompras">
                 <DesplegablePerfil />
-                <Header />
+                <RenderHeader />
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
                 <div className="misComprasContainer row">
                     {itemsActuales.slice().map((item, index) => (
-                        <div className={`col-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{ height: "auto" }}>
+                        <div className={`col-12 col-md-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{ height: "auto" }}>
                             <CardMisCompras data={item} />
                         </div>
                     ))}
@@ -100,8 +99,8 @@ export default function MisCompras() {
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
+                        width="1.6rem"
+                        height="1.6rem"
                         fill="currentColor"
                         className="bi bi-arrow-right"
                         viewBox="0 0 16 16"
@@ -161,6 +160,6 @@ export default function MisCompras() {
                 </button>
             </div>
             <Footer />
-        </>
+        </div>
     );
 }
