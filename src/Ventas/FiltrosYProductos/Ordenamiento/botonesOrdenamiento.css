@@ -26,6 +26,10 @@
     flex-direction: row;
 }
 
+.botonesArriba{
+    margin-right: 0.4rem;
+}
+
 .ordenamiento{
     width: 10rem;
     height: 2rem;
@@ -84,6 +88,10 @@
 
     .ordenamiento p{
         font-size: 2rem;
+    }
+
+    .botonesArriba{
+        margin-right: 0;
     }
 }
 
