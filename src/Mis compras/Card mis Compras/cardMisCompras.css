@@ -19,6 +19,7 @@
     background-color: var(--colorAzulOscuro);
     display: flex;
     justify-content: center;
+    height: 3rem;
 }
 
 .fechaCardMisCompras {
