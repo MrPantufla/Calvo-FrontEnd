@@ -63,7 +63,7 @@ export default function CardCarrito(args) {
                 <div className="colorCardCarritoContainer">
                     <>
                         <p className="textoColorCardCarrito">COLOR</p>
-                        <div className="muestraColor" style={{ backgroundColor: `var(--${colorCorregido})` }} >
+                        <div className="muestraColorCardCarrito" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                             <p className="colorCardCarrito" style={usarBlanco ? { color: 'white' } : {}}>
                                 {producto.color == 'Ind' ? ('-') : (producto.color.toUpperCase()) }
                             </p>

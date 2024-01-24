@@ -81,3 +81,29 @@
         font-size: 2rem;
     }
 }
+
+@media (max-width: 430px){
+    .ordenarPor{
+        width: 70%;
+        height: 5rem;
+    }
+
+    .bodyOrdenarPor{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .botonesArriba, .botonesAbajo{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .botonesArriba{
+        margin-bottom: 0.6rem;
+    }
+
+    .ordenamiento{
+        height: 3.5rem;
+        width: 14rem;
+    }
+}

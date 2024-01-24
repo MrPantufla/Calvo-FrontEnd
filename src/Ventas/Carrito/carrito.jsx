@@ -27,6 +27,19 @@ export default function Carrito() {
   const [inputFocused, setInputFocused] = useState('');
   const [carritoTop, setCarritoTop] = useState(3.2);
   const [carritoHeight, setCarritoHeight] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 820);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,10 +192,20 @@ export default function Carrito() {
   useEffect(() => {
     if (carrito.carritoAbierto) {
       if (elementos.length > 0) {
-        setCarritoHeight(0.5 + 5 + 20 * elementos.length + 3);
+        if(isMobile){
+          setCarritoHeight(8 + 27 * elementos.length + 5);
+        }
+        else{
+          setCarritoHeight(0.5 + 5 + 20 * elementos.length + 3);
+        }
       }
       else {
-        setCarritoHeight(0.5 + 5 + 10);
+        if(isMobile){
+          setCarritoHeight(4 + 14.1);
+        }
+        else{
+          setCarritoHeight(0.5 + 5 + 10);
+        }
       }
     } else {
       setCarritoHeight(0);
@@ -231,6 +254,11 @@ export default function Carrito() {
                 onBlur={leaveFocus}
               />
               <div className="colorAgregadoRapido">
+                {sugerenciaColor && (
+                  <div className="sugerenciaColor sugerencia">
+                    <p className="textoSugerencia"> {!colorValido ? (sugerenciaColor) : ('')}</p>
+                  </div>
+                )}
                 <input
                   ref={colorInputRef}
                   className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
@@ -246,11 +274,6 @@ export default function Carrito() {
                   onFocus={() => setInputFocused('color')}
                   onBlur={leaveFocus}
                 />
-                {sugerenciaColor && (
-                  <div className="sugerenciaColor sugerencia">
-                    <p className="textoSugerencia"> {!colorValido ? (sugerenciaColor) : ('')}</p>
-                  </div>
-                )}
               </div>
               <input
                 ref={cantidadInputRef}

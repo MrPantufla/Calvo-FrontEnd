@@ -5,6 +5,8 @@ import ProductoGrande from './Card Producto/productoGrande';
 import { useProductos } from '../../contextProductos';
 import { useTienda } from '../../contextTienda';
 import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
+import Carrito from '../Carrito/carrito';
+import Favoritos from '../Favoritos/favoritos';
 
 export default function FiltrosYProductos() {
   const productos = useProductos();
@@ -134,8 +136,15 @@ export default function FiltrosYProductos() {
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
         <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
-          <button className="botonMostrarFiltros" onClick={toggleFiltros}>FILTRAR</button>
+          <button className="botonMostrarFiltros" onClick={toggleFiltros}>FILTROS</button>
         </div>
+        {isMobile ?
+          (<>
+            <Carrito />
+            <Favoritos />
+          </>)
+          :
+          (<></>)}
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
@@ -210,9 +219,9 @@ export default function FiltrosYProductos() {
             ))}
           </div>
         </div>
-        <div className="productos" style={isMobile ? ({ width: '100%', marginLeft: '1rem' }) : ({ width: '80%' })}>
+        <div className="productos" style={isMobile ? ({ width: '100%'}) : ({ width: '80%' })}>
           <BotonesOrdenamiento onClick={() => paginar(1)} />
-          <div className="row">
+          <div className="row rowProductos">
             {itemsActuales.map((producto) => (
               <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
                 <CardProducto

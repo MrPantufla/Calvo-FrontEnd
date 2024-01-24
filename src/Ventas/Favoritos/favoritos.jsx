@@ -13,6 +13,19 @@ export default function Favoritos() {
     const [favoritosTop, setFavoritosTop] = useState(3.2);
     const carrito = useCarrito();
     const [favoritosHeight, setFavoritosHeight] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 820);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -66,16 +79,21 @@ export default function Favoritos() {
 
     useEffect(() => {
         if (favoritos.favoritosAbierto) {
-          if (favoritos.favoritos.length > 0) {
-            setFavoritosHeight(3 + favoritos.favoritos.length * 20);
-          }
-          else {
-            setFavoritosHeight(0);
-          }
+            if (favoritos.favoritos.length > 0) {
+                if(isMobile){
+                    setFavoritosHeight(2.2 + 25 * favoritos.favoritos.length)
+                }
+                else{
+                    setFavoritosHeight(3 + favoritos.favoritos.length * 20);
+                }
+            }
+            else {
+                setFavoritosHeight(0);
+            }
         } else {
-          setFavoritosHeight(0);
+            setFavoritosHeight(0);
         }
-      }, [favoritos.favoritosAbierto, favoritos.favoritos.length]);
+    }, [favoritos.favoritosAbierto, favoritos.favoritos.length]);
 
     return (
         <div className="contenedorPrincipalFavoritos" style={{ top: `${favoritosTop}rem` }}>
@@ -89,7 +107,7 @@ export default function Favoritos() {
                     {favoritos.favoritos.length}
                 </span>
             </div>
-            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`, maxHeight: `50rem` }}>
+            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`, maxHeight: isMobile ? '80rem' : '50rem' }}>
                 <div className="tituloFavoritos">
                     <p>FAVORITOS</p>
                 </div>
