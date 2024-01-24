@@ -4,8 +4,6 @@ import ProductoHistorial from '../Producto Historial/productoHistorial';
 import { useProductos } from '../../contextProductos';
 import { useCarrito } from '../../contextCarrito';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
-
 
 export default function CardMisCompras(args) {
     const arrayProductos = args.data.productos.split(' ').map((str) => parseInt(str, 10));
@@ -51,7 +49,7 @@ export default function CardMisCompras(args) {
     const fechaFormateada = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
 
     return (
-        <div className="contenedorPrincipalCardMisCompras">
+        <div className="contenedorPrincipalCardMisCompras" >
             <div className="headCardMisCompras">
                 <div className="fechaCardMisComprasContainer">
                     <h1 className="fechaCardMisCompras">{fechaFormateada}</h1>
