@@ -4,11 +4,20 @@ import { NavLink, useLocation } from 'react-router-dom';
 import LogoCalvo from '../../Imagenes/logo calvo.png';
 import calvoNegativo from '../../Imagenes/calvoNegativo.png';
 import { useTienda } from '../../contextTienda';
+import { useAuth } from '../../contextLogin';
+import { useNavigate } from 'react-router-dom';
+import { useFavoritos } from '../../contextFavoritos';
+import { useCarrito } from '../../contextCarrito';
 
 export default function HeaderMobile() {
     const [menuAbierto, setMenuAbierto] = useState(false);
     const location = useLocation();
     const tienda = useTienda();
+    const auth = useAuth();
+    const navigate = useNavigate();
+    const favoritos = useFavoritos();
+    const carrito = useCarrito();
+    const [catalogosOpen, setCatalogosOpen] = useState(false);
 
     const handleInicioClick = () => {
         window.scrollTo(0, 0);
@@ -30,6 +39,57 @@ export default function HeaderMobile() {
         };
     }, [menuAbierto]);
 
+    const mostrarIniciarSesion = () => {
+        auth.setOpcionSeleccionada('login');
+        auth.setMostrarLogin(true);
+        setMenuAbierto(false);
+    }
+
+    const mostrarRegistro = () => {
+        auth.setOpcionSeleccionada('registro');
+        auth.setMostrarLogin(true);
+        setMenuAbierto(false);
+    }
+
+    const handleCerrarSesion = async () => {
+        navigate('/home');
+        auth.logout();
+        favoritos.setFavoritos('');
+        carrito.limpiarCarrito();
+        setMenuAbierto(false);
+    }
+
+    let ruta;
+    if (auth.state.logueado) {
+        ruta = auth.state.userInfo.email_confirmado ? "/perfil" : "";
+    }
+    else {
+        ruta = "";
+    }
+
+    const handleToggleLogin = () => {
+        if (!auth.state.logueado) {
+            auth.setMostrarLogin(true);
+        }
+        else {
+            if (!auth.state.userInfo.email_confirmado) {
+                auth.setMostrarLogin(true);
+            }
+        }
+    };
+
+    const handleDownload = (filename) => {
+        const filePath = `${process.env.PUBLIC_URL}/Archivos/${filename}.pdf`;
+        const link = document.createElement('a');
+        link.href = process.env.PUBLIC_URL + filePath;
+        link.download = `${filename}.pdf`;
+        link.click();
+    };
+
+    const toggleCatalogos = () => {
+        setCatalogosOpen(!catalogosOpen);
+    }
+
     return (
         <div className="containerGeneralHeaderMobile">
             <div className="containerBotonYLogoMobile">
@@ -40,7 +100,7 @@ export default function HeaderMobile() {
                         </svg>
                     </button>
                 </div>
-                <div className={`containerContainerLogoMobile ${tienda.isFold && location.pathname==='/tienda' ? 'foldTienda' : ''}`}>
+                <div className={`containerContainerLogoMobile ${tienda.isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
                         <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" />
                     </div>
@@ -73,14 +133,34 @@ export default function HeaderMobile() {
                                     <p>MIS COMPRAS</p>
                                 </NavLink>
                                 {location.pathname === '/tienda' && (
-                                    <div className="elemento"><p>CATALOGOS</p></div>
+                                    <div className={`elemento catalogos  ${catalogosOpen ? 'open' : ''}`}>
+                                        <div className="textoCatalogosHeaderMobileContainer" onClick={() => { toggleCatalogos(); console.log("xd"); }}>
+                                            <p className="textoCatalogosHeaderMobile">CATÁLOGOS</p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="var(--colorSecundario)" className="bi bi-caret-down-fill flechaCatalogos" viewBox="0 0 16 16">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                            </svg>
+                                        </div>
+                                        <div className="bodyElemento">
+                                            <p onClick={() => handleDownload('perfiles')}>PERFILES</p>
+                                            <p onClick={() => handleDownload('accesorios')}>ACCESORIOS</p>
+                                            <p onClick={() => handleDownload('herramientas')}>HERRAMIENTAS</p>
+                                        </div>
+                                    </div>
                                 )}
                             </>
                         )}
 
-                        <a className="elemento" onClick={toggleMenu}>
-                            <p>PERFIL</p>
-                        </a>
+                        {auth.state.logueado ?
+                            (<>
+                                <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink elemento"><p>MI PERFIL</p></NavLink>
+                                <a className="elemento" onClick={handleCerrarSesion} style={{ marginTop: '2.5rem' }}><p>CERRAR SESIÓN</p></a>
+                            </>)
+                            :
+                            (<>
+                                <a className="elemento" onClick={mostrarIniciarSesion} style={{ marginTop: '2.5rem' }}><p>INICIAR SESIÓN</p></a>
+                                <a className="elemento" onClick={mostrarRegistro}><p>REGISTRARME</p></a>
+                            </>
+                            )}
                     </div>
 
                 </div>
