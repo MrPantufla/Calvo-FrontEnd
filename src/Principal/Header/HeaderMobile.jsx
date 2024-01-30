@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import LogoCalvo from '../../Imagenes/logo calvo.png';
 import calvoNegativo from '../../Imagenes/calvoNegativo.png';
+import { useTienda } from '../../contextTienda';
 
 export default function HeaderMobile() {
     const [menuAbierto, setMenuAbierto] = useState(false);
     const location = useLocation();
+    const tienda = useTienda();
 
     const handleInicioClick = () => {
         window.scrollTo(0, 0);
@@ -38,9 +40,9 @@ export default function HeaderMobile() {
                         </svg>
                     </button>
                 </div>
-                <div className="containerContainerLogoMobile">
+                <div className={`containerContainerLogoMobile ${tienda.isFold && location.pathname==='/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
-                        <img src={location.pathname === '/tienda' ?  calvoNegativo : LogoCalvo} alt="Logo" />
+                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" />
                     </div>
                 </div>
             </div>
@@ -54,19 +56,33 @@ export default function HeaderMobile() {
                             <p>INICIO</p>
                         </NavLink>
                         <NavLink to="/tienda" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
-                            <p>VENTAS</p>
+                            <p>TIENDA</p>
                         </NavLink>
+                        {location.pathname === "/home" ? (
+                            <>
+                                <a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
+                                    <p>QUIÉNES SOMOS</p>
+                                </a>
+                                <a href="#contacto" className="elemento" onClick={toggleMenu}>
+                                    <p>CONTACTO</p>
+                                </a>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink to="/misCompras" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
+                                    <p>MIS COMPRAS</p>
+                                </NavLink>
+                                {location.pathname === '/tienda' && (
+                                    <div className="elemento"><p>CATALOGOS</p></div>
+                                )}
+                            </>
+                        )}
 
-                        <a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
-                            <p>QUIÉNES SOMOS</p>
-                        </a>
-                        <a href="#contacto" className="elemento" onClick={toggleMenu}>
-                            <p>CONTACTO</p>
-                        </a>
                         <a className="elemento" onClick={toggleMenu}>
                             <p>PERFIL</p>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>

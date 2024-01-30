@@ -1,5 +1,6 @@
 .contenedorPrincipalCardMisCompras {
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .headCardMisCompras {
@@ -93,17 +94,16 @@
     background-color: var(--colorPrimario);
     width: 97%;
     margin-left: 1.5%;
-    max-height: 0;
+    max-height: 1rem;
     transition: max-height 0.3s;
     overflow: hidden;
-    border: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent var(--colorSecundario) var(--colorSecundario) var(--colorSecundario);
 }
 
 .bodyCardMisCompras.open {
     max-height: 100rem;
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent var(--colorSecundario) var(--colorSecundario) var(--colorSecundario);
 }
 
 .bodyCardMisCompras::-webkit-scrollbar {

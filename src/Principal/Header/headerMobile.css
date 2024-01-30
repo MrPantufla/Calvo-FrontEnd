@@ -115,3 +115,14 @@
     font-weight: 700;
     color: var(--colorSecundario);
 }
+
+.containerContainerLogoMobile.foldTienda{
+    .containerLogoMobile{
+        justify-content: left;
+        padding-left: 2rem;
+    }
+
+    .containerLogoMobile img{
+        width: 50%
+    }
+}

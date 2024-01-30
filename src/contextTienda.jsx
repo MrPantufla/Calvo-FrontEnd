@@ -10,12 +10,14 @@ function TiendaProvider({ children }) {
   const [tiposActivos, setTiposActivos] = useState([]);
   const [coloresActivos, setColoresActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 820 && window.innerWidth >= 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isFold, setIsFold] = useState(window.innerWidth <= 280);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 820);
+      setIsTablet(window.innerWidth <= 820 && window.innerWidth >= 768)
+      setIsMobile(window.innerWidth < 768);
       setIsFold(window.innerWidth <= 280);
     };
 

@@ -6,32 +6,49 @@
 }
 
 .decoracionMisCompras{
-    background-color: var(--colorPrimario);
-}
-
-.decoracionDosMisCompras{
     background-color: var(--colorTerciario);
 }
 
+.decoracionDosMisCompras{
+    background-color: var(--colorPrimario);
+}
+
 .misComprasContainer{
+    display: flex;
+    flex-direction: row;
     padding-top: 12rem;
-    z-index: 10;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-}
-
-.columnaMisCompras{
-    display: flex;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    width: 49vw;
+    width: 100vw;
 }
 
-.par{
-    padding-left: 7rem;
+.misComprasContainer.mobile{
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
 }
 
-.impar{
+.columnaImpar{
     padding-right: 7rem;
+    padding-left: 1rem;
+}
+
+.columnaPar{
+    padding-left: 7rem;
+    padding-right: 1rem;
+}
+
+.columnaImpar, .columnaPar{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.misComprasContainer.mobile > .columnaImpar, .misComprasContainer.mobile > .columnaPar{
+    padding: 0;
+    width: 60rem;
+}
+
+.misComprasContainer.fold > .columnaImpar, .misComprasContainer.fold > .columnaPar{
+    width: 90%;
 }

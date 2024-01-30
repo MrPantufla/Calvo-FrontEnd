@@ -17,7 +17,7 @@
 .filtrosYProductosContainer{
     width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: right;
 }
 
 .botonMostrarFiltros{
@@ -238,6 +238,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .buttonPag {
@@ -303,6 +305,7 @@
     position: fixed;
     top: 40rem;
 }
+
 @media (max-width: 1024px){
     .busqueda::placeholder{
         font-size: 1.6rem;
@@ -319,7 +322,7 @@
     }
 
     .busqueda::placeholder{
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .paginacion{
@@ -344,15 +347,6 @@
 @media (max-width: 280px){
     .buttonPag{
         width: 7rem;
-    }
-
-    .containerLogoMobile{
-        justify-content: left;
-        padding-left: 2rem;
-    }
-
-    .containerLogoMobile img{
-        width: 50%
     }
 
     .botonMostrarFiltros{

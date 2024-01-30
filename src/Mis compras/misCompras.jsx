@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil';
 import Footer from '../Principal/Footer/footer.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
+import { useTienda } from '../contextTienda.jsx';
 
 export default function MisCompras() {
+    const tienda = useTienda();
     const auth = useAuth();
     const [historial, setHistorial] = useState([]);
     const [paginaActual, setPaginaActual] = useState(1);
@@ -74,12 +76,17 @@ export default function MisCompras() {
                 <RenderHeader />
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
-                <div className="misComprasContainer row">
-                    {itemsActuales.slice().map((item, index) => (
-                        <div className={`col-12 col-md-6 columnaMisCompras ${index % 2 === 0 ? 'par' : 'impar'}`} key={index} style={{ height: "auto" }}>
-                            <CardMisCompras data={item} />
-                        </div>
-                    ))}
+                <div className={`misComprasContainer ${tienda.isMobile ? 'mobile' : ''} ${tienda.isFold ? 'fold' : ''}`}>
+                    <div className="columnaPar">
+                        {itemsActuales.map((item, index) => (
+                            index % 2 === 0 ? <CardMisCompras key={index} data={item} /> : null
+                        ))}
+                    </div>
+                    <div className="columnaImpar">
+                        {itemsActuales.map((item, index) => (
+                            index % 2 !== 0 ? <CardMisCompras key={index} data={item} /> : null
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className="paginacion">
@@ -88,7 +95,7 @@ export default function MisCompras() {
                     onClick={() => paginar(1)}
                     disabled={paginaActual === 1}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
                     </svg>
                 </button>
@@ -136,8 +143,8 @@ export default function MisCompras() {
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
+                        width="1.6rem"
+                        height="1.6rem"
                         fill="currentColor"
                         className="bi bi-arrow-right"
                         viewBox="0 0 16 16"

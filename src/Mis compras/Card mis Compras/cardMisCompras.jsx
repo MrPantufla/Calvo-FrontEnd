@@ -59,7 +59,6 @@ export default function CardMisCompras(args) {
                     <div className="cantidadYPoliginosContainer">
                         <div className="poligono poligonoMisCompras" />
                         <h1>
-
                             {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}
 
                             {arrayCantidades.reduce((accumulator, currentValue) => accumulator + currentValue, 0) === 1 ? ' PRODUCTO' : ' PRODUCTOS'}
