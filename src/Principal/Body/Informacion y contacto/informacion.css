@@ -94,11 +94,11 @@
     }
 
     .poligono1{
-        margin-bottom: 16.9rem;
+        margin-bottom: 16.3rem;
     }
 
     .poligono2{
-        margin-bottom: 12.3rem;
+        margin-bottom: 11.7rem;
     }
 
     
@@ -109,7 +109,11 @@
         font-size: 2.3rem;
     }
 
+    .poligono1{
+        margin-bottom: 16rem;
+    }
+
     .poligono2{
-        margin-bottom: 15.4rem;
+        margin-bottom: 14.5rem;
     }
 }

@@ -132,7 +132,7 @@ input::placeholder, textarea::placeholder {
     }
     
     .inputContainer{
-        margin-bottom: 2rem;
+        margin-bottom: 0rem;
         height: 9rem;
     }
 

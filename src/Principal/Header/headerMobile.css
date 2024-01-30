@@ -95,7 +95,7 @@
 .elemento {
     background-color: white;
     margin: 1rem 0;
-    width: 25rem;
+    width: 26rem;
     height: 4rem;
     border-radius: 2px;
     display: flex;
@@ -106,14 +106,73 @@
 }
 
 .elemento:active {
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 .elemento p {
-    padding-top: 4.6%;
+    padding-top: 1%;
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--colorSecundario);
+}
+
+.elemento.catalogos{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: left;
+}
+
+.elemento.catalogos.open{
+    height: 18rem;
+}
+
+.elemento.catalogos:active{
+    transform: scale(0.99);
+}
+
+.bodyElemento{
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.bodyElemento p{
+    background-color: var(--colorSecundario);
+    color: white;
+    width: 90%;
+    height: 4rem;
+    margin: 0.2rem 0;
+    border-radius: 2px;
+    text-align: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.bodyElemento p:active{
+    background-color: white;
+    color: var(--colorSecundario);
+}
+
+.elemento.catalogos.open:has(.bodyElemento p:active) {
+    transform: scale(1);
+}
+
+.elemento.catalogos.open > .bodyElemento{
+    height: 10rem;
+}
+
+.textoCatalogosHeaderMobileContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.textoCatalogosHeaderMobileContainer p{
+    margin-right: 0.5rem;
+    text-align: center;
+    width: 100%;
 }
 
 .containerContainerLogoMobile.foldTienda{
