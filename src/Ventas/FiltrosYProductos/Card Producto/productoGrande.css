@@ -8,8 +8,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
-    
-    z-index: 100;
+    z-index: 101;
 }
 
 .parteUtilizableProductoGrande {
@@ -32,7 +31,7 @@
 }
 
 .imagenProductoGrandeContainer{
-    width: 42rem;
+    width: 50rem;
     height: 26rem;
     display: flex;
     align-items: center;
@@ -42,7 +41,8 @@
 
 .imagenProductoGrande{
     object-fit: contain;
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .contenedorPrincipalProductoGrande h1{
