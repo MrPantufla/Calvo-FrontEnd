@@ -27,13 +27,23 @@ export default function CardFavoritos(args) {
         carrito.añadirElemento(args.producto.id, 1);
     }
 
-    
-
     return (
         <div className="contenedorPrincipalCardFavoritos">
             <div className="imagenYCodigoCardFavoritos">
                 <div className="imagenCardFavoritosContainer">
-                    <img className="imagenCardFavoritos" src={perfil} onClick={() => tienda.setProductoSeleccionado(args.producto)}/>
+                <img
+                        className="imagenCardFavoritos"
+                        src={`/ImagenesProductos/${args.producto.cod_int.toLowerCase()}.png`}
+                        onError={(e) => {
+                            e.target.src = `/ImagenesProductos/${args.producto.cod_int.toLowerCase()}.jpg`;
+
+                            e.target.onerror = () => {
+                                e.target.src = `/ImagenesProductos/xd.png`;
+                            };
+                        }}
+                        alt="Imagen del producto"
+                        loading="lazy"
+                    />
                 </div>
                 <div className="codigoYDetalleCardFavoritosContainer">
                     <p className="codigoYDetalleCardFavoritos"><span>{args.producto.cod_orig}</span> - {args.producto.detalle}</p>

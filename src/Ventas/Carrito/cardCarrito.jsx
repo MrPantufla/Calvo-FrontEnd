@@ -42,7 +42,20 @@ export default function CardCarrito(args) {
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
                 <div className="imagenCardCarritoContainer">
-                    <img className="imagenCardCarrito" src={perfil} onClick={()=> tienda.setProductoSeleccionado(producto)}/>
+                    <img
+                        className="imagenCardCarrito"
+                        src={`/ImagenesProductos/${producto.cod_int.toLowerCase()}.png`}
+                        onError={(e) => {
+                            e.target.src = `/ImagenesProductos/${producto.cod_int.toLowerCase()}.jpg`;
+
+                            e.target.onerror = () => {
+                                e.target.src = `/ImagenesProductos/xd.png`;
+                            };
+                        }}
+                        alt="Imagen del producto"
+                        loading="lazy"
+                        onClick={()=> tienda.setProductoSeleccionado(producto)}
+                    />
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
                 <div className="codigoYDetalleCardCarritoContainer">
@@ -65,7 +78,7 @@ export default function CardCarrito(args) {
                         <p className="textoColorCardCarrito">COLOR</p>
                         <div className="muestraColorCardCarrito" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                             <p className="colorCardCarrito" style={usarBlanco ? { color: 'white' } : {}}>
-                                {producto.color == 'Ind' ? ('-') : (producto.color.toUpperCase()) }
+                                {producto.color == 'Ind' ? ('-') : (producto.color.toUpperCase())}
                             </p>
                         </div>
                     </>

@@ -9,6 +9,8 @@
     overflow: hidden;
     right: 4.6rem;
     padding-right: 1rem;
+    overflow: visible;
+    max-height: 55rem;
 }
 
 .contenedorPrincipalCarrito .btn-primary{
@@ -45,7 +47,7 @@
     padding-left: 2rem;
 }
 
-.hintCarrito{
+.botonHintCarrito{
     width: 2rem;
     height: 2rem;
     background-color: var(--colorPrimario);
@@ -53,11 +55,40 @@
     align-items: center;
     justify-content: center;
     border-radius: 2px;
+    cursor: pointer;
+    transition: scale 0.2s;
+}
+
+.botonHintCarrito:active{
+    transform: scale(0.95);
+}
+
+.botonHintCarrito p{
+    color: var(--colorRojo);
+    font-size: 1.6rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.hintCarrito{
+    padding: 0.5rem;
+    position: absolute;
+    background-color: white;
+    color: var(--colorSecundario);
+    border: 2px solid var(--colorSecundario);
+    z-index: 1;
+    top: 9rem;
+    user-select: none;
+    width: 38.2rem;
+    font-size: 1.5rem;
 }
 
 .hintCarrito p{
-    color: var(--colorRojo);
-    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.hintCarrito p span{
+    color: var(--colorRojo)
 }
 
 .form-group-agregadoRapido{
@@ -245,11 +276,19 @@
         color: var(--colorCuaternario);
     }
 
+    .hintCarrito{
+        font-size: 2rem;
+    }
+
+    .tituloCarrito{
+        font-size: 2rem;
+    }
+
     .contenedorPrincipalCarrito{
         position: absolute;
         right: 6.5rem;
         top: 2rem !important;
-        max-height: 80rem;
+        max-height: 130rem;
     }
 
     .botonCarrito{
@@ -262,7 +301,7 @@
         height: 3rem;
     }
 
-    .hintCarrito{
+    .botonHintCarrito{
         width: 2.5rem;
         height: 2.5rem;
     }
@@ -273,12 +312,80 @@
         font-size: 2rem;
     }
 
-    .tituloYHintCarrito{
-        height: 4rem;
+    .elementosVisiblesCarrito{
+        width: 55rem;
     }
 
-    .tituloYHintCarrito p{
+    .codigoAgregadoRapido{
+        width: 41%;
+    }
+
+    .colorAgregadoRapido{
+        width: 40%;
+    }
+
+    .colorAgregadoRapido input{
+        width: 100%;
+    }
+
+    .form-group-agregadoRapido{
+        height: 4rem;
         font-size: 2.2rem;
+        color: var(--colorSecundario);
+    }
+
+    .form-group-agregadoRapido::placeholder{
+        font-size: 2.2rem;
+    }
+
+    .bodyCarrito.open{
+        max-height: 200rem !important;
+    }
+
+    .confirmarCarrito{
+        height: 4.5rem;
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 767px){
+    .sugerenciaColor{
+        font-size: 2.2rem;
+        font-weight: 600;
+        padding-bottom: 0.1rem;
+        color: var(--colorCuaternario);
+    }
+
+    .hintCarrito{
+        font-size: 2rem;
+    }
+
+    .contenedorPrincipalCarrito{
+        position: absolute;
+        right: 6.5rem;
+        top: 2rem !important;
+        max-height: 115rem;
+    }
+
+    .botonCarrito{
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .botonCarrito .bi{
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .botonHintCarrito{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .cantidadEnCarrito{
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
     }
 
     .elementosVisiblesCarrito{

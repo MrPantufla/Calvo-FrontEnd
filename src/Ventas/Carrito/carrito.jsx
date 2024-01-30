@@ -29,6 +29,7 @@ export default function Carrito() {
   const [carritoTop, setCarritoTop] = useState(3.2);
   const [carritoHeight, setCarritoHeight] = useState(0);
   const tienda = useTienda();
+  const [mostrarHint, setMostrarHint] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +66,7 @@ export default function Carrito() {
         const productosEncontrados = Object.values(productos.productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
 
         if (!productosEncontrados.length > 0) {
-          setErrorMessage("El código ingresado no existe");
+          setErrorMessage("Código incorrecto");
           setCodigoValido(false);
           setCodigoAgregadoRapido('');
         }
@@ -184,6 +185,9 @@ export default function Carrito() {
         if(tienda.isMobile){
           setCarritoHeight(8 + 27 * elementos.length + 5);
         }
+        else if(tienda.isTablet){
+          setCarritoHeight(3 + 4 + 27 * elementos.length + 5);
+        }
         else{
           setCarritoHeight(0.5 + 5 + 20 * elementos.length + 3);
         }
@@ -191,6 +195,9 @@ export default function Carrito() {
       else {
         if(tienda.isMobile){
           setCarritoHeight(4 + 14.1);
+        }
+        else if(tienda.isTablet){
+          setCarritoHeight(3 + 4 + 10.5);
         }
         else{
           setCarritoHeight(0.5 + 5 + 10);
@@ -217,13 +224,16 @@ export default function Carrito() {
         </span>
       </div>
 
-      <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem`, maxHeight: `50rem` }}>
+      <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem`}}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
             <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
-            <div className="hintCarrito" title="Para utilizar la compra rápida escriba el código del producto que desea agregar, el color y la cantidad. Valide los datos presionando Enter o Tab al terminar de escribirlos">
+            <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
               <p>?</p>
             </div>
+            {mostrarHint ? (<div className="hintCarrito" on>
+              <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PRODUCTO QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
+            </div>) : ('')}
           </div>
           <div className="elementosVisiblesCarrito">
             <form className="agregadoRapido">

@@ -70,7 +70,10 @@ export default function Favoritos() {
         if (favoritos.favoritosAbierto) {
             if (favoritos.favoritos.length > 0) {
                 if(tienda.isMobile){
-                    setFavoritosHeight(2.2 + 25 * favoritos.favoritos.length)
+                    setFavoritosHeight(2.2 + 25 * favoritos.favoritos.length + 0.5)
+                }
+                else if(tienda.isTablet){
+                    setFavoritosHeight(3 + 25 * favoritos.favoritos.length + 0.5);
                 }
                 else{
                     setFavoritosHeight(3 + favoritos.favoritos.length * 20);
@@ -96,7 +99,7 @@ export default function Favoritos() {
                     {favoritos.favoritos.length}
                 </span>
             </div>
-            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`, maxHeight: tienda.isMobile ? '80rem' : '50rem' }}>
+            <div className={`bodyFavoritos ${favoritos.favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem`}}>
                 <div className="tituloFavoritos">
                     <p>FAVORITOS</p>
                 </div>
