@@ -26,12 +26,12 @@ function TiendaProvider({ children }) {
     };
   }, []);
 
-  const limpiarColoresActivos = () =>{
+  const limpiarColoresActivos = () => {
     setColoresActivos([]);
   }
 
   return (
-    <TiendaContext.Provider value={{isFold ,isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{ isFold, isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
       {children}
     </TiendaContext.Provider>
   );
