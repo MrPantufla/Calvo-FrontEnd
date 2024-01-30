@@ -7,6 +7,7 @@ import { useTienda } from '../../contextTienda';
 import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
+import { useCarrito } from '../../contextCarrito';
 
 export default function FiltrosYProductos() {
   const productos = useProductos();
@@ -16,12 +17,14 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
-  const {isFold, isMobile, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
+  const {isTablet, isFold, isMobile, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
   const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.1);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
+  const carrito = useCarrito();
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
+    carrito.setCarritoAbierto(false);
   };
 
   const handleCloseProductoGrande = () => {
@@ -124,7 +127,7 @@ export default function FiltrosYProductos() {
       <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none', zIndex: isFold ? '103' : '100' }}>
           <button className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
         </div>
-        {isMobile ?
+        {isTablet ?
           (<>
             <Carrito />
             <Favoritos />
@@ -239,6 +242,7 @@ export default function FiltrosYProductos() {
           precio={productoSeleccionado.precio}
           color={productoSeleccionado.color}
           kg={productoSeleccionado.kg}
+          cod_int={productoSeleccionado.cod_int}
         />
       )}
 
