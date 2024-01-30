@@ -65,19 +65,19 @@ export default function ProductoGrande(args) {
                         <h2>{args.detalle}</h2>
                     </div>
                     <div className="imagenProductoGrandeContainer">
-                        <img className="imagenProductoGrande" src={args.id % 5 == 0 ?
-                            (perfil1)
-                            :
-                            (args.id % 5 == 1 ?
-                                (perfil2)
-                                :
-                                (args.id % 5 == 2 ?
-                                    (perfil3)
-                                    :
-                                    (args.id % 5 == 3 ?
-                                        (perfil4)
-                                        :
-                                        (perfil5))))} />
+                        <img
+                            className="imagenProductoGrande"
+                            src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
+                            onError={(e) => {
+                                e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
+
+                                e.target.onerror = () => {
+                                    e.target.src = `/ImagenesProductos/xd.png`;
+                                };
+                            }}
+                            alt="Imagen del producto"
+                            loading="lazy"
+                        />
                     </div>
                     <div className="kgCantidadColorContainer">
                         <div className="kgProductoGrandeContainer">
