@@ -174,7 +174,7 @@
 
 .labelRubros.checked {
     background-color: var(--colorSecundario);
-    color: white;
+    color: var(--colorCuaternario);
     user-select: none;
 }
 
@@ -184,7 +184,7 @@
 }
 
 .labelRubros.checked:hover .textoRubro {
-    color: var(--colorCuaternario);
+    color: white;
 }
 
 .bi-caret-down-fill{
