@@ -15,7 +15,7 @@ export default function PedidoRealizado() {
   return (
     <div className="contenedorPrincipalPedidoRealizado" onClick={cerrarVentana} style={{ display: carrito.compraRealizadaAbierto ? 'flex' : 'none' }}>
       <div className="parteUtilizablePedidoRealizado" onClick={parteUtilizableClick}>
-        <h2>Gracias por realizar tu pedido, nos estaremos comunicando en breves</h2>
+        <h2>Gracias por realizar tu pedido, nos estaremos comunicando a la brevedad</h2>
         <button onClick={cerrarVentana}>Aceptar</button>
       </div>
     </div>
