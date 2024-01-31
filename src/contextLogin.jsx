@@ -10,23 +10,10 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  /*const [state, setState] = useState({
-    logueado: true,
-    userInfo: {
-      apellido: "prueba", 
-      cuit: "12364856",
-      email: "usuarioPrueba@gmail.com",
-      email_confirmado: true,
-      favoritos: "2",
-      id: 1,
-      nombre: "usuario",
-      telefono: 34564140162},
-  });*/ //Descomentar para version de muestra
-
   const [state, setState] = useState({
     logueado: false,
     userInfo: {}
-  }) //Comentar para version de muestra
+  })
 
   const login = (userData) => {
     return new Promise((resolve, reject) => {
@@ -35,7 +22,7 @@ export const LoginProvider = ({ children }) => {
           logueado: true,
           userInfo: userData,
         });
-        resolve(userData); // Puedes pasar datos adicionales si es necesario
+        resolve(userData);
       } catch (error) {
         reject(error);
       }
@@ -161,7 +148,12 @@ export const LoginProvider = ({ children }) => {
 
       if (response.ok) {
         const userData = await response.json();
-        userData.descuentos = await obtenerDescuentos(userData.cuit);
+        if(userData.cliente){
+          userData.descuentos = await obtenerDescuentos(userData.cuit);
+        }
+        else{
+          userData.descuentos = null;
+        }
         productos.obtenerProductosFiltrados(userData.categoria, userData.descuentos);
         login(userData)
         renovarToken({ email: userData.email })
