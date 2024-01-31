@@ -1,0 +1,49 @@
+.contenedorPrincipalCorroborarDatos{
+    background-color: var(--colorSenario);
+    max-height: 55rem;
+    overflow: auto;
+    width: 30rem;
+}
+
+.contenedorPrincipalCorroborarDatos h2{
+    background-color: var(--colorSecundario);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.direccionYDatosContainer{
+    padding: 0 2rem;
+}
+
+.direccionYDatosContainer p{
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.direccionYDatosContainer p span{
+    color: var(--colorRojo);
+}
+
+.botonCorroborarContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+}
+
+.botonCorroborarContainer button{
+    border: none;
+    width: 10rem;
+    height: 3rem;
+    color: white;
+    font-size: 1.2rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+    transition: scale 0.2s;
+}
+
+.botonCorroborarContainer button:active{
+    transform: scale(0.97);
+}
+
