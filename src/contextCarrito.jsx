@@ -18,6 +18,7 @@ function CarritoProvider({ children }) {
   const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
   const [mostrarCartelError, setMostrarCartelError] = useState(false);
   const [primeraAccion, setPrimeraAccion] = useState(true);
+  const [compraRealizadaAbierto, setCompraRealizadaAbierto] = useState(false);
 
   function añadirElemento(id, cantidad) {
     if(!auth.state.userInfo.cliente && productos.productosIndexado[id].tipo_prod=='PERFIL'){
@@ -166,7 +167,7 @@ function CarritoProvider({ children }) {
   }, [productos.productosIndexado]);
 
   return (
-    <CarritoContext.Provider value={{mostrarCartel, ocultarCartel ,mostrarCartelError, actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{compraRealizadaAbierto, setCompraRealizadaAbierto, mostrarCartel, ocultarCartel ,mostrarCartelError, actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );
