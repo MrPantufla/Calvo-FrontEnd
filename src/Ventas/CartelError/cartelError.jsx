@@ -22,7 +22,7 @@ export default function CartelError(){
         <div className={`contenedorPrincipalCartelError ${carrito.mostrarCartelError ? 'open' : ''}`} onClick={carrito.ocultarCartel}>
             <div className="parteUtilizableCartelError" onClick={(e) => clickParteUtilizable(e)}>
                 <h2>Hacete cliente para realizar pedidos de perfiles</h2>
-                <a onClick={navegarAContacto}>Llama a nuestras oficinas o envianos un mensaje</a>
+                <a onClick={navegarAContacto}>Llama a nuestras oficinas o envianos un mensaje para consultar</a>
                 <button onClick={carrito.ocultarCartel}>
                     Aceptar
                 </button>

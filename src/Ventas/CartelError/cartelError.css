@@ -18,7 +18,7 @@
 
 .parteUtilizableCartelError{
     width: 40rem;
-    height: 15rem;
+    height: 19rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,10 +49,11 @@
 }
 
 .parteUtilizableCartelError a{
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-decoration: underline !important;
     color: blue !important;
     cursor: pointer;
+    text-align: center;
 }
 
 .parteUtilizableCartelError button:active{
