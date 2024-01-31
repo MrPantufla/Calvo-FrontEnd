@@ -8,9 +8,14 @@ import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegabl
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import CartelError from './CartelError/cartelError.jsx';
 import PedidoRealizado from './Confirmar compra/Pedido realizado/pedidoRealizado.jsx';
+import Pagos from './Confirmar compra/Pagos/pagos.jsx';
+import { useTienda } from '../contextTienda.jsx';
+import BotonPagos from './Confirmar compra/Pagos/botonPagos.jsx';
 
 export default function Ventas() {
   const carrito = useCarrito();
+  const tienda = useTienda();
+
   return (
     <>
       <RenderHeader/>
@@ -20,7 +25,9 @@ export default function Ventas() {
       <Filtros />
       {carrito.confirmarCompraAbierto ? (<ConfirmarCompra/>) : (<></>)}
       <CartelError/>
-      <PedidoRealizado/>
+      {carrito.compraRealizadaAbierto ? (<PedidoRealizado/>) : (<></>)}
+      {tienda.mostrarPagos ? (<Pagos/>) : (<></>)}
+      <BotonPagos/>
       <Footer />
     </>
   );
