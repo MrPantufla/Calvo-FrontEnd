@@ -19,6 +19,8 @@ function CarritoProvider({ children }) {
   const [mostrarCartelError, setMostrarCartelError] = useState(false);
   const [primeraAccion, setPrimeraAccion] = useState(true);
   const [compraRealizadaAbierto, setCompraRealizadaAbierto] = useState(false);
+  const [precioTotal, setPrecioTotal] = useState(null);
+  const [datosCorroborados, setDatosCorroborados] = useState(false);
 
   function añadirElemento(id, cantidad) {
     if(!auth.state.userInfo.cliente && productos.productosIndexado[id].tipo_prod=='PERFIL'){
@@ -167,7 +169,7 @@ function CarritoProvider({ children }) {
   }, [productos.productosIndexado]);
 
   return (
-    <CarritoContext.Provider value={{compraRealizadaAbierto, setCompraRealizadaAbierto, mostrarCartel, ocultarCartel ,mostrarCartelError, actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{datosCorroborados, setDatosCorroborados, precioTotal, setPrecioTotal, compraRealizadaAbierto, setCompraRealizadaAbierto, mostrarCartel, ocultarCartel ,mostrarCartelError, actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );

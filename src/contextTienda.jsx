@@ -13,6 +13,7 @@ function TiendaProvider({ children }) {
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 820);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isFold, setIsFold] = useState(window.innerWidth <= 280);
+  const [mostrarPagos, setMostrarPagos] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,7 +34,7 @@ function TiendaProvider({ children }) {
   }
 
   return (
-    <TiendaContext.Provider value={{isTablet, isFold, isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{mostrarPagos, setMostrarPagos ,isTablet, isFold, isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
       {children}
     </TiendaContext.Provider>
   );

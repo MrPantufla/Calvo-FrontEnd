@@ -3,12 +3,14 @@ import { useAuth } from "../../../contextLogin";
 import { useDireccion } from "../../../contextDireccion";
 import { useCarrito } from "../../../contextCarrito";
 import { useNavigate } from 'react-router-dom';
+import { useTienda } from '../../../contextTienda';
 
 export default function CorroborarDatos() {
     const auth = useAuth();
     const direccion = useDireccion();
     const carrito = useCarrito();
     const navigate = useNavigate();
+    const tienda = useTienda();
 
     return (
         <div className="contenedorPrincipalCorroborarDatos">
@@ -22,7 +24,7 @@ export default function CorroborarDatos() {
                 <p>PROVINCIA:<span> {direccion.provincia}</span></p>
             </div>
             <div className="botonCorroborarContainer">
-                <button className="confirmarCompra" onClick={() => { carrito.confirmarCompra(); carrito.limpiarCarrito(); carrito.setConfirmarCompraAbierto(false)}}>
+                <button className="confirmarCompra" onClick={() => { carrito.confirmarCompra(); carrito.limpiarCarrito(); carrito.setConfirmarCompraAbierto(false); tienda.setMostrarPagos(true); carrito.setDatosCorroborados(true)}}>
                     Confirmar compra
                 </button>
                 <button className="editarDatosDeCuenta" onClick={() => navigate('/perfil')}>
