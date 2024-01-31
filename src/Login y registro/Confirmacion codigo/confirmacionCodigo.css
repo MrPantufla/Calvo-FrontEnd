@@ -1,6 +1,5 @@
 .contenedorPrincipalConfirmacionCodigo{
     margin: 2rem;
-    padding: 1rem;
 }
 
 .parteUtilizableConfirmacionCodigo{
@@ -18,9 +17,15 @@
 }
 
 .inputContainerCodigo input{
-    height: 3rem;
-    width: 15rem;
+    display: block;
+    width: 22rem;
+    height: 2.7rem;
+    border: 2px solid var(--colorTerciario);
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
     font-size: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .inputContainerCodigo input::placeholder{
@@ -38,7 +43,53 @@
     font-size: 1.3rem;
 }
 
-.formConfirmacionCodigo h2{
+.tituloConfirmacionCodigo h2{
     text-align: center;
     font-weight: 600;
+    background-color: var(--colorSecundario);
+    color: white;
+    padding: 1rem;
+}
+
+.textoConfirmacionCodigo{
+    padding: 0 3rem;
+    font-weight: 700;
+    color: var(--colorSecundario)
+}
+
+.textoConfirmacionCodigo p span{
+    color: var(--colorRojo);
+}
+
+.formConfirmacionCodigo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formConfirmacionCodigo .bi{
+    margin-right: 0.5rem;
+}
+
+.errorConfirmacionCodigoContainer{
+    height: 2rem;
+}
+
+.botonContainerCodigo button{
+    border: none;
+    width: 10rem;
+    height: 3rem;
+    color: white;
+    font-size: 1.3rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.botonContainerCodigo button p{
+    font-size: 1.3rem;
+}
+
+.botonContainerCodigo button:disabled{
+    background-color: var(--colorTerciario);
 }

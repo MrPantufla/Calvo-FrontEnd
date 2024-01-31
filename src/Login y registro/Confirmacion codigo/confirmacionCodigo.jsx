@@ -10,11 +10,11 @@ export default function ConfirmacionCodigo() {
   const { state: userData, updateEmailConfirmationStatus } = useAuth();
   const [isResendButtonEnabled, setResendButtonEnabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [advertencia, setAdvertencia] = useState('');
   const auth = useAuth();
-  let timer; // Declare timer here
+  let timer;
 
   useEffect(() => {
-    // Cleanup the timer when the component is unmounted
     return () => clearInterval(timer);
   }, [timer]);
 
@@ -50,11 +50,6 @@ export default function ConfirmacionCodigo() {
   };
 
   const reenviarCodigo = () => {
-    console.log("entra")
-    if (!isResendButtonEnabled) {
-      console.log('Reenvío de código bloqueado. Espera un momento.');
-      return;
-    }
 
     fetch('http://localhost:8080/api/reenviarCodigo', {
       method: 'POST',
@@ -62,22 +57,20 @@ export default function ConfirmacionCodigo() {
         'Authorization': auth.tokenCookie
       },
       credentials: 'include',
+      body: userData.userInfo.email
     })
       .then(response => {
         if (response.ok) {
           console.log('Envío de datos exitoso');
-          auth.setMostrarLogin(false);
+          setAdvertencia("Código reenviado con éxito!")
           setResendButtonEnabled(false);
 
-          // Set the time remaining to 5 minutes
           setTimeLeft(5 * 60);
 
-          // Start a timer to update the remaining time every second
           timer = setInterval(() => {
             setTimeLeft(prevTime => (prevTime > 0 ? prevTime - 1 : 0));
           }, 1000);
 
-          // Reset the timer after 5 minutes
           setTimeout(() => {
             clearInterval(timer);
             setResendButtonEnabled(true);
@@ -93,7 +86,6 @@ export default function ConfirmacionCodigo() {
       .then(data => {
         if (data !== null) {
           console.log('Respuesta (texto): ', data);
-          // Handle the response as needed
         }
       })
       .catch(error => {
@@ -110,10 +102,24 @@ export default function ConfirmacionCodigo() {
   return (
     <div className="contenedorPrincipalConfirmacionCodigo">
       <div className="parteUtilizableConfirmacionCodigo">
+        <div className="tituloConfirmacionCodigo">
+          <h2>VERIFICA TU EMAIL PARA ACCEDER A TU PERFIL Y RALIZAR PEDIDOS</h2>
+        </div>
+        <div className="textoConfirmacionCodigo">
+          <p>Un código de confirmación de 6 dígitos fue enviado a <span>{userData.userInfo.email}</span>. Por favor, revisa tu casilla de correos y tu casilla de spam.
+            <br />No compartas este código con nadie</p>
+        </div>
         <form className="formConfirmacionCodigo">
-          <h2>Verifica tu email para acceder a tu perfil y realizar pedidos</h2>
-          <p>El código de confirmación de 6 dígitos fue enviado a {userData.userInfo.email}, revisa tu casilla de correos y tu casilla de spam</p>
-          {error && <div className="error-message" style={{ display: auth.mostrarErrorCodigoConfirmacion ? 'inline' : 'none' }}>{error}</div>}
+          <div className="errorConfirmacionCodigoContainer">
+            {error !== '' ?
+              (<div className="error-message errorFormulario"><svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+              </svg> {error}</div>)
+              :
+              (<div className="errorFormulario">
+                {advertencia}
+              </div>)}
+          </div>
           {mensajeRespuesta && <div className="success-message">{mensajeRespuesta}</div>}
           <div className="form-group inputContainerCodigo">
             <label htmlFor="codigo" required />
@@ -123,7 +129,10 @@ export default function ConfirmacionCodigo() {
               value={codigoConfirmacion}
               onChange={(e) => {
                 setCodigoConfirmacion(e.target.value);
-                auth.setMostrarErrorCodigoConfirmacion(false);
+              }}
+              onFocus={() => {
+                setError('');
+                setAdvertencia('');
               }}
               placeholder='Código de confirmación'
             />
@@ -133,13 +142,8 @@ export default function ConfirmacionCodigo() {
               Confirmar
             </button>
             <button type="button" onClick={reenviarCodigo} disabled={!isResendButtonEnabled}>
-              Reenviar código
+              {timeLeft > 0 ? (<p>{Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</p>) : (<p>Reenviar código</p>)}
             </button>
-            {timeLeft > 0 && (
-              <div className="contadorTiempoRestante">
-                Tiempo restante: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
-              </div>
-            )}
           </div>
         </form>
       </div>
