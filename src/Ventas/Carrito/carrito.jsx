@@ -6,9 +6,10 @@ import { useProductos } from '../../contextProductos.jsx';
 import { useFavoritos } from '../../contextFavoritos.jsx';
 import { useTienda } from '../../contextTienda.jsx';
 import carritoVacioImg from '../../Imagenes/carritoVacio.png';
+import { useAuth } from '../../contextLogin.jsx';
 
 export default function Carrito() {
-  const { elementos, añadirElemento, setConfirmarCompraAbierto } = useCarrito();
+  const { elementos, añadirElemento, setConfirmarCompraAbierto, setCompraRealizadaAbierto } = useCarrito();
   const [codigoAgregadoRapido, setCodigoAgregadoRapido] = useState('');
   const [colorAgregadoRapido, setColorAgregadoRapido] = useState('');
   const [cantidadAgregadoRapido, setCantidadAgregadoRapido] = useState('');
@@ -30,6 +31,7 @@ export default function Carrito() {
   const [carritoHeight, setCarritoHeight] = useState(0);
   const tienda = useTienda();
   const [mostrarHint, setMostrarHint] = useState(false);
+  const auth = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +57,7 @@ export default function Carrito() {
   }, []);
 
   const calcularTotal = (elementos) => {
-    return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * elemento.kg * elemento.cantidad), 0);
+    return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * (elemento.kg || 1) * elemento.cantidad), 0);
   };
 
   const handleEnterCodigo = (e, nextInputRef) => {
@@ -229,7 +231,7 @@ export default function Carrito() {
           <div className="tituloYHintCarrito">
             <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
             <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
-              <p>?</p>
+              {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
             </div>
             {mostrarHint ? (<div className="hintCarrito" on>
               <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PRODUCTO QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
@@ -306,7 +308,15 @@ export default function Carrito() {
                 <button
                   className="confirmarCarrito"
                   disabled={!elementos.length > 0}
-                  onClick={() => { setConfirmarCompraAbierto(true) }}
+                  onClick={() => {
+                    if (!auth.state.userInfo.cliente) {
+                      setConfirmarCompraAbierto(true);
+                    } else {
+                      setCompraRealizadaAbierto(true);
+                      carrito.limpiarCarrito();
+                      carrito.setCarritoAbierto(false);
+                    }
+                  }}
                 >
                   CONFIRMAR PEDIDO (${calcularTotal(elementos)})
                 </button>
