@@ -1,5 +1,5 @@
+import { useCarrito } from '../../../contextCarrito';
 import './pedidoRealizado.css';
-import { useCarrito } from '../../contextCarrito';
 
 export default function PedidoRealizado() {
   const carrito = useCarrito();
