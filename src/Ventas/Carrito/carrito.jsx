@@ -311,6 +311,7 @@ export default function Carrito() {
                   onClick={() => {
                     if (!auth.state.userInfo.cliente) {
                       setConfirmarCompraAbierto(true);
+                      carrito.setPrecioTotal(calcularTotal(elementos));
                     } else {
                       setCompraRealizadaAbierto(true);
                       carrito.limpiarCarrito();
