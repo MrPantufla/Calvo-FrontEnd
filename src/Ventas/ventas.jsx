@@ -7,7 +7,7 @@ import ConfirmarCompra from './Confirmar compra/confirmarCompra.jsx';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import CartelError from './CartelError/cartelError.jsx';
-import PedidoRealizado from './Pedido realizado/pedidoRealizado.jsx';
+import PedidoRealizado from './Confirmar compra/Pedido realizado/pedidoRealizado.jsx';
 
 export default function Ventas() {
   const carrito = useCarrito();
