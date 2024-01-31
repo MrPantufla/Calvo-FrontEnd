@@ -129,9 +129,9 @@ export default function HeaderMobile() {
                             </>
                         ) : (
                             <>
-                                <NavLink to="/misCompras" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
+                                <a className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); auth.state.logueado ? navigate("/misCompras") : auth.setMostrarLogin(true) }}>
                                     <p>MIS COMPRAS</p>
-                                </NavLink>
+                                </a>
                                 {location.pathname === '/tienda' && (
                                     <div className={`elemento catalogos  ${catalogosOpen ? 'open' : ''}`}>
                                         <div className="textoCatalogosHeaderMobileContainer" onClick={() => { toggleCatalogos(); console.log("xd"); }}>
