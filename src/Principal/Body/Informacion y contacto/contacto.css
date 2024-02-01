@@ -92,7 +92,6 @@ input::placeholder, textarea::placeholder {
 }
 
 .enviarFormulario p{
-    padding-top: 0.5rem;
     font-size: 1.3rem;
     font-weight: 700;
     color: white;

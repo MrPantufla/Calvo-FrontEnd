@@ -88,7 +88,7 @@
         font-size: 3rem;
     }
 
-    p svg{
+    .contenedorInfo div p a svg{
         height: 3rem;
         width: 3rem;
     }
