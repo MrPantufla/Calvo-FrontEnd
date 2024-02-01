@@ -80,7 +80,7 @@ export default function Pagos() {
                     <p className="alias">ALIAS: CAUCHO.BRONCE.BIGOTE</p>
                 </div>
                 <div className="infoExtra">
-                    <p className="infoBancos">Abona tu compra a cualquiera de los dos bancos y luego enviá el comprobante de pago por Whatsapp al teléfono <a href="https://web.whatsapp.com/send?phone=+5493456475429">3456475429</a></p>
+                    <p className="infoBancos">Abona tu compra a cualquiera de los dos bancos y luego enviá el comprobante de pago por Whatsapp al teléfono <a href="https://web.whatsapp.com/send?phone=+5493456475429" target="blank">3456475429</a></p>
                 </div>
                 {carrito.datosCorroborados ? (<p className="totalAAbonar">TOTAL A ABONAR: <span>${carrito.precioTotal}</span></p>) : ('')}
             </div>
