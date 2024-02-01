@@ -53,6 +53,17 @@
     background: linear-gradient(90deg, white 0%,white 96.65%, var(--colorPrimario) 96.65%, var(--colorPrimario) 98%, white 98%, white 100%);
 }
 
+@media (max-width: 912px){
+    .redesSocialesContainer{
+        height: 6rem !important;
+    }
+
+    .redesSocialesContainer svg{
+        height: 4rem;
+        width: 4rem;
+    }
+}
+
 @media (max-width: 767px){
     .divInformacion{
         background: white;
