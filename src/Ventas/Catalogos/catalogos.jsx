@@ -17,26 +17,21 @@ export default function Catalogos() {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            const maxCatalogosTop = 7.1; // ajusta el valor máximo de altura según tus necesidades
-            const minCatalogosTop = 6.1; // ajusta el valor mínimo de altura según tus necesidades
-            const alturaHeader = 150; // ajusta según tus necesidades
+            const maxCatalogosTop = 7.1;
+            const minCatalogosTop = 6.1;
+            const alturaHeader = 150;
 
-            // Calcula la nueva posición top en función del scroll
             let newTop =
                 maxCatalogosTop -
                 (maxCatalogosTop - minCatalogosTop) * (scrollPosition / alturaHeader);
 
-            // Asegúrate de que newTop no sea menor que el valor mínimo de 7
             newTop = Math.max(minCatalogosTop, newTop);
 
-            // Establece la nueva posición top
             setCatalogosTop(newTop);
         };
 
-        // Agrega el event listener para el scroll
         window.addEventListener('scroll', handleScroll);
 
-        // Limpia el event listener al desmontar el componente
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
