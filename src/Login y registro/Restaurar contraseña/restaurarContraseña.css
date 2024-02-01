@@ -1,0 +1,159 @@
+.contenedorPrincipalRestaurarContraseña{
+    background-color: white;
+    width: 100%;
+}
+
+.ingresarEmailRestaurarContraseña, .ingresarCodigoRestaurarContraseña{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 2rem 0;
+}
+
+.errorFormulario{
+    height: 2rem;
+    margin-top: 0.5rem;
+}
+
+.errorFormulario .bi{
+    margin-right: 0.5rem;
+}
+
+.tituloRestaurarContraseñaContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--colorSecundario);
+}
+
+.tituloRestaurarContraseñaContainer h1{
+    font-weight: 600;
+    color: white;
+    font-size: 2.3rem;
+    margin: 0.5rem;
+}
+
+.formularioRestaurarContraseña{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.formularioRestaurarContraseña label{
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
+}
+
+.formularioRestaurarContraseña input{
+    display: block;
+    width: 22rem;
+    height: 2.7rem;
+    border: 2px solid var(--colorTerciario);
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
+    font-size: 1.5rem;
+}
+
+.botonAceptarContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.botonAceptar{
+    border: none;
+    width: 10rem;
+    height: 3rem;
+    color: white;
+    font-size: 1.4rem;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.cambioDeContraseña button{
+    margin-bottom: 2rem;
+}
+
+.cambioExitoso{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cambioExitoso h2{
+    text-align: center;
+    font-weight: 600;
+    color: var(--colorSecundario);
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 912px){
+    .tituloRestaurarContraseñaContainer{
+        height: 5rem;
+    }
+
+    .tituloRestaurarContraseñaContainer h1{
+        font-size: 3rem;
+    }
+
+    .formularioRestaurarContraseña{
+        width: 30rem;
+    }
+
+    .formularioRestaurarContraseña input{
+        width: 100%;
+        font-size: 2rem;
+        height: 3.5rem;
+    }
+
+    .formularioRestaurarContraseña label{
+        font-size: 2rem;
+    }
+
+    .botonAceptarContainer button{
+        width: 18rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+
+    .contenedorPrincipalRestaurarContraseña .errorFormulario{
+        font-size: 2.5rem;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+    }
+
+    .errorFormulario svg{
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .cambioDeContraseña{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .formularioRestaurarContraseña input{
+        width: 30rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+
+    .formularioRestaurarContraseña label{
+        font-size: 2.5rem;
+    }
+
+    .botonNuevaContraseñaContainer button{
+        width: 18rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+
+    .cambioExitoso h2{
+        font-size: 3rem;
+    }
+}

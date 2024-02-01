@@ -54,3 +54,23 @@ input[type="radio"].btn-check:checked+label.btn-outline-secondary {
   background-color: var(--colorSecundario);
   color: white;
 }
+
+@media (max-width: 912px){
+  .contenedorLoginYRegistro{
+    width: 65rem;
+  }
+
+  .radioRegistrarme, .radioIniciarSesion {
+    height: 5rem;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 280px){
+  .contenedorLoginYRegistro{
+    width: 97%;
+  }
+}
