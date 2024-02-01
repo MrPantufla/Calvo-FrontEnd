@@ -1,5 +1,4 @@
 .contenedorPrincipalFooter{
-    display: block;
     font-size: 1.3rem;
     font-weight: 500;
     width: 100%;
@@ -7,19 +6,31 @@
     position: relative;
 }
 
-.infoContainer{
+.infoFooterContainer{
     background-color: var(--colorCuaternario);
     width: 100%;
     height: 3rem;
     display: flex;
     align-items: center;
-    padding-left: 1rem;
 }
 
 .infoContainer a{
     text-decoration: none;
 }
 
-.textoFooter{
+.infoFooterContainer p{
     margin: 0;
+    width: 100%;
+    text-align: center;
+    padding-right: 2rem;
+}
+
+@media (max-width: 912px){
+    .contenedorPrincipalFooter{
+        font-size: 2rem;
+    }
+
+    .infoFooterContainer{
+        height: 7rem;
+    }
 }
