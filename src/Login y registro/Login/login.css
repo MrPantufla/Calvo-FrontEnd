@@ -1,15 +1,14 @@
-.login-container{
+.login-container {
     display: flex;
     flex-direction: column;
-    height: 20rem;
     background-image: url('../../Imagenes/ca.png');
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 0 4rem;
     align-items: center;
+    padding: 0 4rem 2rem 4rem;
 }
 
-.inputFormularioLogin{
+.inputFormularioLogin {
     display: flex;
     font-size: 1.5rem;
     color: var(--colorSecundario);
@@ -18,7 +17,7 @@
     justify-content: center;
 }
 
-.inputFormularioLogin input{
+.inputFormularioLogin input {
     display: block;
     width: 22rem;
     height: 2.7rem;
@@ -29,13 +28,13 @@
     font-size: 1.5rem;
 }
 
-.inputFormularioLogin label{
+.inputFormularioLogin label {
     font-size: 1.4rem;
     font-weight: bold;
     color: var(--colorSecundario);
 }
 
-.botonEnviarLogin{
+.botonEnviarLogin {
     border: none;
     width: 12rem;
     height: 3rem;
@@ -46,11 +45,11 @@
     font-weight: 600;
 }
 
-.botonEnviarLogin:active{
+.botonEnviarLogin:active {
     scale: 0.95;
 }
 
-.errorLogin{
+.errorLogin {
     display: flex;
     justify-content: center;
     font-size: 1.2rem;
@@ -60,14 +59,50 @@
     font-size: 1.5rem;
 }
 
-.botonEnviarLogin:hover{
+.botonEnviarLogin:hover {
     background-color: var(--colorTerciario);
 }
 
-.botonLoginContainer{
+.botonLoginContainer {
     width: 100%;
     display: flex;
     justify-content: center;
     padding-top: 1rem;
 }
 
+.olvideMiContraseña {
+    width: 100%;
+    text-align: right;
+    font-size: 1.3rem;
+}
+
+.olvideMiContraseña {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+@media (max-width: 912px) {
+    .formularioLogin {
+        width: 30rem;
+    }
+
+    .formularioLogin label {
+        font-size: 2rem;
+    }
+
+    .formularioLogin input {
+        height: 3.5rem;
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    .formularioLogin a {
+        font-size: 1.8rem;
+    }
+
+    .botonLoginContainer button {
+        width: 18rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+}

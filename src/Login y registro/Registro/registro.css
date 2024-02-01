@@ -1,5 +1,4 @@
 .registro-container{
-    height: 48rem;
     padding-top: 1rem;
     background-image: url('../../Imagenes/ca.png');
     background-size: contain;
@@ -67,4 +66,33 @@
 
 .botonRegistroContainer{
     padding-top: 1rem;
+}
+
+@media (max-width: 912px){
+    .form-group-registro label{
+        font-size: 2rem;
+    }
+
+    .form-group-registro input{
+        height: 3.5rem;
+        width: 100%;
+    }
+
+    .formRegistro{
+        width: 35rem;
+    }
+
+    .botonRegistroContainer{
+        margin-bottom: 2rem;
+    }
+
+    .botonRegistroContainer button{
+        width: 18rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+
+    .errorFormulario{
+        font-size: 2.1rem;
+    }
 }
