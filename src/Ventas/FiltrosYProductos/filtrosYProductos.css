@@ -87,6 +87,7 @@
     overflow: auto;
     height: calc(100vh - 18rem);
     width: 90%;
+    max-height: calc(100vh - 18rem - 2rem)
 }
 
 .filtros::-webkit-scrollbar{
