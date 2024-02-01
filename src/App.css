@@ -20,6 +20,10 @@ p{
   margin: 0;
 }
 
+h1{
+  margin: 0;
+}
+
 :root{
   --colorPrimario: #e5e5e5;
   --colorSecundario: #4e4e4d;
