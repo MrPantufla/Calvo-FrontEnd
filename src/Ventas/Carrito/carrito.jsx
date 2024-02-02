@@ -9,7 +9,7 @@ import carritoVacioImg from '../../Imagenes/carritoVacio.png';
 import { useAuth } from '../../contextLogin.jsx';
 
 export default function Carrito() {
-  const { elementos, añadirElemento, setConfirmarCompraAbierto, setCompraRealizadaAbierto } = useCarrito();
+  const { elementos, añadirElemento, setConfirmarCompraAbierto, setCompraRealizadaAbierto, confirmarCompra } = useCarrito();
   const [codigoAgregadoRapido, setCodigoAgregadoRapido] = useState('');
   const [colorAgregadoRapido, setColorAgregadoRapido] = useState('');
   const [cantidadAgregadoRapido, setCantidadAgregadoRapido] = useState('');
@@ -314,6 +314,7 @@ export default function Carrito() {
                       carrito.setPrecioTotal(calcularTotal(elementos));
                     } else {
                       setCompraRealizadaAbierto(true);
+                      confirmarCompra();
                       carrito.limpiarCarrito();
                       carrito.setCarritoAbierto(false);
                     }
