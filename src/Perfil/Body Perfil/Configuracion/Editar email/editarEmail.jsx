@@ -10,7 +10,6 @@ export default function EditarEmail() {
     const auth = useAuth();
     const favoritos = useFavoritos();
     const configuracion = useConfiguracion();
-    const [errorMessage, setErrorMessage] = useState('');
     const [advertenceMessage, setAdvertenceMessage] = useState('');
     const [nuevoEmail, setNuevoEmail] = useState('');
     const [codigoEmailActual, setCodigoEmailActual] = useState('');
@@ -24,16 +23,16 @@ export default function EditarEmail() {
     const [focusNuevoEmail, setFocusNuevoEmail] = useState(false);
 
     const vaciarError = () => {
-        setErrorMessage('');
+        configuracion.setErrorMessage('');
     }
 
     const handleNuevoEmail = () => {
         if (!nuevoEmail) {
-            setErrorMessage("Por favor, complete todos los campos.");
+            configuracion.setErrorMessage("Por favor, complete todos los campos.");
             return;
         }
         else if (nuevoEmail == auth.state.userInfo.email) {
-            setErrorMessage("Ingrese un email diferente al ya asociado.");
+            configuracion.setErrorMessage("Ingrese un email diferente al ya asociado.");
             return;
         }
         else {
@@ -61,14 +60,14 @@ export default function EditarEmail() {
             .then(data => {
                 if (data !== null) {
                     console.log('Respuesta (texto): ', data);
-                    setErrorMessage(data);
+                    configuracion.setErrorMessage(data);
                 }
             })
             .catch(error => {
                 console.error('Ocurrió un error al enviar los datos:', error.message);
                 if (error.message.includes('409')) {
                     console.error('Conflicto al intentar cambiar el email');
-                    setErrorMessage('Ocurrió un error inesperado');
+                    configuracion.setErrorMessage('Ocurrió un error inesperado');
                 }
             });
     }
@@ -103,14 +102,14 @@ export default function EditarEmail() {
             .then(data => {
                 if (data !== null) {
                     console.log('Respuesta (texto): ', data);
-                    setErrorMessage(data);
+                    configuracion.setErrorMessage(data);
                 }
             })
             .catch(error => {
                 console.error('Ocurrió un error al enviar los datos:', error.message);
                 if (error.message.includes('409')) {
                     console.error('Conflicto al intentar cambiar el email');
-                    setErrorMessage('Ocurrió un error inesperado');
+                    configuracion.setErrorMessage('Ocurrió un error inesperado');
                 }
             });
     }
@@ -151,14 +150,14 @@ export default function EditarEmail() {
             .then(data => {
                 if (data !== null) {
                     console.log('Respuesta (texto): ', data);
-                    setErrorMessage(data);
+                    configuracion.setErrorMessage(data);
                 }
             })
             .catch(error => {
                 console.error('Ocurrió un error al enviar los datos:', error.message);
                 if (error.message.includes('409')) {
                     console.error('Conflicto al intentar cambiar el email');
-                    setErrorMessage('Ocurrió un error inesperado');
+                    configuracion.setErrorMessage('Ocurrió un error inesperado');
                 }
             });
     };
@@ -188,14 +187,14 @@ export default function EditarEmail() {
             .then(data => {
                 if (data !== null) {
                     console.log('Respuesta (texto): ', data);
-                    setErrorMessage(data);
+                    configuracion.setErrorMessage(data);
                 }
             })
             .catch(error => {
                 console.error('Ocurrió un error al enviar los datos:', error.message);
                 if (error.message.includes('409')) {
                     console.error('Conflicto al intentar cambiar el email');
-                    setErrorMessage('Ocurrió un error inesperado');
+                    configuracion.setErrorMessage('Ocurrió un error inesperado');
                 }
             });
     }
@@ -205,7 +204,7 @@ export default function EditarEmail() {
         borrarError();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(nuevoEmail)) {
-            setErrorMessage("Inserte una dirección de email válida")
+            configuracion.setErrorMessage("Inserte una dirección de email válida")
         }
         else {
             handleNuevoEmail();
@@ -213,7 +212,7 @@ export default function EditarEmail() {
     };
 
     const borrarError = () => {
-        setErrorMessage('');
+        configuracion.setErrorMessage('');
     }
 
     const borrarAdvertence = () => {
@@ -236,27 +235,27 @@ export default function EditarEmail() {
 
     return (
         <div className="contenedorPrincipalEditar">
-            <div className="headEditar">
+            <div className="headEditar" onClick={toggleCollapse}>
                 <div className="textoHeadEditar">
-                    <h1 onClick={toggleCollapse}>EMAIL</h1>
+                    <h1>EMAIL</h1>
                 </div>
                 <div className="botonCollapseEditarContainer">
-                    <button className="botonCollapseEditar" onClick={toggleCollapse}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16" style={{ transform: configuracion.emailAbierto ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}>
+                    <button className="botonCollapseEditar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="var(--colorRojo)" className="bi bi-caret-down-fill" viewBox="0 0 16 16" style={{ transform: configuracion.emailAbierto ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}>
                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                         </svg>
                     </button>
                 </div>
             </div>
-            <div className={`colapsableEditarEmail ${configuracion.emailAbierto ? 'open' : ''}`}>
-                <div className="errorEditarEmail errorFormulario formularioPerfil">
+            <div className={`colapsableEditarEmail editarInformacion ${configuracion.emailAbierto ? 'open' : ''}`}>
+                <div className="errorEditarEmail errorFormulario">
                     {advertenceMessage === '' ? (
-                        errorMessage !== '' ? (
+                        configuracion.errorMessage !== '' ? (
                             <>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
                                     <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                </svg>{' '}
-                                {errorMessage}
+                                </svg>
+                                {configuracion.errorMessage}
                             </>
                         ) : (
                             <>{advertenceMessage}</>
@@ -289,13 +288,13 @@ export default function EditarEmail() {
                                         />
                                         {!codigoEmailActualAceptado ?
                                             (<button className="botonVerificarCodigoEmail" onClick={() =>verificarCodigo({ codigo: codigoEmailActual, email: auth.state.userInfo.email })} disabled={codigoEmailActualAceptado == true}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                                                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                                                 </svg>
                                             </button>)
                                             :
                                             (<button className="botonVerificarCodigoEmail emailAceptado">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16">
                                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372zm-2.54 1.183L5.93 9.363 1.591 6.602z" />
                                                     <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686" />
                                                 </svg>
@@ -325,13 +324,13 @@ export default function EditarEmail() {
                                         />
                                         {!codigoNuevoEmailAceptado == true ?
                                             (<button className="botonVerificarCodigoEmail" onClick={() => verificarCodigo({ codigo: codigoNuevoEmail, email: nuevoEmail })} disabled={codigoNuevoEmailAceptado == true}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                                                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                                                 </svg>
                                             </button>)
                                             :
                                             (<button className="botonVerificarCodigoEmail">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16">
                                                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372zm-2.54 1.183L5.93 9.363 1.591 6.602z" />
                                                     <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686" />
                                                 </svg>
@@ -346,13 +345,13 @@ export default function EditarEmail() {
                         <div className="confirmarCambioContainer">
                             <button className="confirmarCambio" disabled={codigoNuevoEmailAceptado != true || codigoEmailActualAceptado != true} onClick={() => confirmarCambio({ emailActual: auth.state.userInfo.email, nuevoEmail: nuevoEmail })}>Confirmar cambio de email</button>
                         </div>
-                        <p className="advertenciaCambioEmail"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                        <p className="advertenciaCambioEmail"><svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="orange" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
                         </svg> Tendrás que iniciar sesión con tu nuevo email una vez efectuado el cambio</p>
                     </>)
                     :
                     (<div className="formularioEnviarNuevoEmail">
-                        <form className="formularioEditarEmail" id="formularioEditarEmail" onSubmit={enviarCambioEmail}>
+                        <form className="formularioEditarEmail formularioPerfil " id="formularioEditarEmail" onSubmit={enviarCambioEmail}>
                             <div className="form-group-editarEmail form-group-editarPerfil">
                                 <label htmlFor="nuevoEmail" id="nuevoEmail" required onFocus={vaciarError}>NUEVO EMAIL</label>
                                 <input
@@ -363,8 +362,8 @@ export default function EditarEmail() {
                                     onFocus={borrarError}
                                 />
                             </div>
-                            <div className="botonEnviarNuevoEmailContainer">
-                                <button className="botonEnviarNuevoEmail" type="submit">
+                            <div className="botonFormulariosPerfilContainer">
+                                <button className="botonFormulariosPerfil" type="submit">
                                     Aceptar
                                 </button>
                             </div>

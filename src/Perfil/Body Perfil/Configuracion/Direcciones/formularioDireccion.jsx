@@ -2,13 +2,11 @@ import './formularioDireccion.css'
 import { useDireccion } from "../../../../contextDireccion";
 import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from "../../../../contextConfiguracion";
-import { useState } from 'react';
 
 export default function FormularioDireccion() {
     const direccion = useDireccion();
     const auth = useAuth();
     const configuracion = useConfiguracion();
-    const [errorMessage, setErrorMessage] = useState('');
 
     const handleEnviarDireccion = () => {
         direccion.setDireccionConfirmada(true);
@@ -49,16 +47,16 @@ export default function FormularioDireccion() {
         const numerosRegex = /^[0-9]+$/;
         const letrasYNumerosRegex = /^[a-zA-Z0-9]+$/;
         if (!direccion.calle || !direccion.numero || !direccion.cp || !direccion.localidad || !direccion.provincia) {
-            setErrorMessage('Por favor, completa todos los datos');
+            configuracion.setErrorMessage('Por favor, completa todos los datos');
         }
         else if (!numerosRegex.test(direccion.numero)) {
-            setErrorMessage('Número solo puede contener números enteros');
+            configuracion.setErrorMessage('Número solo puede contener números enteros');
         }
         else if (!letrasYNumerosRegex.test(direccion.cp)){
-            setErrorMessage('CP solo puede contener letras o números')
+            configuracion.setErrorMessage('CP solo puede contener letras o números')
         }
         else if (!letrasRegex.test(direccion.provincia)) {
-            setErrorMessage('Provicia solo puede contener letras');
+            configuracion.setErrorMessage('Provicia solo puede contener letras');
         }
         else {
             handleEnviarDireccion();
@@ -76,9 +74,9 @@ export default function FormularioDireccion() {
     return (
         <div className="contenedorPrincipalEditarDireccion">
             <div className="errorEditarDireccion errorFormulario">
-                {errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                {configuracion.errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
                     <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                </svg>) : (<></>)}  {errorMessage}
+                </svg>) : (<></>)}{configuracion.errorMessage}
             </div>
             <div className="formularioPerfil formularioAgregarDireccion">
                 <form onSubmit={enviarDireccion}>
@@ -90,7 +88,7 @@ export default function FormularioDireccion() {
                                 id="calle"
                                 value={direccion.calle}
                                 onChange={(e) => direccion.setCalle(e.target.value)}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={()=>configuracion.setErrorMessage('')}
                             />
                         </div>
                         <div className="form-group-editarPerfil direccionNumeroInput">
@@ -100,7 +98,7 @@ export default function FormularioDireccion() {
                                 id="numero"
                                 value={direccion.numero}
                                 onChange={(e) => direccion.setNumero(e.target.value)}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={()=>configuracion.setErrorMessage('')}
                             />
                         </div>
                     </div>
@@ -112,7 +110,7 @@ export default function FormularioDireccion() {
                                 id="cp"
                                 value={direccion.cp}
                                 onChange={(e) => direccion.setCp(e.target.value.toUpperCase())}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={()=>configuracion.setErrorMessage('')}
                             />
                         </div>
                         <div className="form-group-editarPerfil direccionLocalidadInput">
@@ -122,7 +120,7 @@ export default function FormularioDireccion() {
                                 id="localidad"
                                 value={direccion.localidad}
                                 onChange={(e) => direccion.setLocalidad(e.target.value)}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={()=>configuracion.setErrorMessage('')}
                             />
                         </div>
                     </div>
@@ -133,11 +131,11 @@ export default function FormularioDireccion() {
                             id="provincia"
                             value={direccion.provincia}
                             onChange={(e) => direccion.setProvincia(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={()=>configuracion.setErrorMessage('')}
                         />
                     </div>
-                    <div className="botonEnviarDireccionContainer">
-                        <button className="botonEnviarDireccion" type="submit">
+                    <div className="botonFormulariosPerfilContainer">
+                        <button className="botonFormulariosPerfil" type="submit">
                             Confirmar
                         </button>
                     </div>

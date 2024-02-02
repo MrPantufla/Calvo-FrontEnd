@@ -1,16 +1,10 @@
 .colapsableEditarDireccion{
-    background-color: white;
-    width: 55rem;
-    height: 0;
-    display: flex;
     align-items: space-between;
     flex-direction: column;
-    overflow: hidden;
-    transition: height 0.3s;
 }
 
 .colapsableEditarDireccion.open{
-    height: 27rem;
+    height: 26rem;
 }
 
 .formularioAgregarDireccion{
@@ -26,4 +20,14 @@
     background-color: var(--colorRojo);
     border-radius: 4px;
     font-weight: 600;
+}
+
+@media (max-width: 912px){
+    .colapsableEditarDireccion.open{
+        height: 31rem;
+    }
+
+    .botonEnviarDireccion{
+        height: 5rem;
+    }
 }

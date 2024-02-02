@@ -40,11 +40,3 @@
 .direccionProvinciaInput{
     width: 30rem;
 }
-
-.errorEditarDireccion{
-    margin: 1rem 0;
-}
-
-.botonEnviarDireccionContainer{
-    margin-top: 1.5rem;
-}

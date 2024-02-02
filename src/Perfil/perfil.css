@@ -1,3 +1,7 @@
 .decoracionPerfil{
-    background-color: var(--colorAzulClaro);
+    background-color: var(--colorPrimario);
+}
+
+.decoracionDosPerfil{
+    background-color: var(--colorTerciario);
 }

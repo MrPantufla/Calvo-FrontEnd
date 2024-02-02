@@ -1,12 +1,7 @@
 .colapsableEditarEmail{
-    background-color: white;
-    display: flex;
     align-items: center;
-    width: 55rem;
-    height: 0;
     flex-direction: column;
-    overflow: hidden;
-    transition: height 0.3s;
+    transition: max-height 0.3s ease, height 0.3s ease;
 }
 
 .colapsableEditarEmail.open{
@@ -15,27 +10,16 @@
 }
 
 .errorEditarEmail{
-    margin: 1rem 0;
     height: 2rem;
 }
 
 .form-group-editarEmail{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .form-group-editarEmail input{
-    height: 3.2rem;
-    width: 27rem;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-    border: 1px solid var(--colorPrimario);
-    border-radius: 4px;
     padding-left: 0.5rem;
-}
-
-.form-group-editarEmail label{
-    font-size: 1.4rem;
 }
 
 .envioCodigosContainer{
@@ -69,25 +53,9 @@
     transform: scale(0.95);
 }
 
-.botonEnviarNuevoEmail{
-    border: none;
-    width: 100%;
-    height: 3rem;
-    color: white;
-    font-size: 1.5rem;
-    background-color: var(--colorRojo);
-    border-radius: 4px;
-    font-weight: 600;
-    margin-bottom: 3rem;
-}
-
-.botonEnviarNuevoEmailContainer{
-    display: flex;
-    justify-content: center;
-}
-
 .formularioEditarEmail{
     width: 100%;
+    margin-top: 0.5rem;
 }
 
 .formularioEnviarNuevoEmail{
@@ -123,6 +91,7 @@
 .codigoYBoton{
     display: flex;
     justify-content: right;
+    flex-direction: row;
 }
 
 .codigoYBoton input{
@@ -147,4 +116,8 @@
 .emailAceptado{
     background-color: #6EB660 !important;
     cursor: default !important;
+}
+
+@media (max-width: 912px){
+    
 }

@@ -7,8 +7,9 @@ export default function BodyPerfil(){
 
     return(
         <div className="contenedorPrincipalBodyPerfil">
-            <div className="nombreYEmailContainer">
-                <h1>{auth.state.userInfo.nombre} {auth.state.userInfo.apellido}</h1>
+            <div className="nombreYEmailPerfilContainer">
+                <h1>{auth.state.userInfo.nombre ? auth.state.userInfo.nombre.toUpperCase() : ''} {auth.state.userInfo.apellido ? auth.state.userInfo.apellido.toUpperCase() : ''}</h1>
+                <h2>{auth.state.userInfo.email ? auth.state.userInfo.email : ''}</h2>
             </div>
             <Configuracion/>
         </div>
