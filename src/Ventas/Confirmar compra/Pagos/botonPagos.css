@@ -17,3 +17,9 @@
 .botonAbrirPagos:active{
     transform: scale(0.97);
 }
+
+@media (max-width: 912px){
+    .botonAbrirPagos{
+        height: 5rem;
+    }
+}
