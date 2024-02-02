@@ -8,6 +8,7 @@ import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
 import { useCarrito } from '../../contextCarrito';
+import Cortinas from '../Cortinas/cortinas';
 
 export default function FiltrosYProductos() {
   const productos = useProductos();
@@ -17,7 +18,7 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
-  const {isTablet, isFold, isMobile, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
+  const { seleccionarCortinas, cortinasSelected, setCortinasSelected, isTablet, isFold, isMobile, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
   const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.1);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const carrito = useCarrito();
@@ -124,7 +125,7 @@ export default function FiltrosYProductos() {
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
-      <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none', zIndex: isFold ? '103' : '100' }}>
+        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none', zIndex: isFold ? '103' : '100' }}>
           <button className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
         </div>
         {isTablet ?
@@ -139,7 +140,7 @@ export default function FiltrosYProductos() {
           id="filtrosYBusqueda"
           style={isMobile ? (filtrosYBusquedaOpen ? estilosMobileFiltrosYBusqueda : { width: '0' }) : { top: `${busquedaYFiltrosTop}rem`, width: '20%' }}
         >
-          <div className="busquedaEIcono" style={isMobile && !filtrosYBusquedaOpen ? {padding: '0', margin: '0', border: '0' } : {}}>
+          <div className="busquedaEIcono" style={isMobile && !filtrosYBusquedaOpen ? { padding: '0', margin: '0', border: '0' } : {}}>
             <input
               className="busqueda"
               type="text"
@@ -149,7 +150,7 @@ export default function FiltrosYProductos() {
                 setBusqueda(e.target.value.toUpperCase());
                 setPaginaActual(1);
               }}
-              style={isMobile && !filtrosYBusquedaOpen ? {padding: '0' } : {}}>
+              style={isMobile && !filtrosYBusquedaOpen ? { padding: '0' } : {}}>
             </input>
             <div className="lupaContainer">
               <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
@@ -160,7 +161,7 @@ export default function FiltrosYProductos() {
           <div className="filtros">
             {tiposUnicos.map((tipo_prod) => (
               <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
-                <div className="headFiltro">
+                <div>
                   <input
                     className="check"
                     type="checkbox"
@@ -172,6 +173,7 @@ export default function FiltrosYProductos() {
                       handleScrollClick();
                       setPaginaActual(1);
                       limpiarColoresActivos();
+                      setCortinasSelected(false);
                     }}
                     id={tipo_prod + "Id"}
                   />
@@ -206,31 +208,34 @@ export default function FiltrosYProductos() {
                   (<></>)}
               </label>
             ))}
+            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''}`} onClick={() => cortinasSelected ? setCortinasSelected(false) : seleccionarCortinas()}>CORTINAS</div>
           </div>
         </div>
-        <div className="productos" style={isMobile ? ({ width: '100%'}) : ({ width: '80%' })}>
+        <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
           <BotonesOrdenamiento onClick={() => paginar(1)} />
-          <div className="row rowProductos">
-            {itemsActuales.map((producto) => (
-              <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                <CardProducto
-                  id={producto.id}
-                  cod_orig={producto.cod_orig}
-                  tipo_prod={producto.tipo_prod}
-                  srubro={producto.srubro}
-                  detalle={producto.detalle}
-                  precio={producto.precio}
-                  color={producto.color}
-                  kg={producto.kg}
-                  key={producto.id}
-                  cod_int={producto.cod_int}
-                  onClick={() => {
-                    handleClickProducto(producto);
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+          {cortinasSelected ? (<Cortinas />) : (
+            <div className="row rowProductos">
+              {itemsActuales.map((producto) => (
+                <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                  <CardProducto
+                    id={producto.id}
+                    cod_orig={producto.cod_orig}
+                    tipo_prod={producto.tipo_prod}
+                    srubro={producto.srubro}
+                    detalle={producto.detalle}
+                    precio={producto.precio}
+                    color={producto.color}
+                    kg={producto.kg}
+                    key={producto.id}
+                    cod_int={producto.cod_int}
+                    onClick={() => {
+                      handleClickProducto(producto);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       {productoSeleccionado && (
@@ -246,7 +251,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      <div className="paginacion">
+      {cortinasSelected ? (<></>) : (<div className="paginacion">
         <button
           className="buttonPag paginaExtremo primeraPagina"
           onClick={() => paginar(1)}
@@ -322,7 +327,7 @@ export default function FiltrosYProductos() {
             <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
         </button>
-      </div>
+      </div>)}
     </div>
   );
 }
