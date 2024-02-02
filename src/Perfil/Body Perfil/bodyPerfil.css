@@ -158,9 +158,7 @@
     .form-group-editarPerfil label{
         font-size: 2rem;
     }
-}
 
-@media (max-width: 912px){
     .nombreYEmailPerfilContainer{
         width: 60rem;
     }
@@ -196,10 +194,20 @@
 
 @media (max-width: 430px) and (min-width: 281px){
     .nombreYEmailPerfilContainer{
-        width: 95%;
+        width: 65rem;
     }
 
     .contenedorPrincipalConfiguracion{
-        width: 95%;
-    }    
+        width: 65rem;
+    }
+}
+
+@media (max-width: 280px){
+    .nombreYEmailPerfilContainer{
+        width: 50rem;
+    }
+
+    .contenedorPrincipalConfiguracion{
+        width: 50rem;
+    }
 }
