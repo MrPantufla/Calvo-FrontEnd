@@ -46,14 +46,8 @@
     height: 0.6rem;
     background-color: var(--colorRojo);
     clip-path: polygon(25% 0, 100% 0%, 75% 100%, 0% 100%);
-}
-
-.poligono1{
-    margin-bottom: 11rem;
-}
-
-.poligono2{
-    margin-bottom: 8rem;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
 }
 
 .poligonoContainer{
@@ -74,6 +68,11 @@
     margin-right: 0.5rem;
 }
 
+.divisorInfo{
+    display: flex;
+    flex-direction: row;
+}
+
 @media (max-width: 767px){
     .contenedorPrincipalInformacion p{
         font-size: 2.4rem;
@@ -92,28 +91,10 @@
         height: 3rem;
         width: 3rem;
     }
-
-    .poligono1{
-        margin-bottom: 16.3rem;
-    }
-
-    .poligono2{
-        margin-bottom: 11.7rem;
-    }
-
-    
 }
 
 @media (max-width: 280px){
     .contenedorPrincipalInformacion p{
         font-size: 2.3rem;
-    }
-
-    .poligono1{
-        margin-bottom: 16rem;
-    }
-
-    .poligono2{
-        margin-bottom: 14.5rem;
     }
 }
