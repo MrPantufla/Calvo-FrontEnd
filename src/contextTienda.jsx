@@ -14,6 +14,7 @@ function TiendaProvider({ children }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isFold, setIsFold] = useState(window.innerWidth <= 280);
   const [mostrarPagos, setMostrarPagos] = useState(false);
+  const [cortinasSelected, setCortinasSelected] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,8 +34,14 @@ function TiendaProvider({ children }) {
     setColoresActivos([]);
   }
 
+  const seleccionarCortinas = () =>{
+    setTiposActivos([]);
+    setCortinasSelected(true);
+    console.log("XD");
+  }
+
   return (
-    <TiendaContext.Provider value={{mostrarPagos, setMostrarPagos ,isTablet, isFold, isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{seleccionarCortinas, cortinasSelected, setCortinasSelected, mostrarPagos, setMostrarPagos ,isTablet, isFold, isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
       {children}
     </TiendaContext.Provider>
   );
