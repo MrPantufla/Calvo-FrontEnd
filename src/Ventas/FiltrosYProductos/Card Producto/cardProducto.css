@@ -243,18 +243,18 @@
     }
 }
 
-@media (max-width: 820px){
+@media (max-width: 912px){
     .decoracionCardProducto{
         height: 2.4rem;
     }
 
     .imagenContainerCardProducto{
-        height: 16rem;
+        height: 14rem;
     }
 
     .botonAñadirFavoritos{
-        width: 4rem;
-        height: 4rem;
+        width: 3.5rem;
+        height: 3.5rem;
     }
 
     .detalleYCod_orig{
@@ -264,7 +264,59 @@
     }
 
     .detalleYCod_orig h3{
-        font-size: 2.5rem;
+        font-size: 2.3rem;
+    }
+
+    .kgProducto p{
+        font-size: 1.7rem;
+    }
+
+    .conjuntoCantidadCardProducto .boton{
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .kgCantidadYColorContainer{
+        height: auto;
+    }
+
+    .kgCantidadYColorContainer .boton{
+        font-size: 3rem;
+    }
+
+    .cantidadProducto{
+        font-size: 2.8rem;
+        margin: 0 1rem;
+    }
+
+    .colorCardProducto p{
+        font-size: 1.8rem;
+    }
+
+    .muestraColorCardProducto{
+        height: 3rem;
+    }
+
+    .precioContainerCardProducto{
+        height: 2.8rem;
+        background-color: white;
+        padding-bottom: 0.2rem;
+    }
+
+    .precioCardProducto{
+        font-size: 1.9rem;
+        font-weight: 700;
+    }
+} 
+
+@media (max-width: 820px){
+    .imagenContainerCardProducto{
+        height: 16rem;
+    }
+
+    .botonAñadirFavoritos{
+        width: 4rem;
+        height: 4rem;
     }
 
     .kgProducto p{
@@ -276,10 +328,6 @@
         height: 3rem;
     }
 
-    .kgCantidadYColorContainer .boton{
-        font-size: 3rem;
-    }
-
     .cantidadProducto{
         font-size: 3rem;
         margin: 0 1rem;
@@ -289,19 +337,12 @@
         font-size: 2rem;
     }
 
-    .muestraColorCardProducto{
-        height: 3rem;
-    }
-
     .precioContainerCardProducto{
         height: 3rem;
-        background-color: white;
-        padding-bottom: 0.2rem;
     }
 
     .precioCardProducto{
         font-size: 2rem;
-        font-weight: 700;
     }
 } 
 
