@@ -90,6 +90,15 @@ export default function HeaderMobile() {
         setCatalogosOpen(!catalogosOpen);
     }
 
+    function recargarPagina() {
+        if (window.location.href.includes("/home")) {
+            window.location.reload();
+        }
+        else {
+            window.location.href = '/home';
+        }
+    }
+
     return (
         <div className="containerGeneralHeaderMobile">
             <div className="containerBotonYLogoMobile">
@@ -102,7 +111,7 @@ export default function HeaderMobile() {
                 </div>
                 <div className={`containerContainerLogoMobile ${tienda.isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
-                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" />
+                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={recargarPagina}/>
                     </div>
                 </div>
             </div>
