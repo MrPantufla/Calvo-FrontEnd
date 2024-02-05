@@ -20,7 +20,6 @@ export default function Login() {
     const loginForm = document.querySelector('#formularioLogin');
     const emailValue = loginForm.querySelector('#email').value;
     const passwordValue = loginForm.querySelector('#password').value;
-    e.preventDefault();
     if (!emailValue || !passwordValue) {
       auth.setErrorMessage('Por favor, completa todos los campos')
     }
@@ -29,6 +28,13 @@ export default function Login() {
     }
   };
 
+  const presionarEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleLoginSubmit();
+    }
+  }
+
   return (
     <div className="login-container">
       <div className="errorLogin errorFormulario">
@@ -36,7 +42,7 @@ export default function Login() {
           <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
         </svg>) : (<></>)}{auth.errorMessage}
       </div>
-      <form className="formularioLogin" id="formularioLogin" onSubmit={handleLoginSubmit}>
+      <form className="formularioLogin" id="formularioLogin">
         <div className="form-group inputFormularioLogin">
           <label htmlFor="email">CORREO ELECTRÓNICO</label>
           <input
@@ -47,6 +53,7 @@ export default function Login() {
               setEmail(e.target.value);
             }}
             onFocus={() => auth.setErrorMessage('')}
+            onKeyDown={presionarEnter}
           />
         </div>
         <div className="form-group inputFormularioLogin">
@@ -59,11 +66,12 @@ export default function Login() {
               setPassword(e.target.value)
             }}
             onFocus={() => auth.setErrorMessage('')}
+            onKeyDown={presionarEnter}
           />
           <a className="olvideMiContraseña" onClick={() => auth.setOpcionSeleccionada('restaurarContraseña')}>Olvidé mi contraseña</a>
         </div>
         <div className="botonLoginContainer">
-          <button className="botonEnviarLogin" type="submit" id="botonLogin">
+          <button className="botonEnviarLogin" id="botonLogin" onClick={handleLoginSubmit}>
             Ingresar
           </button>
         </div>
