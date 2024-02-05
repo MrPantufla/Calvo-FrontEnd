@@ -344,9 +344,9 @@
     .precioCardProducto{
         font-size: 2rem;
     }
-} 
+}
 
-@media (max-width: 430px){
+@media (max-width: 540px){
     .decoracionCardProducto{
         height: 3.2rem;
     }
@@ -399,6 +399,44 @@
 
     .precioCardProducto{
         font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 540px) and (min-width: 431px){
+    .imagenContainerCardProducto{
+        height: 25rem;
+    }
+
+    .detalleYCod_orig h3{
+        font-size: 3.8rem;
+    }
+
+    .precioContainerCardProducto{
+        height: 4.5rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .precioContainerCardProducto p{
+        font-size: 3.4rem;
+    }
+
+    .kgProducto p{
+        font-size: 3rem;
+    }
+
+    .colorCardProducto p{
+        font-size: 3rem;
+    }
+
+    .conjuntoCantidadCardProducto .boton{
+        width: 5rem;
+        height: 5rem;
+        font-size: 4.5rem;
+    }
+
+    .conjuntoCantidadCardProducto span{
+        font-size: 4.2rem;
     }
 }
 

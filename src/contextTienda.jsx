@@ -19,7 +19,7 @@ function TiendaProvider({ children }) {
   useEffect(() => {
     const handleResize = () => {
       setIsTablet(window.innerWidth <= 820);
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 767);
       setIsFold(window.innerWidth <= 280);
     };
 
@@ -37,7 +37,6 @@ function TiendaProvider({ children }) {
   const seleccionarCortinas = () =>{
     setTiposActivos([]);
     setCortinasSelected(true);
-    console.log("XD");
   }
 
   return (
