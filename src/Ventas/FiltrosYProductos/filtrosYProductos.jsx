@@ -212,29 +212,32 @@ export default function FiltrosYProductos() {
           </div>
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
-          <BotonesOrdenamiento onClick={() => paginar(1)} />
+
           {cortinasSelected ? (<Cortinas />) : (
-            <div className="row rowProductos">
-              {itemsActuales.map((producto) => (
-                <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                  <CardProducto
-                    id={producto.id}
-                    cod_orig={producto.cod_orig}
-                    tipo_prod={producto.tipo_prod}
-                    srubro={producto.srubro}
-                    detalle={producto.detalle}
-                    precio={producto.precio}
-                    color={producto.color}
-                    kg={producto.kg}
-                    key={producto.id}
-                    cod_int={producto.cod_int}
-                    onClick={() => {
-                      handleClickProducto(producto);
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
+            <>
+              <BotonesOrdenamiento onClick={() => paginar(1)} />
+              <div className="row rowProductos">
+                {itemsActuales.map((producto) => (
+                  <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                    <CardProducto
+                      id={producto.id}
+                      cod_orig={producto.cod_orig}
+                      tipo_prod={producto.tipo_prod}
+                      srubro={producto.srubro}
+                      detalle={producto.detalle}
+                      precio={producto.precio}
+                      color={producto.color}
+                      kg={producto.kg}
+                      key={producto.id}
+                      cod_int={producto.cod_int}
+                      onClick={() => {
+                        handleClickProducto(producto);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
