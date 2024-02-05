@@ -68,6 +68,10 @@
     padding-top: 1rem;
 }
 
+.botonRegistroContainer{
+    margin-bottom: 2rem;
+}
+
 @media (max-width: 912px){
     .form-group-registro label{
         font-size: 2rem;
@@ -80,10 +84,6 @@
 
     .formRegistro{
         width: 35rem;
-    }
-
-    .botonRegistroContainer{
-        margin-bottom: 2rem;
     }
 
     .botonRegistroContainer button{
