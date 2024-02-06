@@ -93,6 +93,10 @@
     .botonesArriba{
         margin-right: 0;
     }
+
+    .botonesArriba{
+        margin-right: 0.6rem;
+    }
 }
 
 @media (max-width: 540px){
