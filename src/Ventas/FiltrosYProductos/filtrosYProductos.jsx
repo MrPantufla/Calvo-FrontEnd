@@ -8,7 +8,7 @@ import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
 import { useCarrito } from '../../contextCarrito';
-import Cortinas from '../Cortinas/cortinas';
+import Cortinas from './Cortinas/cortinas';
 
 export default function FiltrosYProductos() {
   const productos = useProductos();
