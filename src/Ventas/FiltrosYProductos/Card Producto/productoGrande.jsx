@@ -1,18 +1,15 @@
 import './productoGrande.css';
-import perfil1 from '../../../Imagenes/perfil1.png';
-import perfil2 from '../../../Imagenes/perfil2.png';
-import perfil3 from '../../../Imagenes/perfil3.png';
-import perfil4 from '../../../Imagenes/perfil4.png';
-import perfil5 from '../../../Imagenes/perfil5.png';
 import ca from '../../../Imagenes/ca.png';
 import { useCarrito } from '../../../contextCarrito.jsx';
 import { useAuth } from '../../../contextLogin.jsx';
+import { useTienda } from '../../../contextTienda.jsx';
 
 export default function ProductoGrande(args) {
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
     const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
     const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
     const auth = useAuth();
+    const tienda = useTienda();
     const colorCorregido = (args.color).replace(/\s+/g, '-');
 
     const usarBlanco = (args.color == 'Negro' ||
@@ -83,11 +80,11 @@ export default function ProductoGrande(args) {
                         <div className="kgProductoGrandeContainer">
                             <div className="textoPesoPromedio">
                                 {args.kg > 0 ? (<><p>PESO PROMEDIO</p>
-                                    <p>{args.kg}kg</p></>) : ('')}
+                                    <p className="valorKg">{args.kg}kg</p></>) : ('')}
                             </div>
                         </div>
                         <div className="conjuntoCantidad">
-                            <p className="textoCantidad">CANTIDAD EN EL CARRITO</p>
+                            {!tienda.isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
                             <div className="cantidad">
                                 <button className="botonProductoGrande" onClick={restarContador}>-</button>
                                 <p className="cantidadProductoGrande">{cantidad}</p>

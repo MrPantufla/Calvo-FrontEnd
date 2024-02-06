@@ -8,7 +8,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 101;
+    z-index: 104;
 }
 
 .parteUtilizableProductoGrande {
@@ -55,6 +55,7 @@
 .contenedorPrincipalProductoGrande h2{
     text-align: center;
     font-size: 3rem;
+    font-weight: 600;
 }
 
 .textoCantidad{
@@ -151,7 +152,7 @@
 }
 
 .conjuntoCantidad{
-    width: 70%;
+    width: 40%;
 }
 
 .colorProductoGrandeContainer{
@@ -187,4 +188,97 @@
 .colorAtributo{
     width: 100%;
     text-align: center;
+}
+
+@media (max-width: 820px){
+    .parteUtilizableProductoGrande{
+        width: 95rem;
+        height: 63rem;
+    }
+
+    .logoProductoGrandeContainer{
+        top: calc(50vh - 30rem);
+        left: calc(50vw - 46rem);
+    }
+
+    .imagenProductoGrandeContainer{
+        width: 60rem;
+        height: 35rem;
+    }
+}
+
+@media (max-width: 767px){
+    .parteUtilizableProductoGrande{
+        width: 97%;
+        height: 64rem;
+    }
+
+    .informacion h1{
+        margin-bottom: 1rem;
+    }
+
+    .logoProductoGrandeContainer{
+        left: calc(100vw - 100vw*96/100);
+        top: calc(50vh - 30rem);
+    }
+
+    .imagenProductoGrandeContainer{
+        width: 95%;
+        height: 35rem;
+    }
+
+    .textoPesoPromedio .valorKg{
+        font-weight: 700;
+    }
+
+    .colorProductoGrandeContainer .colorAtributo{
+        font-weight: 700;
+    }
+
+    .cantidad{
+        padding: 1rem 0 0 0;
+    }
+
+    .cantidadProductoGrande{
+        margin: 0;
+        font-size: 4.3rem;
+        font-weight: 600;
+    }
+
+    .cantidad button{
+        width: 4.5rem;
+        height: 4.5rem;
+        font-size: 4.5rem;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 280px){
+    .parteUtilizableProductoGrande{
+        height: 72rem;
+    }
+
+    .logoProductoGrandeContainer{
+        top: calc(50vh - 34rem);
+    }
+
+    .muestraColorProductoGrande{
+        width: 13rem;
+        height: auto;
+    }
+
+    .kgCantidadColorContainer{
+        width: 100%;
+        align-items: center;
+        padding: 0 1rem;
+    }
+
+    .kgProductoGrandeContainer{
+        width: 41%;
+    }
+
+    .conjuntoCantidad{
+        padding-top: 11rem;
+        width: 35%;
+    }
 }
