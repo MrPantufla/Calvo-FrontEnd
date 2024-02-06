@@ -17,10 +17,11 @@
     position: relative;
     background-color: var(--colorSecundario);
     height: 3.5rem;
-    margin: 0 -1.2rem;
+    margin-right: -1.2rem;
+    margin-left: -0.9rem;
     display: flex;
     align-items: center;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 2.7rem 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
     overflow: hidden;
     z-index: 102;
 }
@@ -58,10 +59,10 @@
     text-decoration: none;
     background: white;
     height: 3.5rem;
-    margin: 0 -1.1rem;
+    margin: 0 -1rem;
     display: flex;
     align-items: center;
-    clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
+    clip-path: polygon(0 0, calc(100% - 2.5rem) 0, 100% 100%, 2.5rem 100%);
     overflow: hidden;
     z-index: 102;
     justify-content: center;
