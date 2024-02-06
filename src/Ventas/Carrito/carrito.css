@@ -76,7 +76,7 @@
     background-color: white;
     color: var(--colorSecundario);
     border: 2px solid var(--colorSecundario);
-    z-index: 1;
+    z-index: 12;
     top: 9rem;
     user-select: none;
     width: 38.2rem;
