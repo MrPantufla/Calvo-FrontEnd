@@ -89,7 +89,7 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={/*`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`*/`/PngsPerfiles/${args.cod_orig.slice(2).toLowerCase()}.png`}
+            src={/*`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`*/`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
             onError={(e) => {
               //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
 

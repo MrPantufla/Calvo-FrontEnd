@@ -64,7 +64,8 @@ export default function ProductoGrande(args) {
                     <div className="imagenProductoGrandeContainer">
                         <img
                             className="imagenProductoGrande"
-                            src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
+                            //src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
+                            src={`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
                             onError={(e) => {
                                 e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
 
