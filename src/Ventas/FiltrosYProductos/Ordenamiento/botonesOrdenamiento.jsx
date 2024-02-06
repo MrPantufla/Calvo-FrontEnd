@@ -16,60 +16,37 @@ export function BotonesOrdenamiento() {
         cod_origDescActivo,
         setCod_origDescActivo,
         ordenamientoActivo,
-        setOrdenamientoActivo
+        setOrdenamientoActivo,
+        cerrarOrdenamientos
     } = useProductos();
 
     const seleccionarPrecioAsc = () => {
+        cerrarOrdenamientos();
         setPrecioAscActivo(true);
-        setPrecioDescActivo(false);
-        setKgAscActivo(false);
-        setKgDescActivo(false);
-        setCod_origAscActivo(false);
-        setCod_origDescActivo(false);
     }
 
     const seleccionarPrecioDesc = () => {
-        setPrecioAscActivo(false);
+        cerrarOrdenamientos();
         setPrecioDescActivo(true);
-        setKgAscActivo(false);
-        setKgDescActivo(false);
-        setCod_origAscActivo(false);
-        setCod_origDescActivo(false);
     }
 
     const seleccionarKgAsc = () => {
-        setPrecioAscActivo(false);
-        setPrecioDescActivo(false);
+        cerrarOrdenamientos();
         setKgAscActivo(true);
-        setKgDescActivo(false);
-        setCod_origAscActivo(false);
-        setCod_origDescActivo(false);
     }
 
     const seleccionarKgDesc = () => {
-        setPrecioAscActivo(false);
-        setPrecioDescActivo(false);
-        setKgAscActivo(false);
+        cerrarOrdenamientos();
         setKgDescActivo(true);
-        setCod_origAscActivo(false);
-        setCod_origDescActivo(false);
     }
 
     const seleccionarCod_origAsc = () => {
-        setPrecioAscActivo(false);
-        setPrecioDescActivo(false);
-        setKgAscActivo(false);
-        setKgDescActivo(false);
+        cerrarOrdenamientos();
         setCod_origAscActivo(true);
-        setCod_origDescActivo(false);
     }
 
     const seleccionarCod_origDesc = () => {
-        setPrecioAscActivo(false);
-        setPrecioDescActivo(false);
-        setKgAscActivo(false);
-        setKgDescActivo(false);
-        setCod_origAscActivo(false);
+        cerrarOrdenamientos();
         setCod_origDescActivo(true);
     }
 
