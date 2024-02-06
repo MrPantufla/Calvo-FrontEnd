@@ -89,13 +89,13 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
+            src={/*`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`*/`/PngsPerfiles/${args.cod_orig.slice(2).toLowerCase()}.png`}
             onError={(e) => {
-              e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
+              //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
 
-              e.target.onerror = () => {
-                e.target.src = `/ImagenesProductos/xd.png`;
-              };
+              //e.target.onerror = () => {
+              //  e.target.src = `/ImagenesProductos/xd.png`;
+              //};
             }}
             alt="Imagen del producto"
             loading="lazy"
