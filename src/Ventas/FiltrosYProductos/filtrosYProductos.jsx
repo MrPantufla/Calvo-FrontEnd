@@ -112,15 +112,6 @@ export default function FiltrosYProductos() {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
   }
 
-  const estilosMobileFiltrosYBusqueda = {
-    backgroundColor: 'var(--colorPrimario)',
-    width: '30%',
-    height: '100vh',
-    zIndex: 3,
-    top: '0',
-    paddingTop: '14rem',
-  }
-
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
@@ -138,9 +129,8 @@ export default function FiltrosYProductos() {
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
-          style={isMobile ? (filtrosYBusquedaOpen ? estilosMobileFiltrosYBusqueda : { width: '0' }) : { top: `${busquedaYFiltrosTop}rem`, width: '20%' }}
         >
-          <div className="busquedaEIcono" style={isMobile && !filtrosYBusquedaOpen ? { padding: '0', margin: '0', border: '0' } : {}}>
+          <div className="busquedaEIcono">
             <input
               className="busqueda"
               type="text"
