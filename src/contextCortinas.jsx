@@ -8,51 +8,83 @@ function useCortinas() {
 
 function ProviderCortinas({ children }) {
 
-    const [tipo, setTipo] = useState();
-    const [alto, setAlto] = useState();
-    const [ancho, setAncho] = useState();
-    const [conMecanismo, setConMecanismo] = useState();
-    const [alturaIndicada, setAlturaIndicada] = useState();
+    const [tipo, setTipo] = useState('');
+    const [alto, setAlto] = useState('');
+    const [ancho, setAncho] = useState('');
+    const [conMecanismo, setConMecanismo] = useState('');
+    const [alturaIndicada, setAlturaIndicada] = useState('');
 
-    const [color, setColor] = useState();
-    const [caida, setCaida] = useState();
-    const [tirador, setTirador] = useState();
+    const [color, setColor] = useState('');
+    const [caida, setCaida] = useState('');
+    const [tirador, setTirador] = useState('');
 
-    const [tipoEnrollador, setTipoEnrollador] = useState();
+    const [tipoEnrollador, setTipoEnrollador] = useState('');
 
-    const [conCajon, setConCajon] = useState();
-    const [tipoCajon, setTipoCajon] = useState();
-    const [ubicacionCajon, setUbicacionCajon] = useState();
-    const [tipoMecanismo, setTipoMecanismo] = useState();
-    const [control, setControl] = useState();
-    const [tecla, setTecla] = useState();
-    const [tipoTablilla, setTipoTablilla] = useState();
-    const [especificacionTubular, setEspecificacionTubular] = useState();
-
-    const limpiarRoller = () => {
-        setColor(undefined);
-        setConMecanismo(undefined);
-        setAlto(undefined);
-        setAncho(undefined);
-        setAlturaIndicada(undefined);
-        descelectCaidaRoller();
-    }
+    const [conCajon, setConCajon] = useState('');
+    const [ubicacionExteriorCajon, setUbicacionExteriorCajon] = useState('');
+    const [ubicacionCajon, setUbicacionCajon] = useState('');
+    const [tipoMecanismo, setTipoMecanismo] = useState('');
+    const [control, setControl] = useState('');
+    const [tecla, setTecla] = useState('');
+    const [tipoTablilla, setTipoTablilla] = useState('');
+    const [especificacionBarrio, setEspecificacionBarrio] = useState('');
 
     const descelectCaidaRoller = () => {
         setTirador(undefined);
         setCaida(undefined);
     }
 
-    const limpiarPersianPvc = () =>{
-        setConMecanismo(undefined);
-        setAlto(undefined);
-        setAncho(undefined);
-        setAlturaIndicada(undefined);
-        descelectEnrolladorPersianaPvc();
+    const descelectEnrolladorPersianaPvc = () => {
+        setTipoEnrollador(undefined);
     }
 
-    const descelectEnrolladorPersianaPvc = () =>{
+    const descelectControlYTeclaPortonAluminio = () => {
+        setControl(undefined);
+        setTecla(undefined);
+    }
+
+    const descelectMecanismoYCajonPersianaAluminio = () => {
+        setConCajon(undefined);
+        setTipoMecanismo(undefined);
+        descelectUbicacionCajonPersianaAluminio();
+        descelectControlPersianaAluminio();
+    }
+
+    const descelectControlPersianaAluminio = () => {
+        setControl(undefined);
+        setTecla(undefined);
+    }
+
+    const descelectUbicacionCajonPersianaAluminio = () => {
+        setUbicacionCajon(undefined);
+        descelectUbicacionExteriorCajonPersianaAluminio();
+    }
+
+    const descelectUbicacionExteriorCajonPersianaAluminio = () => {
+        setUbicacionExteriorCajon(undefined);
+    }
+
+    const descelectEspecificacionBarrio = () => {
+        setEspecificacionBarrio(undefined);
+    }
+
+    const limpiarFormularios = () => {
+        setAlto(undefined);
+        setAncho(undefined);
+        setConMecanismo(undefined);
+        setAlturaIndicada(undefined);
+        setColor(undefined);
+        setCaida(undefined);
+        setTirador(undefined);
         setTipoEnrollador(undefined);
+        setConCajon(undefined);
+        setUbicacionExteriorCajon(undefined);
+        setUbicacionCajon(undefined);
+        setTipoMecanismo(undefined);
+        setControl(undefined);
+        setTecla(undefined);
+        setTipoTablilla(undefined);
+        setEspecificacionBarrio(undefined);
     }
 
     return (
@@ -77,8 +109,8 @@ function ProviderCortinas({ children }) {
             setTipoEnrollador,
             conCajon,
             setConCajon,
-            tipoCajon,
-            setTipoCajon,
+            ubicacionExteriorCajon,
+            setUbicacionExteriorCajon,
             ubicacionCajon,
             setUbicacionCajon,
             tipoMecanismo,
@@ -89,10 +121,17 @@ function ProviderCortinas({ children }) {
             setTecla,
             tipoTablilla,
             setTipoTablilla,
-            especificacionTubular,
-            setEspecificacionTubular,
+            especificacionBarrio,
+            setEspecificacionBarrio,
             descelectCaidaRoller,
-            limpiarRoller
+            descelectEnrolladorPersianaPvc,
+            descelectControlYTeclaPortonAluminio,
+            descelectMecanismoYCajonPersianaAluminio,
+            descelectControlPersianaAluminio,
+            descelectUbicacionCajonPersianaAluminio,
+            descelectUbicacionExteriorCajonPersianaAluminio,
+            descelectEspecificacionBarrio,
+            limpiarFormularios,
         }}>
             {children}
         </CortinasContext.Provider>

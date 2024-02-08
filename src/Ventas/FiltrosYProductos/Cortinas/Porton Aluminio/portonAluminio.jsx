@@ -18,149 +18,162 @@ export default function PortonAluminio() {
         setTecla,
         tipoTablilla,
         setTipoTablilla,
+        descelectControlYTeclaPortonAluminio,
+        limpiarPortonAluminio,
     } = useCortinas();
 
     return (
         <div className="contenedorPrincipalPortonAluminio">
-            <form className="mecanismo">
-                <label htmlFor="mecanismoSi">Si</label>
-                <input type="radio"
-                    id="mecanismoSi"
-                    name="radioMecanismo"
-                    value="mecanismoSi"
-                    onChange={() => { setConMecanismo(true) }}
-                />
-
-                <label htmlFor="mecanismoNo">No</label>
-                <input type="radio"
-                    id="mecanismoNo"
-                    name="radioMecanismo"
-                    value="mecanismoNo"
-                    onChange={() => { setConMecanismo(false) }}
-                />
-            </form>
-            <form className="formularioDimensiones">
-                <label htmlFor="alto">Alto(milímetros)</label>
-                <input type="text"
-                    id="alto"
-                    value={alto}
-                    onChange={(e) => setAlto(e.target.value)}
-                />
-
-                <label htmlFor="ancho">Ancho(milímetros)</label>
-                <input type="text"
-                    id="ancho"
-                    value={ancho}
-                    onChange={(e) => setAncho(e.target.value)}
-                />
-            </form>
-            <form className="alturaIndicada">
-                <label htmlFor="vano">Vano</label>
-                <input type="radio"
-                    id="vano"
-                    name="radioAlturaIndicada"
-                    value="vano"
-                    onChange={() => setAlturaIndicada("vano")}
-                />
-
-                <label htmlFor="abertura">Abertura</label>
-                <input type="radio"
-                    id="abertura"
-                    name="radioAlturaIndicada"
-                    value="abertura"
-                    onChange={() => setAlturaIndicada("abertura")}
-                />
-            </form>
-            {conMecanismo &&
-                <>
-                    <form className="control">
-                        <label htmlFor="controlSi">Si</label>
-                        <input type="radio"
-                            id="controlSi"
-                            name="radioControl"
-                            value="controlSi"
-                            onChange={() => setControl(true)}
+            <form className="formularioPortonAluminio">
+                <div className="form-group-cortinas">
+                    <p>DIMENSIONES</p>
+                    <div className="bodyFormGroupCortinas">
+                        <label htmlFor="alto">Alto</label>
+                        <input type="text"
+                            id="alto"
+                            value={alto}
+                            onChange={(e) => setAlto(e.target.value)}
                         />
 
-                        <label htmlFor="controlNo">No</label>
-                        <input type="radio"
-                            id="controlNo"
-                            name="radioControl"
-                            value="controlNo"
-                            onChange={() => setControl(false)}
+                        <label htmlFor="ancho">Ancho</label>
+                        <input type="text"
+                            id="ancho"
+                            value={ancho}
+                            onChange={(e) => setAncho(e.target.value)}
                         />
-                    </form>
-                    {control == true ?
-                        (<form className="tecla">
-                            <label htmlFor="teclaSi">Si</label>
-                            <input type="radio"
-                                id="teclaSi"
-                                name="radioTecla"
-                                value="teclaSi"
-                                onChange={() => setTecla(true)}
-                            />
+                    </div>
+                </div>
 
-                            <label htmlFor="teclaNo">No</label>
-                            <input type="radio"
-                                id="teclaNo"
-                                value="teclaNo"
-                                onChange={() => setTecla(false)}
-                            />
-                        </form>)
-                        :
-                        (<>
-                            {control == false && 
-                            <form className="teclaSiosi">
+                <div className="form-group-cortinas">
+                    <p>MEDIDA INDICADA</p>
+                    <div className="bodyFormGroupCortinas">
+                        <label htmlFor="vano">Vano</label>
+                        <input type="radio"
+                            id="vano"
+                            name="radioAlturaIndicada"
+                            checked={alturaIndicada == 'vano'}
+                            onChange={() => setAlturaIndicada("vano")}
+                        />
+
+                        <label htmlFor="abertura">Abertura</label>
+                        <input type="radio"
+                            id="abertura"
+                            name="radioAlturaIndicada"
+                            checked={alturaIndicada == 'abertura'}
+                            onChange={() => setAlturaIndicada("abertura")}
+                        />
+                    </div>
+                </div>
+
+                <div className="form-group-cortinas">
+                    <p>CON MECANISMO?</p>
+                    <div className="bodyFormGroupCortinas">
+                        <label htmlFor="mecanismoSi">Si</label>
+                        <input type="radio"
+                            id="mecanismoSi"
+                            name="radioMecanismo"
+                            checked={conMecanismo == 'mecanismoSi'}
+                            onChange={() => { setConMecanismo('mecanismoSi') }}
+                        />
+
+                        <label htmlFor="mecanismoNo">No</label>
+                        <input type="radio"
+                            id="mecanismoNo"
+                            name="radioMecanismo"
+                            checked={conMecanismo == 'mecanismoNo'}
+                            onChange={() => { setConMecanismo('mecanismoNo'); descelectControlYTeclaPortonAluminio() }}
+                        />
+                    </div>
+                </div>
+
+                {conMecanismo &&
+                    <>
+                        <div className="form-group-cortinas">
+                            <p>CON CONTROL?</p>
+                            <div className="bodyFormGroupCortinas">
+                                <label htmlFor="controlSi">Si</label>
+                                <input type="radio"
+                                    id="controlSi"
+                                    name="radioControl"
+                                    checked={control == 'controlSi'}
+                                    onChange={() => setControl('controlSi')}
+                                />
+
+                                <label htmlFor="controlNo">No</label>
+                                <input type="radio"
+                                    id="controlNo"
+                                    name="radioControl"
+                                    checked={control == 'controlNo'}
+                                    onChange={() => { setControl('controlNo'); setTecla('teclaNo'); }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group-cortinas">
+                            <p>CON TECLA?</p>
+                            <div className="bodyFormGroupCortinas">
                                 <label htmlFor="teclaSi">Si</label>
                                 <input type="radio"
                                     id="teclaSi"
                                     name="radioTecla"
-                                    value="teclaSi"
-                                    checked={true}
-                                    onLoad={() => setTecla(true)}
+                                    checked={tecla == 'teclaSi'}
+                                    onChange={() => setTecla('teclaSi')}
                                 />
-                            </form>}
-                        </>)
-                    }
-                </>
-            }
-            <form className="tipoTablillaPorton">
-                <label htmlFor="portonDap55">DAP-55</label>
-                <input type="radio"
-                    id="portonDap55"
-                    name="radioTipoTablillaPorton"
-                    value="portonDap55"
-                    onChange={() => setTipoTablilla("portonDap55")}
-                />
 
-                <label htmlFor="portonDap64">DAP-64</label>
-                <input type="radio"
-                    id="portonDap64"
-                    name="radioTipoTablillaPorton"
-                    value="portonDap64"
-                    onChange={() => setTipoTablilla("portonDap64")}
-                />
+                                <label htmlFor="teclaNo">No</label>
+                                <input type="radio"
+                                    id="teclaNo"
+                                    name="radioTecla"
+                                    disabled={control == 'controlNo'}
+                                    checked={tecla == 'teclaNo'}
+                                    onChange={() => setTecla('teclaNo')}
+                                />
+                            </div>
+                        </div>
+                    </>
+                }
+                <div className="form-group-cortinas">
+                    <p>TIPO DE TABLILLA</p>
+                    <div className="bodyFormGroupCortinas">
+                        <label htmlFor="portonDap55">DAP-55</label>
+                        <input type="radio"
+                            id="portonDap55"
+                            name="radioTipoTablillaPorton"
+                            checked={tipoTablilla == 'portonDap55'}
+                            onChange={() => setTipoTablilla("portonDap55")}
+                        />
 
-                <label htmlFor="portonDap79">DAP-79</label>
-                <input type="radio"
-                    id="portonDap79"
-                    name="radioTipoTablillaPorton"
-                    value="portonDap79"
-                    onChange={() => setTipoTablilla("portonDap79")}
-                />
+                        <label htmlFor="portonDap64">DAP-64</label>
+                        <input type="radio"
+                            id="portonDap64"
+                            name="radioTipoTablillaPorton"
+                            checked={tipoTablilla == 'portonDap64'}
+                            onChange={() => setTipoTablilla("portonDap64")}
+                        />
 
-                <label htmlFor="portonDap49">DAP-49</label>
-                <input type="radio"
-                    id="portonDap49"
-                    name="radioTipoTablillaPorton"
-                    value="portonDap49"
-                    onChange={() => setTipoTablilla("portonDap49")}
-                />
+                        <label htmlFor="portonDap79">DAP-79 ciego</label>
+                        <input type="radio"
+                            id="portonDap79"
+                            name="radioTipoTablillaPorton"
+                            checked={tipoTablilla == 'portonDap79'}
+                            onChange={() => setTipoTablilla("portonDap79")}
+                        />
+
+                        <label htmlFor="portonDap49">DAP-49 microperforada</label>
+                        <input type="radio"
+                            id="portonDap49"
+                            name="radioTipoTablillaPorton"
+                            checked={tipoTablilla == 'portonDap49'}
+                            onChange={() => setTipoTablilla("portonDap49")}
+                        />
+                    </div>
+                </div>
             </form>
-            
-            <button className="enviarPortonAluminio">
-                Enviar consulta
-            </button>
+            <div className="botonEnviarConsultaContainer">
+                <button className="botonEnviarConsulta">
+                    Enviar consulta
+                </button>
+            </div>
         </div>
     );
 }
