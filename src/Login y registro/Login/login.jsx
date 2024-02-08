@@ -17,6 +17,7 @@ export default function Login() {
   }, [auth.mostrarLogin])
 
   const handleLoginSubmit = async (e) => {
+    e.preventDefault();
     const loginForm = document.querySelector('#formularioLogin');
     const emailValue = loginForm.querySelector('#email').value;
     const passwordValue = loginForm.querySelector('#password').value;
