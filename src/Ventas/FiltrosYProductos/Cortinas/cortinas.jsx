@@ -16,17 +16,17 @@ export default function Cortinas() {
                     <div className="form-group-cortinas">
                         <p>TIPO</p>
                         <div className="bodyFormGroupCortinas">
-                            <label htmlFor="roller">Roller</label>
-                            <input type="radio" id="roller" name="radioTipo" value="roller" onChange={() => { setTipo('roller'); limpiarFormularios() }} />
+                            <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'roller' ? 'roller' : undefined) }}>Roller</div>
+                            
 
-                            <label htmlFor="persianaPvc">Persiana PVC</label>
-                            <input type="radio" id="persianaPvc" name="radioTipo" value="persianaPvc" onChange={() => { setTipo('persianaPvc'); limpiarFormularios() }} />
+                            <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaPvc' ? 'persianaPvc' : undefined) }}>Persiana PVC</div>
+                            
 
-                            <label htmlFor="portonAluminio">Porton de aluminio</label>
-                            <input type="radio" id="portonAluminio" name="radioTipo" value="portonAluminio" onChange={() => { setTipo('portonAluminio'); limpiarFormularios() }} />
+                            <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'portonAluminio' ? 'portonAluminio' : undefined) }}>Porton de aluminio</div>
+                            
 
-                            <label htmlFor="persianaAluminio">Persiana de aluminio</label>
-                            <input type="radio" id="persianaAluminio" name="radioTipo" value="persianaAluminio" onChange={() => { setTipo('persianaAluminio'); limpiarFormularios() }} />
+                            <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaAluminio' ? 'persianaAluminio' : undefined) }}>Persiana de aluminio</div>
+                            
                         </div>
                     </div>
                 </form>

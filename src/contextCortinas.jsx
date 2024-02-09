@@ -9,8 +9,8 @@ function useCortinas() {
 function ProviderCortinas({ children }) {
 
     const [tipo, setTipo] = useState('');
-    const [alto, setAlto] = useState('');
-    const [ancho, setAncho] = useState('');
+    const [alto, setAlto] = useState();
+    const [ancho, setAncho] = useState();
     const [conMecanismo, setConMecanismo] = useState('');
     const [alturaIndicada, setAlturaIndicada] = useState('');
 

@@ -35,30 +35,6 @@ export default function PersianaAluminio() {
         descelectEspecificacionBarrio
     } = useCortinas();
 
-    const labels = document.querySelectorAll('.bodyFormGroupCortinas label');
-
-    labels.forEach(label => {
-        const inputId = label.getAttribute('for');
-        const input = document.getElementById(inputId);
-
-        if (input) {
-            if (input.checked) {
-                label.classList.add('checked');
-            }
-        }
-
-        if (input) {
-            input.addEventListener('change', function () {
-                if (this.checked) {
-                    labels.forEach(otherLabel => otherLabel.classList.remove('checked'));
-                    label.classList.add('checked');
-                } else {
-                    label.classList.remove('checked');
-                }
-            });
-        }
-    });
-
     return (
         <div className="contenedorPrincipalPersianaAluminio">
             <form className="formularioPersianaAluminio">
@@ -76,7 +52,11 @@ export default function PersianaAluminio() {
                         <input type="text"
                             id="ancho"
                             value={ancho}
-                            onChange={(e) => setAncho(e.target.value)}
+                            onChange={(e) => {setAncho(e.target.value);
+                                if (e.target.value < 750) {
+                                  setConCajon(undefined);
+                                }
+                            }}
                         />
                     </div>
                 </div>
@@ -84,65 +64,26 @@ export default function PersianaAluminio() {
                 <div className="form-group-cortinas">
                     <p>ALTURA INDICADA</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="vano">Vano</label>
-                        <input type="radio"
-                            id="vano"
-                            name="radioAlturaIndicada"
-                            checked={alturaIndicada == 'vano'}
-                            onChange={() => setAlturaIndicada("vano")}
-                        />
-
-                        <label htmlFor="abertura">Abertura</label>
-                        <input type="radio"
-                            id="abertura"
-                            name="radioAlturaIndicada"
-                            checked={alturaIndicada == 'abertura'}
-                            onChange={() => setAlturaIndicada("abertura")}
-                        />
+                        <div className={`especificacionCortina ${alturaIndicada == 'vano' ? 'checked' : ''}`} onClick={() => setAlturaIndicada(alturaIndicada !== 'vano' ? 'vano' : undefined)}>Vano</div>
+                        <div className={`especificacionCortina ${alturaIndicada == 'abertura' ? 'checked' : ''}`} onClick={() => setAlturaIndicada(alturaIndicada !== 'abertura' ? 'abertura' : undefined)}>Abertura</div>
                     </div>
                 </div>
 
                 <div className="form-group-cortinas">
                     <p>CON MECANISMO?</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="mecanismoSi">Si</label>
-                        <input type="radio"
-                            id="mecanismoSi"
-                            name="radioMecanismo"
-                            checked={conMecanismo == true}
-                            onChange={() => setConMecanismo(true)}
-                        />
-
-                        <label htmlFor="mecanismoNo">No</label>
-                        <input type="radio"
-                            id="mecanismoNo"
-                            name="radioMecanismo"
-                            checked={conMecanismo == false}
-                            onChange={() => { setConMecanismo(false); descelectMecanismoYCajonPersianaAluminio() }}
-                        />
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoSi' ? 'checked' : ''}`} onClick={() => setConMecanismo(conMecanismo !== 'mecanismoSi' ? 'mecanismoSi' : undefined)}>Si</div>
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : undefined); descelectMecanismoYCajonPersianaAluminio() }}>No</div>
                     </div>
                 </div>
 
-                {conMecanismo &&
+                {conMecanismo == 'mecanismoSi' &&
                     (<>
                         <div className="form-group-cortinas">
                             <p>TIPO DE MECANISMO</p>
                             <div className="bodyFormGroupCortinas">
-                                <label htmlFor="manual">Manual</label>
-                                <input type="radio"
-                                    id="manual"
-                                    name="radioTipoMecanismo"
-                                    checked={tipoMecanismo == 'manual'}
-                                    onChange={() => { setTipoMecanismo('manual'); descelectControlPersianaAluminio() }}
-                                />
-
-                                <label htmlFor="motor">Motor</label>
-                                <input type="radio"
-                                    id="motor"
-                                    name="radioTipoMecanismo"
-                                    checked={tipoMecanismo == 'motor'}
-                                    onChange={() => setTipoMecanismo('motor')}
-                                />
+                                <div className={`especificacionCortina ${tipoMecanismo == 'manual' ? 'checked' : ''}`} onClick={() => { setTipoMecanismo(tipoMecanismo !== 'manual' ? 'manual' : undefined); descelectControlPersianaAluminio() }}>Manual</div>
+                                <div className={`especificacionCortina ${tipoMecanismo == 'motor' ? 'checked' : ''}`} onClick={() => setTipoMecanismo(tipoMecanismo !== 'motor' ? 'motor' : undefined)}>Motor</div>
                             </div>
                         </div>
 
@@ -151,90 +92,37 @@ export default function PersianaAluminio() {
                                 <div className="form-group-cortinas">
                                     <p>CON CONTROL?</p>
                                     <div className="bodyFormGroupCortinas">
-                                        <label htmlFor="controlSi">Si</label>
-                                        <input type="radio"
-                                            id="controlSi"
-                                            name="radioControl"
-                                            checked={control == true}
-                                            onChange={() => setControl(true)}
-                                        />
-
-                                        <label htmlFor="controlNo">No</label>
-                                        <input type="radio"
-                                            id="controlNo"
-                                            name="radioControl"
-                                            checked={control == false}
-                                            onChange={() => { setControl(false); setTecla(true); }}
-                                        />
+                                        <div className={`especificacionCortina ${control == 'controlSi' ? 'checked' : ''}`} onClick={() => setControl(control !== 'controlSi' ? 'controlSi' : undefined)}>Si</div>
+                                        <div className={`especificacionCortina ${control == 'controlNo' ? 'checked' : ''}`} onClick={() => { setControl(control !== 'controlNo' ? 'controlNo' : undefined); setTecla('teclaSi'); }}>No</div>
                                     </div>
                                 </div>
 
                                 <div className="form-group-cortinas">
                                     <p>CON TECLA?</p>
                                     <div className="bodyFormGroupCortinas">
-                                        <label htmlFor="teclaSi">Si</label>
-                                        <input type="radio"
-                                            id="teclaSi"
-                                            name="radioTecla"
-                                            checked={tecla == true}
-                                            onChange={() => setTecla(true)}
-                                        />
-
-                                        <label htmlFor="teclaNo">No</label>
-                                        <input type="radio"
-                                            id="teclaNo"
-                                            name="radioTecla"
-                                            disabled={control == false}
-                                            checked={tecla == false}
-                                            onChange={() => setTecla(false)}
-                                        />
+                                        <div className={`especificacionCortina ${tecla == 'teclaSi' ? 'checked' : ''}`} onClick={() => setTecla(tecla !== 'teclaSi' ? 'teclaSi' : undefined)}>Si</div>
+                                        <div className={`especificacionCortina ${tecla == 'teclaNo' ? 'checked' : ''} ${control == 'controlNo' ? 'disabled' : ''}`} onClick={() => setTecla((tecla !== 'teclaNo' && control != 'controlNo') ? 'teclaNo' : (tecla == 'teclaSi' ? 'teclaSi' : undefined))}>No</div>
                                     </div>
                                 </div>
                             </>)
                         }
 
                         <div className="form-group-cortinas">
-                            <p>CON CAJON?</p>
+                            <p>CON CAJON? </p>
                             <div className="bodyFormGroupCortinas">
-                                <label htmlFor="cajonSi">Si</label>
-                                <input type="radio"
-                                    id="cajonSi"
-                                    name="radioCajon"
-                                    checked={conCajon == true}
-                                    disabled={ancho < 750 || ancho == undefined}
-                                    onChange={() => setConCajon(true)}
-                                />
+                                <div className={`especificacionCortina ${conCajon === 'cajonSi' ? 'checked' : ''} ${(!ancho || ancho < 750) ? 'disabled' : ''}`} onClick={() => setConCajon((conCajon !== 'cajonSi' && ancho >= 750) ? 'cajonSi' : undefined)}>Si</div>
 
-                                <label htmlFor="cajonNo">No</label>
-                                <input type="radio"
-                                    id="cajonNo"
-                                    name="radioCajon"
-                                    checked={conCajon == false}
-                                    onChange={() => { setConCajon(false); descelectUbicacionCajonPersianaAluminio() }}
-                                />
+                                <div className={`especificacionCortina ${conCajon == 'cajonNo' ? 'checked' : ''}`} onClick={() => { setConCajon(conCajon !== 'cajonNo' ? 'cajonNo' : undefined); descelectUbicacionCajonPersianaAluminio() }}>No</div>
                             </div>
                         </div>
 
-                        {conCajon == true &&
+                        {conCajon == 'cajonSi' &&
                             (<>
                                 <div className="form-group-cortinas">
                                     <p>TIPO DE CAJON</p>
                                     <div className="bodyFormGroupCortinas">
-                                        <label htmlFor="compacto">Compacto</label>
-                                        <input type="radio"
-                                            id="compacto"
-                                            name="radioUbicacionCajon"
-                                            checked={ubicacionCajon == 'compacto'}
-                                            onChange={() => { setUbicacionCajon('compacto'); descelectUbicacionExteriorCajonPersianaAluminio() }}
-                                        />
-
-                                        <label htmlFor="exterior">Exterior</label>
-                                        <input type="radio"
-                                            id="exterior"
-                                            name="radioUbicacionCajon"
-                                            checked={ubicacionCajon == 'exterior'}
-                                            onChange={() => setUbicacionCajon('exterior')}
-                                        />
+                                        <div className={`especificacionCortina ${ubicacionCajon == 'compacto' ? 'checked' : ''}`} onClick={() => { setUbicacionCajon(ubicacionCajon !== 'compacto' ? 'compacto' : undefined); descelectUbicacionExteriorCajonPersianaAluminio() }}>Compacto</div>
+                                        <div className={`especificacionCortina ${ubicacionCajon == 'exterior' ? 'checked' : ''}`} onClick={() => setUbicacionCajon(ubicacionCajon !== 'exterior' ? 'exterior' : undefined)}>Exterior</div>
                                     </div>
                                 </div>
 
@@ -243,21 +131,8 @@ export default function PersianaAluminio() {
                                         <div className="form-group-cortinas">
                                             <p>UBICACIÓN DE CAJON</p>
                                             <div className="bodyFormGroupCortinas">
-                                                <label htmlFor="fuera">Fuera del vano</label>
-                                                <input type="radio"
-                                                    id="fuera"
-                                                    name="radioUbicacionExteriorCajon"
-                                                    checked={ubicacionExteriorCajon == 'fuera'}
-                                                    onChange={() => setUbicacionExteriorCajon('fuera')}
-                                                />
-
-                                                <label htmlFor="dentro">Dentrol del vano</label>
-                                                <input type="radio"
-                                                    id="dentro"
-                                                    name="radioUbicacionExteriorCajon"
-                                                    checked={ubicacionExteriorCajon == 'dentro'}
-                                                    onChange={() => setUbicacionExteriorCajon('dentro')}
-                                                />
+                                                <div className={`especificacionCortina ${ubicacionExteriorCajon == 'fuera' ? 'checked' : ''}`} onClick={() => setUbicacionExteriorCajon(ubicacionExteriorCajon !== 'fuera' ? 'fuera' : undefined)}>Fuera del vano</div>
+                                                <div className={`especificacionCortina ${ubicacionExteriorCajon == 'dentro' ? 'checked' : ''}`} onClick={() => setUbicacionExteriorCajon(ubicacionExteriorCajon !== 'dentro' ? 'dentro' : undefined)}>Dentrol del vano</div>
                                             </div>
                                         </div>
                                     </>)
@@ -269,47 +144,11 @@ export default function PersianaAluminio() {
                 <div className="form-group-cortinas">
                     <p>TIPO DE TABLILLA</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="barrioTubular">Barrio tubular</label>
-                        <input type="radio"
-                            id="barrioTubular"
-                            name="radioTipoTablilla"
-                            checked={tipoTablilla == 'barrioTubular'}
-                            onChange={() => setTipoTablilla('barrioTubular')}
-                        />
-
-                        <label htmlFor="barrioLiviana">Barrio liviana</label>
-                        <input type="radio"
-                            id="barrioLiviana"
-                            name="radioTipoTablilla"
-                            checked={tipoTablilla == 'barrioLiviana'}
-                            onChange={() => setTipoTablilla('barrioLiviana')}
-                        />
-
-                        <label htmlFor="dap55">DAP-55 con felpa</label>
-                        <input type="radio"
-                            id="dap55"
-                            name="radioTipoTablilla"
-                            checked={tipoTablilla == 'dap55'}
-                            onChange={() => { setTipoTablilla('dap55'); descelectEspecificacionBarrio() }}
-                        />
-
-                        <label htmlFor="dap44">DAP-44</label>
-                        <input type="radio"
-                            id="dap44"
-                            name="radioTipoTablilla"
-                            checked={tipoTablilla == 'dap44'}
-                            onChange={() => { setTipoTablilla('dap44'); descelectEspecificacionBarrio() }}
-                            disabled={!tipoMecanismo == 'motor'}
-                        />
-
-                        <label htmlFor="dapAbk">DAP-ABK autoblocante</label>
-                        <input type="radio"
-                            id="dapAbk"
-                            name="radioTipoTablilla"
-                            checked={tipoTablilla == 'dapAbk'}
-                            onChange={() => { setTipoTablilla('dapAbk'); descelectEspecificacionBarrio() }}
-                            disabled={!tipoMecanismo == 'motor'}
-                        />
+                        <div className={`especificacionCortina ${tipoTablilla == 'barrioTubular' ? 'checked' : ''}`} onClick={() => setTipoTablilla(tipoTablilla !== 'barrioTubular' ? 'barrioTubular' : undefined)}>Barrio tubular</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'barrioLiviana' ? 'checked' : ''}`} onClick={() => setTipoTablilla(tipoTablilla !== 'barrioLiviana' ? 'barrioLiviana' : undefined)}>Barrio liviana</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'dap55' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'dap55' ? 'dap55' : undefined); descelectEspecificacionBarrio() }}>DAP-55 con felpa</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'dap44' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'dap44' ? 'dap44' : undefined); descelectEspecificacionBarrio() }} disabled={tipoMecanismo !== 'motor'}>DAP-44</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'dapAbk' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'dapAbk' ? 'dapAbk' : undefined); descelectEspecificacionBarrio(); }} disabled={tipoMecanismo !== 'motor'}>DAP-ABK autoblocante</div>
                     </div>
                 </div>
 
@@ -318,29 +157,9 @@ export default function PersianaAluminio() {
                         <div className="form-group-cortinas">
                             <p>DIMENSIONES</p>
                             <div className="bodyFormGroupCortinas">
-                                <label htmlFor="tubular">Tubular</label>
-                                <input type="radio"
-                                    id="tubular"
-                                    name="radioEspecificacionBarrio"
-                                    checked={especificacionBarrio == 'tubular'}
-                                    onChange={() => setEspecificacionBarrio('tubular')}
-                                />
-
-                                <label htmlFor="simpleConFelpa">Simple con felpa</label>
-                                <input type="radio"
-                                    id="simpleConFelpa"
-                                    name="radioEspecificacionBarrio"
-                                    checked={especificacionBarrio == 'simpleConFelpa'}
-                                    onChange={() => setEspecificacionBarrio('simpleConFelpa')}
-                                />
-
-                                <label htmlFor="simpleSinFelpa">Simple sin felpa</label>
-                                <input type="radio"
-                                    id="simpleSinFelpa"
-                                    name="radioEspecificacionBarrio"
-                                    checked={especificacionBarrio == 'simpleSinFelpa'}
-                                    onChange={() => setEspecificacionBarrio('simpleSinFelpa')}
-                                />
+                                <div className={`especificacionCortina ${especificacionBarrio == 'tubular' ? 'checked' : ''}`} onClick={() => setEspecificacionBarrio(especificacionBarrio !== 'tubular' ? 'tubular' : undefined)}>Tubular</div>
+                                <div className={`especificacionCortina ${especificacionBarrio == 'simpleConFelpa' ? 'checked' : ''}`} onClick={() => setEspecificacionBarrio(especificacionBarrio !== 'simpleConFelpa' ? 'simpleConFelpa' : undefined)}>Simple con felpa</div>
+                                <div className={`especificacionCortina ${especificacionBarrio == 'simpleSinFelpa' ? 'checked' : ''}`} onClick={() => setEspecificacionBarrio(especificacionBarrio !== 'simpleSinFelpa' ? 'simpleSinFelpa' : undefined)}>Simple sin felpa</div>
                             </div>
                         </div>
                     </>)

@@ -23,10 +23,9 @@
 .form-group-cortinas div{
     display: flex;
     flex-direction: row;
-
 }
 
-.form-group-cortinas label{
+.especificacionCortina{
     padding: 0 1rem;
     height: 3rem;
     background-color: var(--colorPrimario);
@@ -35,21 +34,30 @@
     align-items: center;
     margin: 0 0.5rem;
     font-weight: 600;
-    color: var(--colorSecundario)
+    color: var(--colorSecundario);
+    margin-right: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
 }
 
-.form-group-cortinas input[type="radio"]{
-    width: 0;
-    height: 0;
+.especificacionCortina:hover{
+    color: black;
+}
+
+.especificacionCortina.checked:hover{
+    color: white;
+}
+
+.especificacionCortina.disabled{
+    background-color: var(--colorTerciario);
+    cursor: default;
+    color: var(--colorCuaternario)
 }
 
 .bodyFormGroupCortinas .checked{
     background-color: var(--colorSecundario);
-}
-
-.form-group-cortinas input[type="text"]{
-    width: 15rem;
-    height: 3rem;
+    color: var(--colorCuaternario);
 }
 
 .botonEnviarConsulta{

@@ -47,87 +47,34 @@ export default function PortonAluminio() {
                 <div className="form-group-cortinas">
                     <p>MEDIDA INDICADA</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="vano">Vano</label>
-                        <input type="radio"
-                            id="vano"
-                            name="radioAlturaIndicada"
-                            checked={alturaIndicada == 'vano'}
-                            onChange={() => setAlturaIndicada("vano")}
-                        />
-
-                        <label htmlFor="abertura">Abertura</label>
-                        <input type="radio"
-                            id="abertura"
-                            name="radioAlturaIndicada"
-                            checked={alturaIndicada == 'abertura'}
-                            onChange={() => setAlturaIndicada("abertura")}
-                        />
+                        <div className={`especificacionCortina ${alturaIndicada == 'vano' ? 'checked' : ''}`} onClick={() => setAlturaIndicada(alturaIndicada !== 'vano' ? 'vano' : '')}>Vano</div>
+                        <div className={`especificacionCortina ${alturaIndicada == 'abertura' ? 'checked' : ''}`} onClick={() => setAlturaIndicada(alturaIndicada !== 'abertura' ? 'abertura' : '')}>Abertura</div>
                     </div>
                 </div>
 
                 <div className="form-group-cortinas">
                     <p>CON MECANISMO?</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="mecanismoSi">Si</label>
-                        <input type="radio"
-                            id="mecanismoSi"
-                            name="radioMecanismo"
-                            checked={conMecanismo == 'mecanismoSi'}
-                            onChange={() => { setConMecanismo('mecanismoSi') }}
-                        />
-
-                        <label htmlFor="mecanismoNo">No</label>
-                        <input type="radio"
-                            id="mecanismoNo"
-                            name="radioMecanismo"
-                            checked={conMecanismo == 'mecanismoNo'}
-                            onChange={() => { setConMecanismo('mecanismoNo'); descelectControlYTeclaPortonAluminio() }}
-                        />
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoSi' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoSi' ? 'mecanismoSi' : '') }}>Si</div>
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); descelectControlYTeclaPortonAluminio() }}>No</div>
                     </div>
                 </div>
 
-                {conMecanismo &&
+                {conMecanismo == 'mecanismoSi' &&
                     <>
                         <div className="form-group-cortinas">
                             <p>CON CONTROL?</p>
                             <div className="bodyFormGroupCortinas">
-                                <label htmlFor="controlSi">Si</label>
-                                <input type="radio"
-                                    id="controlSi"
-                                    name="radioControl"
-                                    checked={control == 'controlSi'}
-                                    onChange={() => setControl('controlSi')}
-                                />
-
-                                <label htmlFor="controlNo">No</label>
-                                <input type="radio"
-                                    id="controlNo"
-                                    name="radioControl"
-                                    checked={control == 'controlNo'}
-                                    onChange={() => { setControl('controlNo'); setTecla('teclaNo'); }}
-                                />
+                                <div className={`especificacionCortina ${control == 'controlSi' ? 'checked' : ''}`} onClick={() => setControl(control !== 'controlSi' ? 'controlSi' : undefined)}>Si</div>
+                                <div className={`especificacionCortina ${control == 'controlNo' ? 'checked' : ''}`} onClick={() => { setControl(control !== 'controlNo' ? 'controlNo' : undefined); setTecla('teclaSi'); }}>No</div>
                             </div>
                         </div>
 
                         <div className="form-group-cortinas">
                             <p>CON TECLA?</p>
                             <div className="bodyFormGroupCortinas">
-                                <label htmlFor="teclaSi">Si</label>
-                                <input type="radio"
-                                    id="teclaSi"
-                                    name="radioTecla"
-                                    checked={tecla == 'teclaSi'}
-                                    onChange={() => setTecla('teclaSi')}
-                                />
-
-                                <label htmlFor="teclaNo">No</label>
-                                <input type="radio"
-                                    id="teclaNo"
-                                    name="radioTecla"
-                                    disabled={control == 'controlNo'}
-                                    checked={tecla == 'teclaNo'}
-                                    onChange={() => setTecla('teclaNo')}
-                                />
+                                <div className={`especificacionCortina ${tecla == 'teclaSi' ? 'checked' : ''}`} onClick={() => setTecla(tecla !== 'teclaSi' ? 'teclaSi' : undefined)}>Si</div>
+                                <div className={`especificacionCortina ${tecla == 'teclaNo' ? 'checked' : ''} ${control == 'controlNo' ? 'disabled' : ''}`} onClick={() => setTecla((tecla !== 'teclaNo' && control != 'controlNo') ? 'teclaNo' : (tecla == 'teclaSi' ? 'teclaSi' : undefined))}>No</div>
                             </div>
                         </div>
                     </>
@@ -135,37 +82,10 @@ export default function PortonAluminio() {
                 <div className="form-group-cortinas">
                     <p>TIPO DE TABLILLA</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="portonDap55">DAP-55</label>
-                        <input type="radio"
-                            id="portonDap55"
-                            name="radioTipoTablillaPorton"
-                            checked={tipoTablilla == 'portonDap55'}
-                            onChange={() => setTipoTablilla("portonDap55")}
-                        />
-
-                        <label htmlFor="portonDap64">DAP-64</label>
-                        <input type="radio"
-                            id="portonDap64"
-                            name="radioTipoTablillaPorton"
-                            checked={tipoTablilla == 'portonDap64'}
-                            onChange={() => setTipoTablilla("portonDap64")}
-                        />
-
-                        <label htmlFor="portonDap79">DAP-79 ciego</label>
-                        <input type="radio"
-                            id="portonDap79"
-                            name="radioTipoTablillaPorton"
-                            checked={tipoTablilla == 'portonDap79'}
-                            onChange={() => setTipoTablilla("portonDap79")}
-                        />
-
-                        <label htmlFor="portonDap49">DAP-49 microperforada</label>
-                        <input type="radio"
-                            id="portonDap49"
-                            name="radioTipoTablillaPorton"
-                            checked={tipoTablilla == 'portonDap49'}
-                            onChange={() => setTipoTablilla("portonDap49")}
-                        />
+                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap55' ? 'checked' : ''}`} onClick={() => setTipoTablilla(tipoTablilla !== 'portonDap55' ? 'portonDap55' : undefined)}>DAP-55</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap64' ? 'checked' : ''}`} onClick={() => setTipoTablilla(tipoTablilla !== 'portonDap64' ? 'portonDap64' : undefined)}>DAP-64</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap79' ? 'checked' : ''}`} onClick={() => setTipoTablilla(tipoTablilla !== 'portonDap79' ? 'portonDap79' : undefined)}>DAP-79 ciego</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap49' ? 'checked' : ''}`} onClick={() => setTipoTablilla(tipoTablilla !== 'portonDap49' ? 'portonDap49' : undefined)}>DAP-49 microperforada</div>
                     </div>
                 </div>
             </form>
