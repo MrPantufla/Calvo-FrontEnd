@@ -41,13 +41,13 @@
 
 .productos {
     min-height: calc(100vh - 20rem);
+    padding-right: 1rem;
 }
 
 .contenedorPrincipalFiltrosYProductos {
     display: flex;
     flex-direction: column;
     padding-top: 10rem;
-    padding-right: 1.5rem;
     background-color: var(--colorAzulClaro);
     background-image: url('../../Imagenes/caAzul.png');
     background-size: 60%;

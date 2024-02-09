@@ -1,5 +1,6 @@
 import './persianaAluminio.css';
 import { useCortinas } from '../../../../contextCortinas';
+import { useEffect, useState } from 'react';
 
 export default function PersianaAluminio() {
 
@@ -35,20 +36,88 @@ export default function PersianaAluminio() {
         descelectEspecificacionBarrio
     } = useCortinas();
 
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const textoAltoElement = document.getElementById('textoAlto');
+        if (textoAltoElement) {
+            textoAltoElement.addEventListener('click', () => {
+                const altoElement = document.getElementById('alto');
+                if (altoElement) {
+                    altoElement.focus();
+                }
+            });
+        }
+
+        const textoAnchoElement = document.getElementById('textoAncho');
+        if (textoAnchoElement) {
+            textoAnchoElement.addEventListener('click', () => {
+                const anchoElement = document.getElementById('ancho');
+                if (anchoElement) {
+                    anchoElement.focus();
+                }
+            });
+        }
+    }, []);
+
+    const enviarConsulta = () =>{
+        const enterosRegex = /[0-9]/;
+
+        if(!alto || !ancho || !conMecanismo || !alturaIndicada || !tipoTablilla){
+            setErrorMessage("Por favor, completa todos los campos obligatorios");
+        }
+        else if(!enterosRegex.test(alto) || !enterosRegex.test(ancho)){
+            setErrorMessage("Los campos de dimensiones solo aceptan números enteros");
+        }
+        else if(conMecanismo == 'mecanismoSi'){
+            if(!tipoMecanismo || !conCajon){
+                setErrorMessage("Por favor, completa todos los campos obligatorios");
+            }
+        }
+        else if(tipoMecanismo == 'motor'){
+            if(!control || !tecla){
+                setErrorMessage("Por favor, completa todos los campos obligatorios");
+            }
+        }
+        else if(conCajon == 'cajonSi'){
+            if(!ubicacionCajon){
+                setErrorMessage("Por favor, completa todos los campos obligatorios");
+            }
+        }
+        else if(ubicacionCajon == 'exterior'){
+            if(!ubicacionExteriorCajon){
+                setErrorMessage("Por favor, completa todos los campos obligatorios");
+            }
+        }
+        else if(tipoTablilla == 'barrioTubular' || tipoTablilla == 'barrioLiviana'){
+            if(!especificacionBarrio){
+                setErrorMessage("Por favor, completa todos los campos obligatorios");
+            }
+        }
+        else{
+            //FETCH
+        }
+    }
+
     return (
         <div className="contenedorPrincipalPersianaAluminio">
+            <div className="errorMessageContainer">
+                <p className="errorFormulario">{errorMessage}</p>
+            </div>
             <form className="formularioPersianaAluminio">
                 <div className="form-group-cortinas">
                     <p>DIMENSIONES</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="alto">Alto</label>
+                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto</label>
                         <input type="text"
                             id="alto"
                             value={alto}
-                            onChange={(e) => setAlto(e.target.value)}
+                            onChange={(e) => {setAlto(e.target.value); setErrorMessage('')}}
+                            className="campotextoEspecificacionCortina"
                         />
+                        <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
 
-                        <label htmlFor="ancho">Ancho</label>
+                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho</label>
                         <input type="text"
                             id="ancho"
                             value={ancho}
@@ -57,7 +126,9 @@ export default function PersianaAluminio() {
                                   setConCajon(undefined);
                                 }
                             }}
+                            className="campotextoEspecificacionCortina"
                         />
+                        <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
                     </div>
                 </div>
 
@@ -155,7 +226,7 @@ export default function PersianaAluminio() {
                 {(tipoTablilla == 'barrioTubular' || tipoTablilla == 'barrioLiviana') &&
                     (<>
                         <div className="form-group-cortinas">
-                            <p>DIMENSIONES</p>
+                            <p>TIPO DE TABLILLA BARRIO</p>
                             <div className="bodyFormGroupCortinas">
                                 <div className={`especificacionCortina ${especificacionBarrio == 'tubular' ? 'checked' : ''}`} onClick={() => setEspecificacionBarrio(especificacionBarrio !== 'tubular' ? 'tubular' : undefined)}>Tubular</div>
                                 <div className={`especificacionCortina ${especificacionBarrio == 'simpleConFelpa' ? 'checked' : ''}`} onClick={() => setEspecificacionBarrio(especificacionBarrio !== 'simpleConFelpa' ? 'simpleConFelpa' : undefined)}>Simple con felpa</div>
@@ -166,7 +237,7 @@ export default function PersianaAluminio() {
                 }
             </form>
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta">
+                <button className="botonEnviarConsulta" onClick={enviarConsulta}>
                     Enviar consulta
                 </button>
             </div>

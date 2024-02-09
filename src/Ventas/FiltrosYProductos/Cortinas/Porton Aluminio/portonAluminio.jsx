@@ -1,5 +1,6 @@
 import './portonAluminio.css';
 import { useCortinas } from '../../../../contextCortinas.jsx';
+import { useEffect, useState } from 'react';
 
 export default function PortonAluminio() {
 
@@ -22,25 +23,75 @@ export default function PortonAluminio() {
         limpiarPortonAluminio,
     } = useCortinas();
 
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const textoAltoElement = document.getElementById('textoAlto');
+        if (textoAltoElement) {
+            textoAltoElement.addEventListener('click', () => {
+                const altoElement = document.getElementById('alto');
+                if (altoElement) {
+                    altoElement.focus();
+                }
+            });
+        }
+
+        const textoAnchoElement = document.getElementById('textoAncho');
+        if (textoAnchoElement) {
+            textoAnchoElement.addEventListener('click', () => {
+                const anchoElement = document.getElementById('ancho');
+                if (anchoElement) {
+                    anchoElement.focus();
+                }
+            });
+        }
+    }, []);
+
+    const enviarConsulta = () =>{
+        const enterosRegex = /[0-9]/;
+
+        if(!alto || !ancho || !conMecanismo || !alturaIndicada || !tipoTablilla){
+            setErrorMessage("Por favor, completa todos los campos");
+        }
+        else if(conMecanismo === 'mecanismoSi'){
+            if(!control || !tecla){
+                setErrorMessage("Por favor, completa todos los campos");
+            }
+        }
+        else if(!enterosRegex.test(alto) || !enterosRegex.test(ancho)){
+            setErrorMessage("Los campos de dimensiones solo aceptan números enteros");
+        }
+        else{
+            //FETCH
+        }
+    }
+
     return (
         <div className="contenedorPrincipalPortonAluminio">
+            <div className="errorMessageContainer">
+                <p className="errorFormulario">{errorMessage}</p>
+            </div>
             <form className="formularioPortonAluminio">
                 <div className="form-group-cortinas">
                     <p>DIMENSIONES</p>
                     <div className="bodyFormGroupCortinas">
-                        <label htmlFor="alto">Alto</label>
+                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto:</label>
                         <input type="text"
                             id="alto"
                             value={alto}
                             onChange={(e) => setAlto(e.target.value)}
+                            className="campotextoEspecificacionCortina"
                         />
+                        <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
 
-                        <label htmlFor="ancho">Ancho</label>
+                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho:</label>
                         <input type="text"
                             id="ancho"
                             value={ancho}
                             onChange={(e) => setAncho(e.target.value)}
+                            className="campotextoEspecificacionCortina"
                         />
+                        <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
                     </div>
                 </div>
 
@@ -90,7 +141,7 @@ export default function PortonAluminio() {
                 </div>
             </form>
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta">
+                <button className="botonEnviarConsulta" onClick={enviarConsulta}>
                     Enviar consulta
                 </button>
             </div>

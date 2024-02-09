@@ -17,16 +17,9 @@ export default function Cortinas() {
                         <p>TIPO</p>
                         <div className="bodyFormGroupCortinas">
                             <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'roller' ? 'roller' : undefined) }}>Roller</div>
-                            
-
                             <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaPvc' ? 'persianaPvc' : undefined) }}>Persiana PVC</div>
-                            
-
                             <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'portonAluminio' ? 'portonAluminio' : undefined) }}>Porton de aluminio</div>
-                            
-
                             <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaAluminio' ? 'persianaAluminio' : undefined) }}>Persiana de aluminio</div>
-                            
                         </div>
                     </div>
                 </form>
