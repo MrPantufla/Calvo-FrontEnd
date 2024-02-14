@@ -14,6 +14,13 @@ html{
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 2rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.errorFormulario .bi{
+  margin-right: 0.5rem;
 }
 
 p{
