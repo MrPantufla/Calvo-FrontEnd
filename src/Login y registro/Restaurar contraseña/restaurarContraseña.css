@@ -10,15 +10,6 @@
     padding: 0 0 2rem 0;
 }
 
-.errorFormulario{
-    height: 2rem;
-    margin-top: 0.5rem;
-}
-
-.errorFormulario .bi{
-    margin-right: 0.5rem;
-}
-
 .tituloRestaurarContraseñaContainer{
     width: 100%;
     display: flex;
