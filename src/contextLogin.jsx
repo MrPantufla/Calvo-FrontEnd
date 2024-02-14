@@ -8,6 +8,7 @@ export const LoginProvider = ({ children }) => {
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
+  const [mostrarCartelLogin, setMostrarCartelLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const [state, setState] = useState({

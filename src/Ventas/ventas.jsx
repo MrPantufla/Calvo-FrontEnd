@@ -12,6 +12,7 @@ import Pagos from './Confirmar compra/Pagos/pagos.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import BotonPagos from './Confirmar compra/Pagos/botonPagos.jsx';
 import { ProviderCortinas } from '../contextCortinas.jsx';
+import CartelLogin from '../Login y registro/Login/cartelLogin.jsx';
 
 export default function Ventas() {
   const carrito = useCarrito();
@@ -23,6 +24,7 @@ export default function Ventas() {
         <RenderHeader />
         <DesplegablePerfil />
         <Catalogos />
+        <CartelLogin/>
         <CartelLogout />
         <Filtros />
         {carrito.confirmarCompraAbierto ? (<ConfirmarCompra />) : (<></>)}
