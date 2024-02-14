@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './contextLogin';
 
 const CortinasContext = createContext();
 
@@ -7,6 +8,8 @@ function useCortinas() {
 }
 
 function ProviderCortinas({ children }) {
+
+    const auth = useAuth();
 
     const [tipo, setTipo] = useState('');
     const [alto, setAlto] = useState();
@@ -75,6 +78,7 @@ function ProviderCortinas({ children }) {
     }
 
     const limpiarFormularios = () => {
+        deleteErrorMessage();
         setAlto(undefined);
         setAncho(undefined);
         setConMecanismo(undefined);
@@ -94,13 +98,20 @@ function ProviderCortinas({ children }) {
     }
 
     const enviarCortina = (textoCortina) => {
+        
+        const textoUsuario =
+            "Nombre y apellido: " + auth.state.userInfo.nombre + " " + auth.state.userInfo.apellido + "\n" +
+            "Telefono: " + auth.state.userInfo.telefono + "\n" +
+            "Email: " + auth.state.userInfo.email
+        ;
+
         fetch('http://localhost:8080/api/recibirCortina', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: textoCortina,
+            body: JSON.stringify({textoUsuario, textoCortina}),
         })
             .then(response => {
                 if (response.ok) {
