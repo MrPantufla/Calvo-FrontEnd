@@ -89,13 +89,27 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={/*`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`*/`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
+            src={`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
             onError={(e) => {
-              //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
+              e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.png`;
 
-              //e.target.onerror = () => {
-              //  e.target.src = `/ImagenesProductos/xd.png`;
-              //};
+              e.target.onerror = () => {
+                e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
+              // Si falla la carga en formato JPG, intenta con BMP
+              e.target.onerror = () => {
+                e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.bmp`;
+
+                // Si falla la carga en formato BMP, intenta con JPEG
+                e.target.onerror = () => {
+                  e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.peg`;
+
+                  // Si falla la carga en formato JPEG, carga una imagen por defecto
+                  e.target.onerror = () => {
+                    e.target.src = `/ImagenesProductos/xd.png`;
+                  };
+                };
+              };
+            };
             }}
             alt="Imagen del producto"
             loading="lazy"
