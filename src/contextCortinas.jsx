@@ -29,6 +29,8 @@ function ProviderCortinas({ children }) {
     const [tipoTablilla, setTipoTablilla] = useState('');
     const [especificacionBarrio, setEspecificacionBarrio] = useState('');
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const descelectCaidaRoller = () => {
         setTirador(undefined);
         setCaida(undefined);
@@ -68,6 +70,10 @@ function ProviderCortinas({ children }) {
         setEspecificacionBarrio(undefined);
     }
 
+    const deleteErrorMessage = () =>{
+        setErrorMessage('');
+    }
+
     const limpiarFormularios = () => {
         setAlto(undefined);
         setAncho(undefined);
@@ -85,6 +91,36 @@ function ProviderCortinas({ children }) {
         setTecla(undefined);
         setTipoTablilla(undefined);
         setEspecificacionBarrio(undefined);
+    }
+
+    const enviarCortina = (textoCortina) => {
+        fetch('http://localhost:8080/api/recibirCortina', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: textoCortina,
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Envío de formulario exitoso');
+                    return null;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data !== null) {
+                    console.log('Respuesta (texto): ', data);
+                }
+            })
+            .catch(error => {
+                console.error('Ocurrió un error al enviar los datos:', error.message);
+                if (error.message.includes('409')) {
+                    console.error('Conflicto al intentar registrar el usuario. El correo electrónico ya está en uso.');
+                }
+            });
     }
 
     return (
@@ -132,6 +168,10 @@ function ProviderCortinas({ children }) {
             descelectUbicacionExteriorCajonPersianaAluminio,
             descelectEspecificacionBarrio,
             limpiarFormularios,
+            errorMessage,
+            setErrorMessage,
+            deleteErrorMessage,
+            enviarCortina
         }}>
             {children}
         </CortinasContext.Provider>
