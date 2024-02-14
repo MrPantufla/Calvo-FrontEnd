@@ -1,6 +1,7 @@
 import './persianaPvc.css';
 import { useCortinas } from '../../../../contextCortinas.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../../../contextLogin.jsx';
 
 export default function PersianaPvc() {
 
@@ -16,12 +17,13 @@ export default function PersianaPvc() {
         tipoEnrollador,
         setTipoEnrollador,
         descelectEnrolladorPersianaPvc,
-        limpiarPersianaPvc,
         errorMessage,
         setErrorMessage,
         deleteErrorMessage,
         enviarCortina
     } = useCortinas();
+
+    const auth = useAuth();
 
     useEffect(() => {
         const textoAltoElement = document.getElementById('textoAlto');
@@ -46,7 +48,7 @@ export default function PersianaPvc() {
     }, []);
 
     const enviarConsulta = () => {
-        const enterosRegex = /^[1-9]\d*$/;
+        const enterosRegex = /^[0-9]\d*$/;
 
         if (!alto || !ancho || !alturaIndicada || !conMecanismo) {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
@@ -62,7 +64,20 @@ export default function PersianaPvc() {
         }
         else {
             deleteErrorMessage();
-            //FETCH
+
+            const textoCortina = 
+                "TIPO: PERSIANA PVC\n" +
+                "ALTO: " + alto + "mm\n" +
+                "ANCHO: " + ancho + "mm\n" +
+                "ALTURA INDICADA: " + alturaIndicada + "\n" +
+                (conMecanismo == 'mecanismoNo' ?
+                    "MECANISMO: Sin mecanismo, solo cortina"
+                    :
+                    "TIPO DE MECANISMO: " + (tipoEnrollador ? tipoEnrollador : 'A consultar')
+                )
+            ;
+
+            enviarCortina(textoCortina);
         }
     }
 
@@ -125,7 +140,7 @@ export default function PersianaPvc() {
                     </div>}
             </form>
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta" onClick={enviarConsulta}>
+                <button className="botonEnviarConsulta" onClick={() => auth.state.logueado ? enviarConsulta : auth.setMostrarLogin(true)}>
                     Enviar consulta
                 </button>
             </div>

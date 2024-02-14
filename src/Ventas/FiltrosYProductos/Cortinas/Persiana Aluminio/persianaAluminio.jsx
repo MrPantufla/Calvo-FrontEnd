@@ -1,6 +1,7 @@
 import './persianaAluminio.css';
 import { useCortinas } from '../../../../contextCortinas';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../../../contextLogin.jsx';
 
 export default function PersianaAluminio() {
 
@@ -40,6 +41,8 @@ export default function PersianaAluminio() {
         enviarCortina
     } = useCortinas();
 
+    const auth = useAuth();
+
     useEffect(() => {
         const textoAltoElement = document.getElementById('textoAlto');
         if (textoAltoElement) {
@@ -63,10 +66,10 @@ export default function PersianaAluminio() {
     }, []);
 
     const enviarConsulta = () => {
-        const enterosRegex = /^[1-9]\d*$/;
+        const enterosRegex = /^[0-9]\d*$/;
 
         if (!alto || !ancho || !conMecanismo || !alturaIndicada || !tipoTablilla) {
-            setErrorMessage("Por favor, completa todos los campos obligatorios");
+            setErrorMessage("Por favor, completa todos los campos");
             window.scrollTo(0, 0);
         }
         else if (!enterosRegex.test(alto) || !enterosRegex.test(ancho)) {
@@ -74,23 +77,23 @@ export default function PersianaAluminio() {
             window.scrollTo(0, 0);
         }
         else if (conMecanismo == 'mecanismoSi' && (!tipoMecanismo || !conCajon)) {
-            setErrorMessage("Por favor, completa todos los campos obligatorios");
+            setErrorMessage("Por favor, completa todos los campos");
             window.scrollTo(0, 0);
         }
         else if (tipoMecanismo == 'motor' && (!control || !tecla)) {
-            setErrorMessage("Por favor, completa todos los campos obligatorios");
+            setErrorMessage("Por favor, completa todos los campos");
             window.scrollTo(0, 0);
         }
-        else if(conCajon == 'cajonSi' && tipoMecanismo == 'motor' && ancho < 750){
+        else if (conCajon == 'cajonSi' && tipoMecanismo == 'motor' && ancho < 750) {
             setErrorMessage("El ancho mínimo para cajones con motor es de 750mm");
             window.scrollTo(0, 0);
         }
         else if (conCajon == 'cajonSi' && !ubicacionCajon) {
-            setErrorMessage("Por favor, completa todos los campos obligatorios");
+            setErrorMessage("Por favor, completa todos los campos");
             window.scrollTo(0, 0);
         }
         else if (ubicacionCajon == 'exterior' && !ubicacionExteriorCajon) {
-            setErrorMessage("Por favor, completa todos los campos obligatorios");
+            setErrorMessage("Por favor, completa todos los campos");
             window.scrollTo(0, 0);
         }
         else if ((tipoTablilla == 'barrioTubular' || tipoTablilla == 'barrioLiviana') && !especificacionBarrio) {
@@ -98,8 +101,41 @@ export default function PersianaAluminio() {
             window.scrollTo(0, 0);
         }
         else {
-            //FETCH
             deleteErrorMessage();
+
+            const textoCortina =
+                "TIPO: PERSIANA ALUMINIO\n" +
+                "ALTO: " + alto + "mm\n" +
+                "ANCHO: " + ancho + "mm\n" +
+                "ALTURA INDICADA: " + alturaIndicada + "\n" +
+                (conMecanismo == "mecanismoNo" ?
+                    "MECANISMO: Sin mecanismo, solo cortina\n" :
+                    ("TIPO DE MECANISMO: " + tipoMecanismo + "\n" +
+                        (tipoMecanismo === "motor" ?
+                            ("CONTROL: " + (control == "controlSi" ? "Si" : "No") + "\n" +
+                                "TECLA: " + (tecla == 'teclaSi' ? "Si" : "No") + "\n") :
+                            ""
+                        )
+                    )
+                ) +
+                "CAJON: " + (conCajon == "cajonSi" ?
+                    ("Si\n" +
+                        "TIPO DE CAJON: " + ubicacionCajon + "\n" +
+                        (ubicacionCajon === 'exterior' ?
+                            ("UBICACION EXTERIOR: " + ubicacionExteriorCajon + "\n") :
+                            ""
+                        )
+                    ) :
+                    "No\n"
+                ) +
+                "TIPO DE TABLILLA: " + tipoTablilla +
+                (tipoTablilla == 'barrioTubular' || tipoTablilla == 'barrioLiviana' ?
+                    "\nTIPO DE TABLILLA BARRIO: " + especificacionBarrio :
+                    ""
+                );
+
+
+            enviarCortina(textoCortina);
         }
     }
 
@@ -131,10 +167,7 @@ export default function PersianaAluminio() {
                             value={ancho}
                             onChange={(e) => {
                                 setAncho(e.target.value);
-                                if (e.target.value < 750) {
-                                    setConCajon(undefined);
-                                };
-                                ; deleteErrorMessage()
+                                deleteErrorMessage()
                             }}
                             className="campotextoEspecificacionCortina"
                         />
@@ -230,9 +263,9 @@ export default function PersianaAluminio() {
                             <div className={`especificacionCortina ${tipoTablilla == 'barrioLiviana' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'barrioLiviana' ? 'barrioLiviana' : undefined); deleteErrorMessage() }}>Barrio liviana</div>
                         </div>
                         <div className="tablillasDap">
-                            <div className={`especificacionCortina ${tipoTablilla == 'dap55' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'dap55' ? 'dap55' : undefined); descelectEspecificacionBarrio(); deleteErrorMessage() }}>DAP-55 con felpa</div>
-                            <div className={`especificacionCortina ${tipoTablilla == 'dap44' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'dap44' ? 'dap44' : undefined); descelectEspecificacionBarrio(); deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-44</div>
-                            <div className={`especificacionCortina ${tipoTablilla == 'dapAbk' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'dapAbk' ? 'dapAbk' : undefined); descelectEspecificacionBarrio();; deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-ABK autoblocante</div>
+                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-55conFelpa' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-55conFelpa' ? 'DAP-55conFelpa' : undefined); descelectEspecificacionBarrio(); deleteErrorMessage() }}>DAP-55 con felpa</div>
+                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-44' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-44' ? 'DAP-44' : undefined); descelectEspecificacionBarrio(); deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-44</div>
+                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-ABKautoblocante' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-ABKautoblocante' ? 'DAP-ABKautoblocante' : undefined); descelectEspecificacionBarrio();; deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-ABK autoblocante</div>
                         </div>
                     </div>
                 </div>
@@ -251,7 +284,7 @@ export default function PersianaAluminio() {
                 }
             </form>
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta" onClick={enviarConsulta}>
+                <button className="botonEnviarConsulta" onClick={() => auth.state.logueado ? enviarConsulta : auth.setMostrarLogin(true)}>
                     Enviar consulta
                 </button>
             </div>

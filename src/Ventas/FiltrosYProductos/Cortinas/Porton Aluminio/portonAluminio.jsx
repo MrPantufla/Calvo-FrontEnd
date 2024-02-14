@@ -1,6 +1,7 @@
 import './portonAluminio.css';
 import { useCortinas } from '../../../../contextCortinas.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../../../contextLogin.jsx';
 
 export default function PortonAluminio() {
 
@@ -27,6 +28,8 @@ export default function PortonAluminio() {
         enviarCortina
     } = useCortinas();
 
+    const auth = useAuth();
+
     useEffect(() => {
         const textoAltoElement = document.getElementById('textoAlto');
         if (textoAltoElement) {
@@ -50,7 +53,7 @@ export default function PortonAluminio() {
     }, []);
 
     const enviarConsulta = () => {
-        const enterosRegex = /^[1-9]\d*$/;
+        const enterosRegex = /^[0-9]\d*$/;
 
         if (!alto || !ancho || !conMecanismo || !alturaIndicada || !tipoTablilla) {
             setErrorMessage("Por favor, completa todos los campos");
@@ -67,17 +70,19 @@ export default function PortonAluminio() {
         else {
             deleteErrorMessage();
 
-            const textoCortina =`TIPO: PORTON ALUMINIO
-            ALTO: ${alto}mm 
-            ANCHO: ${ancho}mm
-            ALTURA INDICADA: ${alturaIndicada}
-            MECANISMO: ${conMecanismo == 'mecanismoNo' ? 
-                'Sin mecanismo, solo cortina' 
-                : 
-                `CONTROL: ${control ? 'Si' : 'No'}
-            TECLA: ${tecla ? 'Si' : 'No'}`}
-            TIPO DE TABLILLA: ${tipoTablilla}
-            `;
+            const textoCortina = 
+                "TIPO: PORTON ALUMINIO\n" +
+                "ALTO: " + alto + "mm\n" +
+                "ANCHO: " + ancho + "mm\n" +
+                "ALTURA INDICADA: " + alturaIndicada + "\n" +
+                "MECANISMO: " + (conMecanismo == 'mecanismoNo' ?
+                    "Sin mecanismo, solo cortina"
+                    :
+                    "CONTROL: " + (control ? "Si" : "No")
+                    + "\n" +
+                    "TECLA: " + (tecla ? "Si" : "No")) + "\n" +
+                "TIPO DE TABLILLA: " + tipoTablilla
+            ;
 
             enviarCortina(textoCortina);
         }
@@ -138,7 +143,7 @@ export default function PortonAluminio() {
                             <p>CON CONTROL?</p>
                             <div className="bodyFormGroupCortinas">
                                 <div className={`especificacionCortina ${control == 'controlSi' ? 'checked' : ''}`} onClick={() => { setControl(control !== 'controlSi' ? 'controlSi' : undefined); deleteErrorMessage() }}>Si</div>
-                                <div className={`especificacionCortina ${control == 'controlNo' ? 'checked' : ''}`} onClick={() => { setControl(control !== 'controlNo' ? 'controlNo' : undefined); (tecla === 'teclaNo' && control !== 'controlNo') && (setTecla(undefined)) ;deleteErrorMessage() }}>No</div>
+                                <div className={`especificacionCortina ${control == 'controlNo' ? 'checked' : ''}`} onClick={() => { setControl(control !== 'controlNo' ? 'controlNo' : undefined); (tecla === 'teclaNo' && control !== 'controlNo') && (setTecla(undefined)); deleteErrorMessage() }}>No</div>
                             </div>
                         </div>
 
@@ -154,15 +159,15 @@ export default function PortonAluminio() {
                 <div className="form-group-cortinas">
                     <p>TIPO DE TABLILLA</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap55' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'portonDap55' ? 'portonDap55' : undefined); deleteErrorMessage() }}>DAP-55</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap64' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'portonDap64' ? 'portonDap64' : undefined); deleteErrorMessage() }}>DAP-64</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap79' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'portonDap79' ? 'portonDap79' : undefined); deleteErrorMessage() }}>DAP-79 ciego</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'portonDap49' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'portonDap49' ? 'portonDap49' : undefined); deleteErrorMessage() }}>DAP-49 microperforada</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-55' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-55' ? 'DAP-55' : undefined); deleteErrorMessage() }}>DAP-55</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-64' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-64' ? 'DAP-64' : undefined); deleteErrorMessage() }}>DAP-64</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-79' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-79' ? 'DAP-79' : undefined); deleteErrorMessage() }}>DAP-79 ciego</div>
+                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-49' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-49' ? 'DAP-49' : undefined); deleteErrorMessage() }}>DAP-49 microperforada</div>
                     </div>
                 </div>
             </form>
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta" onClick={enviarConsulta}>
+                <button className="botonEnviarConsulta" onClick={() => auth.state.logueado ? enviarConsulta : auth.setMostrarLogin(true)}>
                     Enviar consulta
                 </button>
             </div>

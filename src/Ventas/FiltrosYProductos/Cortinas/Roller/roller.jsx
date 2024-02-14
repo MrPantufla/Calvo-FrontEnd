@@ -1,6 +1,7 @@
 import './roller.css';
 import { useCortinas } from '../../../../contextCortinas.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../../../contextLogin.jsx';
 
 export default function Roller() {
     const {
@@ -25,6 +26,8 @@ export default function Roller() {
         enviarCortina
     } = useCortinas();
 
+    const auth = useAuth();
+
     useEffect(() => {
         const textoAltoElement = document.getElementById('textoAlto');
         if (textoAltoElement) {
@@ -48,7 +51,7 @@ export default function Roller() {
     }, []);
 
     const enviarConsulta = () => {
-        const enterosRegex = /^[1-9]\d*$/;
+        const enterosRegex = /^[0-9]\d*$/;
 
         if (!alto || !ancho || !conMecanismo || !alturaIndicada || !color) {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
@@ -61,17 +64,20 @@ export default function Roller() {
         else {
             deleteErrorMessage();
 
-            const textoCortina =`TIPO: ROLLER
-            COLOR: ${color}
-            ALTO: ${alto}mm 
-            ANCHO: ${ancho}mm
-            ALTURA INDICADA: ${alturaIndicada}
-            ${conMecanismo == 'mecanismoNo' ? 
-                'MECANISMO: Sin mecanismo, solo cortina' 
-                : 
-                `LADO DE CAIDA: ${caida ? caida : "A consultar"}
-            LADO DEL TIRADOR: ${tirador ? tirador : "A consultar"}`}
-            `;
+            const textoCortina = 
+                "TIPO: ROLLER\n" +
+                "COLOR: " + color + "\n" +
+                "ALTO: " + alto + "mm\n" +
+                "ANCHO: " + ancho + "mm\n" +
+                "ALTURA INDICADA: " + alturaIndicada + "\n" +
+                (conMecanismo == 'mecanismoNo' ?
+                    "MECANISMO: Sin mecanismo, solo cortina\n"
+                    :
+                    ("LADO DE CAIDA: " + (caida ? caida : "A consultar") + "\n" +
+                        "LADO DEL TIRADOR: " + (tirador ? tirador : 'A consultar')
+                    )
+                )
+            ;
 
             enviarCortina(textoCortina);
         }
@@ -155,7 +161,7 @@ export default function Roller() {
                 </>
             }
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta" onClick={enviarConsulta}>
+                <button className="botonEnviarConsulta" onClick={() => auth.state.logueado ? enviarConsulta : auth.setMostrarLogin(true)}>
                     Enviar consulta
                 </button>
             </div>
