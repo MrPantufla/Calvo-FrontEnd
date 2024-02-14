@@ -46,6 +46,7 @@ export default function EditarContraseña() {
                     setNuevaContraseña('');
                     setRepetirContraseña('');
                     configuracion.cerrarContraseña();
+                    window.location.reload();
                     return null;
                 } else {
                     return response.text();

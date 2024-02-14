@@ -35,6 +35,7 @@ export default function EditarDatos() {
                 if (response.ok) {
                     console.log('Envío de datos exitoso.');
                     configuracion.cerrarDatos();
+                    window.location.reload();
                     return null;
                 } else {
                     console.log(response);
