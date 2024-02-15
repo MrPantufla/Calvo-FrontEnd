@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 
 export default function ProductoHistorial(args){
 
-    const productos = useProductos();
-    const producto = productos.productosIndexado[args.id];
+    const {productosIndexado} = useProductos();
+    const producto = productosIndexado[args.id];
     const [cod_orig, setCod_orig] = useState("CA");
     const [detalle, setDetalle] = useState("detalle");
     const [color, setColor] = useState("color");

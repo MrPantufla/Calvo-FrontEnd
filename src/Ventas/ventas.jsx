@@ -14,8 +14,12 @@ import BotonPagos from './Confirmar compra/Pagos/botonPagos.jsx';
 import { ProviderCortinas } from '../contextCortinas.jsx';
 
 export default function Ventas() {
-  const carrito = useCarrito();
-  const tienda = useTienda();
+  const {
+    confirmarCompraAbierto,
+    compraRealizadaAbierto
+  } = useCarrito();
+
+  const { mostrarPagos } = useTienda();
 
   return (
     <>
@@ -24,10 +28,10 @@ export default function Ventas() {
         <DesplegablePerfil />
         <Catalogos />
         <Filtros />
-        {carrito.confirmarCompraAbierto ? (<ConfirmarCompra />) : (<></>)}
+        {confirmarCompraAbierto ? (<ConfirmarCompra />) : (<></>)}
         <CartelError />
-        {carrito.compraRealizadaAbierto ? (<PedidoRealizado />) : (<></>)}
-        {tienda.mostrarPagos ? (<Pagos />) : (<></>)}
+        {compraRealizadaAbierto ? (<PedidoRealizado />) : (<></>)}
+        {mostrarPagos ? (<Pagos />) : (<></>)}
         <BotonPagos />
         <Footer />
       </ProviderCortinas>

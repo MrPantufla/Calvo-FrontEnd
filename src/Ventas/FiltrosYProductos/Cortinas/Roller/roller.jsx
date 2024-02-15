@@ -27,7 +27,10 @@ export default function Roller() {
         setAclaraciones
     } = useCortinas();
 
-    const auth = useAuth();
+    const {
+        state,
+        setMostrarLogin
+    } = useAuth();
 
     useEffect(() => {
         const textoAltoElement = document.getElementById('textoAlto');
@@ -168,7 +171,7 @@ export default function Roller() {
             </div>
 
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta" onClick={() => { auth.state.logueado ? enviarConsulta() : auth.setMostrarLogin(true) }}>
+                <button className="botonEnviarConsulta" onClick={() => { state.logueado ? enviarConsulta() : setMostrarLogin(true) }}>
                     Enviar consulta
                 </button>
             </div>

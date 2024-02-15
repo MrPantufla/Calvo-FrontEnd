@@ -2,10 +2,13 @@ import { useCarrito } from '../../../contextCarrito';
 import './pedidoRealizado.css';
 
 export default function PedidoRealizado() {
-  const carrito = useCarrito();
+  const {
+    setCompraRealizadaAbierto,
+    compraRealizadaAbierto
+  } = useCarrito();
 
   const cerrarVentana = () =>{
-    carrito.setCompraRealizadaAbierto(false);
+    setCompraRealizadaAbierto(false);
   }
 
   const parteUtilizableClick = (e) =>{
@@ -13,7 +16,7 @@ export default function PedidoRealizado() {
   }
 
   return (
-    <div className="contenedorPrincipalPedidoRealizado" onClick={cerrarVentana} style={{ display: carrito.compraRealizadaAbierto ? 'flex' : 'none' }}>
+    <div className="contenedorPrincipalPedidoRealizado" onClick={cerrarVentana} style={{ display: compraRealizadaAbierto ? 'flex' : 'none' }}>
       <div className="parteUtilizablePedidoRealizado" onClick={parteUtilizableClick}>
         <h2>Gracias por realizar tu pedido, nos estaremos comunicando a la brevedad</h2>
         <button onClick={cerrarVentana}>Aceptar</button>

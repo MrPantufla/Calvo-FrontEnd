@@ -11,8 +11,14 @@ import BotonPagos from '../Ventas/Confirmar compra/Pagos/botonPagos.jsx';
 import Pagos from '../Ventas/Confirmar compra/Pagos/pagos.jsx';
 
 export default function MisCompras() {
-    const tienda = useTienda();
-    const auth = useAuth();
+    const {
+        isFold,
+        isMobile,
+        mostrarPagos
+    } = useTienda();
+
+    const {state} = useAuth();
+    
     const [historial, setHistorial] = useState([]);
     const [paginaActual, setPaginaActual] = useState(1);
     const itemsPorPagina = 8;
@@ -31,7 +37,7 @@ export default function MisCompras() {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
+            if (!state.logueado || !state.userInfo.email_confirmado) {
                 navigate("/home");
             }
         }, 200);
@@ -42,7 +48,7 @@ export default function MisCompras() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (auth.state.logueado) {
+                if (state.logueado) {
                     const response = await fetch('http://localhost:8080/api/misCompras', {
                         method: 'POST',
                         headers: {
@@ -65,11 +71,11 @@ export default function MisCompras() {
             }
         };
 
-        if (auth.state.logueado) {
+        if (state.logueado) {
             fetchData();
         }
 
-    }, [auth.state.logueado]);
+    }, [state.logueado]);
 
     return (
         <div className="contenedorPaginaMisCompras">
@@ -78,7 +84,7 @@ export default function MisCompras() {
                 <RenderHeader />
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
-                <div className={`misComprasContainer ${tienda.isMobile ? 'mobile' : ''} ${tienda.isFold ? 'fold' : ''}`}>
+                <div className={`misComprasContainer ${isMobile ? 'mobile' : ''} ${isFold ? 'fold' : ''}`}>
                     <div className="columnaPar">
                         {itemsActuales.map((item, index) => (
                             index % 2 === 0 ? <CardMisCompras key={index} data={item} /> : null
@@ -169,7 +175,7 @@ export default function MisCompras() {
                 </button>
             </div>
             <BotonPagos/>
-            {tienda.mostrarPagos ? (<Pagos/>) : (<></>)}
+            {mostrarPagos ? (<Pagos/>) : (<></>)}
             <Footer />
         </div>
     );

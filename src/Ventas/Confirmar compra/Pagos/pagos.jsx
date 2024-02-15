@@ -4,16 +4,22 @@ import { useTienda } from '../../../contextTienda.jsx';
 import { useCarrito } from '../../../contextCarrito.jsx';
 
 export default function Pagos() {
-    const tienda = useTienda();
-    const carrito = useCarrito();
+    const {setMostrarPagos} = useTienda();
+
+    const {
+        setDatosCorroborados,
+        datosCorroborados,
+        precioTotal
+    } = useCarrito();
+
     const [cbuMacroCopiado, setCbuMacroCopiado] = useState(false);
     const [cbuEntreRiosCopiado, setCbuEntreRiosCopiado] = useState(false);
 
     const cerrarPagos = () => {
-        tienda.setMostrarPagos(false);
+        setMostrarPagos(false);
         setCbuEntreRiosCopiado(false);
         setCbuMacroCopiado(false);
-        carrito.setDatosCorroborados(false);
+        setDatosCorroborados(false);
     }
 
     const parteUtilizableClick = (e) => {
@@ -82,7 +88,7 @@ export default function Pagos() {
                 <div className="infoExtra">
                     <p className="infoBancos">Abona tu compra a cualquiera de los dos bancos y luego enviá el comprobante de pago por Whatsapp al teléfono <a href="https://web.whatsapp.com/send?phone=+5493456475429" target="blank">3456475429</a></p>
                 </div>
-                {carrito.datosCorroborados ? (<p className="totalAAbonar">TOTAL A ABONAR: <span>${carrito.precioTotal}</span></p>) : ('')}
+                {datosCorroborados ? (<p className="totalAAbonar">TOTAL A ABONAR: <span>${precioTotal}</span></p>) : ('')}
             </div>
         </div>
     );

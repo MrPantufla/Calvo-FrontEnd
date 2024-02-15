@@ -1,9 +1,4 @@
 import './cardProducto.css';
-import perfil1 from '../../../Imagenes/perfil1.png';
-import perfil2 from '../../../Imagenes/perfil2.png';
-import perfil3 from '../../../Imagenes/perfil3.png';
-import perfil4 from '../../../Imagenes/perfil4.png';
-import perfil5 from '../../../Imagenes/perfil5.png';
 import logoBlanco from '../../../Imagenes/ca.png'
 import React from 'react';
 import { useCarrito } from '../../../contextCarrito.jsx';
@@ -11,11 +6,21 @@ import { useAuth } from '../../../contextLogin.jsx';
 import { useFavoritos } from '../../../contextFavoritos.jsx';
 
 export default function CardProducto(args) {
-  const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
+  const {
+    state,
+    setMostrarLogin
+  } = useAuth();
+
+  const {esFavorito} = useFavoritos();
+
+  const { 
+    añadirElemento, 
+    restarElemento, 
+    elementos: elementosCarrito 
+  } = useCarrito();
+
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
-  const auth = useAuth();
-  const favoritos = useFavoritos();
   const colorCorregido = (args.color).replace(/\s+/g, '-');
 
   const usarBlanco = (args.color == 'Negro' ||
@@ -29,42 +34,42 @@ export default function CardProducto(args) {
   );
 
   const sumarContador = () => {
-    if (auth.state.logueado) {
-      if (auth.state.userInfo.email_confirmado) {
+    if (state.logueado) {
+      if (state.userInfo.email_confirmado) {
         añadirElemento(args.id, 1);
       }
       else {
-        auth.setMostrarLogin(true);
+        setMostrarLogin(true);
       }
     }
     else {
-      auth.setMostrarLogin(true);
+      setMostrarLogin(true);
     }
   }
 
   const restarContador = () => {
-    if (auth.state.logueado) {
-      if (auth.state.userInfo.email_confirmado) {
+    if (state.logueado) {
+      if (state.userInfo.email_confirmado) {
         if (cantidad > 0) {
           restarElemento(args.id);
         }
       }
       else {
-        auth.setMostrarLogin(true);
+        setMostrarLogin(true);
       }
     }
     else {
-      auth.setMostrarLogin(true);
+      setMostrarLogin(true);
     }
   }
 
   const toggleFavorito = (id, e) => {
     e.stopPropagation();
-    if (auth.state.logueado) {
-      favoritos.toggleFavorito(id);
+    if (state.logueado) {
+      toggleFavorito(id);
     }
     else {
-      auth.setMostrarLogin(true);
+      setMostrarLogin(true);
     }
   };
 
@@ -75,7 +80,7 @@ export default function CardProducto(args) {
           <img className="logoDecoracionCardProducto" src={logoBlanco} />
         </div>
         <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(args.id, e)}>
-          {favoritos.esFavorito(args.id) ?
+          {esFavorito(args.id) ?
             (<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fillRule="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
             </svg>)

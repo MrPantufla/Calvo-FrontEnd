@@ -9,22 +9,30 @@ import RestaurarContraseña from './Restaurar contraseña/restaurarContraseña.j
 
 export default function LoginYRegistro() {
 
-  const auth = useAuth();
+  const {
+    setErrorMessage, 
+    mostrarLogin,
+    opcionSeleccionada,
+    setOpcionSeleccionada, 
+    setMostrarLogin, 
+    setMostrarErrorCodigoConfirmacion,
+    state
+  } = useAuth();
 
   useEffect(() => {
-    auth.setErrorMessage('');
-  }, [auth.mostrarLogin]);
+    setErrorMessage('');
+  }, [mostrarLogin]);
 
   const handleOpcionClick = (opcion) => {
-    auth.setErrorMessage('');
-    auth.setOpcionSeleccionada(opcion);
+    setErrorMessage('');
+    setOpcionSeleccionada(opcion);
   };
 
   const handleClose = () => {
-    auth.setMostrarLogin(false);
-    auth.setMostrarErrorCodigoConfirmacion(false);
-    auth.setErrorMessage('');
-    auth.setOpcionSeleccionada('login')
+    setMostrarLogin(false);
+    setMostrarErrorCodigoConfirmacion(false);
+    setErrorMessage('');
+    setOpcionSeleccionada('login')
   }
 
   const handleParteUtilizableClick = (event) => {
@@ -32,17 +40,17 @@ export default function LoginYRegistro() {
   }
 
   return (
-    <div className="contenedorPrincipalLoginYRegistro" onClick={handleClose} style={{ display: auth.mostrarLogin ? 'flex' : 'none' }}>
+    <div className="contenedorPrincipalLoginYRegistro" onClick={handleClose} style={{ display: mostrarLogin ? 'flex' : 'none' }}>
       <div className="contenedorLoginYRegistro" onClick={handleParteUtilizableClick}>
         <div className="content-container">
-          {auth.state.logueado ? (
-            auth.state.userInfo.email_confirmado ? (
+          {state.logueado ? (
+            state.userInfo.email_confirmado ? (
               <></>
             ) : (
               <ConfirmacionCodigo />
             )
           ) : (
-            auth.opcionSeleccionada === 'restaurarContraseña' ? 
+            opcionSeleccionada === 'restaurarContraseña' ? 
             (<RestaurarContraseña/>) 
             : 
             (<div className="botonesYFormulariosContainer">
@@ -53,7 +61,7 @@ export default function LoginYRegistro() {
                 name="btnradio"
                 id="btnradio1"
                 autoComplete="off"
-                checked={auth.opcionSeleccionada === 'login'}
+                checked={opcionSeleccionada === 'login'}
                 onChange={() => handleOpcionClick('login')}
               />
               <label className="btn btn-outline-secondary radioIniciarSesion" htmlFor="btnradio1">
@@ -65,7 +73,7 @@ export default function LoginYRegistro() {
                 name="btnradio"
                 id="btnradio2"
                 autoComplete="off"
-                checked={auth.opcionSeleccionada === 'registro'}
+                checked={opcionSeleccionada === 'registro'}
                 onChange={() => handleOpcionClick('registro')}
               />
               <label className="btn btn-outline-secondary radioRegistrarme" htmlFor="btnradio2">
@@ -75,13 +83,13 @@ export default function LoginYRegistro() {
             <div className="contenedorFormularios">
               <div
                 className="contenedorComponenteLogin"
-                style={{ display: auth.opcionSeleccionada === 'login' ? 'block' : 'none' }}
+                style={{ display: opcionSeleccionada === 'login' ? 'block' : 'none' }}
               >
                 <Login />
               </div>
               <div
                 className="contenedorComponenteRegistro"
-                style={{ display: auth.opcionSeleccionada === 'registro' ? 'block' : 'none' }}
+                style={{ display: opcionSeleccionada === 'registro' ? 'block' : 'none' }}
               >
                 <Registro />
               </div>

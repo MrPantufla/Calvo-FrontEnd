@@ -11,7 +11,11 @@ export default function ConfirmacionCodigo() {
   const [isResendButtonEnabled, setResendButtonEnabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
   const [advertencia, setAdvertencia] = useState('');
-  const auth = useAuth();
+  const {
+    tokenCookie,
+    setMostrarErrorCodigoConfirmacion,
+    setMostrarLogin
+  } = useAuth();
   let timer;
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export default function ConfirmacionCodigo() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': auth.tokenCookie,
+          'Authorization': tokenCookie,
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -35,7 +39,7 @@ export default function ConfirmacionCodigo() {
 
       if (response.ok) {
         const data = await response.text();
-        auth.setMostrarLogin(false);
+        setMostrarLogin(false);
         setMensajeRespuesta(data.message);
         updateEmailConfirmationStatus();
       } else {
@@ -44,7 +48,7 @@ export default function ConfirmacionCodigo() {
       }
     } catch (error) {
       console.error('Error al enviar el código:', error);
-      auth.setMostrarErrorCodigoConfirmacion(true)
+      setMostrarErrorCodigoConfirmacion(true)
       setError('Código de confirmación incorrecto');
     }
   };
@@ -54,7 +58,7 @@ export default function ConfirmacionCodigo() {
     fetch('http://localhost:8080/api/reenviarCodigo', {
       method: 'POST',
       headers: {
-        'Authorization': auth.tokenCookie
+        'Authorization': tokenCookie
       },
       credentials: 'include',
       body: userData.userInfo.email

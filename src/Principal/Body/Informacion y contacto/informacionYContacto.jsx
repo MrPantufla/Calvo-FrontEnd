@@ -4,7 +4,8 @@ import './informacionYContacto.css';
 import { useTienda } from '../../../contextTienda.jsx';
 
 export default function InformacionYContacto() {
-    const tienda = useTienda();
+    const {isMobile} = useTienda();
+    
     return (
         <div className="contenedorPrincipalInfoYContacto">
             <div className="containerInfoYContactoAux">
@@ -16,9 +17,9 @@ export default function InformacionYContacto() {
                             </div>
                         </div>
                         <div className="col-11 col-sm-6 divInformacion divsInfoYContacto">
-                            {tienda.isMobile ? <Contacto /> : <Informacion />}
+                            {isMobile ? <Contacto /> : <Informacion />}
                         </div>
-                        {tienda.isMobile ?
+                        {isMobile ?
                             <div className="col-12">
                                 <div className="decoracion" >
                                 Información de contacto
@@ -27,7 +28,7 @@ export default function InformacionYContacto() {
                             :
                             <></>}
                         <div className="col-11 col-sm-6 divContacto divsInfoYContacto">
-                            {tienda.isMobile ? <Informacion /> : <Contacto />}
+                            {isMobile ? <Informacion /> : <Contacto />}
                         </div>
                     </div>
                 </div>

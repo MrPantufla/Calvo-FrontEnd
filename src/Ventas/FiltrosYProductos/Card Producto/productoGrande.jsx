@@ -5,11 +5,16 @@ import { useAuth } from '../../../contextLogin.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
 
 export default function ProductoGrande(args) {
+    const {
+        state,
+        setMostrarLogin
+    } = useAuth();
+
+    const {isMobile} = useTienda();
+
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
     const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
     const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
-    const auth = useAuth();
-    const tienda = useTienda();
     const colorCorregido = (args.color).replace(/\s+/g, '-');
 
     const usarBlanco = (args.color == 'Negro' ||
@@ -23,22 +28,22 @@ export default function ProductoGrande(args) {
     );
 
     const sumarContador = () => {
-        if (auth.state.userInfo.email_confirmado) {
+        if (state.userInfo.email_confirmado) {
             añadirElemento(args.id, 1);
         }
         else {
-            auth.setMostrarLogin(true);
+            setMostrarLogin(true);
         }
     }
 
     const restarContador = () => {
-        if (auth.state.userInfo.email_confirmado) {
+        if (state.userInfo.email_confirmado) {
             if (cantidad > 0) {
                 restarElemento(args.id);
             }
         }
         else {
-            auth.setMostrarLogin(true);
+            setMostrarLogin(true);
         }
     }
 
@@ -85,7 +90,7 @@ export default function ProductoGrande(args) {
                             </div>
                         </div>
                         <div className="conjuntoCantidad">
-                            {!tienda.isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
+                            {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
                             <div className="cantidad">
                                 <button className="botonProductoGrande" onClick={restarContador}>-</button>
                                 <p className="cantidadProductoGrande">{cantidad}</p>

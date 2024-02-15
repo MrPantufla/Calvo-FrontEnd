@@ -3,11 +3,12 @@ import { useConfiguracion } from '../../../contextConfiguracion';
 import { useNavigate } from 'react-router-dom';
 
 export default function ErrorDirecion(){
-    const configuracion = useConfiguracion();
+    const {abrirDireccion} = useConfiguracion();
+
     const navigate = useNavigate();
 
     const irAIngresarDireccion = () =>{
-        configuracion.abrirDireccion();
+        abrirDireccion();
         navigate('/perfil');
     }
 

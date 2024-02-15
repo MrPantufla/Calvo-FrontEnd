@@ -8,7 +8,12 @@ import Muestras from './Muestras/muestras';
 
 export default function Cortinas() {
 
-    const { tipo, setTipo, limpiarFormularios, errorMessage } = useCortinas();
+    const { 
+        tipo, 
+        setTipo, 
+        limpiarFormularios, 
+        errorMessage 
+    } = useCortinas();
 
     return (
         <div className="contenedorPrincipalCortinas">

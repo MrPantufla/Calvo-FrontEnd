@@ -9,12 +9,39 @@ import carritoVacioImg from '../../Imagenes/carritoVacio.png';
 import { useAuth } from '../../contextLogin.jsx';
 
 export default function Carrito() {
-  const { elementos, añadirElemento, setConfirmarCompraAbierto, setCompraRealizadaAbierto, confirmarCompra } = useCarrito();
+  const { 
+    elementos, 
+    añadirElemento, 
+    setConfirmarCompraAbierto, 
+    setCompraRealizadaAbierto, 
+    confirmarCompra 
+  } = useCarrito();
+
+  const {
+    productosIndexado,
+    coloresArray
+  } = useProductos();
+
+  const {
+    carritoAbierto,
+    toggleCarrito,
+    setPrecioTotal,
+    limpiarCarrito,
+    setCarritoAbierto
+  } = useCarrito();
+
+  const {
+    isMobile,
+    isTablet
+  } = useTienda();
+
+  const {setFavoritosAbierto} = useFavoritos();
+
+  const {state} = useAuth();
+
   const [codigoAgregadoRapido, setCodigoAgregadoRapido] = useState('');
   const [colorAgregadoRapido, setColorAgregadoRapido] = useState('');
   const [cantidadAgregadoRapido, setCantidadAgregadoRapido] = useState('');
-  const productos = useProductos();
-  const carrito = useCarrito();
   const [errorMessage, setErrorMessage] = useState('');
   const [productosEncontrados, setProductosEncontrados] = useState();
   const [productoSeleccionado, setProductoSeleccionado] = useState();
@@ -25,13 +52,11 @@ export default function Carrito() {
   const colorInputRef = useRef(null);
   const cantidadInputRef = useRef(null);
   const [sugerenciaColor, setSugerenciaColor] = useState('');
-  const favoritos = useFavoritos();
   const [inputFocused, setInputFocused] = useState('');
   const [carritoTop, setCarritoTop] = useState(3.2);
   const [carritoHeight, setCarritoHeight] = useState(0);
-  const tienda = useTienda();
   const [mostrarHint, setMostrarHint] = useState(false);
-  const auth = useAuth();
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +90,7 @@ export default function Carrito() {
       e.preventDefault();
       const codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
       if (codigoIngresado !== '') {
-        const productosEncontrados = Object.values(productos.productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+        const productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
 
         if (!productosEncontrados.length > 0) {
           setErrorMessage("Código incorrecto");
@@ -98,7 +123,7 @@ export default function Carrito() {
         colorIngresado = 'IND';
       }
 
-      const colorExistente = productos.coloresArray.find(color => color === colorIngresado);
+      const colorExistente = coloresArray.find(color => color === colorIngresado);
       if (colorExistente) {
         if (codigoValido) {
           const colorProductoExistente = productosEncontrados.find(producto => producto.color.toUpperCase() === colorIngresado);
@@ -164,7 +189,7 @@ export default function Carrito() {
 
   const obtenerSugerenciaColor = () => {
     const palabra = colorAgregadoRapido.toUpperCase().trim();
-    const sugerenciasFiltradas = productos.coloresArray.filter(
+    const sugerenciasFiltradas = coloresArray.filter(
       (sugerencia) => sugerencia.toUpperCase().startsWith(palabra.toUpperCase())
     );
     return (sugerenciasFiltradas.length > 0 && colorAgregadoRapido.length > 0) ? sugerenciasFiltradas[0] : '';
@@ -182,12 +207,12 @@ export default function Carrito() {
   const elementosReverse = [...elementos].reverse();
 
   useEffect(() => {
-    if (carrito.carritoAbierto) {
+    if (carritoAbierto) {
       if (elementos.length > 0) {
-        if(tienda.isMobile){
+        if(isMobile){
           setCarritoHeight(8 + 27 * elementos.length + 5);
         }
-        else if(tienda.isTablet){
+        else if(isTablet){
           setCarritoHeight(3 + 4 + 27 * elementos.length + 5);
         }
         else{
@@ -195,10 +220,10 @@ export default function Carrito() {
         }
       }
       else {
-        if(tienda.isMobile){
+        if(isMobile){
           setCarritoHeight(4 + 14.1);
         }
-        else if(tienda.isTablet){
+        else if(isTablet){
           setCarritoHeight(3 + 4 + 10.5);
         }
         else{
@@ -208,25 +233,25 @@ export default function Carrito() {
     } else {
       setCarritoHeight(0);
     }
-  }, [carrito.carritoAbierto, elementos.length]);
+  }, [carritoAbierto, elementos.length]);
 
   return (
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
       <div className="contenedorBotonCarrito">
         <button type="button"
-          className={`botonCarrito ${carrito.carritoAbierto ? 'open' : ''}`}
-          onClick={() => { carrito.toggleCarrito(); favoritos.setFavoritosAbierto(false); }}
+          className={`botonCarrito ${carritoAbierto ? 'open' : ''}`}
+          onClick={() => { toggleCarrito(); setFavoritosAbierto(false); }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
           </svg>
         </button>
-        <span className="cantidadEnCarrito" style={{ display: carrito.carritoAbierto ? 'none' : 'block' }}>
+        <span className="cantidadEnCarrito" style={{ display: carritoAbierto ? 'none' : 'block' }}>
           {elementos.length}
         </span>
       </div>
 
-      <div className={`bodyCarrito ${carrito.carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem`}}>
+      <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem`}}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
             <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
@@ -309,14 +334,14 @@ export default function Carrito() {
                   className="confirmarCarrito"
                   disabled={!elementos.length > 0}
                   onClick={() => {
-                    if (!auth.state.userInfo.cliente) {
+                    if (!state.userInfo.cliente) {
                       setConfirmarCompraAbierto(true);
-                      carrito.setPrecioTotal(calcularTotal(elementos));
+                      setPrecioTotal(calcularTotal(elementos));
                     } else {
                       setCompraRealizadaAbierto(true);
                       confirmarCompra();
-                      carrito.limpiarCarrito();
-                      carrito.setCarritoAbierto(false);
+                      limpiarCarrito();
+                      setCarritoAbierto(false);
                     }
                   }}
                 >

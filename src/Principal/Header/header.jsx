@@ -13,11 +13,15 @@ export default function Header() {
   const navigate = useNavigate();
   const [headerSize, setHeaderSize] = useState(10);
   const location = useLocation();
-  const tienda = useTienda();
   const desplegableCatalogos = useDesplegableCatalogos();
   const desplegablePerfil = useDesplegablePerfil();
 
-  const auth = useAuth();
+  const {mobile} = useTienda();
+
+  const {
+    state,
+    setMostrarLogin
+  } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +67,7 @@ export default function Header() {
     top: 0,
     left: 0,
     zIndex: 100,
-    display: tienda.mobile ? 'none' : 'flex',
+    display: mobile ? 'none' : 'flex',
     alignItems: 'center',
     justifyContent: 'right'
   };
@@ -113,7 +117,7 @@ export default function Header() {
               <p>QUIÉNES SOMOS</p>
             </a>)
             :
-            <a className="seccion  misCompras" onClick={auth.state.logueado ? () => navigate("/misCompras") : () => auth.setMostrarLogin(true)}>
+            <a className="seccion  misCompras" onClick={state.logueado ? () => navigate("/misCompras") : () => setMostrarLogin(true)}>
               <p>MIS COMPRAS</p>
             </a>}
           {location.pathname === '/home' ?

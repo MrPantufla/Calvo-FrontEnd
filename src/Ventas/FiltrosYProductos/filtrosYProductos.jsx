@@ -11,21 +11,41 @@ import { useCarrito } from '../../contextCarrito';
 import Cortinas from './Cortinas/cortinas';
 
 export default function FiltrosYProductos() {
-  const productos = useProductos();
+  const {
+    productosIndexado,
+    ordenarProductos
+  } = useProductos();
+
+  const {setCarritoAbierto} = useCarrito();
+
+  const {
+    seleccionarCortinas, 
+    cortinasSelected, 
+    setCortinasSelected, 
+    isTablet, 
+    isFold,
+    isMobile, 
+    tiposActivos, 
+    setTiposActivos, 
+    coloresActivos, 
+    setColoresActivos, 
+    limpiarColoresActivos, 
+    productoSeleccionado, 
+    setProductoSeleccionado, 
+    busquedaYFiltrosTop 
+  } = useTienda();
+
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 21;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
-  const tiposUnicos = [...new Set(Object.values(productos.productosIndexado).map((producto) => producto.tipo_prod))];
-  const { seleccionarCortinas, cortinasSelected, setCortinasSelected, isTablet, isFold, isMobile, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos, limpiarColoresActivos, productoSeleccionado, setProductoSeleccionado } = useTienda();
-  const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.1);
+  const tiposUnicos = [...new Set(Object.values(productosIndexado).map((producto) => producto.tipo_prod))];
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
-  const carrito = useCarrito();
 
   const handleClickProducto = (producto) => {
     setProductoSeleccionado(producto);
-    carrito.setCarritoAbierto(false);
+    setCarritoAbierto(false);
   };
 
   const handleCloseProductoGrande = () => {
@@ -67,7 +87,7 @@ export default function FiltrosYProductos() {
     })
   }
 
-  const listaFiltrada = Object.values(productos.productosIndexado).filter((p) => {
+  const listaFiltrada = Object.values(productosIndexado).filter((p) => {
     const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
@@ -77,35 +97,14 @@ export default function FiltrosYProductos() {
 
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
   const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
-  const productosOrdenados = productos.ordenarProductos(listaFiltrada);
+  const productosOrdenados = ordenarProductos(listaFiltrada);
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
 
   const coloresUnicosPerfiles = Array.from(new Set(
-    Object.values(productos.productosIndexado)
+    Object.values(productosIndexado)
       .filter(producto => producto.tipo_prod === 'PERFIL')
       .map(producto => producto.color)
   ));
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const maxBusquedaYFiltrosTop = 10.1;
-      const minBusquedaYFiltrosTop = 8.1;
-      const alturaHeader = 150;
-
-      let newTop =
-        maxBusquedaYFiltrosTop -
-        (maxBusquedaYFiltrosTop - minBusquedaYFiltrosTop) * (scrollPosition / alturaHeader);
-
-      newTop = Math.max(minBusquedaYFiltrosTop, newTop);
-      setBusquedaYFiltrosTop(newTop);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const toggleFiltros = () => {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);

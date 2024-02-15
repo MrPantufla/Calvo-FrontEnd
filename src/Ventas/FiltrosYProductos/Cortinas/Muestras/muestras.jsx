@@ -5,6 +5,7 @@ import { useTienda } from '../../../../contextTienda';
 
 export default function Muestras() {
     const { tipo } = useCortinas();
+    
     const { busquedaYFiltrosTop } = useTienda();
 
     return (

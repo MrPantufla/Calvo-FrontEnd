@@ -10,8 +10,14 @@ export default function CardMisCompras(args) {
     const arrayCantidades = args.data.cantidades.split(' ').map((str) => parseInt(str, 10));
     const arrayPrecios = args.data.precios.split(' ').map((str) => parseInt(str, 10));
     const [cardComprasAbierto, setCardComprasAbierto] = useState(false);
-    const productos = useProductos();
-    const carrito = useCarrito();
+
+    const {productosIndexado} = useProductos();
+
+    const {
+        setCarritoAbierto,
+        añadirElemento
+    } = useCarrito();
+
     const navigate = useNavigate();
 
     const toggleCardCompras = () => {
@@ -19,8 +25,8 @@ export default function CardMisCompras(args) {
     }
 
     const total = arrayProductos.reduce((accumulator, _, index) => {
-        if (productos.productosIndexado[arrayProductos[index]]) {
-            return parseInt(accumulator + arrayCantidades[index] * arrayPrecios[index] * (productos.productosIndexado[arrayProductos[index]].kg || 1));
+        if (productosIndexado[arrayProductos[index]]) {
+            return parseInt(accumulator + arrayCantidades[index] * arrayPrecios[index] * (productosIndexado[arrayProductos[index]].kg || 1));
         }
     }, 0);
 
@@ -28,12 +34,12 @@ export default function CardMisCompras(args) {
         Array.from({ length: arrayProductos.length }).map((_, index) => {
             console.log(`Iteración ${index + 1}:`);
 
-            const producto = productos.productosIndexado[arrayProductos[index]];
+            const producto = productosIndexado[arrayProductos[index]];
 
             if (producto && typeof producto === 'object' && producto !== null) {
                 console.log(`ID: ${producto.id}, Cod. Orig: ${producto.cod_orig}, Cantidad: ${arrayCantidades[index]} ,Detalle: ${producto.detalle}, Precio: ${producto.precio}`);
 
-                carrito.añadirElemento(producto.id, arrayCantidades[index]);
+                añadirElemento(producto.id, arrayCantidades[index]);
             } else {
                 console.warn(`No se encontró un objeto válido para el índice ${arrayProductos[index]}`);
             }
@@ -41,7 +47,7 @@ export default function CardMisCompras(args) {
             return null;
         });
         navigate('/tienda');
-        carrito.setCarritoAbierto(true);
+        setCarritoAbierto(true);
     };
 
     const fechaString = args.data.fecha; // Supongamos que fechaString es "2024-01-16"

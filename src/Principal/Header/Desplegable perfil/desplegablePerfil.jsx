@@ -4,37 +4,47 @@ import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../contextLogin';
 import { useFavoritos } from '../../../contextFavoritos';
-import { useDesplegableCatalogos } from '../../../contextDesplegableCatalogos';
 import { useNavigate } from 'react-router-dom';
 import { useCarrito } from '../../../contextCarrito';
 
 export default function DesplegablePerfil() {
     const location = useLocation();
-    const perfil = useDesplegablePerfil();
     const [perfilTop, setPerfilTop] = useState(7.1);
-    const auth = useAuth();
-    const favoritos = useFavoritos();
-    const catalogos = useDesplegableCatalogos();
     const navigate = useNavigate();
-    const carrito = useCarrito();
-
     const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
 
+    const {
+        perfilHovered,
+        abrirPerfil,
+        cerrarPerfil
+    } = useDesplegablePerfil();
+
+    const {
+        state,
+        logout,
+        setMostrarLogin,
+        setOpcionSeleccionada
+    } = useAuth();
+
+    const {setFavoritos} = useFavoritos();
+    
+    const {limpiarCarrito} = useCarrito();
+
     let ruta;
-    if (auth.state.logueado) {
-        ruta = auth.state.userInfo.email_confirmado ? "/perfil" : "";
+    if (state.logueado) {
+        ruta = state.userInfo.email_confirmado ? "/perfil" : "";
     }
     else {
         ruta = "";
     }
 
     const handleToggleLogin = () => {
-        if (!auth.state.logueado) {
-            auth.setMostrarLogin(true);
+        if (!state.logueado) {
+            setMostrarLogin(true);
         }
         else {
-            if (!auth.state.userInfo.email_confirmado) {
-                auth.setMostrarLogin(true);
+            if (!state.userInfo.email_confirmado) {
+                setMostrarLogin(true);
             }
         }
     };
@@ -47,9 +57,9 @@ export default function DesplegablePerfil() {
 
     const handleCerrarSesion = async () => {
         navigate('/home');
-        auth.logout();
-        favoritos.setFavoritos('');
-        carrito.limpiarCarrito();
+        logout();
+        setFavoritos('');
+        limpiarCarrito();
     }
 
     useEffect(() => {
@@ -81,26 +91,26 @@ export default function DesplegablePerfil() {
     }, []);
 
     const mostrarIniciarSesion = () => {
-        auth.setOpcionSeleccionada('login');
-        auth.setMostrarLogin(true);
+        setOpcionSeleccionada('login');
+        setMostrarLogin(true);
     }
 
     const mostrarRegistro = () => {
-        auth.setOpcionSeleccionada('registro');
-        auth.setMostrarLogin(true);
+        setOpcionSeleccionada('registro');
+        setMostrarLogin(true);
     }
 
     return (
         <div
-            className={`desplegablePerfil ${perfil.perfilHovered ? 'open' : ''}`}
+            className={`desplegablePerfil ${perfilHovered ? 'open' : ''}`}
             onMouseEnter={() => {
-                perfil.abrirPerfil();
+                abrirPerfil();
             }}
-            onMouseLeave={perfil.cerrarPerfil}
+            onMouseLeave={cerrarPerfil}
             style={stylePerfil}
         >
             <div className="descargarPerfilContainer">
-                {auth.state.logueado ?
+                {state.logueado ?
                     (<>
                         <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink">MI PERFIL</NavLink>
                         <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>

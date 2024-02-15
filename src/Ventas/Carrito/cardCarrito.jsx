@@ -5,10 +5,17 @@ import { useProductos } from '../../contextProductos.jsx';
 import { useTienda } from '../../contextTienda.jsx';
 
 export default function CardCarrito(args) {
-    const carrito = useCarrito();
+    const {
+        actualizarCantidadElemento,
+        restarElemento,
+        eliminarElemento
+    } = useCarrito();
+
+    const {setProductoSeleccionado} = useTienda();
+
     const producto = useProductos().productosIndexado[args.id];
     const colorCorregido = (producto.color).replace(/\s+/g, '-');
-    const tienda = useTienda();
+    
 
     const usarBlanco = (producto.color == 'Negro' ||
         producto.color == 'Azul' ||
@@ -23,19 +30,19 @@ export default function CardCarrito(args) {
 
     const handleRestarCantidad = () => {
         if (args.cantidad > 1) {
-            carrito.actualizarCantidadElemento(args.id, args.cantidad - 1);
+            actualizarCantidadElemento(args.id, args.cantidad - 1);
         }
         else {
-            carrito.restarElemento(args.id);
+            restarElemento(args.id);
         }
     }
 
     const handleSumarCantidad = () => {
-        carrito.actualizarCantidadElemento(args.id, args.cantidad + 1);
+        actualizarCantidadElemento(args.id, args.cantidad + 1);
     }
 
     const handleEliminar = () => {
-        carrito.eliminarElemento(args.id);
+        eliminarElemento(args.id);
     }
 
     return (
@@ -54,7 +61,7 @@ export default function CardCarrito(args) {
                         }}
                         alt="Imagen del producto"
                         loading="lazy"
-                        onClick={()=> tienda.setProductoSeleccionado(producto)}
+                        onClick={()=> setProductoSeleccionado(producto)}
                     />
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>

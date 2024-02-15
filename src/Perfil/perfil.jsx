@@ -9,11 +9,11 @@ import RenderHeader from '../Principal/Header/renderHeader.jsx';
 
 export default function Perfil() {
     const navigate = useNavigate();
-    const auth = useAuth();
+    const {state} = useAuth();
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            if (!auth.state.logueado || !auth.state.userInfo.email_confirmado) {
+            if (!state.logueado || !state.userInfo.email_confirmado) {
                 navigate("/home");
             }
         }, 200);

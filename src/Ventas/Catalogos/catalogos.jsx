@@ -3,7 +3,12 @@ import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import { useState, useEffect } from 'react';
 
 export default function Catalogos() {
-    const desplegable = useDesplegableCatalogos();
+    const {
+        hovered,
+        abrirHover,
+        cerrarHover
+    } = useDesplegableCatalogos();
+
     const [catalogosTop, setCatalogosTop] = useState(7.1);
 
     const handleDownload = (filename) => {
@@ -39,9 +44,9 @@ export default function Catalogos() {
 
     return (
         <div
-            className={`desplegableCatalogos ${desplegable.hovered ? 'open' : ''}`}
-            onMouseEnter={desplegable.abrirHover}
-            onMouseLeave={desplegable.cerrarHover}
+            className={`desplegableCatalogos ${hovered ? 'open' : ''}`}
+            onMouseEnter={abrirHover}
+            onMouseLeave={cerrarHover}
             style={{ top: `${catalogosTop}rem` }}
         >
             <div className="descargarCatalogosContainer">
