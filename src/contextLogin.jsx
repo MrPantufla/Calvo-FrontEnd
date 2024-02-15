@@ -3,7 +3,8 @@ import { useProductos } from './contextProductos';
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
-  const productos = useProductos();
+  const {obtenerProductosFiltrados} = useProductos();
+
   const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion] = useState(false);
@@ -155,12 +156,12 @@ export const LoginProvider = ({ children }) => {
         else {
           userData.descuentos = null;
         }
-        productos.obtenerProductosFiltrados(userData.categoria, userData.descuentos);
+        obtenerProductosFiltrados(userData.categoria, userData.descuentos);
         login(userData);
         renovarToken({ email: userData.email })
 
       } else {
-        productos.obtenerProductosFiltrados();
+        obtenerProductosFiltrados();
         const data = await response.text();
         if (response.status === 401) {
           setErrorMessage(data)
@@ -225,6 +226,7 @@ export const LoginProvider = ({ children }) => {
       mostrarCartelLogout,
       setMostrarCartelLogout,
       mostrarCartelLogin,
+      setMostrarCartelLogin
     }}>
       {children}
     </AuthContext.Provider>

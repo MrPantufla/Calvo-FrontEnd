@@ -8,8 +8,9 @@ function useFavoritos() {
 }
 
 function FavoritosProvider({ children }) {
+  const {state} = useAuth();
+
   const [favoritos, setFavoritos] = useState([]);
-  const auth = useAuth();
   const [actualizarFavoritosPending, setActualizarFavoritosPending] = useState(false);
   const [favoritosAbierto, setFavoritosAbierto] = useState(false);
 
@@ -21,11 +22,11 @@ function FavoritosProvider({ children }) {
   }, [favoritos, actualizarFavoritosPending]);
 
   useEffect(() => {
-    if (auth.state.logueado && auth.state.userInfo.favoritos != null) {
-      const listaFavoritos = auth.state.userInfo.favoritos.trim() !== '' ? auth.state.userInfo.favoritos.split(' ').map(Number) : [];
+    if (state.logueado && state.userInfo.favoritos != null) {
+      const listaFavoritos = state.userInfo.favoritos.trim() !== '' ? state.userInfo.favoritos.split(' ').map(Number) : [];
       setFavoritos(listaFavoritos);
     }
-  }, [auth.state.logueado]);
+  }, [state.logueado]);
 
   function agregarFavorito(idArticulo) {
     if (!favoritos.includes(idArticulo)) {

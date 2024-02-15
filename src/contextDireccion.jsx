@@ -8,18 +8,22 @@ function useDireccion() {
 }
 
 function DireccionProvider({ children }) {
+    const {
+        state,
+        setErrorMessage
+    } = useAuth();
+
     const [calle, setCalle] = useState(['']);
     const [numero, setNumero] = useState(['']);
     const [cp, setCp] = useState(['']);
     const [localidad, setLocalidad] = useState(['']);
     const [provincia, setProvincia] = useState(['']);
-    const auth = useAuth();
     const [primeraAccion, setPrimeraAccion] = useState(true);
     const [direccionConfirmada, setDireccionConfirmada] = useState(false);
 
     const obtenerDireccionUsuario = () => {
-        if (auth.state.logueado) {
-            fetch(`http://localhost:8080/api/direcciones/${auth.state.userInfo.email}`, {
+        if (state.logueado) {
+            fetch(`http://localhost:8080/api/direcciones/${state.userInfo.email}`, {
                 method: 'GET',
                 credentials: 'include',
             })
@@ -41,11 +45,11 @@ function DireccionProvider({ children }) {
                         // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
                     } else {
                         // La respuesta es un texto, probablemente un mensaje de error
-                        auth.setErrorMessage(data);
+                        setErrorMessage(data);
                     }
                 })
                 .catch(error => {
-                    auth.setErrorMessage('Ocurrió un error al realizar la solicitud:', error.message);
+                    setErrorMessage('Ocurrió un error al realizar la solicitud:', error.message);
                 });
         }
     }
@@ -57,7 +61,7 @@ function DireccionProvider({ children }) {
         else {
             setPrimeraAccion(false);
         }
-    }, [auth.state.logueado]);
+    }, [state.logueado]);
 
     return (
         <DireccionContext.Provider value={{

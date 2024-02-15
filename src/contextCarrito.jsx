@@ -9,8 +9,12 @@ function useCarrito() {
 }
 
 function CarritoProvider({ children }) {
-  const productos = useProductos();
-  const auth = useAuth();
+  const {productosIndexado} = useProductos();
+
+  const {
+    state,
+    setMostrarLogin
+  } = useAuth();
 
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
@@ -23,14 +27,14 @@ function CarritoProvider({ children }) {
   const [datosCorroborados, setDatosCorroborados] = useState(false);
 
   function añadirElemento(id, cantidad) {
-    if(!auth.state.userInfo.cliente && productos.productosIndexado[id].tipo_prod=='PERFIL'){
+    if(!state.userInfo.cliente && productosIndexado[id].tipo_prod=='PERFIL'){
       mostrarCartel();
     }
     else{
-      if (Object.keys(productos.productosIndexado).length !== 0) {
+      if (Object.keys(productosIndexado).length !== 0) {
         setElementos(prevElementos => {
-          if (productos.productosIndexado) {
-            const producto = productos.productosIndexado[id];
+          if (productosIndexado) {
+            const producto = productosIndexado[id];
             const cod_origProducto = producto.cod_orig;
             const detalleProducto = producto.detalle;
             const precioProducto = producto.precio;
@@ -75,14 +79,14 @@ function CarritoProvider({ children }) {
   }
 
   function toggleCarrito() {
-    if (auth.state.logueado) {
-      if (auth.state.userInfo.email_confirmado) {
+    if (state.logueado) {
+      if (state.userInfo.email_confirmado) {
         setCarritoAbierto(!carritoAbierto);
       } else {
-        auth.setMostrarLogin(true);
+        setMostrarLogin(true);
       }
     } else {
-      auth.setMostrarLogin(true);
+      setMostrarLogin(true);
     }
   }
 
@@ -158,15 +162,15 @@ function CarritoProvider({ children }) {
   }
 
   useEffect(() => {
-    if (auth.state.logueado && auth.state.userInfo.cantidades_carrito) {
-      const productosArray = auth.state.userInfo.productos_carrito.split(' ').map(Number);
-      const cantidadesArray = auth.state.userInfo.cantidades_carrito.split(' ').map(Number);
+    if (state.logueado && state.userInfo.cantidades_carrito) {
+      const productosArray = state.userInfo.productos_carrito.split(' ').map(Number);
+      const cantidadesArray = state.userInfo.cantidades_carrito.split(' ').map(Number);
 
       for (let i = 0; i < productosArray.length; i++) {
         añadirElemento(productosArray[i], cantidadesArray[i])
       }
     }
-  }, [productos.productosIndexado]);
+  }, [productosIndexado]);
 
   return (
     <CarritoContext.Provider value={{

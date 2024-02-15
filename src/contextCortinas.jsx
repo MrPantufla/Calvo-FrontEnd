@@ -9,7 +9,7 @@ function useCortinas() {
 
 function ProviderCortinas({ children }) {
 
-    const auth = useAuth();
+    const {state} = useAuth();
 
     const [tipo, setTipo] = useState('');
     const [alto, setAlto] = useState('');
@@ -102,9 +102,9 @@ function ProviderCortinas({ children }) {
     const enviarCortina = (textoCortina) => {
         
         const textoUsuario =
-            "Nombre y apellido: " + auth.state.userInfo.nombre + " " + auth.state.userInfo.apellido + "\n" +
-            "Telefono: " + auth.state.userInfo.telefono + "\n" +
-            "Email: " + auth.state.userInfo.email
+            "Nombre y apellido: " + state.userInfo.nombre + " " + state.userInfo.apellido + "\n" +
+            "Telefono: " + state.userInfo.telefono + "\n" +
+            "Email: " + state.userInfo.email
         ;
 
         console.log("ENVIANDO CORTINA")
