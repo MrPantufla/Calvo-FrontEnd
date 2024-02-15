@@ -4,7 +4,7 @@ import Roller from './Roller/roller';
 import PersianaPvc from './Persiana PVC/persianaPvc';
 import PortonAluminio from './Porton Aluminio/portonAluminio';
 import PersianaAluminio from './Persiana Aluminio/persianaAluminio';
-import Muestras from './muestras';
+import Muestras from './Muestras/muestras';
 
 export default function Cortinas() {
 
@@ -14,7 +14,7 @@ export default function Cortinas() {
         <div className="contenedorPrincipalCortinas">
             <div className="parteFormulariosCortinas" style={{ minHeight: 'calc(100vh - 14rem)' }}>
                 <div className="decoracionCortinasContainer">
-                    <div className="decoracion" >
+                    <div className="decoracion decoracionCortinas" >
                         Consulta tu presupuesto
                     </div>
                 </div>

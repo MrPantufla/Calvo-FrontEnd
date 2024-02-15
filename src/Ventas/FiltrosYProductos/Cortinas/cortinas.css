@@ -28,6 +28,10 @@
     height: 8rem;
 }
 
+.decoracionCortinas{
+    background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 46%, var(--colorCuaternario) 46%, var(--colorCuaternario) 48%, var(--colorSecundario) 48%, var(--colorSecundario) 100%);
+}
+
 .form-group-cortinas{
     display: flex;
     flex-direction: column;
