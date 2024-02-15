@@ -156,7 +156,7 @@ export const LoginProvider = ({ children }) => {
           userData.descuentos = null;
         }
         productos.obtenerProductosFiltrados(userData.categoria, userData.descuentos);
-        login(userData)
+        login(userData);
         renovarToken({ email: userData.email })
 
       } else {
@@ -208,7 +208,24 @@ export const LoginProvider = ({ children }) => {
   }, [state.logueado]);
 
   return (
-    <AuthContext.Provider value={{ handleLogin, opcionSeleccionada, setOpcionSeleccionada, state, errorMessage, setErrorMessage, login, logout, updateEmailConfirmationStatus, verifyToken, mostrarLogin, setMostrarLogin, mostrarErrorCodigoConfirmacion, setMostrarErrorCodigoConfirmacion, mostrarCartelLogout, setMostrarCartelLogout }}>
+    <AuthContext.Provider value={{ 
+        handleLogin, 
+        opcionSeleccionada, 
+        setOpcionSeleccionada, 
+        state, errorMessage, 
+        setErrorMessage, 
+        login, 
+        logout, 
+        updateEmailConfirmationStatus, 
+        verifyToken, 
+        mostrarLogin, 
+        setMostrarLogin, 
+        mostrarErrorCodigoConfirmacion, 
+        setMostrarErrorCodigoConfirmacion, 
+        mostrarCartelLogout, 
+        setMostrarCartelLogout, 
+        mostrarCartelLogin,
+        }}>
       {children}
     </AuthContext.Provider>
   );
