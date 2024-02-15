@@ -1,0 +1,21 @@
+.contenedorPrincipalCardMuestra{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1.5rem;
+}
+
+.contenedorPrincipalCardMuestra p{
+    font-size: 2rem;
+    font-weight: 600;
+    width: 90%;
+    background-color: var(--colorTerciario);
+    color: var(--colorSecundario);
+    padding-left: 0.7rem;
+}
+
+.contenedorPrincipalCardMuestra img{
+    object-fit: contain;
+    width: 90%;
+    aspect-ratio: 1 / 1;
+}

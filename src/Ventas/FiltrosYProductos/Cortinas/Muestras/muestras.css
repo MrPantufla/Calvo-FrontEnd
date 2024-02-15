@@ -1,0 +1,29 @@
+.contenedorPrincipalMuestras{
+    background-color: var(--colorSecundario);
+    height: calc(100vh - 12.5rem);
+    width: 23.5%;
+    overflow: auto;
+    padding-bottom: 1.5rem;
+    position: fixed;
+}
+
+.contenedorPrincipalMuestras::-webkit-scrollbar{
+    width: 0;
+}
+
+.tituloMuestra{
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--colorCuaternario);
+}
+
+.tituloMuestra p{
+    width: 100%;
+    text-align: center;
+    color: var(--colorSecundario);
+    font-size: 2.5rem;
+    font-weight: 600;
+}
