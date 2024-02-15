@@ -43,7 +43,6 @@ export default function CardProducto(args) {
   }
 
   const restarContador = () => {
-    console.log(`../../../ImagenesProductos/${args.cod_int.toLowerCase()}.png`);
     if (auth.state.logueado) {
       if (auth.state.userInfo.email_confirmado) {
         if (cantidad > 0) {
