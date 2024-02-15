@@ -15,7 +15,7 @@ function ProductosProvider({ children }) {
     const [cod_origDescActivo, setCod_origDescActivo] = useState(false);
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
     const [productosIndexado, setProductosIndexado] = useState([]);
-    const [coloresArray, setColoresArray] = useState([]); 
+    const [coloresArray, setColoresArray] = useState([]);
     const nuevosColores = new Set();
 
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
@@ -33,9 +33,9 @@ function ProductosProvider({ children }) {
                     }
                     if (descuentos != null && descuentos[producto.rubro]) {
                         // Aplicar descuento si descuentos no es nulo y hay un valor en producto[rubro]
-                        precioFinal -= parseInt(descuentos[producto.rubro]/100*producto.precio);
+                        precioFinal -= parseInt(descuentos[producto.rubro] / 100 * producto.precio);
                     }
-                
+
                     return { ...producto, precio: precioFinal };
                 });
 
@@ -138,7 +138,7 @@ function ProductosProvider({ children }) {
         }
     }
 
-    const cerrarOrdenamientos = () =>{
+    const cerrarOrdenamientos = () => {
         setPrecioAscActivo(false);
         setPrecioDescActivo(false);
         setKgAscActivo(false);

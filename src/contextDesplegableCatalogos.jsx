@@ -27,7 +27,15 @@ function DesplegableProviderCatalogos({ children }) {
     }
 
     return (
-        <DesplegableCatalogosContext.Provider value={{ hovered, abrirHover, cerrarHover, anchoPerfil, setAnchoPerfil, anchoCatalogos, setAnchoCatalogos }}>
+        <DesplegableCatalogosContext.Provider value={{
+            hovered,
+            abrirHover,
+            cerrarHover,
+            anchoPerfil,
+            setAnchoPerfil,
+            anchoCatalogos,
+            setAnchoCatalogos
+        }}>
             {children}
         </DesplegableCatalogosContext.Provider>
     );

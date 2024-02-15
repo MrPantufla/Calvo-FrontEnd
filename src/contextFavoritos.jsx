@@ -61,7 +61,7 @@ function FavoritosProvider({ children }) {
         'Content-Type': 'application/text',
       },
       credentials: 'include',
-      body:  listaFavoritosString || ' ',
+      body: listaFavoritosString || ' ',
     })
       .then(response => {
         if (response.ok) {
@@ -75,13 +75,23 @@ function FavoritosProvider({ children }) {
       .catch(error => {
         console.error('Error al enviar la lista de favoritos al servidor:', error);
       });
-    }
-
-    return (
-      <FavoritosContext.Provider value={{favoritosAbierto, setFavoritosAbierto, actualizarFavoritos, favoritos, setFavoritos, agregarFavorito, quitarFavorito, esFavorito, toggleFavorito }}>
-        {children}
-      </FavoritosContext.Provider>
-    );
   }
 
-  export { FavoritosContext, useFavoritos, FavoritosProvider };
+  return (
+    <FavoritosContext.Provider value={{
+      favoritosAbierto,
+      setFavoritosAbierto,
+      actualizarFavoritos,
+      favoritos,
+      setFavoritos,
+      agregarFavorito,
+      quitarFavorito,
+      esFavorito,
+      toggleFavorito
+    }}>
+      {children}
+    </FavoritosContext.Provider>
+  );
+}
+
+export { FavoritosContext, useFavoritos, FavoritosProvider };

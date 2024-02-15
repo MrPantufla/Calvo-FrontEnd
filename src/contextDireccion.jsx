@@ -60,7 +60,20 @@ function DireccionProvider({ children }) {
     }, [auth.state.logueado]);
 
     return (
-        <DireccionContext.Provider value={{ direccionConfirmada, setDireccionConfirmada, setCalle, setNumero, setCp, setLocalidad, setProvincia, calle, numero, cp, localidad, provincia }}>
+        <DireccionContext.Provider value={{
+            direccionConfirmada,
+            setDireccionConfirmada,
+            setCalle,
+            setNumero,
+            setCp,
+            setLocalidad,
+            setProvincia,
+            calle,
+            numero,
+            cp,
+            localidad,
+            provincia
+        }}>
             {children}
         </DireccionContext.Provider>
     );

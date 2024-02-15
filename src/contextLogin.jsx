@@ -103,7 +103,7 @@ export const LoginProvider = ({ children }) => {
         credentials: 'include',
         body: JSON.stringify(parseInt(cuit)),
       });
-  
+
       if (response.ok) {
         const descuentos = await response.json();
 
@@ -129,7 +129,7 @@ export const LoginProvider = ({ children }) => {
     } catch (error) {
       console.error('Error al encontrar al usuario:', error);
     }
-  };  
+  };
 
   const handleLogin = async (args) => {
     try {
@@ -149,10 +149,10 @@ export const LoginProvider = ({ children }) => {
 
       if (response.ok) {
         const userData = await response.json();
-        if(userData.cliente){
+        if (userData.cliente) {
           userData.descuentos = await obtenerDescuentos(userData.cuit);
         }
-        else{
+        else {
           userData.descuentos = null;
         }
         productos.obtenerProductosFiltrados(userData.categoria, userData.descuentos);
@@ -208,24 +208,24 @@ export const LoginProvider = ({ children }) => {
   }, [state.logueado]);
 
   return (
-    <AuthContext.Provider value={{ 
-        handleLogin, 
-        opcionSeleccionada, 
-        setOpcionSeleccionada, 
-        state, errorMessage, 
-        setErrorMessage, 
-        login, 
-        logout, 
-        updateEmailConfirmationStatus, 
-        verifyToken, 
-        mostrarLogin, 
-        setMostrarLogin, 
-        mostrarErrorCodigoConfirmacion, 
-        setMostrarErrorCodigoConfirmacion, 
-        mostrarCartelLogout, 
-        setMostrarCartelLogout, 
-        mostrarCartelLogin,
-        }}>
+    <AuthContext.Provider value={{
+      handleLogin,
+      opcionSeleccionada,
+      setOpcionSeleccionada,
+      state, errorMessage,
+      setErrorMessage,
+      login,
+      logout,
+      updateEmailConfirmationStatus,
+      verifyToken,
+      mostrarLogin,
+      setMostrarLogin,
+      mostrarErrorCodigoConfirmacion,
+      setMostrarErrorCodigoConfirmacion,
+      mostrarCartelLogout,
+      setMostrarCartelLogout,
+      mostrarCartelLogin,
+    }}>
       {children}
     </AuthContext.Provider>
   );

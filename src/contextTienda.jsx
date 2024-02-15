@@ -15,6 +15,28 @@ function TiendaProvider({ children }) {
   const [isFold, setIsFold] = useState(window.innerWidth <= 280);
   const [mostrarPagos, setMostrarPagos] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
+  const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.6);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const maxBusquedaYFiltrosTop = 10.6;
+      const minBusquedaYFiltrosTop = 8.6;
+      const alturaHeader = 150;
+
+      let newTop =
+        maxBusquedaYFiltrosTop -
+        (maxBusquedaYFiltrosTop - minBusquedaYFiltrosTop) * (scrollPosition / alturaHeader);
+
+      newTop = Math.max(minBusquedaYFiltrosTop, newTop);
+      setBusquedaYFiltrosTop(newTop);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,13 +56,30 @@ function TiendaProvider({ children }) {
     setColoresActivos([]);
   }
 
-  const seleccionarCortinas = () =>{
+  const seleccionarCortinas = () => {
     setTiposActivos([]);
     setCortinasSelected(true);
   }
 
   return (
-    <TiendaContext.Provider value={{seleccionarCortinas, cortinasSelected, setCortinasSelected, mostrarPagos, setMostrarPagos ,isTablet, isFold, isMobile, productoSeleccionado, setProductoSeleccionado, limpiarColoresActivos, tiposActivos, setTiposActivos, coloresActivos, setColoresActivos }}>
+    <TiendaContext.Provider value={{
+      seleccionarCortinas,
+      cortinasSelected,
+      setCortinasSelected,
+      mostrarPagos,
+      setMostrarPagos,
+      isTablet,
+      isFold,
+      isMobile,
+      productoSeleccionado,
+      setProductoSeleccionado,
+      limpiarColoresActivos,
+      tiposActivos, setTiposActivos,
+      coloresActivos,
+      setColoresActivos,
+      busquedaYFiltrosTop,
+      setBusquedaYFiltrosTop
+    }}>
       {children}
     </TiendaContext.Provider>
   );

@@ -14,7 +14,7 @@ function ConfiguracionProvider({ children }) {
     const [emailAbierto, setEmailAbierto] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const abrirEmail = () =>{
+    const abrirEmail = () => {
         setEmailAbierto(true);
         cerrarDireccion();
         cerrarContraseña();
@@ -22,7 +22,7 @@ function ConfiguracionProvider({ children }) {
         setErrorMessage('');
     }
 
-    const abrirDatos = () =>{
+    const abrirDatos = () => {
         setDatosAbierto(true);
         cerrarDireccion();
         cerrarContraseña();
@@ -30,7 +30,7 @@ function ConfiguracionProvider({ children }) {
         setErrorMessage('');
     }
 
-    const abrirDireccion = () =>{
+    const abrirDireccion = () => {
         setDireccionAbierto(true);
         cerrarDatos();
         cerrarContraseña();
@@ -38,7 +38,7 @@ function ConfiguracionProvider({ children }) {
         setErrorMessage('');
     }
 
-    const abrirContraseña = () =>{
+    const abrirContraseña = () => {
         setContraseñaAbierto(true);
         cerrarDatos();
         cerrarDireccion();
@@ -46,28 +46,44 @@ function ConfiguracionProvider({ children }) {
         setErrorMessage('');
     }
 
-    const cerrarDatos = () =>{
+    const cerrarDatos = () => {
         setDatosAbierto(false);
         setErrorMessage('');
     }
 
-    const cerrarDireccion = () =>{
+    const cerrarDireccion = () => {
         setDireccionAbierto(false);
         setErrorMessage('');
     }
 
-    const cerrarContraseña = () =>{
+    const cerrarContraseña = () => {
         setContraseñaAbierto(false);
         setErrorMessage('');
     }
 
-    const cerrarEmail= () =>{
+    const cerrarEmail = () => {
         setEmailAbierto(false);
         setErrorMessage('');
     }
 
     return (
-        <ConfiguracionContext.Provider value={{errorMessage, setErrorMessage, abrirEmail, cerrarEmail, emailAbierto, setEmailAbierto, datosAbierto, direccionAbierto, contraseñaAbierto, abrirDatos, abrirDireccion, abrirContraseña, cerrarDatos, cerrarDireccion, cerrarContraseña}}>
+        <ConfiguracionContext.Provider value={{
+            errorMessage,
+            setErrorMessage,
+            abrirEmail,
+            cerrarEmail,
+            emailAbierto,
+            setEmailAbierto,
+            datosAbierto,
+            direccionAbierto,
+            contraseñaAbierto,
+            abrirDatos,
+            abrirDireccion,
+            abrirContraseña,
+            cerrarDatos,
+            cerrarDireccion,
+            cerrarContraseña
+        }}>
             {children}
         </ConfiguracionContext.Provider>
     );

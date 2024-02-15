@@ -18,7 +18,12 @@ function DesplegableProviderPerfil({ children }) {
     }
 
     return (
-        <DesplegablePerfilContext.Provider value={{ perfilHovered, setPerfilHovered, abrirPerfil, cerrarPerfil }}>
+        <DesplegablePerfilContext.Provider value={{
+            perfilHovered,
+            setPerfilHovered,
+            abrirPerfil,
+            cerrarPerfil
+        }}>
             {children}
         </DesplegablePerfilContext.Provider>
     );

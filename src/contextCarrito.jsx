@@ -169,7 +169,31 @@ function CarritoProvider({ children }) {
   }, [productos.productosIndexado]);
 
   return (
-    <CarritoContext.Provider value={{datosCorroborados, setDatosCorroborados, precioTotal, setPrecioTotal, compraRealizadaAbierto, setCompraRealizadaAbierto, mostrarCartel, ocultarCartel ,mostrarCartelError, actualizarCarrito, confirmarCompraAbierto, setConfirmarCompraAbierto, carritoConfirmado, setCarritoConfirmado, confirmarCompra, toggleCarrito, setCarritoAbierto, carritoAbierto, elementos, limpiarCarrito, añadirElemento, restarElemento, actualizarCantidadElemento, eliminarElemento }}>
+    <CarritoContext.Provider value={{
+      datosCorroborados, 
+      setDatosCorroborados, 
+      precioTotal, 
+      setPrecioTotal, 
+      compraRealizadaAbierto, 
+      setCompraRealizadaAbierto, 
+      mostrarCartel, 
+      ocultarCartel, 
+      mostrarCartelError, 
+      actualizarCarrito, 
+      confirmarCompraAbierto, 
+      setConfirmarCompraAbierto, 
+      carritoConfirmado, 
+      setCarritoConfirmado, 
+      confirmarCompra, 
+      toggleCarrito, 
+      setCarritoAbierto, 
+      carritoAbierto, 
+      elementos, 
+      limpiarCarrito, 
+      añadirElemento,
+      restarElemento, 
+      actualizarCantidadElemento, 
+      eliminarElemento }}>
       {children}
     </CarritoContext.Provider>
   );
