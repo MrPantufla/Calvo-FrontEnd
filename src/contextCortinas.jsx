@@ -12,10 +12,11 @@ function ProviderCortinas({ children }) {
     const auth = useAuth();
 
     const [tipo, setTipo] = useState('');
-    const [alto, setAlto] = useState();
-    const [ancho, setAncho] = useState();
+    const [alto, setAlto] = useState('');
+    const [ancho, setAncho] = useState('');
     const [conMecanismo, setConMecanismo] = useState('');
     const [alturaIndicada, setAlturaIndicada] = useState('');
+    const [aclaraciones, setAclaraciones] = useState('');
 
     const [color, setColor] = useState('');
     const [caida, setCaida] = useState('');
@@ -35,42 +36,42 @@ function ProviderCortinas({ children }) {
     const [errorMessage, setErrorMessage] = useState('');
 
     const descelectCaidaRoller = () => {
-        setTirador(undefined);
-        setCaida(undefined);
+        setTirador('');
+        setCaida('');
     }
 
     const descelectEnrolladorPersianaPvc = () => {
-        setTipoEnrollador(undefined);
+        setTipoEnrollador('');
     }
 
     const descelectControlYTeclaPortonAluminio = () => {
-        setControl(undefined);
-        setTecla(undefined);
+        setControl('');
+        setTecla('');
     }
 
     const descelectMecanismoYCajonPersianaAluminio = () => {
-        setConCajon(undefined);
-        setTipoMecanismo(undefined);
+        setConCajon('');
+        setTipoMecanismo('');
         descelectUbicacionCajonPersianaAluminio();
         descelectControlPersianaAluminio();
     }
 
     const descelectControlPersianaAluminio = () => {
-        setControl(undefined);
-        setTecla(undefined);
+        setControl('');
+        setTecla('');
     }
 
     const descelectUbicacionCajonPersianaAluminio = () => {
-        setUbicacionCajon(undefined);
+        setUbicacionCajon('');
         descelectUbicacionExteriorCajonPersianaAluminio();
     }
 
     const descelectUbicacionExteriorCajonPersianaAluminio = () => {
-        setUbicacionExteriorCajon(undefined);
+        setUbicacionExteriorCajon('');
     }
 
     const descelectEspecificacionBarrio = () => {
-        setEspecificacionBarrio(undefined);
+        setEspecificacionBarrio('');
     }
 
     const deleteErrorMessage = () =>{
@@ -79,22 +80,23 @@ function ProviderCortinas({ children }) {
 
     const limpiarFormularios = () => {
         deleteErrorMessage();
-        setAlto(undefined);
-        setAncho(undefined);
-        setConMecanismo(undefined);
-        setAlturaIndicada(undefined);
-        setColor(undefined);
-        setCaida(undefined);
-        setTirador(undefined);
-        setTipoEnrollador(undefined);
-        setConCajon(undefined);
-        setUbicacionExteriorCajon(undefined);
-        setUbicacionCajon(undefined);
-        setTipoMecanismo(undefined);
-        setControl(undefined);
-        setTecla(undefined);
-        setTipoTablilla(undefined);
-        setEspecificacionBarrio(undefined);
+        setAlto('');
+        setAncho('');
+        setConMecanismo('');
+        setAlturaIndicada('');
+        setColor('');
+        setCaida('');
+        setTirador('');
+        setTipoEnrollador('');
+        setConCajon('');
+        setUbicacionExteriorCajon('');
+        setUbicacionCajon('');
+        setTipoMecanismo('');
+        setControl('');
+        setTecla('');
+        setTipoTablilla('');
+        setEspecificacionBarrio('');
+        setAclaraciones('');
     }
 
     const enviarCortina = (textoCortina) => {
@@ -104,6 +106,8 @@ function ProviderCortinas({ children }) {
             "Telefono: " + auth.state.userInfo.telefono + "\n" +
             "Email: " + auth.state.userInfo.email
         ;
+
+        console.log("ENVIANDO CORTINA")
 
         fetch('http://localhost:8080/api/recibirCortina', {
             method: 'POST',
@@ -182,7 +186,9 @@ function ProviderCortinas({ children }) {
             errorMessage,
             setErrorMessage,
             deleteErrorMessage,
-            enviarCortina
+            enviarCortina,
+            aclaraciones,
+            setAclaraciones
         }}>
             {children}
         </CortinasContext.Provider>

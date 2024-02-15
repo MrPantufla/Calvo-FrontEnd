@@ -1,0 +1,36 @@
+.especificacionCortina.negro{
+    background-color: black;
+    color: white;
+}
+
+.especificacionCortina.blanco{
+    border: 1px solid var(--colorSecundario);
+    background-color: white;
+}
+
+.especificacionCortina.blanco:hover, .especificacionCortina.blanco.checked{
+    color: var(--colorSecundario)
+}
+
+.especificacionCortina.beige{
+    background-color: var(--Beige);
+    color: black;
+}
+
+.especificacionCortina.beige, .especificacionCortina.beige.checked{
+    color: black;
+}
+
+.especificacionCortina.gris, .especificacionCortina.gris.checked{
+    color: var(--colorSecundario);
+    background-color: var(--colorPrimario);
+}
+
+.especificacionCortina.gris, .especificacionCortina.beige, .especificacionCortina.negro, .especificacionCortina.blanco{
+    width: 7rem;
+    transition: scale 0.1s;
+}
+
+.especificacionCortina.negro.checked, .especificacionCortina.blanco.checked, .especificacionCortina.beige.checked, .especificacionCortina.gris.checked{
+    transform: scale(0.9);
+}

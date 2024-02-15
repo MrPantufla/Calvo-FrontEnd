@@ -4,14 +4,15 @@ import Roller from './Roller/roller';
 import PersianaPvc from './Persiana PVC/persianaPvc';
 import PortonAluminio from './Porton Aluminio/portonAluminio';
 import PersianaAluminio from './Persiana Aluminio/persianaAluminio';
+import Muestras from './muestras';
 
 export default function Cortinas() {
 
-    const { tipo, setTipo, limpiarFormularios } = useCortinas();
+    const { tipo, setTipo, limpiarFormularios, errorMessage } = useCortinas();
 
     return (
         <div className="contenedorPrincipalCortinas">
-            <div className="parteUtilizableCortinas" style={{minHeight: 'calc(100vh - 14rem)'}}>
+            <div className="parteFormulariosCortinas" style={{ minHeight: 'calc(100vh - 14rem)' }}>
                 <div className="decoracionCortinasContainer">
                     <div className="decoracion" >
                         Consulta tu presupuesto
@@ -22,12 +23,19 @@ export default function Cortinas() {
                     <div className="form-group-cortinas">
                         <p>TIPO</p>
                         <div className="bodyFormGroupCortinas">
-                            <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'roller' ? 'roller' : undefined) }}>Roller</div>
-                            <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaPvc' ? 'persianaPvc' : undefined) }}>Persiana PVC</div>
-                            <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'portonAluminio' ? 'portonAluminio' : undefined) }}>Porton de aluminio</div>
-                            <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaAluminio' ? 'persianaAluminio' : undefined) }}>Persiana de aluminio</div>
+                            <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'roller' ? 'roller' : '') }}>Roller</div>
+                            <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaPvc' ? 'persianaPvc' : '') }}>Persiana PVC</div>
+                            <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'portonAluminio' ? 'portonAluminio' : '') }}>Porton de aluminio</div>
+                            <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaAluminio' ? 'persianaAluminio' : '') }}>Persiana de aluminio</div>
                         </div>
                     </div>
+                </div>
+                <div className="errorMessageContainer">
+                    <p className="errorFormulario">
+                        {errorMessage !== '' && (<svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                            <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                        </svg>)}{errorMessage}
+                    </p>
                 </div>
                 <div className="formularioCortinasContainer">
                     {tipo == 'roller' && <Roller />}
@@ -35,6 +43,9 @@ export default function Cortinas() {
                     {tipo == 'portonAluminio' && <PortonAluminio />}
                     {tipo == 'persianaAluminio' && <PersianaAluminio />}
                 </div>
+            </div>
+            <div className="parteMuestrasCortinas">
+                <Muestras/>
             </div>
         </div>
     );
