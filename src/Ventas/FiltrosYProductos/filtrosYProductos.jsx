@@ -98,7 +98,6 @@ export default function FiltrosYProductos() {
         (maxBusquedaYFiltrosTop - minBusquedaYFiltrosTop) * (scrollPosition / alturaHeader);
 
       newTop = Math.max(minBusquedaYFiltrosTop, newTop);
-
       setBusquedaYFiltrosTop(newTop);
     };
 
@@ -129,7 +128,7 @@ export default function FiltrosYProductos() {
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
-          style={{ top: `${busquedaYFiltrosTop}` }}
+          style={{ top: `${busquedaYFiltrosTop}rem` }}
         >
           <div className="busquedaEIcono">
             <input
