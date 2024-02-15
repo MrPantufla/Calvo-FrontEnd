@@ -3,6 +3,7 @@ import Footer from './Footer/footer.jsx';
 import DesplegablePerfil from './Header/Desplegable perfil/desplegablePerfil.jsx';
 import RenderHeader from './Header/renderHeader.jsx';
 import './homePage.css';
+import CartelLogout from '../Logout/cartelLogout.jsx';
 
 export default function HomePage(){
     return(
@@ -11,6 +12,7 @@ export default function HomePage(){
             <DesplegablePerfil/>
             <Body/>
             <Footer/>
+            <CartelLogout/>
         </div>
     );
 }

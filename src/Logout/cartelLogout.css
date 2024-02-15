@@ -6,6 +6,7 @@
     align-items: center;
     position: fixed;
     z-index: 101;
+    top: 0;
 }
 
 .contenedorCartelLogout{
