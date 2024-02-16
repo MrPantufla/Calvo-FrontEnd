@@ -6,7 +6,6 @@ import PortonAluminio from './Porton Aluminio/portonAluminio';
 import PersianaAluminio from './Persiana Aluminio/persianaAluminio';
 import Muestras from './Muestras/muestras';
 import { useTienda } from '../../../contextTienda';
-import { useState } from 'react';
 
 export default function Cortinas() {
 
@@ -14,7 +13,9 @@ export default function Cortinas() {
         tipo,
         setTipo,
         limpiarFormularios,
-        errorMessage
+        errorMessage,
+        muestrasAbierto,
+        setMuestrasAbierto
     } = useCortinas();
 
     const {
@@ -23,11 +24,11 @@ export default function Cortinas() {
     } = useTienda();
 
     const styleDesktop = {
-        
+
     };
 
     const styleMobile = {
-        
+
     };
 
     return (
@@ -42,11 +43,15 @@ export default function Cortinas() {
                 <div>
                     <div className="form-group-cortinas">
                         <p>TIPO</p>
-                        <div className="bodyFormGroupCortinas">
-                            <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'roller' ? 'roller' : '') }}>Roller</div>
-                            <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaPvc' ? 'persianaPvc' : '') }}>Persiana PVC</div>
-                            <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'portonAluminio' ? 'portonAluminio' : '') }}>Porton de aluminio</div>
-                            <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaAluminio' ? 'persianaAluminio' : '') }}>Persiana de aluminio</div>
+                        <div className="bodyFormGroupCortinas rowTiposContainer">
+                            <div className="divFold1">
+                                <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'roller' ? 'roller' : '') }}>Roller</div>
+                                <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaPvc' ? 'persianaPvc' : '') }}>Persiana PVC</div>
+                            </div>
+                            <div className="divFold2">
+                                <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'portonAluminio' ? 'portonAluminio' : '') }}>Porton de aluminio</div>
+                                <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo(tipo !== 'persianaAluminio' ? 'persianaAluminio' : '') }}>Persiana de aluminio</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,7 +70,19 @@ export default function Cortinas() {
                 </div>
             </div>
             <div className="parteMuestrasCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
-                <Muestras/>
+                <Muestras />
+            </div>
+            <div className="botonMostrarMuestrasContainer">
+                <button
+                    style={{
+                        transform: muestrasAbierto ? 'scale(0.95)' : 'none',
+                        display: isMobile ? 'block' : 'none'
+                    }}
+                    className={`botonMostrarMuestras ${muestrasAbierto ? 'open' : ''}`}
+                    onClick={() => setMuestrasAbierto(!muestrasAbierto)}
+                >                    
+                    IMÁGENES DE REFERENCIA
+                </button>
             </div>
         </div>
     );

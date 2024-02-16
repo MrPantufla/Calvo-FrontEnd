@@ -15,12 +15,12 @@
 }
 
 .botonAbrirPagos:active{
-    transform: scale(0.97);
+    transform: scale(0.95);
 }
 
 @media (max-width: 912px){
     .botonAbrirPagos{
-        height: 5rem;
-        width: 15rem;
+        height: 6rem;
+        width: 17rem;
     }
 }

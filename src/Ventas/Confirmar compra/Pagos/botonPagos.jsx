@@ -2,10 +2,13 @@ import './botonPagos.css';
 import { useTienda } from '../../../contextTienda';
 
 export default function BotonPagos(){
-    const {setMostrarPagos} = useTienda();
+    const {
+        mostrarPagos, 
+        setMostrarPagos
+    } = useTienda();
 
     return(
-        <button className="botonAbrirPagos" onClick={() => setMostrarPagos(true)}>
+        <button style={mostrarPagos ? {transform: 'scale(0.95)'} : {}} className="botonAbrirPagos" onClick={() => setMostrarPagos(true)}>
             TRANSFERENCIAS BANCARIAS
         </button>
     );
