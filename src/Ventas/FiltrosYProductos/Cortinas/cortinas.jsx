@@ -5,19 +5,34 @@ import PersianaPvc from './Persiana PVC/persianaPvc';
 import PortonAluminio from './Porton Aluminio/portonAluminio';
 import PersianaAluminio from './Persiana Aluminio/persianaAluminio';
 import Muestras from './Muestras/muestras';
+import { useTienda } from '../../../contextTienda';
+import { useState } from 'react';
 
 export default function Cortinas() {
 
-    const { 
-        tipo, 
-        setTipo, 
-        limpiarFormularios, 
-        errorMessage 
+    const {
+        tipo,
+        setTipo,
+        limpiarFormularios,
+        errorMessage
     } = useCortinas();
+
+    const {
+        isFold,
+        isMobile,
+    } = useTienda();
+
+    const styleDesktop = {
+        
+    };
+
+    const styleMobile = {
+        
+    };
 
     return (
         <div className="contenedorPrincipalCortinas">
-            <div className="parteFormulariosCortinas" style={{ minHeight: 'calc(100vh - 14rem)' }}>
+            <div className="parteFormulariosCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
                 <div className="decoracionCortinasContainer">
                     <div className="decoracion decoracionCortinas" >
                         Consulta tu presupuesto
@@ -49,7 +64,7 @@ export default function Cortinas() {
                     {tipo == 'persianaAluminio' && <PersianaAluminio />}
                 </div>
             </div>
-            <div className="parteMuestrasCortinas">
+            <div className="parteMuestrasCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
                 <Muestras/>
             </div>
         </div>

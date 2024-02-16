@@ -153,3 +153,14 @@
     width: 30%;
     margin-left: 1rem;
 }
+
+@media (max-width: 767px){
+    .parteMuestrasCortinas{
+        width: 0;
+        overflow: visible;
+    }
+
+    .parteFormulariosCortinas{
+        width: 100%;
+    }
+}
