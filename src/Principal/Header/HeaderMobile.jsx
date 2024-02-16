@@ -11,12 +11,23 @@ import { useCarrito } from '../../contextCarrito';
 
 export default function HeaderMobile() {
     const [menuAbierto, setMenuAbierto] = useState(false);
+
     const location = useLocation();
-    const tienda = useTienda();
-    const auth = useAuth();
+
+    const {isFold} = useTienda();
+    
+    const {
+        state,
+        setMostrarLogin,
+        setOpcionSeleccionada,
+        logout
+    } = useAuth();
+
+    const {setFavoritos} = useFavoritos();
+
+    const {limpiarCarrito} = useCarrito();
+
     const navigate = useNavigate();
-    const favoritos = useFavoritos();
-    const carrito = useCarrito();
     const [catalogosOpen, setCatalogosOpen] = useState(false);
 
     const handleInicioClick = () => {
@@ -40,40 +51,40 @@ export default function HeaderMobile() {
     }, [menuAbierto]);
 
     const mostrarIniciarSesion = () => {
-        auth.setOpcionSeleccionada('login');
-        auth.setMostrarLogin(true);
+        setOpcionSeleccionada('login');
+        setMostrarLogin(true);
         setMenuAbierto(false);
     }
 
     const mostrarRegistro = () => {
-        auth.setOpcionSeleccionada('registro');
-        auth.setMostrarLogin(true);
+        setOpcionSeleccionada('registro');
+        setMostrarLogin(true);
         setMenuAbierto(false);
     }
 
     const handleCerrarSesion = async () => {
         navigate('/home');
-        auth.logout();
-        favoritos.setFavoritos('');
-        carrito.limpiarCarrito();
+        logout();
+        setFavoritos('');
+        limpiarCarrito();
         setMenuAbierto(false);
     }
 
     let ruta;
-    if (auth.state.logueado) {
-        ruta = auth.state.userInfo.email_confirmado ? "/perfil" : "";
+    if (state.logueado) {
+        ruta = state.userInfo.email_confirmado ? "/perfil" : "";
     }
     else {
         ruta = "";
     }
 
     const handleToggleLogin = () => {
-        if (!auth.state.logueado) {
-            auth.setMostrarLogin(true);
+        if (!state.logueado) {
+            setMostrarLogin(true);
         }
         else {
-            if (!auth.state.userInfo.email_confirmado) {
-                auth.setMostrarLogin(true);
+            if (!state.userInfo.email_confirmado) {
+                setMostrarLogin(true);
             }
         }
     };
@@ -109,7 +120,7 @@ export default function HeaderMobile() {
                         </svg>
                     </button>
                 </div>
-                <div className={`containerContainerLogoMobile ${tienda.isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
+                <div className={`containerContainerLogoMobile ${isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
                         <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={recargarPagina}/>
                     </div>
@@ -138,7 +149,7 @@ export default function HeaderMobile() {
                             </>
                         ) : (
                             <>
-                                <a className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); auth.state.logueado ? navigate("/misCompras") : auth.setMostrarLogin(true) }}>
+                                <a className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); state.logueado ? navigate("/misCompras") : setMostrarLogin(true) }}>
                                     <p>MIS COMPRAS</p>
                                 </a>
                                 {location.pathname === '/tienda' && (
@@ -159,7 +170,7 @@ export default function HeaderMobile() {
                             </>
                         )}
 
-                        {auth.state.logueado ?
+                        {state.logueado ?
                             (<>
                                 <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink elemento"><p>MI PERFIL</p></NavLink>
                                 <a className="elemento" onClick={handleCerrarSesion} style={{ marginTop: '2.5rem' }}><p>CERRAR SESIÓN</p></a>
