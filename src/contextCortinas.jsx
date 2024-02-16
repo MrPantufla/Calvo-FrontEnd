@@ -10,6 +10,8 @@ function useCortinas() {
 function ProviderCortinas({ children }) {
 
     const {state} = useAuth();
+    
+    const [muestrasAbierto, setMuestrasAbierto] = useState(false);
 
     const [tipo, setTipo] = useState('');
     const [alto, setAlto] = useState('');
@@ -188,7 +190,9 @@ function ProviderCortinas({ children }) {
             deleteErrorMessage,
             enviarCortina,
             aclaraciones,
-            setAclaraciones
+            setAclaraciones,
+            muestrasAbierto,
+            setMuestrasAbierto
         }}>
             {children}
         </CortinasContext.Provider>
