@@ -127,7 +127,7 @@ export default function FiltrosYProductos() {
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
-          style={{ top: `${busquedaYFiltrosTop}rem` }}
+          style={!isTablet ? { top: `${busquedaYFiltrosTop}rem` } : {}}
         >
           <div className="busquedaEIcono">
             <input
