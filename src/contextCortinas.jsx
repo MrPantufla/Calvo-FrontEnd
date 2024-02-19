@@ -13,7 +13,7 @@ function ProviderCortinas({ children }) {
     
     const [muestrasAbierto, setMuestrasAbierto] = useState(false);
 
-    const [tipo, setTipo] = useState('');
+    const [tipo, setTipo] = useState('roller');
     const [alto, setAlto] = useState('');
     const [ancho, setAncho] = useState('');
     const [conMecanismo, setConMecanismo] = useState('');
