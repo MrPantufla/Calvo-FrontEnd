@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 
 const VariablesContext = createContext();
 
@@ -7,8 +7,8 @@ function useVariables() {
 }
 
 function VariablesProvider({ children }) {
-    //const backend = "http://localhost:8080";
-    const backend = "https://guarded-savannah-38698-379ed5e80a12.herokuapp.com";
+    const backend = "http://localhost:8080";
+    //const backend = "https://guarded-savannah-38698-379ed5e80a12.herokuapp.com";
 
     return (
         <VariablesContext.Provider value={{
