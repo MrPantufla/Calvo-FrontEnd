@@ -102,18 +102,19 @@ export default function DesplegablePerfil() {
 
     return (
         <div
-            className={`desplegablePerfil ${perfilHovered ? 'open' : ''}`}
+            className={`desplegablePerfil ${perfilHovered ? 'open' : ''} ${state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? 'admin' : ''): ''}`}
             onMouseEnter={() => {
                 abrirPerfil();
             }}
             onMouseLeave={cerrarPerfil}
             style={stylePerfil}
         >
-            <div className="descargarPerfilContainer">
+            <div className="desplegablePerfilContainer">
                 {state.logueado ?
                     (<>
                         <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink">MI PERFIL</NavLink>
                         <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
+                        {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a>MODO EDICION</a>)) : ''}
                     </>)
                     :
                     (<>

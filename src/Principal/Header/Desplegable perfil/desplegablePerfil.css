@@ -15,7 +15,11 @@
     transition-delay: 0.2s;
 }
 
-.descargarPerfilContainer{
+.desplegablePerfil.admin.open{
+    height: 11rem;
+}
+
+.desplegablePerfilContainer{
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -25,7 +29,7 @@
     text-decoration: none;
 }
 
-.descargarPerfilContainer a {
+.desplegablePerfilContainer a {
     font-size: 1.5rem;
     color: var(--colorSecundario) !important;
     font-weight: 650;
@@ -34,6 +38,6 @@
     margin: 0.3rem 0;
 }
 
-.descargarPerfilContainer a:hover {
+.desplegablePerfilContainer a:hover {
     color: var(--colorCuaternario) !important;
 }
