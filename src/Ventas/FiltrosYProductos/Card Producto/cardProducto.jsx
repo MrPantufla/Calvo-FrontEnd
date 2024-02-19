@@ -11,12 +11,12 @@ export default function CardProducto(args) {
     setMostrarLogin
   } = useAuth();
 
-  const {esFavorito} = useFavoritos();
+  const favoritos = useFavoritos();
 
-  const { 
-    añadirElemento, 
-    restarElemento, 
-    elementos: elementosCarrito 
+  const {
+    añadirElemento,
+    restarElemento,
+    elementos: elementosCarrito
   } = useCarrito();
 
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
@@ -66,7 +66,7 @@ export default function CardProducto(args) {
   const toggleFavorito = (id, e) => {
     e.stopPropagation();
     if (state.logueado) {
-      toggleFavorito(id);
+      favoritos.toggleFavorito(id);
     }
     else {
       setMostrarLogin(true);
@@ -80,7 +80,7 @@ export default function CardProducto(args) {
           <img className="logoDecoracionCardProducto" src={logoBlanco} />
         </div>
         <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(args.id, e)}>
-          {esFavorito(args.id) ?
+          {favoritos.esFavorito(args.id) ?
             (<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fillRule="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
             </svg>)
@@ -89,6 +89,15 @@ export default function CardProducto(args) {
               <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
             </svg>)}
         </button>
+        {state.userInfo.tipo_usuario ? (state.userInfo.tipo_usuario == 'admin' &&
+          (<button className="eliminarElemento" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
+              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+            </svg>
+          </button>)) 
+          : 
+          ('')
+        }
         <div className="imagenContainerCardProducto">
           <img
             onClick={args.onClick}
@@ -99,21 +108,21 @@ export default function CardProducto(args) {
 
               e.target.onerror = () => {
                 e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
-              // Si falla la carga en formato JPG, intenta con BMP
-              e.target.onerror = () => {
-                e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.bmp`;
-
-                // Si falla la carga en formato BMP, intenta con JPEG
+                // Si falla la carga en formato JPG, intenta con BMP
                 e.target.onerror = () => {
-                  e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.peg`;
+                  e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.bmp`;
 
-                  // Si falla la carga en formato JPEG, carga una imagen por defecto
+                  // Si falla la carga en formato BMP, intenta con JPEG
                   e.target.onerror = () => {
-                    e.target.src = `/ImagenesProductos/xd.png`;
+                    e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.peg`;
+
+                    // Si falla la carga en formato JPEG, carga una imagen por defecto
+                    e.target.onerror = () => {
+                      e.target.src = `/ImagenesProductos/xd.png`;
+                    };
                   };
                 };
               };
-            };
             }}
             alt="Imagen del producto"
             loading="lazy"

@@ -213,6 +213,23 @@
     font-weight: 700;
 }
 
+.eliminarElemento{
+    position: absolute;
+    top: 3.5rem;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.2s;
+}
+
+.eliminarElemento .bi{
+    fill: var(--colorSecundario);
+}
+
+.eliminarElemento:hover{
+    transform: scale(1.1);
+}
+
 @media (min-width: 1920px){
     .botonAñadirFavoritos{
         width: 3rem;
