@@ -19,6 +19,8 @@ function ProductosProvider({ children }) {
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
+    const [productosEliminados, setProductosEliminados] = useState([]);
+    
     const nuevosColores = new Set();
 
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
