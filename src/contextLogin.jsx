@@ -1,8 +1,11 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
 import { useProductos } from './contextProductos';
+import { useVariables } from './contextVariables';
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
+  const {backend} = useVariables();
+
   const {obtenerProductosFiltrados} = useProductos();
 
   const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
@@ -33,7 +36,7 @@ export const LoginProvider = ({ children }) => {
   };
 
   const borrarCookie = async () => {
-    fetch('http://localhost:8080/api/logout', {
+    fetch(`${backend}/api/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +69,7 @@ export const LoginProvider = ({ children }) => {
 
   const verifyToken = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/verificarToken', {
+      const response = await fetch(`${backend}/api/verificarToken`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +100,7 @@ export const LoginProvider = ({ children }) => {
 
   const obtenerDescuentos = async (cuit) => {
     try {
-      const response = await fetch('http://localhost:8080/api/obtenerDescuentos', {
+      const response = await fetch(`${backend}/api/obtenerDescuentos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +143,7 @@ export const LoginProvider = ({ children }) => {
         return;
       }
 
-      const response = await fetch('http://localhost:8080/api/login', {
+      const response = await fetch(`${backend}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -179,7 +182,7 @@ export const LoginProvider = ({ children }) => {
   };
 
   const renovarToken = async (args) => {
-    const response = await fetch('http://localhost:8080/api/renovarTokenAuth', {
+    const response = await fetch(`${backend}/api/renovarTokenAuth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

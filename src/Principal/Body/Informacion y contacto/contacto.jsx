@@ -1,7 +1,10 @@
 import './contacto.css';
 import { useState } from 'react';
+import { useVariables } from '../../../contextVariables';
 
 export default function Contacto() {
+    const { backend } = useVariables();
+
     const [nombreYApellido, setNombreYApellido] = useState('');
     const [email, setEmail] = useState('');
     const [telefono, setTelefono] = useState('');
@@ -57,7 +60,7 @@ export default function Contacto() {
     }
 
     const enviarFormulario = () => {
-        fetch('http://localhost:8080/api/procesarFormulario', {
+        fetch(`${backend}/api/procesarFormulario`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './contextLogin';
+import { useVariables } from './contextVariables';
 
 const DireccionContext = createContext();
 
@@ -8,6 +9,8 @@ function useDireccion() {
 }
 
 function DireccionProvider({ children }) {
+    const {backend} = useVariables();
+
     const {
         state,
         setErrorMessage
@@ -23,7 +26,7 @@ function DireccionProvider({ children }) {
 
     const obtenerDireccionUsuario = () => {
         if (state.logueado) {
-            fetch(`http://localhost:8080/api/direcciones/${state.userInfo.email}`, {
+            fetch(`${backend}/api/direcciones/${state.userInfo.email}`, {
                 method: 'GET',
                 credentials: 'include',
             })

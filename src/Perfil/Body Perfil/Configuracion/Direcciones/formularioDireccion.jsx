@@ -2,8 +2,11 @@ import './formularioDireccion.css'
 import { useDireccion } from "../../../../contextDireccion";
 import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from "../../../../contextConfiguracion";
+import { useVariables } from '../../../../contextVariables';
 
 export default function FormularioDireccion() {
+    const { backend } = useVariables();
+
     const {
         setDireccionConfirmada,
         calle,
@@ -28,7 +31,7 @@ export default function FormularioDireccion() {
 
     const handleEnviarDireccion = () => {
         setDireccionConfirmada(true);
-        fetch('http://localhost:8080/api/direcciones', {
+        fetch(`${backend}/api/direcciones`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

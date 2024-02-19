@@ -2,15 +2,13 @@ import './confirmacionCodigo.css';
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contextLogin';
+import { useVariables } from '../../contextVariables';
 
 export default function ConfirmacionCodigo() {
-  const [codigoConfirmacion, setCodigoConfirmacion] = useState('');
-  const [mensajeRespuesta, setMensajeRespuesta] = useState('');
-  const [error, setError] = useState('');
   const { state: userData, updateEmailConfirmationStatus } = useAuth();
-  const [isResendButtonEnabled, setResendButtonEnabled] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [advertencia, setAdvertencia] = useState('');
+
+  const { backend } = useVariables();
+
   const {
     tokenCookie,
     setMostrarErrorCodigoConfirmacion,
@@ -18,13 +16,20 @@ export default function ConfirmacionCodigo() {
   } = useAuth();
   let timer;
 
+  const [codigoConfirmacion, setCodigoConfirmacion] = useState('');
+  const [mensajeRespuesta, setMensajeRespuesta] = useState('');
+  const [error, setError] = useState('');
+  const [isResendButtonEnabled, setResendButtonEnabled] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [advertencia, setAdvertencia] = useState('');
+  
   useEffect(() => {
     return () => clearInterval(timer);
   }, [timer]);
 
   const enviarCodigo = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/confirmacionCodigo', {
+      const response = await fetch(`${backend}/api/confirmacionCodigo`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +60,7 @@ export default function ConfirmacionCodigo() {
 
   const reenviarCodigo = () => {
 
-    fetch('http://localhost:8080/api/reenviarCodigo', {
+    fetch(`${backend}/api/reenviarCodigo`, {
       method: 'POST',
       headers: {
         'Authorization': tokenCookie

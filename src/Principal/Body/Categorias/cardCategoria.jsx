@@ -5,7 +5,10 @@ import { useTienda } from '../../../contextTienda';
 
 export default function CardCategoria(args) {
     const navigate = useNavigate();
-    const tienda = useTienda();
+    const {
+        setTiposActivos,
+        seleccionarCortinas
+    } = useTienda();
 
     const navegarACategoria = () => {
         navigate('/tienda');
@@ -15,22 +18,22 @@ export default function CardCategoria(args) {
 
         switch (args.cat) {
             case "PERFILES":
-                tienda.setTiposActivos(["PERFIL"]);
+                setTiposActivos(["PERFIL"]);
                 break;
             case "ACCESORIOS":
-                tienda.setTiposActivos(["ACCESORIO"]);
+                setTiposActivos(["ACCESORIO"]);
                 break;
             case "COMPLEMENTOS":
-                tienda.setTiposActivos([""]);
+                setTiposActivos([""]);
                 break;
             case "MÁQUINAS Y HERRAMIENTAS":
-                tienda.setTiposActivos(["MAQUINAS", "HERRAMIENTAS"]);
+                setTiposActivos(["MAQUINAS", "HERRAMIENTAS"]);
                 break;
-            case "CORTNAS":
-                tienda.setTiposActivos([""]);
+            case "CORTINAS":
+                seleccionarCortinas();
                 break;
             case "SOFTWARE":
-                tienda.setTiposActivos([""]);
+                setTiposActivos([""]);
                 break;
         }
     };

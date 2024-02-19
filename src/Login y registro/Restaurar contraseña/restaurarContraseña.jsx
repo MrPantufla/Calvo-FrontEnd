@@ -1,7 +1,10 @@
 import './restaurarContraseña.css';
 import { useState } from 'react';
+import { useVariables } from '../../contextVariables';
 
 export default function RestaurarContraseña() {
+    const { backend } = useVariables();
+    
     const [emailAceptado, setEmailAceptado] = useState(false);
     const [codigoAceptado, setCodigoAceptado] = useState(false);
     const [email, setEmail] = useState('');
@@ -12,7 +15,7 @@ export default function RestaurarContraseña() {
     const [contraseñaCambiada, setContraseñaCambiada] = useState(false);
 
     const enviarEmail = async () => {
-        const response = await fetch('http://localhost:8080/api/restaurarContraseña', {
+        const response = await fetch(`${backend}/api/restaurarContraseña`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +59,7 @@ export default function RestaurarContraseña() {
     }
 
     const verificarCodigo = async () => {
-        const response = await fetch('http://localhost:8080/api/verificarCodigoRestaurarContraseña', {
+        const response = await fetch(`${backend}/api/verificarCodigoRestaurarContraseña`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +79,7 @@ export default function RestaurarContraseña() {
     }
 
     const cambiarContraseña = async () => {
-        const response = await fetch('http://localhost:8080/api/cambiarContraseña', {
+        const response = await fetch(`${backend}/api/cambiarContraseña`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

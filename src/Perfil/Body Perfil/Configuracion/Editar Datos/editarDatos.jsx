@@ -2,8 +2,10 @@ import './editarDatos.css';
 import { useAuth } from '../../../../contextLogin';
 import { useState, useEffect } from 'react';
 import { useConfiguracion } from '../../../../contextConfiguracion';
+import { useVariables } from '../../../../contextVariables';
 
 export default function EditarDatos() {
+    const { backend } = useVariables();
 
     const {state} = useAuth();
 
@@ -31,7 +33,7 @@ export default function EditarDatos() {
 
     const confirmarEditarDatos = () => {
 
-        fetch('http://localhost:8080/api/editarDatos', {
+        fetch(`${backend}/api/editarDatos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

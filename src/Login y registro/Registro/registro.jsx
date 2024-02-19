@@ -1,8 +1,11 @@
 import './registro.css';
 import { useState } from 'react';
 import { useAuth } from '../../contextLogin';
+import { useVariables } from '../../contextVariables';
 
 export default function Registro() {
+    const { backend } = useVariables();
+
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
@@ -37,7 +40,7 @@ export default function Registro() {
     };
 
     const confirmarRegistro = async () => {
-        const response = await fetch('http://localhost:8080/api/registro', {
+        const response = await fetch(`${backend}/api/registro`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

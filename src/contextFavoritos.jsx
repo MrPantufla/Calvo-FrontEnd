@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './contextLogin';
+import { useVariables } from './contextVariables';
 
 const FavoritosContext = createContext();
 
@@ -8,6 +9,8 @@ function useFavoritos() {
 }
 
 function FavoritosProvider({ children }) {
+  const {backend} = useVariables();
+
   const {state} = useAuth();
 
   const [favoritos, setFavoritos] = useState([]);
@@ -56,7 +59,7 @@ function FavoritosProvider({ children }) {
     const listaFavoritos = [...favoritos];
     const listaFavoritosString = listaFavoritos.join(' ');
 
-    fetch('http://localhost:8080/api/actualizarFavoritos', {
+    fetch(`${backend}/api/actualizarFavoritos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/text',

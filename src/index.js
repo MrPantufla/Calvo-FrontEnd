@@ -8,16 +8,19 @@ import { CarritoProvider } from './contextCarrito.jsx';
 import { FavoritosProvider } from './contextFavoritos.jsx';
 import { LoginProvider } from './contextLogin.jsx';
 import { ProductosProvider } from './contextProductos.jsx';
+import { VariablesProvider } from './contextVariables.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ProductosProvider>
-    <LoginProvider>
-      <CarritoProvider>
-        <FavoritosProvider>
-          <App />
-        </FavoritosProvider>
-      </CarritoProvider>
-    </LoginProvider>
-  </ProductosProvider>
+  <VariablesProvider>
+    <ProductosProvider>
+      <LoginProvider>
+        <CarritoProvider>
+          <FavoritosProvider>
+            <App />
+          </FavoritosProvider>
+        </CarritoProvider>
+      </LoginProvider>
+    </ProductosProvider>
+  </VariablesProvider>
 );

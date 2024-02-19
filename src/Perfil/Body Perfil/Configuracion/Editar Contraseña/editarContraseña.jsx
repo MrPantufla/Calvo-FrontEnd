@@ -1,8 +1,11 @@
 import "./editarContraseña.css"
 import { useState } from "react";
 import { useConfiguracion } from '../../../../contextConfiguracion';
+import { useVariables } from "../../../../contextVariables";
 
 export default function EditarContraseña() {
+    const { backend } = useVariables();
+
     const {
         setErrorMessage,
         cerrarContraseña,
@@ -37,7 +40,7 @@ export default function EditarContraseña() {
 
     const confirmarEditarContraseña = () => {
 
-        fetch('http://localhost:8080/api/editarContraseña', {
+        fetch(`${backend}/api/editarContraseña`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

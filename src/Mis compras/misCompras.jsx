@@ -9,8 +9,11 @@ import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import BotonPagos from '../Ventas/Confirmar compra/Pagos/botonPagos.jsx';
 import Pagos from '../Ventas/Confirmar compra/Pagos/pagos.jsx';
+import { useVariables } from '../contextVariables.jsx';
 
 export default function MisCompras() {
+    const { backend } = useVariables();
+
     const {
         isFold,
         isMobile,
@@ -49,7 +52,7 @@ export default function MisCompras() {
         const fetchData = async () => {
             try {
                 if (state.logueado) {
-                    const response = await fetch('http://localhost:8080/api/misCompras', {
+                    const response = await fetch(`${backend}/api/misCompras`, {
                         method: 'POST',
                         headers: {
                         },

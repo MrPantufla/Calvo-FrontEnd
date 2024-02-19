@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './contextLogin';
+import { useVariables } from './contextVariables';
 
 const CortinasContext = createContext();
 
@@ -8,6 +9,7 @@ function useCortinas() {
 }
 
 function ProviderCortinas({ children }) {
+    const {backend} = useVariables();
 
     const {state} = useAuth();
     
@@ -111,7 +113,7 @@ function ProviderCortinas({ children }) {
 
         console.log("ENVIANDO CORTINA")
 
-        fetch('http://localhost:8080/api/recibirCortina', {
+        fetch(`${backend}/api/recibirCortina`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

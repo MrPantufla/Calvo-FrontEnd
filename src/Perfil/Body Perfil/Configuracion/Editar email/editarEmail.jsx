@@ -4,8 +4,11 @@ import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useFavoritos } from "../../../../contextFavoritos";
 import { useNavigate } from 'react-router-dom';
+import { useVariables } from "../../../../contextVariables";
 
 export default function EditarEmail() {
+    const { backend } = useVariables();
+
     const navigate = useNavigate();
 
     const {
@@ -47,7 +50,7 @@ export default function EditarEmail() {
     }
 
     const corroborarEmail = () => {
-        fetch('http://localhost:8080/api/corroborarEmail', {
+        fetch(`${backend}/api/corroborarEmail`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +86,7 @@ export default function EditarEmail() {
     }
 
     const enviarCodigo = (args) => {
-        fetch('http://localhost:8080/api/codigoEmail', {
+        fetch(`${backend}/api/codigoEmail`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,7 +124,7 @@ export default function EditarEmail() {
     }
 
     const verificarCodigo = (args) => {
-        fetch('http://localhost:8080/api/verificarCodigoEditarEmail', {
+        fetch(`${backend}/api/verificarCodigoEditarEmail`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -169,7 +172,7 @@ export default function EditarEmail() {
     };
 
     const confirmarCambio = (args) => {
-        fetch('http://localhost:8080/api/confirmarCambio', {
+        fetch(`${backend}/api/confirmarCambio`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

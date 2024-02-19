@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import { useVariables } from './contextVariables';
 
 const ProductosContext = createContext();
 
@@ -7,6 +8,8 @@ function useProductos() {
 }
 
 function ProductosProvider({ children }) {
+    const {backend} = useVariables();
+
     const [precioAscActivo, setPrecioAscActivo] = useState(false);
     const [precioDescActivo, setPrecioDescActivo] = useState(false);
     const [kgAscActivo, setKgAscActivo] = useState(false);
@@ -20,7 +23,7 @@ function ProductosProvider({ children }) {
 
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/productos`);
+            const response = await fetch(`${backend}/api/productos`);
             if (response.ok) {
                 const productosObtenidos = await response.json();
 

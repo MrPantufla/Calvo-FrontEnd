@@ -13,7 +13,6 @@ export default function Body() {
             <div className="decoracionBody" />
             <div className="decoracionDosBody"/>
             <div className="restoBody">
-
                 <Carrusel />
                 <Banner texto="NUESTROS PRODUCTOS" />
                 <Categorias />
