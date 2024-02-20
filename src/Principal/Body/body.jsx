@@ -3,7 +3,6 @@ import Categorias from './Categorias/categorias.jsx';
 import Banner from './Banner/banner.jsx';
 import InformacionYContacto from './Informacion y contacto/informacionYContacto.jsx';
 import QuienesSomos from './Quienes somos/quienesSomos.jsx';
-import CartelLogout from '../../Logout/cartelLogout.jsx';
 import './body.css';
 
 export default function Body() {
