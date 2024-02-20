@@ -15,6 +15,7 @@ function TiendaProvider({ children }) {
   const [isFold, setIsFold] = useState(window.innerWidth <= 280);
   const [mostrarPagos, setMostrarPagos] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
+  const [eliminadosSelected, setEliminadosSelected] = useState(false);
   const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.6);
 
   useEffect(() => {
@@ -52,13 +53,20 @@ function TiendaProvider({ children }) {
     };
   }, []);
 
+  const seleccionarEliminados = () =>{
+    setTiposActivos([]);
+    setCortinasSelected(false);
+    setEliminadosSelected(!eliminadosSelected);
+  }
+
   const limpiarColoresActivos = () => {
     setColoresActivos([]);
   }
 
   const seleccionarCortinas = () => {
     setTiposActivos([]);
-    setCortinasSelected(true);
+    setEliminadosSelected(false);
+    setCortinasSelected(!cortinasSelected);
   }
 
   return (
@@ -78,7 +86,10 @@ function TiendaProvider({ children }) {
       coloresActivos,
       setColoresActivos,
       busquedaYFiltrosTop,
-      setBusquedaYFiltrosTop
+      setBusquedaYFiltrosTop,
+      eliminadosSelected,
+      setEliminadosSelected,
+      seleccionarEliminados
     }}>
       {children}
     </TiendaContext.Provider>

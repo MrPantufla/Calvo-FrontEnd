@@ -23,6 +23,14 @@ function ProductosProvider({ children }) {
     
     const nuevosColores = new Set();
 
+    const eliminarORestaurarProductos = (producto) => {
+        if (productosEliminados.includes(producto)) {
+            setProductosEliminados(productosEliminados.filter(id => id !== producto));
+        } else {
+            setProductosEliminados([...productosEliminados, producto]);
+        }
+    }
+
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
         try {
             const response = await fetch(`${backend}/api/productos`);
@@ -173,7 +181,9 @@ function ProductosProvider({ children }) {
             setOrdenamientoActivo,
             obtenerProductosFiltrados,
             coloresArray,
-            cerrarOrdenamientos
+            cerrarOrdenamientos,
+            productosEliminados,
+            eliminarORestaurarProductos
         }}>
             {children}
         </ProductosContext.Provider>

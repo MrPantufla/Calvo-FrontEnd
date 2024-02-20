@@ -9,30 +9,38 @@ import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
 import { useCarrito } from '../../contextCarrito';
 import Cortinas from './Cortinas/cortinas';
+import { useAuth } from '../../contextLogin';
+import Eliminados from './Eliminados/eliminados';
 
 export default function FiltrosYProductos() {
+  const { state } = useAuth();
+
   const {
     productosIndexado,
-    ordenarProductos
+    ordenarProductos,
+    productosEliminados
   } = useProductos();
 
-  const {setCarritoAbierto} = useCarrito();
+  const { setCarritoAbierto } = useCarrito();
 
   const {
-    seleccionarCortinas, 
-    cortinasSelected, 
-    setCortinasSelected, 
-    isTablet, 
+    seleccionarCortinas,
+    cortinasSelected,
+    setCortinasSelected,
+    isTablet,
     isFold,
-    isMobile, 
-    tiposActivos, 
-    setTiposActivos, 
-    coloresActivos, 
-    setColoresActivos, 
-    limpiarColoresActivos, 
-    productoSeleccionado, 
-    setProductoSeleccionado, 
-    busquedaYFiltrosTop 
+    isMobile,
+    tiposActivos,
+    setTiposActivos,
+    coloresActivos,
+    setColoresActivos,
+    limpiarColoresActivos,
+    productoSeleccionado,
+    setProductoSeleccionado,
+    busquedaYFiltrosTop,
+    eliminadosSelected,
+    setEliminadosSelected,
+    seleccionarEliminados
   } = useTienda();
 
   const [busqueda, setBusqueda] = useState('');
@@ -92,7 +100,8 @@ export default function FiltrosYProductos() {
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
-    return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple;
+    const eliminado = productosEliminados.includes(p);
+    return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
   });
 
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
@@ -115,7 +124,7 @@ export default function FiltrosYProductos() {
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
         <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none', zIndex: isFold ? '103' : '100' }}>
-          <button style={filtrosYBusquedaOpen ? {transform: 'scale(0.95)'} : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
+          <button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
         </div>
         {isTablet ?
           (<>
@@ -163,6 +172,7 @@ export default function FiltrosYProductos() {
                       setPaginaActual(1);
                       limpiarColoresActivos();
                       setCortinasSelected(false);
+                      setEliminadosSelected(false);
                     }}
                     id={tipo_prod + "Id"}
                   />
@@ -197,37 +207,44 @@ export default function FiltrosYProductos() {
                   (<></>)}
               </label>
             ))}
-            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''}`} onClick={() => cortinasSelected ? setCortinasSelected(false) : seleccionarCortinas()}>CORTINAS</div>
+            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
+            {state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''}`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>)}
           </div>
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
 
-          {cortinasSelected ? (<Cortinas />) : (
-            <>
-              <BotonesOrdenamiento onClick={() => paginar(1)} />
-              <div className="row rowProductos">
-                {itemsActuales.map((producto) => (
-                  <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                    <CardProducto
-                      id={producto.id}
-                      cod_orig={producto.cod_orig}
-                      tipo_prod={producto.tipo_prod}
-                      srubro={producto.srubro}
-                      detalle={producto.detalle}
-                      precio={producto.precio}
-                      color={producto.color}
-                      kg={producto.kg}
-                      key={producto.id}
-                      cod_int={producto.cod_int}
-                      onClick={() => {
-                        handleClickProducto(producto);
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+          {cortinasSelected ?
+            (<Cortinas />)
+            :
+            (eliminadosSelected ?
+              (<Eliminados />)
+              :
+              (<>
+                <BotonesOrdenamiento onClick={() => paginar(1)} />
+                <div className="row rowProductos">
+                  {itemsActuales.map((producto) => (
+                    <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                      <CardProducto
+                        id={producto.id}
+                        cod_orig={producto.cod_orig}
+                        tipo_prod={producto.tipo_prod}
+                        srubro={producto.srubro}
+                        detalle={producto.detalle}
+                        precio={producto.precio}
+                        color={producto.color}
+                        kg={producto.kg}
+                        key={producto.id}
+                        cod_int={producto.cod_int}
+                        onClick={() => {
+                          handleClickProducto(producto);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>)
+            )
+          }
         </div>
       </div>
       {productoSeleccionado && (
@@ -243,7 +260,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {cortinasSelected ? (<></>) : (<div className="paginacion">
+      {(cortinasSelected || eliminadosSelected) ? (<></>) : (<div className="paginacion">
         <button
           className="buttonPag paginaExtremo primeraPagina"
           onClick={() => paginar(1)}

@@ -7,7 +7,9 @@ export default function CardCategoria(args) {
     const navigate = useNavigate();
     const {
         setTiposActivos,
-        seleccionarCortinas
+        seleccionarCortinas,
+        setCortinasSelected,
+        setEliminadosSelected
     } = useTienda();
 
     const navegarACategoria = () => {
@@ -18,21 +20,32 @@ export default function CardCategoria(args) {
 
         switch (args.cat) {
             case "PERFILES":
+                setCortinasSelected(false);
+                setEliminadosSelected(false);
                 setTiposActivos(["PERFIL"]);
                 break;
             case "ACCESORIOS":
+                setCortinasSelected(false);
+                setEliminadosSelected(false);
                 setTiposActivos(["ACCESORIO"]);
                 break;
             case "COMPLEMENTOS":
+                setCortinasSelected(false);
+                setEliminadosSelected(false);
                 setTiposActivos([""]);
                 break;
             case "MÁQUINAS Y HERRAMIENTAS":
+                setCortinasSelected(false);
+                setEliminadosSelected(false);
                 setTiposActivos(["MAQUINAS", "HERRAMIENTAS"]);
                 break;
             case "CORTINAS":
                 seleccionarCortinas();
+                setEliminadosSelected(false);
                 break;
             case "SOFTWARE":
+                setCortinasSelected(false);
+                setEliminadosSelected(false);
                 setTiposActivos([""]);
                 break;
         }
