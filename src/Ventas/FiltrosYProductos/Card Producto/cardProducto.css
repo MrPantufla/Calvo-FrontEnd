@@ -218,7 +218,7 @@
     top: 3.5rem;
     border: none;
     cursor: pointer;
-    z-index: 100;
+    z-index: 99;
     transition: transform 0.2s;
 }
 
