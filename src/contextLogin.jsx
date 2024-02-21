@@ -14,7 +14,6 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [mostrarCartelLogin, setMostrarCartelLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [modo, setModo] = useState('usuario');
 
   const [state, setState] = useState({
     logueado: false,
@@ -76,9 +75,8 @@ export const LoginProvider = ({ children }) => {
         },
         credentials: 'include'
       });
-
+      
       if (response.ok) {
-        // En este punto, sabemos que el token es válido porque la respuesta fue exitosa (código 200)
         return true;
       } else {
         console.error('Error al verificar el token en el backend');
@@ -156,6 +154,7 @@ export const LoginProvider = ({ children }) => {
         const userData = await response.json();
         if (userData.cliente) {
           userData.descuentos = await obtenerDescuentos(userData.cuit);
+
         }
         else {
           userData.descuentos = null;
