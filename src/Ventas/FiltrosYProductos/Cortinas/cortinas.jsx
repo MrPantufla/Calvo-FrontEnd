@@ -36,7 +36,7 @@ export default function Cortinas() {
             <div className="parteFormulariosCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
                 <div className="decoracionCortinasContainer">
                     <div className="decoracion decoracionCortinas" >
-                        Consulta tu presupuesto
+                        Solicitá tu presupuesto
                     </div>
                 </div>
 
