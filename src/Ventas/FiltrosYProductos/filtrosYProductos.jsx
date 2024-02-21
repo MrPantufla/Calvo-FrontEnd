@@ -45,7 +45,7 @@ export default function FiltrosYProductos() {
 
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
-  const itemsPorPagina = 21;
+  const itemsPorPagina = 33;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productosIndexado).map((producto) => producto.tipo_prod))];
@@ -100,7 +100,7 @@ export default function FiltrosYProductos() {
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
-    const eliminado = productosEliminados.includes(p);
+    const eliminado = productosEliminados.includes(p.id);
     return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
   });
 
