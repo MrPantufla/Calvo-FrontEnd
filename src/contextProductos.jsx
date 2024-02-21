@@ -8,7 +8,7 @@ function useProductos() {
 }
 
 function ProductosProvider({ children }) {
-    const {backend} = useVariables();
+    const { backend } = useVariables();
 
     const [precioAscActivo, setPrecioAscActivo] = useState(false);
     const [precioDescActivo, setPrecioDescActivo] = useState(false);
@@ -20,14 +20,16 @@ function ProductosProvider({ children }) {
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
-    
+
     const nuevosColores = new Set();
 
     const eliminarORestaurarProductos = (producto) => {
         if (productosEliminados.includes(producto)) {
+            // Si el producto ya está en la lista, lo eliminamos
             setProductosEliminados(productosEliminados.filter(id => id !== producto));
         } else {
-            setProductosEliminados([...productosEliminados, producto]);
+            // Si el producto no está en la lista, creamos una nueva lista con el producto agregado
+            setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, producto]);
         }
     }
 
@@ -63,11 +65,31 @@ function ProductosProvider({ children }) {
                 }, {}));
 
                 setColoresArray([...nuevosColores]);
+                obtenerProductosEliminados();
             } else {
                 console.error('Error al obtener productos filtrados:', response.statusText);
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
+        }
+    };
+
+    const obtenerProductosEliminados = async () => {
+        try {
+            const response = await fetch(`${backend}/api/obtenerProductosEliminados`);
+
+            if (response.ok) {
+                const data = await response.json();
+                setProductosEliminados(data);
+                console.log(typeof(data));
+                return true;
+            } else {
+                console.error('Error');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error desconocido:', error);
+            return false;
         }
     };
 
