@@ -9,7 +9,6 @@ export default function CardEditarUsuario(args) {
     const [telefono, setTelefono] = useState(args.usuario.telefono);
     const [emailConfirmado, setEmailConfirmado] = useState(args.usuario.email_confirmado);
     const [cliente, setCliente] = useState(args.usuario.cliente == true);
-    const [admin, setAdmin] = useState(args.usuario.tipo_usuario == 'admin');
 
     const usuario = {
         id: args.usuario.id,
@@ -20,103 +19,105 @@ export default function CardEditarUsuario(args) {
         telefono: telefono,
         emailConfirmado: emailConfirmado,
         cliente: cliente,
-        admin: (admin == 'admin' ? 'admin' : 'usuario')
     }
 
     return (
-        <form>
-            <label htmlFor='nombre'>
-                Nombre
-                <input
-                    type='text'
-                    id='nombre'
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                >
-                </input>
-            </label>
+        <div className="contenedorPrincipalCardEditarUsuario">
+            <form className="formularioEditarUsuario">
+            <h1>{nombre.toUpperCase()} {apellido.toUpperCase()}</h1>
+                <div className="parteArribaFormularioEditarUsuario">
+                    <label htmlFor='nombre'>
+                        Nombre
+                        <input
+                            className="inputTextoEditarUsuario"
+                            type='text'
+                            id='nombre'
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                        >
+                        </input>
+                    </label>
 
-            <label htmlFor='apellido'>
-                Apellido
-                <input
-                    type='text'
-                    id='apellido'
-                    value={apellido}
-                    onChange={(e) => setApellido(e.target.value)}
-                >
-                </input>
-            </label>
+                    <label htmlFor='apellido'>
+                        Apellido
+                        <input
+                            className="inputTextoEditarUsuario"
+                            type='text'
+                            id='apellido'
+                            value={apellido}
+                            onChange={(e) => setApellido(e.target.value)}
+                        >
+                        </input>
+                    </label>
 
-            <label htmlFor='cuit'>
-                CUIT/CUIL
-                <input
-                    type='text'
-                    id='cuit'
-                    value={cuit}
-                    onChange={(e) => setCuit(e.target.value)}
-                >
-                </input>
-            </label>
+                    <label htmlFor='cuit'>
+                        CUIT/CUIL
+                        <input
+                            className="inputTextoEditarUsuario"
+                            type='text'
+                            id='cuit'
+                            value={cuit}
+                            onChange={(e) => setCuit(e.target.value)}
+                        >
+                        </input>
+                    </label>
+                </div>
 
-            <label htmlFor='email'>
-                Email
-                <input
-                    type='text'
-                    id='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                >
-                </input>
-            </label>
+                <div className="parteAbajoFormularioEditarUsuario">
+                    <label htmlFor='email'>
+                        Email
+                        <input
+                            className="inputTextoEditarUsuario"
+                            type='text'
+                            id='email'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        >
+                        </input>
+                    </label>
 
-            <label htmlFor='telefono'>
-                Telefono
-                <input
-                    type='text'
-                    id='telefono'
-                    value={telefono}
-                    onChange={(e) => setTelefono(e.target.value)}
-                >
-                </input>
-            </label>
+                    <label htmlFor='telefono'>
+                        Telefono
+                        <input
+                            className="inputTextoEditarUsuario"
+                            type='text'
+                            id='telefono'
+                            value={telefono}
+                            onChange={(e) => setTelefono(e.target.value)}
+                        >
+                        </input>
+                    </label>
 
-            <label htmlFor='emailConfirmado'>
-                Email confirmado
-                <input
-                    type='checkBox'
-                    id='emailConfirmado'
-                    checked={emailConfirmado}
-                    onChange={() => setEmailConfirmado(!emailConfirmado)}
-                >
-                </input>
-            </label>
+                    <label htmlFor='emailConfirmado'>
+                        Email confirmado
+                        <input
+                            className="inputCheckboxEditarUsuario"
+                            type='checkBox'
+                            id='emailConfirmado'
+                            checked={emailConfirmado}
+                            onChange={() => setEmailConfirmado(!emailConfirmado)}
+                        >
+                        </input>
+                    </label>
 
-            <label htmlFor='cliente'>
-                Cliente
-                <input
-                    type='checkBox'
-                    id='cliente'
-                    checked={cliente}
-                    onChange={() => setCliente(!cliente)}
-                >
-                </input>
-            </label>
+                    <label htmlFor='cliente'>
+                        Cliente
+                        <input
+                            type='checkBox'
+                            id='cliente'
+                            checked={cliente}
+                            onChange={() => setCliente(!cliente)}
+                        >
+                        </input>
+                    </label>
+                </div>
 
-            <label htmlFor='tipoUsuario'>
-                Administrador
-                <input
-                    type='checkBox'
-                    id='admin'
-                    checked={admin}
-                    disabled={args.usuario.id == 1}
-                    onChange={() => setAdmin(!admin)}
-                >
-                </input>
-            </label>
-
-            <button onClick={() => args.guardar(usuario)}>
-                Guardar
-            </button>
-        </form>
+                <div className="contendorBotonEnviarUsuario">
+                    <button onClick={() => args.guardar(usuario)} className="enviarFormulario ">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
     )
 }

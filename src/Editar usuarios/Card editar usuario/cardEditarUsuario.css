@@ -1,0 +1,52 @@
+.contenedorPrincipalCardEditarUsuario{
+    margin: 3rem 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.formularioEditarUsuario{
+    margin: 2rem 0;
+}
+
+.inputTextoEditarUsuario, .formularioEditarUsuario label{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--colorSecundario);
+}
+
+.formularioEditarUsuario label{
+    margin: 0.5rem 1.5rem;
+}
+
+.formularioEditarUsuario label #cuit{
+    width: 10rem;
+}
+
+.formularioEditarUsuario label #email{
+    width: 20rem;
+}
+
+.formularioEditarUsuario label #telefono{
+    width: 13rem;
+}
+
+.formularioEditarUsuario label #emailConfirmado, .formularioEditarUsuario label #cliente{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.5rem;
+} 
+
+.inputTextoEditarUsuario{
+    height: 3.5rem;
+    margin-left: 1rem;
+    border: 2px solid var(--colorSecundario);
+    padding-left: 0.5rem;
+}
+
+.contendorBotonEnviarUsuario{
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
