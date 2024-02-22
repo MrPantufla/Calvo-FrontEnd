@@ -1,5 +1,5 @@
 import './cartelLogout.css';
-import { useAuth } from '../contextLogin';
+import { useAuth } from '../../contextLogin';
 
 export default function CartelLogout() {
     const {
