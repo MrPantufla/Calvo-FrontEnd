@@ -208,7 +208,7 @@ export default function FiltrosYProductos() {
               </label>
             ))}
             <div className={`labelRubros ${cortinasSelected ? 'checked' : ''}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
-            {state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''}`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>)}
+            {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''}`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
           </div>
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
