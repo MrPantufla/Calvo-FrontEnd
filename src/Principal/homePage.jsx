@@ -3,7 +3,7 @@ import Footer from './Footer/footer.jsx';
 import DesplegablePerfil from './Header/Desplegable perfil/desplegablePerfil.jsx';
 import RenderHeader from './Header/renderHeader.jsx';
 import './homePage.css';
-import CartelLogout from '../Logout/cartelLogout.jsx';
+import CartelLogout from '../Login y registro/Logout/cartelLogout.jsx';
 
 export default function HomePage(){
     return(
