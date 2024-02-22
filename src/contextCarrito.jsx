@@ -17,7 +17,7 @@ function CarritoProvider({ children }) {
     setMostrarLogin
   } = useAuth();
 
-  const {backend} = useVariables();
+  const { backend } = useVariables();
 
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);

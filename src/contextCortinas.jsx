@@ -111,8 +111,6 @@ function ProviderCortinas({ children }) {
             "Email: " + state.userInfo.email
         ;
 
-        console.log("ENVIANDO CORTINA")
-
         fetch(`${backend}/api/recibirCortina`, {
             method: 'POST',
             headers: {
