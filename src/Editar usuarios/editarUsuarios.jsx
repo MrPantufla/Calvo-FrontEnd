@@ -23,8 +23,6 @@ export default function EditarUsuarios() {
             console.log('Envío de datos exitoso');
             return true;
         } else {
-            const data = response.text();
-            console.log('Respuesta (texto): ', data);
             return false;
         }
     }

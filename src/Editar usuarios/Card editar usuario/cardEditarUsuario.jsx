@@ -8,15 +8,18 @@ export default function CardEditarUsuario(args) {
     const [email, setEmail] = useState(args.usuario.email);
     const [telefono, setTelefono] = useState(args.usuario.telefono);
     const [emailConfirmado, setEmailConfirmado] = useState(args.usuario.email_confirmado);
+    const [cliente, setCliente] = useState(args.usuario.cliente == true);
     const [admin, setAdmin] = useState(args.usuario.tipo_usuario == 'admin');
 
     const usuario = {
+        id: args.usuario.id,
         nombre: nombre,
         apellido: apellido,
         cuit: cuit,
         email: email,
         telefono: telefono,
         emailConfirmado: emailConfirmado,
+        cliente: cliente,
         admin: (admin == 'admin' ? 'admin' : 'usuario')
     }
 
@@ -83,7 +86,18 @@ export default function CardEditarUsuario(args) {
                     type='checkBox'
                     id='emailConfirmado'
                     checked={emailConfirmado}
-                    onChange={(e) => setEmailConfirmado(e.target.value)}
+                    onChange={() => setEmailConfirmado(!emailConfirmado)}
+                >
+                </input>
+            </label>
+
+            <label htmlFor='cliente'>
+                Cliente
+                <input
+                    type='checkBox'
+                    id='cliente'
+                    checked={cliente}
+                    onChange={() => setCliente(!cliente)}
                 >
                 </input>
             </label>
@@ -94,7 +108,8 @@ export default function CardEditarUsuario(args) {
                     type='checkBox'
                     id='admin'
                     checked={admin}
-                    onChange={(e) => setAdmin(e.target.value)}
+                    disabled={args.usuario.id == 1}
+                    onChange={() => setAdmin(!admin)}
                 >
                 </input>
             </label>
