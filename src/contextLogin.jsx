@@ -154,7 +154,6 @@ export const LoginProvider = ({ children }) => {
         const userData = await response.json();
         if (userData.cliente) {
           userData.descuentos = await obtenerDescuentos(userData.cuit);
-
         }
         else {
           userData.descuentos = null;
