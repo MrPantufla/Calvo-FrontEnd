@@ -1,7 +1,6 @@
 import Filtros from './FiltrosYProductos/filtrosYProductos';
 import Footer from '../Principal/Footer/footer.jsx';
 import Catalogos from './Catalogos/catalogos.jsx';
-import CartelLogout from '../Logout/cartelLogout.jsx';
 import { useCarrito } from '../contextCarrito.jsx';
 import ConfirmarCompra from './Confirmar compra/confirmarCompra.jsx';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil.jsx';

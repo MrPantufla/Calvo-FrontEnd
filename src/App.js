@@ -10,6 +10,7 @@ import { DireccionProvider } from './contextDireccion.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { DesplegableProviderPerfil } from './contextDesplegablePerfil.jsx';
 import { TiendaProvider } from './contextTienda.jsx';
+import EditarUsuarios from './Editar usuarios/editarUsuarios.jsx';
 import LoginYRegistro from './Login y registro/loginYRegistro.jsx';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                   <Route path="/tienda" element={<Ventas />} />
                   <Route path="/perfil" element={<Perfil />} />
                   <Route path="/misCompras" element={<MisCompras />} />
+                  <Route path="/editarUsuarios" element={<EditarUsuarios />} />
                 </Routes>
               </Router>
               <LoginYRegistro/>

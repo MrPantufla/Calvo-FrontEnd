@@ -1,10 +1,9 @@
 import './desplegablePerfil.css';
 import { useDesplegablePerfil } from '../../../contextDesplegablePerfil';
 import { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contextLogin';
 import { useFavoritos } from '../../../contextFavoritos';
-import { useNavigate } from 'react-router-dom';
 import { useCarrito } from '../../../contextCarrito';
 
 export default function DesplegablePerfil() {
@@ -114,7 +113,7 @@ export default function DesplegablePerfil() {
                     (<>
                         <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink">MI PERFIL</NavLink>
                         <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
-                        {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a>MODO EDICION</a>)) : ''}
+                        {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a onClick={() => navigate("/editarUsuarios")}>EDITAR USUARIOS</a>)) : ''}
                     </>)
                     :
                     (<>
