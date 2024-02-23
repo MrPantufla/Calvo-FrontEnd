@@ -172,6 +172,7 @@ export default function HeaderMobile() {
 
                         {state.logueado ?
                             (<>
+                                {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a className="elemento" onClick={() => navigate("/editarUsuarios")}><p>EDITAR USUARIOS</p></a>)) : ''}
                                 <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink elemento"><p>MI PERFIL</p></NavLink>
                                 <a className="elemento" onClick={handleCerrarSesion} style={{ marginTop: '2.5rem' }}><p>CERRAR SESIÓN</p></a>
                             </>)

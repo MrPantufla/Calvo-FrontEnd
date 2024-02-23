@@ -14,6 +14,7 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [mostrarCartelLogin, setMostrarCartelLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
 
   const [state, setState] = useState({
     logueado: false,
@@ -228,7 +229,9 @@ export const LoginProvider = ({ children }) => {
       mostrarCartelLogout,
       setMostrarCartelLogout,
       mostrarCartelLogin,
-      setMostrarCartelLogin
+      setMostrarCartelLogin,
+      mostrarCartelCliente, 
+      setMostrarCartelCliente
     }}>
       {children}
     </AuthContext.Provider>
