@@ -1,18 +1,36 @@
 .contenedorPrincipalCardEditarUsuario{
-    margin: 3rem 0;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
 .formularioEditarUsuario{
-    margin: 2rem 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
 }
 
 .inputTextoEditarUsuario, .formularioEditarUsuario label{
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--colorSecundario);
+}
+
+.contenedorPartesFormulario{
+    background-color: var(--colorSecundario);
+}
+
+.contenedorPartesFormulario h1{
+    color: white;
+    padding-left: 1.5rem;
+    height: 3rem;
+}
+
+.parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--colorPrimario);
+    height: 4.5rem;
 }
 
 .formularioEditarUsuario label{
@@ -44,9 +62,109 @@
     padding-left: 0.5rem;
 }
 
-.contendorBotonEnviarUsuario{
-    width: 100%;
-    margin-top: 1rem;
+.labelCheckboxEditarUsuario{
     display: flex;
-    justify-content: center;
+    align-items: center;
+}
+
+.contenedorBotonEnviarUsuario{
+    width: 13rem;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--colorSecundario) 0%, var(--colorSecundario) 25%, var(--colorPrimario) 25%, var(--colorPrimario) 100%);
+    padding-right: 1rem;
+}
+
+.contenedorBotonEnviarUsuario button:hover{
+    font-size: 1.4rem;
+}
+
+.parteAbajoFormularioEditarUsuario div:last-child{
+    display: flex;
+}
+
+@media (max-width: 767px){
+    .formularioEditarUsuario{
+        flex-direction: column;
+    }
+
+    .contenedorPartesFormulario h1{
+        height: auto;
+        padding-top: 0.4rem;
+        padding-left: 2.5rem;
+    }
+
+    .parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario{
+        height: auto;
+    }
+
+    .parteAbajoFormularioEditarUsuario{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .parteAbajoFormularioEditarUsuario div:first-child{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .parteAbajoFormularioEditarUsuario div:first-child label{
+        flex-direction: column;
+        display: flex;
+    }
+
+    .contenedorBotonEnviarUsuario{
+        background: none;
+        background-color: var(--colorPrimario);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 1rem;
+        align-items: center;
+    }
+
+    .contenedorBotonEnviarUsuario button{
+        width: 20rem;
+        height: 4rem;
+        margin: 1rem 0;
+    }
+
+    .parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .parteArribaFormularioEditarUsuario label input, .parteAbajoFormularioEditarUsuario label input{
+        height: 4rem;
+        font-size: 1.7rem;
+    }
+
+    .parteArribaFormularioEditarUsuario label, .parteAbajoFormularioEditarUsuario label{
+        font-size: 1.7rem;
+    }
+
+    .inputTextoEditarUsuario{
+        margin: 0;
+    }
+
+    .labelCheckboxEditarUsuario{
+        display: inline;
+    }
+
+    .formularioEditarUsuario label #emailConfirmado, .formularioEditarUsuario label #cliente{
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+    .formularioEditarUsuario label #cuit{
+        width: 13rem;
+    }
+
+    .formularioEditarUsuario label #apellido{
+        width: 15rem;
+    }
+
+    .formularioEditarUsuario label #email{
+        width: 25rem;
+    }
 }

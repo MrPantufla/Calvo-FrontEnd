@@ -24,96 +24,101 @@ export default function CardEditarUsuario(args) {
     return (
         <div className="contenedorPrincipalCardEditarUsuario">
             <form className="formularioEditarUsuario">
-            <h1>{nombre.toUpperCase()} {apellido.toUpperCase()}</h1>
-                <div className="parteArribaFormularioEditarUsuario">
-                    <label htmlFor='nombre'>
-                        Nombre
-                        <input
-                            className="inputTextoEditarUsuario"
-                            type='text'
-                            id='nombre'
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                        >
-                        </input>
-                    </label>
+                <div className="contenedorPartesFormulario">
+                    <h1>{args.usuario.nombre} {args.usuario.apellido}</h1>
+                    <div className="parteArribaFormularioEditarUsuario">
+                        <label htmlFor='nombre'>
+                            Nombre
+                            <input
+                                className="inputTextoEditarUsuario"
+                                type='text'
+                                id='nombre'
+                                value={nombre}
+                                onChange={(e) => setNombre(e.target.value)}
+                            >
+                            </input>
+                        </label>
 
-                    <label htmlFor='apellido'>
-                        Apellido
-                        <input
-                            className="inputTextoEditarUsuario"
-                            type='text'
-                            id='apellido'
-                            value={apellido}
-                            onChange={(e) => setApellido(e.target.value)}
-                        >
-                        </input>
-                    </label>
+                        <label htmlFor='apellido'>
+                            Apellido
+                            <input
+                                className="inputTextoEditarUsuario"
+                                type='text'
+                                id='apellido'
+                                value={apellido}
+                                onChange={(e) => setApellido(e.target.value)}
+                            >
+                            </input>
+                        </label>
 
-                    <label htmlFor='cuit'>
-                        CUIT/CUIL
-                        <input
-                            className="inputTextoEditarUsuario"
-                            type='text'
-                            id='cuit'
-                            value={cuit}
-                            onChange={(e) => setCuit(e.target.value)}
-                        >
-                        </input>
-                    </label>
+                        <label htmlFor='cuit'>
+                            CUIT/CUIL
+                            <input
+                                className="inputTextoEditarUsuario"
+                                type='text'
+                                id='cuit'
+                                value={cuit}
+                                onChange={(e) => setCuit(e.target.value)}
+                            >
+                            </input>
+                        </label>
+                    </div>
+
+                    <div className="parteAbajoFormularioEditarUsuario">
+                        <div>
+                            <label htmlFor='email'>
+                                Email
+                                <input
+                                    className="inputTextoEditarUsuario"
+                                    type='text'
+                                    id='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                >
+                                </input>
+                            </label>
+
+                            <label htmlFor='telefono'>
+                                Telefono
+                                <input
+                                    className="inputTextoEditarUsuario"
+                                    type='text'
+                                    id='telefono'
+                                    value={telefono}
+                                    onChange={(e) => setTelefono(e.target.value)}
+                                >
+                                </input>
+                            </label>
+                        </div>
+                        <div>
+                            <label htmlFor='emailConfirmado' className="labelCheckboxEditarUsuario">
+                                Email confirmado
+                                <input
+                                    className="inputCheckboxEditarUsuario"
+                                    type='checkBox'
+                                    id='emailConfirmado'
+                                    checked={emailConfirmado}
+                                    onChange={() => setEmailConfirmado(!emailConfirmado)}
+                                >
+                                </input>
+                            </label>
+
+                            <label htmlFor='cliente' className="labelCheckboxEditarUsuario">
+                                Cliente
+                                <input
+                                    type='checkBox'
+                                    id='cliente'
+                                    checked={cliente}
+                                    onChange={() => setCliente(!cliente)}
+                                >
+                                </input>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="parteAbajoFormularioEditarUsuario">
-                    <label htmlFor='email'>
-                        Email
-                        <input
-                            className="inputTextoEditarUsuario"
-                            type='text'
-                            id='email'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        >
-                        </input>
-                    </label>
-
-                    <label htmlFor='telefono'>
-                        Telefono
-                        <input
-                            className="inputTextoEditarUsuario"
-                            type='text'
-                            id='telefono'
-                            value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
-                        >
-                        </input>
-                    </label>
-
-                    <label htmlFor='emailConfirmado'>
-                        Email confirmado
-                        <input
-                            className="inputCheckboxEditarUsuario"
-                            type='checkBox'
-                            id='emailConfirmado'
-                            checked={emailConfirmado}
-                            onChange={() => setEmailConfirmado(!emailConfirmado)}
-                        >
-                        </input>
-                    </label>
-
-                    <label htmlFor='cliente'>
-                        Cliente
-                        <input
-                            type='checkBox'
-                            id='cliente'
-                            checked={cliente}
-                            onChange={() => setCliente(!cliente)}
-                        >
-                        </input>
-                    </label>
-                </div>
-
-                <div className="contendorBotonEnviarUsuario">
-                    <button onClick={() => args.guardar(usuario)} className="enviarFormulario ">
+                <div className="contenedorBotonEnviarUsuario">
+                    <button onClick={(e) => args.guardar(usuario)} className="enviarFormulario ">
                         Guardar
                     </button>
                 </div>
