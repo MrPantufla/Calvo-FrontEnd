@@ -12,7 +12,9 @@ export default function ConfirmacionCodigo() {
   const {
     tokenCookie,
     setMostrarErrorCodigoConfirmacion,
-    setMostrarLogin
+    setMostrarLogin,
+    setMostrarCartelCliente,
+    state
   } = useAuth();
   let timer;
 
@@ -45,6 +47,7 @@ export default function ConfirmacionCodigo() {
       if (response.ok) {
         const data = await response.text();
         setMostrarLogin(false);
+        {state.userInfo && (state.userInfo.cliente == false && setMostrarCartelCliente(true))};
         setMensajeRespuesta(data.message);
         updateEmailConfirmationStatus();
       } else {
