@@ -97,7 +97,7 @@ export default function Header() {
   window.addEventListener('load', handleResize);
 
   return (
-    <div className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
+    <header className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
       <div className="decoracionGris decoracionHeader" style={decoracionStyle}>
         <div className="decoracionRoja decoracionHeader" style={decoracionStyle} />
       </div>
@@ -158,6 +158,6 @@ export default function Header() {
           }
         </div>
       </div>
-    </div >
+    </header >
   );
 }

@@ -111,7 +111,7 @@ export default function HeaderMobile() {
     }
 
     return (
-        <div className="containerGeneralHeaderMobile">
+        <header className="containerGeneralHeaderMobile">
             <div className="containerBotonYLogoMobile">
                 <div className="containerBotonMobile">
                     <button className="botonHeader" id="toggleHeaderButton" onClick={toggleMenu}>
@@ -186,6 +186,6 @@ export default function HeaderMobile() {
 
                 </div>
             </div>
-        </div>
+        </header>
     );
 }

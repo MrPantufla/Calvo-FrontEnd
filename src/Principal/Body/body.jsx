@@ -8,7 +8,7 @@ import './body.css';
 export default function Body() {
 
     return (
-        <div className="contenedorPrincipalBody">
+        <body className="contenedorPrincipalBody">
             <div className="decoracionBody" />
             <div className="decoracionDosBody"/>
             <div className="restoBody">
@@ -20,6 +20,6 @@ export default function Body() {
                 <Banner id="contacto" texto="CONTACTANOS" />
                 <InformacionYContacto />
             </div>
-        </div>
+        </body>
     );
 }
