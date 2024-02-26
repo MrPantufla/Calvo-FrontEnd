@@ -73,10 +73,31 @@
     align-items: center;
     background: linear-gradient(to bottom, var(--colorSecundario) 0%, var(--colorSecundario) 25%, var(--colorPrimario) 25%, var(--colorPrimario) 100%);
     padding-right: 1rem;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .contenedorBotonEnviarUsuario button:hover{
     font-size: 1.4rem;
+    transform: scale(1);
+}
+
+.contenedorBotonEnviarUsuario button:first-of-type{
+    margin-top: 2rem;
+}
+
+.contenedorBotonEnviarUsuario button:last-of-type{
+    margin-top: 1rem;
+    background-color: var(--colorCuaternario);
+}
+
+.contenedorBotonEnviarUsuario button:active{
+    transform: scale(0.97);
+}
+
+.contenedorBotonEnviarUsuario .enviarFormulario{
+    width: 90%;
+    display: inline;
 }
 
 .parteAbajoFormularioEditarUsuario div:last-child{
@@ -121,12 +142,14 @@
         justify-content: center;
         padding-bottom: 1rem;
         align-items: center;
+        flex-direction: row;
     }
 
     .contenedorBotonEnviarUsuario button{
-        width: 20rem;
+        width: 20rem !important;
         height: 4rem;
-        margin: 1rem 0;
+        margin: 1rem 1rem !important;
+        transition: transform 0.2s;
     }
 
     .parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario{

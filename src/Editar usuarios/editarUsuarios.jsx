@@ -28,6 +28,24 @@ export default function EditarUsuarios() {
         }
     }
 
+    const eliminarUsuario = (usuario) => {
+        const response = fetch(`${backend}/api/eliminarUsuario`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuario),
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            console.log('Envío de datos exitoso');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     const obtenerUsuarios = async () => {
         try {
             const response = await fetch(`${backend}/api/usuarios`, {
@@ -96,7 +114,7 @@ export default function EditarUsuarios() {
 
             <div className="bodyEditarUsuarios">
                 {usuariosFiltrada.map(usuario => (
-                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario} guardar={modificarUsuario} />
+                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario} guardar={modificarUsuario} eliminar={eliminarUsuario}/>
                 ))}
             </div>
         </div>

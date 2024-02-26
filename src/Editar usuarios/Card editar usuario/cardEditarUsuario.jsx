@@ -9,6 +9,7 @@ export default function CardEditarUsuario(args) {
     const [telefono, setTelefono] = useState(args.usuario.telefono);
     const [emailConfirmado, setEmailConfirmado] = useState(args.usuario.email_confirmado);
     const [cliente, setCliente] = useState(args.usuario.cliente == true);
+    const [eliminar, setEliminar] = useState(false);
 
     const usuario = {
         id: args.usuario.id,
@@ -19,6 +20,11 @@ export default function CardEditarUsuario(args) {
         telefono: telefono,
         emailConfirmado: emailConfirmado,
         cliente: cliente,
+    }
+
+    const toggleEliminar = (e) => {
+        e.preventDefault();
+        setEliminar(!eliminar);
     }
 
     return (
@@ -118,9 +124,25 @@ export default function CardEditarUsuario(args) {
                 </div>
 
                 <div className="contenedorBotonEnviarUsuario">
-                    <button onClick={(e) => args.guardar(usuario)} className="enviarFormulario ">
-                        Guardar
-                    </button>
+                    {eliminar === true ?
+                        (<>
+                            <button className="enviarFormulario" onClick={() => args.eliminar(usuario)} >
+                                ELIMINAR
+                            </button>
+                            <button className="enviarFormulario segundoBoton" onClick={toggleEliminar}>
+                                Cancelar
+                            </button>
+                        </>)
+                        :
+                        (<>
+                            <button type="button" onClick={() => args.guardar(usuario)} className="enviarFormulario ">
+                                Guardar
+                            </button>
+                            <button type="button" className="enviarFormulario segundoBoton" onClick={toggleEliminar}>
+                                Eliminar
+                            </button>
+                        </>)
+                    }
                 </div>
             </form>
         </div>
