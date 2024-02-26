@@ -16,3 +16,7 @@
 .contenedorBusquedaEIconoEditarUsuarios .busquedaEIcono{
     width: 65.6%;
 }
+
+.contenedorBusquedaEIconoEditarUsuarios .busquedaEIcono .lupaContainer{
+    width: 11%;
+}
