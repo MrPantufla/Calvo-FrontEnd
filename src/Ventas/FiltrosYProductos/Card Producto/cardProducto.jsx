@@ -12,7 +12,6 @@ export default function CardProducto(args) {
 
   const {
     eliminarORestaurarProductos,
-    productosIndexado
   } = useProductos();
 
   const {
@@ -97,7 +96,6 @@ export default function CardProducto(args) {
       console.log(response);
 
       if (response.ok) {
-        const data = await response.text();
         eliminarORestaurarProductos(args.id);
         return true;
       } else {
