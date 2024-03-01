@@ -157,6 +157,12 @@
     cursor: pointer;
 }
 
+.divSubirArchivo{
+    position: absolute;
+    z-index: 999999;
+    left: 1rem;
+}
+
 @media (max-width: 4096px){
     .seccion p{
         font-size: 1.7rem;
