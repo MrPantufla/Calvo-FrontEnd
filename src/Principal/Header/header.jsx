@@ -8,6 +8,7 @@ import Carrito from '../../Ventas/Carrito/carrito';
 import Favoritos from '../../Ventas/Favoritos/favoritos';
 import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
 import { useTienda } from '../../contextTienda';
+import { useVariables } from '../../contextVariables';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -15,8 +16,9 @@ export default function Header() {
   const location = useLocation();
   const desplegableCatalogos = useDesplegableCatalogos();
   const desplegablePerfil = useDesplegablePerfil();
+  const { backend } = useVariables();
 
-  const {mobile} = useTienda();
+  const { mobile } = useTienda();
 
   const {
     state,
@@ -95,6 +97,32 @@ export default function Header() {
 
   window.addEventListener("resize", handleResize);
   window.addEventListener('load', handleResize);
+  //-------------------------------------------------------------------------------------
+  const enviarImagen = async (archivo) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', archivo);
+  
+      const response = await fetch(`${backend}/api/subirImagen`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      });
+      
+      console.log(response)
+    } catch (error) {
+      console.error('Error al intentar iniciar sesión:', error);
+      return false;
+    }
+  };
+  
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    enviarImagen(file);
+    console.log('Archivo seleccionado:', file);
+  };
+
 
   return (
     <header className="container-fluid px-0 contenedorPrincipalHeader" id="header" style={headerStyle}>
@@ -156,6 +184,10 @@ export default function Header() {
             :
             (<></>)
           }
+          <div className="divSubirArchivo">
+            <label htmlFor="archivo">Subir archivo</label>
+            <input id="archivo" type="file" onChange={handleFileUpload} />
+          </div>
         </div>
       </div>
     </header >
