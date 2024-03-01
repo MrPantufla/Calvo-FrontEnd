@@ -21,25 +21,45 @@ export default function Carrusel() {
 
   const intervalo = state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? null : 2500) : 2500;
 
-  const obtenerUsuarios = async () => {
+  const obtenerImagenes = async () => {
     try {
-        const response = await fetch(`${backend}/api/imagenes`, {
-            credentials: 'include'
-        });
+      const response = await fetch(`${backend}/api/obtenerImagenes`, {
+        credentials: 'include'
+      });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            return data;
-        } else {
-            console.error('Error en la solicitud:', response.status);
-            return null;
-        }
-    } catch (error) {
-        console.error('Error desconocido:', error);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } else {
+        console.error('Error en la solicitud:', response.status);
         return null;
+      }
+    } catch (error) {
+      console.error('Error desconocido:', error);
+      return null;
     }
-};
+  };
+
+  const guardarOEliminarImagen = async () =>{
+    try {
+      const response = await fetch(`${backend}/api/guardarOEliminarImagen`, {
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } else {
+        console.error('Error en la solicitud:', response.status);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error desconocido:', error);
+      return null;
+    }
+  }
 
   return (
     <div className="container">
