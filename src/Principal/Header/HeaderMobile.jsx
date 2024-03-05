@@ -63,7 +63,7 @@ export default function HeaderMobile() {
     }
 
     const handleCerrarSesion = async () => {
-        navigate('/home');
+        navigate('/');
         logout();
         setFavoritos('');
         limpiarCarrito();
@@ -102,11 +102,11 @@ export default function HeaderMobile() {
     }
 
     function recargarPagina() {
-        if (window.location.href.includes("/home")) {
+        if (window.location.href.includes("/")) {
             window.location.reload();
         }
         else {
-            window.location.href = '/home';
+            window.location.href = '/';
         }
     }
 
@@ -132,13 +132,13 @@ export default function HeaderMobile() {
                         <img src={calvoNegativo} />
                     </div>
                     <div className="elementosMenu">
-                        <NavLink to="/home" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
+                        <NavLink to="/" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
                             <p>INICIO</p>
                         </NavLink>
                         <NavLink to="/tienda" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>
                             <p>TIENDA</p>
                         </NavLink>
-                        {location.pathname === "/home" ? (
+                        {location.pathname === "/" ? (
                             <>
                                 <a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
                                     <p>QUIÉNES SOMOS</p>

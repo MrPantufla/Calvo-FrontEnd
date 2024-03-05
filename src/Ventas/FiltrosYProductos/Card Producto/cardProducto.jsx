@@ -27,6 +27,8 @@ export default function CardProducto(args) {
     elementos: elementosCarrito
   } = useCarrito();
 
+  const mayorista =state.userInfo ? (state.userInfo.categoria=='MAYORISTA') : (false); 
+
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
   const colorCorregido = (args.color).replace(/\s+/g, '-');
@@ -196,7 +198,7 @@ export default function CardProducto(args) {
         </div>
       </div>
       <div className="precioContainerCardProducto">
-        <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? ("PRECIO APROXIMADO: $") : ("PRECIO: $")}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
+        <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
       </div>
     </div>
   );

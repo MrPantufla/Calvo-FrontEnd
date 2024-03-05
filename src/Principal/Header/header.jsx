@@ -54,11 +54,11 @@ export default function Header() {
   }, []);
 
   function recargarPagina() {
-    if (window.location.href.includes("/home")) {
+    if (window.location.href.includes("/")) {
       window.location.reload();
     }
     else {
-      window.location.href = '/home';
+      window.location.href = '/';
     }
   }
 
@@ -134,13 +134,13 @@ export default function Header() {
           <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
         </div>
         <div className="col-12 col-sm-8 secciones columnas" style={{ paddingRight: location.pathname === '/tienda' ? '11rem' : '0' }}>
-          <NavLink to="/home" className="seccion" onClick={handleInicioClick}>
+          <NavLink to="/" className="seccion" onClick={handleInicioClick}>
             <p>INICIO</p>
           </NavLink>
           <NavLink to="/tienda" className="seccion" onClick={handleInicioClick}>
             <p>TIENDA</p>
           </NavLink>
-          {location.pathname === '/home' ?
+          {location.pathname === '/' ?
             (<a href="#quienesSomos" className="seccion">
               <p>QUIÉNES SOMOS</p>
             </a>)
@@ -148,7 +148,7 @@ export default function Header() {
             <a className="seccion  misCompras" onClick={state.logueado ? () => navigate("/misCompras") : () => setMostrarLogin(true)}>
               <p>MIS COMPRAS</p>
             </a>}
-          {location.pathname === '/home' ?
+          {location.pathname === '/' ?
             (<a href="#contacto" className="seccion">
               <p>CONTACTO</p>
             </a>)

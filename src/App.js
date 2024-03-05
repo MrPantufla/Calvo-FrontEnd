@@ -23,7 +23,7 @@ function App() {
             <DesplegableProviderPerfil>
               <Router>
                 <Routes>
-                  <Route path="/home" element={<HomePage />} />
+                  <Route path="/" element={<HomePage />} />
                   <Route path="/tienda" element={<Ventas />} />
                   <Route path="/perfil" element={<Perfil />} />
                   <Route path="/misCompras" element={<MisCompras />} />
