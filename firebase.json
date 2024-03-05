@@ -4,10 +4,7 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      "**/*.log",
-      "folderToIgnore/",
-      "fileToIgnore.js"
+      "**/node_modules/**"
     ],
     "rewrites": [
       {
@@ -15,6 +12,8 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }
-
