@@ -55,7 +55,7 @@ export default function DesplegablePerfil() {
     }
 
     const handleCerrarSesion = async () => {
-        navigate('/home');
+        navigate('/');
         logout();
         setFavoritos('');
         limpiarCarrito();
