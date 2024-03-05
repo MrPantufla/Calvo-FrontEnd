@@ -22,8 +22,7 @@ export default function Login() {
     setPassword('');
   }, [mostrarLogin])
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
+  const handleLoginSubmit = async () => {
     const loginForm = document.querySelector('#formularioLogin');
     const emailValue = loginForm.querySelector('#email').value;
     const passwordValue = loginForm.querySelector('#password').value;
@@ -78,7 +77,7 @@ export default function Login() {
           <a className="olvideMiContraseña" onClick={() => setOpcionSeleccionada('restaurarContraseña')}>Olvidé mi contraseña</a>
         </div>
         <div className="botonLoginContainer">
-          <button className="botonEnviarLogin" id="botonLogin" onClick={handleLoginSubmit}>
+          <button className="botonEnviarLogin" type="button" id="botonLogin" onClick={handleLoginSubmit}>
             Ingresar
           </button>
         </div>
