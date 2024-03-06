@@ -95,8 +95,6 @@ export default function CardProducto(args) {
         credentials: 'include',
       });
 
-      console.log(response);
-
       if (response.ok) {
         eliminarORestaurarProductos(args.id);
         return true;
@@ -109,7 +107,6 @@ export default function CardProducto(args) {
       return false;
     }
   };
-
 
   return (
     <div className="contenedorPrincipalCardProducto" >
