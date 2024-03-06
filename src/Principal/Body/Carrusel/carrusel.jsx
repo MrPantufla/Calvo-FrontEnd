@@ -3,49 +3,22 @@ import './carrusel.css';
 import Carousel from 'react-bootstrap/Carousel';
 import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
-
-function importAll(r) {
-  let images = {};
-  r.keys().map((item) => { images[item.replace('./', '')] = r(item); });
-  return images;
-}
-
-const images = importAll(require.context('../../../Imagenes/ImagenesCarrusel/', false, /\.(png|jpe?g|svg)$/));
-
-const imageKeys = Object.keys(images);
+import { useEffect, useState } from 'react';
 
 export default function Carrusel() {
+  const [listaImagenes, setListaImagenes] = useState([]);
+
   const { state } = useAuth();
 
   const { backend } = useVariables();
 
   const intervalo = state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? null : 2500) : 2500;
 
-  const obtenerImagenes = async () => {
-    try {
-      const response = await fetch(`${backend}/api/obtenerImagenes`, {
-        credentials: 'include'
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        return data;
-      } else {
-        console.error('Error en la solicitud:', response.status);
-        return null;
-      }
-    } catch (error) {
-      console.error('Error desconocido:', error);
-      return null;
-    }
-  };
-
   const enviarImagen = async (archivo) => {
     try {
       const formData = new FormData();
       formData.append('file', archivo);
-      formData.append('carpeta', "Imagenes carrusel");
+      formData.append('carpeta', "imagenesCarrusel");
 
       const response = await fetch(`${backend}/api/subirImagen`, {
         method: 'POST',
@@ -53,7 +26,9 @@ export default function Carrusel() {
         credentials: 'include'
       });
 
-      console.log(response)
+      if (response.ok) {
+        window.location.reload()
+      }
     } catch (error) {
       console.error('Error al intentar subir la imagen:', error);
       return false;
@@ -65,11 +40,17 @@ export default function Carrusel() {
     enviarImagen(file);
   };
 
-  const eliminarImagen = async (archivo) => {
+  const eliminarImagen = async (linkArchivo) => {
     try {
+      const startIndex = linkArchivo.lastIndexOf('%2F') + 3;
+      const endIndex = linkArchivo.indexOf('?');
+      const fileNamePart = linkArchivo.substring(startIndex, endIndex);
+
+      const nombreImagen = decodeURIComponent(fileNamePart).replace(/%20/g, ' ');
+
       const formData = new FormData();
-      formData.append('imageName', archivo);
-      formData.append('carpeta', "Imagenes carrusel");
+      formData.append('imageName', nombreImagen);
+      formData.append('carpeta', "imagenesCarrusel");
 
       const response = await fetch(`${backend}/api/eliminarImagen`, {
         method: 'POST',
@@ -77,39 +58,67 @@ export default function Carrusel() {
         credentials: 'include'
       });
 
-      console.log(response)
+      if (response.ok) {
+        window.location.reload();
+      }
     } catch (error) {
       console.error('Error al intentar subir la imagen:', error);
       return false;
     }
   };
 
+  useEffect(() => {
+    const obtenerImagenes = async () => {
+      try {
+        const response = await fetch(`${backend}/api/obtenerListaImagenes?folder=imagenesCarrusel`);
+        if (!response.ok) {
+          throw new Error('Error al obtener la lista de imágenes');
+        }
+        const data = await response.json();
+        setListaImagenes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    obtenerImagenes();
+  }, []);
+
   return (
     <div className="container">
       <Carousel interval={intervalo}>
-        {imageKeys.map((imageName, index) => (
-          <Carousel.Item key={index} >
-            <img
-              className="d-block w-100"
-              src={images[imageName]}
-              alt={`Slide ${index}`}
-            />
+        {listaImagenes.map((imageName, index) => (
+          index !== 0 && (
+            <Carousel.Item key={index}>
+              <img
+                className="d-block w-100"
+                src={imageName}
+                alt={`Slide ${index}`}
+              />
+              {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (
+                <>
+                  <div className="divSubirArchivoCarrusel storageCarrusel">
+                    <label htmlFor="subirImagen" className="boton-personalizado">+</label>
+                    <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg" />
+                  </div>
 
-            <div className="divSubirArchivoCarrusel storageCarrusel">
-              <label htmlFor="subirImagen" className="boton-personalizado">+</label>
-              <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg"/>
-            </div>
+                  {listaImagenes.length > 2 && (
+                    <div className="divEliminarArchivoCarrusel storageCarrusel">
+                      <label htmlFor={`eliminarImagen_${index}`} className="boton-personalizado">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                        </svg>
+                      </label>
+                      <input id={`eliminarImagen_${index}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
+                    </div>
+                  )}
+                </>
+              )) : ('')}
 
-            <div className="divEliminarArchivoCarrusel storageCarrusel">
-              <label htmlFor="eliminarImagen" className="boton-personalizado">
-                <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                </svg>
-              </label>
-              <input id="eliminarImagen" onClick={()=> eliminarImagen(imageName)} style={{ display: "none" }} />
-            </div>
-          </Carousel.Item>
+            </Carousel.Item>
+          )
         ))}
+
       </Carousel>
     </div>
   );
