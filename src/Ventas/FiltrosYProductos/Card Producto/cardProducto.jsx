@@ -45,6 +45,7 @@ export default function CardProducto(args) {
   );
 
   const sumarContador = () => {
+    console.log(state.userInfo)
     if (state.logueado) {
       if (state.userInfo.email_confirmado) {
         añadirElemento(args.id, 1);

@@ -41,14 +41,15 @@ function ProductosProvider({ children }) {
 
                 // Realizar actualizaciones según la categoría
                 const productosActualizados = productosObtenidos.map((producto) => {
-                    let precioFinal = producto.precio; // Precio inicial
-                    if (categoria === 'MAYORISTA' && producto.precioMayorista) {
+                    let precioFinal = producto.precio_vta1; // Precio inicial
+                    if (categoria === 'MAYORISTA' && producto.precio_vta2) {
                         // Si es mayorista y hay precio mayorista, actualizar precio
-                        precioFinal = producto.precioMayorista;
+                        precioFinal = producto.precio_vta2;
                     }
+                    let copiaPrecio = precioFinal;
                     if (descuentos != null && descuentos[producto.rubro]) {
                         // Aplicar descuento si descuentos no es nulo y hay un valor en producto[rubro]
-                        precioFinal -= parseInt(descuentos[producto.rubro] / 100 * producto.precio);
+                        precioFinal -= parseInt(descuentos[producto.rubro] / 100 * copiaPrecio);
                     }
 
                     return { ...producto, precio: precioFinal };
