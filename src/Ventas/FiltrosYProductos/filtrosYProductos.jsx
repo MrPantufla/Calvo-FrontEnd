@@ -30,8 +30,8 @@ export default function FiltrosYProductos() {
     isTablet,
     isFold,
     isMobile,
-    tiposActivos,
-    setTiposActivos,
+    tipoActivo,
+    setTipoActivo,
     coloresActivos,
     setColoresActivos,
     limpiarColoresActivos,
@@ -40,7 +40,8 @@ export default function FiltrosYProductos() {
     busquedaYFiltrosTop,
     eliminadosSelected,
     setEliminadosSelected,
-    seleccionarEliminados
+    seleccionarEliminados,
+    togglearTipo
   } = useTienda();
 
   const [busqueda, setBusqueda] = useState('');
@@ -75,16 +76,6 @@ export default function FiltrosYProductos() {
     });
   }
 
-  function toggleTipo(tipo_prod) {
-    setTiposActivos(prevTiposActivos => {
-      if (prevTiposActivos.includes(tipo_prod)) {
-        return prevTiposActivos.filter((r) => r !== tipo_prod);
-      } else {
-        return [...prevTiposActivos, tipo_prod];
-      }
-    });
-  }
-
   function toggleColor(color) {
     setColoresActivos(prevColoresActivos => {
       if (prevColoresActivos.includes(color)) {
@@ -96,7 +87,7 @@ export default function FiltrosYProductos() {
   }
 
   const listaFiltrada = Object.values(productosIndexado).filter((p) => {
-    const tipoCumple = tiposActivos.length === 0 || tiposActivos.includes(p.tipo_prod);
+    const tipoCumple = tipoActivo == null || tipoActivo == p.tipo_prod;
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
@@ -158,14 +149,14 @@ export default function FiltrosYProductos() {
           </div>
           <div className="filtros">
             {tiposUnicos.map((tipo_prod) => (
-              <label className={`labelRubros ${tiposActivos.includes(tipo_prod) ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
+              <label className={`labelRubros ${tipoActivo == tipo_prod ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
                 <div>
                   <input
                     className="check"
                     type="checkbox"
-                    checked={tiposActivos.includes(tipo_prod)}
+                    checked={tipoActivo == tipo_prod}
                     onChange={() => {
-                      toggleTipo(tipo_prod);
+                      togglearTipo(tipo_prod);
                     }}
                     onClick={() => {
                       handleScrollClick();
@@ -183,7 +174,7 @@ export default function FiltrosYProductos() {
                   </div>
                 </div>
                 {tipo_prod == 'PERFIL' ?
-                  (<div className={`bodyFiltro bodyFiltroPerfil ${tiposActivos.includes(tipo_prod) ? 'checked' : ''}`}>
+                  (<div className={`bodyFiltro bodyFiltroPerfil ${tipoActivo == tipo_prod ? 'checked' : ''}`}>
                     {coloresUnicosPerfiles.map((color) => (
                       <label className={`labelColores ${coloresActivos.includes(color) ? 'checked' : ''}`} key={color}>
                         <input

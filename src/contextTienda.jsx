@@ -7,7 +7,7 @@ function useTienda() {
 }
 
 function TiendaProvider({ children }) {
-  const [tiposActivos, setTiposActivos] = useState([]);
+  const [tipoActivo, setTipoActivo] = useState(null);
   const [coloresActivos, setColoresActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 820);
@@ -54,7 +54,7 @@ function TiendaProvider({ children }) {
   }, []);
 
   const seleccionarEliminados = () =>{
-    setTiposActivos([]);
+    setTipoActivo([]);
     setCortinasSelected(false);
     setEliminadosSelected(!eliminadosSelected);
   }
@@ -64,9 +64,18 @@ function TiendaProvider({ children }) {
   }
 
   const seleccionarCortinas = () => {
-    setTiposActivos([]);
+    setTipoActivo([]);
     setEliminadosSelected(false);
     setCortinasSelected(!cortinasSelected);
+  }
+
+  const togglearTipo = (tipo) =>{
+    if(tipoActivo == tipo){
+      setTipoActivo(null);
+    }
+    else{
+      setTipoActivo(tipo);
+    }
   }
 
   return (
@@ -82,14 +91,16 @@ function TiendaProvider({ children }) {
       productoSeleccionado,
       setProductoSeleccionado,
       limpiarColoresActivos,
-      tiposActivos, setTiposActivos,
+      tipoActivo, 
+      setTipoActivo,
       coloresActivos,
       setColoresActivos,
       busquedaYFiltrosTop,
       setBusquedaYFiltrosTop,
       eliminadosSelected,
       setEliminadosSelected,
-      seleccionarEliminados
+      seleccionarEliminados,
+      togglearTipo
     }}>
       {children}
     </TiendaContext.Provider>
