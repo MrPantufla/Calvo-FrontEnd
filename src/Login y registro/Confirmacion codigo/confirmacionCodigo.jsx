@@ -16,6 +16,7 @@ export default function ConfirmacionCodigo() {
     setMostrarCartelCliente,
     state
   } = useAuth();
+
   let timer;
 
   const [codigoConfirmacion, setCodigoConfirmacion] = useState('');

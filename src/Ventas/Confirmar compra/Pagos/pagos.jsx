@@ -4,6 +4,8 @@ import { useTienda } from '../../../contextTienda.jsx';
 import { useCarrito } from '../../../contextCarrito.jsx';
 
 export default function Pagos() {
+    const [aptoParaCerrar, setAptoParaCerrar] = useState(false);
+
     const {setMostrarPagos} = useTienda();
 
     const {
@@ -16,14 +18,17 @@ export default function Pagos() {
     const [cbuEntreRiosCopiado, setCbuEntreRiosCopiado] = useState(false);
 
     const cerrarPagos = () => {
-        setMostrarPagos(false);
-        setCbuEntreRiosCopiado(false);
-        setCbuMacroCopiado(false);
-        setDatosCorroborados(false);
+        if(aptoParaCerrar == true){
+            setMostrarPagos(false);
+            setCbuEntreRiosCopiado(false);
+            setCbuMacroCopiado(false);
+            setDatosCorroborados(false);
+        }
     }
 
-    const parteUtilizableClick = (e) => {
-        e.stopPropagation();
+    const noCerrar = (event) =>{
+        setAptoParaCerrar(false);
+        event.stopPropagation();
     }
 
     const copiarCbu = (cbu, banco) => {
@@ -37,8 +42,8 @@ export default function Pagos() {
     }
 
     return (
-        <div className="contenedorPrincipalPagos" onClick={cerrarPagos}>
-            <div className="parteUtilizablePagos" onClick={parteUtilizableClick}>
+        <div className="contenedorPrincipalPagos" onMouseDown={() => setAptoParaCerrar(true)} onClick={cerrarPagos}>
+            <div className="parteUtilizablePagos" onMouseDown={noCerrar} onMouseUp={noCerrar}>
                 <div className="tituloPagosContainer">
                     <h1>DATOS BANCARIOS</h1>
                     <h2>EL CAMINO SRL</h2>

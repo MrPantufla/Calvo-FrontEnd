@@ -1,25 +1,31 @@
 import { useCarrito } from '../../../contextCarrito';
+import { useState } from 'react';
 import './pedidoRealizado.css';
 
 export default function PedidoRealizado() {
+  const [aptoParaCerrar, setAptoParaCerrar] = useState(false);
+
   const {
     setCompraRealizadaAbierto,
     compraRealizadaAbierto
   } = useCarrito();
 
   const cerrarVentana = () =>{
-    setCompraRealizadaAbierto(false);
+    if(aptoParaCerrar == true){
+      setCompraRealizadaAbierto(false);
+    }
   }
 
-  const parteUtilizableClick = (e) =>{
-    e.stopPropagation();
+  const parteUtilizableClick = (event) =>{
+    setAptoParaCerrar(false);
+    event.stopPropagation();
   }
 
   return (
-    <div className="contenedorPrincipalPedidoRealizado" onClick={cerrarVentana} style={{ display: compraRealizadaAbierto ? 'flex' : 'none' }}>
-      <div className="parteUtilizablePedidoRealizado" onClick={parteUtilizableClick}>
+    <div className="contenedorPrincipalPedidoRealizado" onMouseDown={() => setAptoParaCerrar(true)} onClick={cerrarVentana} style={{ display: compraRealizadaAbierto ? 'flex' : 'none' }}>
+      <div className="parteUtilizablePedidoRealizado" onMouseDown={parteUtilizableClick} onMouseUp={parteUtilizableClick}>
         <h2>Gracias por realizar tu pedido, nos estaremos comunicando a la brevedad</h2>
-        <button onClick={cerrarVentana}>Aceptar</button>
+        <button onClick={() => setCompraRealizadaAbierto(false)}>Aceptar</button>
       </div>
     </div>
   );

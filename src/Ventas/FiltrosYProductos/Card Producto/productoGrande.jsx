@@ -3,8 +3,11 @@ import ca from '../../../Imagenes/ca.png';
 import { useCarrito } from '../../../contextCarrito.jsx';
 import { useAuth } from '../../../contextLogin.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
+import { useState } from 'react';
 
 export default function ProductoGrande(args) {
+    const [aptoParaCerrar, setAptoParaCerrar] = useState(false)
+    
     const {
         state,
         setMostrarLogin
@@ -48,16 +51,19 @@ export default function ProductoGrande(args) {
     }
 
     const handleClose = () => {
-        args.onClose();
+        if(aptoParaCerrar == true){
+            args.onClose();
+        }
     };
 
     const handleParteUtilizableClick = (event) => {
+        setAptoParaCerrar(false);
         event.stopPropagation();
     };
 
     return (
-        <div className="contenedorPrincipalProductoGrande" onClick={handleClose}>
-            <div className="parteUtilizableProductoGrande" onClick={handleParteUtilizableClick}>
+        <div className="contenedorPrincipalProductoGrande" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleClose}>
+            <div className="parteUtilizableProductoGrande" onMouseDown={handleParteUtilizableClick} onMouseUp={handleParteUtilizableClick}>
                 <div className="logoProductoGrandeContainer">
                     <img className="logoProductoGrande" src={ca} />
                 </div>

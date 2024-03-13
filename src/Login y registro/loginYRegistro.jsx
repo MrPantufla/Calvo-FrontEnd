@@ -8,6 +8,7 @@ import './loginYRegistro.css';
 import RestaurarContraseña from './Restaurar contraseña/restaurarContraseña.jsx';
 
 export default function LoginYRegistro() {
+  const [aptoParaCerrar, setAptoParaCerrar] = useState(false);
 
   const {
     setErrorMessage, 
@@ -29,19 +30,22 @@ export default function LoginYRegistro() {
   };
 
   const handleClose = () => {
-    setMostrarLogin(false);
-    setMostrarErrorCodigoConfirmacion(false);
-    setErrorMessage('');
-    setOpcionSeleccionada('login')
+    if(aptoParaCerrar == true){
+      setMostrarLogin(false);
+      setMostrarErrorCodigoConfirmacion(false);
+      setErrorMessage('');
+      setOpcionSeleccionada('login')
+    }
   }
 
-  const handleParteUtilizableClick = (event) => {
+  const noCerrar = (event) =>{
+    setAptoParaCerrar(false);
     event.stopPropagation();
   }
 
   return (
-    <div className="contenedorPrincipalLoginYRegistro" onClick={handleClose} style={{ display: mostrarLogin ? 'flex' : 'none' }}>
-      <div className="contenedorLoginYRegistro" onClick={handleParteUtilizableClick}>
+    <div className="contenedorPrincipalLoginYRegistro" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleClose} style={{ display: mostrarLogin ? 'flex' : 'none' }}>
+      <div className="contenedorLoginYRegistro" onMouseDown={noCerrar} onMouseUp={noCerrar}>
         <div className="content-container">
           {state.logueado ? (
             state.userInfo.email_confirmado ? (
