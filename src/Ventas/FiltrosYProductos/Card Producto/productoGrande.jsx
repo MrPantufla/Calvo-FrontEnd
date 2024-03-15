@@ -78,8 +78,9 @@ export default function ProductoGrande(args) {
                             //src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
                             src={`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
                             onError={(e) => {
-                                e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
-
+                                //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
+                                e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
+                                
                                 e.target.onerror = () => {
                                     e.target.src = `/ImagenesProductos/xd.png`;
                                 };

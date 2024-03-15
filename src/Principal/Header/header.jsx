@@ -8,7 +8,6 @@ import Carrito from '../../Ventas/Carrito/carrito';
 import Favoritos from '../../Ventas/Favoritos/favoritos';
 import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
 import { useTienda } from '../../contextTienda';
-import { useVariables } from '../../contextVariables';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -16,7 +15,6 @@ export default function Header() {
   const location = useLocation();
   const desplegableCatalogos = useDesplegableCatalogos();
   const desplegablePerfil = useDesplegablePerfil();
-  const { backend } = useVariables();
 
   const { mobile } = useTienda();
 

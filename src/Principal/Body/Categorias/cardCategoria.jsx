@@ -57,7 +57,7 @@ export default function CardCategoria(args) {
             <p className="nombreCategoria">{args.cat}</p>
             <div className="imagenContainerCategoria">
                 <div className="sombraInterna"></div>
-                <img className="imagenCategoria" src={imagen} alt="Imagen de la categoría" />
+                <img className="imagenCategoria" src={/*imagen*/`/Categorias/${args.imagen}.jpeg`} alt="Imagen de la categoría" />
             </div>
         </div>
     );

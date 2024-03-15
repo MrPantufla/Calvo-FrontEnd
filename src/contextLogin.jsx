@@ -231,7 +231,7 @@ export const LoginProvider = ({ children }) => {
       mostrarCartelLogin,
       setMostrarCartelLogin,
       mostrarCartelCliente, 
-      setMostrarCartelCliente
+      setMostrarCartelCliente,
     }}>
       {children}
     </AuthContext.Provider>

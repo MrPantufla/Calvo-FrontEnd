@@ -140,8 +140,8 @@ export default function CardProducto(args) {
             className="imagenProducto"
             src={`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
             onError={(e) => {
-              e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.png`;
-
+              //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.png`;
+              e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
               e.target.onerror = () => {
                 e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
                 // Si falla la carga en formato JPG, intenta con BMP
@@ -165,7 +165,7 @@ export default function CardProducto(args) {
           />
         </div>
         <div className="detalleYCod_orig">
-          <h3><span className="codOrig">{args.cod_orig}</span> - {args.detalle}</h3>
+          <h3><span className="codOrig">{/*args.cod_orig*/args.cod_int}</span> - {args.detalle}</h3>
         </div>
         <div className="kgCantidadYColorContainer">
           <div className="kgProducto">
