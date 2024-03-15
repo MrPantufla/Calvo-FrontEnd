@@ -9,6 +9,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-image: url("../../../Imagenes/marcaDeAgua.png");
+    background-size: cover;
 }
 
 .imagenContainerCardProducto{
