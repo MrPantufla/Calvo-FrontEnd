@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 
 export default function Carrusel() {
   const [listaImagenes, setListaImagenes] = useState([]);
+  const [imagenesCargadas, setImagenesCargadas] = useState(false);
 
   const { state } = useAuth();
 
@@ -71,6 +72,11 @@ export default function Carrusel() {
     const obtenerImagenes = async () => {
       try {
         const response = await fetch(`${backend}/api/obtenerListaImagenes?folder=imagenesCarrusel`);
+
+        if (response) {
+          setImagenesCargadas(true);
+        }
+
         if (!response.ok) {
           throw new Error('Error al obtener la lista de imágenes');
         }
@@ -86,40 +92,49 @@ export default function Carrusel() {
 
   return (
     <div className="container">
-      <Carousel interval={intervalo}>
-        {listaImagenes.map((imageName, index) => (
-          index !== 0 && (
-            <Carousel.Item key={index}>
-              <img
-                className="d-block w-100"
-                src={imageName}
-                alt={`Slide ${index}`}
-              />
-              {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (
-                <>
-                  <div className="divSubirArchivoCarrusel storageCarrusel">
-                    <label htmlFor="subirImagen" className="boton-personalizado">+</label>
-                    <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg" />
-                  </div>
+      {imagenesCargadas ?
+        (<Carousel interval={intervalo}>
+          {
+            listaImagenes.map((imageName, index) => (
+              index !== 0 && (
+                <Carousel.Item key={index}>
+                  <img
+                    className="d-block w-100"
+                    src={imageName}
+                    alt={`Slide ${index}`}
+                  />
+                  {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (
+                    <>
+                      <div className="divSubirArchivoCarrusel storageCarrusel">
+                        <label htmlFor="subirImagen" className="boton-personalizado">+</label>
+                        <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg" />
+                      </div>
 
-                  {listaImagenes.length > 2 && (
-                    <div className="divEliminarArchivoCarrusel storageCarrusel">
-                      <label htmlFor={`eliminarImagen_${index}`} className="boton-personalizado">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                        </svg>
-                      </label>
-                      <input id={`eliminarImagen_${index}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
-                    </div>
-                  )}
-                </>
-              )) : ('')}
+                      {listaImagenes.length > 2 && (
+                        <div className="divEliminarArchivoCarrusel storageCarrusel">
+                          <label htmlFor={`eliminarImagen_${index}`} className="boton-personalizado">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                            </svg>
+                          </label>
+                          <input id={`eliminarImagen_${index}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
+                        </div>
+                      )}
+                    </>
+                  )) : ('')}
 
-            </Carousel.Item>
-          )
-        ))}
-
-      </Carousel>
+                </Carousel.Item>
+              )
+            ))
+          }
+        </Carousel>)
+        :
+        (<div className="cargandoCarouselContainer">
+          <div className="spinner-border cargandoCarousel" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>)
+      }
     </div>
   );
 }

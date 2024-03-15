@@ -18,7 +18,8 @@ export default function FiltrosYProductos() {
   const {
     productosIndexado,
     ordenarProductos,
-    productosEliminados
+    productosEliminados,
+    dataCargada
   } = useProductos();
 
   const { setCarritoAbierto } = useCarrito();
@@ -213,31 +214,40 @@ export default function FiltrosYProductos() {
               (<>
                 <BotonesOrdenamiento onClick={() => paginar(1)} />
                 <div className="row rowProductos">
-                  {itemsActuales.map((producto) => (
-                    <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                      <CardProducto
-                        id={producto.id}
-                        cod_orig={producto.cod_orig}
-                        tipo_prod={producto.tipo_prod}
-                        srubro={producto.srubro}
-                        detalle={producto.detalle}
-                        precio={producto.precio}
-                        color={producto.color}
-                        kg={producto.kg}
-                        key={producto.id}
-                        cod_int={producto.cod_int}
-                        onClick={() => {
-                          handleClickProducto(producto);
-                        }}
-                      />
-                    </div>
-                  ))}
+                  {dataCargada == true ?
+                    (<>
+                      {itemsActuales.map((producto) => (
+                        <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                          <CardProducto
+                            id={producto.id}
+                            cod_orig={producto.cod_orig}
+                            tipo_prod={producto.tipo_prod}
+                            srubro={producto.srubro}
+                            detalle={producto.detalle}
+                            precio={producto.precio}
+                            color={producto.color}
+                            kg={producto.kg}
+                            key={producto.id}
+                            cod_int={producto.cod_int}
+                            onClick={() => {
+                              handleClickProducto(producto);
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </>)
+                    :
+                    (<div className="spinner-border cargandoProductos" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>)
+                  }
                 </div>
               </>)
             )
           }
         </div>
       </div>
+
       {productoSeleccionado && (
         <ProductoGrande
           id={productoSeleccionado.id}
