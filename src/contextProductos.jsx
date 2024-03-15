@@ -20,6 +20,7 @@ function ProductosProvider({ children }) {
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
+    const [dataCargada, setDataCargada] = useState(false);
 
     const nuevosColores = new Set();
 
@@ -36,6 +37,9 @@ function ProductosProvider({ children }) {
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
         try {
             const response = await fetch(`${backend}/api/productos`);
+            if(response){
+                setDataCargada(true);
+            }
             if (response.ok) {
                 const productosObtenidos = await response.json();
 
@@ -206,7 +210,8 @@ function ProductosProvider({ children }) {
             coloresArray,
             cerrarOrdenamientos,
             productosEliminados,
-            eliminarORestaurarProductos
+            eliminarORestaurarProductos,
+            dataCargada
         }}>
             {children}
         </ProductosContext.Provider>
