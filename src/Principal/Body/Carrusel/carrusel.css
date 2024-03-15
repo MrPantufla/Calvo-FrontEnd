@@ -1,6 +1,5 @@
 .slide {
   display: flex;
-  height: 58rem;
   z-index: 1;
   padding-top: 12rem;
   width: 89.5%;
@@ -42,30 +41,30 @@
   opacity: 0.6;
 }
 
-.divSubirArchivoCarrusel{
+.divSubirArchivoCarrusel {
   position: absolute;
   z-index: 100;
   left: 1rem;
   top: 1rem;
 }
 
-.divEliminarArchivoCarrusel{
+.divEliminarArchivoCarrusel {
   position: absolute;
   z-index: 100;
   right: 1rem;
   top: 1rem;
 }
 
-.divEliminarArchivoCarrusel label{
+.divEliminarArchivoCarrusel label {
   font-size: 3rem;
 }
 
-.divSubirArchivoCarrusel label{
+.divSubirArchivoCarrusel label {
   font-size: 4.5rem;
   padding-top: 0.5rem;
 }
 
-.storageCarrusel label{
+.storageCarrusel label {
   font-weight: 400;
   background-color: rgba(0, 0, 0, 40%);
   color: rgba(255, 255, 255, 70%);
@@ -79,12 +78,29 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.storageCarrusel label:hover{
+.storageCarrusel label:hover {
   background-color: rgba(0, 0, 0, 60%);
   color: white;
 }
 
+.cargandoCarouselContainer{
+  padding-top: 14rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cargandoCarousel {
+  width: 6rem;
+  height: 6rem;
+  border-width: 4px;
+  color: var(--colorSecundario);
+}
+
+
+
 @media (min-width: 1600px) {
+
   .container,
   .container-lg,
   .container-md,
@@ -194,9 +210,5 @@
 @media (max-width: 767px) {
   .carousel {
     padding-top: 14rem;
-  }
-
-  .slide {
-    height: 40rem;
   }
 }
