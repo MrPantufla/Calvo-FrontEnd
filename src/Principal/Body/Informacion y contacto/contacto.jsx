@@ -10,6 +10,8 @@ export default function Contacto() {
     const [telefono, setTelefono] = useState('');
     const [localidad, setLocalidad] = useState('');
     const [provincia, setProvincia] = useState('');
+    const [empresa, setEmpresa] = useState('');
+    const [rubro, setRubro] = useState('');
     const [mensaje, setMensaje] = useState('');
     const [opcion, setOpcion] = useState('');
     const [emailChecked, setEmailChecked] = useState(false);
@@ -95,7 +97,9 @@ export default function Contacto() {
         localidad: localidad,
         mensaje: mensaje,
         opcion: opcion,
-        provincia: provincia
+        provincia: provincia,
+        empresa: empresa,
+        rubro: rubro
     };
 
     return (
@@ -158,7 +162,7 @@ export default function Contacto() {
                     />
                 </div>
                 <div className="inputContainer">
-                    <label htmlFor="telefono" className="colocar_telefono">
+                    <label htmlFor="provincia" className="colocar_provincia">
                         PROVINCIA*
                     </label>
                     <input
@@ -169,6 +173,31 @@ export default function Contacto() {
                         disabled={formularioEnviado}
                     />
                 </div>
+                <div className="inputContainer">
+                    <label htmlFor="empresa" className="colocar_empresa">
+                        EMPRESA
+                    </label>
+                    <input
+                        name="empresa"
+                        id="provincia"
+                        onFocus={() => setErrorMessage('')}
+                        onChange={(e) => setEmpresa(e.target.value)}
+                        disabled={formularioEnviado}
+                    />
+                </div>
+                <div className="inputContainer">
+                    <label htmlFor="rubro" className="colocar_rubro">
+                        RUBRO
+                    </label>
+                    <input
+                        name="rubro"
+                        id="rubro"
+                        onFocus={() => setErrorMessage('')}
+                        onChange={(e) => setRubro(e.target.value)}
+                        disabled={formularioEnviado}
+                    />
+                </div>
+                
                 <div className="inputContainer inputMensaje">
                     <label htmlFor="mensaje" className="colocar_mensaje">
                         MENSAJE*
