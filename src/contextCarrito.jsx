@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useProductos } from './contextProductos';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
+import { useDireccion } from './contextDireccion';
 
 const CarritoContext = createContext();
 
@@ -16,6 +17,14 @@ function CarritoProvider({ children }) {
     state,
     setMostrarLogin
   } = useAuth();
+
+  const {
+    calle,
+    numero,
+    cp,
+    localidad,
+    provincia
+  } = useDireccion();
 
   const { backend } = useVariables();
 
@@ -147,12 +156,15 @@ function CarritoProvider({ children }) {
 
   const confirmarCompra = () => {
     const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
+    const direccion = {calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia};
+    const carritoRequest = {carritoJson: JSON.stringify(nuevosElementos), direccion: direccion}
+
     fetch(`${backend}/api/recibirCarrito`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(nuevosElementos),
+      body: JSON.stringify(carritoRequest),
       credentials: 'include',
     })
       .then(response => response.text())
