@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
+import { useConfiguracion } from './contextConfiguracion';
 
 const DireccionContext = createContext();
 
@@ -9,18 +10,20 @@ function useDireccion() {
 }
 
 function DireccionProvider({ children }) {
-    const {backend} = useVariables();
+    const { backend } = useVariables();
+
+    const { direccionAbierto } = useConfiguracion();
 
     const {
         state,
         setErrorMessage
     } = useAuth();
 
-    const [calle, setCalle] = useState(['']);
-    const [numero, setNumero] = useState(['']);
-    const [cp, setCp] = useState(['']);
-    const [localidad, setLocalidad] = useState(['']);
-    const [provincia, setProvincia] = useState(['']);
+    const [calle, setCalle] = useState('');
+    const [numero, setNumero] = useState('');
+    const [cp, setCp] = useState('');
+    const [localidad, setLocalidad] = useState('');
+    const [provincia, setProvincia] = useState('');
     const [primeraAccion, setPrimeraAccion] = useState(true);
     const [direccionConfirmada, setDireccionConfirmada] = useState(false);
 
@@ -47,6 +50,11 @@ function DireccionProvider({ children }) {
                         setProvincia(data.provincia);
                         // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
                     } else {
+                        setCalle('');
+                        setNumero('');
+                        setCp('');
+                        setLocalidad('');
+                        setProvincia('');
                         // La respuesta es un texto, probablemente un mensaje de error
                         setErrorMessage(data);
                     }
@@ -58,13 +66,14 @@ function DireccionProvider({ children }) {
     }
 
     useEffect(() => {
+        console.log("asd");
         if (!primeraAccion) {
             obtenerDireccionUsuario();
         }
         else {
             setPrimeraAccion(false);
         }
-    }, [state.logueado]);
+    }, [state.logueado, direccionAbierto]);
 
     return (
         <DireccionContext.Provider value={{
@@ -79,7 +88,7 @@ function DireccionProvider({ children }) {
             numero,
             cp,
             localidad,
-            provincia
+            provincia,
         }}>
             {children}
         </DireccionContext.Provider>
