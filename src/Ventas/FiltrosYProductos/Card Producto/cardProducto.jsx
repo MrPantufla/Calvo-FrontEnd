@@ -27,7 +27,7 @@ export default function CardProducto(args) {
     elementos: elementosCarrito
   } = useCarrito();
 
-  const mayorista =state.userInfo ? (state.userInfo.categoria=='MAYORISTA') : (false); 
+  const mayorista = state.userInfo ? (state.userInfo.categoria == 'MAYORISTA') : (false);
 
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
@@ -109,6 +109,8 @@ export default function CardProducto(args) {
     }
   };
 
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <div className="contenedorPrincipalCardProducto" >
       <div className="informacionContainer">
@@ -176,11 +178,26 @@ export default function CardProducto(args) {
               </>
             ) : (<></>)}
           </div>
-          <div className="conjuntoCantidadCardProducto">
-            <button className="boton" onClick={restarContador}>-</button>
-            <span className="cantidadProducto">{cantidad}</span>
-            <button className="boton" onClick={sumarContador}>+</button>
-          </div>
+          {args.tipo_prod == 'MAQUINAS' ?
+            (<a 
+              className="botonConsultarMaquina" 
+              target="blank"
+              href={isMobile ? 
+                (`https://wa.me/5493456475294?text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                : 
+                (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+              }
+            >
+              CONSULTAR
+            </a>)
+            :
+            (
+              <div className="conjuntoCantidadCardProducto">
+                <button className="boton" onClick={restarContador}>-</button>
+                <span className="cantidadProducto">{cantidad}</span>
+                <button className="boton" onClick={sumarContador}>+</button>
+              </div>
+            )}
           <div className="colorCardProducto">
             {args.color == "Ind" ? (<></>) : (
               <>
@@ -194,10 +211,10 @@ export default function CardProducto(args) {
 
           </div>
         </div>
-      </div>
+      </div >
       <div className="precioContainerCardProducto">
         <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
       </div>
-    </div>
+    </div >
   );
 }

@@ -23,8 +23,18 @@
     background-size: cover;
 }
 
-.parteInternaUtilizableProductoGrande{
-    border: 2.5px solid white;
+.parteInternaUtilizableProductoGrande {
+    border-style: solid;
+    border-image: linear-gradient(to right,
+            transparent 0%,
+            transparent 10%,
+            white 10%,
+            white 90%,
+            transparent 90%,
+            transparent 100%) 1;
+    border-image-slice: 1;
+
+    border-width: 2.5px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -32,7 +42,7 @@
     flex-direction: column;
 }
 
-.imagenProductoGrandeContainer{
+.imagenProductoGrandeContainer {
     width: 50rem;
     height: 26rem;
     display: flex;
@@ -41,59 +51,58 @@
     margin-bottom: 1.5rem;
 }
 
-.imagenProductoGrande{
+.imagenProductoGrande {
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
 }
 
-.contenedorPrincipalProductoGrande h1{
+.contenedorPrincipalProductoGrande h1 {
     text-align: center;
     font-size: 5rem;
     font-weight: 600;
     color: var(--colorRojo);
 }
 
-.contenedorPrincipalProductoGrande h2{
+.contenedorPrincipalProductoGrande h2 {
     text-align: center;
     font-size: 3rem;
     font-weight: 600;
 }
 
-.textoCantidad{
+.textoCantidad {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 600;
 }
 
-.logoProductoGrandeContainer{
+.logoProductoGrandeContainer {
     height: 8rem;
     width: 10.5rem;
     display: flex;
     position: absolute;
     top: calc(50vh - 26rem);
     left: calc(50vw - 44rem);
-    background-color: var(--colorPrimario);
     align-items: start;
 }
 
-.logoProductoGrande{
+.logoProductoGrande {
     width: 100%;
     object-fit: contain;
 }
 
-.informacion{
+.informacion {
     padding-top: 1rem;
 }
 
-.cantidad{
+.cantidad {
     display: flex;
     justify-content: center;
     padding: 0 8rem;
     align-items: center;
 }
 
-.cantidadProductoGrande{
+.cantidadProductoGrande {
     font-size: 4rem;
     font-weight: 500;
     width: 5rem;
@@ -102,7 +111,7 @@
     margin: 0 1rem;
 }
 
-.botonProductoGrande{
+.botonProductoGrande {
     width: 4rem;
     height: 4rem;
     border: none;
@@ -117,30 +126,30 @@
     color: white;
 }
 
-.coloresProductoGrande{
+.coloresProductoGrande {
     width: 8rem;
 }
 
-.coloresProductoGrande .color{
+.coloresProductoGrande .color {
     margin: 0.2rem 0;
     cursor: pointer;
 }
 
-.kgCantidadColorContainer{
+.kgCantidadColorContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 90%;
 }
 
-.textoPesoPromedio{
+.textoPesoPromedio {
     padding-top: 1rem;
     margin: 0;
     width: 100%;
     text-align: center;
 }
 
-.kgProductoGrandeContainer{
+.kgProductoGrandeContainer {
     height: 100%;
     width: 30%;
     display: flex;
@@ -148,16 +157,16 @@
     flex-direction: column;
 }
 
-.kgProductoGrandeContainer p{
+.kgProductoGrandeContainer p {
     font-size: 2.5rem;
     font-weight: 600;
 }
 
-.conjuntoCantidad{
+.conjuntoCantidad {
     width: 40%;
 }
 
-.colorProductoGrandeContainer{
+.colorProductoGrandeContainer {
     height: 100%;
     width: 30%;
     display: flex;
@@ -166,17 +175,17 @@
     justify-content: start;
 }
 
-.colorProductoGrandeContainer p{
+.colorProductoGrandeContainer p {
     font-size: 2.5rem;
     font-weight: 600;
 }
 
-.textoColorProductoGrande{
+.textoColorProductoGrande {
     padding-top: 1rem;
     margin: 0;
 }
 
-.muestraColorProductoGrande{
+.muestraColorProductoGrande {
     height: 3.5rem;
     display: flex;
     justify-content: center;
@@ -187,100 +196,124 @@
     width: 18rem;
 }
 
-.colorAtributo{
+.colorAtributo {
     width: 100%;
     text-align: center;
 }
 
-@media (max-width: 820px){
-    .parteUtilizableProductoGrande{
+@media (max-width: 820px) {
+    .parteUtilizableProductoGrande {
         width: 95rem;
         height: 63rem;
     }
 
-    .logoProductoGrandeContainer{
+    .logoProductoGrandeContainer {
         top: calc(50vh - 30rem);
         left: calc(50vw - 46rem);
     }
 
-    .imagenProductoGrandeContainer{
+    .imagenProductoGrandeContainer {
         width: 60rem;
         height: 35rem;
     }
 }
 
-@media (max-width: 767px){
-    .parteUtilizableProductoGrande{
+@media (max-width: 767px) {
+    .parteUtilizableProductoGrande {
         width: 97%;
         height: 64rem;
     }
 
-    .informacion h1{
+    .informacion h1 {
         margin-bottom: 1rem;
     }
 
-    .logoProductoGrandeContainer{
+    .logoProductoGrandeContainer {
         left: calc(100vw - 100vw*96/100);
         top: calc(50vh - 30rem);
     }
 
-    .imagenProductoGrandeContainer{
+    .imagenProductoGrandeContainer {
         width: 95%;
         height: 35rem;
     }
 
-    .textoPesoPromedio .valorKg{
+    .textoPesoPromedio .valorKg {
         font-weight: 700;
     }
 
-    .colorProductoGrandeContainer .colorAtributo{
+    .colorProductoGrandeContainer .colorAtributo {
         font-weight: 700;
     }
 
-    .cantidad{
+    .cantidad {
         padding: 1rem 0 0 0;
     }
 
-    .cantidadProductoGrande{
+    .cantidadProductoGrande {
         margin: 0;
         font-size: 4.3rem;
         font-weight: 600;
     }
 
-    .cantidad button{
+    .cantidad button {
         width: 4.5rem;
         height: 4.5rem;
         font-size: 4.5rem;
         font-weight: 600;
     }
+
+    .parteInternaUtilizableProductoGrande {
+        border-style: solid;
+        border-image: linear-gradient(to right,
+                transparent 0%,
+                transparent 15%,
+                white 15%,
+                white 90%,
+                transparent 90%,
+                transparent 100%) 1;
+        border-image-slice: 1;
+    }
 }
 
-@media (max-width: 280px){
-    .parteUtilizableProductoGrande{
+@media (max-width: 280px) {
+    .parteUtilizableProductoGrande {
         height: 72rem;
     }
 
-    .logoProductoGrandeContainer{
+    .logoProductoGrandeContainer {
         top: calc(50vh - 34rem);
     }
 
-    .muestraColorProductoGrande{
+    .muestraColorProductoGrande {
         width: 13rem;
         height: auto;
     }
 
-    .kgCantidadColorContainer{
+    .kgCantidadColorContainer {
         width: 100%;
         align-items: center;
         padding: 0 1rem;
     }
 
-    .kgProductoGrandeContainer{
+    .kgProductoGrandeContainer {
         width: 41%;
     }
 
-    .conjuntoCantidad{
+    .conjuntoCantidad {
         padding-top: 11rem;
         width: 35%;
+    }
+
+    .parteInternaUtilizableProductoGrande {
+        border-style: solid;
+        border-image: linear-gradient(to right,
+                transparent 0%,
+                transparent 18%,
+                white 18%,
+                white 90%,
+                transparent 90%,
+                transparent 100%) 1;
+        border-image-slice: 1;
     }
 }

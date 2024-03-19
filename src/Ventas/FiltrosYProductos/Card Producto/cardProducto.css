@@ -232,6 +232,27 @@
     transform: scale(1.1);
 }
 
+.botonConsultarMaquina{
+    width: 12rem;
+    height: 2.8rem;
+    font-size: 1.5rem;
+    border: none;
+    color: white;
+    background-color: var(--colorRojo);
+    border-radius: 4px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: scale 0.2s;
+}
+
+.botonConsultarMaquina:active{
+    transform: scale(0.95);
+}
+
 @media (min-width: 1920px){
     .botonAñadirFavoritos{
         width: 3rem;
@@ -365,6 +386,15 @@
     }
 }
 
+@media (max-width: 767px){
+    .botonConsultarMaquina{
+        height: 4.5rem;
+        width: 20rem;
+        font-size: 3rem;
+        margin-top: 1.5rem;
+    }
+}
+
 @media (max-width: 540px){
     .decoracionCardProducto{
         height: 3.2rem;
@@ -419,6 +449,10 @@
     .precioCardProducto{
         font-size: 2.5rem;
     }
+
+    .botonConsultarMaquina{
+        margin-top: 3rem;
+    }
 }
 
 @media (max-width: 540px) and (min-width: 431px){
@@ -456,6 +490,12 @@
 
     .conjuntoCantidadCardProducto span{
         font-size: 4.2rem;
+    }
+}
+
+@media (max-width: 540px) and (min-width: 412px){
+    .botonConsultarMaquina{
+        margin-top: 1rem;
     }
 }
 
