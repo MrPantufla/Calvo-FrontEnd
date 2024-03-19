@@ -13,6 +13,7 @@ export default function EditarContraseña() {
         abrirContraseña,
         errorMessage
     } = useConfiguracion();
+    
     const [contraseñaActual, setContraseñaActual] = useState('');
     const [nuevaContraseña, setNuevaContraseña] = useState('');
     const [repetirContraseña, setRepetirContraseña] = useState('');

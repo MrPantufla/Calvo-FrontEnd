@@ -165,7 +165,7 @@ export default function CardProducto(args) {
           />
         </div>
         <div className="detalleYCod_orig">
-          <h3><span className="codOrig">{/*args.cod_orig*/args.cod_int}</span> - {args.detalle}</h3>
+          <h3><span className="codOrig">{args.cod_orig}</span> - {args.detalle}</h3>
         </div>
         <div className="kgCantidadYColorContainer">
           <div className="kgProducto">
