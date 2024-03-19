@@ -111,6 +111,20 @@ export default function FiltrosYProductos() {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
   }
 
+  useEffect(() => {
+    const handleDocumentClick = (event) => {
+        if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
+            setFiltrosYBusquedaOpen(false); // Cierra el menú
+        }
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+        document.removeEventListener('click', handleDocumentClick);
+    };
+}, [filtrosYBusquedaOpen]);
+
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
