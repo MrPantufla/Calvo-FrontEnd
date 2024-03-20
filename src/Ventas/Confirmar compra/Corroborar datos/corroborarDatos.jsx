@@ -20,7 +20,8 @@ export default function CorroborarDatos() {
         confirmarCompra,
         limpiarCarrito,
         setConfirmarCompraAbierto,
-        setDatosCorroborados
+        setDatosCorroborados,
+        setInstanciaPedido
     } = useCarrito();
 
     const {setMostrarPagos} = useTienda();
@@ -38,7 +39,7 @@ export default function CorroborarDatos() {
                 <p>PROVINCIA:<span> {provincia}</span></p>
             </div>
             <div className="botonCorroborarContainer">
-                <button className="confirmarCompra" onClick={() => { confirmarCompra(); limpiarCarrito(); setConfirmarCompraAbierto(false); setMostrarPagos(true); setDatosCorroborados(true)}}>
+                <button className="confirmarCompra" onClick={() => setInstanciaPedido('facturacion')}>
                     Continuar
                 </button>
                 <button className="editarDatosDeCuenta" onClick={() => navigate('/perfil')}>

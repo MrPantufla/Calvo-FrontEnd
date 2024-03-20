@@ -14,7 +14,8 @@ export default function Carrito() {
     añadirElemento, 
     setConfirmarCompraAbierto, 
     setCompraRealizadaAbierto, 
-    confirmarCompra 
+    confirmarCompra,
+    setInstanciaPedido
   } = useCarrito();
 
   const {
@@ -337,6 +338,7 @@ export default function Carrito() {
                     if (!state.userInfo.cliente) {
                       setConfirmarCompraAbierto(true);
                       setPrecioTotal(calcularTotal(elementos));
+                      setInstanciaPedido('envio');
                     } else {
                       setCompraRealizadaAbierto(true);
                       confirmarCompra();

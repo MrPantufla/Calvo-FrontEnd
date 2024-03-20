@@ -37,6 +37,7 @@ function CarritoProvider({ children }) {
   const [compraRealizadaAbierto, setCompraRealizadaAbierto] = useState(false);
   const [precioTotal, setPrecioTotal] = useState(null);
   const [datosCorroborados, setDatosCorroborados] = useState(false);
+  const [instanciaPedido, setInstanciaPedido] = useState('');
 
   function añadirElemento(id, cantidad) {
     if(!state.userInfo.cliente && productosIndexado[id].tipo_prod=='PERFIL'){
@@ -211,7 +212,9 @@ function CarritoProvider({ children }) {
       limpiarCarrito, 
       añadirElemento,
       restarElemento, 
-      actualizarCantidadElemento, 
+      actualizarCantidadElemento,
+      instanciaPedido,
+      setInstanciaPedido,
       eliminarElemento }}>
       {children}
     </CarritoContext.Provider>

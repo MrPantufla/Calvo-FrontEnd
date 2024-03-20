@@ -1,0 +1,130 @@
+.contenedorGeneralFacturacion{
+    background-color: white;
+    width: 35rem;
+    padding-bottom: 1rem;
+}
+
+.headFacturacion{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.headFacturacion p{
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 90%;
+    text-align: center;
+}
+
+.atrasFacturacion{
+    border: none;
+    background-color: transparent;
+    color: white;
+    margin-left: 0.5rem;
+    transition: transform 0.1s;
+}
+
+.atrasFacturacion:hover{
+    transform: scale(0.95);
+}
+
+.botonesTipoFacturacion{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.botonesTipoFacturacion button{
+    background-color: var(--colorPrimario);
+    border: none;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0 0.5rem;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.botonesTipoFacturacion button.active{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.form-group-responsableInscripto, .form-group-consumidorFinal{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.form-group-responsableInscripto label, .form-group-consumidorFinal label{
+    height: 2rem;
+    font-size: 1.5rem;
+    color: var(--colorSecundario);
+    font-weight: 700;
+    width: 80%;
+}
+
+.form-group-responsableInscripto input, .form-group-consumidorFinal input{
+    border: 2px solid var(--colorTerciario);
+    color: var(--colorSecundario);
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0 0.5rem;
+    width: 80%;
+}
+
+.botonRealizarPedidoContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+
+.botonRealizarPedido{
+    width: 50%;
+}
+
+@media (max-width: 820px){
+    .contenedorGeneralFacturacion{
+        width: 45rem;
+    }
+    
+    .headFacturacion p{
+        font-size: 3rem;
+    }
+
+    .atrasFacturacion{
+        margin-left: 0.5rem;
+    }
+
+    .atrasFacturacion svg{
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .botonesTipoFacturacion button{
+        font-size: 2.2rem;
+        height: 4rem;
+    }
+
+    .form-group-responsableInscripto label, .form-group-consumidorFinal label{
+        height: 2.7rem;
+        font-size: 2rem;
+    }
+
+    .form-group-responsableInscripto input, .form-group-consumidorFinal input{
+        font-size: 2rem;
+    }
+
+    .botonRealizarPedido{
+        height: 4rem;
+        font-size: 2rem;
+        margin-top: 0.5rem;
+    }
+}
