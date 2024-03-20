@@ -14,8 +14,8 @@ export default function HeaderMobile() {
 
     const location = useLocation();
 
-    const {isFold} = useTienda();
-    
+    const { isFold } = useTienda();
+
     const {
         state,
         setMostrarLogin,
@@ -23,9 +23,9 @@ export default function HeaderMobile() {
         logout
     } = useAuth();
 
-    const {setFavoritos} = useFavoritos();
+    const { setFavoritos } = useFavoritos();
 
-    const {limpiarCarrito} = useCarrito();
+    const { limpiarCarrito } = useCarrito();
 
     const navigate = useNavigate();
     const [catalogosOpen, setCatalogosOpen] = useState(false);
@@ -110,8 +110,23 @@ export default function HeaderMobile() {
         }
     }
 
+    useEffect(() => {
+        const handleDocumentClick = (event) => {
+            if (menuAbierto && !event.target.closest('.menu') && !event.target.closest('.containerBotonMobile')) {
+                setMenuAbierto(false); // Cierra el menú
+            }
+        };
+
+        document.addEventListener('click', handleDocumentClick);
+
+        return () => {
+            document.removeEventListener('click', handleDocumentClick);
+        };
+    }, [menuAbierto]);
+
     return (
         <header className="containerGeneralHeaderMobile">
+            {/*<div className="overlay" onClick={toggleMenu} />*/}
             <div className="containerBotonYLogoMobile">
                 <div className="containerBotonMobile">
                     <button className="botonHeader" id="toggleHeaderButton" onClick={toggleMenu}>
@@ -122,7 +137,7 @@ export default function HeaderMobile() {
                 </div>
                 <div className={`containerContainerLogoMobile ${isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
-                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={recargarPagina}/>
+                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={recargarPagina} />
                     </div>
                 </div>
             </div>
