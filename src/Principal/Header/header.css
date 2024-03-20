@@ -54,6 +54,24 @@
     transform: translateX(0%);
 }
 
+.perfil p{
+    font-weight: bold;
+    font-size: 1.7rem;
+    text-align: center;
+    color: white;
+    transition: color 0.3s;
+    padding-left: 3.8rem;
+    max-height: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 98%;
+    overflow: hidden;
+}
+
+.perfil.perfilHovered p{
+    color: var(--colorSecundario);
+}
+
 .seccion {
     position: relative;
     text-decoration: none;
