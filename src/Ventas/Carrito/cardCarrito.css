@@ -260,10 +260,62 @@
     .precioProductoCardCarrito p, .precioUnitarioCardCarrito p{
         font-size: 2rem;
     }
-} 
+}
+
+@media (max-width: 767px){
+    .cantidadCardCarrito button {
+        width: 4rem;
+        height: 4rem;
+        font-size: 4rem;
+    }
+
+    .cantidadCardCarrito div {
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .cantidadCardCarrito div p{
+        font-size: 3rem;
+    }
+
+    .eliminarCardCarrito{
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .textoColorCardCarrito{
+        font-size: 2.3rem;
+    }
+
+    .muestraColorCardCarrito {
+        height: 3.6rem;
+        border-radius: 3px;
+    }
+
+    .muestraColorCardCarrito p{
+        font-size: 2.3rem;
+    }
+
+    .precioContainer .textoPrecioCardCarrito{
+        font-size: 2.2rem;
+        font-weight: 600;
+    }
+
+    .precioProductoCardCarrito p{
+        font-size: 2.1rem;
+    }
+
+    .precioUnitarioCardCarrito p{
+        font-size: 2.1rem;
+    }
+}
 
 @media (max-width: 280px){
     .restoCardCarrito{
         background-color: var(--colorTerciario);
+    }
+
+    .cantidadCardCarrito{
+        padding-left: 0.5rem;
     }
 }

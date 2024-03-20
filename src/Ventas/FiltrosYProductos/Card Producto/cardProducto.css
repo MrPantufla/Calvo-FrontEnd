@@ -1,5 +1,5 @@
 .contenedorPrincipalCardProducto{
-    margin-top: 15px; 
+    margin-top: 15px;
     box-shadow: 0 0 6px 1px gray;
     aspect-ratio: 3 / 2;
     padding: 1rem;
@@ -387,6 +387,10 @@
 }
 
 @media (max-width: 767px){
+    .contenedorPrincipalCardProducto{
+        margin-top: 0;
+    }
+    
     .botonConsultarMaquina{
         height: 4.5rem;
         width: 20rem;

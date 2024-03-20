@@ -211,7 +211,7 @@ export default function Carrito() {
     if (carritoAbierto) {
       if (elementos.length > 0) {
         if(isMobile){
-          setCarritoHeight(8 + 27 * elementos.length + 5);
+          setCarritoHeight(8 + 27 * elementos.length + 6);
         }
         else if(isTablet){
           setCarritoHeight(3 + 4 + 27 * elementos.length + 5);
@@ -222,7 +222,7 @@ export default function Carrito() {
       }
       else {
         if(isMobile){
-          setCarritoHeight(4 + 14.1);
+          setCarritoHeight(4 + 18.1);
         }
         else if(isTablet){
           setCarritoHeight(3 + 4 + 10.5);

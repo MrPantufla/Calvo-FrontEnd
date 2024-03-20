@@ -368,24 +368,25 @@
     }
 
     .botonCarrito{
-        width: 5rem;
-        height: 5rem;
+        width: 7rem;
+        height: 7rem;
+        margin-right: 2.5rem;
     }
 
     .botonCarrito .bi{
-        width: 3rem;
-        height: 3rem;
+        width: 4.5rem;
+        height: 4.5rem;
     }
 
     .botonHintCarrito{
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 3.8rem;
+        height: 3.8rem;
     }
 
     .cantidadEnCarrito{
-        width: 2rem;
-        height: 2rem;
-        font-size: 2rem;
+        width: 3rem;
+        height: 3rem;
+        font-size: 3rem;
     }
 
     .elementosVisiblesCarrito{
@@ -421,6 +422,23 @@
     .confirmarCarrito{
         height: 4.5rem;
         font-size: 2.2rem;
+    }
+
+    .tituloYHintCarrito{
+        height: 4rem;
+    }
+
+    .tituloYHintCarrito p{
+        font-size: 3rem;
+    }
+
+    .agregadoRapido input{
+        height: 5rem;
+        font-size: 3rem;
+    }
+
+    .carritoVacioContainer{
+        height: 13rem;
     }
 }
 

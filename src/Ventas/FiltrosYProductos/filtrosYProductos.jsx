@@ -129,7 +129,7 @@ export default function FiltrosYProductos() {
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
-        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none', zIndex: isFold ? '103' : '100' }}>
+        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none'}}>
           <button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
         </div>
         {isTablet ?
