@@ -1,11 +1,10 @@
-import './corroborarDatos.css';
+import './corroborarDireccion.css';
 import { useAuth } from "../../../contextLogin";
 import { useDireccion } from "../../../contextDireccion";
 import { useCarrito } from "../../../contextCarrito";
 import { useNavigate } from 'react-router-dom';
-import { useTienda } from '../../../contextTienda';
 
-export default function CorroborarDatos() {
+export default function CorroborarDireccion() {
     const {state} = useAuth();
 
     const {
@@ -17,14 +16,8 @@ export default function CorroborarDatos() {
     } = useDireccion();
 
     const {
-        confirmarCompra,
-        limpiarCarrito,
-        setConfirmarCompraAbierto,
-        setDatosCorroborados,
         setInstanciaPedido
     } = useCarrito();
-
-    const {setMostrarPagos} = useTienda();
 
     const navigate = useNavigate();
 

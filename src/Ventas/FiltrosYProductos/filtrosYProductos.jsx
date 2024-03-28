@@ -66,7 +66,6 @@ export default function FiltrosYProductos() {
     window.scrollTo(0, 0);
     setTimeout(() => {
       setPaginaActual(numeroDePagina);
-      console.log(numeroDePagina)
     }, 350);
   }
 

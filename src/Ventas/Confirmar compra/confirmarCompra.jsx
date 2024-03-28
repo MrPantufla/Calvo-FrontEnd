@@ -1,6 +1,6 @@
 import './confirmarCompra.css';
 import { useDireccion } from '../../contextDireccion';
-import CorroborarDatos from './Corroborar datos/corroborarDatos';
+import CorroborarDireccion from './Corroborar direccion/corroborarDireccion';
 import { useCarrito } from '../../contextCarrito';
 import { useState } from 'react';
 import ErrorDirecion from './Error direccion/errorDireccion';
@@ -43,7 +43,7 @@ export default function ConfirmarCompra() {
                         {calle == '' || numero == '' || cp == '' || localidad == '' || provincia == '' ?
                             (<ErrorDirecion />)
                             :
-                            (<CorroborarDatos />)
+                            (<CorroborarDireccion />)
                         }
                     </>)
                     :

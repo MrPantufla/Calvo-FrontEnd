@@ -34,11 +34,11 @@
     transition: scale 0.2s;
 }
 
-.imagenCardFavoritos:hover{
+.imagenCardFavoritos:hover {
     scale: 1.05;
 }
 
-.codigoYDetalleCardFavoritosContainer{
+.codigoYDetalleCardFavoritosContainer {
     height: 35%;
     display: flex;
     align-items: center;
@@ -52,7 +52,7 @@
     font-size: 1.5rem;
 }
 
-.codigoYDetalleCardFavoritos span{
+.codigoYDetalleCardFavoritos span {
     color: var(--colorRojo);
 }
 
@@ -74,19 +74,19 @@
     height: 28%;
 }
 
-.botonQuitarFavorito{
+.botonQuitarFavorito {
     transition: scale 0.1s;
 }
 
-.botonQuitarFavorito:active{
+.botonQuitarFavorito:active {
     scale: 0.95;
 }
 
-.botonQuitarFavorito .bi-heart{
+.botonQuitarFavorito .bi-heart {
     fill: var(--colorRojo);
 }
 
-.colorCardFavoritosContainer{
+.colorCardFavoritosContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +96,7 @@
     padding-bottom: 1rem;
 }
 
-.botonAñadirACarritoContainer{
+.botonAñadirACarritoContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,7 +104,7 @@
     width: 100%;
 }
 
-.botonAñadirACarritoContainer button{
+.botonAñadirACarritoContainer button {
     border: none;
     background-color: var(--colorRojo);
     color: white;
@@ -116,20 +116,20 @@
     transition: scale 0.1s;
 }
 
-.botonAñadirACarritoContainer button:active{
+.botonAñadirACarritoContainer button:active {
     scale: 0.95;
 }
 
-.textoColorCardFavoritos{
+.textoColorCardFavoritos {
     margin: 0;
     font-size: 1.3rem;
 }
 
-.colorCardFavoritos{
+.colorCardFavoritos {
     font-weight: 700;
 }
 
-.textoColorCardFavoritos{
+.textoColorCardFavoritos {
     font-size: 1.2rem;
     font-weight: 600;
 }
@@ -142,7 +142,7 @@
     width: 3.5rem;
 }
 
-.muestraColorCardFavoritos{
+.muestraColorCardFavoritos {
     width: 10rem;
     height: 2rem;
     display: flex;
@@ -153,32 +153,76 @@
     padding-top: 0.2rem;
 }
 
-@media (max-width: 820px){
-    .contenedorPrincipalCardFavoritos{
+@media (max-width: 820px) {
+    .contenedorPrincipalCardFavoritos {
         width: 100%;
         height: 25rem;
     }
 
-    .codigoYDetalleCardFavoritos{
+    .codigoYDetalleCardFavoritos {
         font-size: 2rem;
     }
 
-    .textoColorCardFavoritos{
+    .textoColorCardFavoritos {
         font-size: 1.8rem;
     }
 
-    .colorCardFavoritos{
+    .colorCardFavoritos {
         font-size: 2rem;
     }
 
-    .muestraColorCardFavoritos{
+    .muestraColorCardFavoritos {
         width: 12rem;
         height: 3rem;
 
     }
 
-    .botonAñadirACarritoContainer button{
+    .botonAñadirACarritoContainer button {
         height: 3.5rem;
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 820px) {
+    .tituloFavoritos {
+        height: 4rem;
+    }
+
+    .tituloFavoritos p {
+        font-size: 3rem;
+    }
+
+    .botonQuitarFavorito {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    .textoColorCardFavoritos {
+        font-size: 2rem;
+    }
+
+    .coloravoritos{
+        font-size: 2.3rem;
+    }
+
+    .botonAñadirACarritoContainer button {
+        height: 4rem;
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .codigoYDetalleCardFavoritos {
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 280px){
+    .codigoYDetalleCardFavoritos {
+        font-size: 2rem;
+    }
+
+    .botonAñadirACarritoContainer button {
         font-size: 2.2rem;
     }
 }

@@ -7,6 +7,8 @@ export default function Roller() {
     const {
         alto,
         setAlto,
+        tipoRoller,
+        setTipoRoller,
         ancho,
         setAncho,
         conMecanismo,

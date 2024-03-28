@@ -97,7 +97,7 @@
 }
 
 .containerLogoMenu img {
-    width: 35%;
+    width: 26rem;
     padding-top: 3rem;
 }
 
@@ -191,6 +191,7 @@
 
 .textoCatalogosHeaderMobileContainer p{
     margin-right: 0.5rem;
+    padding-top: 0.4rem;
     text-align: center;
     width: 100%;
 }

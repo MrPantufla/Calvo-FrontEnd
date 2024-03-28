@@ -140,9 +140,10 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
+            src={`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`}
             onError={(e) => {
-              //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.png`;
+              {args.tipo_prod == "PERFIL" && console.log(args.cod_orig.trim())}
+              /*e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.png`;
               e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
               e.target.onerror = () => {
                 e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
@@ -160,7 +161,7 @@ export default function CardProducto(args) {
                     };
                   };
                 };
-              };
+              };*/
             }}
             alt="Imagen del producto"
             loading="lazy"

@@ -389,6 +389,7 @@
 @media (max-width: 767px){
     .contenedorPrincipalCardProducto{
         margin-top: 0;
+        margin-bottom: 2rem;
     }
     
     .botonConsultarMaquina{
@@ -396,6 +397,16 @@
         width: 20rem;
         font-size: 3rem;
         margin-top: 1.5rem;
+    }
+
+    .precioContainerCardProducto{
+        height: 4rem;
+        padding-bottom: 2.5rem;
+        margin-top: 2rem;
+    }
+
+    .precioCardProducto{
+        font-size: 3.1rem;
     }
 }
 
@@ -442,16 +453,6 @@
     .muestraColorCardProducto{
         height: 4rem;
         width: 20rem;
-    }
-
-    .precioContainerCardProducto{
-        height: 3.5rem;
-        margin-bottom: 0.1rem;
-        padding-bottom: 1rem;
-    }
-
-    .precioCardProducto{
-        font-size: 2.5rem;
     }
 
     .botonConsultarMaquina{
@@ -518,5 +519,10 @@
 
     .colorCardProducto p{
         font-size: 2.3rem;
+    }
+
+    .precioCardProducto{
+        font-size: 2.8rem;
+        padding-top: 0.4rem;
     }
 }

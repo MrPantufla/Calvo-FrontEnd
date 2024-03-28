@@ -59,3 +59,23 @@
 .parteUtilizableCartelError button:active{
     transform: scale(0.95);
 }
+
+@media (max-width: 820px){
+    .parteUtilizableCartelError{
+        width: 50rem;
+        height: 25rem;
+    }
+
+    .parteUtilizableCartelError h2{
+        font-size: 3rem;
+    }
+
+    .parteUtilizableCartelError a{
+        font-size: 2rem;
+    }
+
+    .parteUtilizableCartelError button{
+        height: 4rem;
+        font-size: 2.3rem;
+    }
+}

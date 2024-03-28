@@ -17,6 +17,7 @@ function ProviderCortinas({ children }) {
 
     const [tipo, setTipo] = useState('roller');
     const [alto, setAlto] = useState('');
+    const [tipoRoller, setTipoRoller] = useState('');
     const [ancho, setAncho] = useState('');
     const [conMecanismo, setConMecanismo] = useState('');
     const [alturaIndicada, setAlturaIndicada] = useState('');
@@ -86,6 +87,7 @@ function ProviderCortinas({ children }) {
         deleteErrorMessage();
         setAlto('');
         setAncho('');
+        setTipoRoller('');
         setConMecanismo('');
         setAlturaIndicada('');
         setColor('');
@@ -192,7 +194,9 @@ function ProviderCortinas({ children }) {
             aclaraciones,
             setAclaraciones,
             muestrasAbierto,
-            setMuestrasAbierto
+            setMuestrasAbierto,
+            tipoRoller,
+            setTipoRoller
         }}>
             {children}
         </CortinasContext.Provider>
