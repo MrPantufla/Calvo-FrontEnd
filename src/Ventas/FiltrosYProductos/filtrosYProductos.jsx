@@ -267,6 +267,7 @@ export default function FiltrosYProductos() {
           cod_orig={productoSeleccionado.cod_orig}
           detalle={productoSeleccionado.detalle}
           onClose={handleCloseProductoGrande}
+          tipo_prod={productoSeleccionado.tipo_prod}
           precio={productoSeleccionado.precio}
           color={productoSeleccionado.color}
           kg={productoSeleccionado.kg}

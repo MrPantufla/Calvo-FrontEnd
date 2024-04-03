@@ -140,29 +140,13 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`}
-            onError={(e) => {
-              {args.tipo_prod == "PERFIL" && console.log(args.cod_orig.trim())}
-              /*e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.png`;
-              e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
-              e.target.onerror = () => {
-                e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
-                // Si falla la carga en formato JPG, intenta con BMP
-                e.target.onerror = () => {
-                  e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.bmp`;
-
-                  // Si falla la carga en formato BMP, intenta con JPEG
-                  e.target.onerror = () => {
-                    e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.peg`;
-
-                    // Si falla la carga en formato JPEG, carga una imagen por defecto
-                    e.target.onerror = () => {
-                      e.target.src = `/ImagenesProductos/xd.png`;
-                    };
-                  };
-                };
-              };*/
-            }}
+            src={args.tipo_prod == 'PERFIL' ? 
+              (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`) 
+              : 
+              (args.tipo_prod == 'ACCESORIO' ?
+                (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`) 
+                : 
+                (''))}
             alt="Imagen del producto"
             loading="lazy"
           />

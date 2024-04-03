@@ -7,13 +7,13 @@ import { useState } from 'react';
 
 export default function ProductoGrande(args) {
     const [aptoParaCerrar, setAptoParaCerrar] = useState(false)
-    
+
     const {
         state,
         setMostrarLogin
     } = useAuth();
 
-    const {isMobile} = useTienda();
+    const { isMobile } = useTienda();
 
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
     const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
@@ -51,7 +51,7 @@ export default function ProductoGrande(args) {
     }
 
     const handleClose = () => {
-        if(aptoParaCerrar == true){
+        if (aptoParaCerrar == true) {
             args.onClose();
         }
     };
@@ -76,11 +76,17 @@ export default function ProductoGrande(args) {
                         <img
                             className="imagenProductoGrande"
                             //src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
-                            src={`/PngsPerfiles/${args.cod_orig.slice(2)}.png`}
+                            src={args.tipo_prod == 'PERFIL' ?
+                                (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
+                                :
+                                (args.tipo_prod == 'ACCESORIO' ?
+                                    (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`)
+                                    :
+                                    (''))}
                             onError={(e) => {
                                 //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
                                 e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
-                                
+
                                 e.target.onerror = () => {
                                     e.target.src = `/ImagenesProductos/xd.png`;
                                 };
