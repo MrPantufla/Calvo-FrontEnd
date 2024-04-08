@@ -30,11 +30,6 @@ export default function PersianaAluminio() {
         setTipoTablilla,
         especificacionBarrio,
         setEspecificacionBarrio,
-        descelectMecanismoYCajonPersianaAluminio,
-        descelectControlPersianaAluminio,
-        descelectUbicacionCajonPersianaAluminio,
-        descelectUbicacionExteriorCajonPersianaAluminio,
-        descelectEspecificacionBarrio,
         setErrorMessage,
         deleteErrorMessage,
         enviarCortina,
@@ -184,7 +179,7 @@ export default function PersianaAluminio() {
                     <p>CON MECANISMO?</p>
                     <div className="bodyFormGroupCortinas">
                         <div className={`especificacionCortina ${conMecanismo == 'mecanismoSi' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoSi' ? 'mecanismoSi' : ''); deleteErrorMessage() }}>Si</div>
-                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); descelectMecanismoYCajonPersianaAluminio(); deleteErrorMessage() }}>No</div>
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); deleteErrorMessage() }}>No</div>
                     </div>
                 </div>
 
@@ -193,7 +188,7 @@ export default function PersianaAluminio() {
                         <div className="form-group-cortinas">
                             <p>TIPO DE MECANISMO</p>
                             <div className="bodyFormGroupCortinas">
-                                <div className={`especificacionCortina ${tipoMecanismo == 'manual' ? 'checked' : ''}`} onClick={() => { setTipoMecanismo(tipoMecanismo !== 'manual' ? 'manual' : ''); descelectControlPersianaAluminio(); deleteErrorMessage() }}>Manual</div>
+                                <div className={`especificacionCortina ${tipoMecanismo == 'manual' ? 'checked' : ''}`} onClick={() => { setTipoMecanismo(tipoMecanismo !== 'manual' ? 'manual' : ''); deleteErrorMessage() }}>Manual</div>
                                 <div className={`especificacionCortina ${tipoMecanismo == 'motor' ? 'checked' : ''}`} onClick={() => { setTipoMecanismo(tipoMecanismo !== 'motor' ? 'motor' : ''); deleteErrorMessage() }}>Motor</div>
                             </div>
                         </div>
@@ -223,7 +218,7 @@ export default function PersianaAluminio() {
                             <div className="bodyFormGroupCortinas">
                                 <div className={`especificacionCortina ${conCajon === 'cajonSi' ? 'checked' : ''}`} onClick={() => { setConCajon((conCajon !== 'cajonSi') ? 'cajonSi' : ''); deleteErrorMessage() }}>Si</div>
 
-                                <div className={`especificacionCortina ${conCajon == 'cajonNo' ? 'checked' : ''}`} onClick={() => { setConCajon(conCajon !== 'cajonNo' ? 'cajonNo' : ''); descelectUbicacionCajonPersianaAluminio(); deleteErrorMessage() }}>No</div>
+                                <div className={`especificacionCortina ${conCajon == 'cajonNo' ? 'checked' : ''}`} onClick={() => { setConCajon(conCajon !== 'cajonNo' ? 'cajonNo' : ''); deleteErrorMessage() }}>No</div>
                             </div>
                         </div>
 
@@ -232,7 +227,7 @@ export default function PersianaAluminio() {
                                 <div className="form-group-cortinas">
                                     <p>TIPO DE CAJON</p>
                                     <div className="bodyFormGroupCortinas">
-                                        <div className={`especificacionCortina ${ubicacionCajon == 'compacto' ? 'checked' : ''}`} onClick={() => { setUbicacionCajon(ubicacionCajon !== 'compacto' ? 'compacto' : ''); descelectUbicacionExteriorCajonPersianaAluminio(); deleteErrorMessage() }}>Compacto</div>
+                                        <div className={`especificacionCortina ${ubicacionCajon == 'compacto' ? 'checked' : ''}`} onClick={() => { setUbicacionCajon(ubicacionCajon !== 'compacto' ? 'compacto' : ''); deleteErrorMessage() }}>Compacto</div>
                                         <div className={`especificacionCortina ${ubicacionCajon == 'exterior' ? 'checked' : ''}`} onClick={() => { setUbicacionCajon(ubicacionCajon !== 'exterior' ? 'exterior' : ''); deleteErrorMessage() }}>Exterior</div>
                                     </div>
                                 </div>
@@ -260,11 +255,11 @@ export default function PersianaAluminio() {
                             <div className={`especificacionCortina ${tipoTablilla == 'barrioLiviana' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'barrioLiviana' ? 'barrioLiviana' : ''); deleteErrorMessage() }}>Barrio liviana</div>
                         </div>
                         <div className="tablillasDap">
-                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-55conFelpa' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-55conFelpa' ? 'DAP-55conFelpa' : ''); descelectEspecificacionBarrio(); deleteErrorMessage() }}>DAP-55 con felpa</div>
-                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-44' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-44' ? 'DAP-44' : ''); descelectEspecificacionBarrio(); deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-44</div>
+                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-55conFelpa' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-55conFelpa' ? 'DAP-55conFelpa' : ''); deleteErrorMessage() }}>DAP-55 con felpa</div>
+                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-44' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-44' ? 'DAP-44' : ''); deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-44</div>
                         </div>
                         <div className="autoblocante">
-                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-ABKautoblocante' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-ABKautoblocante' ? 'DAP-ABKautoblocante' : ''); descelectEspecificacionBarrio();; deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-ABK autoblocante</div>
+                            <div className={`especificacionCortina ${tipoTablilla == 'DAP-ABKautoblocante' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-ABKautoblocante' ? 'DAP-ABKautoblocante' : ''); deleteErrorMessage() }} disabled={tipoMecanismo !== 'motor'}>DAP-ABK autoblocante</div>
                         </div>
                     </div>
                 </div>

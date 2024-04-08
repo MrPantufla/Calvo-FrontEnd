@@ -18,20 +18,18 @@ function ProviderCortinas({ children }) {
     const [tipo, setTipo] = useState('roller');
     const [alto, setAlto] = useState('');
     const [ancho, setAncho] = useState('');
-    const [conMecanismo, setConMecanismo] = useState('');
     const [alturaIndicada, setAlturaIndicada] = useState('');
     const [profundidadGuia, setProfundidadGuia] = useState('');
     const [aclaraciones, setAclaraciones] = useState('');
 
-    const [tipoRoller, setTipoRoller] = useState('');
-    const [tipoScreen, setTipoScreen] = useState('');
+    const [linea, setLinea] = useState('');
+    const [lineaScreen, setLineaScreen] = useState('');
     const [color, setColor] = useState('');
     const [colorAccesorios, setColorAccesorios] = useState('');
     const [mecanismoRoller, setMecanismoRoller] = useState('');
-    const [teclaRoller, setTeclaRoller] = useState(false);
-    const [controlRemotoRoller, setControlRemotoRoller] = useState(false);
     const [caida, setCaida] = useState('');
     const [ladoTirador, setLadoTirador] = useState('');
+    const [accionadorMotorRoller, setAccionadorMotorRoller] = useState('');
 
     const [tipoEnrollador, setTipoEnrollador] = useState('');
 
@@ -46,64 +44,7 @@ function ProviderCortinas({ children }) {
 
     const [errorMessage, setErrorMessage] = useState('');
 
-    const descelectEnrolladorPersianaPvc = () => {
-        setTipoEnrollador('');
-    }
-
-    const descelectControlYTeclaPortonAluminio = () => {
-        setControl('');
-        setTecla('');
-    }
-
-    const descelectMecanismoYCajonPersianaAluminio = () => {
-        setConCajon('');
-        setTipoMecanismo('');
-        descelectUbicacionCajonPersianaAluminio();
-        descelectControlPersianaAluminio();
-    }
-
-    const descelectControlPersianaAluminio = () => {
-        setControl('');
-        setTecla('');
-    }
-
-    const descelectUbicacionCajonPersianaAluminio = () => {
-        setUbicacionCajon('');
-        descelectUbicacionExteriorCajonPersianaAluminio();
-    }
-
-    const descelectUbicacionExteriorCajonPersianaAluminio = () => {
-        setUbicacionExteriorCajon('');
-    }
-
-    const descelectEspecificacionBarrio = () => {
-        setEspecificacionBarrio('');
-    }
-
-    const deleteErrorMessage = () =>{
-        setErrorMessage('');
-    }
-
-    const limpiarFormularios = () => {
-        deleteErrorMessage();
-        setAlto('');
-        setAncho('');
-        setTipoRoller('');
-        setConMecanismo('');
-        setAlturaIndicada('');
-        setColor('');
-        setCaida('');
-        setTipoEnrollador('');
-        setConCajon('');
-        setUbicacionExteriorCajon('');
-        setUbicacionCajon('');
-        setTipoMecanismo('');
-        setControl('');
-        setTecla('');
-        setTipoTablilla('');
-        setEspecificacionBarrio('');
-        setAclaraciones('');
-    }
+    const [formularioEnviado, setFormularioEnviado] = useState(false);
 
     const enviarCortina = (textoCortina) => {
         
@@ -124,6 +65,7 @@ function ProviderCortinas({ children }) {
             .then(response => {
                 if (response.ok) {
                     console.log('Envío de formulario exitoso');
+                    setFormularioEnviado(true);
                     return null;
                 } else {
                     return response.text();
@@ -142,6 +84,37 @@ function ProviderCortinas({ children }) {
             });
     }
 
+    const deleteErrorMessage = () =>{
+        setErrorMessage('');
+    }
+
+    const limpiarLadoTirador = () =>{
+        setLadoTirador('');
+    }
+
+    const limpiarAccionadorMotorRoller = () =>{
+        setAccionadorMotorRoller('');
+    }
+
+    const limpiarLineaScreen = () =>{
+        setLineaScreen('');
+    }
+
+    const limpiarRoller = () =>{
+        setLinea('');
+        setLineaScreen('');
+        setAncho('');
+        setAlto('');
+        setAlturaIndicada('');
+        setProfundidadGuia('');
+        setMecanismoRoller('');
+        setAccionadorMotorRoller('');
+        setLadoTirador('');
+        setCaida('');
+        setColorAccesorios('');
+        setAclaraciones('');
+    }
+
     return (
         <CortinasContext.Provider value={{
             tipo,
@@ -150,8 +123,6 @@ function ProviderCortinas({ children }) {
             setAlto,
             ancho,
             setAncho,
-            conMecanismo,
-            setConMecanismo,
             alturaIndicada,
             setAlturaIndicada,
             color,
@@ -176,26 +147,17 @@ function ProviderCortinas({ children }) {
             setTipoTablilla,
             especificacionBarrio,
             setEspecificacionBarrio,
-            descelectEnrolladorPersianaPvc,
-            descelectControlYTeclaPortonAluminio,
-            descelectMecanismoYCajonPersianaAluminio,
-            descelectControlPersianaAluminio,
-            descelectUbicacionCajonPersianaAluminio,
-            descelectUbicacionExteriorCajonPersianaAluminio,
-            descelectEspecificacionBarrio,
-            limpiarFormularios,
             errorMessage,
             setErrorMessage,
-            deleteErrorMessage,
             enviarCortina,
             aclaraciones,
             setAclaraciones,
             muestrasAbierto,
             setMuestrasAbierto,
-            tipoRoller,
-            setTipoRoller,
-            tipoScreen, 
-            setTipoScreen,
+            linea,
+            setLinea,
+            lineaScreen, 
+            setLineaScreen,
             mecanismoRoller, 
             setMecanismoRoller,
             colorAccesorios, 
@@ -204,10 +166,15 @@ function ProviderCortinas({ children }) {
             setLadoTirador,
             profundidadGuia,
             setProfundidadGuia,
-            teclaRoller,
-            setTeclaRoller,
-            controlRemotoRoller,
-            setControlRemotoRoller
+            accionadorMotorRoller,
+            setAccionadorMotorRoller,
+            deleteErrorMessage,
+            formularioEnviado,
+
+            limpiarLadoTirador,
+            limpiarAccionadorMotorRoller,
+            limpiarLineaScreen,
+            limpiarRoller
         }}>
             {children}
         </CortinasContext.Provider>

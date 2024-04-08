@@ -16,7 +16,6 @@ export default function PersianaPvc() {
         setAlturaIndicada,
         tipoEnrollador,
         setTipoEnrollador,
-        descelectEnrolladorPersianaPvc,
         setErrorMessage,
         deleteErrorMessage,
         enviarCortina,
@@ -62,14 +61,14 @@ export default function PersianaPvc() {
             setErrorMessage("Los campos de dimensiones solo aceptan números enteros positivos");
             window.scrollTo(0, 0);
         }
-        else if (conMecanismo === 'mecanismoSi' && tipoEnrollador === "" ) {
+        else if (conMecanismo === 'mecanismoSi' && tipoEnrollador === "") {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
         else {
             deleteErrorMessage();
 
-            const textoCortina = 
+            const textoCortina =
                 "TIPO: PERSIANA PVC\n" +
                 "ALTO: " + alto + "mm\n" +
                 "ANCHO: " + ancho + "mm\n" +
@@ -79,7 +78,7 @@ export default function PersianaPvc() {
                     :
                     "TIPO DE MECANISMO: " + (tipoEnrollador ? tipoEnrollador : 'A consultar')
                 )
-            ;
+                ;
 
             enviarCortina(textoCortina);
         }
@@ -91,15 +90,6 @@ export default function PersianaPvc() {
                 <div className="form-group-cortinas">
                     <p>DIMENSIONES</p>
                     <div className="bodyFormGroupCortinas">
-                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto</label>
-                        <input type="text"
-                            id="alto"
-                            value={alto}
-                            onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
-                            className="campotextoEspecificacionCortina"
-                        />
-                        <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
-
                         <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho</label>
                         <input type="text"
                             id="ancho"
@@ -108,6 +98,15 @@ export default function PersianaPvc() {
                             className="campotextoEspecificacionCortina"
                         />
                         <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+
+                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto</label>
+                        <input type="text"
+                            id="alto"
+                            value={alto}
+                            onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
+                            className="campotextoEspecificacionCortina"
+                        />
+                        <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
                     </div>
                 </div>
 
@@ -123,7 +122,7 @@ export default function PersianaPvc() {
                     <p>CON MECANISMO?</p>
                     <div className="bodyFormGroupCortinas">
                         <div className={`especificacionCortina ${conMecanismo == 'mecanismoSi' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoSi' ? 'mecanismoSi' : ''); deleteErrorMessage() }}>Si</div>
-                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); descelectEnrolladorPersianaPvc(); deleteErrorMessage() }}>No</div>
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); deleteErrorMessage() }}>No</div>
                     </div>
                 </div>
 

@@ -20,7 +20,6 @@ export default function PortonAluminio() {
         setTecla,
         tipoTablilla,
         setTipoTablilla,
-        descelectControlYTeclaPortonAluminio,
         setErrorMessage,
         deleteErrorMessage,
         enviarCortina,
@@ -129,7 +128,7 @@ export default function PortonAluminio() {
                     <p>CON MECANISMO?</p>
                     <div className="bodyFormGroupCortinas">
                         <div className={`especificacionCortina ${conMecanismo == 'mecanismoSi' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoSi' ? 'mecanismoSi' : ''); deleteErrorMessage() }}>Si</div>
-                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); descelectControlYTeclaPortonAluminio(); deleteErrorMessage() }}>No</div>
+                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); deleteErrorMessage() }}>No</div>
                     </div>
                 </div>
 

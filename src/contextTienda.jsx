@@ -54,9 +54,16 @@ function TiendaProvider({ children }) {
   }, []);
 
   const seleccionarEliminados = () =>{
-    setTipoActivo([]);
     setCortinasSelected(false);
-    setEliminadosSelected(!eliminadosSelected);
+    
+    if(!eliminadosSelected){
+      setTipoActivo([]);
+      setEliminadosSelected(true);
+    }
+    else{
+      setEliminadosSelected(false);
+      setTipoActivo(null);
+    }
   }
 
   const limpiarColoresActivos = () => {
@@ -64,9 +71,16 @@ function TiendaProvider({ children }) {
   }
 
   const seleccionarCortinas = () => {
-    setTipoActivo([]);
     setEliminadosSelected(false);
-    setCortinasSelected(!cortinasSelected);
+
+    if(!cortinasSelected){
+      setTipoActivo([]);
+      setCortinasSelected(true);
+    }
+    else{
+      setCortinasSelected(false);
+      setTipoActivo(null);
+    }
   }
 
   const togglearTipo = (tipo) =>{

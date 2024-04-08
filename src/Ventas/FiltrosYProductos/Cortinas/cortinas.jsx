@@ -12,10 +12,10 @@ export default function Cortinas() {
     const {
         tipo,
         setTipo,
-        limpiarFormularios,
         errorMessage,
         muestrasAbierto,
-        setMuestrasAbierto
+        setMuestrasAbierto,
+        //limpiarFormularios
     } = useCortinas();
 
     const {
@@ -45,12 +45,12 @@ export default function Cortinas() {
                         <p>TIPO</p>
                         <div className="bodyFormGroupCortinas rowTiposContainer">
                             <div className="divFold1">
-                                <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo('roller') }}>Roller</div>
-                                <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo('persianaPvc') }}>Persiana PVC</div>
+                                <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { /*limpiarFormularios();*/ setTipo('roller') }}>Roller</div>
+                                <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { /*limpiarFormularios();*/ setTipo('persianaPvc') }}>Persiana PVC</div>
                             </div>
                             <div className="divFold2">
-                                <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo('portonAluminio') }}>Porton de aluminio</div>
-                                <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarFormularios(); setTipo('persianaAluminio') }}>Persiana de aluminio</div>
+                                <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { /*limpiarFormularios();*/ setTipo('portonAluminio') }}>Porton de aluminio</div>
+                                <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { /*limpiarFormularios();*/ setTipo('persianaAluminio') }}>Persiana de aluminio</div>
                             </div>
                         </div>
                     </div>
