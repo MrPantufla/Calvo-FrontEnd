@@ -34,3 +34,84 @@
 .especificacionCortina.negro.checked, .especificacionCortina.blanco.checked, .especificacionCortina.beige.checked, .especificacionCortina.gris.checked{
     transform: scale(0.9);
 }
+
+.shantungRosa{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/shantungRosa.jpg);
+}
+
+.shantungGris{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/shantungGris.jpg);
+}
+
+.parisBeige{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisBeige.jpg);
+}
+
+.parisCeleste{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisCeleste.jpg);
+}
+
+.parisGrisAgua{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisGrisAgua.jpg);
+}
+
+.parisVerdeClaro{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisVerdeClaro.jpg);
+} 
+
+.parisBlancoTrans{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisBlancoTrans.jpg);
+}
+
+.parisBlanco{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisBlanco.jpg);
+}
+
+.parisCrema{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisCrema.jpg);
+}
+
+.parisNaranja{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisNaranja.jpg);
+}
+
+.parisRojo{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisRojo.jpg);
+}
+
+.okiataNegroBeige{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataNegroBeige.jpg);
+}
+
+.okiataBlanco{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataBlanco.jpg);
+}
+
+.okiataNegro{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataNegro.jpg);
+}
+
+.okiataBeige{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataBeige.jpg);
+}
+
+.okiataBlancoBeige{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataBlancoBeige.jpg);
+}
+
+.okiataBlancoGris{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataBlancoGris.jpg);
+}
+
+.okiataNegroBronce{
+    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/okiataNegroBronce.jpg);
+}
+
+.coloresCortinas{
+    display: flex;
+    flex-direction: column !important;
+}
+
+.coloresCortinas div{
+    background-size: cover;
+}

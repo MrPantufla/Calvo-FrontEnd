@@ -17,15 +17,21 @@ function ProviderCortinas({ children }) {
 
     const [tipo, setTipo] = useState('roller');
     const [alto, setAlto] = useState('');
-    const [tipoRoller, setTipoRoller] = useState('');
     const [ancho, setAncho] = useState('');
     const [conMecanismo, setConMecanismo] = useState('');
     const [alturaIndicada, setAlturaIndicada] = useState('');
+    const [profundidadGuia, setProfundidadGuia] = useState('');
     const [aclaraciones, setAclaraciones] = useState('');
 
+    const [tipoRoller, setTipoRoller] = useState('');
+    const [tipoScreen, setTipoScreen] = useState('');
     const [color, setColor] = useState('');
+    const [colorAccesorios, setColorAccesorios] = useState('');
+    const [mecanismoRoller, setMecanismoRoller] = useState('');
+    const [teclaRoller, setTeclaRoller] = useState(false);
+    const [controlRemotoRoller, setControlRemotoRoller] = useState(false);
     const [caida, setCaida] = useState('');
-    const [tirador, setTirador] = useState('');
+    const [ladoTirador, setLadoTirador] = useState('');
 
     const [tipoEnrollador, setTipoEnrollador] = useState('');
 
@@ -39,11 +45,6 @@ function ProviderCortinas({ children }) {
     const [especificacionBarrio, setEspecificacionBarrio] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
-
-    const descelectCaidaRoller = () => {
-        setTirador('');
-        setCaida('');
-    }
 
     const descelectEnrolladorPersianaPvc = () => {
         setTipoEnrollador('');
@@ -92,7 +93,6 @@ function ProviderCortinas({ children }) {
         setAlturaIndicada('');
         setColor('');
         setCaida('');
-        setTirador('');
         setTipoEnrollador('');
         setConCajon('');
         setUbicacionExteriorCajon('');
@@ -158,8 +158,6 @@ function ProviderCortinas({ children }) {
             setColor,
             caida,
             setCaida,
-            tirador,
-            setTirador,
             tipoEnrollador,
             setTipoEnrollador,
             conCajon,
@@ -178,7 +176,6 @@ function ProviderCortinas({ children }) {
             setTipoTablilla,
             especificacionBarrio,
             setEspecificacionBarrio,
-            descelectCaidaRoller,
             descelectEnrolladorPersianaPvc,
             descelectControlYTeclaPortonAluminio,
             descelectMecanismoYCajonPersianaAluminio,
@@ -196,7 +193,21 @@ function ProviderCortinas({ children }) {
             muestrasAbierto,
             setMuestrasAbierto,
             tipoRoller,
-            setTipoRoller
+            setTipoRoller,
+            tipoScreen, 
+            setTipoScreen,
+            mecanismoRoller, 
+            setMecanismoRoller,
+            colorAccesorios, 
+            setColorAccesorios,
+            ladoTirador, 
+            setLadoTirador,
+            profundidadGuia,
+            setProfundidadGuia,
+            teclaRoller,
+            setTeclaRoller,
+            controlRemotoRoller,
+            setControlRemotoRoller
         }}>
             {children}
         </CortinasContext.Provider>
