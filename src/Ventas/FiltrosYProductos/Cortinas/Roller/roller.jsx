@@ -170,9 +170,9 @@ export default function Roller() {
             }
 
             {linea == 'screen' &&
-                (<div className="form-group-cortinas">
+                (<>
                     {lineaScreen == 'shantung' ?
-                        (<>
+                        (<div className="form-group-cortinas">
                             <p>COLOR</p>
                             <div className="bodyFormGroupCortinas coloresCortinas columnasColores">
                                 <div className="coloresAbajo">
@@ -186,10 +186,10 @@ export default function Roller() {
                                     </div>
                                 </div>
                             </div>
-                        </>)
+                        </div>)
                         :
                         (lineaScreen == 'paris' ?
-                            (<>
+                            (<div className="form-group-cortinas">
                                 <p>COLOR</p>
                                 <div className="bodyFormGroupCortinas coloresCortinas columnasColores">
                                     <div className="coloresArriba">
@@ -236,10 +236,10 @@ export default function Roller() {
                                         </div>
                                     </div>
                                 </div>
-                            </>)
+                            </div>)
                             :
                             (lineaScreen == 'okiata' &&
-                                (<>
+                                (<div className="form-group-cortinas">
                                     <p>COLOR</p>
                                     <div className="bodyFormGroupCortinas coloresCortinas columnasColores">
                                         <div className="coloresArriba">
@@ -275,11 +275,11 @@ export default function Roller() {
                                             </div>
                                         </div>
                                     </div>
-                                </>)
+                                </div>)
                             )
                         )
                     }
-                </div>)
+                </>)
             }
 
             {linea == 'vision' &&
