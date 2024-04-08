@@ -24,20 +24,10 @@ function ProductosProvider({ children }) {
 
     const nuevosColores = new Set();
 
-    const eliminarORestaurarProductos = (producto) => {
-        if (productosEliminados.includes(producto)) {
-            // Si el producto ya está en la lista, lo eliminamos
-            setProductosEliminados(productosEliminados.filter(id => id !== producto));
-        } else {
-            // Si el producto no está en la lista, creamos una nueva lista con el producto agregado
-            setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, producto]);
-        }
-    }
-
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
         try {
             const response = await fetch(`${backend}/api/productos`);
-            if(response){
+            if (response) {
                 setDataCargada(true);
             }
             if (response.ok) {
@@ -86,11 +76,43 @@ function ProductosProvider({ children }) {
             if (response.ok) {
                 const data = await response.json();
                 setProductosEliminados(data);
-                console.log(typeof(data));
+                console.log(typeof (data));
                 return true;
             } else {
                 console.error('Error');
                 return false;
+            }
+        } catch (error) {
+            console.error('Error desconocido:', error);
+            return false;
+        }
+    };
+
+    const eliminarProducto = async (idProducto) => {
+        try {
+            const response = await fetch(`${backend}/api/eliminarProducto`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(idProducto),
+                credentials: 'include',
+            });
+
+            const responseBody = await response.text();
+
+            if(response.status == 200){
+                console.log(responseBody)
+                if (responseBody.includes("eliminado")) {
+                    setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, idProducto]);
+                    console.log(idProducto + " eliminado correctamente");
+                } else if (responseBody.includes("restaurado")) {
+                    setProductosEliminados(productosEliminados.filter(id => id !== idProducto));
+                    console.log(idProducto + " restaurado correctamente")   
+                }
+            }
+            else {
+                console.error('Error eliminando el producto:', response);
             }
         } catch (error) {
             console.error('Error desconocido:', error);
@@ -210,7 +232,7 @@ function ProductosProvider({ children }) {
             coloresArray,
             cerrarOrdenamientos,
             productosEliminados,
-            eliminarORestaurarProductos,
+            eliminarProducto,
             dataCargada
         }}>
             {children}

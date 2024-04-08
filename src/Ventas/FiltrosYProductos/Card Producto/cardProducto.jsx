@@ -11,7 +11,7 @@ export default function CardProducto(args) {
   const { backend } = useVariables();
 
   const {
-    eliminarORestaurarProductos,
+    eliminarProducto
   } = useProductos();
 
   const {
@@ -85,30 +85,6 @@ export default function CardProducto(args) {
     }
   };
 
-  const eliminarProducto = async () => {
-    try {
-      const response = await fetch(`${backend}/api/eliminarProducto`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(args.id),
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        eliminarORestaurarProductos(args.id);
-        return true;
-      } else {
-        console.error('Error al verificar el token en el backend');
-        return false;
-      }
-    } catch (error) {
-      console.error('Error desconocido:', error);
-      return false;
-    }
-  };
-
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   return (
@@ -129,7 +105,7 @@ export default function CardProducto(args) {
         </button>
         {state.userInfo &&
           (state.userInfo.tipo_usuario == 'admin' &&
-            (<button className="eliminarElemento" onClick={() => eliminarProducto()}>
+            (<button className="eliminarElemento" onClick={() => eliminarProducto(args.id)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
               </svg>
@@ -140,13 +116,18 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={args.tipo_prod == 'PERFIL' ? 
-              (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`) 
-              : 
+            src={args.tipo_prod == 'PERFIL' ?
+              (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
+              :
               (args.tipo_prod == 'ACCESORIO' ?
-                (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`) 
-                : 
-                (''))}
+                (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`)
+                :
+                ('')
+              )
+            }
+            onError={(e) => {
+              {args.tipo_prod == "PERFIL" && console.log(args.cod_orig.trim())}
+            }}
             alt="Imagen del producto"
             loading="lazy"
           />
@@ -164,12 +145,12 @@ export default function CardProducto(args) {
             ) : (<></>)}
           </div>
           {args.tipo_prod == 'MAQUINAS' ?
-            (<a 
-              className="botonConsultarMaquina" 
+            (<a
+              className="botonConsultarMaquina"
               target="blank"
-              href={isMobile ? 
+              href={isMobile ?
                 (`https://wa.me/5493456475294?text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
-                : 
+                :
                 (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
               }
             >
