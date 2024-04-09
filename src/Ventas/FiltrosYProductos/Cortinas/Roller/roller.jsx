@@ -33,6 +33,7 @@ export default function Roller() {
         limpiarLadoTirador,
         limpiarAccionadorMotorRoller,
         limpiarLineaScreen,
+        limpiarColor,
         limpiarRoller,
         formularioEnviado,
     } = useCortinas();
@@ -80,7 +81,7 @@ export default function Roller() {
             console.log("ladoTirador: " + ladoTirador)
             console.log("caida: " + caida)
             console.log("colorAccesorios: " + colorAccesorios)*/
-            setErrorMessage("Por favor, completa todos los campos");
+            setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
         else if (!enterosRegex.test(alto) || !enterosRegex.test(ancho) ) {
@@ -91,7 +92,7 @@ export default function Roller() {
             deleteErrorMessage();
 
             const textoCortina =
-                "TIPO: ROLLER\n" +
+                "TIPO: Roller\n" +
                 "TIPO ROLLER: " + linea.charAt(0).toUpperCase() + linea.slice(1).toLowerCase() + "\n" +
                 (linea == 'screen' && (
                     `${"LINEA: " + lineaScreen.charAt(0).toUpperCase() + lineaScreen.slice(1).toLowerCase() + "\n"}`
@@ -118,9 +119,9 @@ export default function Roller() {
             <div className="form-group-cortinas">
                 <p>TIPO DE CORTINA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${linea == 'screen' && 'checked'}`} onClick={() => {setLinea('screen'); deleteErrorMessage()}}>Screen</div>
-                    <div className={`especificacionCortina ${linea == 'blackout' && 'checked'}`} onClick={() => {setLinea('blackout'); limpiarLineaScreen(); deleteErrorMessage()}}>Black out</div>
-                    <div className={`especificacionCortina ${linea == 'vision' && 'checked'}`} onClick={() => {setLinea('vision'); limpiarLineaScreen(); deleteErrorMessage()}}>Stripe Vision</div>
+                    <div className={`especificacionCortina ${linea == 'screen' && 'checked'}`} onClick={() => {setLinea('screen'); limpiarColor(); deleteErrorMessage()}}>Screen</div>
+                    <div className={`especificacionCortina ${linea == 'blackout' && 'checked'}`} onClick={() => {setLinea('blackout'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage()}}>Black out</div>
+                    <div className={`especificacionCortina ${linea == 'vision' && 'checked'}`} onClick={() => {setLinea('vision'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage()}}>Stripe Vision</div>
                 </div>
             </div>
 
@@ -128,9 +129,9 @@ export default function Roller() {
                 (<div className="form-group-cortinas">
                     <p>LÍNEA</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${lineaScreen == 'shantung' && 'checked'}`} onClick={() => { setLineaScreen('shantung'); deleteErrorMessage() }}>Shantung</div>
-                        <div className={`especificacionCortina ${lineaScreen == 'paris' && 'checked'}`} onClick={() => { setLineaScreen('paris'); deleteErrorMessage() }}>París</div>
-                        <div className={`especificacionCortina ${lineaScreen == 'okiata' && 'checked'}`} onClick={() => { setLineaScreen('okiata'); deleteErrorMessage() }}>Okiata</div>
+                        <div className={`especificacionCortina ${lineaScreen == 'shantung' && 'checked'}`} onClick={() => { setLineaScreen('shantung'); limpiarColor(); deleteErrorMessage() }}>Shantung</div>
+                        <div className={`especificacionCortina ${lineaScreen == 'paris' && 'checked'}`} onClick={() => { setLineaScreen('paris'); limpiarColor(); deleteErrorMessage() }}>París</div>
+                        <div className={`especificacionCortina ${lineaScreen == 'okiata' && 'checked'}`} onClick={() => { setLineaScreen('okiata'); limpiarColor(); deleteErrorMessage() }}>Okiata</div>
                     </div>
                 </div>)
             }
