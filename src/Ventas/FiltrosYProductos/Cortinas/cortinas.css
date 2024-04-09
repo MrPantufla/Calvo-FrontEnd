@@ -213,6 +213,19 @@
     background-color: #DAA2A2;
 }
 
+.textoEspecificacionCortina.conValue{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.campotextoEspecificacionCortina.conValue{
+    border-color: var(--colorSecundario);
+}
+
+.milimetrosCortinas.conValue{
+    border-color: var(--colorSecundario)
+}
+
 @media (max-width: 767px){
     .contenedorPrincipalCortinas{
         padding-top: 6rem;
@@ -244,10 +257,12 @@
 
     .milimetrosCortinas{
         margin-left: 0;
+        transition: border-color 0.2s;
     }
 
     .campotextoEspecificacionCortina{
         font-size: 2rem;
+        transition: border-color 0.2s;
     }
 
     .form-group-cortinas p{

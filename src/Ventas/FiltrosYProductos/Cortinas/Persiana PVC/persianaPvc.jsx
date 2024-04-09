@@ -76,7 +76,7 @@ export default function PersianaPvc() {
                 "TIPO: Persiana PVC\n" +
                 "ANCHO: " + ancho + "mm\n" +
                 "ALTO: " + alto + "mm\n" +
-                "REFERENCIA DE MEDIDA: " + (medidaIndicada == 'ras' ? 'Ras de guía' : 'Fondo de guía')+ "\n" +
+                "REFERENCIA DE MEDIDA: " + (medidaIndicada == 'ras' ? 'Ras de guía' : 'Fondo de guía') + "\n" +
                 "FORMATO: " + (formato == 'completo' ? ('Completo') : ('Paño solo')) + "\n" +
                 (formato == 'completo' ? (
                     "MECANISMO: " + mecanismo.charAt(0).toUpperCase() + mecanismo.slice(1).toLowerCase() + "\n" +
@@ -95,45 +95,45 @@ export default function PersianaPvc() {
             <div className="form-group-cortinas">
                 <p>DIMENSIONES</p>
                 <div className="bodyFormGroupCortinas">
-                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho</label>
+                    <label className={`especificacionCortina textoEspecificacionCortina ${ancho != '' && 'conValue'}`} htmlFor="ancho">Ancho</label>
                     <input type="text"
                         id="ancho"
                         value={ancho}
                         onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
+                        className={`campotextoEspecificacionCortina ${ancho != '' && 'conValue'}`}
                     />
-                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <div id="textoAncho" className={`especificacionCortina milimetrosCortinas ${ancho != '' && 'conValue'}`}><p>mm.</p></div>
 
-                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto</label>
+                    <label className={`especificacionCortina textoEspecificacionCortina ${alto != '' && 'conValue'}`} htmlFor="alto">Alto</label>
                     <input type="text"
                         id="alto"
                         value={alto}
                         onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
+                        className={`campotextoEspecificacionCortina ${alto != '' && 'conValue'}`}
                     />
-                    <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${alto != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>
             </div>
 
             <div className="form-group-cortinas">
                 <p>REFERENCIA DE MEDIDA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada(medidaIndicada !== 'ras' ? 'ras' : ''); deleteErrorMessage() }}>Ras de guía</div>
-                    <div className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada(medidaIndicada !== 'fondo' ? 'fondo' : ''); deleteErrorMessage() }}>Fondo de guía</div>
+                    <div className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</div>
+                    <div className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</div>
                 </div>
             </div>
 
             <div className="form-group-cortinas">
                 <p>INDICAR PROFUNDIDAD DE GUÍA</p>
                 <div className="bodyFormGroupCortinas">
-                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="profundidadGuia">Profundidad de guía</label>
+                    <label className={`especificacionCortina textoEspecificacionCortina ${profundidadGuia != '' && 'conValue'}`} htmlFor="profundidadGuia">Profundidad de guía</label>
                     <input type="text"
                         id="profundidadGuia"
                         value={profundidadGuia}
                         onChange={(e) => { setProfundidadGuia(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
+                        className={`campotextoEspecificacionCortina ${profundidadGuia != '' && 'conValue'}`}
                     />
-                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${profundidadGuia != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>
             </div>
 

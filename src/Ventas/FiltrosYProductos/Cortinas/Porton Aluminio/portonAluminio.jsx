@@ -71,19 +71,19 @@ export default function PortonAluminio() {
             setErrorMessage("Los campos de dimensiones solo aceptan números enteros positivos");
             window.scrollTo(0, 0);
         }
-        else if(tipoTablilla == 'DAP-55' && (ancho > 4000 || alto > 4000)){
+        else if (tipoTablilla == 'DAP-55' && (ancho > 4000 || alto > 4000)) {
             setErrorMessage("Las medidas maximas para portones con tablillas DAP-55 son 4000x4000mm")
             window.scrollTo(0, 0);
         }
-        else if(tipoTablilla == 'DAP-64' && (ancho > 4500 || alto > 4000)){
+        else if (tipoTablilla == 'DAP-64' && (ancho > 4500 || alto > 4000)) {
             setErrorMessage("Las medidas maximas para portones con tablillas DAP-64 son 4500x4000mm")
             window.scrollTo(0, 0);
         }
-        else if(tipoTablilla == 'DAP-79' && (ancho > 6000)){
+        else if (tipoTablilla == 'DAP-79' && (ancho > 6000)) {
             setErrorMessage("El ancho máximo para portones con tablillas DAP-79 es 6000mm")
             window.scrollTo(0, 0);
         }
-        else if(tipoTablilla == 'DAP-79' && ((ancho*alto)>20000000)){
+        else if (tipoTablilla == 'DAP-79' && ((ancho * alto) > 20000000)) {
             setErrorMessage("La superficie de portones con tablillas DAP-79 no puede superar los 20 metros cuadrados")
         }
         else {
@@ -121,23 +121,23 @@ export default function PortonAluminio() {
             <div className="form-group-cortinas">
                 <p>DIMENSIONES</p>
                 <div className="bodyFormGroupCortinas">
-                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho:</label>
+                    <label className={`especificacionCortina textoEspecificacionCortina ${ancho != '' && 'conValue'}`} htmlFor="ancho">Ancho</label>
                     <input type="text"
                         id="ancho"
                         value={ancho}
                         onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
+                        className={`campotextoEspecificacionCortina ${ancho != '' && 'conValue'}`}
                     />
-                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <div id="textoAncho" className={`especificacionCortina milimetrosCortinas ${ancho != '' && 'conValue'}`}><p>mm.</p></div>
 
-                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto:</label>
+                    <label className={`especificacionCortina textoEspecificacionCortina ${alto != '' && 'conValue'}`} htmlFor="alto">Alto</label>
                     <input type="text"
                         id="alto"
                         value={alto}
                         onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
+                        className={`campotextoEspecificacionCortina ${alto != '' && 'conValue'}`}
                     />
-                    <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${alto != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>
             </div>
 
@@ -152,14 +152,14 @@ export default function PortonAluminio() {
             <div className="form-group-cortinas">
                 <p>INDICAR PROFUNDIDAD DE GUÍA</p>
                 <div className="bodyFormGroupCortinas">
-                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="profundidadGuia">Profundidad de guía</label>
+                    <label className={`especificacionCortina textoEspecificacionCortina ${profundidadGuia != '' && 'conValue'}`} htmlFor="profundidadGuia">Profundidad de guía</label>
                     <input type="text"
                         id="profundidadGuia"
                         value={profundidadGuia}
                         onChange={(e) => { setProfundidadGuia(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
+                        className={`campotextoEspecificacionCortina ${profundidadGuia != '' && 'conValue'}`}
                     />
-                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${profundidadGuia != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>
             </div>
 
