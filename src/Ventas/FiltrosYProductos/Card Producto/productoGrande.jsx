@@ -88,7 +88,7 @@ export default function ProductoGrande(args) {
                                 e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
 
                                 e.target.onerror = () => {
-                                    e.target.src = `/ImagenesProductos/xd.png`;
+                                    //e.target.src = `/ImagenesProductos/xd.png`;
                                 };
                             }}
                             alt="Imagen del producto"
