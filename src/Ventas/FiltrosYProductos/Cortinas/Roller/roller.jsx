@@ -28,10 +28,10 @@ export default function Roller() {
         setColorAccesorios,
         ladoTirador,
         setLadoTirador,
-        accionadorMotorRoller,
-        setAccionadorMotorRoller,
+        tipoAccionador,
+        setTipoAccionador,
         limpiarLadoTirador,
-        limpiarAccionadorMotorRoller,
+        limpiarTipoAccionador,
         limpiarLineaScreen,
         limpiarColor,
         limpiarRoller,
@@ -69,7 +69,7 @@ export default function Roller() {
         const enterosRegex = /^[0-9]\d*$/;
         console.log("ENVIANDO")
 
-        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && accionadorMotorRoller == '') || caida == '' || colorAccesorios == '') {
+        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
             /*console.log("linea: " + linea)
             console.log("lineaScreen: " + lineaScreen)
             console.log("color: " + color)
@@ -77,7 +77,7 @@ export default function Roller() {
             console.log("alto: " + alto)
             console.log("mecanismoRoller: " + mecanismoRoller)
             console.log("ladoTirador: " + ladoTirador)
-            console.log("accionadorMotorRoller: " + accionadorMotorRoller)
+            console.log("tipoAccionador: " + tipoAccionador)
             console.log("ladoTirador: " + ladoTirador)
             console.log("caida: " + caida)
             console.log("colorAccesorios: " + colorAccesorios)*/
@@ -102,7 +102,7 @@ export default function Roller() {
                 "ANCHO: " + ancho + "mm\n" +
                 "MECANISMO: " + mecanismoRoller.charAt(0).toUpperCase() + mecanismoRoller.slice(1).toLowerCase() + "\n" +
                 (mecanismoRoller == 'motor' ? 
-                ("ACCIONADOR MECANISMO: " + accionadorMotorRoller.charAt(0).toUpperCase() + accionadorMotorRoller.slice(1).toLowerCase() + "\n") 
+                ("ACCIONADOR MECANISMO: " + tipoAccionador.charAt(0).toUpperCase() + tipoAccionador.slice(1).toLowerCase() + "\n") 
                 : 
                 ("LADO DEL TIRADOR: " + ladoTirador.charAt(0).toUpperCase() + ladoTirador.slice(1).toLowerCase() + "\n")) +
                 "COLOR DE ACCESORIOS: " + colorAccesorios.charAt(0).toUpperCase() + colorAccesorios.slice(1).toLowerCase() + "\n" +
@@ -323,7 +323,7 @@ export default function Roller() {
             <div className="form-group-cortinas">
                 <p>MECANISMO</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${mecanismoRoller == 'manual' && 'checked'}`} onClick={() => {setMecanismoRoller('manual'); limpiarAccionadorMotorRoller(); deleteErrorMessage()}}>Manual</div>
+                    <div className={`especificacionCortina ${mecanismoRoller == 'manual' && 'checked'}`} onClick={() => {setMecanismoRoller('manual'); limpiarTipoAccionador(); deleteErrorMessage()}}>Manual</div>
                     <div className={`especificacionCortina ${mecanismoRoller == 'motor' && 'checked'}`} onClick={() => {setMecanismoRoller('motor'); limpiarLadoTirador(); deleteErrorMessage()}}>Motor</div>
                 </div>
             </div>
@@ -332,8 +332,8 @@ export default function Roller() {
                 (<div className="form-group-cortinas">
                     <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${accionadorMotorRoller == 'tecla' && 'checked'}`} onClick={() => {setAccionadorMotorRoller('tecla'); deleteErrorMessage()}}>Tecla</div>
-                        <div className={`especificacionCortina ${accionadorMotorRoller == 'controlRemoto' && 'checked'}`} onClick={() => {setAccionadorMotorRoller('controlRemoto'); deleteErrorMessage()}}>Control remoto</div>
+                        <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => {setTipoAccionador('tecla'); deleteErrorMessage()}}>Tecla</div>
+                        <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => {setTipoAccionador('controlRemoto'); deleteErrorMessage()}}>Control remoto</div>
                     </div>
                 </div>)
             }

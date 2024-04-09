@@ -18,14 +18,14 @@ export default function PersianaPvc() {
         setFormato,
         mecanismo,
         setMecanismo,
-        tipoAccionamiento,
-        setTipoAccionamiento,
+        tipoAccionador,
+        setTipoAccionador,
         setErrorMessage,
         deleteErrorMessage,
         enviarCortina,
         aclaraciones,
         setAclaraciones,
-        limpiarTipoAccionamiento,
+        limpiarTipoAccionador,
         limpiarMecanismo,
         limpiarPersianaPvc,
         formularioEnviado
@@ -61,7 +61,7 @@ export default function PersianaPvc() {
     const enviarConsulta = () => {
         const enterosRegex = /^[0-9]\d*$/;
 
-        if (alto == "" || ancho == "" || medidaIndicada == "" || profundidadGuia == '' || formato == '' || (formato == 'completo' && (mecanismo == '' || (mecanismo != '' && tipoAccionamiento == '')))) {
+        if (alto == "" || ancho == "" || medidaIndicada == "" || profundidadGuia == '' || formato == '' || (formato == 'completo' && (mecanismo == '' || (mecanismo != '' && tipoAccionador == '')))) {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
@@ -76,11 +76,11 @@ export default function PersianaPvc() {
                 "TIPO: Persiana PVC\n" +
                 "ANCHO: " + ancho + "mm\n" +
                 "ALTO: " + alto + "mm\n" +
-                "REFERENCIA DE MEDIDA: " + medidaIndicada.charAt(0).toUpperCase() + medidaIndicada.slice(1).toLowerCase() + "\n" +
+                "REFERENCIA DE MEDIDA: " + (medidaIndicada == 'ras' ? 'Ras de guía' : 'Fondo de guía')+ "\n" +
                 "FORMATO: " + formato.charAt(0).toUpperCase() + formato.slice(1).toLowerCase() + "\n" +
                 (formato == 'completo' && (
                     "MECANISMO: " + mecanismo.charAt(0).toUpperCase() + mecanismo.slice(1).toLowerCase() + "\n" +
-                    "TIPO DE ACCIONAMIENTO: " + (tipoAccionamiento == 'controlRemoto' ? ('Control remoto') : (tipoAccionamiento == 'elevaManivela' ? ('Eleva manivela') : (tipoAccionamiento.charAt(0).toUpperCase() + tipoAccionamiento.slice(1).toLowerCase()))) + "\n"
+                    "TIPO DE ACCIONADOR: " + (tipoAccionador == 'controlRemoto' ? ('Control remoto') : (tipoAccionador == 'elevaManivela' ? ('Eleva manivela') : (tipoAccionador.charAt(0).toUpperCase() + tipoAccionador.slice(1).toLowerCase()))) + "\n"
                 )) +
                 (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
                 ;
@@ -149,28 +149,28 @@ export default function PersianaPvc() {
                 <div className="form-group-cortinas">
                     <p>MECANISMO</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionamiento(); deleteErrorMessage() }}>Manual</div>
-                        <div className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionamiento(); deleteErrorMessage() }}>Motor</div>
+                        <div className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</div>
+                        <div className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionador(); deleteErrorMessage() }}>Motor</div>
                     </div>
                 </div>
             }
 
             {mecanismo == 'manual' &&
                 <div className="form-group-cortinas">
-                    <p>TIPO DE ACCIONAMIENTO</p>
+                    <p>TIPO DE ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoAccionamiento == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionamiento('enrollador'); deleteErrorMessage() }}>Enrollador</div>
-                        <div className={`especificacionCortina ${tipoAccionamiento == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionamiento('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</div>
+                        <div className={`especificacionCortina ${tipoAccionador == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionador('enrollador'); deleteErrorMessage() }}>Enrollador</div>
+                        <div className={`especificacionCortina ${tipoAccionador == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionador('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</div>
                     </div>
                 </div>
             }
 
             {mecanismo == 'motor' &&
                 <div className="form-group-cortinas">
-                    <p>TIPO DE ACCIONAMIENTO</p>
+                    <p>TIPO DE ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoAccionamiento == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionamiento('tecla'); deleteErrorMessage() }}>Tecla</div>
-                        <div className={`especificacionCortina ${tipoAccionamiento == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionamiento('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
+                        <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</div>
+                        <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
                     </div>
                 </div>
             }
