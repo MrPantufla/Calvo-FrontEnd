@@ -102,7 +102,7 @@ export default function Roller() {
                 "ANCHO: " + ancho + "mm\n" +
                 "MECANISMO: " + mecanismoRoller.charAt(0).toUpperCase() + mecanismoRoller.slice(1).toLowerCase() + "\n" +
                 (mecanismoRoller == 'motor' ? 
-                ("ACCIONADOR MECANISMO: " + tipoAccionador.charAt(0).toUpperCase() + tipoAccionador.slice(1).toLowerCase() + "\n") 
+                ("MECANISMO: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n") 
                 : 
                 ("LADO DEL TIRADOR: " + ladoTirador.charAt(0).toUpperCase() + ladoTirador.slice(1).toLowerCase() + "\n")) +
                 "COLOR DE ACCESORIOS: " + colorAccesorios.charAt(0).toUpperCase() + colorAccesorios.slice(1).toLowerCase() + "\n" +

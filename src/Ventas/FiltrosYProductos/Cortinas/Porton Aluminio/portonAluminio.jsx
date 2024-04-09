@@ -98,7 +98,7 @@ export default function PortonAluminio() {
                 "PROFUNDIDAD DE GUÍA: " + profundidadGuia + "\n" +
                 "FORMATO: " + (formato == 'completo' ? 'Completo' : 'Paño solo') + "\n" +
                 (formato == 'completo' ? ("TIPO DE MOTOR: " + (tipoMotor == 'mecanico' ? 'Mecánico' : 'Con ayuda manual') + "\n") : '') +
-                (tipoMotor == 'mecanico' ? ("TIPO DE ACCIONADOR: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n") : '') +
+                (tipoMotor == 'mecanico' ? ("ACCIONADOR: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n") : '') +
                 (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
                 ;
 
@@ -183,7 +183,7 @@ export default function PortonAluminio() {
 
             {tipoMotor == 'mecanico' &&
                 <div className="form-group-cortinas">
-                    <p>TIPO DE ACCIONADOR</p>
+                    <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
                         <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</div>
                         <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
