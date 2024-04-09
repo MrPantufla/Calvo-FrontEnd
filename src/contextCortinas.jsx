@@ -150,6 +150,25 @@ function ProviderCortinas({ children }) {
         setTipoAccionador('');
     }
 
+    const limpiarPersianaAluminio = () =>{
+        setTipoTablilla('');
+        setAncho('');
+        setAlto('');
+        setMedidaIndicada('');
+        setProfundidadGuia('');
+        setFormato('');
+        setMecanismo('');
+        setTipoAccionador('');
+        setAclaraciones('');
+    }
+
+    const limpiarTodo = () =>{
+        limpiarRoller();
+        limpiarPersianaPvc();
+        limpiarPortonAluminio();
+        limpiarPersianaAluminio();
+    }
+
     return (
         <CortinasContext.Provider value={{
             tipo,
@@ -219,7 +238,11 @@ function ProviderCortinas({ children }) {
             limpiarPersianaPvc,
 
             limpiarTipoMotor,
-            limpiarPortonAluminio
+            limpiarPortonAluminio,
+
+            limpiarPersianaAluminio,
+            
+            limpiarTodo
         }}>
             {children}
         </CortinasContext.Provider>
