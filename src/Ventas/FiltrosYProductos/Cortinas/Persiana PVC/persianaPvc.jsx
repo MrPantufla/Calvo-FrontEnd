@@ -10,17 +10,25 @@ export default function PersianaPvc() {
         setAlto,
         ancho,
         setAncho,
-        conMecanismo,
-        setConMecanismo,
-        alturaIndicada,
-        setAlturaIndicada,
-        tipoEnrollador,
-        setTipoEnrollador,
+        medidaIndicada,
+        setMedidaIndicada,
+        profundidadGuia,
+        setProfundidadGuia,
+        formato,
+        setFormato,
+        mecanismo,
+        setMecanismo,
+        tipoAccionamiento,
+        setTipoAccionamiento,
         setErrorMessage,
         deleteErrorMessage,
         enviarCortina,
         aclaraciones,
-        setAclaraciones
+        setAclaraciones,
+        limpiarTipoAccionamiento,
+        limpiarMecanismo,
+        limpiarPersianaPvc,
+        formularioEnviado
     } = useCortinas();
 
     const {
@@ -53,88 +61,119 @@ export default function PersianaPvc() {
     const enviarConsulta = () => {
         const enterosRegex = /^[0-9]\d*$/;
 
-        if (alto === "" || ancho === "" || alturaIndicada === "" || conMecanismo === "") {
+        if (alto == "" || ancho == "" || medidaIndicada == "" || profundidadGuia == '' || formato == '' || (formato == 'completo' && (mecanismo == '' || (mecanismo != '' && tipoAccionamiento == '')))) {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
-        else if (!enterosRegex.test(alto) || !enterosRegex.test(ancho)) {
+        else if (!enterosRegex.test(alto) || !enterosRegex.test(ancho) || !enterosRegex.test(profundidadGuia)) {
             setErrorMessage("Los campos de dimensiones solo aceptan números enteros positivos");
-            window.scrollTo(0, 0);
-        }
-        else if (conMecanismo === 'mecanismoSi' && tipoEnrollador === "") {
-            setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
         else {
             deleteErrorMessage();
 
             const textoCortina =
-                "TIPO: PERSIANA PVC\n" +
-                "ALTO: " + alto + "mm\n" +
+                "TIPO: Persiana PVC\n" +
                 "ANCHO: " + ancho + "mm\n" +
-                "ALTURA INDICADA: " + alturaIndicada + "\n" +
-                (conMecanismo == 'mecanismoNo' ?
-                    "MECANISMO: Sin mecanismo, solo cortina"
-                    :
-                    "TIPO DE MECANISMO: " + (tipoEnrollador ? tipoEnrollador : 'A consultar')
-                )
+                "ALTO: " + alto + "mm\n" +
+                "REFERENCIA DE MEDIDA: " + medidaIndicada.charAt(0).toUpperCase() + medidaIndicada.slice(1).toLowerCase() + "\n" +
+                "FORMATO: " + formato.charAt(0).toUpperCase() + formato.slice(1).toLowerCase() + "\n" +
+                (formato == 'completo' && (
+                    "MECANISMO: " + mecanismo.charAt(0).toUpperCase() + mecanismo.slice(1).toLowerCase() + "\n" +
+                    "TIPO DE ACCIONAMIENTO: " + (tipoAccionamiento == 'controlRemoto' ? ('Control remoto') : (tipoAccionamiento == 'elevaManivela' ? ('Eleva manivela') : (tipoAccionamiento.charAt(0).toUpperCase() + tipoAccionamiento.slice(1).toLowerCase()))) + "\n"
+                )) +
+                (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
                 ;
 
             enviarCortina(textoCortina);
+            limpiarPersianaPvc();
         }
     }
 
     return (
         <div className="contenedorPrincipalPersianaPvc">
-            <form className="formularioPersianaPvc">
-                <div className="form-group-cortinas">
-                    <p>DIMENSIONES</p>
-                    <div className="bodyFormGroupCortinas">
-                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho</label>
-                        <input type="text"
-                            id="ancho"
-                            value={ancho}
-                            onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
-                            className="campotextoEspecificacionCortina"
-                        />
-                        <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+            <div className="form-group-cortinas">
+                <p>DIMENSIONES</p>
+                <div className="bodyFormGroupCortinas">
+                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="ancho">Ancho</label>
+                    <input type="text"
+                        id="ancho"
+                        value={ancho}
+                        onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
+                        className="campotextoEspecificacionCortina"
+                    />
+                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
 
-                        <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto</label>
-                        <input type="text"
-                            id="alto"
-                            value={alto}
-                            onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
-                            className="campotextoEspecificacionCortina"
-                        />
-                        <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="alto">Alto</label>
+                    <input type="text"
+                        id="alto"
+                        value={alto}
+                        onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
+                        className="campotextoEspecificacionCortina"
+                    />
+                    <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                </div>
+            </div>
+
+            <div className="form-group-cortinas">
+                <p>REFERENCIA DE MEDIDA</p>
+                <div className="bodyFormGroupCortinas">
+                    <div className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada(medidaIndicada !== 'ras' ? 'ras' : ''); deleteErrorMessage() }}>Ras de guía</div>
+                    <div className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada(medidaIndicada !== 'fondo' ? 'fondo' : ''); deleteErrorMessage() }}>Fondo de guía</div>
+                </div>
+            </div>
+
+            <div className="form-group-cortinas">
+                <p>INDICAR PROFUNDIDAD DE GUÍA</p>
+                <div className="bodyFormGroupCortinas">
+                    <label className="especificacionCortina textoEspecificacionCortina" htmlFor="profundidadGuia">Profundidad de guía</label>
+                    <input type="text"
+                        id="profundidadGuia"
+                        value={profundidadGuia}
+                        onChange={(e) => { setProfundidadGuia(e.target.value); deleteErrorMessage() }}
+                        className="campotextoEspecificacionCortina"
+                    />
+                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
+                </div>
+            </div>
+
+            <div className="form-group-cortinas">
+                <p>FORMATO</p>
+                <div className="bodyFormGroupCortinas">
+                    <div className={`especificacionCortina ${formato == 'completo' && 'checked'}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</div>
+                    <div className={`especificacionCortina ${formato == 'pañoSolo' && 'checked'}`} onClick={() => { setFormato('pañoSolo'); limpiarMecanismo(); deleteErrorMessage() }}>Paño solo</div>
+                </div>
+            </div>
+
+            {formato == 'completo' &&
+                <div className="form-group-cortinas">
+                    <p>MECANISMO</p>
+                    <div className="bodyFormGroupCortinas">
+                        <div className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionamiento(); deleteErrorMessage() }}>Manual</div>
+                        <div className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionamiento(); deleteErrorMessage() }}>Motor</div>
                     </div>
                 </div>
+            }
 
+            {mecanismo == 'manual' &&
                 <div className="form-group-cortinas">
-                    <p>MEDIDA INDICADA</p>
+                    <p>TIPO DE ACCIONAMIENTO</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${alturaIndicada == 'vano' ? 'checked' : ''}`} onClick={() => { setAlturaIndicada(alturaIndicada !== 'vano' ? 'vano' : ''); deleteErrorMessage() }}>Vano</div>
-                        <div className={`especificacionCortina ${alturaIndicada == 'abertura' ? 'checked' : ''}`} onClick={() => { setAlturaIndicada(alturaIndicada !== 'abertura' ? 'abertura' : ''); deleteErrorMessage() }}>Abertura</div>
+                        <div className={`especificacionCortina ${tipoAccionamiento == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionamiento('enrollador'); deleteErrorMessage() }}>Enrollador</div>
+                        <div className={`especificacionCortina ${tipoAccionamiento == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionamiento('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</div>
                     </div>
                 </div>
+            }
 
+            {mecanismo == 'motor' &&
                 <div className="form-group-cortinas">
-                    <p>CON MECANISMO?</p>
+                    <p>TIPO DE ACCIONAMIENTO</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoSi' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoSi' ? 'mecanismoSi' : ''); deleteErrorMessage() }}>Si</div>
-                        <div className={`especificacionCortina ${conMecanismo == 'mecanismoNo' ? 'checked' : ''}`} onClick={() => { setConMecanismo(conMecanismo !== 'mecanismoNo' ? 'mecanismoNo' : ''); deleteErrorMessage() }}>No</div>
+                        <div className={`especificacionCortina ${tipoAccionamiento == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionamiento('tecla'); deleteErrorMessage() }}>Tecla</div>
+                        <div className={`especificacionCortina ${tipoAccionamiento == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionamiento('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
                     </div>
                 </div>
-
-                {conMecanismo == 'mecanismoSi' &&
-                    <div className="form-group-cortinas">
-                        <p>TIPO DE MECANISMO</p>
-                        <div className="bodyFormGroupCortinas">
-                            <div className={`especificacionCortina ${tipoEnrollador == 'cinta' ? 'checked' : ''}`} onClick={() => { setTipoEnrollador(tipoEnrollador !== 'cinta' ? 'cinta' : ''); deleteErrorMessage() }}>Cinta</div>
-                            <div className={`especificacionCortina ${tipoEnrollador == 'antonetti' ? 'checked' : ''}`} onClick={() => { setTipoEnrollador(tipoEnrollador !== 'antonetti' ? 'antonetti' : ''); deleteErrorMessage() }}>Antonetti</div>
-                        </div>
-                    </div>}
-            </form>
+            }
 
             <div className="form-group-cortinas">
                 <p>ACLARACIONES O CONSULTAS ADICIONALES (opcional)</p>
@@ -147,8 +186,8 @@ export default function PersianaPvc() {
             </div>
 
             <div className="botonEnviarConsultaContainer">
-                <button className="botonEnviarConsulta" onClick={() => state.logueado ? enviarConsulta() : setMostrarLogin(true)}>
-                    Enviar consulta
+                <button disabled={formularioEnviado} className={`botonEnviarConsulta ${formularioEnviado && 'enviarCortinaDisabled'}`} onClick={() => { state.logueado ? enviarConsulta() : setMostrarLogin(true) }}>
+                    {`${formularioEnviado ? ('Formulario enviado') : ('Enviar consulta')}`}
                 </button>
             </div>
         </div>

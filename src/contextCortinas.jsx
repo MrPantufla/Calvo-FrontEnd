@@ -18,7 +18,7 @@ function ProviderCortinas({ children }) {
     const [tipo, setTipo] = useState('roller');
     const [alto, setAlto] = useState('');
     const [ancho, setAncho] = useState('');
-    const [alturaIndicada, setAlturaIndicada] = useState('');
+    const [medidaIndicada, setMedidaIndicada] = useState('');
     const [profundidadGuia, setProfundidadGuia] = useState('');
     const [aclaraciones, setAclaraciones] = useState('');
 
@@ -31,7 +31,9 @@ function ProviderCortinas({ children }) {
     const [ladoTirador, setLadoTirador] = useState('');
     const [accionadorMotorRoller, setAccionadorMotorRoller] = useState('');
 
-    const [tipoEnrollador, setTipoEnrollador] = useState('');
+    const [formato, setFormato] = useState('');
+    const [mecanismo, setMecanismo] = useState('');
+    const [tipoAccionamiento, setTipoAccionamiento] = useState('');
 
     const [conCajon, setConCajon] = useState('');
     const [ubicacionExteriorCajon, setUbicacionExteriorCajon] = useState('');
@@ -96,6 +98,10 @@ function ProviderCortinas({ children }) {
         setAccionadorMotorRoller('');
     }
 
+    const limpiarColor = () =>{
+        setColor('');
+    }
+
     const limpiarLineaScreen = () =>{
         setLineaScreen('');
     }
@@ -113,6 +119,26 @@ function ProviderCortinas({ children }) {
         setAclaraciones('');
     }
 
+    const limpiarTipoAccionamiento = () =>{
+        setTipoAccionamiento('');
+    }
+
+    const limpiarMecanismo = () =>{
+        setMecanismo('');
+        limpiarTipoAccionamiento();
+    }
+
+    const limpiarPersianaPvc = () =>{
+        setAncho('');
+        setAlto('');
+        setMedidaIndicada('');
+        setProfundidadGuia('');
+        setFormato('');
+        setMecanismo('');
+        setTipoAccionamiento('');
+        setAclaraciones('');
+    }
+
     return (
         <CortinasContext.Provider value={{
             tipo,
@@ -121,14 +147,18 @@ function ProviderCortinas({ children }) {
             setAlto,
             ancho,
             setAncho,
-            alturaIndicada,
-            setAlturaIndicada,
+            medidaIndicada,
+            setMedidaIndicada,
             color,
             setColor,
             caida,
             setCaida,
-            tipoEnrollador,
-            setTipoEnrollador,
+            formato,
+            setFormato,
+            mecanismo,
+            setMecanismo,
+            tipoAccionamiento,
+            setTipoAccionamiento,
             conCajon,
             setConCajon,
             ubicacionExteriorCajon,
@@ -169,10 +199,16 @@ function ProviderCortinas({ children }) {
             deleteErrorMessage,
             formularioEnviado,
 
+            limpiarColor,
+
             limpiarLadoTirador,
             limpiarAccionadorMotorRoller,
             limpiarLineaScreen,
-            limpiarRoller
+            limpiarRoller,
+
+            limpiarTipoAccionamiento,
+            limpiarMecanismo,
+            limpiarPersianaPvc
         }}>
             {children}
         </CortinasContext.Provider>
