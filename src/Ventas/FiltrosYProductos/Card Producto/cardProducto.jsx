@@ -126,7 +126,7 @@ export default function CardProducto(args) {
               )
             }
             onError={(e) => {
-              {args.tipo_prod == "PERFIL" && console.log(args.cod_orig.trim())}
+              {args.tipo_prod == "PERFIL" && console.log(args.cod_orig.slice(2).trim() + ".png")}
             }}
             alt="Imagen del producto"
             loading="lazy"

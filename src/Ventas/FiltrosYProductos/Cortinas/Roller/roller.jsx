@@ -13,8 +13,6 @@ export default function Roller() {
         setLineaScreen,
         ancho,
         setAncho,
-        alturaIndicada,
-        setAlturaIndicada,
         color,
         setColor,
         caida,
@@ -30,8 +28,6 @@ export default function Roller() {
         setColorAccesorios,
         ladoTirador,
         setLadoTirador,
-        profundidadGuia,
-        setProfundidadGuia,
         accionadorMotorRoller,
         setAccionadorMotorRoller,
         limpiarLadoTirador,
@@ -72,14 +68,12 @@ export default function Roller() {
         const enterosRegex = /^[0-9]\d*$/;
         console.log("ENVIANDO")
 
-        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || alturaIndicada == '' || profundidadGuia == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && accionadorMotorRoller == '') || caida == '' || colorAccesorios == '') {
+        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && accionadorMotorRoller == '') || caida == '' || colorAccesorios == '') {
             /*console.log("linea: " + linea)
             console.log("lineaScreen: " + lineaScreen)
             console.log("color: " + color)
             console.log("ancho: " + ancho)
             console.log("alto: " + alto)
-            console.log("alturaIndicada: " + alturaIndicada)
-            console.log("profundidadIndicada: " + profundidadGuia)
             console.log("mecanismoRoller: " + mecanismoRoller)
             console.log("ladoTirador: " + ladoTirador)
             console.log("accionadorMotorRoller: " + accionadorMotorRoller)
@@ -89,7 +83,7 @@ export default function Roller() {
             setErrorMessage("Por favor, completa todos los campos");
             window.scrollTo(0, 0);
         }
-        else if (!enterosRegex.test(alto) || !enterosRegex.test(ancho) || !enterosRegex.test(profundidadGuia)) {
+        else if (!enterosRegex.test(alto) || !enterosRegex.test(ancho) ) {
             setErrorMessage("Los campos de dimensiones solo aceptan números enteros positivos");
             window.scrollTo(0, 0);
         }
@@ -105,8 +99,6 @@ export default function Roller() {
                 "COLOR: " + color.charAt(0).toUpperCase() + color.slice(1).toLowerCase() + "\n" +
                 "ALTO: " + alto + "mm\n" +
                 "ANCHO: " + ancho + "mm\n" +
-                "ALTURA INDICADA: " + alturaIndicada + "\n" +
-                "PROFUNDIDAD DE GUÍA: " + profundidadGuia.charAt(0).toUpperCase() + profundidadGuia.slice(1).toLowerCase() + "\n" +
                 "MECANISMO: " + mecanismoRoller.charAt(0).toUpperCase() + mecanismoRoller.slice(1).toLowerCase() + "\n" +
                 (mecanismoRoller == 'motor' ? 
                 ("ACCIONADOR MECANISMO: " + accionadorMotorRoller.charAt(0).toUpperCase() + accionadorMotorRoller.slice(1).toLowerCase() + "\n") 
@@ -324,22 +316,6 @@ export default function Roller() {
                         className="campotextoEspecificacionCortina"
                     />
                     <div id="textoAlto" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
-                </div>
-            </div>
-
-            <div className="form-group-cortinas">
-                <p>MEDIDA INDICADA</p>
-                <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${alturaIndicada == 'ras' ? 'checked' : ''}`} onClick={() => { setAlturaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</div>
-                    <div className={`especificacionCortina ${alturaIndicada == 'fondo' ? 'checked' : ''}`} onClick={() => { setAlturaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</div>
-                    <label htmlFor="profundidadGuia" className="especificacionCortina textoEspecificacionCortina">Profundidad de guía</label>
-                    <input
-                        id="profundidadGuia"
-                        value={profundidadGuia}
-                        onChange={(e) => { setProfundidadGuia(e.target.value); deleteErrorMessage() }}
-                        className="campotextoEspecificacionCortina"
-                    />
-                    <div id="textoAncho" className="especificacionCortina milimetrosCortinas"><p>mm.</p></div>
                 </div>
             </div>
 
