@@ -105,8 +105,6 @@ function ProviderCortinas({ children }) {
         setLineaScreen('');
         setAncho('');
         setAlto('');
-        setAlturaIndicada('');
-        setProfundidadGuia('');
         setMecanismoRoller('');
         setAccionadorMotorRoller('');
         setLadoTirador('');
