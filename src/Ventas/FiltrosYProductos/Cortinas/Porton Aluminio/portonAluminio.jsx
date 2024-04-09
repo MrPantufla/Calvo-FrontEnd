@@ -71,6 +71,21 @@ export default function PortonAluminio() {
             setErrorMessage("Los campos de dimensiones solo aceptan números enteros positivos");
             window.scrollTo(0, 0);
         }
+        else if(tipoTablilla == 'DAP-55' && (ancho > 4000 || alto > 4000)){
+            setErrorMessage("Las medidas maximas para portones con tablillas DAP-55 son 4000x4000mm")
+            window.scrollTo(0, 0);
+        }
+        else if(tipoTablilla == 'DAP-64' && (ancho > 4500 || alto > 4000)){
+            setErrorMessage("Las medidas maximas para portones con tablillas DAP-64 son 4500x4000mm")
+            window.scrollTo(0, 0);
+        }
+        else if(tipoTablilla == 'DAP-79' && (ancho > 6000)){
+            setErrorMessage("El ancho máximo para portones con tablillas DAP-79 es 6000mm")
+            window.scrollTo(0, 0);
+        }
+        else if(tipoTablilla == 'DAP-79' && ((ancho*alto)>20000000)){
+            setErrorMessage("La superficie de portones con tablillas DAP-79 no puede superar los 20 metros cuadrados")
+        }
         else {
             deleteErrorMessage();
 
