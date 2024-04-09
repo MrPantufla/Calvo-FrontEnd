@@ -29,18 +29,17 @@ function ProviderCortinas({ children }) {
     const [mecanismoRoller, setMecanismoRoller] = useState('');
     const [caida, setCaida] = useState('');
     const [ladoTirador, setLadoTirador] = useState('');
-    const [accionadorMotorRoller, setAccionadorMotorRoller] = useState('');
+    const [tipoAccionador, setTipoAccionador] = useState('');
 
     const [formato, setFormato] = useState('');
     const [mecanismo, setMecanismo] = useState('');
-    const [tipoAccionamiento, setTipoAccionamiento] = useState('');
+
+    const [tipoMotor, setTipoMotor] = useState('');
 
     const [conCajon, setConCajon] = useState('');
     const [ubicacionExteriorCajon, setUbicacionExteriorCajon] = useState('');
     const [ubicacionCajon, setUbicacionCajon] = useState('');
     const [tipoMecanismo, setTipoMecanismo] = useState('');
-    const [control, setControl] = useState('');
-    const [tecla, setTecla] = useState('');
     const [tipoTablilla, setTipoTablilla] = useState('');
     const [especificacionBarrio, setEspecificacionBarrio] = useState('');
 
@@ -94,8 +93,8 @@ function ProviderCortinas({ children }) {
         setLadoTirador('');
     }
 
-    const limpiarAccionadorMotorRoller = () =>{
-        setAccionadorMotorRoller('');
+    const limpiarTipoAccionador = () =>{
+        setTipoAccionador('');
     }
 
     const limpiarColor = () =>{
@@ -112,20 +111,16 @@ function ProviderCortinas({ children }) {
         setAncho('');
         setAlto('');
         setMecanismoRoller('');
-        setAccionadorMotorRoller('');
+        setTipoAccionador('');
         setLadoTirador('');
         setCaida('');
         setColorAccesorios('');
         setAclaraciones('');
     }
 
-    const limpiarTipoAccionamiento = () =>{
-        setTipoAccionamiento('');
-    }
-
     const limpiarMecanismo = () =>{
         setMecanismo('');
-        limpiarTipoAccionamiento();
+        limpiarTipoAccionador();
     }
 
     const limpiarPersianaPvc = () =>{
@@ -135,8 +130,24 @@ function ProviderCortinas({ children }) {
         setProfundidadGuia('');
         setFormato('');
         setMecanismo('');
-        setTipoAccionamiento('');
+        setTipoAccionador('');
         setAclaraciones('');
+    }
+
+    const limpiarTipoMotor = () =>{
+        setTipoMotor('');
+        limpiarTipoAccionador();
+    }
+
+    const limpiarPortonAluminio = () =>{
+        setTipoTablilla('');
+        setAncho('');
+        setAlto('');
+        setMedidaIndicada('');
+        setProfundidadGuia('');
+        setFormato('');
+        setTipoMotor('');
+        setTipoAccionador('');
     }
 
     return (
@@ -157,8 +168,10 @@ function ProviderCortinas({ children }) {
             setFormato,
             mecanismo,
             setMecanismo,
-            tipoAccionamiento,
-            setTipoAccionamiento,
+            tipoAccionador,
+            setTipoAccionador,
+            tipoMotor,
+            setTipoMotor,
             conCajon,
             setConCajon,
             ubicacionExteriorCajon,
@@ -167,10 +180,6 @@ function ProviderCortinas({ children }) {
             setUbicacionCajon,
             tipoMecanismo,
             setTipoMecanismo,
-            control,
-            setControl,
-            tecla,
-            setTecla,
             tipoTablilla,
             setTipoTablilla,
             especificacionBarrio,
@@ -194,21 +203,23 @@ function ProviderCortinas({ children }) {
             setLadoTirador,
             profundidadGuia,
             setProfundidadGuia,
-            accionadorMotorRoller,
-            setAccionadorMotorRoller,
+            tipoAccionador,
+            setTipoAccionador,
             deleteErrorMessage,
             formularioEnviado,
 
             limpiarColor,
 
             limpiarLadoTirador,
-            limpiarAccionadorMotorRoller,
+            limpiarTipoAccionador,
             limpiarLineaScreen,
             limpiarRoller,
 
-            limpiarTipoAccionamiento,
             limpiarMecanismo,
-            limpiarPersianaPvc
+            limpiarPersianaPvc,
+
+            limpiarTipoMotor,
+            limpiarPortonAluminio
         }}>
             {children}
         </CortinasContext.Provider>
