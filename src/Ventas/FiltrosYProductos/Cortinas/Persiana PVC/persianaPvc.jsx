@@ -118,8 +118,8 @@ export default function PersianaPvc() {
             <div className="form-group-cortinas">
                 <p>REFERENCIA DE MEDIDA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</div>
-                    <div className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</div>
+                    <button className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</button>
+                    <button className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
                 </div>
             </div>
 
@@ -140,8 +140,8 @@ export default function PersianaPvc() {
             <div className="form-group-cortinas">
                 <p>FORMATO</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${formato == 'completo' && 'checked'}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</div>
-                    <div className={`especificacionCortina ${formato == 'pañoSolo' && 'checked'}`} onClick={() => { setFormato('pañoSolo'); limpiarMecanismo(); deleteErrorMessage() }}>Paño solo</div>
+                    <button className={`especificacionCortina ${formato == 'completo' && 'checked'}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</button>
+                    <button className={`especificacionCortina ${formato == 'pañoSolo' && 'checked'}`} onClick={() => { setFormato('pañoSolo'); limpiarMecanismo(); deleteErrorMessage() }}>Paño solo</button>
                 </div>
             </div>
 
@@ -149,8 +149,8 @@ export default function PersianaPvc() {
                 <div className="form-group-cortinas">
                     <p>MECANISMO</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</div>
-                        <div className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionador(); deleteErrorMessage() }}>Motor</div>
+                        <button className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</button>
+                        <button className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionador(); deleteErrorMessage() }}>Motor</button>
                     </div>
                 </div>
             }
@@ -159,8 +159,8 @@ export default function PersianaPvc() {
                 <div className="form-group-cortinas">
                     <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoAccionador == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionador('enrollador'); deleteErrorMessage() }}>Enrollador</div>
-                        <div className={`especificacionCortina ${tipoAccionador == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionador('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</div>
+                        <button className={`especificacionCortina ${tipoAccionador == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionador('enrollador'); deleteErrorMessage() }}>Enrollador</button>
+                        <button className={`especificacionCortina ${tipoAccionador == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionador('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</button>
                     </div>
                 </div>
             }
@@ -169,8 +169,8 @@ export default function PersianaPvc() {
                 <div className="form-group-cortinas">
                     <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</div>
-                        <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
+                        <button className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</button>
+                        <button className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</button>
                     </div>
                 </div>
             }

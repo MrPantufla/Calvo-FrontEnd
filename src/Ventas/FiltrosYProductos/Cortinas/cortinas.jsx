@@ -45,12 +45,12 @@ export default function Cortinas() {
                         <p>TIPO</p>
                         <div className="bodyFormGroupCortinas rowTiposContainer">
                             <div className="divFold1">
-                                <div className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('roller') }}>Roller</div>
-                                <div className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('persianaPvc') }}>Persiana PVC</div>
+                                <button className={`especificacionCortina ${tipo == 'roller' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('roller') }}>Roller</button>
+                                <button className={`especificacionCortina ${tipo == 'persianaPvc' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('persianaPvc') }}>Persiana PVC</button>
                             </div>
                             <div className="divFold2">
-                                <div className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('portonAluminio') }}>Porton de aluminio</div>
-                                <div className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('persianaAluminio') }}>Persiana de aluminio</div>
+                                <button className={`especificacionCortina ${tipo == 'portonAluminio' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('portonAluminio') }}>Porton de aluminio</button>
+                                <button className={`especificacionCortina ${tipo == 'persianaAluminio' ? 'checked' : ''}`} onClick={() => { limpiarTodo(); setTipo('persianaAluminio') }}>Persiana de aluminio</button>
                             </div>
                         </div>
                     </div>

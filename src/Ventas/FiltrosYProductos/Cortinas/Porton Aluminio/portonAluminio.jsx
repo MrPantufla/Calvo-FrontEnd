@@ -112,9 +112,9 @@ export default function PortonAluminio() {
             <div className="form-group-cortinas">
                 <p>TIPO DE TABLILLA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${tipoTablilla == 'DAP-55' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-55' ? 'DAP-55' : ''); deleteErrorMessage() }}>DAP-55 con felpa</div>
-                    <div className={`especificacionCortina ${tipoTablilla == 'DAP-64' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-64' ? 'DAP-64' : ''); deleteErrorMessage() }}>DAP-64 ciega</div>
-                    <div className={`especificacionCortina ${tipoTablilla == 'DAP-79' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-79' ? 'DAP-79' : ''); deleteErrorMessage() }}>DAP-79 ciega</div>
+                    <button className={`especificacionCortina ${tipoTablilla == 'DAP-55' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-55' ? 'DAP-55' : ''); deleteErrorMessage() }}>DAP-55 con felpa</button>
+                    <button className={`especificacionCortina ${tipoTablilla == 'DAP-64' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-64' ? 'DAP-64' : ''); deleteErrorMessage() }}>DAP-64 ciega</button>
+                    <button className={`especificacionCortina ${tipoTablilla == 'DAP-79' ? 'checked' : ''}`} onClick={() => { setTipoTablilla(tipoTablilla !== 'DAP-79' ? 'DAP-79' : ''); deleteErrorMessage() }}>DAP-79 ciega</button>
                 </div>
             </div>
 
@@ -144,8 +144,8 @@ export default function PortonAluminio() {
             <div className="form-group-cortinas">
                 <p>REFERENCIA DE MEDIDA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</div>
-                    <div className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</div>
+                    <button className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</button>
+                    <button className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
                 </div>
             </div>
 
@@ -166,8 +166,8 @@ export default function PortonAluminio() {
             <div className="form-group-cortinas">
                 <p>FORMATO</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${formato == 'completo' ? 'checked' : ''}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</div>
-                    <div className={`especificacionCortina ${formato == 'pañoSolo' ? 'checked' : ''}`} onClick={() => { setFormato('pañoSolo'); limpiarTipoMotor(); deleteErrorMessage() }}>Paño solo</div>
+                    <button className={`especificacionCortina ${formato == 'completo' ? 'checked' : ''}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</button>
+                    <button className={`especificacionCortina ${formato == 'pañoSolo' ? 'checked' : ''}`} onClick={() => { setFormato('pañoSolo'); limpiarTipoMotor(); deleteErrorMessage() }}>Paño solo</button>
                 </div>
             </div>
 
@@ -175,8 +175,8 @@ export default function PortonAluminio() {
                 <div className="form-group-cortinas">
                     <p>TIPO DE MOTOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoMotor == 'mecanico' && 'checked'}`} onClick={() => { setTipoMotor('mecanico'); deleteErrorMessage() }}>Mecánico</div>
-                        <div className={`especificacionCortina ${tipoMotor == 'conAyudaManual' && 'checked'}`} onClick={() => { setTipoMotor('conAyudaManual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Con ayuda manual</div>
+                        <button className={`especificacionCortina ${tipoMotor == 'mecanico' && 'checked'}`} onClick={() => { setTipoMotor('mecanico'); deleteErrorMessage() }}>Mecánico</button>
+                        <button className={`especificacionCortina ${tipoMotor == 'conAyudaManual' && 'checked'}`} onClick={() => { setTipoMotor('conAyudaManual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Con ayuda manual</button>
                     </div>
                 </div>
             }
@@ -185,8 +185,8 @@ export default function PortonAluminio() {
                 <div className="form-group-cortinas">
                     <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</div>
-                        <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
+                        <button className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</button>
+                        <button className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</button   >
                     </div>
                 </div>
             }

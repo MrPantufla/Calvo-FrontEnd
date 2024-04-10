@@ -70,17 +70,6 @@ export default function Roller() {
         console.log("ENVIANDO")
 
         if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
-            /*console.log("linea: " + linea)
-            console.log("lineaScreen: " + lineaScreen)
-            console.log("color: " + color)
-            console.log("ancho: " + ancho)
-            console.log("alto: " + alto)
-            console.log("mecanismoRoller: " + mecanismoRoller)
-            console.log("ladoTirador: " + ladoTirador)
-            console.log("tipoAccionador: " + tipoAccionador)
-            console.log("ladoTirador: " + ladoTirador)
-            console.log("caida: " + caida)
-            console.log("colorAccesorios: " + colorAccesorios)*/
             setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
@@ -119,9 +108,9 @@ export default function Roller() {
             <div className="form-group-cortinas">
                 <p>TIPO DE CORTINA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${linea == 'screen' && 'checked'}`} onClick={() => { setLinea('screen'); limpiarColor(); deleteErrorMessage() }}>Screen</div>
-                    <div className={`especificacionCortina ${linea == 'blackout' && 'checked'}`} onClick={() => { setLinea('blackout'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Black out</div>
-                    <div className={`especificacionCortina ${linea == 'vision' && 'checked'}`} onClick={() => { setLinea('vision'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Stripe Vision</div>
+                    <button className={`especificacionCortina ${linea == 'screen' && 'checked'}`} onClick={() => { setLinea('screen'); limpiarColor(); deleteErrorMessage() }}>Screen</button>
+                    <button className={`especificacionCortina ${linea == 'blackout' && 'checked'}`} onClick={() => { setLinea('blackout'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Black out</button>
+                    <button className={`especificacionCortina ${linea == 'vision' && 'checked'}`} onClick={() => { setLinea('vision'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Stripe Vision</button>
                 </div>
             </div>
 
@@ -129,9 +118,9 @@ export default function Roller() {
                 (<div className="form-group-cortinas">
                     <p>LÍNEA</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${lineaScreen == 'shantung' && 'checked'}`} onClick={() => { setLineaScreen('shantung'); limpiarColor(); deleteErrorMessage() }}>Shantung</div>
-                        <div className={`especificacionCortina ${lineaScreen == 'paris' && 'checked'}`} onClick={() => { setLineaScreen('paris'); limpiarColor(); deleteErrorMessage() }}>París</div>
-                        <div className={`especificacionCortina ${lineaScreen == 'okiata' && 'checked'}`} onClick={() => { setLineaScreen('okiata'); limpiarColor(); deleteErrorMessage() }}>Okiata</div>
+                        <button className={`especificacionCortina ${lineaScreen == 'shantung' && 'checked'}`} onClick={() => { setLineaScreen('shantung'); limpiarColor(); deleteErrorMessage() }}>Shantung</button>
+                        <button className={`especificacionCortina ${lineaScreen == 'paris' && 'checked'}`} onClick={() => { setLineaScreen('paris'); limpiarColor(); deleteErrorMessage() }}>París</button>
+                        <button className={`especificacionCortina ${lineaScreen == 'okiata' && 'checked'}`} onClick={() => { setLineaScreen('okiata'); limpiarColor(); deleteErrorMessage() }}>Okiata</button>
                     </div>
                 </div>)
             }
@@ -298,7 +287,7 @@ export default function Roller() {
             }
 
             <div className="form-group-cortinas">
-                <p>DIMENSIONES</p>
+            <p>DIMENSIONES</p>
                 <div className="bodyFormGroupCortinas">
                     <label className={`especificacionCortina textoEspecificacionCortina ${ancho != '' && 'conValue'}`} htmlFor="ancho">Ancho</label>
                     <input type="text"
@@ -323,8 +312,8 @@ export default function Roller() {
             <div className="form-group-cortinas">
                 <p>MECANISMO</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${mecanismoRoller == 'manual' && 'checked'}`} onClick={() => { setMecanismoRoller('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</div>
-                    <div className={`especificacionCortina ${mecanismoRoller == 'motor' && 'checked'}`} onClick={() => { setMecanismoRoller('motor'); limpiarLadoTirador(); deleteErrorMessage() }}>Motor</div>
+                    <button className={`especificacionCortina ${mecanismoRoller == 'manual' && 'checked'}`} onClick={() => { setMecanismoRoller('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</button>
+                    <button className={`especificacionCortina ${mecanismoRoller == 'motor' && 'checked'}`} onClick={() => { setMecanismoRoller('motor'); limpiarLadoTirador(); deleteErrorMessage() }}>Motor</button>
                 </div>
             </div>
 
@@ -332,8 +321,8 @@ export default function Roller() {
                 (<div className="form-group-cortinas">
                     <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</div>
-                        <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
+                        <button className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</button>
+                        <button className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</button>
                     </div>
                 </div>)
             }
@@ -342,8 +331,8 @@ export default function Roller() {
                 (<div className="form-group-cortinas">
                     <p>LADO DEL TIRADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <div className={`especificacionCortina ${ladoTirador == 'izquierda' && 'checked'}`} onClick={() => { setLadoTirador('izquierda'); deleteErrorMessage() }}>Izquierda</div>
-                        <div className={`especificacionCortina ${ladoTirador == 'derecha' && 'checked'}`} onClick={() => { setLadoTirador('derecha'); deleteErrorMessage() }}>Derecha</div>
+                        <button className={`especificacionCortina ${ladoTirador == 'izquierda' && 'checked'}`} onClick={() => { setLadoTirador('izquierda'); deleteErrorMessage() }}>Izquierda</button>
+                        <button className={`especificacionCortina ${ladoTirador == 'derecha' && 'checked'}`} onClick={() => { setLadoTirador('derecha'); deleteErrorMessage() }}>Derecha</button>
                     </div>
                 </div>)
             }
@@ -351,8 +340,8 @@ export default function Roller() {
             <div className="form-group-cortinas">
                 <p>LADO DE CAIDA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${caida == 'interior' && 'checked'}`} onClick={() => { setCaida('interior'); deleteErrorMessage() }}>Interior</div>
-                    <div className={`especificacionCortina ${caida == 'exterior' && 'checked'}`} onClick={() => { setCaida('exterior'); deleteErrorMessage() }}>Exterior</div>
+                    <button className={`especificacionCortina ${caida == 'interior' && 'checked'}`} onClick={() => { setCaida('interior'); deleteErrorMessage() }}>Interior</button>
+                    <button className={`especificacionCortina ${caida == 'exterior' && 'checked'}`} onClick={() => { setCaida('exterior'); deleteErrorMessage() }}>Exterior</button >
                 </div>
             </div>
 

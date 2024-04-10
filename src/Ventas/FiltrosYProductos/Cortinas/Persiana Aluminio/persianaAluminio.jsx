@@ -104,17 +104,17 @@ export default function PersianaAluminio() {
                 <p>TIPO DE TABLILLA</p>
                 <div className="bodyFormGroupCortinas divTablillas">
                     <div className="tablillasArriba">
-                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-ABK' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-ABK'); deleteErrorMessage() }}>DAP-ABK autoblocante</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-44' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-44'); deleteErrorMessage() }}>DAP-44</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-45' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-45'); deleteErrorMessage() }}>DAP-45</div>
+                        <button className={`especificacionCortina ${tipoTablilla == 'DAP-ABK' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-ABK'); deleteErrorMessage() }}>DAP-ABK autoblocante</button>
+                        <button className={`especificacionCortina ${tipoTablilla == 'DAP-44' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-44'); deleteErrorMessage() }}>DAP-44</button>
+                        <button className={`especificacionCortina ${tipoTablilla == 'DAP-45' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-45'); deleteErrorMessage() }}>DAP-45</button >
                     </div>
                     <div className="tablillasMedio">
-                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-49' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-49'); deleteErrorMessage() }}>DAP-49 microperforada</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'DAP-55' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-55'); deleteErrorMessage() }}>DAP-55 con felpa</div>
+                        <button className={`especificacionCortina ${tipoTablilla == 'DAP-49' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-49'); deleteErrorMessage() }}>DAP-49 microperforada</button>
+                        <button className={`especificacionCortina ${tipoTablilla == 'DAP-55' && 'checked'}`} onClick={() => { setTipoTablilla('DAP-55'); deleteErrorMessage() }}>DAP-55 con felpa</button>
                     </div>
                     <div className="tablillasAbajo">
-                        <div className={`especificacionCortina ${tipoTablilla == 'barrioTubular' && 'checked'}`} onClick={() => { setTipoTablilla('barrioTubular'); deleteErrorMessage() }}>Barrio tubular</div>
-                        <div className={`especificacionCortina ${tipoTablilla == 'barrioLiviana' && 'checked'}`} onClick={() => { setTipoTablilla('barrioLiviana'); deleteErrorMessage() }}>Barrio liviana con felpa</div>
+                        <button className={`especificacionCortina ${tipoTablilla == 'barrioTubular' && 'checked'}`} onClick={() => { setTipoTablilla('barrioTubular'); deleteErrorMessage() }}>Barrio tubular</button>
+                        <button className={`especificacionCortina ${tipoTablilla == 'barrioLiviana' && 'checked'}`} onClick={() => { setTipoTablilla('barrioLiviana'); deleteErrorMessage() }}>Barrio liviana con felpa</button >
 
                     </div>
                 </div>
@@ -145,8 +145,8 @@ export default function PersianaAluminio() {
             <div className="form-group-cortinas">
                 <p>REFERENCIA DE MEDIDA</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</div>
-                    <div className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</div>
+                    <button className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</button>
+                    <button className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
                 </div>
             </div>
 
@@ -167,8 +167,8 @@ export default function PersianaAluminio() {
             <div className="form-group-cortinas">
                 <p>FORMATO</p>
                 <div className="bodyFormGroupCortinas">
-                    <div className={`especificacionCortina ${formato == 'completo' && 'checked'}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</div>
-                    <div className={`especificacionCortina ${formato == 'pañoSolo' && 'checked'}`} onClick={() => { setFormato('pañoSolo'); limpiarMecanismo(); deleteErrorMessage() }}>Paño solo</div>
+                    <button className={`especificacionCortina ${formato == 'completo' && 'checked'}`} onClick={() => { setFormato('completo'); deleteErrorMessage() }}>Completo</button>
+                    <button className={`especificacionCortina ${formato == 'pañoSolo' && 'checked'}`} onClick={() => { setFormato('pañoSolo'); limpiarMecanismo(); deleteErrorMessage() }}>Paño solo</button>
                 </div>
             </div>
 
@@ -177,8 +177,8 @@ export default function PersianaAluminio() {
                     <div className="form-group-cortinas">
                         <p>TIPO DE MECANISMO</p>
                         <div className="bodyFormGroupCortinas">
-                            <div className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</div>
-                            <div className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionador(); deleteErrorMessage() }}>Motor</div>
+                            <button className={`especificacionCortina ${mecanismo == 'manual' && 'checked'}`} onClick={() => { setMecanismo('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</button>
+                            <button className={`especificacionCortina ${mecanismo == 'motor' && 'checked'}`} onClick={() => { setMecanismo('motor'); limpiarTipoAccionador(); deleteErrorMessage() }}>Motor</button>
                         </div>
                     </div>
 
@@ -186,8 +186,8 @@ export default function PersianaAluminio() {
                         (<div className="form-group-cortinas">
                             <p>ACCIONADOR</p>
                             <div className="bodyFormGroupCortinas">
-                                <div className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</div>
-                                <div className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</div>
+                                <button className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</button>
+                                <button className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</button>
                             </div>
                         </div>)
                     }
@@ -196,8 +196,8 @@ export default function PersianaAluminio() {
                         (<div className="form-group-cortinas">
                             <p>ACCIONADOR (Se aplicarán reductores según tabla)</p>
                             <div className="bodyFormGroupCortinas">
-                                <div className={`especificacionCortina ${tipoAccionador == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionador('enrollador'); deleteErrorMessage() }}>Enrollador</div>
-                                <div className={`especificacionCortina ${tipoAccionador == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionador('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</div>
+                                <button className={`especificacionCortina ${tipoAccionador == 'enrollador' && 'checked'}`} onClick={() => { setTipoAccionador('enrollador'); deleteErrorMessage() }}>Enrollador</button>
+                                <button className={`especificacionCortina ${tipoAccionador == 'elevaManivela' && 'checked'}`} onClick={() => { setTipoAccionador('elevaManivela'); deleteErrorMessage() }}>Eleva manivela</button>
                             </div>
                         </div>)
                     }
