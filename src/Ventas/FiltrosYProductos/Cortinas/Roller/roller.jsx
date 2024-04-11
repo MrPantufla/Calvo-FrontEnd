@@ -129,7 +129,7 @@ export default function Roller() {
                 (<div className="form-group-cortinas">
                     <p>COLOR</p>
                     <div className="bodyFormGroupCortinas coloresCortinas columnasColores">
-                        <div className="coloresAbajo">
+                        <div className="coloresArriba">
                             <div className={`colorCortina ${color == 'negro' && 'colorChecked'}`}>
                                 <label htmlFor="blackoutNegro">Negro</label>
                                 <input id="blackoutNegro" type="button" className="blackoutNegro" onClick={() => { setColor('negro'); deleteErrorMessage() }} />
@@ -138,6 +138,8 @@ export default function Roller() {
                                 <label htmlFor="blackoutBlanco">Blanco</label>
                                 <input id="blackoutBlanco" type="button" className="blackoutBlanco" onClick={() => { setColor('blanco'); deleteErrorMessage() }} />
                             </div>
+                        </div>
+                        <div className="coloresAbajo">
                             <div className={`colorCortina ${color == 'beige' && 'colorChecked'}`}>
                                 <label htmlFor="blackoutBeige">Beige</label>
                                 <input id="blackoutBeige" type="button" className="blackoutBeige" onClick={() => { setColor('beige'); deleteErrorMessage() }} />
@@ -190,17 +192,17 @@ export default function Roller() {
 
                                     </div>
                                     <div className="coloresMedio">
-                                        <div className={`colorCortina ${color == 'verdeClaro' && 'colorChecked'}`}>
-                                            <label htmlFor="parisVerdeClaro">Verde Claro</label>
-                                            <input id="parisVerdeClaro" type="button" className="parisVerdeClaro" onClick={() => { setColor('verdeClaro'); deleteErrorMessage() }} />
+                                        <div className={`colorCortina ${color == 'naranja' && 'colorChecked'}`}>
+                                            <label htmlFor="parisNaranja">Naranja</label>
+                                            <input id="parisNaranja" type="button" className="parisNaranja" onClick={() => { setColor('naranja'); deleteErrorMessage() }} />
                                         </div>
                                         <div className={`colorCortina ${color == 'blancoTrans' && 'colorChecked'}`}>
                                             <label htmlFor="parisBlancoTrans">Blanco Trans</label>
                                             <input id="parisBlancoTrans" type="button" className="parisBlancoTrans" onClick={() => { setColor('blancoTrans'); deleteErrorMessage() }} />
                                         </div>
-                                        <div className={`colorCortina ${color == 'blanco' && 'colorChecked'}`}>
-                                            <label htmlFor="parisBlanco">Blanco</label>
-                                            <input id="parisBlanco" type="button" className="parisBlanco" onClick={() => { setColor('blanco'); deleteErrorMessage() }} />
+                                        <div className={`colorCortina ${color == 'rojo' && 'colorChecked'}`}>
+                                            <label htmlFor="parisRojo">Rojo</label>
+                                            <input id="parisRojo" type="button" className="parisRojo" onClick={() => { setColor('rojo'); deleteErrorMessage() }} />
                                         </div>
                                     </div>
                                     <div className="coloresAbajo">
@@ -208,13 +210,15 @@ export default function Roller() {
                                             <label htmlFor="parisCrema">Crema</label>
                                             <input id="parisCrema" type="button" className="parisCrema" onClick={() => { setColor('crema'); deleteErrorMessage() }} />
                                         </div>
-                                        <div className={`colorCortina ${color == 'naranja' && 'colorChecked'}`}>
-                                            <label htmlFor="parisNaranja">Naranja</label>
-                                            <input id="parisNaranja" type="button" className="parisNaranja" onClick={() => { setColor('naranja'); deleteErrorMessage() }} />
+                                        <div className={`colorCortina ${color == 'verdeClaro' && 'colorChecked'}`}>
+                                            <label htmlFor="parisVerdeClaro">Verde Claro</label>
+                                            <input id="parisVerdeClaro" type="button" className="parisVerdeClaro" onClick={() => { setColor('verdeClaro'); deleteErrorMessage() }} />
                                         </div>
-                                        <div className={`colorCortina ${color == 'rojo' && 'colorChecked'}`}>
-                                            <label htmlFor="parisRojo">Rojo</label>
-                                            <input id="parisRojo" type="button" className="parisRojo" onClick={() => { setColor('rojo'); deleteErrorMessage() }} />
+
+
+                                        <div className={`colorCortina ${color == 'blanco' && 'colorChecked'}`}>
+                                            <label htmlFor="parisBlanco">Blanco</label>
+                                            <input id="parisBlanco" type="button" className="parisBlanco" onClick={() => { setColor('blanco'); deleteErrorMessage() }} />
                                         </div>
                                     </div>
                                 </div>
@@ -225,10 +229,7 @@ export default function Roller() {
                                     <p>COLOR</p>
                                     <div className="bodyFormGroupCortinas coloresCortinas columnasColores">
                                         <div className="coloresArriba">
-                                            <div className={`colorCortina ${color == 'negroBeige' && 'colorChecked'}`}>
-                                                <label htmlFor="okiataNegroBeige">Negro Beige</label>
-                                                <input id="okiataNegroBeige" type="button" className="okiataNegroBeige" onClick={() => { setColor('negroBeige'); deleteErrorMessage() }} />
-                                            </div>
+
                                             <div className={`colorCortina ${color == 'blanco' && 'colorChecked'}`}>
                                                 <label htmlFor="okiataBlanco">Blanco</label>
                                                 <input id="okiataBlanco" type="button" className="okiataBlanco" onClick={() => { setColor('blanco'); deleteErrorMessage() }} />
@@ -242,6 +243,16 @@ export default function Roller() {
                                                 <input id="okiataBeige" type="button" className="okiataBeige" onClick={() => { setColor('beige'); deleteErrorMessage() }} />
                                             </div>
                                         </div>
+                                        <div className="coloresMedio">
+                                            <div className={`colorCortina ${color == 'negroBeige' && 'colorChecked'}`}>
+                                                <label htmlFor="okiataNegroBeige">Negro Beige</label>
+                                                <input id="okiataNegroBeige" type="button" className="okiataNegroBeige" onClick={() => { setColor('negroBeige'); deleteErrorMessage() }} />
+                                            </div>
+                                            <div className={`colorCortina ${color == 'negroBronce' && 'colorChecked'}`}>
+                                                <label htmlFor="okiataNegroBronce">Negro Bronce</label>
+                                                <input id="okiataNegroBronce" type="button" className="okiataNegroBronce" onClick={() => { setColor('negroBronce'); deleteErrorMessage() }} />
+                                            </div>
+                                        </div>
                                         <div className="coloresAbajo">
                                             <div className={`colorCortina ${color == 'blancoBeige' && 'colorChecked'}`}>
                                                 <label htmlFor="okiataBlancoBeige">Blanco Beige</label>
@@ -251,10 +262,7 @@ export default function Roller() {
                                                 <label htmlFor="okiataBlancoGris">Blanco Gris</label>
                                                 <input id="okiataBlancoGris" type="button" className="okiataBlancoGris" onClick={() => { setColor('blancoGris'); deleteErrorMessage() }} />
                                             </div>
-                                            <div className={`colorCortina ${color == 'negroBronce' && 'colorChecked'}`}>
-                                                <label htmlFor="okiataNegroBronce">Negro Bronce</label>
-                                                <input id="okiataNegroBronce" type="button" className="okiataNegroBronce" onClick={() => { setColor('negroBronce'); deleteErrorMessage() }} />
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>)
@@ -287,7 +295,7 @@ export default function Roller() {
             }
 
             <div className="form-group-cortinas">
-            <p>DIMENSIONES</p>
+                <p>DIMENSIONES</p>
                 <div className="bodyFormGroupCortinas">
                     <label className={`especificacionCortina textoEspecificacionCortina ${ancho != '' && 'conValue'}`} htmlFor="ancho">Ancho</label>
                     <input type="text"
