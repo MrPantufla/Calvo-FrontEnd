@@ -116,7 +116,7 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={args.tipo_prod == 'PERFIL' ?
+            src={args.tipo_prod == 'PERFIL' || args.tipo_prod == 'PUNTUAL' ?
               (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
               :
               (args.tipo_prod == 'ACCESORIO' ?
@@ -126,7 +126,7 @@ export default function CardProducto(args) {
               )
             }
             onError={(e) => {
-              {args.tipo_prod == "PERFIL" && console.log(args.cod_orig.slice(2).trim() + ".png")}
+              {args.tipo_prod == "PUNTUAL" && console.log(args.cod_orig.trim())}
             }}
             alt="Imagen del producto"
             loading="lazy"
