@@ -72,7 +72,7 @@ export default function EditarDatos() {
         event.preventDefault();
         const letrasRegex = /^[A-Za-z\s]+$/;
         const numerosRegex = /[0-9]/;
-        if (!nombre || !apellido || !telefono || !cuit) {
+        if (!nombre || !apellido || !telefono) {
             setErrorMessage('Por favor, completa todos los datos');
         }
         else if (!letrasRegex.test(nombre)) {
@@ -83,9 +83,6 @@ export default function EditarDatos() {
         }
         else if (!numerosRegex.test(telefono)) {
             setErrorMessage('Teléfono solo puede contener números');
-        }
-        else if (!numerosRegex.test(cuit)) {
-            setErrorMessage('Cuit solo puede contener números');
         }
         else {
             confirmarEditarDatos();
@@ -151,15 +148,6 @@ export default function EditarDatos() {
                             id="editarTelefono"
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
-                        />
-                    </div>
-                    <div className="form-group-editarPerfil formEditarDatos">
-                        <label htmlFor="editarCuit" id="editarCuit" required> CUIT</label>
-                        <input
-                            id="editarCuit"
-                            value={cuit}
-                            onChange={(e) => setCuit(e.target.value)}
                             onFocus={()=>setErrorMessage('')}
                         />
                     </div>
