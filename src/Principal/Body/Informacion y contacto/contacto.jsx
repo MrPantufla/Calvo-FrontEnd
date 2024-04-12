@@ -179,7 +179,7 @@ export default function Contacto() {
                     </label>
                     <input
                         name="empresa"
-                        id="provincia"
+                        id="empresa"
                         onFocus={() => setErrorMessage('')}
                         onChange={(e) => setEmpresa(e.target.value)}
                         disabled={formularioEnviado}
