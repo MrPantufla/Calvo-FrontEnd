@@ -67,7 +67,6 @@ export default function Roller() {
 
     const enviarConsulta = () => {
         const enterosRegex = /^[0-9]\d*$/;
-        console.log("ENVIANDO")
 
         if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
             setErrorMessage("Por favor, completa todos los campos obligatorios");

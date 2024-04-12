@@ -66,7 +66,6 @@ function DireccionProvider({ children }) {
     }
 
     useEffect(() => {
-        console.log("asd");
         if (!primeraAccion) {
             obtenerDireccionUsuario();
         }

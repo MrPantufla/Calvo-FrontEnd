@@ -41,7 +41,6 @@ export default function FormularioDireccion() {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Envío de dirección exitoso');
                     cerrarDireccion();
                     return null;
                 } else {

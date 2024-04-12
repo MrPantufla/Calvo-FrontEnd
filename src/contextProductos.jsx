@@ -76,7 +76,6 @@ function ProductosProvider({ children }) {
             if (response.ok) {
                 const data = await response.json();
                 setProductosEliminados(data);
-                console.log(typeof (data));
                 return true;
             } else {
                 console.error('Error');
@@ -102,13 +101,10 @@ function ProductosProvider({ children }) {
             const responseBody = await response.text();
 
             if(response.status == 200){
-                console.log(responseBody)
                 if (responseBody.includes("eliminado")) {
                     setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, idProducto]);
-                    console.log(idProducto + " eliminado correctamente");
                 } else if (responseBody.includes("restaurado")) {
-                    setProductosEliminados(productosEliminados.filter(id => id !== idProducto));
-                    console.log(idProducto + " restaurado correctamente")   
+                    setProductosEliminados(productosEliminados.filter(id => id !== idProducto)); 
                 }
             }
             else {

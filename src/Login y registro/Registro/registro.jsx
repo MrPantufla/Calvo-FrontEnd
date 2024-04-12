@@ -22,7 +22,6 @@ export default function Registro() {
 
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono) {
             auth.setErrorMessage('Por favor, complete todos los campos.');
-            console.log(auth.errorMessage);
             return;
         } else if (!emailRegex.test(email)) {
             auth.setErrorMessage('Ingrese un formato de correo electrónico válido.');
@@ -35,7 +34,6 @@ export default function Registro() {
             return;
         } else {
             confirmarRegistro();
-            console.log('Registro exitoso');
         }
     };
 
@@ -50,19 +48,16 @@ export default function Registro() {
         });
 
         if (response.ok) {
-            console.log('Envío de datos exitoso');
             auth.handleLogin({ email: usuario.email, password: usuario.contrasenia });
             return null;
         } else {
             const data = await response.text();
             if (response.status === 401) {
                 if (data.includes('Email')) {
-                    console.log("EMAIL YA REGISTRADO")
                     auth.setErrorMessage('Email ya registrado');
                 } else if (data.includes('Cuit')) {
                     auth.setErrorMessage('Cuit ya registrado');
                 } else if (data !== null) {
-                    console.log('Respuesta (texto): ', data);
                     auth.setErrorMessage(data);
                 }
             }

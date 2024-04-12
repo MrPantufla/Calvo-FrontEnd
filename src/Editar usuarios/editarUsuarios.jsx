@@ -21,7 +21,6 @@ export default function EditarUsuarios() {
         });
 
         if (response.ok) {
-            console.log('Envío de datos exitoso');
             return true;
         } else {
             return false;
@@ -39,7 +38,6 @@ export default function EditarUsuarios() {
         });
 
         if (response.ok) {
-            console.log('Envío de datos exitoso');
             return true;
         } else {
             return false;
@@ -54,7 +52,6 @@ export default function EditarUsuarios() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
                 return data;
             } else {
                 console.error('Error en la solicitud:', response.status);

@@ -43,19 +43,16 @@ export default function EditarDatos() {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Envío de datos exitoso.');
                     cerrarDatos();
                     window.location.reload();
                     return null;
                 } else {
-                    console.log(response);
                     setErrorMessage(response)
                     return response.text();
                 }
             })
             .then(data => {
                 if (data !== null) {
-                    console.log('Respuesta (texto): ', data);
                     setErrorMessage(data);
                 }
             })

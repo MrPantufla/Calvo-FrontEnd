@@ -32,12 +32,10 @@ export default function CardMisCompras(args) {
 
     const repetirCompra = () => {
         Array.from({ length: arrayProductos.length }).map((_, index) => {
-            console.log(`Iteración ${index + 1}:`);
 
             const producto = productosIndexado[arrayProductos[index]];
 
             if (producto && typeof producto === 'object' && producto !== null) {
-                console.log(`ID: ${producto.id}, Cod. Orig: ${producto.cod_orig}, Cantidad: ${arrayCantidades[index]} ,Detalle: ${producto.detalle}, Precio: ${producto.precio}`);
 
                 añadirElemento(producto.id, arrayCantidades[index]);
             } else {

@@ -74,7 +74,6 @@ export default function ConfirmacionCodigo() {
     })
       .then(response => {
         if (response.ok) {
-          console.log('Envío de datos exitoso');
           setAdvertencia("Código reenviado con éxito!")
           setResendButtonEnabled(false);
 
@@ -94,11 +93,6 @@ export default function ConfirmacionCodigo() {
           return null;
         } else {
           return response.text();
-        }
-      })
-      .then(data => {
-        if (data !== null) {
-          console.log('Respuesta (texto): ', data);
         }
       })
       .catch(error => {

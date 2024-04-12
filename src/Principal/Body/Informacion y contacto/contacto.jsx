@@ -71,15 +71,9 @@ export default function Contacto() {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Envío de formulario exitoso');
                     return null;
                 } else {
                     return response.text();
-                }
-            })
-            .then(data => {
-                if (data !== null) {
-                    console.log('Respuesta (texto): ', data);
                 }
             })
             .catch(error => {

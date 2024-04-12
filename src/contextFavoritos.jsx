@@ -67,15 +67,6 @@ function FavoritosProvider({ children }) {
       credentials: 'include',
       body: listaFavoritosString || ' ',
     })
-      .then(response => {
-        if (response.ok) {
-          // Procesar la respuesta exitosa
-          console.log('Envío de favoritos exitoso');
-        } else {
-          // Procesar la respuesta de error
-          console.error('Error en el envío de favoritos:', response.statusText);
-        }
-      })
       .catch(error => {
         console.error('Error al enviar la lista de favoritos al servidor:', error);
       });

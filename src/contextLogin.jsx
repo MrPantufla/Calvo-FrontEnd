@@ -196,7 +196,6 @@ export const LoginProvider = ({ children }) => {
 
   useEffect(() => {
     const renewTokenInterval = setInterval(() => {
-      console.log("TOKEN RENOVADO AUTOMATICAMENTE")
       if (state.logueado) {
         renovarToken({ email: state.userInfo.email });
       }

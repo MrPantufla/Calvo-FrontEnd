@@ -63,11 +63,7 @@ export default function MisCompras() {
                         throw new Error(`Error: ${response.status} - ${response.statusText}`);
                     }
                     const data = await response.json();
-                    console.log(data);
                     setHistorial(data.reverse());
-
-                } else {
-                    console.log('El usuario no está logueado');
                 }
             } catch (error) {
                 console.error("Ocurrió un error al enviar los datos: ", error);

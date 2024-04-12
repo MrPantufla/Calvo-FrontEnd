@@ -34,7 +34,6 @@ export default function EditarContraseña() {
             return;
         }
         else {
-            console.log("Formulario cambio de contraseña enviado");
             confirmarEditarContraseña();
         }
     }
@@ -51,7 +50,6 @@ export default function EditarContraseña() {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Envío de datos exitoso.');
                     setContraseñaActual('');
                     setNuevaContraseña('');
                     setRepetirContraseña('');
@@ -64,7 +62,6 @@ export default function EditarContraseña() {
             })
             .then(data => {
                 if (data !== null) {
-                    console.log('Respuesta (texto): ', data);
                     setErrorMessage(data);
                 }
             })

@@ -65,16 +65,10 @@ function ProviderCortinas({ children }) {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Envío de formulario exitoso');
                     setFormularioEnviado(true);
                     return null;
                 } else {
                     return response.text();
-                }
-            })
-            .then(data => {
-                if (data !== null) {
-                    console.log('Respuesta (texto): ', data);
                 }
             })
             .catch(error => {

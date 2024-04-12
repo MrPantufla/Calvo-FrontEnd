@@ -135,7 +135,6 @@ function CarritoProvider({ children }) {
       .then(response => {
         if (response.ok) {
           // Procesar la respuesta exitosa
-          console.log('Envío de carrito exitoso');
         } else {
           // Procesar la respuesta de error
           console.error('Error en el envío de carrito:', response.statusText);
@@ -169,12 +168,6 @@ function CarritoProvider({ children }) {
       credentials: 'include',
     })
       .then(response => response.text())
-      .then(data => {
-        console.log('Respuesta: ', data)
-      })
-      .catch(error => {
-        console.log("Ocurrió un error al enviar los datos: ", error)
-      })
   }
 
   useEffect(() => {
