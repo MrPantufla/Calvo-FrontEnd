@@ -394,6 +394,11 @@
     .busqueda::placeholder{
         font-size: 1.9rem;
     }
+
+    .botonMostrarFiltros{
+        height: 10.6rem;
+        margin-top: 0.05rem;
+    }
 }
 
 @media (max-width: 360px){
@@ -401,6 +406,7 @@
         top: 16.2rem;
         right: 0.7rem;
         height: 10.5rem;
+        margin-top: 0;
     }
 }
 
