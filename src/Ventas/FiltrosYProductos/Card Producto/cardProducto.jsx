@@ -126,10 +126,15 @@ export default function CardProducto(args) {
               )
             }
             onError={(e) => {
-              {args.tipo_prod == "PUNTUAL" && console.log(args.cod_orig.trim())}
+              //{args.tipo_prod == "PUNTUAL" && console.log(args.cod_orig.trim())}
             }}
             alt="Imagen del producto"
             loading="lazy"
+            onLoad={(e) => {
+              if (args.tipo_prod === 'PUNTUAL') {
+                console.log(args.cod_orig);
+              }
+            }}
           />
         </div>
         <div className="detalleYCod_orig">

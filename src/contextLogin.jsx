@@ -137,11 +137,6 @@ export const LoginProvider = ({ children }) => {
 
   const handleLogin = async (args) => {
     try {
-      if (!login) {
-        console.error('login no está definido');
-        return;
-      }
-
       const response = await fetch(`${backend}/api/login`, {
         method: 'POST',
         headers: {
