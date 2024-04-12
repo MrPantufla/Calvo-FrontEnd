@@ -41,7 +41,7 @@ export default function MisCompras() {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             if (!state.logueado || !state.userInfo.email_confirmado) {
-                navigate("/home");
+                navigate("/");
             }
         }, 200);
 
