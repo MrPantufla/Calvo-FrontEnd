@@ -28,7 +28,7 @@ function ProviderCortinas({ children }) {
     const [colorAccesorios, setColorAccesorios] = useState('');
     const [mecanismoRoller, setMecanismoRoller] = useState('');
     const [caida, setCaida] = useState('');
-    const [ladoTirador, setLadoTirador] = useState('');
+    const [ladoMecanismo, setLadoMecanismo] = useState('');
     const [tipoAccionador, setTipoAccionador] = useState('');
 
     const [formato, setFormato] = useState('');
@@ -83,8 +83,8 @@ function ProviderCortinas({ children }) {
         setErrorMessage('');
     }
 
-    const limpiarLadoTirador = () =>{
-        setLadoTirador('');
+    const limpiarLadoMecanismo = () =>{
+        setLadoMecanismo('');
     }
 
     const limpiarTipoAccionador = () =>{
@@ -106,7 +106,7 @@ function ProviderCortinas({ children }) {
         setAlto('');
         setMecanismoRoller('');
         setTipoAccionador('');
-        setLadoTirador('');
+        setLadoMecanismo('');
         setCaida('');
         setColorAccesorios('');
         setAclaraciones('');
@@ -212,8 +212,8 @@ function ProviderCortinas({ children }) {
             setMecanismoRoller,
             colorAccesorios, 
             setColorAccesorios,
-            ladoTirador, 
-            setLadoTirador,
+            ladoMecanismo, 
+            setLadoMecanismo,
             profundidadGuia,
             setProfundidadGuia,
             tipoAccionador,
@@ -223,7 +223,7 @@ function ProviderCortinas({ children }) {
 
             limpiarColor,
 
-            limpiarLadoTirador,
+            limpiarLadoMecanismo,
             limpiarTipoAccionador,
             limpiarLineaScreen,
             limpiarRoller,

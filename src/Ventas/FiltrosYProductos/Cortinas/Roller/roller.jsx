@@ -26,11 +26,11 @@ export default function Roller() {
         setMecanismoRoller,
         colorAccesorios,
         setColorAccesorios,
-        ladoTirador,
-        setLadoTirador,
+        ladoMecanismo,
+        setLadoMecanismo,
         tipoAccionador,
         setTipoAccionador,
-        limpiarLadoTirador,
+        limpiarLadoMecanismo,
         limpiarTipoAccionador,
         limpiarLineaScreen,
         limpiarColor,
@@ -68,7 +68,7 @@ export default function Roller() {
     const enviarConsulta = () => {
         const enterosRegex = /^[0-9]\d*$/;
 
-        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || (mecanismoRoller == 'manual' && ladoTirador == '') || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
+        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || ladoMecanismo || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
@@ -90,9 +90,10 @@ export default function Roller() {
                 "ANCHO: " + ancho + "mm\n" +
                 "MECANISMO: " + mecanismoRoller.charAt(0).toUpperCase() + mecanismoRoller.slice(1).toLowerCase() + "\n" +
                 (mecanismoRoller == 'motor' ?
-                    ("MECANISMO: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n")
+                    ("MECANISMO: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n" +
+                    "LADO DEL MECANISMO: " + ladoMecanismo.charAt(0).toUpperCase() + ladoMecanismo.slice(1).toLowerCase() + "\n")
                     :
-                    ("LADO DEL TIRADOR: " + ladoTirador.charAt(0).toUpperCase() + ladoTirador.slice(1).toLowerCase() + "\n")) +
+                    ("LADO DEL TIRADOR: " + ladoMecanismo.charAt(0).toUpperCase() + ladoMecanismo.slice(1).toLowerCase() + "\n")) +
                 "COLOR DE ACCESORIOS: " + colorAccesorios.charAt(0).toUpperCase() + colorAccesorios.slice(1).toLowerCase() + "\n" +
                 (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
                 ;
@@ -320,26 +321,35 @@ export default function Roller() {
                 <p>MECANISMO</p>
                 <div className="bodyFormGroupCortinas">
                     <button className={`especificacionCortina ${mecanismoRoller == 'manual' && 'checked'}`} onClick={() => { setMecanismoRoller('manual'); limpiarTipoAccionador(); deleteErrorMessage() }}>Manual</button>
-                    <button className={`especificacionCortina ${mecanismoRoller == 'motor' && 'checked'}`} onClick={() => { setMecanismoRoller('motor'); limpiarLadoTirador(); deleteErrorMessage() }}>Motor</button>
+                    <button className={`especificacionCortina ${mecanismoRoller == 'motor' && 'checked'}`} onClick={() => { setMecanismoRoller('motor'); limpiarLadoMecanismo(); deleteErrorMessage() }}>Motor</button>
                 </div>
             </div>
 
             {mecanismoRoller == 'motor' &&
-                (<div className="form-group-cortinas">
+                (<>
+                <div className="form-group-cortinas">
+                    <p>LADO DEL MECANISMO</p>
+                    <div className="bodyFormGroupCortinas">
+                        <button className={`especificacionCortina ${ladoMecanismo == 'izquierda' && 'checked'}`} onClick={() => { setLadoMecanismo('izquierda'); deleteErrorMessage() }}>Izquierda</button>
+                        <button className={`especificacionCortina ${ladoMecanismo == 'derecha' && 'checked'}`} onClick={() => { setLadoMecanismo('derecha'); deleteErrorMessage() }}>Derecha</button>
+                    </div>
+                </div>
+                <div className="form-group-cortinas">
                     <p>ACCIONADOR</p>
                     <div className="bodyFormGroupCortinas">
                         <button className={`especificacionCortina ${tipoAccionador == 'tecla' && 'checked'}`} onClick={() => { setTipoAccionador('tecla'); deleteErrorMessage() }}>Tecla</button>
                         <button className={`especificacionCortina ${tipoAccionador == 'controlRemoto' && 'checked'}`} onClick={() => { setTipoAccionador('controlRemoto'); deleteErrorMessage() }}>Control remoto</button>
                     </div>
-                </div>)
+                </div>
+                </>)
             }
 
             {mecanismoRoller == 'manual' &&
                 (<div className="form-group-cortinas">
                     <p>LADO DEL TIRADOR</p>
                     <div className="bodyFormGroupCortinas">
-                        <button className={`especificacionCortina ${ladoTirador == 'izquierda' && 'checked'}`} onClick={() => { setLadoTirador('izquierda'); deleteErrorMessage() }}>Izquierda</button>
-                        <button className={`especificacionCortina ${ladoTirador == 'derecha' && 'checked'}`} onClick={() => { setLadoTirador('derecha'); deleteErrorMessage() }}>Derecha</button>
+                        <button className={`especificacionCortina ${ladoMecanismo == 'izquierda' && 'checked'}`} onClick={() => { setLadoMecanismo('izquierda'); deleteErrorMessage() }}>Izquierda</button>
+                        <button className={`especificacionCortina ${ladoMecanismo == 'derecha' && 'checked'}`} onClick={() => { setLadoMecanismo('derecha'); deleteErrorMessage() }}>Derecha</button>
                     </div>
                 </div>)
             }
@@ -355,7 +365,7 @@ export default function Roller() {
             <div className="form-group-cortinas">
                 <p>COLOR DE ACCESORIOS</p>
                 <div className="bodyFormGroupCortinas coloresCortinas columnasColores">
-                    <div className="coloresAbajo">
+                    <div className="coloresArriba">
                         <div className={`colorCortina ${colorAccesorios == 'gris' && 'colorChecked'}`}>
                             <label htmlFor="accesorioGris">Gris</label>
                             <input id="accesorioGris" type="button" className="accesorioGris" onClick={() => { setColorAccesorios('gris'); deleteErrorMessage() }} />
@@ -364,9 +374,15 @@ export default function Roller() {
                             <label htmlFor="accesorioBeige">Beige</label>
                             <input id="accesorioBeige" type="button" className="accesorioBeige" onClick={() => { setColorAccesorios('beige'); deleteErrorMessage() }} />
                         </div>
+                    </div>
+                    <div className="coloresAbajo">
                         <div className={`colorCortina ${colorAccesorios == 'blanco' && 'colorChecked'}`}>
                             <label htmlFor="accesorioBlanco">Blanco</label>
                             <input id="accesorioBlanco" type="button" className="accesorioBlanco" onClick={() => { setColorAccesorios('blanco'); deleteErrorMessage() }} />
+                        </div>
+                        <div className={`colorCortina ${colorAccesorios == 'negro' && 'colorChecked'}`}>
+                            <label htmlFor="accesorioNegro">Negro</label>
+                            <input id="accesorioNegro" type="button" className="accesorioNegro" onClick={() => { setColorAccesorios('negro'); deleteErrorMessage() }} />
                         </div>
                     </div>
                 </div>
