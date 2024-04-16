@@ -147,6 +147,10 @@
     background-color: #eed7b8;
 }
 
+.accesorioNegro{
+    background-color: black;
+}
+
 .columnasColores{
     display: flex;
     flex-direction: column !important;
