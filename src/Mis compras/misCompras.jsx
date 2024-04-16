@@ -63,7 +63,7 @@ export default function MisCompras() {
                         throw new Error(`Error: ${response.status} - ${response.statusText}`);
                     }
                     const data = await response.json();
-                    setHistorial(data.reverse());
+                    setHistorial(data);
                 }
             } catch (error) {
                 console.error("Ocurrió un error al enviar los datos: ", error);
