@@ -1,9 +1,7 @@
 import './cardFavoritos.css';
-import perfil from '../../Imagenes/perfil2.png';
 import { useFavoritos } from '../../contextFavoritos';
 import { useState } from 'react';
 import { useCarrito } from '../../contextCarrito';
-import { useTienda } from '../../contextTienda';
 
 export default function CardFavoritos(args) {
     const {toggleFavorito} = useFavoritos();
@@ -34,14 +32,23 @@ export default function CardFavoritos(args) {
                 <div className="imagenCardFavoritosContainer">
                 <img
                         className="imagenCardFavoritos"
-                        src={`/ImagenesProductos/${args.producto.cod_int.toLowerCase()}.png`}
-                        onError={(e) => {
-                            e.target.src = `/ImagenesProductos/${args.producto.cod_int.toLowerCase()}.jpg`;
-
-                            e.target.onerror = () => {
-                                e.target.src = `/ImagenesProductos/xd.png`;
-                            };
-                        }}
+                        src={args.producto.tipo_prod == 'PERFIL' ?
+                            (`/PngsPerfiles/${args.producto.cod_orig.slice(2).trim()}.png`)
+                            :
+                            (args.producto.tipo_prod == 'ACCESORIO' ?
+                                (`/PngsAccesorios/${args.producto.cod_int.trim().toUpperCase()}.png`)
+                                :
+                                (args.producto.tipo_prod == 'PUNTUAL' ?
+                                    (`/PngsPuntuales/${args.producto.cod_int.trim().toUpperCase()}.png`)
+                                    :
+                                    (args.producto.tipo_prod == 'MAQUINAS' ?
+                                        (`/PngsMaquinas/${args.producto.cod_int.trim().toUpperCase()}.png`)
+                                        :
+                                        ('')
+                                    )
+                                )
+                            )
+                        }
                         alt="Imagen del producto"
                         loading="lazy"
                     />

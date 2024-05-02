@@ -1,5 +1,4 @@
 import './cardCarrito.css';
-import perfil from '../../Imagenes/perfil2.png';
 import { useCarrito } from '../../contextCarrito.jsx'
 import { useProductos } from '../../contextProductos.jsx';
 import { useTienda } from '../../contextTienda.jsx';
@@ -11,11 +10,13 @@ export default function CardCarrito(args) {
         eliminarElemento
     } = useCarrito();
 
-    const {setProductoSeleccionado} = useTienda();
+    const { productosIndexado } = useProductos();
 
-    const producto = useProductos().productosIndexado[args.id];
+    const { setProductoSeleccionado } = useTienda();
+
+    const producto = productosIndexado[args.id];
     const colorCorregido = (producto.color).replace(/\s+/g, '-');
-    
+
 
     const usarBlanco = (producto.color == 'Negro' ||
         producto.color == 'Azul' ||
@@ -51,17 +52,26 @@ export default function CardCarrito(args) {
                 <div className="imagenCardCarritoContainer">
                     <img
                         className="imagenCardCarrito"
-                        src={`/ImagenesProductos/${producto.cod_int.toLowerCase()}.png`}
-                        onError={(e) => {
-                            e.target.src = `/ImagenesProductos/${producto.cod_int.toLowerCase()}.jpg`;
-
-                            e.target.onerror = () => {
-                                e.target.src = `/ImagenesProductos/xd.png`;
-                            };
-                        }}
+                        src={producto.tipo_prod == 'PERFIL' ?
+                            (`/PngsPerfiles/${producto.cod_orig.slice(2).trim()}.png`)
+                            :
+                            (producto.tipo_prod == 'ACCESORIO' ?
+                                (`/PngsAccesorios/${producto.cod_int.trim().toUpperCase()}.png`)
+                                :
+                                (producto.tipo_prod == 'PUNTUAL' ?
+                                    (`/PngsPuntuales/${producto.cod_int.trim().toUpperCase()}.png`)
+                                    :
+                                    (producto.tipo_prod == 'MAQUINAS' ?
+                                        (`/PngsMaquinas/${producto.cod_int.trim().toUpperCase()}.png`)
+                                        :
+                                        ('')
+                                    )
+                                )
+                            )
+                        }
                         alt="Imagen del producto"
                         loading="lazy"
-                        onClick={()=> setProductoSeleccionado(producto)}
+                        onClick={() => setProductoSeleccionado(producto)}
                     />
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
