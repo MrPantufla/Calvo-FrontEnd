@@ -53,11 +53,6 @@ export default function FiltrosYProductos() {
   const tiposUnicos = [...new Set(Object.values(productosIndexado).map((producto) => producto.tipo_prod))];
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
 
-  const handleClickProducto = (producto) => {
-    seleccionarProducto(producto);
-    setCarritoAbierto(false);
-  };
-
   const seleccionarProducto = (producto) =>{
     setProductoSeleccionado(producto);
     setProductoSeleccionado(producto);
@@ -265,7 +260,7 @@ export default function FiltrosYProductos() {
                             key={producto.id}
                             cod_int={producto.cod_int}
                             onClick={() => {
-                              handleClickProducto(producto);
+                              seleccionarProducto(producto);
                             }}
                           />
                         </div>
