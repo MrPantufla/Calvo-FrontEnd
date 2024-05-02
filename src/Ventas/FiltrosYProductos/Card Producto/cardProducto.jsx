@@ -124,9 +124,9 @@ export default function CardProducto(args) {
                 (args.tipo_prod == 'PUNTUAL' ?
                   (`/PngsPuntuales/${args.cod_int.trim().toUpperCase()}.png`)
                   :
-                  (args.tipo_prod == 'MAQUINAS' ? 
-                    (`/PngsMaquinas/${args.cod_int.trim().toUpperCase()}.png`) 
-                    : 
+                  (args.tipo_prod == 'MAQUINAS' ?
+                    (`/PngsMaquinas/${args.cod_int.trim().toUpperCase()}.png`)
+                    :
                     ('')
                   )
                 )
@@ -182,9 +182,11 @@ export default function CardProducto(args) {
           </div>
         </div>
       </div >
-      <div className="precioContainerCardProducto">
-        <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
-      </div>
+      {args.tipo_prod != "MAQUINAS" &&
+        <div className="precioContainerCardProducto">
+          <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
+        </div>
+      }
     </div >
   );
 }
