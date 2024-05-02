@@ -63,7 +63,6 @@ export default function FiltrosYProductos() {
     setProductoSeleccionado(producto);
     const productoEncontrado = listaFiltrada.find(productoSeleccionado => productoSeleccionado.id === producto.id);
     setPaginaActual(Math.floor((listaFiltrada.indexOf(productoEncontrado)) / 33) + 1);
-    console.log(Math.floor((listaFiltrada.indexOf(productoEncontrado)) / 33) + 1);
   }
 
   const handleCloseProductoGrande = () => {
