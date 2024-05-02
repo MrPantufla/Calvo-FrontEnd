@@ -134,7 +134,6 @@ export default function CardProducto(args) {
             }
             alt="Imagen del producto"
             loading="lazy"
-            onError={() => console.log(args.cod_orig)}
           />
         </div>
         <div className="detalleYCod_orig">
