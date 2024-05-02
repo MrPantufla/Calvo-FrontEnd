@@ -115,25 +115,26 @@ export default function CardProducto(args) {
           <img
             onClick={args.onClick}
             className="imagenProducto"
-            src={args.tipo_prod == 'PERFIL' || args.tipo_prod == 'PUNTUAL' ?
+            src={args.tipo_prod == 'PERFIL' ?
               (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
               :
               (args.tipo_prod == 'ACCESORIO' ?
                 (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`)
                 :
-                ('')
+                (args.tipo_prod == 'PUNTUAL' ?
+                  (`/PngsPuntuales/${args.cod_int.trim().toUpperCase()}.png`)
+                  :
+                  (args.tipo_prod == 'MAQUINAS' ? 
+                    (`/PngsMaquinas/${args.cod_int.trim().toUpperCase()}.png`) 
+                    : 
+                    ('')
+                  )
+                )
               )
             }
-            onError={(e) => {
-              //{args.tipo_prod == "PUNTUAL" && console.log(args.cod_orig.trim())}
-            }}
             alt="Imagen del producto"
             loading="lazy"
-            onLoad={(e) => {
-              if (args.tipo_prod === 'PUNTUAL') {
-                console.log(args.cod_orig);
-              }
-            }}
+            onError={() => console.log(args.cod_orig)}
           />
         </div>
         <div className="detalleYCod_orig">
