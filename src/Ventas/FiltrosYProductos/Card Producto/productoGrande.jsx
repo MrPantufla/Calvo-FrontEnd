@@ -67,34 +67,46 @@ export default function ProductoGrande(args) {
                 <div className="logoProductoGrandeContainer">
                     <img className="logoProductoGrande" src={ca} />
                 </div>
+
                 <div className="parteInternaUtilizableProductoGrande">
+                    {!isMobile &&
+                        <button className="anteriorProductoGrande" onClick={args.anterior}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="white" className="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" />
+                            </svg>
+                        </button>
+                    }
+
                     <div className="informacion">
                         <h1>{args.cod_orig}</h1>
                         <h2>{args.detalle}</h2>
                     </div>
+
                     <div className="imagenProductoGrandeContainer">
                         <img
                             className="imagenProductoGrande"
-                            //src={`/ImagenesProductos/${args.cod_int.toLowerCase()}.png`}
                             src={args.tipo_prod == 'PERFIL' ?
                                 (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
                                 :
                                 (args.tipo_prod == 'ACCESORIO' ?
                                     (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`)
                                     :
-                                    (''))}
-                            onError={(e) => {
-                                //e.target.src = `/ImagenesProductos/${args.cod_int.toLowerCase()}.jpg`;
-                                e.target.src = `PngsMaquinas/${args.cod_int.toUpperCase()}.png`
-
-                                e.target.onerror = () => {
-                                    //e.target.src = `/ImagenesProductos/xd.png`;
-                                };
-                            }}
+                                    (args.tipo_prod == 'PUNTUAL' ?
+                                        (`/PngsPuntuales/${args.cod_int.trim().toUpperCase()}.png`)
+                                        :
+                                        (args.tipo_prod == 'MAQUINAS' ?
+                                            (`/PngsMaquinas/${args.cod_int.trim().toUpperCase()}.png`)
+                                            :
+                                            ('')
+                                        )
+                                    )
+                                )
+                            }
                             alt="Imagen del producto"
                             loading="lazy"
                         />
                     </div>
+
                     <div className="kgCantidadColorContainer">
                         <div className="kgProductoGrandeContainer">
                             <div className="textoPesoPromedio">
@@ -102,6 +114,7 @@ export default function ProductoGrande(args) {
                                     <p className="valorKg">{args.kg}kg</p></>) : ('')}
                             </div>
                         </div>
+
                         <div className="conjuntoCantidad">
                             {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
                             <div className="cantidad">
@@ -110,6 +123,7 @@ export default function ProductoGrande(args) {
                                 <button className="botonProductoGrande" onClick={sumarContador}>+</button>
                             </div>
                         </div>
+
                         <div className="colorProductoGrandeContainer">
                             {args.color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
                                 <div className="muestraColorProductoGrande" style={{ backgroundColor: `var(--${colorCorregido})` }} >
@@ -119,6 +133,14 @@ export default function ProductoGrande(args) {
                                 </div></>)}
                         </div>
                     </div>
+
+                    {!isMobile &&
+                        <button className="siguienteProductoGrande" onClick={args.siguiente}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="white" className="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1" />
+                            </svg>
+                        </button>
+                    }
                 </div>
             </div>
         </div>

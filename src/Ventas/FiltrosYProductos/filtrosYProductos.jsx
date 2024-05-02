@@ -54,9 +54,17 @@ export default function FiltrosYProductos() {
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
 
   const handleClickProducto = (producto) => {
-    setProductoSeleccionado(producto);
+    seleccionarProducto(producto);
     setCarritoAbierto(false);
   };
+
+  const seleccionarProducto = (producto) =>{
+    setProductoSeleccionado(producto);
+    setProductoSeleccionado(producto);
+    const productoEncontrado = listaFiltrada.find(productoSeleccionado => productoSeleccionado.id === producto.id);
+    setPaginaActual(Math.floor((listaFiltrada.indexOf(productoEncontrado)) / 33) + 1);
+    console.log(Math.floor((listaFiltrada.indexOf(productoEncontrado)) / 33) + 1);
+  }
 
   const handleCloseProductoGrande = () => {
     setProductoSeleccionado(null);
@@ -110,25 +118,40 @@ export default function FiltrosYProductos() {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
   }
 
+  const siguienteProducto = () => {
+    const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
+    const siguienteIndice = (indiceActual + 1) % listaFiltrada.length;
+    seleccionarProducto(listaFiltrada[siguienteIndice]);
+  }
+
+  const productoAnterior = () =>{
+    const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
+    const indiceAnterior = (indiceActual - 1) % listaFiltrada.length;
+
+    if(indiceActual>0){
+      seleccionarProducto(listaFiltrada[indiceAnterior])
+    }
+  }
+
   useEffect(() => {
     const handleDocumentClick = (event) => {
-        if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
-            setFiltrosYBusquedaOpen(false); // Cierra el menú
-        }
+      if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
+        setFiltrosYBusquedaOpen(false); // Cierra el menú
+      }
     };
 
     document.addEventListener('click', handleDocumentClick);
 
     return () => {
-        document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('click', handleDocumentClick);
     };
-}, [filtrosYBusquedaOpen]);
+  }, [filtrosYBusquedaOpen]);
 
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
-        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none'}}>
+        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
           <button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
         </div>
         {isTablet ?
@@ -272,6 +295,8 @@ export default function FiltrosYProductos() {
           color={productoSeleccionado.color}
           kg={productoSeleccionado.kg}
           cod_int={productoSeleccionado.cod_int}
+          siguiente={siguienteProducto}
+          anterior={productoAnterior}
         />
       )}
 
