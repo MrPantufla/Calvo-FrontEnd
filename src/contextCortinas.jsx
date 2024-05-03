@@ -36,12 +36,16 @@ function ProviderCortinas({ children }) {
 
     const [tipoMotor, setTipoMotor] = useState('');
 
-    const [conCajon, setConCajon] = useState('');
-    const [ubicacionExteriorCajon, setUbicacionExteriorCajon] = useState('');
-    const [ubicacionCajon, setUbicacionCajon] = useState('');
+    const [cajon, setCajon] = useState('');
+    const [tipoCajon, setTipoCajon] = useState('');
     const [tipoMecanismo, setTipoMecanismo] = useState('');
     const [tipoTablilla, setTipoTablilla] = useState('');
     const [especificacionBarrio, setEspecificacionBarrio] = useState('');
+    const [anchoCajon, setAnchoCajon] = useState('');
+    const [altoCajon, setAltoCajon] = useState('');
+    const [profundidadCajon, setProfundidadCajon] = useState('');
+    const [medidaIndicadaCajon, setMedidaIndicadaCajon] = useState('');
+    const [ubicacionCajon, setUbicacionCajon] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -114,7 +118,33 @@ function ProviderCortinas({ children }) {
 
     const limpiarMecanismo = () =>{
         setMecanismo('');
+        setLadoMecanismo('');
         limpiarTipoAccionador();
+    }
+
+    const limpiarTipoCajon = () =>{
+        setAnchoCajon('');
+        setAltoCajon('');
+        setProfundidadCajon('');
+        setMedidaIndicadaCajon('');
+        setUbicacionCajon('');
+    }
+
+    const limpiarCajon = () =>{
+        setTipoCajon('');
+        setAnchoCajon('');
+        setAltoCajon('');
+        setProfundidadCajon('');
+        setMedidaIndicadaCajon('');
+        setUbicacionCajon('');
+    }
+
+    const limpiarMecanismoPersianaAluminio = () =>{
+        setCajon('');
+        limpiarCajon();
+        setMecanismo('');
+        setTipoAccionador('');
+        setLadoMecanismo('');
     }
 
     const limpiarPersianaPvc = () =>{
@@ -151,6 +181,8 @@ function ProviderCortinas({ children }) {
         setMedidaIndicada('');
         setProfundidadGuia('');
         setFormato('');
+        limpiarMecanismo();
+        limpiarCajon();
         setMecanismo('');
         setTipoAccionador('');
         setAclaraciones('');
@@ -185,12 +217,10 @@ function ProviderCortinas({ children }) {
             setTipoAccionador,
             tipoMotor,
             setTipoMotor,
-            conCajon,
-            setConCajon,
-            ubicacionExteriorCajon,
-            setUbicacionExteriorCajon,
-            ubicacionCajon,
-            setUbicacionCajon,
+            cajon,
+            setCajon,
+            tipoCajon,
+            setTipoCajon,
             tipoMecanismo,
             setTipoMecanismo,
             tipoTablilla,
@@ -218,8 +248,18 @@ function ProviderCortinas({ children }) {
             setProfundidadGuia,
             tipoAccionador,
             setTipoAccionador,
+            anchoCajon,
+            setAnchoCajon,
+            altoCajon,
+            setAltoCajon,
+            profundidadCajon,
+            setProfundidadCajon,
+            medidaIndicadaCajon,
+            setMedidaIndicadaCajon,
             deleteErrorMessage,
             formularioEnviado,
+            ubicacionCajon,
+            setUbicacionCajon,
 
             limpiarColor,
 
@@ -234,7 +274,10 @@ function ProviderCortinas({ children }) {
             limpiarTipoMotor,
             limpiarPortonAluminio,
 
+            limpiarMecanismoPersianaAluminio,
             limpiarPersianaAluminio,
+            limpiarTipoCajon,
+            limpiarCajon,
             
             limpiarTodo
         }}>

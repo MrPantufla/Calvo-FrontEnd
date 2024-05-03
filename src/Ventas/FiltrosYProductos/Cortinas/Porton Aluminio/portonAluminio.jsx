@@ -90,16 +90,16 @@ export default function PortonAluminio() {
             deleteErrorMessage();
 
             const textoCortina =
-                "TIPO: PORTON ALUMINIO\n" +
-                "TIPO DE TABLILLA: " + tipoTablilla + "\n" +
-                "ALTO: " + alto + "mm\n" +
-                "ANCHO: " + ancho + "mm\n" +
-                "REFERENCIA DE MEDIDA: " + (medidaIndicada == 'ras' ? 'Ras de guía' : 'Fondo de guía') + "\n" +
-                "PROFUNDIDAD DE GUÍA: " + profundidadGuia + "\n" +
-                "FORMATO: " + (formato == 'completo' ? 'Completo' : 'Paño solo') + "\n" +
-                (formato == 'completo' ? ("TIPO DE MOTOR: " + (tipoMotor == 'mecanico' ? 'Mecánico' : 'Con ayuda manual') + "\n") : '') +
-                (tipoMotor == 'mecanico' ? ("ACCIONADOR: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n") : '') +
-                (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
+                "Tipo: PORTON ALUMINIO\n" +
+                "Tipo de tablilla: " + tipoTablilla + "\n" +
+                "Alto: " + alto + "mm\n" +
+                "Ancho: " + ancho + "mm\n" +
+                "Referemcia de medida: " + (medidaIndicada == 'ras' ? 'RAS DE GUÍA' : 'FONDO DE GUÍA') + "\n" +
+                "Profundidad de guía: " + profundidadGuia + "mm\n" +
+                "Formato: " + (formato == 'completo' ? 'COMPLETO' : 'PAÑO SOLO') + "\n" +
+                (formato == 'completo' ? ("Tipo de motor: " + (tipoMotor == 'mecanico' ? 'MECÁNICO' : 'CON AYUDA MANUAL') + "\n") : '') +
+                (tipoMotor == 'mecanico' ? ("Accionador: " + (tipoAccionador == 'tecla' ? 'TECLA' : 'CONTROL REMOTO') + "\n") : '') +
+                (aclaraciones !== '' ? ("\nAclaraciones: " + aclaraciones) : (""))
                 ;
 
             enviarCortina(textoCortina);

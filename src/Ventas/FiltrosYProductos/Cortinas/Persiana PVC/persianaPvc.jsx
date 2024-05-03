@@ -73,16 +73,17 @@ export default function PersianaPvc() {
             deleteErrorMessage();
 
             const textoCortina =
-                "TIPO: Persiana PVC\n" +
-                "ANCHO: " + ancho + "mm\n" +
-                "ALTO: " + alto + "mm\n" +
-                "REFERENCIA DE MEDIDA: " + (medidaIndicada == 'ras' ? 'Ras de guía' : 'Fondo de guía') + "\n" +
-                "FORMATO: " + (formato == 'completo' ? ('Completo') : ('Paño solo')) + "\n" +
+                "Tipo: PERSIANA PVC\n" +
+                "Ancho: " + ancho + "mm\n" +
+                "Alto: " + alto + "mm\n" +
+                "Referencia de medida: " + (medidaIndicada == 'ras' ? 'RAS DE GUÍA' : 'FONDO DE GUÍA') + "\n" +
+                "Profundidad de guía" + profundidadGuia + "mm.\n" +
+                "Formato: " + (formato == 'completo' ? ('COMPLETO') : ('PAÑO SOLO')) + "\n" +
                 (formato == 'completo' ? (
-                    "MECANISMO: " + mecanismo.charAt(0).toUpperCase() + mecanismo.slice(1).toLowerCase() + "\n" +
-                    "ACCIONADOR: " + (tipoAccionador == 'controlRemoto' ? ('Control remoto') : (tipoAccionador == 'elevaManivela' ? ('Eleva manivela') : (tipoAccionador.charAt(0).toUpperCase() + tipoAccionador.slice(1).toLowerCase()))) + "\n"
+                    "Mecanismo: " + mecanismo.toUpperCase() + "\n" +
+                    "Accionador: " + (tipoAccionador == 'controlRemoto' ? ('CONTROL REMOTO') : (tipoAccionador == 'elevaManivela' ? ('ELEVA MANIVELA') : (tipoAccionador.toUpperCase()))) + "\n"
                 ) : '') +
-                (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
+                (aclaraciones !== '' ? ("\nAclaraciones: " + aclaraciones) : (""))
                 ;
 
             enviarCortina(textoCortina);

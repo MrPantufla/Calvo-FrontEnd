@@ -68,7 +68,7 @@ export default function Roller() {
     const enviarConsulta = () => {
         const enterosRegex = /^[0-9]\d*$/;
 
-        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || ladoMecanismo || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
+        if (linea == '' || (linea == 'screen' && lineaScreen == '') || color == '' || ancho == '' || alto == '' || mecanismoRoller == '' || ladoMecanismo == '' || (mecanismoRoller == 'motor' && tipoAccionador == '') || caida == '' || colorAccesorios == '') {
             setErrorMessage("Por favor, completa todos los campos obligatorios");
             window.scrollTo(0, 0);
         }
@@ -80,22 +80,22 @@ export default function Roller() {
             deleteErrorMessage();
 
             const textoCortina =
-                "TIPO: Roller\n" +
-                "TIPO ROLLER: " + linea.charAt(0).toUpperCase() + linea.slice(1).toLowerCase() + "\n" +
-                (linea == 'screen' && (
-                    `${"LINEA: " + lineaScreen.charAt(0).toUpperCase() + lineaScreen.slice(1).toLowerCase() + "\n"}`
-                )) +
-                "COLOR: " + color.charAt(0).toUpperCase() + color.slice(1).toLowerCase() + "\n" +
-                "ALTO: " + alto + "mm\n" +
-                "ANCHO: " + ancho + "mm\n" +
-                "MECANISMO: " + mecanismoRoller.charAt(0).toUpperCase() + mecanismoRoller.slice(1).toLowerCase() + "\n" +
+                "Tipo: ROLLER\n" +
+                "Tipo roller: " + linea.toUpperCase() + "\n" +
+                (linea == 'screen' ? (
+                    `${"Linea: " + lineaScreen.toUpperCase() + "\n"}`
+                ) : ('')) +
+                "Color: " + color.toUpperCase() + "\n" +
+                "Alto: " + alto + "mm\n" +
+                "Ancho: " + ancho + "mm\n" +
+                "Mecanismo: " + mecanismoRoller.toUpperCase() + "\n" +
                 (mecanismoRoller == 'motor' ?
-                    ("MECANISMO: " + (tipoAccionador == 'tecla' ? 'Tecla' : 'Control remoto') + "\n" +
-                    "LADO DEL MECANISMO: " + ladoMecanismo.charAt(0).toUpperCase() + ladoMecanismo.slice(1).toLowerCase() + "\n")
+                    ("Accionador: " + (tipoAccionador == 'tecla' ? 'TECLA' : 'CONTROL REMOTO') + "\n" +
+                    "Lado del mecanismo: " + ladoMecanismo.toUpperCase() + "\n")
                     :
-                    ("LADO DEL TIRADOR: " + ladoMecanismo.charAt(0).toUpperCase() + ladoMecanismo.slice(1).toLowerCase() + "\n")) +
-                "COLOR DE ACCESORIOS: " + colorAccesorios.charAt(0).toUpperCase() + colorAccesorios.slice(1).toLowerCase() + "\n" +
-                (aclaraciones !== '' ? ("\nACLARACIONES: " + aclaraciones) : (""))
+                    ("Lado del tirador: " + ladoMecanismo.toUpperCase() + "\n")) +
+                "Color de accesorios: " + colorAccesorios.toUpperCase() + "\n" +
+                (aclaraciones !== '' ? ("\nAclaraciones: " + aclaraciones) : (""))
                 ;
 
             enviarCortina(textoCortina);
