@@ -211,7 +211,7 @@ export default function Carrito() {
     if (carritoAbierto) {
       if (elementos.length > 0) {
         if(isMobile){
-          setCarritoHeight(8 + 27 * elementos.length + 6);
+          setCarritoHeight(8 + 27 * elementos.length + 7.5);
         }
         else if(isTablet){
           setCarritoHeight(3 + 4 + 27 * elementos.length + 5);
@@ -260,7 +260,7 @@ export default function Carrito() {
               {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
             </div>
             {mostrarHint ? (<div className="hintCarrito" on>
-              <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PRODUCTO QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
+              <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PERFIL QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
             </div>) : ('')}
           </div>
           <div className="elementosVisiblesCarrito">
