@@ -70,7 +70,7 @@ export default function Favoritos() {
         if (favoritos.favoritosAbierto) {
             if (favoritos.favoritos.length > 0) {
                 if(tienda.isMobile){
-                    setFavoritosHeight(2.2 + 25 * favoritos.favoritos.length + 1)
+                    setFavoritosHeight(3 + 25 * favoritos.favoritos.length + 1)
                 }
                 else if(tienda.isTablet){
                     setFavoritosHeight(3 + 25 * favoritos.favoritos.length + 0.5);
