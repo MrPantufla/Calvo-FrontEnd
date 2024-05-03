@@ -52,8 +52,9 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const tiposUnicos = [...new Set(Object.values(productosIndexado).map((producto) => producto.tipo_prod))];
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
+  const [startX, setStartX] = useState(0);
 
-  const seleccionarProducto = (producto) =>{
+  const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
     setProductoSeleccionado(producto);
     const productoEncontrado = listaFiltrada.find(productoSeleccionado => productoSeleccionado.id === producto.id);
@@ -118,11 +119,11 @@ export default function FiltrosYProductos() {
     seleccionarProducto(listaFiltrada[siguienteIndice]);
   }
 
-  const productoAnterior = () =>{
+  const productoAnterior = () => {
     const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
     const indiceAnterior = (indiceActual - 1) % listaFiltrada.length;
 
-    if(indiceActual>0){
+    if (indiceActual > 0) {
       seleccionarProducto(listaFiltrada[indiceAnterior])
     }
   }
@@ -140,6 +141,34 @@ export default function FiltrosYProductos() {
       document.removeEventListener('click', handleDocumentClick);
     };
   }, [filtrosYBusquedaOpen]);
+
+  useEffect(() => {
+    const handleDocumentTouchMove = (e) => {
+        const currentX = e.touches[0].clientX;
+        const diffX = currentX - startX;
+
+        if (filtrosYBusquedaOpen && diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
+          setFiltrosYBusquedaOpen(false);
+        }
+        else if (!filtrosYBusquedaOpen && diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
+          setFiltrosYBusquedaOpen(true);
+        }
+    };
+
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleDocumentTouchMove);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleDocumentTouchMove);
+    };
+  }, [filtrosYBusquedaOpen, startX]);
+
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+  };
+
+
 
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
@@ -229,8 +258,8 @@ export default function FiltrosYProductos() {
                   (<></>)}
               </label>
             ))}
-            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
-            {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''}`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
+            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
+            {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
           </div>
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
