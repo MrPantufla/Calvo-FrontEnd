@@ -115,14 +115,28 @@ export default function ProductoGrande(args) {
                             </div>
                         </div>
 
-                        <div className="conjuntoCantidad">
-                            {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
-                            <div className="cantidad">
-                                <button className="botonProductoGrande" onClick={restarContador}>-</button>
-                                <p className="cantidadProductoGrande">{cantidad}</p>
-                                <button className="botonProductoGrande" onClick={sumarContador}>+</button>
-                            </div>
-                        </div>
+                        {args.tipo_prod != 'MAQUINAS' ?
+                            (<div className="conjuntoCantidad">
+                                {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
+                                <div className="cantidad">
+                                    <button className="botonProductoGrande" onClick={restarContador}>-</button>
+                                    <p className="cantidadProductoGrande">{cantidad}</p>
+                                    <button className="botonProductoGrande" onClick={sumarContador}>+</button>
+                                </div>
+                            </div>)
+                            :
+                            (<a
+                                className="botonConsultarMaquina consultarMaquinaGrande"
+                                target="blank"
+                                href={isMobile ?
+                                    (`https://wa.me/5493456475294?text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                                    :
+                                    (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                                }
+                            >
+                                CONSULTAR
+                            </a>)
+                        }
 
                         <div className="colorProductoGrandeContainer">
                             {args.color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
