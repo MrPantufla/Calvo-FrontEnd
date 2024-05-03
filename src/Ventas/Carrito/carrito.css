@@ -350,7 +350,7 @@
 
 @media (max-width: 767px){
     .sugerenciaColor{
-        font-size: 2.2rem;
+        font-size: 3rem;
         font-weight: 600;
         padding-bottom: 0.1rem;
         color: var(--colorCuaternario);
@@ -412,7 +412,7 @@
     }
 
     .form-group-agregadoRapido::placeholder{
-        font-size: 2.2rem;
+        font-size: 2.8rem;
     }
 
     .bodyCarrito.open{
@@ -420,8 +420,8 @@
     }
 
     .confirmarCarrito{
-        height: 4.5rem;
-        font-size: 2.2rem;
+        height: 6rem;
+        font-size: 2.6rem;
     }
 
     .tituloYHintCarrito{

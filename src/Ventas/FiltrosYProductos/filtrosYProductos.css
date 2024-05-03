@@ -191,6 +191,14 @@
     transform: rotate(180deg);
 }
 
+.textoLabelRubros:hover{
+    color: black;
+}
+
+.textoLabelRubros.checked:hover{
+    color: white;
+}
+
 .busquedaEIcono {
     width: 90%;
     height: 4rem;
@@ -341,8 +349,20 @@
 }
 
 @media (max-width: 767px){
+    .busquedaEIcono{
+        height: 8rem;
+    }
+
+    .busquedaEIcono input{
+        font-size: 3.2rem;
+    }
+
+    .busquedaEIcono input::placeholder{
+        font-size: 3.2rem;
+    }
+
     .labelRubros{
-        font-size: 3.3rem;
+        font-size: 4.2rem;
     }
 
     .contenedorPrincipalFiltrosYProductos{
@@ -356,14 +376,14 @@
     .filtrosYBusqueda{
         background-color: var(--colorPrimario);
         padding-top: 14rem;
-        z-index: 21;
+        z-index: 100;
         top: 0 !important;
         height: 100vh;
         width: 0;
     }
 
     .filtrosYBusqueda .open{
-        width: 30%;
+        width: 35%;
     }
 
     .filtrosYBusqueda:not(.open) .busquedaEIcono {
@@ -388,7 +408,7 @@
     }
 
     .filtrosYBusqueda.open{
-        width: 45%;
+        width: 65%;
     }
 
     .busqueda::placeholder{

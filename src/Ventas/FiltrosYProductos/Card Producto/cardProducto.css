@@ -283,13 +283,46 @@
     }
 }
 
+@media (max-width: 1280px){
+    .detalleYCod_orig h3{
+        font-size: 1.8rem;
+    }
+
+    .imagenContainerCardProducto{
+        height: 14rem;
+    }
+
+    .conjuntoCantidadCardProducto .boton{
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2.5rem;
+    }
+
+    .cantidadProducto{
+        font-size: 2.5rem;
+        margin: 0 0.5rem;
+    }
+
+    .colorCardProducto p{
+        font-size: 1.5rem;
+    }
+
+    .kgProducto p{
+        font-size: 1.5rem;
+    }
+
+    .imagenContainerCardProducto{
+        height: 12rem;
+    }
+}
+
 @media (max-width: 912px){
     .decoracionCardProducto{
         height: 2.4rem;
     }
 
     .imagenContainerCardProducto{
-        height: 14rem;
+        height: 15rem;
     }
 
     .botonAñadirFavoritos{
@@ -384,6 +417,17 @@
     .precioCardProducto{
         font-size: 2rem;
     }
+
+    .eliminarElemento{
+        margin-top: 0.5rem;
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .eliminarElemento .bi-trash3-fill{
+        width: 100%;
+        height: 100%;
+    }
 }
 
 @media (max-width: 767px){
@@ -408,15 +452,23 @@
     .precioCardProducto{
         font-size: 3.1rem;
     }
+
+    .eliminarElemento{
+        margin-top: 3rem;
+        margin-left: 2rem;
+        height: 4.5rem;
+        width: 4.5rem;
+    }
+
+    .eliminarElemento .bi-trash3-fill{
+        width: 100%;
+        height: 100%;
+    }
 }
 
 @media (max-width: 540px){
     .decoracionCardProducto{
         height: 3.2rem;
-    }
-
-    .imagenContainerCardProducto{
-        height: 20rem;
     }
 
     .botonAñadirFavoritos{
@@ -435,13 +487,13 @@
     }
 
     .kgCantidadYColorContainer .boton{
-        height: 4rem;
-        width: 4rem;
-        font-size: 4rem;
+        height: 5rem;
+        width: 5rem;
+        font-size: 5rem;
     }
 
     .cantidadProducto {
-        font-size: 3.5rem;
+        font-size: 4.5rem;
         display: flex;
         justify-content: center;
     }
@@ -501,6 +553,22 @@
 @media (max-width: 540px) and (min-width: 412px){
     .botonConsultarMaquina{
         margin-top: 1rem;
+    }
+
+    .imagenContainerCardProducto{
+        height: 26rem;
+    }
+}
+
+@media (max-width: 540px) and (min-width: 430px){
+    .imagenContainerCardProducto{
+        height: 28rem;
+    }
+}
+
+@media (max-width: 411px) and (min-width: 281px){
+    .imagenContainerCardProducto{
+        height: 21rem;
     }
 }
 

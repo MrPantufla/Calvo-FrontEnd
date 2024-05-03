@@ -6,3 +6,16 @@
 .tablillasArriba, .tablillasMedio{
     margin-bottom: 1rem;
 }
+
+.dimensionesArriba{
+    margin-bottom: 1rem;
+}
+
+.especificacionCortinaDisabled{
+    color: white;
+    cursor: default;
+}
+
+.especificacionCortinaDisabled:hover{
+    color: white;
+}
