@@ -9,13 +9,14 @@ import carritoVacioImg from '../../Imagenes/carritoVacio.png';
 import { useAuth } from '../../contextLogin.jsx';
 
 export default function Carrito() {
-  const { 
-    elementos, 
-    añadirElemento, 
-    setConfirmarCompraAbierto, 
-    setCompraRealizadaAbierto, 
+  const {
+    elementos,
+    añadirElemento,
+    setConfirmarCompraAbierto,
+    setCompraRealizadaAbierto,
     confirmarCompra,
-    setInstanciaPedido
+    setInstanciaPedido,
+    mostrarCartel
   } = useCarrito();
 
   const {
@@ -36,9 +37,9 @@ export default function Carrito() {
     isTablet
   } = useTienda();
 
-  const {setFavoritosAbierto} = useFavoritos();
+  const { setFavoritosAbierto } = useFavoritos();
 
-  const {state} = useAuth();
+  const { state } = useAuth();
 
   const [codigoAgregadoRapido, setCodigoAgregadoRapido] = useState('');
   const [colorAgregadoRapido, setColorAgregadoRapido] = useState('');
@@ -57,7 +58,7 @@ export default function Carrito() {
   const [carritoTop, setCarritoTop] = useState(3.2);
   const [carritoHeight, setCarritoHeight] = useState(0);
   const [mostrarHint, setMostrarHint] = useState(false);
-  
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,10 +99,20 @@ export default function Carrito() {
           setCodigoValido(false);
           setCodigoAgregadoRapido('');
         }
+        else if (productosEncontrados[0].tipo_prod != 'PERFIL') {
+          setErrorMessage("No es un perfil")
+          setCodigoValido(false);
+          setCodigoAgregadoRapido('');
+        }
         else {
-          setProductosEncontrados(productosEncontrados);
-          setCodigoValido(true);
-          nextInputRef.current.focus();
+          if(!state.cliente){
+            mostrarCartel();
+          }
+          else{
+            setProductosEncontrados(productosEncontrados);
+            setCodigoValido(true);
+            nextInputRef.current.focus();
+          }
         }
       }
     }
@@ -151,7 +162,6 @@ export default function Carrito() {
         setColorAgregadoRapido('');
         setErrorMessage("El color ingresado no existe");
       }
-
     }
   };
 
@@ -210,24 +220,24 @@ export default function Carrito() {
   useEffect(() => {
     if (carritoAbierto) {
       if (elementos.length > 0) {
-        if(isMobile){
+        if (isMobile) {
           setCarritoHeight(8 + 27 * elementos.length + 7.5);
         }
-        else if(isTablet){
+        else if (isTablet) {
           setCarritoHeight(3 + 4 + 27 * elementos.length + 5);
         }
-        else{
+        else {
           setCarritoHeight(0.5 + 5 + 20 * elementos.length + 3);
         }
       }
       else {
-        if(isMobile){
+        if (isMobile) {
           setCarritoHeight(4 + 18.1);
         }
-        else if(isTablet){
+        else if (isTablet) {
           setCarritoHeight(3 + 4 + 10.5);
         }
-        else{
+        else {
           setCarritoHeight(0.5 + 5 + 10);
         }
       }
@@ -252,7 +262,7 @@ export default function Carrito() {
         </span>
       </div>
 
-      <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem`}}>
+      <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
             <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
