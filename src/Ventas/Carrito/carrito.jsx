@@ -21,7 +21,8 @@ export default function Carrito() {
 
   const {
     productosIndexado,
-    coloresArray
+    coloresArray,
+    productosEliminados
   } = useProductos();
 
   const {
@@ -93,23 +94,24 @@ export default function Carrito() {
       const codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
       if (codigoIngresado !== '') {
         const productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+        const productosEncontradosFiltrados = productosEncontrados.filter(producto => !productosEliminados.includes(producto.id));
 
-        if (!productosEncontrados.length > 0) {
+        if (!productosEncontradosFiltrados.length > 0) {
           setErrorMessage("Código incorrecto");
           setCodigoValido(false);
           setCodigoAgregadoRapido('');
         }
-        else if (productosEncontrados[0].tipo_prod != 'PERFIL') {
+        else if (productosEncontradosFiltrados[0].tipo_prod != 'PERFIL') {
           setErrorMessage("No es un perfil")
           setCodigoValido(false);
           setCodigoAgregadoRapido('');
         }
         else {
-          if(!state.cliente){
+          if(!state.userInfo.cliente){
             mostrarCartel();
           }
           else{
-            setProductosEncontrados(productosEncontrados);
+            setProductosEncontrados(productosEncontradosFiltrados);
             setCodigoValido(true);
             nextInputRef.current.focus();
           }
@@ -251,7 +253,7 @@ export default function Carrito() {
       <div className="contenedorBotonCarrito">
         <button type="button"
           className={`botonCarrito ${carritoAbierto ? 'open' : ''}`}
-          onClick={() => { toggleCarrito(); setFavoritosAbierto(false); }}
+          onClick={() => { toggleCarrito(); setFavoritosAbierto(false) }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
@@ -269,7 +271,7 @@ export default function Carrito() {
             <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
               {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
             </div>
-            {mostrarHint ? (<div className="hintCarrito" on>
+            {mostrarHint ? (<div className="hintCarrito">
               <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PERFIL QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
             </div>) : ('')}
           </div>
@@ -350,7 +352,6 @@ export default function Carrito() {
                       setPrecioTotal(calcularTotal(elementos));
                       setInstanciaPedido('envio');
                     } else {
-                      setCompraRealizadaAbierto(true);
                       confirmarCompra();
                       limpiarCarrito();
                       setCarritoAbierto(false);
