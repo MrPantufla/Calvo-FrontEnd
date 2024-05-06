@@ -11,7 +11,7 @@ function useCarrito() {
 }
 
 function CarritoProvider({ children }) {
-  const {productosIndexado} = useProductos();
+  const { productosIndexado } = useProductos();
 
   const {
     state,
@@ -35,15 +35,16 @@ function CarritoProvider({ children }) {
   const [mostrarCartelError, setMostrarCartelError] = useState(false);
   const [primeraAccion, setPrimeraAccion] = useState(true);
   const [compraRealizadaAbierto, setCompraRealizadaAbierto] = useState(false);
+  const [errorProductoEliminado, setErrorProductoEliminado] = useState(false);
   const [precioTotal, setPrecioTotal] = useState(null);
   const [datosCorroborados, setDatosCorroborados] = useState(false);
   const [instanciaPedido, setInstanciaPedido] = useState('');
 
   function añadirElemento(id, cantidad) {
-    if(!state.userInfo.cliente && productosIndexado[id].tipo_prod=='PERFIL'){
+    if (!state.userInfo.cliente && productosIndexado[id].tipo_prod == 'PERFIL') {
       mostrarCartel();
     }
-    else{
+    else {
       if (Object.keys(productosIndexado).length !== 0) {
         setElementos(prevElementos => {
           if (productosIndexado) {
@@ -53,7 +54,7 @@ function CarritoProvider({ children }) {
             const precioProducto = producto.precio;
             const kg = producto.kg;
             const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
-  
+
             if (elementoExistente) {
               elementoExistente.cantidad += cantidad;
               // Si ya existe, solo actualiza la cantidad y deja que el useEffect maneje la actualización del carrito
@@ -146,18 +147,18 @@ function CarritoProvider({ children }) {
   }
 
   useEffect(() => {
-    if(!primeraAccion){
+    if (!primeraAccion) {
       actualizarCarrito();
     }
-    else{
+    else {
       setPrimeraAccion(false);
     }
   }, [elementos]);
 
   const confirmarCompra = () => {
     const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
-    const direccion = {calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia};
-    const carritoRequest = {carritoJson: JSON.stringify(nuevosElementos), direccion: direccion}
+    const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
+    const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion }
 
     fetch(`${backend}/api/recibirCarrito`, {
       method: 'POST',
@@ -167,51 +168,60 @@ function CarritoProvider({ children }) {
       body: JSON.stringify(carritoRequest),
       credentials: 'include',
     })
-      .then(response => response.text())
-  }
+      .then(response => {
+        if (response.status == 500) {
+          setErrorProductoEliminado(true);
+        }
+        setCompraRealizadaAbierto(true);
+        console.log(response)
+      })
+}
 
-  useEffect(() => {
-    if (state.logueado && state.userInfo.cantidades_carrito) {
-      const productosArray = state.userInfo.productos_carrito.split(' ').map(Number);
-      const cantidadesArray = state.userInfo.cantidades_carrito.split(' ').map(Number);
+useEffect(() => {
+  if (state.logueado && state.userInfo.cantidades_carrito) {
+    const productosArray = state.userInfo.productos_carrito.split(' ').map(Number);
+    const cantidadesArray = state.userInfo.cantidades_carrito.split(' ').map(Number);
 
-      for (let i = 0; i < productosArray.length; i++) {
-        añadirElemento(productosArray[i], cantidadesArray[i])
-      }
+    for (let i = 0; i < productosArray.length; i++) {
+      añadirElemento(productosArray[i], cantidadesArray[i])
     }
-  }, [productosIndexado]);
+  }
+}, [productosIndexado]);
 
-  return (
-    <CarritoContext.Provider value={{
-      datosCorroborados, 
-      setDatosCorroborados, 
-      precioTotal, 
-      setPrecioTotal, 
-      compraRealizadaAbierto, 
-      setCompraRealizadaAbierto, 
-      mostrarCartel, 
-      ocultarCartel, 
-      mostrarCartelError, 
-      actualizarCarrito, 
-      confirmarCompraAbierto, 
-      setConfirmarCompraAbierto, 
-      carritoConfirmado, 
-      setCarritoConfirmado, 
-      confirmarCompra, 
-      toggleCarrito, 
-      setCarritoAbierto, 
-      carritoAbierto, 
-      elementos, 
-      limpiarCarrito, 
-      añadirElemento,
-      restarElemento, 
-      actualizarCantidadElemento,
-      instanciaPedido,
-      setInstanciaPedido,
-      eliminarElemento }}>
-      {children}
-    </CarritoContext.Provider>
-  );
+return (
+  <CarritoContext.Provider value={{
+    datosCorroborados,
+    setDatosCorroborados,
+    precioTotal,
+    setPrecioTotal,
+    compraRealizadaAbierto,
+    setCompraRealizadaAbierto,
+    mostrarCartel,
+    ocultarCartel,
+    mostrarCartelError,
+    actualizarCarrito,
+    confirmarCompraAbierto,
+    setConfirmarCompraAbierto,
+    carritoConfirmado,
+    setCarritoConfirmado,
+    confirmarCompra,
+    toggleCarrito,
+    setCarritoAbierto,
+    carritoAbierto,
+    elementos,
+    limpiarCarrito,
+    añadirElemento,
+    restarElemento,
+    actualizarCantidadElemento,
+    instanciaPedido,
+    setInstanciaPedido,
+    eliminarElemento,
+    errorProductoEliminado,
+    setErrorProductoEliminado
+  }}>
+    {children}
+  </CarritoContext.Provider>
+);
 }
 
 export { CarritoContext, useCarrito, CarritoProvider };
