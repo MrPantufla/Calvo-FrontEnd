@@ -212,3 +212,9 @@
     padding-top: 14rem;
   }
 }
+
+@media (max-width: 540px){
+  .slide {
+    width: 95.5%;
+  }
+}
