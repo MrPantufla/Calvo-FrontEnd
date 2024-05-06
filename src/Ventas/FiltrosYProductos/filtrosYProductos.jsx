@@ -122,37 +122,27 @@ export default function FiltrosYProductos() {
   const productoAnterior = () => {
     const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
     const indiceAnterior = (indiceActual - 1) % listaFiltrada.length;
+    const ultimoIndice = listaFiltrada[listaFiltrada.length - 1];
 
     if (indiceActual > 0) {
       seleccionarProducto(listaFiltrada[indiceAnterior])
     }
+    else if (indiceActual == 0) {
+      seleccionarProducto(ultimoIndice)
+    }
   }
 
   useEffect(() => {
-    const handleDocumentClick = (event) => {
-      if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
-        setFiltrosYBusquedaOpen(false); // Cierra el menú
-      }
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-    };
-  }, [filtrosYBusquedaOpen]);
-
-  useEffect(() => {
     const handleDocumentTouchMove = (e) => {
-        const currentX = e.touches[0].clientX;
-        const diffX = currentX - startX;
+      const currentX = e.touches[0].clientX;
+      const diffX = currentX - startX;
 
-        if (filtrosYBusquedaOpen && diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
-          setFiltrosYBusquedaOpen(false);
-        }
-        else if (!filtrosYBusquedaOpen && diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
-          setFiltrosYBusquedaOpen(true);
-        }
+      if (diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
+        productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false))
+      }
+      else if (diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
+        productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true))
+      }
     };
 
     document.addEventListener('touchstart', handleTouchStart);
@@ -162,13 +152,30 @@ export default function FiltrosYProductos() {
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleDocumentTouchMove);
     };
-  }, [filtrosYBusquedaOpen, startX]);
+  }, [startX]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (productoSeleccionado != null) {
+        if (e.keyCode === 37) {
+          productoAnterior();
+        }
+        else if (e.keyCode === 39) {
+          siguienteProducto();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [productoSeleccionado]);
 
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
   };
-
-
 
   return (
     <div className="contenedorPrincipalFiltrosYProductos">
@@ -356,7 +363,20 @@ export default function FiltrosYProductos() {
         {numerosDePagina.map((numero) => {
           const diff = Math.abs(numero - paginaActual);
 
-          const mostrarPagina = totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
+          let mostrarPagina//= totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
+          if (isMobile) {
+            // Mostrar solo 3 botones en dispositivos móviles
+            if (paginaActual === numero || paginaActual + 1 === numero || paginaActual + 2 === numero) {
+              mostrarPagina = true;
+            }
+          } else {
+            // Lógica para mostrar botones según el caso actual
+            mostrarPagina = totalPaginas <= 5 ||
+              (paginaActual <= 3 && numero <= 5) ||
+              (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) ||
+              (diff <= 2 && totalPaginas >= 5);
+          }
+
           return (
             mostrarPagina && (
               <button
