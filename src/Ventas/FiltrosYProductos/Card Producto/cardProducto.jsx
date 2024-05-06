@@ -185,7 +185,7 @@ export default function CardProducto(args) {
         </div>
       </div >
       {args.tipo_prod != "MAQUINAS" &&
-        <div className="precioContainerCardProducto">
+        < div className="precioContainerCardProducto">
           <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
         </div>
       }
