@@ -7,7 +7,9 @@ export default function PedidoRealizado() {
 
   const {
     setCompraRealizadaAbierto,
-    compraRealizadaAbierto
+    compraRealizadaAbierto,
+    errorProductoEliminado,
+    setErrorProductoEliminado
   } = useCarrito();
 
   const cerrarVentana = () =>{
@@ -24,8 +26,11 @@ export default function PedidoRealizado() {
   return (
     <div className="contenedorPrincipalPedidoRealizado" onMouseDown={() => setAptoParaCerrar(true)} onClick={cerrarVentana} style={{ display: compraRealizadaAbierto ? 'flex' : 'none' }}>
       <div className="parteUtilizablePedidoRealizado" onMouseDown={parteUtilizableClick} onMouseUp={parteUtilizableClick}>
-        <h2>Gracias por realizar tu pedido, nos estaremos comunicando a la brevedad</h2>
-        <button onClick={() => setCompraRealizadaAbierto(false)}>Aceptar</button>
+        {!errorProductoEliminado ? 
+        (<h2>Gracias por realizar tu pedido, nos estaremos comunicando a la brevedad</h2>) 
+        : 
+        (<h2>Lo sentimos, uno de los productos pedidos ya no se encuentra disponible. El pedido se cancelará</h2>)}
+        <button onClick={() => {setCompraRealizadaAbierto(false); setErrorProductoEliminado(false)}}>Aceptar</button>
       </div>
     </div>
   );
