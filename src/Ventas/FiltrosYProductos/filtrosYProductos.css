@@ -374,9 +374,9 @@
     }
 
     .filtrosYBusqueda{
-        background-color: var(--colorPrimario);
+        background-color: var(--colorTerciario);
         padding-top: 14rem;
-        z-index: 100;
+        z-index: 102;
         top: 0 !important;
         height: 100vh;
         width: 0;
@@ -399,8 +399,33 @@
 }
 
 @media (max-width: 540px){
+    .buttonPag{
+        width: 15rem;
+        height: 5rem;
+        font-size: 2.5rem;
+    }
+
+    .ultimaPagina, .primeraPagina{
+        width: 6rem;
+    }
+
+    .ultimaPagina svg, .primeraPagina svg, .botonAntSig svg{
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+    .botonAntSig{
+        width: 10rem;
+    }
+
+    .paginacion{
+        margin-right: 1rem;
+        margin-top: -2rem;
+    }
+
+
     .contenedorPrincipalFiltrosYProductos{
-        padding-left: 1.5rem;
+        padding-left: 1rem;
     }
 
     .rowProductos{
@@ -432,7 +457,16 @@
 
 @media (max-width: 280px){
     .buttonPag{
+        width: 13rem;
+        height: 3.5rem;
+    }
+
+    .ultimaPagina, .primeraPagina{
         width: 7rem;
+    }
+
+    .botonAntSig{
+        width: 9rem;
     }
 
     .botonMostrarFiltros{
