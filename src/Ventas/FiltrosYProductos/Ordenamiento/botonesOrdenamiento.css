@@ -133,6 +133,12 @@
     }
 }
 
+@media (max-width: 360px){
+    .ordenamiento{
+        width: 15.5rem;
+    }
+}
+
 @media (max-width: 280px){
     .ordenarPor{
         width: 100%;
