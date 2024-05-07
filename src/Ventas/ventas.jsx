@@ -9,7 +9,6 @@ import CartelError from './CartelError/cartelError.jsx';
 import PedidoRealizado from './Confirmar compra/Pedido realizado/pedidoRealizado.jsx';
 import Pagos from './Confirmar compra/Pagos/pagos.jsx';
 import { useTienda } from '../contextTienda.jsx';
-import BotonPagos from './Confirmar compra/Pagos/botonPagos.jsx';
 import { ProviderCortinas } from '../contextCortinas.jsx';
 
 export default function Ventas() {
@@ -31,7 +30,6 @@ export default function Ventas() {
         <CartelError />
         {compraRealizadaAbierto ? (<PedidoRealizado />) : (<></>)}
         {mostrarPagos ? (<Pagos />) : (<></>)}
-        <BotonPagos />
         <Footer />
       </ProviderCortinas>
     </>
