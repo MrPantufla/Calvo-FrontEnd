@@ -7,7 +7,6 @@ import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegabl
 import Footer from '../Principal/Footer/footer.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import { useTienda } from '../contextTienda.jsx';
-import BotonPagos from '../Ventas/Confirmar compra/Pagos/botonPagos.jsx';
 import Pagos from '../Ventas/Confirmar compra/Pagos/pagos.jsx';
 import { useVariables } from '../contextVariables.jsx';
 
@@ -173,7 +172,6 @@ export default function MisCompras() {
                     </svg>
                 </button>
             </div>
-            <BotonPagos/>
             {mostrarPagos ? (<Pagos/>) : (<></>)}
             <Footer />
         </div>
