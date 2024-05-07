@@ -21,7 +21,7 @@ export default function Registro() {
         const telefonoRegex = /[0-9]/;
 
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono) {
-            auth.setErrorMessage('Por favor, complete todos los campos.');
+            auth.setErrorMessage('Por favor, completa todos los campos.');
             return;
         } else if (!emailRegex.test(email)) {
             auth.setErrorMessage('Ingrese un formato de correo electrónico válido.');

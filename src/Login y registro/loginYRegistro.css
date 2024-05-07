@@ -68,6 +68,13 @@ input[type="radio"].btn-check:checked+label.btn-outline-secondary {
     justify-content: center;
   }
 }
+ 
+@media (max-width: 540px){
+  .btn-outline-secondary{
+    height: 6rem;
+    font-size: 3rem;
+  }
+}
 
 @media (max-width: 280px){
   .contenedorLoginYRegistro{

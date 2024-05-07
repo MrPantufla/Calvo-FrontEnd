@@ -97,3 +97,26 @@
         font-size: 2.1rem;
     }
 }
+
+@media (max-width: 540px){
+    .form-group-registro label{
+        font-size: 2.6rem;
+    }
+
+    .form-group-registro input{
+        height: 4.2rem;
+        width: 40rem;
+        font-size: 2.9rem;
+    }
+
+    .errorFormulario.errorRegistro{
+        font-size: 2.6rem;
+        padding: 2rem 0;
+    }
+
+    .botonRegistroContainer button{
+        height: 5rem;
+        width: 23rem;
+        font-size: 2.6rem;
+    }
+}

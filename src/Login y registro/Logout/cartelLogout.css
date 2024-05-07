@@ -43,3 +43,20 @@
 .contenedorCartelLogout button:active{
     transform: scale(0.95);
 }
+
+@media (max-width: 540px){
+    .contenedorCartelLogout{
+        width: 50rem;
+        height: 25rem;
+    }
+
+    .contenedorCartelLogout h2{
+        font-size: 4.5rem;
+    }
+
+    .contenedorCartelLogout button{
+        width: 60%;
+        height: 5rem;
+        font-size: 2.5rem;
+    }
+}

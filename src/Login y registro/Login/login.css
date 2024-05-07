@@ -71,21 +71,14 @@
 }
 
 .olvideMiContraseña {
+    cursor: pointer;
+    font-weight: 600;
     width: 100%;
     text-align: right;
     font-size: 1.3rem;
 }
 
-.olvideMiContraseña {
-    cursor: pointer;
-    font-weight: 600;
-}
-
 @media (max-width: 912px) {
-    .formularioLogin {
-        width: 30rem;
-    }
-
     .formularioLogin label {
         font-size: 2rem;
     }
@@ -104,5 +97,33 @@
         width: 18rem;
         height: 3.5rem;
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 540px){
+    .formularioLogin label{
+        font-size: 2.6rem;
+    }
+
+    .formularioLogin input{
+        height: 4.2rem;
+        width: 40rem;
+        font-size: 2.9rem;
+    }
+
+    .formularioLogin a{
+        font-size: 2.5rem;
+        margin-top: 1rem;
+    }
+
+    .errorLogin.errorFormulario {
+        font-size: 2.6rem;
+        padding: 2rem 0;
+    }
+
+    .botonLoginContainer button{
+        height: 5rem;
+        width: 23rem;
+        font-size: 2.6rem;
     }
 }
