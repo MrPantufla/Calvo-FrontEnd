@@ -29,12 +29,20 @@ export default function DesplegablePerfil() {
     
     const {limpiarCarrito} = useCarrito();
 
-    let ruta;
+    let rutaPerfil;
     if (state.logueado) {
-        ruta = state.userInfo.email_confirmado ? "/perfil" : "";
+        rutaPerfil = state.userInfo.email_confirmado ? "/perfil" : "";
     }
     else {
-        ruta = "";
+        rutaPerfil = "";
+    }
+
+    let rutaMisCompras;
+    if (state.logueado) {
+        rutaMisCompras = state.userInfo.email_confirmado ? "/misCompras" : "";
+    }
+    else {
+        rutaMisCompras = "";
     }
 
     const handleToggleLogin = () => {
@@ -101,7 +109,7 @@ export default function DesplegablePerfil() {
 
     return (
         <div
-            className={`desplegablePerfil ${perfilHovered ? 'open' : ''} ${state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? 'admin' : ''): ''}`}
+            className={`desplegablePerfil ${perfilHovered ? 'open' : ''} ${state.logueado ? 'logueado' : ''} ${state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? 'admin' : ''): ''}`}
             onMouseEnter={() => {
                 abrirPerfil();
             }}
@@ -111,9 +119,10 @@ export default function DesplegablePerfil() {
             <div className="desplegablePerfilContainer">
                 {state.logueado ?
                     (<>
-                        <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink">MI PERFIL</NavLink>
-                        <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
+                        <NavLink to={rutaPerfil} onClick={handleToggleLogin} className="perfilNavLink">MI PERFIL</NavLink>
+                        <NavLink to={rutaMisCompras} onClick={handleToggleLogin} className="perfilNavLink">MIS COMPRAS</NavLink>
                         {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a onClick={() => navigate("/editarUsuarios")}>EDITAR USUARIOS</a>)) : ''}
+                        <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
                     </>)
                     :
                     (<>
