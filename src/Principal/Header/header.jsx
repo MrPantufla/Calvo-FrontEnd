@@ -116,14 +116,11 @@ export default function Header() {
           <NavLink to="/tienda" className="seccion" onClick={handleInicioClick}>
             <p>TIENDA</p>
           </NavLink>
-          {location.pathname === '/' ?
+          {location.pathname === '/' &&
             (<a href="#quienesSomos" className="seccion">
               <p>QUIÉNES SOMOS</p>
             </a>)
-            :
-            <a className="seccion  misCompras" onClick={state.logueado ? () => navigate("/misCompras") : () => setMostrarLogin(true)}>
-              <p>MIS COMPRAS</p>
-            </a>}
+          }
           {location.pathname === '/' ?
             (<a href="#contacto" className="seccion">
               <p>CONTACTO</p>
