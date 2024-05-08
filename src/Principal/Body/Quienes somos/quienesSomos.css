@@ -60,27 +60,6 @@
     margin-bottom: 3.8%;
 }
 
-.redesSocialesContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 5rem;
-}
-
-.redesSocialesContainer .bi{
-    margin: 0 2rem;
-    color: var(--colorSecundario);
-    transition: color 0.3s;
-}
-
-.redesSocialesContainer .bi-facebook:hover{
-    color: #1773ea;
-}
-
-.redesSocialesContainer .bi-instagram:hover{
-    color: #f63b3e;
-}
-
 @media (max-width: 767px){
     .logoQuienesSomosContainer{
         padding: 0;
