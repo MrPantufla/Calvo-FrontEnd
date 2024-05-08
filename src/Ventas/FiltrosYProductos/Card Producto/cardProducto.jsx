@@ -150,9 +150,9 @@ export default function CardProducto(args) {
               </>
             ) : (<></>)}
           </div>
-          {args.tipo_prod == 'MAQUINAS' ?
+          {args.tipo_prod == 'MAQUINAS' || args.tipo_prod == 'PUNTUAL' ?
             (<a
-              className="botonConsultarMaquina"
+              className="botonConsultarProducto"
               target="blank"
               href={isMobile ?
                 (`https://wa.me/5493456475294?text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
