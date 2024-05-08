@@ -21,6 +21,7 @@
     display: flex;
     justify-content: center;
     height: 3rem;
+    align-items: center;
 }
 
 .fechaCardMisCompras {
@@ -97,9 +98,6 @@
     max-height: 1rem;
     transition: max-height 0.3s;
     overflow: hidden;
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent var(--colorSecundario) var(--colorSecundario) var(--colorSecundario);
 }
 
 .bodyCardMisCompras.open {
@@ -146,4 +144,42 @@
 
 .precioActual{
     background-color: var(--colorRojo);
+}
+
+@media(max-width: 540px){
+    .fechaCardMisComprasContainer{
+        height: 4rem;
+    }
+
+    .fechaCardMisComprasContainer h1{
+        font-size: 2.2rem;
+    }
+
+    .cantidadYBotonesContainer{
+        height: 10rem;
+    }
+
+    .cantidadYPoliginosContainer div{
+        height: 1.3rem;
+        width: 3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .cantidadYBotonesContainer h1{
+        font-size: 2.5rem;
+    }
+
+    .botonesContainer button{
+        height: 3.5rem;
+        width: 25rem;
+        font-size: 2rem;
+    }
+
+    .totalContainer{
+        height: 4.5rem;
+    }
+
+    .totalContainer h2{
+        font-size: 2.2rem;
+    }
 }

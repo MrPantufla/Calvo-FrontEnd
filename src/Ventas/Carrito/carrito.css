@@ -238,11 +238,11 @@
     padding-top: 0.2rem;
 }
 
-.botonCarrito:hover{
+.botonCarrito.desktop:hover{
     background-color: white;
 }
 
-.botonCarrito:hover .bi-cart2{
+.botonCarrito.desktop:hover .bi-cart2{
     fill: var(--colorSecundario);
 }
 
@@ -439,6 +439,16 @@
 
     .carritoVacioContainer{
         height: 13rem;
+    }
+}
+
+@media (max-width: 540px){
+    .carritoVacioContainer{
+        height: 20rem;
+    }
+
+    .carritoVacioContainer p{
+        font-size: 2.5rem;
     }
 }
 

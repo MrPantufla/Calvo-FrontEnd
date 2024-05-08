@@ -42,7 +42,7 @@
     margin: 0 2px;
 }
 
-.ordenamiento:hover{
+.ordenamiento.desktop:hover{
     background-color: var(--colorSecundario);
     color: white;
 }

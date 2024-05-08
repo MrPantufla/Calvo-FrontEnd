@@ -234,7 +234,7 @@ export default function Carrito() {
       }
       else {
         if (isMobile) {
-          setCarritoHeight(4 + 18.1);
+          setCarritoHeight(11 + 18.1);
         }
         else if (isTablet) {
           setCarritoHeight(3 + 4 + 10.5);
@@ -252,7 +252,7 @@ export default function Carrito() {
     <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
       <div className="contenedorBotonCarrito">
         <button type="button"
-          className={`botonCarrito ${carritoAbierto ? 'open' : ''}`}
+          className={`botonCarrito ${carritoAbierto ? 'open' : ''} ${!isTablet && 'desktop'}`}
           onClick={() => { toggleCarrito(); setFavoritosAbierto(false) }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">

@@ -53,9 +53,30 @@
     background: linear-gradient(90deg, white 0%,white 96.65%, var(--colorPrimario) 96.65%, var(--colorPrimario) 98%, white 98%, white 100%);
 }
 
+.redesSocialesContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+}
+
+.redesSocialesContainer .bi{
+    margin: 0 2rem;
+    color: var(--colorSecundario);
+    transition: color 0.3s;
+}
+
+.redesSocialesContainer .bi-facebook:hover{
+    color: #1773ea;
+}
+
+.redesSocialesContainer .bi-instagram:hover{
+    color: #f63b3e;
+}
+
 @media (max-width: 912px){
     .redesSocialesContainer{
-        height: 6rem !important;
+        height: 6rem;
     }
 
     .redesSocialesContainer svg{
@@ -90,5 +111,14 @@
 
     .decoracionContainer{
         padding: 0 !important;
+    }
+
+    .redesSocialesContainer{
+        height: 7rem;
+    }
+
+    .redesSocialesContainer svg{
+        width: 5rem;
+        height: 5rem;
     }
 }

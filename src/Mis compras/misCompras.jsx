@@ -19,8 +19,8 @@ export default function MisCompras() {
         mostrarPagos
     } = useTienda();
 
-    const {state} = useAuth();
-    
+    const { state } = useAuth();
+
     const [historial, setHistorial] = useState([]);
     const [paginaActual, setPaginaActual] = useState(1);
     const itemsPorPagina = 8;
@@ -28,6 +28,7 @@ export default function MisCompras() {
     const indexPrimerItem = indexUltimoItem - itemsPorPagina;
 
     const paginar = (numeroDePagina) => {
+        window.scrollTo(0, 0);
         setPaginaActual(numeroDePagina);
     }
 
@@ -84,14 +85,20 @@ export default function MisCompras() {
                 <div className="decoracionDosBody decoracionDosMisCompras" />
                 <div className={`misComprasContainer ${isMobile ? 'mobile' : ''} ${isFold ? 'fold' : ''}`}>
                     <div className="columnaPar">
-                        {itemsActuales.map((item, index) => (
-                            index % 2 === 0 ? <CardMisCompras key={index} data={item} /> : null
-                        ))}
+                        {itemsActuales.map((item, index) => {
+                            const posicionEnHistorial = historial.indexOf(item);
+                            return (
+                                index % 2 === 0 ? <CardMisCompras key={index} data={item} id={posicionEnHistorial}/> : null
+                            );
+                        })}
                     </div>
                     <div className="columnaImpar">
-                        {itemsActuales.map((item, index) => (
-                            index % 2 !== 0 ? <CardMisCompras key={index} data={item} /> : null
-                        ))}
+                        {itemsActuales.map((item, index) => {
+                            const posicionEnHistorial = historial.indexOf(item);
+                            return (
+                                index % 2 !== 0 ? <CardMisCompras key={index} data={item} id={posicionEnHistorial}/> : null
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -128,7 +135,19 @@ export default function MisCompras() {
                 {numerosDePagina.map((numero) => {
                     const diff = Math.abs(numero - paginaActual);
 
-                    const mostrarPagina = totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
+                    let mostrarPagina
+                    if (isMobile) {
+                        // Mostrar solo 3 botones en dispositivos móviles
+                        mostrarPagina =
+                            (paginaActual <= totalPaginas - 2 && numero >= paginaActual && numero <= paginaActual + 2) ||
+                            (paginaActual > totalPaginas - 2 && numero >= totalPaginas - 2);
+                    } else {
+                        // Lógica para mostrar botones según el caso actual
+                        mostrarPagina = totalPaginas <= 5 ||
+                            (paginaActual <= 3 && numero <= 5) ||
+                            (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) ||
+                            (diff <= 2 && totalPaginas >= 5);
+                    }
                     return (
                         mostrarPagina && (
                             <button
@@ -172,7 +191,7 @@ export default function MisCompras() {
                     </svg>
                 </button>
             </div>
-            {mostrarPagos ? (<Pagos/>) : (<></>)}
+            {mostrarPagos ? (<Pagos />) : (<></>)}
             <Footer />
         </div>
     );

@@ -193,6 +193,20 @@
     }
 }
 
+@media (max-width: 540px){
+    .nombreYEmailPerfilContainer{
+        height: 10rem;
+    }
+
+    .nombreYEmailPerfilContainer h1{
+        font-size: 3.5rem;
+    }
+
+    .nombreYEmailPerfilContainer h2{
+        font-size: 3rem;
+    }
+}
+
 @media (max-width: 430px) and (min-width: 281px){
     .nombreYEmailPerfilContainer{
         width: 65rem;

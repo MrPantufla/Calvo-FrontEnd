@@ -15,8 +15,14 @@
     transition-delay: 0.2s;
 }
 
+.desplegablePerfil.logueado:hover,
+.desplegablePerfil.logueado.open {
+    height: 10.8rem;
+    transition-delay: 0.2s;
+}
+
 .desplegablePerfil.admin.open{
-    height: 11rem;
+    height: 13.4rem;
 }
 
 .desplegablePerfilContainer{
@@ -25,7 +31,7 @@
     flex-direction: column;
 }
 
-.miPerfilNavLink{
+.perfilNavLink{
     text-decoration: none;
 }
 

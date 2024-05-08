@@ -72,11 +72,11 @@
     padding-top: 0.2rem;
 }
 
-.botonFavoritos:hover{
+.botonFavoritos.desktop:hover{
     background-color: white;
 }
 
-.botonFavoritos:hover .bi-heart{
+.botonFavoritos.desktop:hover .bi-heart{
     fill: var(--colorRojo);
 }
 

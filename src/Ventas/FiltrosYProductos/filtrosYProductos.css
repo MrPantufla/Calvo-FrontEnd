@@ -378,7 +378,7 @@
         padding-top: 14rem;
         z-index: 102;
         top: 0 !important;
-        height: 100vh;
+        height: 100%;
         width: 0;
     }
 
