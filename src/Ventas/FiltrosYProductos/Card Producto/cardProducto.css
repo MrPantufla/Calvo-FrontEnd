@@ -233,7 +233,7 @@
     transform: scale(1.1);
 }
 
-.botonConsultarMaquina{
+.botonConsultarProducto{
     width: 12rem;
     height: 2.8rem;
     font-size: 1.5rem;
@@ -250,7 +250,7 @@
     transition: scale 0.2s;
 }
 
-.botonConsultarMaquina:active{
+.botonConsultarProducto:active{
     transform: scale(0.95);
 }
 
@@ -437,7 +437,7 @@
         margin-bottom: 2rem;
     }
     
-    .botonConsultarMaquina{
+    .botonConsultarProducto{
         height: 4.5rem;
         width: 20rem;
         font-size: 3rem;
@@ -508,7 +508,7 @@
         width: 20rem;
     }
 
-    .botonConsultarMaquina{
+    .botonConsultarProducto{
         margin-top: 3rem;
     }
 }
@@ -552,7 +552,7 @@
 }
 
 @media (max-width: 540px) and (min-width: 412px){
-    .botonConsultarMaquina{
+    .botonConsultarProducto{
         margin-top: 1rem;
     }
 
