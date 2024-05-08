@@ -366,9 +366,9 @@ export default function FiltrosYProductos() {
           let mostrarPagina//= totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
           if (isMobile) {
             // Mostrar solo 3 botones en dispositivos móviles
-            if (paginaActual === numero || paginaActual + 1 === numero || paginaActual + 2 === numero) {
-              mostrarPagina = true;
-            }
+            mostrarPagina =
+              (paginaActual <= totalPaginas - 2 && numero >= paginaActual && numero <= paginaActual + 2) ||
+              (paginaActual > totalPaginas - 2 && numero >= totalPaginas - 2);
           } else {
             // Lógica para mostrar botones según el caso actual
             mostrarPagina = totalPaginas <= 5 ||
