@@ -107,26 +107,24 @@
 @media (max-width: 767px){
     .formularioEditarUsuario{
         flex-direction: column;
+        width: 80%;
     }
 
     .contenedorPartesFormulario h1{
         height: auto;
         padding-top: 0.4rem;
         padding-left: 2.5rem;
+        font-size: 4rem;
     }
 
     .parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario{
         height: auto;
     }
 
-    .parteAbajoFormularioEditarUsuario{
+    .parteAbajoFormularioEditarUsuario, .parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario div:first-child, .parteArribaFormularioEditarUsuario label{
         display: flex;
         flex-direction: column;
-    }
-
-    .parteAbajoFormularioEditarUsuario div:first-child{
-        display: flex;
-        flex-direction: row;
+        
     }
 
     .parteAbajoFormularioEditarUsuario div:first-child label{
@@ -147,9 +145,10 @@
 
     .contenedorBotonEnviarUsuario button{
         width: 20rem !important;
-        height: 4rem;
+        height: 6rem;
         margin: 1rem 1rem !important;
         transition: transform 0.2s;
+        font-size: 2.8rem;
     }
 
     .parteArribaFormularioEditarUsuario, .parteAbajoFormularioEditarUsuario{
@@ -158,12 +157,22 @@
     }
 
     .parteArribaFormularioEditarUsuario label input, .parteAbajoFormularioEditarUsuario label input{
-        height: 4rem;
-        font-size: 1.7rem;
+        height: 5rem;
+        font-size: 2.6rem;
     }
 
     .parteArribaFormularioEditarUsuario label, .parteAbajoFormularioEditarUsuario label{
-        font-size: 1.7rem;
+        font-size: 2.3rem;
+    }
+
+    .parteAbajoFormularioEditarUsuario div:last-child label{
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    .parteAbajoFormularioEditarUsuario div:last-child{
+        justify-content: center;
     }
 
     .inputTextoEditarUsuario{
@@ -175,19 +184,11 @@
     }
 
     .formularioEditarUsuario label #emailConfirmado, .formularioEditarUsuario label #cliente{
-        height: 2.5rem;
-        width: 2.5rem;
+        height: 3.5rem;
+        width: 3.5rem;
     }
 
-    .formularioEditarUsuario label #cuit{
-        width: 13rem;
-    }
-
-    .formularioEditarUsuario label #apellido{
-        width: 15rem;
-    }
-
-    .formularioEditarUsuario label #email{
-        width: 25rem;
+    .formularioEditarUsuario label #cuit, .formularioEditarUsuario label #telefono, .formularioEditarUsuario label #email{
+        width: auto;
     }
 }

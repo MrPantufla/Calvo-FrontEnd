@@ -20,3 +20,9 @@
 .contenedorBusquedaEIconoEditarUsuarios .busquedaEIcono .lupaContainer{
     width: 11%;
 }
+
+@media (max-width: 767px){
+    .contenedorBusquedaEIconoEditarUsuarios .busquedaEIcono{
+        width: 80%;
+    }
+}

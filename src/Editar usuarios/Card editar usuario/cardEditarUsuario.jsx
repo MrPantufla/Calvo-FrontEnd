@@ -71,7 +71,7 @@ export default function CardEditarUsuario(args) {
                     </div>
 
                     <div className="parteAbajoFormularioEditarUsuario">
-                        <div>
+                        <div className="formulariosAbajo">
                             <label htmlFor='email'>
                                 Email
                                 <input
