@@ -1,8 +1,15 @@
 .contenedorPrincipalMisCompras{
-    min-height: calc(100vh - 7rem);
     background-color: var(--colorSenario);
     display: flex;
     overflow: hidden;
+}
+
+.contenedorPrincipalMisCompras.noVacio{
+    min-height: calc(100vh - 7rem);
+}
+
+.contenedorPrincipalMisCompras.vacio{
+    min-height: calc(100vh - 3rem);
 }
 
 .decoracionMisCompras{
