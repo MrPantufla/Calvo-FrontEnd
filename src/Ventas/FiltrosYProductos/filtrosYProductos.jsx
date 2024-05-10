@@ -133,6 +133,12 @@ export default function FiltrosYProductos() {
   }
 
   useEffect(() => {
+    const handleDocumentClick = (event) => {
+      if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
+        setFiltrosYBusquedaOpen(false)
+      }
+    }
+
     const handleDocumentTouchMove = (e) => {
       const currentX = e.touches[0].clientX;
       const diffX = currentX - startX;
@@ -145,6 +151,7 @@ export default function FiltrosYProductos() {
       }
     };
 
+    document.addEventListener('click', handleDocumentClick);
     document.addEventListener('touchstart', handleTouchStart);
     document.addEventListener('touchmove', handleDocumentTouchMove);
 
