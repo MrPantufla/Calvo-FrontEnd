@@ -11,6 +11,7 @@ import { useCarrito } from '../../contextCarrito';
 import Cortinas from './Cortinas/cortinas';
 import { useAuth } from '../../contextLogin';
 import Eliminados from './Eliminados/eliminados';
+import { rubros, srubros8, srubros12, srubros85, srubros39, srubros43, srubros31, srubros4, srubros81, srubros10, srubrosPerfiles } from '../../rubros';
 
 export default function FiltrosYProductos() {
   const { state } = useAuth();
@@ -31,8 +32,8 @@ export default function FiltrosYProductos() {
     isTablet,
     isFold,
     isMobile,
-    tipoActivo,
-    setTipoActivo,
+    rubroActivo,
+    setRubroActivo,
     coloresActivos,
     setColoresActivos,
     limpiarColoresActivos,
@@ -42,7 +43,9 @@ export default function FiltrosYProductos() {
     eliminadosSelected,
     setEliminadosSelected,
     seleccionarEliminados,
-    togglearTipo
+    togglearRubro,
+    srubroActivo,
+    togglearSrubro
   } = useTienda();
 
   const [busqueda, setBusqueda] = useState('');
@@ -50,7 +53,6 @@ export default function FiltrosYProductos() {
   const itemsPorPagina = 33;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
-  const tiposUnicos = [...new Set(Object.values(productosIndexado).map((producto) => producto.tipo_prod))];
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
 
@@ -90,12 +92,13 @@ export default function FiltrosYProductos() {
   }
 
   const listaFiltrada = Object.values(productosIndexado).filter((p) => {
-    const tipoCumple = tipoActivo == null || tipoActivo == p.tipo_prod;
+    const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS';
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
+    const srubroCumple = srubroActivo == null || srubroActivo == p.srubro;
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
     const buscarPorDetalle = p.detalle.includes(busqueda);
     const eliminado = productosEliminados.includes(p.id);
-    return tipoCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
+    return tipoCumple && srubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
   });
 
   const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
@@ -222,15 +225,15 @@ export default function FiltrosYProductos() {
             </div>
           </div>
           <div className="filtros">
-            {tiposUnicos.map((tipo_prod) => (
-              <label className={`labelRubros ${tipoActivo == tipo_prod ? 'checked' : ''} label${tipo_prod}`} key={tipo_prod}>
+            {rubros.map((rubro) => (
+              <label className={`labelRubros ${rubroActivo == rubro.id ? 'checked' : ''} label${rubro.nombre} desplegable`} key={rubro.nombre}>
                 <div>
                   <input
                     className="check"
                     type="checkbox"
-                    checked={tipoActivo == tipo_prod}
+                    checked={rubroActivo == rubro.id}
                     onChange={() => {
-                      togglearTipo(tipo_prod);
+                      togglearRubro(rubro.id);
                     }}
                     onClick={() => {
                       handleScrollClick();
@@ -239,37 +242,36 @@ export default function FiltrosYProductos() {
                       setCortinasSelected(false);
                       setEliminadosSelected(false);
                     }}
-                    id={tipo_prod + "Id"}
+                    id={rubro.nombre + "Id"}
                   />
                   <div className="textoRubro">
-                    {tipo_prod} {tipo_prod == 'PERFIL' ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    {rubro.nombre} {rubro.srubros ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                       <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                     </svg>) : (<></>)}
                   </div>
                 </div>
-                {tipo_prod == 'PERFIL' ?
-                  (<div className={`bodyFiltro bodyFiltroPerfil ${tipoActivo == tipo_prod ? 'checked' : ''}`}>
-                    {coloresUnicosPerfiles.map((color) => (
-                      <label className={`labelColores ${coloresActivos.includes(color) ? 'checked' : ''}`} key={color}>
+                {rubroActivo == rubro.id ?
+                  (rubro.srubros.map((srubro) => (
+                    <div className={`bodyFiltro bodyFiltroPerfil ${rubroActivo == rubro.id ? 'checked' : ''}`}>
+                      <label className={`labelColores ${srubroActivo == srubro.id ? 'checked' : ''}`} key={`${rubro.id}.${srubro.id}`}>
                         <input
                           className="colorCheck"
                           type="checkbox"
-                          checked={coloresActivos.includes(color)}
-                          onChange={() => toggleColor(color)}
+                          checked={srubroActivo == srubro}
+                          onChange={() => togglearSrubro(srubro.id)}
                           onClick={() => {
                             handleScrollClick();
                             setPaginaActual(1);
                           }}
-                          id={color + "Id"}
                         />
                         <div className="textoColor">
-                          {color}
+                          {srubro.nombre}
                         </div>
                       </label>
-                    ))}
-                  </div>)
+                    </div>
+                  )))
                   :
-                  (<></>)}
+                  ('')}
               </label>
             ))}
             <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
@@ -370,7 +372,7 @@ export default function FiltrosYProductos() {
         {numerosDePagina.map((numero) => {
           const diff = Math.abs(numero - paginaActual);
 
-          let mostrarPagina//= totalPaginas <= 5 || (paginaActual <= 3 && numero <= 5) || (paginaActual >= totalPaginas - 2 && numero >= totalPaginas - 4) || (diff <= 2 && totalPaginas >= 5);
+          let mostrarPagina
           if (isMobile) {
             // Mostrar solo 3 botones en dispositivos móviles
             mostrarPagina =
