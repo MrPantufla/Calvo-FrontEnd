@@ -17,28 +17,6 @@ function TiendaProvider({ children }) {
   const [mostrarPagos, setMostrarPagos] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
-  const [busquedaYFiltrosTop, setBusquedaYFiltrosTop] = useState(10.6);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const maxBusquedaYFiltrosTop = 10.6;
-      const minBusquedaYFiltrosTop = 8.6;
-      const alturaHeader = 150;
-
-      let newTop =
-        maxBusquedaYFiltrosTop -
-        (maxBusquedaYFiltrosTop - minBusquedaYFiltrosTop) * (scrollPosition / alturaHeader);
-
-      newTop = Math.max(minBusquedaYFiltrosTop, newTop);
-      setBusquedaYFiltrosTop(newTop);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -120,8 +98,6 @@ function TiendaProvider({ children }) {
       setRubroActivo,
       coloresActivos,
       setColoresActivos,
-      busquedaYFiltrosTop,
-      setBusquedaYFiltrosTop,
       eliminadosSelected,
       setEliminadosSelected,
       seleccionarEliminados,

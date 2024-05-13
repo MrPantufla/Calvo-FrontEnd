@@ -8,7 +8,6 @@ import { useCarrito } from '../../contextCarrito';
 import { useTienda } from '../../contextTienda';
 
 export default function Favoritos() {
-    const [favoritosTop, setFavoritosTop] = useState(3.2);
     const [favoritosHeight, setFavoritosHeight] = useState(0);
 
     const {
@@ -30,29 +29,6 @@ export default function Favoritos() {
         isMobile, 
         isTablet
     } = useTienda();
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            const maxFavoritosTop = 3.2;
-            const minFavoritosTop = 2.2;
-            const alturaHeader = 150;
-
-            let newTop =
-                maxFavoritosTop -
-                (maxFavoritosTop - minFavoritosTop) * (scrollPosition / alturaHeader);
-
-            newTop = Math.max(minFavoritosTop, newTop);
-
-            setFavoritosTop(newTop);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     const toggleFavoritos = () => {
         if (!state.logueado || !state.userInfo.email_confirmado) {
@@ -98,7 +74,7 @@ export default function Favoritos() {
     }, [favoritosAbierto, favoritos.length]);
 
     return (
-        <div className="contenedorPrincipalFavoritos" style={{ top: `${favoritosTop}rem` }}>
+        <div className="contenedorPrincipalFavoritos">
             <div className="contenedorBotonFavoritos">
                 <button type="button" className={`botonFavoritos ${favoritosAbierto ? 'open' : ''} ${!isTablet && 'desktop'}`} onClick={toggleFavoritos}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-heart" viewBox="0 0 16 16">

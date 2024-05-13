@@ -8,7 +8,6 @@ import { useCarrito } from '../../../contextCarrito';
 
 export default function DesplegablePerfil() {
     const location = useLocation();
-    const [perfilTop, setPerfilTop] = useState(7.1);
     const navigate = useNavigate();
     const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
 
@@ -58,7 +57,7 @@ export default function DesplegablePerfil() {
 
     const stylePerfil = {
         right: rightDesplegablePerfil,
-        top: `${perfilTop}rem`,
+        top: `${6.1}rem`,
         width: location.pathname == "/tienda" ? `calc(var(--rightAnchoPerfil) - 2.7rem)` : `calc(var(--rightAnchoPerfil) - 3.4rem)`
     }
 
@@ -68,34 +67,6 @@ export default function DesplegablePerfil() {
         setFavoritos('');
         limpiarCarrito();
     }
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            const maxPerfilTop = 7.1; // ajusta el valor máximo de altura según tus necesidades
-            const minPerfilTop = 6.1; // ajusta el valor mínimo de altura según tus necesidades
-            const alturaHeader = 150; // ajusta según tus necesidades
-
-            // Calcula la nueva posición top en función del scroll
-            let newTop =
-                maxPerfilTop -
-                (maxPerfilTop - minPerfilTop) * (scrollPosition / alturaHeader);
-
-            // Asegúrate de que newTop no sea menor que el valor mínimo de 7
-            newTop = Math.max(minPerfilTop, newTop);
-
-            // Establece la nueva posición top
-            setPerfilTop(newTop);
-        };
-
-        // Agrega el event listener para el scroll
-        window.addEventListener('scroll', handleScroll);
-
-        // Limpia el event listener al desmontar el componente
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     const mostrarIniciarSesion = () => {
         setOpcionSeleccionada('login');

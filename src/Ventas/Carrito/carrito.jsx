@@ -56,33 +56,8 @@ export default function Carrito() {
   const cantidadInputRef = useRef(null);
   const [sugerenciaColor, setSugerenciaColor] = useState('');
   const [inputFocused, setInputFocused] = useState('');
-  const [carritoTop, setCarritoTop] = useState(3.2);
   const [carritoHeight, setCarritoHeight] = useState(0);
   const [mostrarHint, setMostrarHint] = useState(false);
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const maxCarritoTop = 3.2;
-      const minCarritoTop = 2.2;
-      const alturaHeader = 150;
-
-      let newTop =
-        maxCarritoTop -
-        (maxCarritoTop - minCarritoTop) * (scrollPosition / alturaHeader);
-
-      newTop = Math.max(minCarritoTop, newTop);
-
-      setCarritoTop(newTop);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const calcularTotal = (elementos) => {
     return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * (elemento.kg || 1) * elemento.cantidad), 0);
@@ -249,7 +224,7 @@ export default function Carrito() {
   }, [carritoAbierto, elementos.length]);
 
   return (
-    <div className="contenedorPrincipalCarrito" style={{ top: `${carritoTop}rem` }}>
+    <div className="contenedorPrincipalCarrito">
       <div className="contenedorBotonCarrito">
         <button type="button"
           className={`botonCarrito ${carritoAbierto ? 'open' : ''} ${!isTablet && 'desktop'}`}

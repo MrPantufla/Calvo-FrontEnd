@@ -1,6 +1,5 @@
 import './catalogos.css';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
-import { useState, useEffect } from 'react';
 
 export default function Catalogos() {
     const {
@@ -8,8 +7,6 @@ export default function Catalogos() {
         abrirHover,
         cerrarHover
     } = useDesplegableCatalogos();
-
-    const [catalogosTop, setCatalogosTop] = useState(7.1);
 
     const handleDownload = (filename) => {
         const filePath = `${process.env.PUBLIC_URL}/Archivos/${filename}.pdf`;
@@ -19,35 +16,11 @@ export default function Catalogos() {
         link.click();
     };
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            const maxCatalogosTop = 7.1;
-            const minCatalogosTop = 6.1;
-            const alturaHeader = 150;
-
-            let newTop =
-                maxCatalogosTop -
-                (maxCatalogosTop - minCatalogosTop) * (scrollPosition / alturaHeader);
-
-            newTop = Math.max(minCatalogosTop, newTop);
-
-            setCatalogosTop(newTop);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
     return (
         <div
             className={`desplegableCatalogos ${hovered ? 'open' : ''}`}
             onMouseEnter={abrirHover}
             onMouseLeave={cerrarHover}
-            style={{ top: `${catalogosTop}rem` }}
         >
             <div className="descargarCatalogosContainer">
                 <a onClick={() => handleDownload('perfiles')}>PERFILES</a>

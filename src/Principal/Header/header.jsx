@@ -11,7 +11,6 @@ import { useTienda } from '../../contextTienda';
 
 export default function Header() {
   const navigate = useNavigate();
-  const [headerSize, setHeaderSize] = useState(10);
   const location = useLocation();
   const desplegableCatalogos = useDesplegableCatalogos();
   const desplegablePerfil = useDesplegablePerfil();
@@ -23,34 +22,6 @@ export default function Header() {
     setMostrarLogin
   } = useAuth();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const scrollHeight = document.body.scrollHeight - window.innerHeight;
-      const maxSize = 10;
-      const minSize = 8;
-      const minSizeScroll = scrollHeight - 150;
-
-      let newSize;
-
-      if (scrollHeight - scrollPosition <= minSizeScroll) {
-        newSize = minSize;
-      } else {
-        newSize = minSize - ((scrollHeight - scrollPosition - minSizeScroll) / (scrollHeight - minSizeScroll)) * (minSize - maxSize);
-      }
-
-      setHeaderSize(newSize);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   function recargarPagina() {
     if (window.location.href.includes("/")) {
       window.location.reload();
@@ -61,7 +32,7 @@ export default function Header() {
   }
 
   const headerStyle = {
-    height: `${headerSize}rem`,
+    height: `${8}rem`,
     width: '100%',
     position: 'fixed',
     top: 0,
@@ -73,7 +44,7 @@ export default function Header() {
   };
 
   const decoracionStyle = {
-    clipPath: `polygon(0 0, 100% 0, 100% 100%, ${headerSize * 0.68}rem 100%)`
+    clipPath: `polygon(0 0, 100% 0, 100% 100%, ${8 * 0.68}rem 100%)`
   }
 
   const handleInicioClick = () => {
