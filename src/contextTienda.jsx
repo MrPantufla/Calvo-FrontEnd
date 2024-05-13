@@ -7,7 +7,8 @@ function useTienda() {
 }
 
 function TiendaProvider({ children }) {
-  const [tipoActivo, setTipoActivo] = useState(null);
+  const [rubroActivo, setRubroActivo] = useState(null);
+  const [srubroActivo, setSrubroActivo] = useState(null);
   const [coloresActivos, setColoresActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 820);
@@ -57,12 +58,12 @@ function TiendaProvider({ children }) {
     setCortinasSelected(false);
     
     if(!eliminadosSelected){
-      setTipoActivo([]);
+      setRubroActivo([]);
       setEliminadosSelected(true);
     }
     else{
       setEliminadosSelected(false);
-      setTipoActivo(null);
+      setRubroActivo(null);
     }
   }
 
@@ -74,21 +75,31 @@ function TiendaProvider({ children }) {
     setEliminadosSelected(false);
 
     if(!cortinasSelected){
-      setTipoActivo([]);
+      setRubroActivo([]);
       setCortinasSelected(true);
     }
     else{
       setCortinasSelected(false);
-      setTipoActivo(null);
+      setRubroActivo(null);
     }
   }
 
-  const togglearTipo = (tipo) =>{
-    if(tipoActivo == tipo){
-      setTipoActivo(null);
+  const togglearRubro = (rubro) =>{
+    if(rubroActivo == rubro){
+      setRubroActivo(null);
     }
     else{
-      setTipoActivo(tipo);
+      setRubroActivo(rubro);
+    }
+    setSrubroActivo(null);
+  }
+
+  const togglearSrubro = (srubro) => {
+    if(srubroActivo == srubro){
+      setSrubroActivo(null)
+    }
+    else{
+      setSrubroActivo(srubro)
     }
   }
 
@@ -105,8 +116,8 @@ function TiendaProvider({ children }) {
       productoSeleccionado,
       setProductoSeleccionado,
       limpiarColoresActivos,
-      tipoActivo, 
-      setTipoActivo,
+      rubroActivo, 
+      setRubroActivo,
       coloresActivos,
       setColoresActivos,
       busquedaYFiltrosTop,
@@ -114,7 +125,9 @@ function TiendaProvider({ children }) {
       eliminadosSelected,
       setEliminadosSelected,
       seleccionarEliminados,
-      togglearTipo
+      togglearRubro,
+      srubroActivo,
+      togglearSrubro
     }}>
       {children}
     </TiendaContext.Provider>
