@@ -1,5 +1,5 @@
 import './filtrosYProductos.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CardProducto from './Card Producto/cardProducto';
 import ProductoGrande from './Card Producto/productoGrande';
 import { useProductos } from '../../contextProductos';
@@ -45,7 +45,7 @@ export default function FiltrosYProductos() {
     seleccionarEliminados,
     togglearRubro,
     srubroActivo,
-    togglearSrubro
+    togglearSrubro,
   } = useTienda();
 
   const [busqueda, setBusqueda] = useState('');
@@ -55,6 +55,8 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
+  const filtrosRef = useRef(null);
 
   const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -106,9 +108,9 @@ export default function FiltrosYProductos() {
   const productosOrdenados = ordenarProductos(listaFiltrada);
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
 
-  const coloresUnicosPerfiles = Array.from(new Set(
-    Object.values(productosIndexado)
-      .filter(producto => producto.tipo_prod === 'PERFIL')
+  const coloresUnicos = Array.from(new Set(
+    Object.values(listaFiltrada)
+      .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
       .map(producto => producto.color)
   ));
 
@@ -136,32 +138,35 @@ export default function FiltrosYProductos() {
   }
 
   useEffect(() => {
-    const handleDocumentClick = (event) => {
-      if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
-        setFiltrosYBusquedaOpen(false)
+    if (isMobile) {
+      const handleDocumentClick = (event) => {
+        if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
+          setFiltrosYBusquedaOpen(false)
+        }
       }
+
+      const handleDocumentTouchMove = (e) => {
+        const currentX = e.touches[0].clientX;
+        const diffX = currentX - startX;
+
+        if (diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
+          productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false))
+        }
+        else if (diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
+          productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true))
+        }
+      };
+
+      document.addEventListener('click', handleDocumentClick);
+      document.addEventListener('touchstart', handleTouchStart);
+      document.addEventListener('touchmove', handleDocumentTouchMove);
+
+      return () => {
+        document.removeEventListener('touchstart', handleTouchStart);
+        document.removeEventListener('touchmove', handleDocumentTouchMove);
+      };
     }
 
-    const handleDocumentTouchMove = (e) => {
-      const currentX = e.touches[0].clientX;
-      const diffX = currentX - startX;
-
-      if (diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
-        productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false))
-      }
-      else if (diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
-        productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true))
-      }
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('touchstart', handleTouchStart);
-    document.addEventListener('touchmove', handleDocumentTouchMove);
-
-    return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleDocumentTouchMove);
-    };
   }, [startX]);
 
   useEffect(() => {
@@ -187,8 +192,44 @@ export default function FiltrosYProductos() {
     setStartX(e.touches[0].clientX);
   };
 
+  useEffect(() => {
+
+    if (!isMobile) {
+      const elemento = document.getElementById('filtros');
+
+      const handleScroll = () => {
+        let atEnd;
+        if (elemento.scrollTop == 0) {
+          atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
+        }
+        else {
+          atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
+        }
+
+        setScrollDownFiltros(!atEnd);
+      };
+
+      handleScroll(); // Para verificar el estado inicial
+
+      elemento.addEventListener('scroll', handleScroll);
+
+      return () => {
+        elemento.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [rubroActivo]);
+
+  const scrollearFiltros = () => {
+    const elemento = document.getElementById('filtros');
+
+    elemento.scrollBy({
+      top: 200,
+      behavior: 'smooth'
+    });
+  }
+
   return (
-    <div className="contenedorPrincipalFiltrosYProductos">
+    <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'}`}>
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
         <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
@@ -204,7 +245,7 @@ export default function FiltrosYProductos() {
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
-          style={!isTablet ? { top: `${busquedaYFiltrosTop}rem` } : {}}
+          style={!isTablet ? { top: `8.7rem` } : {}}
         >
           <div className="busquedaEIcono">
             <input
@@ -224,7 +265,7 @@ export default function FiltrosYProductos() {
               </svg>
             </div>
           </div>
-          <div className="filtros">
+          <div className='filtros' id='filtros'>
             {rubros.map((rubro) => (
               <label className={`labelRubros ${rubroActivo == rubro.id ? 'checked' : ''} label${rubro.nombre} desplegable`} key={rubro.nombre}>
                 <div>
@@ -242,20 +283,21 @@ export default function FiltrosYProductos() {
                       setCortinasSelected(false);
                       setEliminadosSelected(false);
                     }}
-                    id={rubro.nombre + "Id"}
+                    id={rubro.nombre + "id"}
                   />
                   <div className="textoRubro">
-                    {rubro.nombre} {rubro.srubros ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <p className="nombreRubro">{rubro.nombre}</p>
+                    <p className="flechaRubro">{rubro.srubros ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                       <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                    </svg>) : (<></>)}
+                    </svg>) : (<></>)}</p>
                   </div>
                 </div>
-                {rubroActivo == rubro.id ?
-                  (rubro.srubros.map((srubro) => (
-                    <div className={`bodyFiltro bodyFiltroPerfil ${rubroActivo == rubro.id ? 'checked' : ''}`}>
-                      <label className={`labelColores ${srubroActivo == srubro.id ? 'checked' : ''}`} key={`${rubro.id}.${srubro.id}`}>
+                {rubroActivo == rubro.id &&
+                  (rubro.srubros.map((srubro, index) => (
+                    <div className={`bodyFiltro bodyFiltroPerfil ${rubroActivo == rubro.id ? 'checked' : ''}`} key={`${rubro.id}.${index}`}>
+                      <label className={`labelSrubro ${srubroActivo == srubro.id ? 'checked' : ''}`} key={`${rubro.id}.${srubro.id}`}>
                         <input
-                          className="colorCheck"
+                          className="srubroCheck"
                           type="checkbox"
                           checked={srubroActivo == srubro}
                           onChange={() => togglearSrubro(srubro.id)}
@@ -264,19 +306,36 @@ export default function FiltrosYProductos() {
                             setPaginaActual(1);
                           }}
                         />
-                        <div className="textoColor">
+                        <p className="textoSrubro">
                           {srubro.nombre}
-                        </div>
+                        </p>
+                        {srubroActivo == srubro.id && (
+                          coloresUnicos.map((color) => (
+                            <div className="colorSrubro" key={color} onClick={(e) => { e.stopPropagation(); toggleColor(color); }}>
+                              {color}
+                            </div>
+                          ))
+                        )}
                       </label>
                     </div>
                   )))
-                  :
-                  ('')}
+                }
               </label>
             ))}
-            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
-            {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
+            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
+            {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
           </div>
+          {!isMobile ?
+            (
+              <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={scrollearFiltros}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                  <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
+                </svg>
+              </div>
+            )
+            :
+            ('')
+          }
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
 
@@ -345,7 +404,7 @@ export default function FiltrosYProductos() {
           onClick={() => paginar(1)}
           disabled={paginaActual === 1}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fillRule="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
           </svg>
         </button>
