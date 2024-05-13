@@ -112,7 +112,7 @@
     transition: height 0.3s;
     overflow: hidden;
     z-index: 2;
-    width: 99%;
+    width: 95%;
 }
 
 .colorCheck{
@@ -135,13 +135,13 @@
     border: 1px solid var(--colorSecundario);
 }
 
-.labelColores:hover{
-    background-color: white;
-}
-
 .labelColores.checked{
     background-color: white;
     color: var(--colorSecundario);
+}
+
+.labelColores:hover{
+    color: black;
 }
 
 .bodyFiltro::-webkit-scrollbar {
@@ -159,7 +159,7 @@
 }
 
 .bodyFiltroPerfil.checked {
-    height: 64rem;   
+    height: auto;   
 }
 
 .labelRubros .check {
@@ -172,6 +172,10 @@
     background-color: var(--colorSecundario);
     color: var(--colorCuaternario);
     user-select: none;
+}
+
+.labelRubros.desplegable{
+    padding-bottom: 0.6rem;
 }
 
 .labelRubros:hover .textoRubro {
