@@ -11,7 +11,7 @@ import { useCarrito } from '../../contextCarrito';
 import Cortinas from './Cortinas/cortinas';
 import { useAuth } from '../../contextLogin';
 import Eliminados from './Eliminados/eliminados';
-import { rubros, srubros8, srubros12, srubros85, srubros39, srubros43, srubros31, srubros4, srubros81, srubros10, srubrosPerfiles } from '../../rubros';
+import { rubros } from '../../rubros';
 
 export default function FiltrosYProductos() {
   const { state } = useAuth();
@@ -56,6 +56,7 @@ export default function FiltrosYProductos() {
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
+  const [listaColores, setListaColores] = useState(null);
   const filtrosRef = useRef(null);
 
   const seleccionarProducto = (producto) => {
@@ -108,11 +109,14 @@ export default function FiltrosYProductos() {
   const productosOrdenados = ordenarProductos(listaFiltrada);
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
 
-  const coloresUnicos = Array.from(new Set(
-    Object.values(listaFiltrada)
-      .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
-      .map(producto => producto.color)
-  ));
+  let coloresUnicos;
+  if (listaColores !== null) {
+    coloresUnicos = Array.from(new Set(
+      Object.values(listaColores)
+        .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
+        .map(producto => producto.color)
+    ));
+  }
 
   const toggleFiltros = () => {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
@@ -193,7 +197,6 @@ export default function FiltrosYProductos() {
   };
 
   useEffect(() => {
-
     if (!isMobile) {
       const elemento = document.getElementById('filtros');
 
@@ -219,9 +222,12 @@ export default function FiltrosYProductos() {
     }
   }, [rubroActivo]);
 
+  useEffect(() => {
+    setListaColores(listaFiltrada)
+  }, [srubroActivo])
+
   const scrollearFiltros = () => {
     const elemento = document.getElementById('filtros');
-
     elemento.scrollBy({
       top: 200,
       behavior: 'smooth'
@@ -300,8 +306,8 @@ export default function FiltrosYProductos() {
                           className="srubroCheck"
                           type="checkbox"
                           checked={srubroActivo == srubro}
-                          onChange={() => togglearSrubro(srubro.id)}
                           onClick={() => {
+                            togglearSrubro(srubro.id);
                             handleScrollClick();
                             setPaginaActual(1);
                           }}
@@ -309,11 +315,25 @@ export default function FiltrosYProductos() {
                         <p className="textoSrubro">
                           {srubro.nombre}
                         </p>
+                        <p>{(rubro != 39 && rubro != 81 && rubro != 85 && rubro != 12) ?
+                          (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                          </svg>)
+                          :
+                          ('')} </p>
                         {srubroActivo == srubro.id && (
                           coloresUnicos.map((color) => (
-                            <div className="colorSrubro" key={color} onClick={(e) => { e.stopPropagation(); toggleColor(color); }}>
-                              {color}
-                            </div>
+                            <label className={`labelColor ${coloresActivos.includes(color) && 'checked'}`} key={color}>
+                              <input
+                                className="srubroCheck"
+                                type="checkbox"
+                                onClick={() => {
+                                  toggleColor(color);
+                                  setPaginaActual(1);
+                                }}
+                              />
+                              <p className="textoColorFiltros">{color}</p>
+                            </label>
                           ))
                         )}
                       </label>

@@ -179,7 +179,7 @@
     height: 0;
 }
 
-.labelSrubro, .colorSrubro {
+.labelSrubro, .labelColor {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,6 +192,8 @@
 
 .labelSrubro{
     background-color: var(--colorTerciario);
+    display: flex;
+    flex-direction: row;
 }
 
 .labelPERFIL.checked .labelSrubro {
@@ -207,17 +209,21 @@
     color: #1D1D1D;
 }
 
-.colorSrubro{
+.labelColor{
     background-color: var(--colorPrimario);
 }
 
-.colorSrubro:hover{
+.labelColor:hover{
     color: #1D1D1D;
 }
 
-.colorSrubro:checked{
+.labelColor.checked{
     background-color: var(--colorSecundario);
     color: white;
+}
+
+.labelColor, .textoColorFiltros{
+    width: 97.5%;
 }
 
 .bodyFiltro::-webkit-scrollbar {
@@ -468,7 +474,7 @@
         padding-top: 13rem;
         z-index: 102;
         top: 0 !important;
-        height: 100%;
+        height: 140%;
         width: 0;
     }
 
