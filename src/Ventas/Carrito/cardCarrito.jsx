@@ -46,12 +46,17 @@ export default function CardCarrito(args) {
         eliminarElemento(args.id);
     }
 
+    const handleContextMenu = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
                 <div className="imagenCardCarritoContainer">
                     <img
                         className="imagenCardCarrito"
+                        onContextMenu={handleContextMenu}
                         src={producto.tipo_prod == 'PERFIL' ?
                             (`/PngsPerfiles/${producto.cod_orig.slice(2).trim()}.png`)
                             :

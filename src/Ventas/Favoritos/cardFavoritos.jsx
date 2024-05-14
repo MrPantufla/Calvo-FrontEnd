@@ -26,12 +26,17 @@ export default function CardFavoritos(args) {
         añadirElemento(args.producto.id, 1);
     }
 
+    const handleContextMenu = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className="contenedorPrincipalCardFavoritos">
             <div className="imagenYCodigoCardFavoritos">
                 <div className="imagenCardFavoritosContainer">
                     <img
                         className="imagenCardFavoritos"
+                        onContextMenu={handleContextMenu}
                         src={args.producto.tipo_prod == 'PERFIL' ?
                             (`/PngsPerfiles/${args.producto.cod_orig.slice(2).trim()}.png`)
                             :

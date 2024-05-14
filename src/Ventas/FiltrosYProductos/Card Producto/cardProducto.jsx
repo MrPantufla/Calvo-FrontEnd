@@ -84,6 +84,10 @@ export default function CardProducto(args) {
     }
   };
 
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+  }
+
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   return (
@@ -116,6 +120,7 @@ export default function CardProducto(args) {
         <div className="imagenContainerCardProducto">
           <img
             onClick={args.onClick}
+            onContextMenu={handleContextMenu}
             className="imagenProducto"
             src={args.tipo_prod == 'PERFIL' ?
               (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)

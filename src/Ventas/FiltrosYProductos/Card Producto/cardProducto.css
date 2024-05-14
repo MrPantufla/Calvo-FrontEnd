@@ -28,6 +28,7 @@
     max-height: 100%;
     cursor: pointer;
     transition: scale 0.2s;
+    user-select: none;
 }
 
 .imagenProducto:hover{

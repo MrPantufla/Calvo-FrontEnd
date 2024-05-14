@@ -61,6 +61,10 @@ export default function ProductoGrande(args) {
         event.stopPropagation();
     };
 
+    const handleContextMenu = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className="contenedorPrincipalProductoGrande" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleClose}>
             <div className="parteUtilizableProductoGrande" onMouseDown={handleParteUtilizableClick} onMouseUp={handleParteUtilizableClick}>
@@ -85,6 +89,7 @@ export default function ProductoGrande(args) {
                     <div className="imagenProductoGrandeContainer">
                         <img
                             className="imagenProductoGrande"
+                            onContextMenu={handleContextMenu}
                             src={args.tipo_prod == 'PERFIL' ?
                                 (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
                                 :
