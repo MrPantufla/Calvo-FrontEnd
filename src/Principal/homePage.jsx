@@ -5,17 +5,25 @@ import RenderHeader from './Header/renderHeader.jsx';
 import CartelLogout from '../Login y registro/Logout/cartelLogout.jsx';
 import CartelCliente from '../Login y registro/Cartel cliente/cartelCliente.jsx';
 import { useAuth } from '../contextLogin.jsx';
+import { useTienda } from '../contextTienda.jsx';
+import { useEffect } from 'react';
 
-export default function HomePage(){
+export default function HomePage() {
     const { mostrarCartelCliente } = useAuth();
-    return(
+    const { salirDeTienda } = useTienda();
+
+    useEffect(() => {
+        salirDeTienda();
+    }, [])
+
+    return (
         <>
-            <RenderHeader/>
-            <DesplegablePerfil/>
-            <Body/>
-            <Footer/>
-            <CartelLogout/>
-            {mostrarCartelCliente==true && <CartelCliente/>}
+            <RenderHeader />
+            <DesplegablePerfil />
+            <Body />
+            <Footer />
+            <CartelLogout />
+            {mostrarCartelCliente == true && <CartelCliente />}
         </>
     );
 }

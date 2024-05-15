@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useCarrito } from './contextCarrito';
+import { useFavoritos } from './contextFavoritos';
 
 const TiendaContext = createContext();
 
@@ -18,6 +20,14 @@ function TiendaProvider({ children }) {
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
 
+  const {
+    setCarritoAbierto,
+  } = useCarrito();
+
+  const {
+    setFavoritosAbierto
+  } = useFavoritos();
+
   useEffect(() => {
     const handleResize = () => {
       setIsTablet(window.innerWidth <= 820);
@@ -32,14 +42,22 @@ function TiendaProvider({ children }) {
     };
   }, []);
 
-  const seleccionarEliminados = () =>{
+  const salirDeTienda = () => {
+    togglearRubro(null);
+    togglearSrubro(null);
+    setColoresActivos([]);
+    setCarritoAbierto(false);
+    setFavoritosAbierto(false);
+  }
+
+  const seleccionarEliminados = () => {
     setCortinasSelected(false);
-    
-    if(!eliminadosSelected){
+
+    if (!eliminadosSelected) {
       setRubroActivo([]);
       setEliminadosSelected(true);
     }
-    else{
+    else {
       setEliminadosSelected(false);
       setRubroActivo(null);
     }
@@ -52,31 +70,31 @@ function TiendaProvider({ children }) {
   const seleccionarCortinas = () => {
     setEliminadosSelected(false);
 
-    if(!cortinasSelected){
+    if (!cortinasSelected) {
       setRubroActivo([]);
       setCortinasSelected(true);
     }
-    else{
+    else {
       setCortinasSelected(false);
       setRubroActivo(null);
     }
   }
 
-  const togglearRubro = (rubro) =>{
-    if(rubroActivo == rubro){
+  const togglearRubro = (rubro) => {
+    if (rubroActivo == rubro) {
       setRubroActivo(null);
     }
-    else{
+    else {
       setRubroActivo(rubro);
     }
     setSrubroActivo(null);
   }
 
   const togglearSrubro = (srubro) => {
-    if(srubroActivo == srubro){
+    if (srubroActivo == srubro) {
       setSrubroActivo(null)
     }
-    else{
+    else {
       setSrubroActivo(srubro)
     }
   }
@@ -94,7 +112,7 @@ function TiendaProvider({ children }) {
       productoSeleccionado,
       setProductoSeleccionado,
       limpiarColoresActivos,
-      rubroActivo, 
+      rubroActivo,
       setRubroActivo,
       coloresActivos,
       setColoresActivos,
@@ -103,7 +121,8 @@ function TiendaProvider({ children }) {
       seleccionarEliminados,
       togglearRubro,
       srubroActivo,
-      togglearSrubro
+      togglearSrubro,
+      salirDeTienda
     }}>
       {children}
     </TiendaContext.Provider>

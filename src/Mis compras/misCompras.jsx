@@ -15,6 +15,7 @@ export default function MisCompras() {
     const {
         isFold,
         isMobile,
+        salirDeTienda
     } = useTienda();
 
     const { state } = useAuth();
@@ -35,6 +36,10 @@ export default function MisCompras() {
     const itemsActuales = historial.slice(indexPrimerItem, indexUltimoItem);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        salirDeTienda();
+    }, [])
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
