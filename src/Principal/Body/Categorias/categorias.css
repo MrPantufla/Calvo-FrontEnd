@@ -2,12 +2,10 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    margin-bottom: 40rem;
     width: 95%;
 }
 
 .rowCategorias{
-    height: 4rem;
     margin: 0 10%;
 }
 
@@ -19,7 +17,6 @@
 
 @media (max-width: 767px){
     .contenedorPrincipalCategorias{
-        height: 83rem;
         margin-bottom: 0;
     }
 }
@@ -30,7 +27,6 @@
     }
 
     .contenedorPrincipalCategorias{
-        height: 171rem;
         margin-bottom: 0;
     }
   }

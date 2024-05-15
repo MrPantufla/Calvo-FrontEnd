@@ -1,15 +1,12 @@
 import './cardCategoria.css';
-import imagen from '../../../Imagenes/categoria.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useTienda } from '../../../contextTienda';
 
 export default function CardCategoria(args) {
     const navigate = useNavigate();
     const {
-        setTiposActivos,
-        seleccionarCortinas,
-        setCortinasSelected,
-        setEliminadosSelected
+        togglearRubro,
+        seleccionarCortinas
     } = useTienda();
 
     const navegarACategoria = () => {
@@ -18,37 +15,8 @@ export default function CardCategoria(args) {
             window.scrollTo(0, 0);
         }, 100);
 
-        switch (args.cat) {
-            case "PERFILES":
-                setCortinasSelected(false);
-                setEliminadosSelected(false);
-                setTiposActivos(["PERFIL"]);
-                break;
-            case "ACCESORIOS":
-                setCortinasSelected(false);
-                setEliminadosSelected(false);
-                setTiposActivos(["ACCESORIO"]);
-                break;
-            case "COMPLEMENTOS":
-                setCortinasSelected(false);
-                setEliminadosSelected(false);
-                setTiposActivos([""]);
-                break;
-            case "MÁQUINAS Y HERRAMIENTAS":
-                setCortinasSelected(false);
-                setEliminadosSelected(false);
-                setTiposActivos(["MAQUINAS", "HERRAMIENTAS"]);
-                break;
-            case "CORTINAS":
-                seleccionarCortinas();
-                setEliminadosSelected(false);
-                break;
-            case "SOFTWARE":
-                setCortinasSelected(false);
-                setEliminadosSelected(false);
-                setTiposActivos([""]);
-                break;
-        }
+        args.cat == 'POLICARBONATOS Y POLIESTIRENOS' ? (togglearRubro(31)) : (togglearRubro(args.referencia));
+        args.cat == 'CORTINAS' && (seleccionarCortinas())
     };
 
 
