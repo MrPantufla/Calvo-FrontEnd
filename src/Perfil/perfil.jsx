@@ -6,10 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuth } from '../contextLogin.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
+import { useTienda } from '../contextTienda.jsx';
 
 export default function Perfil() {
     const navigate = useNavigate();
     const {state} = useAuth();
+    const { salirDeTienda } = useTienda();
+
+    useEffect(() => {
+        salirDeTienda();
+    }, [])
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
