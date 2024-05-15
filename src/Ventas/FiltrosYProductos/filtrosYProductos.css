@@ -147,6 +147,8 @@
 
 .textoSrubro {
     text-align: center;
+    width: 95%;
+    padding-left: 5%;
 }
 
 .textoRubro {
@@ -157,7 +159,7 @@
 
 .nombreRubro {
     width: 90%;
-    padding-left: 0.9rem;
+    padding-left: 5%;
 }
 
 .flechaRubro {
@@ -184,16 +186,24 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border: 1px solid white;
     color: var(--colorSecundario);
     transition: background-color 0.2s, border 0.2s;
     flex-direction: column;
 }
 
 .labelSrubro{
-    background-color: var(--colorTerciario);
+    background-color: white;
+    border: 1px solid var(--colorPrimario);
+}
+
+.nombreSrubro{
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+
+.flechaSrubroContainer{
+    width: 5.5%;
 }
 
 .labelPERFIL.checked .labelSrubro {
@@ -201,29 +211,37 @@
 }
 
 .labelSrubro.checked {
-    background-color: white;
-    color: var(--colorSecundario);
+    background-color: var(--colorTerciario);
+    color: black;
+    padding-bottom: 0.7rem;
 }
 
 .labelSrubro:hover {
     color: #1D1D1D;
 }
 
-.labelColor{
-    background-color: var(--colorPrimario);
+.labelSrubro.checked:hover .textoSrubro{
+    color: black;
 }
 
-.labelColor:hover{
-    color: #1D1D1D;
+.labelColor{
+    background-color: var(--colorPrimario);
+    transition: color 0.2s, background-color 0.2s;
+    border: 1px solid white;
 }
 
 .labelColor.checked{
     background-color: var(--colorSecundario);
+    color: var(--colorTerciario);
+}
+
+.labelColor:hover{
     color: white;
 }
 
+
 .labelColor, .textoColorFiltros{
-    width: 97.5%;
+    width: 95%;
 }
 
 .bodyFiltro::-webkit-scrollbar {
@@ -252,7 +270,7 @@
 
 .labelRubros.checked {
     background-color: var(--colorSecundario);
-    color: var(--colorCuaternario);
+    color: white;
     user-select: none;
 }
 
@@ -273,7 +291,7 @@
     transition: transform 0.3s;
 }
 
-.labelRubros.checked .textoRubro .bi-caret-down-fill {
+.labelRubros.checked .textoRubro .bi-caret-down-fill,  .labelSrubro.checked .flechaSrubroContainer svg{
     transform: rotate(180deg);
 }
 
@@ -282,7 +300,7 @@
 }
 
 .textoLabelRubros.checked:hover {
-    color: white;
+    color: var(--colorTerciario);
 }
 
 .ultimoLabel {

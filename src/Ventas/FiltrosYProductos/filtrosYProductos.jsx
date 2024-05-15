@@ -7,13 +7,13 @@ import { useTienda } from '../../contextTienda';
 import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
-import { useCarrito } from '../../contextCarrito';
 import Cortinas from './Cortinas/cortinas';
 import { useAuth } from '../../contextLogin';
 import Eliminados from './Eliminados/eliminados';
 import { rubros } from '../../rubros';
 
 export default function FiltrosYProductos() {
+
   const { state } = useAuth();
 
   const {
@@ -22,8 +22,6 @@ export default function FiltrosYProductos() {
     productosEliminados,
     dataCargada
   } = useProductos();
-
-  const { setCarritoAbierto } = useCarrito();
 
   const {
     seleccionarCortinas,
@@ -302,40 +300,43 @@ export default function FiltrosYProductos() {
                   (rubro.srubros.map((srubro, index) => (
                     <div className={`bodyFiltro bodyFiltroPerfil ${rubroActivo == rubro.id ? 'checked' : ''}`} key={`${rubro.id}.${index}`}>
                       <label className={`labelSrubro ${srubroActivo == srubro.id ? 'checked' : ''}`} key={`${rubro.id}.${srubro.id}`}>
-                        <input
-                          className="srubroCheck"
-                          type="checkbox"
-                          checked={srubroActivo == srubro}
-                          onClick={() => {
-                            togglearSrubro(srubro.id);
-                            handleScrollClick();
-                            setPaginaActual(1);
-                          }}
-                        />
-                        <p className="textoSrubro">
-                          {srubro.nombre}
-                        </p>
-                        <p>{(rubro != 39 && rubro != 81 && rubro != 85 && rubro != 12) ?
-                          (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                          </svg>)
-                          :
-                          ('')} </p>
+                        <div className="nombreSrubro">
+                          <input
+                            className="srubroCheck"
+                            type="checkbox"
+                            onClick={() => {
+                              setColoresActivos([]);
+                              togglearSrubro(srubro.id);
+                              handleScrollClick();
+                              setPaginaActual(1);
+                            }}
+                          />
+                          <p className="textoSrubro">
+                            {srubro.nombre}
+                          </p>
+                          <p className="flechaSrubroContainer">{(rubro != 39 && rubro != 81 && rubro != 85 && rubro != 12) ?
+                            (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>)
+                            :
+                            ('')} </p>
+                        </div>
                         {srubroActivo == srubro.id && (
-                          coloresUnicos.map((color) => (
-                            <label className={`labelColor ${coloresActivos.includes(color) && 'checked'}`} key={color}>
-                              <input
-                                className="srubroCheck"
-                                type="checkbox"
-                                onClick={() => {
-                                  toggleColor(color);
-                                  setPaginaActual(1);
-                                }}
-                              />
-                              <p className="textoColorFiltros">{color}</p>
-                            </label>
-                          ))
-                        )}
+                          coloresUnicos.length > 0 && (
+                            coloresUnicos.map((color) => (
+                              <label className={`labelColor ${coloresActivos.includes(color) && 'checked'}`} key={color}>
+                                <input
+                                  className="srubroCheck"
+                                  type="checkbox"
+                                  onClick={() => {
+                                    toggleColor(color);
+                                    setPaginaActual(1);
+                                  }}
+                                />
+                                <p className="textoColorFiltros">{color}</p>
+                              </label>
+                            ))
+                          ))}
                       </label>
                     </div>
                   )))
