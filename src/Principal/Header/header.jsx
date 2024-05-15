@@ -10,7 +10,6 @@ import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
 import { useTienda } from '../../contextTienda';
 
 export default function Header() {
-  const navigate = useNavigate();
   const location = useLocation();
   const desplegableCatalogos = useDesplegableCatalogos();
   const desplegablePerfil = useDesplegablePerfil();
@@ -19,17 +18,7 @@ export default function Header() {
 
   const {
     state,
-    setMostrarLogin
   } = useAuth();
-
-  function recargarPagina() {
-    if (window.location.href.includes("/")) {
-      window.location.reload();
-    }
-    else {
-      window.location.href = '/';
-    }
-  }
 
   const headerStyle = {
     height: `${8}rem`,
@@ -78,7 +67,7 @@ export default function Header() {
       </div>
       <div className="row filaHeader">
         <div className="col-12 col-sm-4 logoContainer columnas">
-          <img onClick={recargarPagina} className="logo" src={logo} alt="logo_calvo_aluminios" />
+          <img onClick={() =>window.location.href = '/'} className="logo" src={logo} alt="logo_calvo_aluminios" />
         </div>
         <div className="col-12 col-sm-8 secciones columnas" style={{ paddingRight: location.pathname === '/tienda' ? '11rem' : '0' }}>
           <NavLink to="/" className="seccion" onClick={handleInicioClick}>
