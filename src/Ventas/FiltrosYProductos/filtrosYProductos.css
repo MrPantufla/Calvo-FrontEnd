@@ -147,8 +147,8 @@
 
 .textoSrubro {
     text-align: center;
-    width: 95%;
-    padding-left: 5%;
+    width: 90%;
+    padding-left: 10%;
 }
 
 .textoRubro {
@@ -159,7 +159,7 @@
 
 .nombreRubro {
     width: 90%;
-    padding-left: 5%;
+    padding-left: 4%;
 }
 
 .flechaRubro {
@@ -203,7 +203,7 @@
 }
 
 .flechaSrubroContainer{
-    width: 5.5%;
+    width: 10%;
 }
 
 .labelPERFIL.checked .labelSrubro {
@@ -213,6 +213,10 @@
 .labelSrubro.checked {
     background-color: var(--colorTerciario);
     color: black;
+    
+}
+
+.labelSrubro.checked.conColores{
     padding-bottom: 0.7rem;
 }
 
@@ -236,9 +240,12 @@
 }
 
 .labelColor:hover{
-    color: white;
+    color: black;
 }
 
+.labelColor.checked:hover{
+    color: var(--colorTerciario);
+}
 
 .labelColor, .textoColorFiltros{
     width: 95%;
@@ -509,6 +516,15 @@
         height: 10.8rem;
         width: 12rem;
         font-size: 3rem;
+    }
+
+    .flechaRubro svg, .flechaSrubroContainer svg{
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .filtros{
+        max-height: calc(100vh - 24rem);
     }
 }
 
