@@ -101,15 +101,6 @@ export default function HeaderMobile() {
         setCatalogosOpen(!catalogosOpen);
     }
 
-    function recargarPagina() {
-        if (window.location.href.includes("/")) {
-            window.location.reload();
-        }
-        else {
-            window.location.href = '/';
-        }
-    }
-
     useEffect(() => {
         const handleDocumentClick = (event) => {
             if (menuAbierto && !event.target.closest('.menu') && !event.target.closest('.containerBotonMobile')) {
@@ -136,7 +127,7 @@ export default function HeaderMobile() {
                 </div>
                 <div className={`containerContainerLogoMobile ${isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
-                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={recargarPagina} />
+                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={() => window.location.href = '/'} />
                     </div>
                 </div>
             </div>
