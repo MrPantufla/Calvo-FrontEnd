@@ -390,6 +390,8 @@ export default function FiltrosYProductos() {
                             onClick={() => {
                               seleccionarProducto(producto);
                             }}
+                            pesos={producto.pesos}
+                            dolar={producto.dolar}
                           />
                         </div>
                       ))}
