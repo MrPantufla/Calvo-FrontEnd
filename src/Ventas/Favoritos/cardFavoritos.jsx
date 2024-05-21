@@ -11,6 +11,9 @@ export default function CardFavoritos(args) {
     const [isHovered, setIsHovered] = useState(false);
     const colorCorregido = (args.producto.color).replace(/\s+/g, '-');
 
+    let codigo;
+    args.producto.tipo_prod == 'PERFIL' ? (codigo = args.producto.cod_orig) : (codigo = args.producto.cod_int);
+
     const usarBlanco = (args.producto.color == 'Negro' ||
         args.producto.color == 'Azul' ||
         args.producto.color == 'Marron oscuro' ||
@@ -38,28 +41,16 @@ export default function CardFavoritos(args) {
                         className="imagenCardFavoritos"
                         onContextMenu={handleContextMenu}
                         src={args.producto.tipo_prod == 'PERFIL' ?
-                            (`/PngsPerfiles/${args.producto.cod_orig.slice(2).trim()}.png`)
+                            (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
                             :
-                            (args.producto.tipo_prod == 'ACCESORIO' ?
-                                (`/PngsAccesorios/${args.producto.cod_int.trim().toUpperCase()}.png`)
-                                :
-                                (args.producto.tipo_prod == 'PUNTUAL' ?
-                                    (`/PngsPuntuales/${args.producto.cod_int.trim().toUpperCase()}.png`)
-                                    :
-                                    (args.producto.tipo_prod == 'MAQUINAS' ?
-                                        (`/PngsMaquinas/${args.producto.cod_int.trim().toUpperCase()}.png`)
-                                        :
-                                        ('')
-                                    )
-                                )
-                            )
+                            (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
                         }
                         alt="Imagen del producto"
                         loading="lazy"
                     />
                 </div>
                 <div className="codigoYDetalleCardFavoritosContainer">
-                    <p className="codigoYDetalleCardFavoritos"><span>{args.producto.cod_orig}</span> - {args.producto.detalle}</p>
+                    <p className="codigoYDetalleCardFavoritos"><span>{codigo}</span> - {args.producto.detalle}</p>
                 </div>
             </div>
             <div className="restoCardFavoritos">
