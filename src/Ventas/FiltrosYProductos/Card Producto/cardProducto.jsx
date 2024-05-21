@@ -5,11 +5,8 @@ import { useCarrito } from '../../../contextCarrito.jsx';
 import { useAuth } from '../../../contextLogin.jsx';
 import { useFavoritos } from '../../../contextFavoritos.jsx';
 import { useProductos } from '../../../contextProductos.jsx';
-import { useVariables } from '../../../contextVariables.jsx';
 
 export default function CardProducto(args) {
-  const { backend } = useVariables();
-
   const {
     eliminarProducto
   } = useProductos();
@@ -32,6 +29,12 @@ export default function CardProducto(args) {
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
   const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
   const colorCorregido = (args.color).replace(/\s+/g, '-');
+  
+  let codigo;
+  args.tipo_prod == 'PERFIL' ? (codigo = args.cod_orig) : (codigo = args.cod_int);
+
+  let precio;
+  args.pesos == 'SI' ? (precio = args.precio) : (precio = args.precio * args.dolar);
 
   const usarBlanco = (args.color == 'Negro' ||
     args.color == 'Azul' ||
@@ -123,16 +126,16 @@ export default function CardProducto(args) {
             onContextMenu={handleContextMenu}
             className="imagenProducto"
             src={args.tipo_prod == 'PERFIL' ?
-              (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
+              (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
               :
               (args.tipo_prod == 'ACCESORIO' ?
-                (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`)
+                (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
                 :
                 (args.tipo_prod == 'PUNTUAL' ?
-                  (`/PngsPuntuales/${args.cod_int.trim().toUpperCase()}.png`)
+                  (`/PngsPuntuales/${codigo.trim().toUpperCase()}.png`)
                   :
                   (args.tipo_prod == 'MAQUINAS' ?
-                    (`/PngsMaquinas/${args.cod_int.trim().toUpperCase()}.png`)
+                    (`/PngsMaquinas/${codigo.trim().toUpperCase()}.png`)
                     :
                     ('')
                   )
@@ -144,7 +147,7 @@ export default function CardProducto(args) {
           />
         </div>
         <div className="detalleYCod_orig">
-          <h3><span className="codOrig">{args.cod_orig}</span> - {args.detalle}</h3>
+          <h3><span className="codOrig">{codigo}</span> - {args.detalle}</h3>
         </div>
         <div className="kgCantidadYColorContainer">
           <div className="kgProducto">
@@ -160,9 +163,9 @@ export default function CardProducto(args) {
               className="botonConsultarProducto"
               target="blank"
               href={isMobile ?
-                (`https://wa.me/5493456475294?text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                (`https://wa.me/5493456475294?text=Consulta%20sobre%20${codigo}%20-%20${args.detalle}:%20`)
                 :
-                (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${codigo}%20-%20${args.detalle}:%20`)
               }
             >
               CONSULTAR
@@ -191,7 +194,7 @@ export default function CardProducto(args) {
       </div >
       {args.tipo_prod != "MAQUINAS" &&
         < div className="precioContainerCardProducto">
-          <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
+          <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (precio * args.kg) : (precio))}</p>
         </div>
       }
     </div >

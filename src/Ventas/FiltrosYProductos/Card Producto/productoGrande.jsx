@@ -20,6 +20,9 @@ export default function ProductoGrande(args) {
     const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
     const colorCorregido = (args.color).replace(/\s+/g, '-');
 
+    let codigo;
+    args.tipo_prod == 'PERFIL' ? (codigo = args.cod_orig) : (codigo = args.cod_int);
+
     const usarBlanco = (args.color == 'Negro' ||
         args.color == 'Azul' ||
         args.color == 'Marron oscuro' ||
@@ -82,7 +85,7 @@ export default function ProductoGrande(args) {
                     }
 
                     <div className="informacion">
-                        <h1>{args.cod_orig}</h1>
+                        <h1>{codigo}</h1>
                         <h2>{args.detalle}</h2>
                     </div>
 
@@ -91,20 +94,12 @@ export default function ProductoGrande(args) {
                             className="imagenProductoGrande"
                             onContextMenu={handleContextMenu}
                             src={args.tipo_prod == 'PERFIL' ?
-                                (`/PngsPerfiles/${args.cod_orig.slice(2).trim()}.png`)
+                                (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
                                 :
                                 (args.tipo_prod == 'ACCESORIO' ?
-                                    (`/PngsAccesorios/${args.cod_int.trim().toUpperCase()}.png`)
+                                    (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
                                     :
-                                    (args.tipo_prod == 'PUNTUAL' ?
-                                        (`/PngsPuntuales/${args.cod_int.trim().toUpperCase()}.png`)
-                                        :
-                                        (args.tipo_prod == 'MAQUINAS' ?
-                                            (`/PngsMaquinas/${args.cod_int.trim().toUpperCase()}.png`)
-                                            :
-                                            ('')
-                                        )
-                                    )
+                                    (`/PngsPuntuales/${codigo.trim().toUpperCase()}.png`)
                                 )
                             }
                             alt="Imagen del producto"
@@ -134,9 +129,9 @@ export default function ProductoGrande(args) {
                                 className="botonConsultarMaquina consultarMaquinaGrande"
                                 target="blank"
                                 href={isMobile ?
-                                    (`https://wa.me/5493456475294?text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                                    (`https://wa.me/5493456475294?text=Consulta%20sobre%20${codigo}%20-%20${args.detalle}:%20`)
                                     :
-                                    (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${args.cod_orig}%20-%20${args.detalle}:%20`)
+                                    (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${codigo}%20-%20${args.detalle}:%20`)
                                 }
                             >
                                 CONSULTAR

@@ -17,6 +17,8 @@ export default function CardCarrito(args) {
     const producto = productosIndexado[args.id];
     const colorCorregido = (producto.color).replace(/\s+/g, '-');
 
+    let codigo;
+    producto.tipo_prod == 'PERFIL' ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
     const usarBlanco = (producto.color == 'Negro' ||
         producto.color == 'Azul' ||
@@ -58,21 +60,9 @@ export default function CardCarrito(args) {
                         className="imagenCardCarrito"
                         onContextMenu={handleContextMenu}
                         src={producto.tipo_prod == 'PERFIL' ?
-                            (`/PngsPerfiles/${producto.cod_orig.slice(2).trim()}.png`)
+                            (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
                             :
-                            (producto.tipo_prod == 'ACCESORIO' ?
-                                (`/PngsAccesorios/${producto.cod_int.trim().toUpperCase()}.png`)
-                                :
-                                (producto.tipo_prod == 'PUNTUAL' ?
-                                    (`/PngsPuntuales/${producto.cod_int.trim().toUpperCase()}.png`)
-                                    :
-                                    (producto.tipo_prod == 'MAQUINAS' ?
-                                        (`/PngsMaquinas/${producto.cod_int.trim().toUpperCase()}.png`)
-                                        :
-                                        ('')
-                                    )
-                                )
-                            )
+                            (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
                         }
                         alt="Imagen del producto"
                         loading="lazy"
