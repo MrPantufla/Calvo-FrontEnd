@@ -147,10 +147,6 @@
 }
 
 @media (max-width: 912px){
-    .contenedorPrincipalBodyPerfil{
-        min-height: calc(100vh - 7rem)
-    }
-
     .form-group-editarPerfil input{
         height: 3.5rem;
         font-size: 2rem;
@@ -194,26 +190,36 @@
 }
 
 @media (max-width: 540px){
+    .contenedorPrincipalBodyPerfil{
+        min-height: calc(100vh - 9rem)
+    }
+
     .nombreYEmailPerfilContainer{
         height: 10rem;
     }
 
     .nombreYEmailPerfilContainer h1{
-        font-size: 3.5rem;
+        font-size: 4rem;
     }
 
     .nombreYEmailPerfilContainer h2{
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
-}
 
-@media (max-width: 430px) and (min-width: 281px){
     .nombreYEmailPerfilContainer{
         width: 65rem;
     }
 
     .contenedorPrincipalConfiguracion{
         width: 65rem;
+    }
+
+    .textoHeadEditar{
+        height: 4.5rem;
+    }
+
+    .textoHeadEditar h1{
+        font-size: 2.5rem;
     }
 }
 
