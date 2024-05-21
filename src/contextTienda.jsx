@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useCarrito } from './contextCarrito';
 import { useFavoritos } from './contextFavoritos';
+import { useProductos } from './contextProductos';
 
 const TiendaContext = createContext();
 
@@ -19,6 +20,10 @@ function TiendaProvider({ children }) {
   const [mostrarPagos, setMostrarPagos] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
+
+  const {
+    setOrdenamientoActivo
+  } = useProductos();
 
   const {
     setCarritoAbierto,
@@ -48,6 +53,7 @@ function TiendaProvider({ children }) {
     setColoresActivos([]);
     setCarritoAbierto(false);
     setFavoritosAbierto(false);
+    setOrdenamientoActivo('');
   }
 
   const seleccionarEliminados = () => {

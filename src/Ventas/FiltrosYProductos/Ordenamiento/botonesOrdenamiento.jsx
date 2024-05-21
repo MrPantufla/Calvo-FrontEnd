@@ -4,54 +4,11 @@ import { useTienda } from '../../../contextTienda';
 
 export function BotonesOrdenamiento() {
     const {
-        precioAscActivo,
-        precioDescActivo,
-        setPrecioAscActivo,
-        setPrecioDescActivo,
-        kgAscActivo,
-        kgDescActivo,
-        setKgAscActivo,
-        setKgDescActivo,
-        cod_origAscActivo,
-        setCod_origAscActivo,
-        cod_origDescActivo,
-        setCod_origDescActivo,
         ordenamientoActivo,
         setOrdenamientoActivo,
-        cerrarOrdenamientos
     } = useProductos();
 
     const {isTablet} = useTienda();
-
-    const seleccionarPrecioAsc = () => {
-        cerrarOrdenamientos();
-        setPrecioAscActivo(true);
-    }
-
-    const seleccionarPrecioDesc = () => {
-        cerrarOrdenamientos();
-        setPrecioDescActivo(true);
-    }
-
-    const seleccionarKgAsc = () => {
-        cerrarOrdenamientos();
-        setKgAscActivo(true);
-    }
-
-    const seleccionarKgDesc = () => {
-        cerrarOrdenamientos();
-        setKgDescActivo(true);
-    }
-
-    const seleccionarCod_origAsc = () => {
-        cerrarOrdenamientos();
-        setCod_origAscActivo(true);
-    }
-
-    const seleccionarCod_origDesc = () => {
-        cerrarOrdenamientos();
-        setCod_origDescActivo(true);
-    }
 
     const toggleOrdenar = (prop) => {
         if (prop == ordenamientoActivo) {
@@ -70,44 +27,44 @@ export function BotonesOrdenamiento() {
             <div className="bodyOrdenarPor">
                 <div className="botonesArriba">
                     <div
-                        className={`ordenamiento ${precioAscActivo && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { precioAscActivo ? setPrecioAscActivo(false) : (seleccionarPrecioAsc()); toggleOrdenar("precioAsc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'precioAsc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar('precioAsc') }}
                     >
                         <p>Menor precio</p>
                     </div>
 
                     <div
-                        className={`ordenamiento ${precioDescActivo && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { precioDescActivo ? setPrecioDescActivo(false) : (seleccionarPrecioDesc()); toggleOrdenar("precioDesc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'precioDesc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar("precioDesc") }}
                     >
                         <p>Mayor precio</p>
                     </div>
 
                     <div
-                        className={`ordenamiento ${kgAscActivo && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { kgAscActivo ? setKgAscActivo(false) : (seleccionarKgAsc()); toggleOrdenar("kgAsc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'kgAsc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar("kgAsc") }}
                     >
                         <p>Menor peso</p>
                     </div>
                 </div>
                 <div className="botonesAbajo">
                     <div
-                        className={`ordenamiento ${kgDescActivo && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { kgDescActivo ? setKgDescActivo(false) : (seleccionarKgDesc()); toggleOrdenar("kgDesc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'kgDesc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => {toggleOrdenar("kgDesc") }}
                     >
                         <p>Mayor peso</p>
                     </div>
 
                     <div
-                        className={`ordenamiento ${cod_origAscActivo && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { cod_origAscActivo ? setCod_origAscActivo(false) : (seleccionarCod_origAsc()); toggleOrdenar("cod_origAsc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'cod_origAsc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar("cod_origAsc") }}
                     >
                         <p>Código A-Z</p>
                     </div>
 
                     <div
-                        className={`ordenamiento ${cod_origDescActivo && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { cod_origDescActivo ? setCod_origDescActivo(false) : (seleccionarCod_origDesc()); toggleOrdenar("cod_origDesc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'cod_origDesc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar("cod_origDesc") }}
                     >
                         <p>Código Z-A</p>
                     </div>

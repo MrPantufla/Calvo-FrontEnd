@@ -10,12 +10,6 @@ function useProductos() {
 function ProductosProvider({ children }) {
     const { backend } = useVariables();
 
-    const [precioAscActivo, setPrecioAscActivo] = useState(false);
-    const [precioDescActivo, setPrecioDescActivo] = useState(false);
-    const [kgAscActivo, setKgAscActivo] = useState(false);
-    const [kgDescActivo, setKgDescActivo] = useState(false);
-    const [cod_origAscActivo, setCod_origAscActivo] = useState(false);
-    const [cod_origDescActivo, setCod_origDescActivo] = useState(false);
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
@@ -196,29 +190,8 @@ function ProductosProvider({ children }) {
         }
     }
 
-    const cerrarOrdenamientos = () => {
-        setPrecioAscActivo(false);
-        setPrecioDescActivo(false);
-        setKgAscActivo(false);
-        setKgDescActivo(false);
-        setCod_origAscActivo(false);
-        setCod_origDescActivo(false);
-    }
-
     return (
         <ProductosContext.Provider value={{
-            precioAscActivo,
-            precioDescActivo,
-            kgAscActivo,
-            kgDescActivo,
-            setPrecioAscActivo,
-            setPrecioDescActivo,
-            cod_origAscActivo,
-            cod_origDescActivo,
-            setCod_origAscActivo,
-            setCod_origDescActivo,
-            setKgAscActivo,
-            setKgDescActivo,
             ordenarProductos,
             setProductosIndexado,
             productosIndexado,
@@ -226,7 +199,6 @@ function ProductosProvider({ children }) {
             setOrdenamientoActivo,
             obtenerProductosFiltrados,
             coloresArray,
-            cerrarOrdenamientos,
             productosEliminados,
             eliminarProducto,
             dataCargada
