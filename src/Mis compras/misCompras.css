@@ -23,7 +23,7 @@
 .misComprasContainer{
     display: flex;
     flex-direction: row;
-    padding-top: 12rem;
+    padding-top: 8rem;
     justify-content: center;
     width: 100vw;
 }
@@ -59,4 +59,39 @@
 
 .misComprasContainer.fold > .columnaImpar, .misComprasContainer.fold > .columnaPar{
     width: 90%;
+}
+
+.historialVacioContainer{
+    height: calc(100% - 8rem);
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 3;
+    top: auto;
+    padding-bottom: 8rem;
+}
+
+.historialVacioContainer h1{
+    position: relative;
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--colorSecundario);
+    text-align: center;
+}
+
+.historialVacioContainer img{
+    height: 30rem;
+}
+
+@media (max-width: 540px){
+    .contenedorPrincipalMisCompras.vacio{
+        min-height: calc(100vh - 9rem);
+    }
+
+    .contenedorPrincipalMisCompras.vacio .misComprasContainer .historialVacioContainer{
+        padding: 0 4rem;
+    }
 }

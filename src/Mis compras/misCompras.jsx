@@ -8,6 +8,7 @@ import Footer from '../Principal/Footer/footer.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
+import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.png';
 
 export default function MisCompras() {
     const { backend } = useVariables();
@@ -107,7 +108,10 @@ export default function MisCompras() {
                             </div>
                         </>)
                         :
-                        ('')}
+                        (<div className="historialVacioContainer">
+                            <h1>TU HISTORIAL SE ENCUENTRA VACÍO</h1>
+                            <img src={carritoHistorialVacio}/>
+                        </div>)}
                 </div>
             </div>
             {historial.length > 0 ?
