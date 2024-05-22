@@ -1,12 +1,13 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
+import Cookies from 'js-cookie'
 import { useProductos } from './contextProductos';
 import { useVariables } from './contextVariables';
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
-  const {backend} = useVariables();
+  const { backend } = useVariables();
 
-  const {obtenerProductosFiltrados} = useProductos();
+  const { obtenerProductosFiltrados } = useProductos();
 
   const [opcionSeleccionada, setOpcionSeleccionada] = useState('login');
   const [mostrarLogin, setMostrarLogin] = useState(false);
@@ -36,13 +37,19 @@ export const LoginProvider = ({ children }) => {
   };
 
   const borrarCookie = async () => {
-    fetch(`${backend}/api/logout`, {
+    /*fetch(`${backend}/api/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include'
-    });
+    });*/
+    const cookieNames = Object.keys(Cookies.get());
+  
+  // Recorre el array de nombres de cookies y las elimina una por una
+  cookieNames.forEach(cookieName => {
+    Cookies.remove(cookieName);
+  });
   }
 
   const logout = async () => {
@@ -76,7 +83,7 @@ export const LoginProvider = ({ children }) => {
         },
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         return true;
       } else {
@@ -147,13 +154,21 @@ export const LoginProvider = ({ children }) => {
       });
 
       if (response.ok) {
-        const userData = await response.json();
+        const dataYToken = await response.json();
+        const userData = dataYToken.usuario;
+        const stringToken = dataYToken.token;
+
         if (userData.cliente) {
           userData.descuentos = await obtenerDescuentos(userData.cuit);
         }
         else {
           userData.descuentos = null;
         }
+
+        if (stringToken) {
+          Cookies.set(stringToken.name, stringToken.value, { expires: (30) })
+        }
+
         obtenerProductosFiltrados(userData.categoria, userData.descuentos);
         login(userData);
         renovarToken({ email: userData.email })
@@ -185,9 +200,10 @@ export const LoginProvider = ({ children }) => {
       body: JSON.stringify(args.email),
     });
 
-    if (response.ok) {
-      const data = response.text();
+    const token = await response.json()
 
+    if (response.ok) {
+      Cookies.set(token.name, token.value, { expires: (1 / 48) })
     } else {
       const data = response.text();
       setErrorMessage("Email y/o contraseña inválidos");
@@ -224,7 +240,7 @@ export const LoginProvider = ({ children }) => {
       setMostrarCartelLogout,
       mostrarCartelLogin,
       setMostrarCartelLogin,
-      mostrarCartelCliente, 
+      mostrarCartelCliente,
       setMostrarCartelCliente,
     }}>
       {children}
