@@ -185,7 +185,6 @@ function CarritoProvider({ children }) {
           setErrorProductoEliminado(true);
         }
         setCompraRealizadaAbierto(true);
-        console.log(response)
       })
   }
 
