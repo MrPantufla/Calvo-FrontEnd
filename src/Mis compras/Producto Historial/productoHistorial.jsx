@@ -19,6 +19,12 @@ export default function ProductoHistorial(args) {
             setColor(producto.color.toUpperCase())
             setKg(producto.kg);
         }
+        else{
+            setCod_orig("");
+            setDetalle("PRODUCTO ELIMINADO");
+            setColor("-");
+            setKg("-");
+        }
     }, [producto]);
 
     const handleContextMenu = (e) => {
