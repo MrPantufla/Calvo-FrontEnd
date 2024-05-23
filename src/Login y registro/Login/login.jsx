@@ -15,9 +15,7 @@ export default function Login() {
   } = useAuth();
 
   useEffect(() => {
-    if (Cookies.get('jwtToken') != null) {
-      handleLogin('', '')
-    }
+    handleLogin('', '')
   }, []);
 
   useEffect(() => {
