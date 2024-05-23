@@ -8,7 +8,8 @@ import { useProductos } from '../../../contextProductos.jsx';
 
 export default function CardProducto(args) {
   const {
-    eliminarProducto
+    eliminarProducto,
+    productosIndexado
   } = useProductos();
 
   const {
@@ -32,9 +33,6 @@ export default function CardProducto(args) {
   
   let codigo;
   args.tipo_prod == 'PERFIL' ? (codigo = args.cod_orig) : (codigo = args.cod_int);
-
-  let precio;
-  args.pesos == 'SI' ? (precio = args.precio) : (precio = args.precio * args.dolar);
 
   const usarBlanco = (args.color == 'Negro' ||
     args.color == 'Azul' ||
@@ -194,7 +192,7 @@ export default function CardProducto(args) {
       </div >
       {args.tipo_prod != "MAQUINAS" &&
         < div className="precioContainerCardProducto">
-          <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (precio * args.kg) : (precio))}</p>
+          <p className="precioCardProducto">{args.tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(args.kg > 0 ? (args.precio * args.kg) : (args.precio))}</p>
         </div>
       }
     </div >
