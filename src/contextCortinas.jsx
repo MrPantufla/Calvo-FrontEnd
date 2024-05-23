@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
+import Cookies from 'js-cookie';
 
 const CortinasContext = createContext();
 
@@ -59,12 +60,18 @@ function ProviderCortinas({ children }) {
             "Email: " + state.userInfo.email
         ;
 
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
         fetch(`${backend}/api/recibirCortina`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization' : tokenParaEnviar,
             },
-            credentials: 'include',
             body: JSON.stringify({textoUsuario, textoCortina}),
         })
             .then(response => {

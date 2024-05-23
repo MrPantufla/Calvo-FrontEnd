@@ -3,6 +3,7 @@ import './confirmacionCodigo.css';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contextLogin';
 import { useVariables } from '../../contextVariables';
+import Cookies from 'js-cookie';
 
 export default function ConfirmacionCodigo() {
   const { state: userData, updateEmailConfirmationStatus } = useAuth();
@@ -10,7 +11,6 @@ export default function ConfirmacionCodigo() {
   const { backend } = useVariables();
 
   const {
-    tokenCookie,
     setMostrarErrorCodigoConfirmacion,
     setMostrarLogin,
     setMostrarCartelCliente,
@@ -25,20 +25,25 @@ export default function ConfirmacionCodigo() {
   const [isResendButtonEnabled, setResendButtonEnabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
   const [advertencia, setAdvertencia] = useState('');
-  
+
   useEffect(() => {
     return () => clearInterval(timer);
   }, [timer]);
 
   const enviarCodigo = async () => {
     try {
+      let tokenParaEnviar = Cookies.get('jwtToken');
+
+      if (tokenParaEnviar == undefined) {
+        tokenParaEnviar = null;
+      }
+
       const response = await fetch(`${backend}/api/confirmacionCodigo`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenCookie,
+          'Authorization': tokenParaEnviar,
         },
-        credentials: 'include',
         body: JSON.stringify({
           codigoConfirmacion,
           email: userData.userInfo.email,
@@ -48,7 +53,7 @@ export default function ConfirmacionCodigo() {
       if (response.ok) {
         const data = await response.text();
         setMostrarLogin(false);
-        {state.userInfo && (state.userInfo.cliente == false && setMostrarCartelCliente(true))};
+        { state.userInfo && (state.userInfo.cliente == false && setMostrarCartelCliente(true)) };
         setMensajeRespuesta(data.message);
         updateEmailConfirmationStatus();
       } else {
@@ -64,12 +69,17 @@ export default function ConfirmacionCodigo() {
 
   const reenviarCodigo = () => {
 
+    let tokenParaEnviar = Cookies.get('jwtToken');
+
+    if (tokenParaEnviar == undefined) {
+      tokenParaEnviar = null;
+    }
+
     fetch(`${backend}/api/reenviarCodigo`, {
       method: 'POST',
       headers: {
-        'Authorization': tokenCookie
+        'Authorization': tokenParaEnviar
       },
-      credentials: 'include',
       body: userData.userInfo.email
     })
       .then(response => {

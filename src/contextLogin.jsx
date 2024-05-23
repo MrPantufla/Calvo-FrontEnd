@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useReducer } from 'react';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import { useProductos } from './contextProductos';
 import { useVariables } from './contextVariables';
 const AuthContext = createContext();
@@ -68,12 +68,18 @@ export const LoginProvider = ({ children }) => {
 
   const verifyToken = async () => {
     try {
+      let tokenParaEnviar = Cookies.get('jwtToken');
+
+      if (tokenParaEnviar == undefined) {
+        tokenParaEnviar = null;
+      }
+
       const response = await fetch(`${backend}/api/verificarToken`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': tokenParaEnviar,
         },
-        credentials: 'include'
       });
 
       if (response.ok) {
@@ -98,12 +104,18 @@ export const LoginProvider = ({ children }) => {
 
   const obtenerDescuentos = async (cuit) => {
     try {
+      let tokenParaEnviar = Cookies.get('jwtToken');
+
+      if (tokenParaEnviar == undefined) {
+        tokenParaEnviar = null;
+      }
+
       const response = await fetch(`${backend}/api/obtenerDescuentos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': tokenParaEnviar,
         },
-        credentials: 'include',
         body: JSON.stringify(parseInt(cuit)),
       });
 
@@ -136,10 +148,17 @@ export const LoginProvider = ({ children }) => {
 
   const handleLogin = async (args) => {
     try {
+      let tokenParaEnviar = Cookies.get('tokenRenovacion');
+
+      if (tokenParaEnviar == undefined) {
+        tokenParaEnviar = null;
+      }
+
       const response = await fetch(`${backend}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': tokenParaEnviar,
         },
         credentials: 'include',
         body: JSON.stringify({ email: args.email, contrasenia: args.password }),
@@ -158,7 +177,12 @@ export const LoginProvider = ({ children }) => {
         }
 
         if (stringToken) {
-          Cookies.set(stringToken.name, stringToken.value, { expires: (30) })
+          Cookies.set(stringToken.name, stringToken.value,
+            {
+              expires: (30),
+              sameSite: 'Strict',
+              secure: true
+            })
         }
 
         obtenerProductosFiltrados(userData.categoria, userData.descuentos);
@@ -183,12 +207,18 @@ export const LoginProvider = ({ children }) => {
   };
 
   const renovarToken = async (args) => {
+    let tokenParaEnviar = Cookies.get('tokenRenovacion');
+
+    if (tokenParaEnviar == undefined) {
+      tokenParaEnviar = null;
+    }
+
     const response = await fetch(`${backend}/api/renovarTokenAuth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': tokenParaEnviar,
       },
-      credentials: 'include',
       body: JSON.stringify(args.email),
     });
 
@@ -197,8 +227,7 @@ export const LoginProvider = ({ children }) => {
     if (response.ok) {
       Cookies.set(token.name, token.value, {
         expires: (1 / 48),
-        sameSite: 'none',
-        domain: 'backend-calvo-415917.rj.r.appspot.com',
+        sameSite: 'Strict',
         secure: true
       });
     } else {

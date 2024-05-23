@@ -2,6 +2,7 @@ import "./editarContraseña.css"
 import { useState } from "react";
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useVariables } from "../../../../contextVariables";
+import Cookies from 'js-cookie';
 
 export default function EditarContraseña() {
     const { backend } = useVariables();
@@ -13,7 +14,7 @@ export default function EditarContraseña() {
         abrirContraseña,
         errorMessage
     } = useConfiguracion();
-    
+
     const [contraseñaActual, setContraseñaActual] = useState('');
     const [nuevaContraseña, setNuevaContraseña] = useState('');
     const [repetirContraseña, setRepetirContraseña] = useState('');
@@ -29,7 +30,7 @@ export default function EditarContraseña() {
             setErrorMessage("Por favor, completa todos los campos.");
             return;
         }
-        else if(repetirContraseña!==nuevaContraseña){
+        else if (repetirContraseña !== nuevaContraseña) {
             setErrorMessage("Las contraseñas no coinciden");
             return;
         }
@@ -40,13 +41,19 @@ export default function EditarContraseña() {
 
     const confirmarEditarContraseña = () => {
 
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
         fetch(`${backend}/api/editarContraseña`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
             },
             body: JSON.stringify(contraseñaNueva),
-            credentials: 'include',
         })
             .then(response => {
                 if (response.ok) {
@@ -82,7 +89,7 @@ export default function EditarContraseña() {
     const toggleCollapse = () => {
         contraseñaAbierto ? (cerrarContraseña()) : (abrirContraseña())
     }
-    
+
     return (
         <div className="contenedorPrincipalEditar">
             <div className="headEditar" onClick={toggleCollapse}>
@@ -111,7 +118,7 @@ export default function EditarContraseña() {
                             id="contraseñaActual"
                             value={contraseñaActual}
                             onChange={(e) => setContraseñaActual(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarContraseña">
@@ -121,7 +128,7 @@ export default function EditarContraseña() {
                             id="nuevaContraseña"
                             value={nuevaContraseña}
                             onChange={(e) => setNuevaContraseña(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarContraseña">
@@ -131,7 +138,7 @@ export default function EditarContraseña() {
                             id="repetirContraseña"
                             value={repetirContraseña}
                             onChange={(e) => setRepetirContraseña(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="botonFormulariosPerfilContainer">

@@ -3,6 +3,7 @@ import { useProductos } from './contextProductos';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
 import { useDireccion } from './contextDireccion';
+import Cookies from 'js-cookie';
 
 const CarritoContext = createContext();
 
@@ -124,12 +125,18 @@ function CarritoProvider({ children }) {
       cantidades: cantidades
     }
 
+    let tokenParaEnviar = Cookies.get('jwtToken');
+
+    if (tokenParaEnviar == undefined) {
+      tokenParaEnviar = null;
+    }
+
     fetch(`${backend}/api/actualizarCarrito`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': tokenParaEnviar,
       },
-      credentials: 'include',
       body: JSON.stringify(ActualizacionCarrito),
     })
       .then(response => {
@@ -159,13 +166,19 @@ function CarritoProvider({ children }) {
     const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
     const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion }
 
+    let tokenParaEnviar = Cookies.get('jwtToken');
+
+    if (tokenParaEnviar == undefined) {
+      tokenParaEnviar = null;
+    }
+
     fetch(`${backend}/api/recibirCarrito`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': tokenParaEnviar,
       },
       body: JSON.stringify(carritoRequest),
-      credentials: 'include',
     })
       .then(response => {
         if (response.status == 500) {
@@ -174,53 +187,53 @@ function CarritoProvider({ children }) {
         setCompraRealizadaAbierto(true);
         console.log(response)
       })
-}
-
-useEffect(() => {
-  if (state.logueado && state.userInfo.cantidades_carrito) {
-    const productosArray = state.userInfo.productos_carrito.split(' ').map(Number);
-    const cantidadesArray = state.userInfo.cantidades_carrito.split(' ').map(Number);
-
-    for (let i = 0; i < productosArray.length; i++) {
-      añadirElemento(productosArray[i], cantidadesArray[i])
-    }
   }
-}, [productosIndexado]);
 
-return (
-  <CarritoContext.Provider value={{
-    datosCorroborados,
-    setDatosCorroborados,
-    precioTotal,
-    setPrecioTotal,
-    compraRealizadaAbierto,
-    setCompraRealizadaAbierto,
-    mostrarCartel,
-    ocultarCartel,
-    mostrarCartelError,
-    actualizarCarrito,
-    confirmarCompraAbierto,
-    setConfirmarCompraAbierto,
-    carritoConfirmado,
-    setCarritoConfirmado,
-    confirmarCompra,
-    toggleCarrito,
-    setCarritoAbierto,
-    carritoAbierto,
-    elementos,
-    limpiarCarrito,
-    añadirElemento,
-    restarElemento,
-    actualizarCantidadElemento,
-    instanciaPedido,
-    setInstanciaPedido,
-    eliminarElemento,
-    errorProductoEliminado,
-    setErrorProductoEliminado
-  }}>
-    {children}
-  </CarritoContext.Provider>
-);
+  useEffect(() => {
+    if (state.logueado && state.userInfo.cantidades_carrito) {
+      const productosArray = state.userInfo.productos_carrito.split(' ').map(Number);
+      const cantidadesArray = state.userInfo.cantidades_carrito.split(' ').map(Number);
+
+      for (let i = 0; i < productosArray.length; i++) {
+        añadirElemento(productosArray[i], cantidadesArray[i])
+      }
+    }
+  }, [productosIndexado]);
+
+  return (
+    <CarritoContext.Provider value={{
+      datosCorroborados,
+      setDatosCorroborados,
+      precioTotal,
+      setPrecioTotal,
+      compraRealizadaAbierto,
+      setCompraRealizadaAbierto,
+      mostrarCartel,
+      ocultarCartel,
+      mostrarCartelError,
+      actualizarCarrito,
+      confirmarCompraAbierto,
+      setConfirmarCompraAbierto,
+      carritoConfirmado,
+      setCarritoConfirmado,
+      confirmarCompra,
+      toggleCarrito,
+      setCarritoAbierto,
+      carritoAbierto,
+      elementos,
+      limpiarCarrito,
+      añadirElemento,
+      restarElemento,
+      actualizarCantidadElemento,
+      instanciaPedido,
+      setInstanciaPedido,
+      eliminarElemento,
+      errorProductoEliminado,
+      setErrorProductoEliminado
+    }}>
+      {children}
+    </CarritoContext.Provider>
+  );
 }
 
 export { CarritoContext, useCarrito, CarritoProvider };

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useVariables } from './contextVariables';
+import Cookies from 'js-cookie';
 
 const ProductosContext = createContext();
 
@@ -83,22 +84,27 @@ function ProductosProvider({ children }) {
 
     const eliminarProducto = async (idProducto) => {
         try {
+            let tokenParaEnviar = Cookies.get('jwtToken');
+
+            if (tokenParaEnviar == undefined) {
+                tokenParaEnviar = null;
+            }
             const response = await fetch(`${backend}/api/eliminarProducto`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization' : tokenParaEnviar,
                 },
                 body: JSON.stringify(idProducto),
-                credentials: 'include',
             });
 
             const responseBody = await response.text();
 
-            if(response.status == 200){
+            if (response.status == 200) {
                 if (responseBody.includes("eliminado")) {
                     setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, idProducto]);
                 } else if (responseBody.includes("restaurado")) {
-                    setProductosEliminados(productosEliminados.filter(id => id !== idProducto)); 
+                    setProductosEliminados(productosEliminados.filter(id => id !== idProducto));
                 }
             }
             else {

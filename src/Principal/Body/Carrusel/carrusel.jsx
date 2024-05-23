@@ -21,10 +21,18 @@ export default function Carrusel() {
       formData.append('file', archivo);
       formData.append('carpeta', "imagenesCarrusel");
 
+      let tokenParaEnviar = Cookies.get('jwtToken');
+
+      if (tokenParaEnviar == undefined) {
+          tokenParaEnviar = null;
+      }
+
       const response = await fetch(`${backend}/api/subirImagen`, {
         method: 'POST',
+        headers: {
+          'Authorization': tokenParaEnviar,
+        },
         body: formData,
-        credentials: 'include'
       });
 
       if (response.ok) {
@@ -53,9 +61,18 @@ export default function Carrusel() {
       formData.append('imageName', nombreImagen);
       formData.append('carpeta', "imagenesCarrusel");
 
+      let tokenParaEnviar = Cookies.get('jwtToken');
+
+      if (tokenParaEnviar == undefined) {
+          tokenParaEnviar = null;
+      }
+
       const response = await fetch(`${backend}/api/eliminarImagen`, {
         method: 'POST',
         body: formData,
+        headers: {
+          'Authorization': tokenParaEnviar,
+        },
         credentials: 'include'
       });
 

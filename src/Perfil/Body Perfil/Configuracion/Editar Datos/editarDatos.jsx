@@ -3,11 +3,12 @@ import { useAuth } from '../../../../contextLogin';
 import { useState, useEffect } from 'react';
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useVariables } from '../../../../contextVariables';
+import Cookies from 'js-cookie';
 
 export default function EditarDatos() {
     const { backend } = useVariables();
 
-    const {state} = useAuth();
+    const { state } = useAuth();
 
     const {
         setErrorMessage,
@@ -33,13 +34,19 @@ export default function EditarDatos() {
 
     const confirmarEditarDatos = () => {
 
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
         fetch(`${backend}/api/editarDatos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
             },
             body: JSON.stringify(usuario),
-            credentials: 'include',
         })
             .then(response => {
                 if (response.ok) {
@@ -75,7 +82,7 @@ export default function EditarDatos() {
         else if (!letrasRegex.test(nombre)) {
             setErrorMessage('Nombre solo puede contener letras');
         }
-        else if(!letrasRegex.test(apellido)){
+        else if (!letrasRegex.test(apellido)) {
             setErrorMessage('Apellido solo puede contener letras');
         }
         else if (!numerosRegex.test(telefono)) {
@@ -125,7 +132,7 @@ export default function EditarDatos() {
                             id="editarNombre"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarDatos">
@@ -135,7 +142,7 @@ export default function EditarDatos() {
                             id="editarApellido"
                             value={apellido}
                             onChange={(e) => setApellido(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarDatos">
@@ -145,7 +152,7 @@ export default function EditarDatos() {
                             id="editarTelefono"
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="botonFormulariosPerfilContainer">

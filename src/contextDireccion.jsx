@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './contextLogin';
+import Cookies from 'js-cookie';
 import { useVariables } from './contextVariables';
 import { useConfiguracion } from './contextConfiguracion';
 
@@ -29,9 +30,18 @@ function DireccionProvider({ children }) {
 
     const obtenerDireccionUsuario = () => {
         if (state.logueado) {
+            let tokenParaEnviar = Cookies.get('jwtToken');
+
+            if (tokenParaEnviar == undefined) {
+                tokenParaEnviar = null;
+            }
+
             fetch(`${backend}/api/direcciones/${state.userInfo.email}`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenParaEnviar,
+                }
             })
                 .then(response => {
                     if (response.ok) {

@@ -3,6 +3,7 @@ import { useDireccion } from "../../../../contextDireccion";
 import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from "../../../../contextConfiguracion";
 import { useVariables } from '../../../../contextVariables';
+import Cookies from 'js-cookie';
 
 export default function FormularioDireccion() {
     const { backend } = useVariables();
@@ -20,7 +21,7 @@ export default function FormularioDireccion() {
         setLocalidad,
         setProvincia
     } = useDireccion();
-    
+
     const auth = useAuth();
 
     const {
@@ -30,14 +31,20 @@ export default function FormularioDireccion() {
     } = useConfiguracion();
 
     const handleEnviarDireccion = () => {
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
         setDireccionConfirmada(true);
         fetch(`${backend}/api/direcciones`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
             },
             body: JSON.stringify(direccionEstructura),
-            credentials: 'include',
         })
             .then(response => {
                 if (response.ok) {
@@ -72,7 +79,7 @@ export default function FormularioDireccion() {
         else if (!numerosRegex.test(numero)) {
             setErrorMessage('Número solo puede contener números enteros');
         }
-        else if (!letrasYNumerosRegex.test(cp)){
+        else if (!letrasYNumerosRegex.test(cp)) {
             setErrorMessage('CP solo puede contener letras o números')
         }
         else if (!letrasRegex.test(provincia)) {
@@ -108,7 +115,7 @@ export default function FormularioDireccion() {
                                 id="calle"
                                 value={calle}
                                 onChange={(e) => setCalle(e.target.value)}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={() => setErrorMessage('')}
                             />
                         </div>
                         <div className="form-group-editarPerfil direccionNumeroInput">
@@ -118,7 +125,7 @@ export default function FormularioDireccion() {
                                 id="numero"
                                 value={numero}
                                 onChange={(e) => setNumero(e.target.value)}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={() => setErrorMessage('')}
                             />
                         </div>
                     </div>
@@ -130,7 +137,7 @@ export default function FormularioDireccion() {
                                 id="cp"
                                 value={cp}
                                 onChange={(e) => setCp(e.target.value.toUpperCase())}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={() => setErrorMessage('')}
                             />
                         </div>
                         <div className="form-group-editarPerfil direccionLocalidadInput">
@@ -140,7 +147,7 @@ export default function FormularioDireccion() {
                                 id="localidad"
                                 value={localidad}
                                 onChange={(e) => setLocalidad(e.target.value)}
-                                onFocus={()=>setErrorMessage('')}
+                                onFocus={() => setErrorMessage('')}
                             />
                         </div>
                     </div>
@@ -151,7 +158,7 @@ export default function FormularioDireccion() {
                             id="provincia"
                             value={provincia}
                             onChange={(e) => setProvincia(e.target.value)}
-                            onFocus={()=>setErrorMessage('')}
+                            onFocus={() => setErrorMessage('')}
                         />
                     </div>
                     <div className="botonFormulariosPerfilContainer">

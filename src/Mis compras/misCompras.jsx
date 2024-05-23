@@ -9,6 +9,7 @@ import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
 import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.png';
+import Cookies from 'js-cookie';
 
 export default function MisCompras() {
     const { backend } = useVariables();
@@ -55,12 +56,18 @@ export default function MisCompras() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                let tokenParaEnviar = Cookies.get('jwtToken');
+
+                if (tokenParaEnviar == undefined) {
+                    tokenParaEnviar = null;
+                }
+
                 if (state.logueado) {
                     const response = await fetch(`${backend}/api/misCompras`, {
                         method: 'POST',
                         headers: {
+                            'Authorization': tokenParaEnviar,
                         },
-                        credentials: 'include',
                     });
 
                     if (!response.ok) {
@@ -110,7 +117,7 @@ export default function MisCompras() {
                         :
                         (<div className="historialVacioContainer">
                             <h1>TU HISTORIAL SE ENCUENTRA VACÍO</h1>
-                            <img src={carritoHistorialVacio}/>
+                            <img src={carritoHistorialVacio} />
                         </div>)}
                 </div>
             </div>

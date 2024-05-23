@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
+import Cookies from 'js-cookie'
 import { useAuth } from '../../contextLogin.jsx';
 
 export default function Login() {
@@ -14,7 +15,9 @@ export default function Login() {
   } = useAuth();
 
   useEffect(() => {
-    handleLogin('', '')
+    if (Cookies.get('jwtToken') != null) {
+      handleLogin('', '')
+    }
   }, []);
 
   useEffect(() => {
