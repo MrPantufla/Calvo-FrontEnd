@@ -19,6 +19,7 @@
     padding-top: 0.4rem;
     font-size: 1.5rem;
     width: 26rem;
+    max-width: 100%;
 }
 
 .contenedorPrincipalCardCategoria{
@@ -42,7 +43,7 @@
     transform: scale(1.05);
 }
 
-@media (max-width: 767px){
+@media (max-width: 912px){
     .nombreCategoria{
         font-size: 2rem;
     }
