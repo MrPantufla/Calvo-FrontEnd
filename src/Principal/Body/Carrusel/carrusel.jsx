@@ -4,6 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Carrusel() {
   const [listaImagenes, setListaImagenes] = useState([]);
