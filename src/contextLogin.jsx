@@ -37,19 +37,11 @@ export const LoginProvider = ({ children }) => {
   };
 
   const borrarCookie = async () => {
-    /*fetch(`${backend}/api/logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include'
-    });*/
     const cookieNames = Object.keys(Cookies.get());
-  
-  // Recorre el array de nombres de cookies y las elimina una por una
-  cookieNames.forEach(cookieName => {
-    Cookies.remove(cookieName);
-  });
+
+    cookieNames.forEach(cookieName => {
+      Cookies.remove(cookieName);
+    });
   }
 
   const logout = async () => {
@@ -203,7 +195,12 @@ export const LoginProvider = ({ children }) => {
     const token = await response.json()
 
     if (response.ok) {
-      Cookies.set(token.name, token.value, { expires: (1 / 48) })
+      Cookies.set(token.name, token.value, {
+        expires: (1 / 48),
+        sameSite: 'none',
+        domain: 'backend-calvo-415917.rj.r.appspot.com',
+        secure: true
+      });
     } else {
       const data = response.text();
       setErrorMessage("Email y/o contraseña inválidos");
