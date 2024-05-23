@@ -31,3 +31,9 @@
         height: 5rem;
     }
 }
+
+@media (max-width: 540px){
+    .colapsableEditarDireccion.open{
+        height: 44rem;
+    }
+}

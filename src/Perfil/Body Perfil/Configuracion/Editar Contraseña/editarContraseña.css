@@ -22,6 +22,12 @@
 
 @media (max-width: 912px){
     .colapsableEditarContraseña.open{
-        height: 32rem;
+        height: 30rem;
+    }
+}
+
+@media (max-width: 540px){
+    .colapsableEditarContraseña.open{
+        height: 40rem;
     }
 }

@@ -18,6 +18,12 @@
 
 @media (max-width: 912px){
     .colapsableEditarDatos.open{
-        height: 38.5rem;
+        height: 30rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .colapsableEditarDatos.open{
+        height: 40rem;
     }
 }
