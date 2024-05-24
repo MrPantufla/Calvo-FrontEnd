@@ -43,6 +43,19 @@
     clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 0% 100%);
 }
 
+.botonAntSig {
+    width: 7rem;
+    clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
+    margin: 0 -0.5rem;
+}
+
+.ultimaPagina {
+    transform: scaleX(-1);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 2.7rem) 100%, 0 100%);
+    margin-right: 0;
+    margin-left: -1rem;
+}
+
 @media (min-width: 1920px) {
     .paginacion {
         width: 100%;
@@ -80,6 +93,11 @@
         height: 2.5rem;
         width: 2.5rem;
     }
+
+    .botonAntSig {
+        width: 10rem;
+    }
+
 }
 
 @media (max-width: 280px){
