@@ -103,7 +103,7 @@ export const rubros = [
     { id: 8, nombre: 'ACCESORIOS', srubros: srubros8 },
     { id: 12, nombre: 'AUTOMATISMOS', srubros: srubros12 },
     { id: 85, nombre: 'CHAPAS', srubros: srubros85 },
-    { id: 39, nombre: 'HERRAMIENTAS', srubros: srubros39 },
+    { id: 'Herramientas', nombre: 'HERRAMIENTAS', srubros: srubros39 },
     { id: 43, nombre: 'PANELES', srubros: srubros43 },
     { id: 31, nombre: 'POLICARBONATOS', srubros: srubros31 },
     { id: 4, nombre: 'POLIESTIRENOS', srubros: srubros4 },
