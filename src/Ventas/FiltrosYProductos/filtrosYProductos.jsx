@@ -41,9 +41,6 @@ export default function FiltrosYProductos() {
 
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
-  const itemsPorPagina = 33;
-  const indexUltimoItem = paginaActual * itemsPorPagina;
-  const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
@@ -77,9 +74,10 @@ export default function FiltrosYProductos() {
     return tipoCumple && srubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
   });
 
-  const totalPaginas = Math.ceil(listaFiltrada.length / itemsPorPagina);
-  const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
   const productosOrdenados = ordenarProductos(listaFiltrada);
+  const itemsPorPagina = 33;
+  const indexUltimoItem = paginaActual * itemsPorPagina;
+  const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
 
   let coloresUnicos;
@@ -246,7 +244,7 @@ export default function FiltrosYProductos() {
           </div>
           <div className='filtros' id='filtros'>
             {rubros.map((rubro) => (
-              <Rubros rubro={rubro} setPaginaActual={setPaginaActual} coloresUnicos={coloresUnicos}/>
+              <Rubros rubro={rubro} setPaginaActual={setPaginaActual} coloresUnicos={coloresUnicos} key={rubro.id}/>
             ))}
             <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
             {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
@@ -331,10 +329,9 @@ export default function FiltrosYProductos() {
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}
-          numerosDePagina={numerosDePagina}
-          totalPaginas={totalPaginas}
           indexUltimoItem={indexUltimoItem}
           listaFiltrada={listaFiltrada}
+          itemsPorPagina={itemsPorPagina}
         />)
       }
     </div>
