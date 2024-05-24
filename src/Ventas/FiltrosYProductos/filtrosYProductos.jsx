@@ -11,8 +11,8 @@ import Cortinas from './Cortinas/cortinas';
 import { useAuth } from '../../contextLogin';
 import Eliminados from './Eliminados/eliminados';
 import { rubros } from '../../rubros';
-import Srubros from './Filtros/Srubros/srubros';
 import Paginacion from './Paginacion/paginacion';
+import Rubros from './Filtros/Rubros/rubros';
 
 export default function FiltrosYProductos() {
 
@@ -28,24 +28,15 @@ export default function FiltrosYProductos() {
   const {
     seleccionarCortinas,
     cortinasSelected,
-    setCortinasSelected,
     isTablet,
-    isFold,
     isMobile,
     rubroActivo,
-    setRubroActivo,
     coloresActivos,
-    setColoresActivos,
-    limpiarColoresActivos,
     productoSeleccionado,
     setProductoSeleccionado,
-    busquedaYFiltrosTop,
     eliminadosSelected,
-    setEliminadosSelected,
     seleccionarEliminados,
-    togglearRubro,
     srubroActivo,
-    togglearSrubro,
   } = useTienda();
 
   const [busqueda, setBusqueda] = useState('');
@@ -57,7 +48,6 @@ export default function FiltrosYProductos() {
   const [startX, setStartX] = useState(0);
   const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
   const [listaColores, setListaColores] = useState(null);
-  const filtrosRef = useRef(null);
 
   const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -75,13 +65,6 @@ export default function FiltrosYProductos() {
     setTimeout(() => {
       setPaginaActual(numeroDePagina);
     }, 350);
-  }
-
-  const handleScrollClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
   }
 
   const listaFiltrada = Object.values(productosIndexado).filter((p) => {
@@ -263,35 +246,7 @@ export default function FiltrosYProductos() {
           </div>
           <div className='filtros' id='filtros'>
             {rubros.map((rubro) => (
-              <label className={`labelRubros ${rubroActivo == rubro.id ? 'checked' : ''} label${rubro.nombre} desplegable`} key={rubro.nombre}>
-                <div>
-                  <input
-                    className="check"
-                    type="checkbox"
-                    checked={rubroActivo == rubro.id}
-                    onChange={() => {
-                      togglearRubro(rubro.id);
-                    }}
-                    onClick={() => {
-                      handleScrollClick();
-                      setPaginaActual(1);
-                      limpiarColoresActivos();
-                      setCortinasSelected(false);
-                      setEliminadosSelected(false);
-                    }}
-                    id={rubro.nombre + "id"}
-                  />
-                  <div className="textoRubro">
-                    <p className="nombreRubro">{rubro.nombre}</p>
-                    <p className="flechaRubro">{rubro.srubros ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                    </svg>) : (<></>)}</p>
-                  </div>
-                </div>
-                {rubroActivo == rubro.id &&
-                  <Srubros rubro={rubro} coloresUnicos={coloresUnicos} setPaginaActual={setPaginaActual} />
-                }
-              </label>
+              <Rubros rubro={rubro} setPaginaActual={setPaginaActual} coloresUnicos={coloresUnicos}/>
             ))}
             <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
             {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
@@ -371,16 +326,17 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {(cortinasSelected || eliminadosSelected) ? (<></>) 
-      : 
-      (<Paginacion 
-        paginar={paginar} 
-        paginaActual={paginaActual}
-        numerosDePagina={numerosDePagina}
-        totalPaginas={totalPaginas}
-        indexUltimoItem={indexUltimoItem}
-        listaFiltrada={listaFiltrada}
-      />)}
+      {(cortinasSelected || eliminadosSelected) ? (<></>)
+        :
+        (<Paginacion
+          paginar={paginar}
+          paginaActual={paginaActual}
+          numerosDePagina={numerosDePagina}
+          totalPaginas={totalPaginas}
+          indexUltimoItem={indexUltimoItem}
+          listaFiltrada={listaFiltrada}
+        />)
+      }
     </div>
   );
 }

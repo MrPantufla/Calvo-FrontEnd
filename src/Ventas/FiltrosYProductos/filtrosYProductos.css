@@ -72,11 +72,6 @@
     z-index: 0;
 }
 
-.check {
-    width: 15px;
-    margin-right: 1rem;
-}
-
 .filtros {
     display: flex;
     flex-direction: column;
@@ -121,192 +116,6 @@
 
 .scrollerFiltros.disabled svg {
     fill: var(--colorTerciario);
-}
-
-.labelRubros {
-    width: 100%;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 550;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    background-color: white;
-    justify-content: center;
-    flex-direction: column;
-    cursor: pointer;
-    color: var(--colorSecundario);
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.labelRubros div {
-    width: 95%;
-    display: flex;
-    justify-content: end;
-}
-
-.textoSrubro {
-    text-align: center;
-    width: 90%;
-    padding-left: 10%;
-}
-
-.textoRubro {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.nombreRubro {
-    width: 90%;
-    padding-left: 4%;
-}
-
-.flechaRubro {
-    width: 10%;
-}
-
-.bodyFiltro {
-    display: flex;
-    flex-direction: column;
-    transition: height 0.3s;
-    overflow: hidden;
-    z-index: 2;
-    width: 95%;
-}
-
-.srubroCheck {
-    width: 0;
-    height: 0;
-}
-
-.labelSrubro, .labelColor {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: var(--colorSecundario);
-    transition: background-color 0.2s, border 0.2s;
-    flex-direction: column;
-}
-
-.labelSrubro{
-    background-color: white;
-    border: 1px solid var(--colorPrimario);
-}
-
-.nombreSrubro{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.flechaSrubroContainer{
-    width: 10%;
-}
-
-.labelPERFIL.checked .labelSrubro {
-    border: 1px solid var(--colorSecundario);
-}
-
-.labelSrubro.checked {
-    background-color: var(--colorTerciario);
-    color: black;
-    
-}
-
-.labelSrubro.checked.conColores{
-    padding-bottom: 0.7rem;
-}
-
-.labelSrubro:hover {
-    color: #1D1D1D;
-}
-
-.labelSrubro.checked:hover .textoSrubro{
-    color: black;
-}
-
-.labelColor{
-    background-color: var(--colorPrimario);
-    transition: color 0.2s, background-color 0.2s;
-    border: 1px solid white;
-}
-
-.labelColor.checked{
-    background-color: var(--colorSecundario);
-    color: var(--colorTerciario);
-}
-
-.labelColor:hover{
-    color: black;
-}
-
-.labelColor.checked:hover{
-    color: var(--colorTerciario);
-}
-
-.labelColor, .textoColorFiltros{
-    width: 95%;
-}
-
-.bodyFiltro::-webkit-scrollbar {
-    width: 0.5rem;
-}
-
-.bodyFiltro::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.bodyFiltro::-webkit-scrollbar-thumb {
-    background-color: white;
-    border-radius: 20px;
-    border: 0;
-}
-
-.bodyFiltroPerfil.checked {
-    height: auto;
-}
-
-.labelRubros .check {
-    width: 0;
-    height: 0;
-    float: left;
-}
-
-.labelRubros.checked {
-    background-color: var(--colorSecundario);
-    color: white;
-    user-select: none;
-}
-
-.labelRubros.desplegable.checked {
-    padding-bottom: 0.6rem;
-}
-
-.labelRubros:hover .textoRubro {
-    color: black;
-    transition: color 0.2s;
-}
-
-.labelRubros.checked:hover .textoRubro {
-    color: white;
-}
-
-.bi-caret-down-fill {
-    transition: transform 0.3s;
-}
-
-.labelRubros.checked .textoRubro .bi-caret-down-fill,  .labelSrubro.checked .flechaSrubroContainer svg{
-    transform: rotate(180deg);
-}
-
-.textoLabelRubros:hover {
-    color: black;
-}
-
-.textoLabelRubros.checked:hover {
-    color: var(--colorTerciario);
 }
 
 .ultimoLabel {
@@ -362,19 +171,6 @@
     font-size: 2rem;
 }
 
-.botonAntSig {
-    width: 7rem;
-    clip-path: polygon(0 0, calc(100% - 2.7rem) 0, 100% 100%, 2.7rem 100%);
-    margin: 0 -0.5rem;
-}
-
-.ultimaPagina {
-    transform: scaleX(-1);
-    clip-path: polygon(0 0, 100% 0, calc(100% - 2.7rem) 100%, 0 100%);
-    margin-right: 0;
-    margin-left: -1rem;
-}
-
 .botonesOrdenamientoContainer {
     position: fixed;
     top: 40rem;
@@ -403,10 +199,6 @@
 }
 
 @media (max-width: 820px) {
-    .labelRubros {
-        font-size: 2.5rem;
-    }
-
     .busquedaEIcono {
         height: 6rem;
     }
@@ -431,10 +223,6 @@
 
     .busquedaEIcono input::placeholder {
         font-size: 3.2rem;
-    }
-
-    .labelRubros {
-        font-size: 4.2rem;
     }
 
     .contenedorPrincipalFiltrosYProductos {
@@ -469,21 +257,12 @@
         font-size: 3rem;
     }
 
-    .flechaRubro svg, .flechaSrubroContainer svg{
-        width: 3rem;
-        height: 3rem;
-    }
-
     .filtros{
         max-height: calc(100vh - 24rem);
     }
 }
 
 @media (max-width: 540px) {
-    .botonAntSig {
-        width: 10rem;
-    }
-
     .contenedorPrincipalFiltrosYProductos {
         padding-left: 1rem;
     }
