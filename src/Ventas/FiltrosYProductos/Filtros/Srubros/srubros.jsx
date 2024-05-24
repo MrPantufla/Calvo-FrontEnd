@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react";
+import './srubros.css';
 import { useTienda } from "../../../../contextTienda";
 
 export default function Srubros(args) {
-    const rubroRefs = useRef({});
 
     const {
         rubroActivo,
