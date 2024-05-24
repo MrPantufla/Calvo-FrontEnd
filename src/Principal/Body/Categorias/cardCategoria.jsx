@@ -13,10 +13,9 @@ export default function CardCategoria(args) {
         navigate('/tienda');
         setTimeout(() => {
             window.scrollTo(0, 0);
+            args.cat == 'POLICARBONATOS Y POLIESTIRENOS' ? (togglearRubro(31)) : (togglearRubro(args.referencia));
+            args.cat == 'CORTINAS' && (seleccionarCortinas())
         }, 100);
-
-        args.cat == 'POLICARBONATOS Y POLIESTIRENOS' ? (togglearRubro(31)) : (togglearRubro(args.referencia));
-        args.cat == 'CORTINAS' && (seleccionarCortinas())
     };
 
 
