@@ -22,14 +22,20 @@ export default function ProductoHistorial(args) {
         else{
             setCod_orig("");
             setDetalle("PRODUCTO ELIMINADO");
-            setColor("-");
-            setKg("-");
+            setColor("");
+            setKg("");
         }
     }, [producto]);
 
     const handleContextMenu = (e) => {
         e.preventDefault();
     }
+
+    useEffect (() => {
+        if(args.id == (-1)){
+            console.log(args.precio)
+        }
+    }, [])
 
     return (
         <div className="contenedorPrincipalProductoHistorial">
@@ -38,9 +44,9 @@ export default function ProductoHistorial(args) {
                 <p><span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle}</p>
             </div>
             <div className="informacionProductoHistorialContainer">
-                <p>COLOR: {color}</p>
+                {(color && color != 'IND') && <p>COLOR: {color}</p>}
                 <p>CANTIDAD: {args.cantidad}</p>
-                <p>PRECIO: ${parseInt(args.precio * args.cantidad * (kg || 1))}<br /> ({args.cantidad} x ${parseInt(args.precio * (kg || 1))})</p>
+                {<p>PRECIO: ${parseInt(args.precio * args.cantidad * (kg || 1))}<br /> ({args.cantidad} x ${parseInt(args.precio * (kg || 1))})</p>}
             </div>
         </div>
     );

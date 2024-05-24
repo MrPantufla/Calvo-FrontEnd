@@ -22,11 +22,16 @@ export default function CardMisCompras(args) {
     }
 
     const total = args.data.reduce((accumulator, currentItem) => {
-        if (productosIndexado[currentItem.producto].kg > 0) {
-            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * productosIndexado[currentItem.producto].kg));
+        if (productosIndexado[currentItem.producto]) {
+            if (productosIndexado[currentItem.producto].kg > 0) {
+                return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * productosIndexado[currentItem.producto].kg));
+            }
+            else {
+                return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
+            }
         }
-        else {
-            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
+        else{
+            return accumulator;
         }
     }, 0);
 
@@ -39,8 +44,6 @@ export default function CardMisCompras(args) {
             if (producto && typeof producto === 'object' && producto !== null) {
 
                 añadirElemento(producto.id, args.data[index].cantidad);
-            } else {
-                console.warn(`No se encontró un objeto válido para el índice ${args.data[index].producto}`);
             }
 
             return null;
@@ -53,7 +56,7 @@ export default function CardMisCompras(args) {
     const partesFecha = fechaString.split('/');
     const fechaFormateada = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
 
-    useEffect (() => {
+    useEffect(() => {
         setCardComprasAbierto(false);
     }, [args.id])
 
