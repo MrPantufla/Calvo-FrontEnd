@@ -169,7 +169,6 @@
 .bodyFiltro {
     display: flex;
     flex-direction: column;
-    height: 0;
     transition: height 0.3s;
     overflow: hidden;
     z-index: 2;
