@@ -93,7 +93,7 @@ export default function FiltrosYProductos() {
   }
 
   const listaFiltrada = Object.values(productosIndexado).filter((p) => {
-    const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS';
+    const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || (rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39) || (rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39);
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const srubroCumple = srubroActivo == null || srubroActivo == p.srubro;
     const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
