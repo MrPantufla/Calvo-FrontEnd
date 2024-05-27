@@ -10,14 +10,11 @@ import Favoritos from '../Favoritos/favoritos';
 import Cortinas from './Cortinas/cortinas';
 import { useAuth } from '../../contextLogin';
 import Eliminados from './Eliminados/eliminados';
-import { rubros } from '../../rubros';
 import Paginacion from './Paginacion/paginacion';
-import Rubros from './Filtros/Rubros/rubros';
 import Busqueda from './Filtros/Busqueda/busqueda';
+import Filtros from './Filtros/filtros';
 
 export default function FiltrosYProductos() {
-
-  const { state } = useAuth();
 
   const {
     productosIndexado,
@@ -27,7 +24,6 @@ export default function FiltrosYProductos() {
   } = useProductos();
 
   const {
-    seleccionarCortinas,
     cortinasSelected,
     isTablet,
     isMobile,
@@ -36,7 +32,6 @@ export default function FiltrosYProductos() {
     productoSeleccionado,
     setProductoSeleccionado,
     eliminadosSelected,
-    seleccionarEliminados,
     srubroActivo,
   } = useTienda();
 
@@ -44,7 +39,6 @@ export default function FiltrosYProductos() {
   const [paginaActual, setPaginaActual] = useState(1);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
   const [listaColores, setListaColores] = useState(null);
 
   const seleccionarProducto = (producto) => {
@@ -173,42 +167,8 @@ export default function FiltrosYProductos() {
   };
 
   useEffect(() => {
-    if (!isMobile) {
-      const elemento = document.getElementById('filtros');
-
-      const handleScroll = () => {
-        let atEnd;
-        if (elemento.scrollTop == 0) {
-          atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
-        }
-        else {
-          atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
-        }
-
-        setScrollDownFiltros(!atEnd);
-      };
-
-      handleScroll(); // Para verificar el estado inicial
-
-      elemento.addEventListener('scroll', handleScroll);
-
-      return () => {
-        elemento.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, [rubroActivo]);
-
-  useEffect(() => {
     setListaColores(listaFiltrada)
   }, [srubroActivo])
-
-  const scrollearFiltros = () => {
-    const elemento = document.getElementById('filtros');
-    elemento.scrollBy({
-      top: 200,
-      behavior: 'smooth'
-    });
-  }
 
   return (
     <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'}`}>
@@ -230,20 +190,8 @@ export default function FiltrosYProductos() {
           style={!isTablet ? { top: `8.7rem` } : {}}
         >
           <Busqueda busqueda={busqueda} setBusqueda={setBusqueda} setPaginaActual={setPaginaActual} />
-          <div className='filtros' id='filtros'>
-            {rubros.map((rubro) => (
-              <Rubros rubro={rubro} setPaginaActual={setPaginaActual} coloresUnicos={coloresUnicos} key={rubro.id} />
-            ))}
-            <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
-            {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
-          </div>
-          {!isMobile &&
-            <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={scrollearFiltros}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
-              </svg>
-            </div>
-          }
+          <Filtros coloresUnicos={coloresUnicos} setPaginaActual={setPaginaActual}/>
+          
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
 
