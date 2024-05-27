@@ -4,50 +4,25 @@ import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegabl
 import { useVariables } from '../contextVariables';
 import { useEffect, useState } from 'react';
 import CardEditarUsuario from './Card editar usuario/cardEditarUsuario';
+import Cookies from 'js-cookie';
 
 export default function EditarUsuarios() {
     const { backend } = useVariables();
     const [usuarios, setUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState('');
 
-    const modificarUsuario = (usuario) => {
-        const response = fetch(`${backend}/api/modificarUsuario`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(usuario),
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    const eliminarUsuario = (usuario) => {
-        const response = fetch(`${backend}/api/eliminarUsuario`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(usuario),
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     const obtenerUsuarios = async () => {
         try {
+            let tokenParaEnviar = Cookies.get('jwtToken');
+
+            if (tokenParaEnviar == undefined) {
+                tokenParaEnviar = null;
+            }
+
             const response = await fetch(`${backend}/api/usuarios`, {
-                credentials: 'include'
+                headers: {
+                    'Authorization': tokenParaEnviar,
+                },
             });
 
             if (response.ok) {
@@ -75,12 +50,12 @@ export default function EditarUsuarios() {
     }, []);
 
     const usuariosFiltrada = Object.values(usuarios).filter((u) => {
-        const busquedaCumple = 
-        (u.nombre.toUpperCase()+ " " + u.apellido.toUpperCase()).includes(busqueda.toUpperCase()) ||
-        u.email.toUpperCase().includes(busqueda.toUpperCase()) ||
-        u.telefono.toString().includes(busqueda) ||
-        u.cuit.toString().includes(busqueda);
-        
+        const busquedaCumple =
+            (u.nombre.toUpperCase() + " " + u.apellido.toUpperCase()).includes(busqueda.toUpperCase()) ||
+            u.email.toUpperCase().includes(busqueda.toUpperCase()) ||
+            u.telefono.toString().includes(busqueda) ||
+            u.cuit.toString().includes(busqueda);
+
         return busquedaCumple;
     });
 
@@ -111,7 +86,7 @@ export default function EditarUsuarios() {
 
             <div className="bodyEditarUsuarios">
                 {usuariosFiltrada.map(usuario => (
-                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario} guardar={modificarUsuario} eliminar={eliminarUsuario}/>
+                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario}/>
                 ))}
             </div>
         </div>

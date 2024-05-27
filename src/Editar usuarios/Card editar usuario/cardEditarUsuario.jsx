@@ -1,5 +1,7 @@
 import './cardEditarUsuario.css';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useVariables } from '../../contextVariables';
 
 export default function CardEditarUsuario(args) {
     const [nombre, setNombre] = useState(args.usuario.nombre);
@@ -10,6 +12,8 @@ export default function CardEditarUsuario(args) {
     const [emailConfirmado, setEmailConfirmado] = useState(args.usuario.email_confirmado);
     const [cliente, setCliente] = useState(args.usuario.cliente == true);
     const [eliminar, setEliminar] = useState(false);
+    const { backend } = useVariables();
+    const [respuesta, setRespuesta] = useState('');
 
     const usuario = {
         id: args.usuario.id,
@@ -25,6 +29,55 @@ export default function CardEditarUsuario(args) {
     const toggleEliminar = (e) => {
         e.preventDefault();
         setEliminar(!eliminar);
+    }
+
+    const modificarUsuario = async (usuario) => {
+        setRespuesta('');
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
+        const response = await fetch(`${backend}/api/modificarUsuario`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
+            },
+            body: JSON.stringify(usuario),
+        });
+
+        if (response.ok) {
+            setRespuesta('Listo')
+            return true;
+        } else {
+            setRespuesta('Error')
+            return false;
+        }
+    }
+
+    const eliminarUsuario = (usuario) => {
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
+        const response = fetch(`${backend}/api/eliminarUsuario`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
+            },
+            body: JSON.stringify(usuario),
+        });
+
+        if (response.ok) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     return (
@@ -126,7 +179,7 @@ export default function CardEditarUsuario(args) {
                 <div className="contenedorBotonEnviarUsuario">
                     {eliminar === true ?
                         (<>
-                            <button className="enviarFormulario" onClick={() => args.eliminar(usuario)} >
+                            <button className="enviarFormulario" onClick={() => eliminarUsuario(usuario)} >
                                 ELIMINAR
                             </button>
                             <button className="enviarFormulario segundoBoton" onClick={toggleEliminar}>
@@ -135,8 +188,8 @@ export default function CardEditarUsuario(args) {
                         </>)
                         :
                         (<>
-                            <button type="button" onClick={() => args.guardar(usuario)} className="enviarFormulario ">
-                                Guardar
+                            <button type="button" onClick={() => modificarUsuario(usuario)} className={`enviarFormulario ${respuesta == 'Listo' && 'modificado'}`}>
+                                {respuesta != '' ? (respuesta) : ('Guardar')}
                             </button>
                             <button type="button" className="enviarFormulario segundoBoton" onClick={toggleEliminar}>
                                 Eliminar

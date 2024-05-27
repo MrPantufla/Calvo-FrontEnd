@@ -104,6 +104,10 @@
     display: flex;
 }
 
+.enviarFormulario.modificado{
+    background-color: green;
+}
+
 @media (max-width: 767px){
     .formularioEditarUsuario{
         flex-direction: column;
