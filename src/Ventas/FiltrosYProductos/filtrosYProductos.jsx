@@ -13,6 +13,7 @@ import Eliminados from './Eliminados/eliminados';
 import { rubros } from '../../rubros';
 import Paginacion from './Paginacion/paginacion';
 import Rubros from './Filtros/Rubros/rubros';
+import Busqueda from './Filtros/Busqueda/busqueda';
 
 export default function FiltrosYProductos() {
 
@@ -68,10 +69,11 @@ export default function FiltrosYProductos() {
     const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || (rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39) || (rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39);
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
     const srubroCumple = srubroActivo == null || srubroActivo == p.srubro;
-    const buscarPorCodInt = p.cod_orig.toString().includes(busqueda);
+    const buscarPorCodOrig = p.tipo_prod == 'PERFIL' && p.cod_orig.toString().includes(busqueda);
+    const buscarPorCodInt = p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda)
     const buscarPorDetalle = p.detalle.includes(busqueda);
     const eliminado = productosEliminados.includes(p.id);
-    return tipoCumple && srubroCumple && (busqueda === '' || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
+    return tipoCumple && srubroCumple && (busqueda === '' || buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
   });
 
   const productosOrdenados = ordenarProductos(listaFiltrada);
@@ -153,6 +155,9 @@ export default function FiltrosYProductos() {
         else if (e.keyCode === 39) {
           siguienteProducto();
         }
+        else if (e.keyCode === 27) {
+          handleCloseProductoGrande();
+        }
       }
     };
 
@@ -224,37 +229,20 @@ export default function FiltrosYProductos() {
           id="filtrosYBusqueda"
           style={!isTablet ? { top: `8.7rem` } : {}}
         >
-          <div className="busquedaEIcono">
-            <input
-              className="busqueda"
-              type="text"
-              placeholder="Buscar por código o nombre"
-              value={busqueda}
-              onChange={(e) => {
-                setBusqueda(e.target.value.toUpperCase());
-                setPaginaActual(1);
-              }}
-              style={isMobile && !filtrosYBusquedaOpen ? { padding: '0' } : {}}>
-            </input>
-            <div className="lupaContainer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-              </svg>
-            </div>
-          </div>
+          <Busqueda busqueda={busqueda} setBusqueda={setBusqueda} setPaginaActual={setPaginaActual} />
           <div className='filtros' id='filtros'>
             {rubros.map((rubro) => (
-              <Rubros rubro={rubro} setPaginaActual={setPaginaActual} coloresUnicos={coloresUnicos} key={rubro.id}/>
+              <Rubros rubro={rubro} setPaginaActual={setPaginaActual} coloresUnicos={coloresUnicos} key={rubro.id} />
             ))}
             <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
             {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
           </div>
           {!isMobile &&
-              <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={scrollearFiltros}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                  <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
-                </svg>
-              </div>
+            <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={scrollearFiltros}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
+              </svg>
+            </div>
           }
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
