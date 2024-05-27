@@ -87,6 +87,8 @@ function TiendaProvider({ children }) {
   }
 
   const togglearRubro = (rubro) => {
+    setCortinasSelected(false);
+    setEliminadosSelected(false);
     if (rubroActivo == rubro) {
       setRubroActivo(null);
     }
