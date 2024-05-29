@@ -25,7 +25,8 @@
     height: auto;
 }
 
-.labelSrubro, .labelColor {
+.labelSrubro,
+.labelColor {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,30 +36,33 @@
     flex-direction: column;
 }
 
-.labelSrubro{
+.labelSrubro {
     background-color: white;
     border: 1px solid var(--colorPrimario);
 }
 
 .labelSrubro.checked {
     background-color: var(--colorTerciario);
-    color: black;
-    
+    color: white;
 }
 
-.labelSrubro.checked.conColores{
+.labelSrubro.checked.conColores {
     padding-bottom: 0.7rem;
 }
 
-.labelSrubro:hover {
+.labelSrubro.checked:hover .textoSrubro,
+.labelSrubro.checked:hover .flechaSrubroContainer svg {
+    color: white;
+    fill: white;
+}
+
+.labelSrubro:not(.checked):hover .textoSrubro,
+.labelSrubro:not(.checked):hover .flechaSrubroContainer svg {
     color: #1D1D1D;
+    fill: #1D1D1D;
 }
 
-.labelSrubro.checked:hover .textoSrubro{
-    color: black;
-}
-
-.nombreSrubro{
+.nombreSrubro {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -70,29 +74,30 @@
     padding-left: 10%;
 }
 
-.flechaSrubroContainer{
+.flechaSrubroContainer {
     width: 10%;
 }
 
-.labelColor{
-    background-color: var(--colorPrimario);
+.labelColor {
+    background-color: white;
     transition: color 0.2s, background-color 0.2s;
-    border: 1px solid white;
+    border: 1px solid var(--colorPrimario);
 }
 
-.labelColor.checked{
+.labelColor.checked {
     background-color: var(--colorSecundario);
-    color: var(--colorTerciario);
+    color: white;
 }
 
-.labelColor:hover{
+.labelColor:hover {
     color: black;
 }
 
-.labelColor.checked:hover{
-    color: var(--colorTerciario);
+.labelColor.checked:hover {
+    color: white;
 }
 
-.labelColor, .textoColorFiltros{
+.labelColor,
+.textoColorFiltros {
     width: 95%;
 }
