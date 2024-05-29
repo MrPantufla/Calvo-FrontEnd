@@ -99,6 +99,15 @@
         height: 10.55rem;
         margin-top: 0.05rem;
     }
+
+    .filtrosYBusqueda {
+        background-color: var(--colorTerciario);
+        padding-top: 13rem;
+        z-index: 102;
+        top: 0 !important;
+        height: 140%;
+        width: 0;
+    }
 }
 
 @media (max-width: 360px) {
