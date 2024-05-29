@@ -8,7 +8,6 @@ import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
 import Cortinas from './Cortinas/cortinas';
-import { useAuth } from '../../contextLogin';
 import Eliminados from './Eliminados/eliminados';
 import Paginacion from './Paginacion/paginacion';
 import Busqueda from './Filtros/Busqueda/busqueda';
@@ -33,13 +32,14 @@ export default function FiltrosYProductos() {
     setProductoSeleccionado,
     eliminadosSelected,
     srubroActivo,
+    marcaActiva
   } = useTienda();
 
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [listaColores, setListaColores] = useState(null);
+  const [copiaElementos, setCopiaElementos] = useState(null);
 
   const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -62,12 +62,13 @@ export default function FiltrosYProductos() {
   const listaFiltrada = Object.values(productosIndexado).filter((p) => {
     const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || (rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39) || (rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39);
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
+    const marcaCumple = marcaActiva == null || marcaActiva == 144 || marcaActiva == 145 || marcaActiva == 146 || marcaActiva == p.marca;
     const srubroCumple = srubroActivo == null || srubroActivo == p.srubro;
     const buscarPorCodOrig = p.tipo_prod == 'PERFIL' && p.cod_orig.toString().includes(busqueda);
     const buscarPorCodInt = p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda)
     const buscarPorDetalle = p.detalle.includes(busqueda);
     const eliminado = productosEliminados.includes(p.id);
-    return tipoCumple && srubroCumple && (busqueda === '' || buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
+    return tipoCumple && marcaCumple && srubroCumple && (busqueda === '' || buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
   });
 
   const productosOrdenados = ordenarProductos(listaFiltrada);
@@ -77,11 +78,22 @@ export default function FiltrosYProductos() {
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
 
   let coloresUnicos;
-  if (listaColores !== null) {
+  let srubrosUnicos;
+  if (copiaElementos !== null) {
     coloresUnicos = Array.from(new Set(
-      Object.values(listaColores)
+      Object.values(copiaElementos)
         .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
         .map(producto => producto.color)
+    ));
+
+    srubrosUnicos = Array.from(new Set(
+      Object.values(copiaElementos)
+        .filter(producto =>
+          (producto.tipo_prod == 'PERFIL') && (
+            marcaActiva.items.contains(producto.rubro)
+          )
+        )
+        .map(producto => producto.srubro)
     ));
   }
 
@@ -167,8 +179,8 @@ export default function FiltrosYProductos() {
   };
 
   useEffect(() => {
-    setListaColores(listaFiltrada)
-  }, [srubroActivo])
+    setCopiaElementos(listaFiltrada)
+  }, [srubroActivo, marcaActiva])
 
   return (
     <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'}`}>
@@ -187,11 +199,18 @@ export default function FiltrosYProductos() {
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
-          style={!isTablet ? { top: `8.7rem` } : {}}
+          style={!isTablet && { top: `8.7rem` }}
         >
-          <Busqueda busqueda={busqueda} setBusqueda={setBusqueda} setPaginaActual={setPaginaActual} />
-          <Filtros coloresUnicos={coloresUnicos} setPaginaActual={setPaginaActual}/>
-          
+          <Busqueda
+            busqueda={busqueda}
+            setBusqueda={setBusqueda}
+            setPaginaActual={setPaginaActual}
+          />
+          <Filtros
+            srubrosUnicos={srubrosUnicos}
+            coloresUnicos={coloresUnicos}
+            setPaginaActual={setPaginaActual}
+          />
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
 
@@ -256,8 +275,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {(cortinasSelected || eliminadosSelected) ? (<></>)
-        :
+      {!(cortinasSelected || eliminadosSelected) &&
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}
