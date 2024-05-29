@@ -26,51 +26,51 @@ export const srubros8 = [
    { id: 57, nombre: 'Vidriería' }
 ]
 
-export const srubros12 = [
+const srubros12 = [
    { id: 85, nombre: 'Central' },
    { id: 44, nombre: 'Control' },
    { id: 84, nombre: 'Motor' },
    { id: 56, nombre: 'Tecla' }
 ]
 
-export const srubros85 = [
-    { id: 65, nombre: 'Lisa' },
+const srubros85 = [
+   { id: 65, nombre: 'Lisa' },
 ]
 
-export const srubros39 = [
+const srubros39 = [
    { id: 67, nombre: 'Carpintería' },
    { id: 57, nombre: 'Vidriería' }
 ]
 
-export const srubros43 = [
+const srubros43 = [
    { id: 0, nombre: 'Armado' },
    { id: 65, nombre: 'Liso' },
    { id: 52, nombre: 'Moldurado' },
    { id: 92, nombre: 'Ranurado' }
 ]
 
-export const srubros31 = [
+const srubros31 = [
    { id: 69, nombre: 'Alveolar' },
    { id: 66, nombre: 'Compacto' }
 ]
 
-export const srubros4 = [
+const srubros4 = [
    { id: 35, nombre: 'Grabado' },
    { id: 65, nombre: 'Liso' }
 ]
 
-export const srubros81 = [
+const srubros81 = [
    { id: 31, nombre: 'Hoja sola' },
    { id: 72, nombre: 'Marco de luminio' },
    { id: 89, nombre: 'Puerta embutir' }
 ]
 
-export const srubros10 = [
+const srubros10 = [
    { id: 43, nombre: 'Aluminio' },
    { id: 36, nombre: 'Fibra' }
 ]
 
-export const srubrosPerfiles = [
+const srubrosPerfiles = [
    { id: 22, nombre: 'Ángulo' },
    { id: 86, nombre: 'Baranda' },
    { id: 49, nombre: 'Complemento' },
@@ -98,16 +98,22 @@ export const srubrosPerfiles = [
    { id: 20, nombre: 'Vidrio repartido' }
 ]
 
+const marcasPerfiles = [
+   { nombre: 'A30', items: [65, 114] },
+   { nombre: 'Herrero', items: [1, 105, 72] },
+   { nombre: 'Modena', items: [2, 108, 147] }
+]
+
 export const rubros = [
-    { id: 'Perfiles', nombre: 'PERFILES', srubros: srubrosPerfiles},
-    { id: 8, nombre: 'ACCESORIOS', srubros: srubros8 },
-    { id: 12, nombre: 'AUTOMATISMOS', srubros: srubros12 },
-    { id: 85, nombre: 'CHAPAS', srubros: srubros85 },
-    { id: 'Herramientas', nombre: 'HERRAMIENTAS', srubros: srubros39 },
-    { id: 43, nombre: 'PANELES', srubros: srubros43 },
-    { id: 31, nombre: 'POLICARBONATOS', srubros: srubros31 },
-    { id: 4, nombre: 'POLIESTIRENOS', srubros: srubros4 },
-    { id: 81, nombre: 'PUERTAS PLACAS', srubros: srubros81 },
-    { id: 10, nombre: 'TEJIDOS MOSQUITEROS', srubros: srubros10 },
-    { id: 'Maquinas', nombre: 'MÁQUINAS', srubros: srubros39 },
+   { id: 'Perfiles', nombre: 'PERFILES', srubros: srubrosPerfiles, marcas: marcasPerfiles },
+   { id: 8, nombre: 'ACCESORIOS', srubros: srubros8 },
+   { id: 12, nombre: 'AUTOMATISMOS', srubros: srubros12 },
+   { id: 85, nombre: 'CHAPAS', srubros: srubros85 },
+   { id: 'Herramientas', nombre: 'HERRAMIENTAS', srubros: srubros39 },
+   { id: 43, nombre: 'PANELES', srubros: srubros43 },
+   { id: 31, nombre: 'POLICARBONATOS', srubros: srubros31 },
+   { id: 4, nombre: 'POLIESTIRENOS', srubros: srubros4 },
+   { id: 81, nombre: 'PUERTAS PLACAS', srubros: srubros81 },
+   { id: 10, nombre: 'TEJIDOS MOSQUITEROS', srubros: srubros10 },
+   { id: 'Maquinas', nombre: 'MÁQUINAS', srubros: srubros39 },
 ];
