@@ -11,6 +11,7 @@ function useTienda() {
 
 function TiendaProvider({ children }) {
   const [rubroActivo, setRubroActivo] = useState(null);
+  const [marcaActiva, setMarcaActiva] = useState(null);
   const [srubroActivo, setSrubroActivo] = useState(null);
   const [coloresActivos, setColoresActivos] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
@@ -50,6 +51,8 @@ function TiendaProvider({ children }) {
   const salirDeTienda = () => {
     togglearRubro(null);
     togglearSrubro(null);
+    togglearMarca(null);
+    togglearSrubro(null);
     setColoresActivos([]);
     setCarritoAbierto(false);
     setFavoritosAbierto(false);
@@ -67,10 +70,6 @@ function TiendaProvider({ children }) {
       setEliminadosSelected(false);
       setRubroActivo(null);
     }
-  }
-
-  const limpiarColoresActivos = () => {
-    setColoresActivos([]);
   }
 
   const seleccionarCortinas = () => {
@@ -94,6 +93,16 @@ function TiendaProvider({ children }) {
     }
     else {
       setRubroActivo(rubro);
+    }
+    setMarcaActiva(null);
+  }
+
+  const togglearMarca = (marca) => {
+    if(marcaActiva == marca){
+      setMarcaActiva(null);
+    }
+    else{
+      setMarcaActiva(marca);
     }
     setSrubroActivo(null);
   }
@@ -119,7 +128,6 @@ function TiendaProvider({ children }) {
       isMobile,
       productoSeleccionado,
       setProductoSeleccionado,
-      limpiarColoresActivos,
       rubroActivo,
       setRubroActivo,
       coloresActivos,
@@ -130,7 +138,9 @@ function TiendaProvider({ children }) {
       togglearRubro,
       srubroActivo,
       togglearSrubro,
-      salirDeTienda
+      salirDeTienda,
+      marcaActiva,
+      togglearMarca
     }}>
       {children}
     </TiendaContext.Provider>
