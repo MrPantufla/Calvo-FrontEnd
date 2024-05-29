@@ -1,6 +1,5 @@
 import { useAuth } from '../../../contextLogin.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
-import { rubros } from '../../../rubros.js';
 import Rubros from './Rubros/rubros.jsx';
 import { useEffect, useState } from 'react';
 import './filtros.css';
@@ -56,9 +55,8 @@ export default function Filtros(args) {
     return (
         <>
             <div className='filtros' id='filtros'>
-                {rubros.map((rubro) => (
-                    <Rubros rubro={rubro} setPaginaActual={args.setPaginaActual} coloresUnicos={args.coloresUnicos} key={rubro.id} />
-                ))}
+                <Rubros setPaginaActual={args.setPaginaActual} coloresUnicos={args.coloresUnicos} srubrosUnicos={args.srubrosUnicos}/>
+                
                 <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
             </div>
