@@ -39,7 +39,8 @@ export default function FiltrosYProductos() {
   const [paginaActual, setPaginaActual] = useState(1);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [copiaElementos, setCopiaElementos] = useState(null);
+  const [coloresUnicos, setColoresUnicos] = useState([]);
+  const [srubrosUnicos, setSrubrosUnicos] = useState([]);
 
   const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -62,7 +63,7 @@ export default function FiltrosYProductos() {
   const listaFiltrada = Object.values(productosIndexado).filter((p) => {
     const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || (rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39) || (rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39);
     const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
-    const marcaCumple = marcaActiva == null || marcaActiva == 144 || marcaActiva == 145 || marcaActiva == 146 || marcaActiva == p.marca;
+    const marcaCumple = marcaActiva == null || p.marca == 144 || p.marca == 145 || p.marca == 146 || marcaActiva.items.includes(p.marca);
     const srubroCumple = srubroActivo == null || srubroActivo == p.srubro;
     const buscarPorCodOrig = p.tipo_prod == 'PERFIL' && p.cod_orig.toString().includes(busqueda);
     const buscarPorCodInt = p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda)
@@ -77,25 +78,30 @@ export default function FiltrosYProductos() {
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
 
-  let coloresUnicos;
-  let srubrosUnicos;
-  if (copiaElementos !== null) {
-    coloresUnicos = Array.from(new Set(
-      Object.values(copiaElementos)
-        .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
-        .map(producto => producto.color)
-    ));
+  useEffect(() => {
+    if (coloresActivos.length == 0) {
+      setColoresUnicos(Array.from(new Set(
+        Object.values(listaFiltrada)
+          .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
+          .map(producto => producto.color)
+      )))
+    }
+  }, [srubroActivo])
 
-    srubrosUnicos = Array.from(new Set(
-      Object.values(copiaElementos)
-        .filter(producto =>
-          (producto.tipo_prod == 'PERFIL') && (
-            marcaActiva.items.contains(producto.rubro)
+  useEffect(() => {
+    if (rubroActivo == 'Perfiles' && marcaActiva) {
+      setSrubrosUnicos(Array.from(new Set(
+        Object.values(listaFiltrada)
+          .filter(producto =>
+            marcaActiva.items.includes(producto.marca)
           )
-        )
-        .map(producto => producto.srubro)
-    ));
-  }
+          .map(producto => {
+          return producto.srubro;
+        })
+     )))
+    }
+  }, [marcaActiva])
+
 
   const toggleFiltros = () => {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
@@ -177,10 +183,6 @@ export default function FiltrosYProductos() {
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
   };
-
-  useEffect(() => {
-    setCopiaElementos(listaFiltrada)
-  }, [srubroActivo, marcaActiva])
 
   return (
     <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'}`}>
