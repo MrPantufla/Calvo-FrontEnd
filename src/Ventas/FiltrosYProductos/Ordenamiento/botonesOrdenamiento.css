@@ -40,10 +40,14 @@
     transition: background-color 0.2s, color 0.2s;
     user-select: none;
     margin: 0 2px;
+    color: var(--colorSecundario);
 }
 
 .ordenamiento.desktop:hover{
-    background-color: var(--colorSecundario);
+    color: black;
+}
+
+.ordenamiento.desktop.ordenamientoActivo:hover{
     color: white;
 }
 
