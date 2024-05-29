@@ -1,0 +1,40 @@
+.labelMarcas{
+    width: 95%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    background-color: white;
+    border: 1px solid var(--colorPrimario);
+    color: var(--colorSecundario);
+}
+
+.labelMarcas:hover{
+    color: black;
+}
+
+.labelMarcas.checked:hover{
+    color: white;
+}
+
+.labelMarcas.checked{
+    border: 1px solid white;
+    background-color: var(--colorCuaternario);
+    color: white;
+    padding-bottom: 0.7rem;
+}
+
+.labelMarcas.checked .textoMarca svg{
+    transform: rotate(180deg);
+}
+
+.textoMarca{
+    width: 100%;
+}
+
+.nombreMarca{
+    width: 100%;
+    text-align: center;
+}

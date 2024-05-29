@@ -1,3 +1,4 @@
+import './marcas.css';
 import { useTienda } from "../../../../contextTienda";
 import Srubros from "../Srubros/srubros";
 
@@ -11,14 +12,14 @@ export default function Marcas(args) {
     return (
         <>
             {args.rubro.marcas.map((marca) => (
-                <label className={`labelRubros ${marcaActiva == marca.nombre ? 'checked' : ''} label${marca.nombre} desplegable`} key={marca.nombre}>
+                <label className={`labelMarcas ${marcaActiva == marca ? 'checked' : ''} label${marca.nombre} desplegable`} key={marca.nombre}>
                     <div>
                         <input
                             className="check"
                             type="checkbox"
-                            checked={marcaActiva == marca.nombre}
+                            checked={marcaActiva == marca}
                             onChange={() => {
-                                togglearMarca(marca.nombre);
+                                togglearMarca(marca);
                             }}
                             onClick={() => {
                                 args.handleScrollClick();
@@ -36,9 +37,7 @@ export default function Marcas(args) {
                             </p>
                         </div>
                     </div>
-                    {marcaActiva == marca.nombre &&
-                    <>
-                    {console.log("SRUBROSUNICOS: " + args.srubrosUnicos)}
+                    {marcaActiva == marca &&
                         (<Srubros
                             rubro={args.rubro}
                             marca={marca}
@@ -46,7 +45,6 @@ export default function Marcas(args) {
                             setPaginaActual={args.setPaginaActual}
                             srubros={args.srubrosUnicos}
                         />)
-                        </>
                     }
                 </label>
             ))}
