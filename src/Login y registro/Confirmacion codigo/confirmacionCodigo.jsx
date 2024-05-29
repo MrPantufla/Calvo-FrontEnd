@@ -116,6 +116,13 @@ export default function ConfirmacionCodigo() {
       });
   };
 
+  const enterPress = (e) =>{
+    if(e.keyCode === 13){
+      e.preventDefault();
+      enviarCodigo();
+    }
+  }
+
   return (
     <div className="contenedorPrincipalConfirmacionCodigo">
       <div className="parteUtilizableConfirmacionCodigo">
@@ -152,6 +159,7 @@ export default function ConfirmacionCodigo() {
                 setAdvertencia('');
               }}
               placeholder='Código de confirmación'
+              onKeyDown={(e) => enterPress(e)}
             />
           </div>
           <div className="botonContainerCodigo">
