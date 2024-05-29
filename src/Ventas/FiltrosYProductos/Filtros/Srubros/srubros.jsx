@@ -11,6 +11,8 @@ export default function Srubros(args) {
         togglearSrubro
     } = useTienda();
 
+    const srubros = args.srubros;
+
     function toggleColor(color) {
         setColoresActivos(prevColoresActivos => {
             if (prevColoresActivos.includes(color)) {
@@ -30,7 +32,7 @@ export default function Srubros(args) {
 
     return (
         <>
-        {args.rubro.srubros.map((srubro) => (
+        {srubros.map((srubro) => (
             <div className={`bodyFiltro bodyFiltroPerfil ${rubroActivo == args.rubro.id ? 'checked' : ''}`} key={`${srubro.id}.${args.index}`}>
                 <label className={`labelSrubro ${srubroActivo == srubro.id ? 'checked' : ''} ${args.coloresUnicos.length > 0 && 'conColores'}`} key={`${args.rubro.id}.${srubro.id}`}>
                     <div className="nombreSrubro">
