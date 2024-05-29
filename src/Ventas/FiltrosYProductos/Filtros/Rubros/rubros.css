@@ -91,6 +91,7 @@
     width: 10%;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 820px) {
