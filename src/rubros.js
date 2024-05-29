@@ -70,7 +70,7 @@ const srubros10 = [
    { id: 36, nombre: 'Fibra' }
 ]
 
-const srubrosPerfiles = [
+export const srubrosPerfiles = [
    { id: 22, nombre: 'Ángulo' },
    { id: 86, nombre: 'Baranda' },
    { id: 49, nombre: 'Complemento' },
@@ -100,8 +100,8 @@ const srubrosPerfiles = [
 
 const marcasPerfiles = [
    { nombre: 'A30', items: [65, 114] },
-   { nombre: 'Herrero', items: [1, 105, 72] },
-   { nombre: 'Modena', items: [2, 108, 147] }
+   { nombre: 'HERRERO', items: [1, 105, 72] },
+   { nombre: 'MODENA', items: [2, 108, 147] }
 ]
 
 export const rubros = [
