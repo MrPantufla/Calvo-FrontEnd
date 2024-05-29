@@ -89,6 +89,8 @@
 
 .flechaRubro {
     width: 10%;
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 820px) {
