@@ -1,53 +1,36 @@
 import './marcas.css';
-import { useTienda } from "../../../../contextTienda";
-import Srubros from "../Srubros/srubros";
+import Marca from './marca.jsx';
+import { useTienda } from '../../../../contextTienda.jsx';
 
 export default function Marcas(args) {
 
-    const { togglearMarca,
-        setColoresActivos,
-        marcaActiva,
-    } = useTienda();
+    const { marcaActiva } = useTienda();
 
     return (
         <>
-            {args.rubro.marcas.map((marca) => (
-                <label className={`labelMarcas ${marcaActiva == marca ? 'checked' : ''} label${marca.nombre} desplegable`} key={marca.nombre}>
-                    <div>
-                        <input
-                            className="check"
-                            type="checkbox"
-                            checked={marcaActiva == marca}
-                            onChange={() => {
-                                togglearMarca(marca);
-                            }}
-                            onClick={() => {
-                                args.handleScrollClick();
-                                args.setPaginaActual(1);
-                                setColoresActivos([]);
-                            }}
-                            id={marca.nombre + "id"}
-                        />
-                        <div className="textoMarca">
-                            <p className="nombreMarca">{marca.nombre}</p>
-                            <p className="flechaMarca">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                                </svg>
-                            </p>
-                        </div>
-                    </div>
-                    {marcaActiva == marca &&
-                        (<Srubros
-                            rubro={args.rubro}
-                            marca={marca}
-                            coloresUnicos={args.coloresUnicos}
-                            setPaginaActual={args.setPaginaActual}
-                            srubros={args.srubrosUnicos}
-                        />)
-                    }
-                </label>
-            ))}
+            {marcaActiva ?
+                (<Marca
+                    marca={marcaActiva}
+                    handleScrollClick={args.handleScrollClick}
+                    setPaginaActual={args.setPaginaActual}
+                    rubro={args.rubro}
+                    coloresUnicos={args.coloresUnicos}
+                    srubrosUnicos={args.srubrosUnicos}
+                    key={marcaActiva.nombre}
+                />)
+                :
+                (args.rubro.marcas.map((marca) => (
+                    <Marca
+                        marca={marca}
+                        handleScrollClick={args.handleScrollClick}
+                        setPaginaActual={args.setPaginaActual}
+                        rubro={args.rubro}
+                        coloresUnicos={args.coloresUnicos}
+                        srubrosUnicos={args.srubrosUnicos}
+                        key={marca.nombre}
+                    />
+                )))
+            }
         </>
     );
 }

@@ -20,14 +20,18 @@
 }
 
 .labelMarcas.checked{
-    border: 1px solid white;
-    background-color: var(--colorCuaternario);
+    background-color: var(--colorTerciario);
     color: white;
     padding-bottom: 0.7rem;
+    border: none;
+}
+
+.labelMarcas .textoMarca svg{
+    transform: rotate(270deg);
 }
 
 .labelMarcas.checked .textoMarca svg{
-    transform: rotate(180deg);
+    transform: rotate(360deg);
 }
 
 .textoMarca{
@@ -35,6 +39,6 @@
 }
 
 .nombreMarca{
-    width: 100%;
+    width: 90%;
     text-align: center;
 }
