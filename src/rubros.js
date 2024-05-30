@@ -99,9 +99,9 @@ export const srubrosPerfiles = [
 ]
 
 const marcasPerfiles = [
-   { nombre: 'A30', items: [65, 114] },
    { nombre: 'HERRERO', items: [1, 105, 72] },
-   { nombre: 'MODENA', items: [2, 108, 147] }
+   { nombre: 'MODENA', items: [2, 108, 147] },
+   { nombre: 'A30', items: [65, 114] }
 ]
 
 export const rubros = [
