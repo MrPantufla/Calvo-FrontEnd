@@ -42,8 +42,9 @@
 }
 
 .labelSrubro.checked {
-    background-color: var(--colorTerciario);
+    background-color: var(--colorCuaternario);
     color: white;
+    border: none;
 }
 
 .labelSrubro.checked.conColores {
@@ -71,7 +72,11 @@
 .textoSrubro {
     text-align: center;
     width: 90%;
-    padding-left: 10%;
+    display: flex;
+}
+
+.nombreSrubro{
+    width: 90%;
 }
 
 .flechaSrubroContainer {
@@ -81,7 +86,8 @@
 .labelColor {
     background-color: white;
     transition: color 0.2s, background-color 0.2s;
-    border: 1px solid var(--colorPrimario);
+    border: 1px solid white;
+    border: 1px solid var(--colorTerciario);
 }
 
 .labelColor.checked {
