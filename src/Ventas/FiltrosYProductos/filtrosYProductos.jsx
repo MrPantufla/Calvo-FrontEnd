@@ -201,7 +201,7 @@ export default function FiltrosYProductos() {
         <div
           className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
           id="filtrosYBusqueda"
-          style={!isTablet && { top: `8.7rem` }}
+          style={isTablet ? {} : { top: '8.7rem' }}
         >
           <Busqueda
             busqueda={busqueda}
