@@ -12,6 +12,7 @@ import Eliminados from './Eliminados/eliminados';
 import Paginacion from './Paginacion/paginacion';
 import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
+import { rubrosPerfiles, marcasPerfiles, srubrosPerfiles } from '../../rubros';
 
 export default function FiltrosYProductos() {
 
@@ -60,16 +61,43 @@ export default function FiltrosYProductos() {
     }, 350);
   }
 
-  const listaFiltrada = Object.values(productosIndexado).filter((p) => {
-    const tipoCumple = rubroActivo == null || rubroActivo == p.rubro || rubroActivo == 'Perfiles' && p.tipo_prod == 'PERFIL' || (rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39) || (rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39);
-    const colorCumple = coloresActivos.length === 0 || coloresActivos.includes(p.color);
-    const marcaCumple = marcaActiva == null || p.marca == 144 || p.marca == 145 || p.marca == 146 || marcaActiva.items.includes(p.marca);
-    const srubroCumple = srubroActivo == null || srubroActivo == p.srubro;
-    const buscarPorCodOrig = p.tipo_prod == 'PERFIL' && p.cod_orig.toString().includes(busqueda);
-    const buscarPorCodInt = p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda)
-    const buscarPorDetalle = p.detalle.includes(busqueda);
-    const eliminado = productosEliminados.includes(p.id);
-    return tipoCumple && marcaCumple && srubroCumple && (busqueda === '' || buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle) && colorCumple && !eliminado;
+  const listaPreFiltrada = Object.values(productosIndexado).filter((p) => {
+    const tipoCumple =
+      rubroActivo == null ||
+      rubroActivo == p.rubro ||
+      rubroActivo == 'Perfiles' && rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) ||
+      rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39 ||
+      rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39;
+
+    const colorCumple =
+      coloresActivos.length === 0 ||
+      coloresActivos.includes(p.color);
+
+    const marcaCumple =
+      marcaActiva == null ||
+      marcaActiva.items.includes(p.marca);
+
+    const srubroCumple =
+      srubroActivo == null ||
+      srubroActivo == p.srubro;
+
+    const eliminado =
+      productosEliminados.includes(p.id);
+
+    return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado;
+  });
+
+  const listaFiltrada = Object.values(listaPreFiltrada).filter((p) => {
+    const buscarPorCodOrig =
+      rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) && p.cod_orig.toString().includes(busqueda);
+
+    const buscarPorCodInt =
+      p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda);
+
+    const buscarPorDetalle =
+      p.detalle.includes(busqueda);
+
+    return (busqueda === '') || buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle;
   });
 
   const productosOrdenados = ordenarProductos(listaFiltrada);
@@ -96,9 +124,9 @@ export default function FiltrosYProductos() {
             marcaActiva.items.includes(producto.marca)
           )
           .map(producto => {
-          return producto.srubro;
-        })
-     )))
+            return producto.srubro;
+          })
+      )))
     }
   }, [marcaActiva])
 
@@ -230,21 +258,10 @@ export default function FiltrosYProductos() {
                       {itemsActuales.map((producto) => (
                         <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
                           <CardProducto
-                            id={producto.id}
-                            cod_orig={producto.cod_orig}
-                            tipo_prod={producto.tipo_prod}
-                            srubro={producto.srubro}
-                            detalle={producto.detalle}
-                            precio={producto.precio}
-                            color={producto.color}
-                            kg={producto.kg}
-                            key={producto.id}
-                            cod_int={producto.cod_int}
+                            producto={producto}
                             onClick={() => {
                               seleccionarProducto(producto);
                             }}
-                            pesos={producto.pesos}
-                            dolar={producto.dolar}
                           />
                         </div>
                       ))}
