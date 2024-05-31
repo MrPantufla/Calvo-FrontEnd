@@ -255,6 +255,26 @@
     transform: scale(0.95);
 }
 
+.dropdownCantidades{
+    position: relative;
+    z-index: 10;
+}
+
+.bodyDropdownCantidades{
+    height: 0rem;
+    transition: height 0.2s;
+    overflow: hidden;
+    position: relative;
+}
+
+.bodyDropdownCantidades.desplegado{
+    height: 6rem;
+}
+
+.dropdownItem{
+    background-color: white;
+}
+
 @media (min-width: 1920px){
     .botonAñadirFavoritos{
         width: 3rem;
