@@ -16,6 +16,7 @@ function ProductosProvider({ children }) {
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
     const [dataCargada, setDataCargada] = useState(false);
+    const [productosSueltos, setProductosSueltos] = useState([]);
 
     const nuevosColores = new Set();
 
@@ -29,7 +30,10 @@ function ProductosProvider({ children }) {
                 const productosObtenidos = await response.json();
 
                 // Realizar actualizaciones según la categoría
-                const productosActualizados = productosObtenidos.map((producto) => {
+                const referencias = {};
+                const productosSueltosTemporal = {};
+
+                const productosActualizados = productosObtenidos.reduce((acumulador, producto) => {
                     let precioFinal = producto.precio_vta1; // Precio inicial
                     if (categoria === 'MAYORISTA' && producto.precio_vta2) {
                         // Si es mayorista y hay precio mayorista, actualizar precio
@@ -41,11 +45,45 @@ function ProductosProvider({ children }) {
                         precioFinal -= parseInt(descuentos[producto.rubro] / 100 * copiaPrecio);
                     }
 
-                    return { ...producto, precio: precioFinal };
-                });
+                    if (producto.cod_orig.endsWith('-S')) {
+                        if(!productosSueltosTemporal[producto.id]){
+                            productosSueltosTemporal[producto.id] = [];
+                        }
+                        productosSueltosTemporal[producto.id] = (producto)
+                        const baseCod = producto.cod_orig.slice(0, -2);
+                        if (!referencias[baseCod]) {
+                            referencias[baseCod] = [];
+                        }
+                        referencias[baseCod].push({id: producto.id, color: producto.color});
+                    }
+                    else if (producto.cod_orig.endsWith('ES') && producto.tipo_prod == 'PERFIL') {
+                        if(!productosSueltosTemporal[producto.id]){
+                            productosSueltosTemporal[producto.id] = [];
+                        }
+                        productosSueltosTemporal[producto.id] = (producto)
+                        const baseCod = producto.cod_orig.slice(0, -1);
+                        if(!referencias[baseCod]){
+                            referencias[baseCod] = [];
+                        }
+                        referencias[baseCod].push({id: producto.id, color: producto.color});
+                    }
+                    else {
+                        acumulador.push({ ...producto, precio: precioFinal, referencia: '' });
+                    }
+                    setProductosSueltos(productosSueltosTemporal);
+                    return acumulador;
+                }, []);
 
                 // Indexar los productos actualizados
                 setProductosIndexado(productosActualizados.reduce((acc, el) => {
+
+                    if (referencias[el.cod_orig]) {
+                        const productoColor = referencias[el.cod_orig].find(referencia => referencia.color == el.color);
+                        if(productoColor){
+                            el.referencia = productoColor.id;
+                        }
+                    }
+
                     acc[el.id] = el;
 
                     const colorEnMayusculas = el.color.trim().toUpperCase();
@@ -93,7 +131,7 @@ function ProductosProvider({ children }) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization' : tokenParaEnviar,
+                    'Authorization': tokenParaEnviar,
                 },
                 body: JSON.stringify(idProducto),
             });
@@ -207,7 +245,8 @@ function ProductosProvider({ children }) {
             coloresArray,
             productosEliminados,
             eliminarProducto,
-            dataCargada
+            dataCargada,
+            productosSueltos
         }}>
             {children}
         </ProductosContext.Provider>
