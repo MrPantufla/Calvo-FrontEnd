@@ -98,11 +98,15 @@ export const srubrosPerfiles = [
    { id: 20, nombre: 'Vidrio repartido' }
 ]
 
-const marcasPerfiles = [
-   { nombre: 'HERRERO', items: [1, 105, 72] },
-   { nombre: 'MODENA', items: [2, 108, 147] },
-   { nombre: 'A30', items: [65, 114] }
+export const marcasPerfiles = [ //Los universales se agregan en cada marca que queremos que aparezcan
+   { nombre: 'HERRERO', items: [1, 72, 144, 145] },
+   { nombre: 'MODENA', items: [2, 108, 144, 145] },
+   { nombre: 'A30', items: [65, 114, 144, 145] },
+   { nombre: 'HERRERO ECO', items: [105, 146] },
+   { nombre: 'MODENA ECO', items: [147, 146] }
 ]
+
+export const rubrosPerfiles = [58, 60, 2, 59, 61, 13, 28, 5, 21, 8, 39, 12, 70, 56]
 
 export const rubros = [
    { id: 'Perfiles', nombre: 'PERFILES', srubros: srubrosPerfiles, marcas: marcasPerfiles },
