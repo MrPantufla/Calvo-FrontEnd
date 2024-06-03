@@ -40,7 +40,7 @@ export default function CardProducto(args) {
     pesos = { pesos },
     dolar = { dolar },
     referencia = { referencia },
-    cantidad = { cantidad }
+    cantidad = { cantidad },
   } = args.producto;
 
   const isMobile = useTienda();
@@ -177,14 +177,14 @@ export default function CardProducto(args) {
           <div className="dropdownCantidad">
             <button className={`toggleDropdown ${dropdownDesplegado && 'desplegado'}`} type="button" onClick={toggleDropdown}>
               {`CANTIDAD: `}
-              <p className="espacioCantidad">{cantidadSeleccionada || ''}</p>
+              <p className="espacioCantidad">{cantidadSeleccionada ? (paqueteSeleccionado ? ('PAQUETE'): ('UNIDAD')) : ('')}</p>
               <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill flechaDropdownCantidades" viewBox="0 0 16 16">
                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
               </svg>
             </button>
             <ul className={`dropdownMenuCantidad ${dropdownDesplegado && 'desplegado'}`}>
-              <li className={`dropdown-item ${cantidadSeleccionada == productosSueltos[referencia].cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(productosSueltos[referencia].cantidad); setPaqueteSeleccionado(false) }}>{productosSueltos[referencia].cantidad}</li>
-              <li className={`dropdown-item ${cantidadSeleccionada == cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(cantidad); setPaqueteSeleccionado(true) }}>{cantidad}</li>
+              <li className={`dropdown-item ${cantidadSeleccionada == productosSueltos[referencia].cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(productosSueltos[referencia].cantidad); setPaqueteSeleccionado(false) }}>{`UNIDAD (${productosSueltos[referencia].cantidad}u.)`}</li>
+              <li className={`dropdown-item ${cantidadSeleccionada == cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(cantidad); setPaqueteSeleccionado(true) }}>{`PAQUETE (${cantidad}u.)`}</li>
             </ul>
           </div>
         }
