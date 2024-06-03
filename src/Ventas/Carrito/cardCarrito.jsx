@@ -5,7 +5,7 @@ import { useTienda } from '../../contextTienda.jsx';
 
 export default function CardCarrito(args) {
     const {
-        actualizarCantidadElemento,
+        añadirElemento,
         restarElemento,
         eliminarElemento
     } = useCarrito();
@@ -14,7 +14,14 @@ export default function CardCarrito(args) {
 
     const { setProductoSeleccionado } = useTienda();
 
-    const producto = productosIndexado[args.id];
+    const { productosSueltos } = useProductos();
+
+    let producto;
+
+    producto = productosIndexado[args.id];
+    if (!producto) {
+        producto = productosSueltos[args.id];
+    }
     const colorCorregido = (producto.color).replace(/\s+/g, '-');
 
     let codigo;
@@ -30,23 +37,6 @@ export default function CardCarrito(args) {
         producto.color == 'Fume' ||
         producto.color == 'Verde'
     );
-
-    const handleRestarCantidad = () => {
-        if (args.cantidad > 1) {
-            actualizarCantidadElemento(args.id, args.cantidad - 1);
-        }
-        else {
-            restarElemento(args.id);
-        }
-    }
-
-    const handleSumarCantidad = () => {
-        actualizarCantidadElemento(args.id, args.cantidad + 1);
-    }
-
-    const handleEliminar = () => {
-        eliminarElemento(args.id);
-    }
 
     const handleContextMenu = (e) => {
         e.preventDefault();
@@ -76,12 +66,12 @@ export default function CardCarrito(args) {
             </div>
             <div className="restoCardCarrito">
                 <div className="cantidadCardCarrito">
-                    <button className="botonRestarCardCarrito" onClick={handleRestarCantidad}>-</button>
+                    <button className="botonRestarCardCarrito" onClick={() => restarElemento(args.id)}>-</button>
                     <div>
-                        <p>{args.cantidad}</p>
+                        <p>{args.cantidadCarrito}</p>
                     </div>
-                    <button className="botonSumarCardCarrito" onClick={handleSumarCantidad}>+</button>
-                    <p className="eliminarCardCarrito" onClick={handleEliminar}><svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                    <button className="botonSumarCardCarrito" onClick={() => añadirElemento(args.id, 1)}>+</button>
+                    <p className="eliminarCardCarrito" onClick={() => eliminarElemento(args.id)}><svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                         <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
                     </svg></p>
                 </div>
@@ -98,10 +88,10 @@ export default function CardCarrito(args) {
                 <div className="precioContainer">
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
                     <div className="precioProductoCardCarrito">
-                        <p>${parseInt(producto.precio * (producto.kg || 1) * args.cantidad)}</p>
+                        <p>${parseInt(producto.precio * (producto.kg || 1) * args.cantidadCarrito)}</p>
                     </div>
                     <div className="precioUnitarioCardCarrito">
-                        <p>({args.cantidad} x ${parseInt(producto.precio * (producto.kg || 1))})</p>
+                        <p>({args.cantidadCarrito} x ${parseInt(producto.precio * (producto.kg || 1))})</p>
                     </div>
                 </div>
             </div>

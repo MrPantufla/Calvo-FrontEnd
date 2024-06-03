@@ -46,22 +46,28 @@ function ProductosProvider({ children }) {
                     }
 
                     if (producto.cod_orig.endsWith('-S')) {
+                        const baseCod = producto.cod_orig.slice(0, -2);
+                        const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
+
                         if(!productosSueltosTemporal[producto.id]){
                             productosSueltosTemporal[producto.id] = [];
                         }
-                        productosSueltosTemporal[producto.id] = (producto)
-                        const baseCod = producto.cod_orig.slice(0, -2);
+                        productosSueltosTemporal[producto.id] = ({...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete})
                         if (!referencias[baseCod]) {
                             referencias[baseCod] = [];
                         }
                         referencias[baseCod].push({id: producto.id, color: producto.color});
                     }
                     else if (producto.cod_orig.endsWith('ES') && producto.tipo_prod == 'PERFIL') {
+                        const baseCod = producto.cod_orig.slice(0, -1);
+                        const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
+
                         if(!productosSueltosTemporal[producto.id]){
                             productosSueltosTemporal[producto.id] = [];
                         }
-                        productosSueltosTemporal[producto.id] = (producto)
-                        const baseCod = producto.cod_orig.slice(0, -1);
+                        productosSueltosTemporal[producto.id] = ({...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete})
+
+                        
                         if(!referencias[baseCod]){
                             referencias[baseCod] = [];
                         }

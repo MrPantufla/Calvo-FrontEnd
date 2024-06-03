@@ -317,7 +317,7 @@ export default function Carrito() {
                   <CardCarrito
                     key={index}
                     id={elemento.id}
-                    cantidad={elemento.cantidad}
+                    cantidadCarrito={elemento.cantidadCarrito}
                   />
                 ))}
                 <button

@@ -167,12 +167,12 @@
 
 .decoracionCardProducto{
     width: 100%;
-    height: 2rem;
+    height: 2.2rem;
     background-color: var(--colorSecundario);
     border-radius: 3px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     transition: background-color 0.2s;
 }
 
@@ -181,6 +181,7 @@
 }
 
 .logoDecoracionCardProducto{
+    position: relative;
     max-height: 75%;
 }
 
@@ -218,12 +219,13 @@
 
 .eliminarElemento{
     position: absolute;
-    top: 3.5rem;
+    top: 6.5rem;
     border: none;
     cursor: pointer;
     z-index: 99;
     transition: transform 0.2s;
     background-color: transparent;
+    right: 1.2rem;
 }
 
 .eliminarElemento .bi{
@@ -255,24 +257,85 @@
     transform: scale(0.95);
 }
 
-.dropdownCantidades{
-    position: relative;
+.dropdownCantidad{
+    display: inline-block;
+    flex-direction: column;
+    position: absolute;
+    top: 3.5rem;
     z-index: 10;
 }
 
-.bodyDropdownCantidades{
-    height: 0rem;
-    transition: height 0.2s;
+.toggleDropdown{
+    height: 3rem;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    background-color: var(--colorSecundario);
+    color: white;
+    width: 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.2rem;
+    border-radius: 3px;
+}
+
+.dropdownMenuCantidad{
+    --bs-dropdown-min-width: 0;
+    width: 100%;
+    padding: 0;
+    height: 0;
     overflow: hidden;
-    position: relative;
+    transition: height 0.2s;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.3rem;
 }
 
-.bodyDropdownCantidades.desplegado{
-    height: 6rem;
+.dropdownMenuCantidad li{
+    display: flex;
+    justify-content: center;
+    background-color: var(--colorSecundario);
+    align-items: center;
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.dropdownItem{
-    background-color: white;
+.dropdownMenuCantidad li:hover{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.dropdownCantidad li.selected{
+    background-color: var(--colorRojo);
+}
+
+.dropdownMenuCantidad li:first-child{
+    margin-right: 0.2rem;
+}
+
+.dropdownMenuCantidad li:last-child{
+    margin-left: 0.2rem;
+}
+
+.dropdownMenuCantidad.desplegado{
+    height: 3rem;
+}
+
+.espacioCantidad{
+    width: 1rem;
+}
+
+.flechaDropdownCantidades{
+    margin-left: 0.3rem;
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-bottom: 0.2rem;
 }
 
 @media (min-width: 1920px){
@@ -335,6 +398,10 @@
 
     .imagenContainerCardProducto{
         height: 12rem;
+    }
+
+    .precioCardProducto{
+        font-size: 1.5rem;
     }
 }
 
@@ -588,6 +655,14 @@
     }
 }
 
+@media (max-width: 360px) {
+    .precioCardProducto{
+        font-size: 2.8rem;
+        padding-top: 0.4rem;
+    }
+}
+
+
 @media (max-width: 411px) and (min-width: 281px){
     .imagenContainerCardProducto{
         height: 21rem;
@@ -609,10 +684,5 @@
 
     .colorCardProducto p{
         font-size: 2.3rem;
-    }
-
-    .precioCardProducto{
-        font-size: 2.8rem;
-        padding-top: 0.4rem;
     }
 }

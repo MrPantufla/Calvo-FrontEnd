@@ -11,7 +11,6 @@ import { useTienda } from '../../../contextTienda.jsx';
 export default function CardProducto(args) {
   const {
     eliminarProducto,
-    productosIndexado,
     productosSueltos
   } = useProductos();
 
@@ -48,15 +47,34 @@ export default function CardProducto(args) {
 
   const mayorista = state.userInfo ? (state.userInfo.categoria == 'MAYORISTA') : (false);
 
-  const elementoExistente = elementosCarrito.find((elemento) => elemento.id === id);
-  const cant = elementoExistente ? elementoExistente.cant : 0;
   const colorCorregido = (color).replace(/\s+/g, '-');
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState();
   const [dropdownDesplegado, setDropdownDesplegado] = useState(false);
+  const [paqueteSeleccionado, setPaqueteSeleccionado] = useState(true);
 
   const toggleDropdown = () => {
     setDropdownDesplegado(!dropdownDesplegado);
   }
+
+  const seleccionarCantidad = (cantidad) => {
+    setCantidadSeleccionada(cantidad);
+    toggleDropdown();
+  }
+
+  let precioParaUsar;
+  let idParaUsar;
+
+  if (paqueteSeleccionado) {
+    precioParaUsar = precio;
+    idParaUsar = id;
+  }
+  else {
+    precioParaUsar = productosSueltos[referencia].precio;
+    idParaUsar = productosSueltos[referencia].id;
+  }
+
+  const elementoExistente = elementosCarrito.find((elemento) => elemento.id === idParaUsar);
+  const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
 
   let codigo;
   tipo_prod == 'PERFIL' ? (codigo = cod_orig) : (codigo = cod_int);
@@ -75,7 +93,17 @@ export default function CardProducto(args) {
   const sumarContador = () => {
     if (state.logueado) {
       if (state.userInfo.email_confirmado) {
-        añadirElemento(id, 1);
+        if (referencia && !cantidadSeleccionada) {
+          setDropdownDesplegado(true);
+        }
+        else {
+          if (paqueteSeleccionado) {
+            añadirElemento(id, 1);
+          }
+          else {
+            añadirElemento(productosSueltos[referencia].id, 1);
+          }
+        }
       }
       else {
         setMostrarLogin(true);
@@ -89,8 +117,18 @@ export default function CardProducto(args) {
   const restarContador = () => {
     if (state.logueado) {
       if (state.userInfo.email_confirmado) {
-        if (cant > 0) {
-          restarElemento(id);
+        if (referencia && !cantidadSeleccionada) {
+          setDropdownDesplegado(true);
+        }
+        else {
+          if (cant > 0) {
+            if (paqueteSeleccionado) {
+              restarElemento(id);
+            }
+            else {
+              restarElemento(productosSueltos[referencia].id);
+            }
+          }
         }
       }
       else {
@@ -116,29 +154,10 @@ export default function CardProducto(args) {
     e.preventDefault();
   }
 
-  let productoReferencia;
-  if (referencia) {
-    productoReferencia = productosSueltos[referencia];
-  }
-
   return (
     <div className="contenedorPrincipalCardProducto" >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
-          {referencia !== '' &&
-            <div className="dropdownCantidades">
-              <button className="desplegarCantidades" onClick={toggleDropdown}>
-                {cantidadSeleccionada ? (`Cantidad: ${cantidad}`) : ('Seleccionar cantidad')}
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </button>
-              <div className={`bodyDropdownCantidades ${dropdownDesplegado && 'desplegado'}`}>
-                <div className="dropdownItem">{cantidad}</div>
-                <div className="dropdownItem">{productoReferencia.cantidad}</div>
-              </div>
-            </div>
-          }
           <img className="logoDecoracionCardProducto" src={logoBlanco} />
         </div>
         {tipo_prod != 'MAQUINAS' &&
@@ -153,6 +172,21 @@ export default function CardProducto(args) {
               </svg>)
             }
           </button>
+        }
+        {referencia !== '' &&
+          <div className="dropdownCantidad">
+            <button className={`toggleDropdown ${dropdownDesplegado && 'desplegado'}`} type="button" onClick={toggleDropdown}>
+              {`CANTIDAD: `}
+              <p className="espacioCantidad">{cantidadSeleccionada || ''}</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill flechaDropdownCantidades" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+              </svg>
+            </button>
+            <ul className={`dropdownMenuCantidad ${dropdownDesplegado && 'desplegado'}`}>
+              <li className={`dropdown-item ${cantidadSeleccionada == productosSueltos[referencia].cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(productosSueltos[referencia].cantidad); setPaqueteSeleccionado(false) }}>{productosSueltos[referencia].cantidad}</li>
+              <li className={`dropdown-item ${cantidadSeleccionada == cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(cantidad); setPaqueteSeleccionado(true) }}>{cantidad}</li>
+            </ul>
+          </div>
         }
         {state.userInfo &&
           (state.userInfo.tipo_usuario == 'admin' &&
@@ -190,7 +224,7 @@ export default function CardProducto(args) {
           />
         </div>
         <div className="detalleYCod_orig">
-          <h3><span className="codOrig">{codigo}</span> - {detalle}</h3>
+          <h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>
         </div>
         <div className="kgCantidadYColorContainer">
           <div className="kgProducto">
@@ -217,7 +251,12 @@ export default function CardProducto(args) {
             (
               <div className="conjuntoCantidadCardProducto">
                 <button className="boton" onClick={restarContador}>-</button>
-                <span className="cantidadProducto">{cant}</span>
+                <span className="cantidadProducto">
+                  {referencia ?
+                    (cantidadSeleccionada ? (cant) : ('-'))
+                    :
+                    (cant)}
+                </span>
                 <button className="boton" onClick={sumarContador}>+</button>
               </div>
             )}
@@ -238,7 +277,7 @@ export default function CardProducto(args) {
       </div >
       {tipo_prod != "MAQUINAS" &&
         < div className="precioContainerCardProducto">
-          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (precio * kg) : (precio))}</p>
+          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO ${referencia && 'UNITARIO'} ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (precioParaUsar * kg) : (precioParaUsar))}</p>
         </div>
       }
     </div >

@@ -27,6 +27,8 @@ function CarritoProvider({ children }) {
     provincia
   } = useDireccion();
 
+  const { productosSueltos } = useProductos();
+
   const { backend } = useVariables();
 
   const [elementos, setElementos] = useState([]);
@@ -41,15 +43,20 @@ function CarritoProvider({ children }) {
   const [datosCorroborados, setDatosCorroborados] = useState(false);
   const [instanciaPedido, setInstanciaPedido] = useState('');
 
-  function añadirElemento(id, cantidad) {
+  function añadirElemento(id, cantidadCarrito) {
     if (!state.userInfo.cliente && productosIndexado[id].tipo_prod == 'PERFIL') {
       mostrarCartel();
     }
     else {
       if (Object.keys(productosIndexado).length !== 0) {
         setElementos(prevElementos => {
-          if (productosIndexado) {
-            const producto = productosIndexado[id];
+          if (productosIndexado && productosSueltos) {
+            let producto;
+            producto = productosIndexado[id];
+            if (!producto) {
+              producto = productosSueltos[id];
+            }
+
             const cod_origProducto = producto.cod_orig;
             const detalleProducto = producto.detalle;
             const precioProducto = producto.precio;
@@ -57,12 +64,14 @@ function CarritoProvider({ children }) {
             const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
 
             if (elementoExistente) {
-              elementoExistente.cantidad += cantidad;
+              elementoExistente.cantidadCarrito += cantidadCarrito;
+
+
               // Si ya existe, solo actualiza la cantidad y deja que el useEffect maneje la actualización del carrito
               return [...prevElementos];
             } else {
               // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
-              return [...prevElementos, { id, cod_origProducto, cantidad, detalleProducto, precioProducto, kg }];
+              return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg }];
             }
           }
         });
@@ -80,8 +89,8 @@ function CarritoProvider({ children }) {
 
   function restarElemento(id) {
     const elementoExistente = elementos.find((elemento) => elemento.id === id);
-    if (elementoExistente.cantidad > 1) {
-      elementoExistente.cantidad -= 1;
+    if (elementoExistente.cantidadCarrito > 1) {
+      elementoExistente.cantidadCarrito -= 1;
       setElementos([...elementos]);
     } else {
       eliminarElemento(id);
@@ -104,14 +113,6 @@ function CarritoProvider({ children }) {
     }
   }
 
-  function actualizarCantidadElemento(id, nuevaCantidad) {
-    const elementoExistente = elementos.find((elemento) => elemento.id === id);
-    if (elementoExistente) {
-      elementoExistente.cantidad = nuevaCantidad;
-      setElementos([...elementos]);
-    }
-  }
-
   function limpiarCarrito() {
     setElementos([]);
   }
@@ -119,7 +120,7 @@ function CarritoProvider({ children }) {
   const actualizarCarrito = () => {
     const listaCarrito = [...elementos];
     const productos = listaCarrito.map(item => item.id).join(' ');
-    const cantidades = listaCarrito.map(item => item.cantidad).join(' ');
+    const cantidades = listaCarrito.map(item => item.cantidadCarrito).join(' ');
     const ActualizacionCarrito = {
       productos: productos,
       cantidades: cantidades
@@ -162,7 +163,7 @@ function CarritoProvider({ children }) {
   }, [elementos]);
 
   const confirmarCompra = () => {
-    const nuevosElementos = elementos.map(({ id, cantidad, precioProducto }) => ({ id, cantidad, precioProducto }));
+    const nuevosElementos = elementos.map(({ id, cantidadCarrito, precioProducto }) => ({ id, cantidadCarrito, precioProducto }));
     const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
     const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion }
 
@@ -223,7 +224,6 @@ function CarritoProvider({ children }) {
       limpiarCarrito,
       añadirElemento,
       restarElemento,
-      actualizarCantidadElemento,
       instanciaPedido,
       setInstanciaPedido,
       eliminarElemento,
