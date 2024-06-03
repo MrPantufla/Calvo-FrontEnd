@@ -61,12 +61,31 @@ function CarritoProvider({ children }) {
             const detalleProducto = producto.detalle;
             const precioProducto = producto.precio;
             const kg = producto.kg;
-            const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
+            const referenciaPaquete = producto.referenciaPaquete;
 
+            let cantidadPaquete = -1;
+            if(referenciaPaquete){
+              cantidadPaquete = referenciaPaquete.cantidad;
+            }
+
+            const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
+            //console.log(producto)
             if (elementoExistente) {
               elementoExistente.cantidadCarrito += cantidadCarrito;
 
+              if(referenciaPaquete){
+                if(cantidadPaquete != -1){
+                  if(elementoExistente.cantidadCarrito >= cantidadPaquete){
+                    const paquetesResultantes = Math.floor(elementoExistente.cantidadCarrito / cantidadPaquete);
 
+                    for(let i = 0; i<12*paquetesResultantes; i++){
+                      restarElemento(elementoExistente.id);
+                    }
+
+                    añadirElemento(referenciaPaquete.id, paquetesResultantes);
+                  }
+                }
+              }
               // Si ya existe, solo actualiza la cantidad y deja que el useEffect maneje la actualización del carrito
               return [...prevElementos];
             } else {
