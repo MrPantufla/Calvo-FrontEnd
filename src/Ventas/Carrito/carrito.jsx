@@ -22,7 +22,8 @@ export default function Carrito() {
   const {
     productosIndexado,
     coloresArray,
-    productosEliminados
+    productosEliminados,
+    productosSueltos
   } = useProductos();
 
   const {
@@ -68,7 +69,13 @@ export default function Carrito() {
       e.preventDefault();
       const codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
       if (codigoIngresado !== '') {
-        const productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+        let productosEncontrados;
+        productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+
+        if(productosEncontrados == []){
+          productosEncontrados = Object.values(productosSueltos).filter(producto => producto.cod_orig === codigoIngresado);
+        }
+
         const productosEncontradosFiltrados = productosEncontrados.filter(producto => !productosEliminados.includes(producto.id));
 
         if (!productosEncontradosFiltrados.length > 0) {
