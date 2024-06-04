@@ -13,6 +13,7 @@ import Paginacion from './Paginacion/paginacion';
 import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
 import { rubrosPerfiles, marcasPerfiles, srubrosPerfiles } from '../../rubros';
+import { useCortinas } from '../../contextCortinas';
 
 export default function FiltrosYProductos() {
 
@@ -35,6 +36,8 @@ export default function FiltrosYProductos() {
     srubroActivo,
     marcaActiva
   } = useTienda();
+
+  const { setMuestrasAbierto } = useCortinas();
 
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
@@ -167,10 +170,12 @@ export default function FiltrosYProductos() {
         const diffX = currentX - startX;
 
         if (diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
-          productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false))
+          productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false));
+          cortinasSelected && (setMuestrasAbierto(true));
         }
         else if (diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
-          productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true))
+          productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true));
+          cortinasSelected && (setMuestrasAbierto(false));
         }
       };
 
