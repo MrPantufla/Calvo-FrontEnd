@@ -4,6 +4,7 @@ import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
 import { useDireccion } from './contextDireccion';
 import Cookies from 'js-cookie';
+import { marcasUnicasPerfiles } from './rubros';
 
 const CarritoContext = createContext();
 
@@ -47,7 +48,7 @@ function CarritoProvider({ children }) {
 
   function añadirElemento(id, cantidadCarrito) {
     setPaqueteAñadir(null);
-    if (!state.userInfo.cliente && productosIndexado[id].tipo_prod == 'PERFIL') {
+    if (!state.userInfo.cliente && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
       mostrarCartel();
     }
     else {
@@ -66,6 +67,7 @@ function CarritoProvider({ children }) {
             const precioProducto = producto.precio;
             const kg = producto.kg;
             const referenciaPaquete = producto.referenciaPaquete;
+            const cantidad = producto.cantidad;
 
             let cantidadPaquete = -1;
             if (referenciaPaquete) {
@@ -78,10 +80,10 @@ function CarritoProvider({ children }) {
 
               if (referenciaPaquete) {
                 if (cantidadPaquete != -1) {
-                  if (elementoExistente.cantidadCarrito >= cantidadPaquete) {
-                    const paquetesResultantes = Math.floor(elementoExistente.cantidadCarrito / cantidadPaquete);
+                  if (elementoExistente.cantidadCarrito * elementoExistente.cantidad >= cantidadPaquete) {
+                    const paquetesResultantes = Math.floor(elementoExistente.cantidadCarrito * elementoExistente.cantidad / cantidadPaquete);
 
-                    if(elementoExistente.cantidadCarrito == cantidadPaquete * paquetesResultantes){
+                    if(elementoExistente.cantidadCarrito * elementoExistente.cantidad == cantidadPaquete * paquetesResultantes){
                       setElementoEliminar(elementoExistente.id);
                     }
 
@@ -100,7 +102,7 @@ function CarritoProvider({ children }) {
               if (referenciaPaquete) {
                 if (cantidadPaquete != -1) {
                   if (cantidadCarrito >= cantidadPaquete) {
-                    const paquetesResultantes = Math.floor(cantidadCarrito / cantidadPaquete);
+                    const paquetesResultantes = Math.floor( cantidadCarrito * elementoExistente.cantidad / cantidadPaquete );
                   
                     for (let i = 0; i < cantidadPaquete * paquetesResultantes; i++) {
                       cantidadCarrito --;
@@ -117,7 +119,7 @@ function CarritoProvider({ children }) {
                 }
               }
               // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
-              return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg }];
+              return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg, cantidad }];
             }
           }
         });
@@ -128,6 +130,7 @@ function CarritoProvider({ children }) {
   useEffect(() => {
     if (paqueteAñadir) {
       añadirElemento(paqueteAñadir.id, paqueteAñadir.cant)
+      setCarritoAbierto(true);
     }
 
     if(elementoEliminar){
