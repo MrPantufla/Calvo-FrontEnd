@@ -7,6 +7,7 @@ import { useAuth } from '../../../contextLogin.jsx';
 import { useFavoritos } from '../../../contextFavoritos.jsx';
 import { useProductos } from '../../../contextProductos.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
+import { marcasUnicasPerfiles } from '../../../rubros.js';
 
 export default function CardProducto(args) {
   const {
@@ -32,6 +33,8 @@ export default function CardProducto(args) {
     cod_orig = { cod_orig },
     tipo_prod = { tipo_prod },
     srubro = { srubro },
+    rubro = { rubro },
+    marca = { marca },
     detalle = { detalle },
     precio = { precio },
     color = { color },
@@ -77,7 +80,12 @@ export default function CardProducto(args) {
   const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
 
   let codigo;
-  tipo_prod == 'PERFIL' ? (codigo = cod_orig) : (codigo = cod_int);
+  marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ? (codigo = cod_orig) : (codigo = cod_int);
+
+  let idParaFavoritos = id;
+  if (referencia) {
+    idParaFavoritos = productosSueltos[referencia].id;
+  }
 
   const usarBlanco = (color == 'Negro' ||
     color == 'Azul' ||
@@ -161,8 +169,8 @@ export default function CardProducto(args) {
           <img className="logoDecoracionCardProducto" src={logoBlanco} />
         </div>
         {tipo_prod != 'MAQUINAS' &&
-          <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(id, e)}>
-            {favoritos.esFavorito(id) ?
+          <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(idParaFavoritos, e)}>
+            {favoritos.esFavorito(idParaFavoritos) ?
               (<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fillRule="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
               </svg>)
@@ -177,7 +185,7 @@ export default function CardProducto(args) {
           <div className="dropdownCantidad">
             <button className={`toggleDropdown ${dropdownDesplegado && 'desplegado'}`} type="button" onClick={toggleDropdown}>
               {`CANTIDAD: `}
-              <p className="espacioCantidad">{cantidadSeleccionada ? (paqueteSeleccionado ? ('PAQUETE'): ('UNIDAD')) : ('')}</p>
+              <p className="espacioCantidad">{cantidadSeleccionada ? (paqueteSeleccionado ? ('PAQUETE') : ('UNIDAD')) : ('')}</p>
               <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-caret-down-fill flechaDropdownCantidades" viewBox="0 0 16 16">
                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
               </svg>
@@ -224,7 +232,11 @@ export default function CardProducto(args) {
           />
         </div>
         <div className="detalleYCod_orig">
-          <h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>
+          {referencia ?
+            (<h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
+            :
+            (<h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
+          }
         </div>
         <div className="kgCantidadYColorContainer">
           <div className="kgProducto">
