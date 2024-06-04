@@ -2,6 +2,7 @@ import './cardCarrito.css';
 import { useCarrito } from '../../contextCarrito.jsx'
 import { useProductos } from '../../contextProductos.jsx';
 import { useTienda } from '../../contextTienda.jsx';
+import { marcasUnicasPerfiles } from '../../rubros.js';
 
 export default function CardCarrito(args) {
     const {
@@ -25,7 +26,7 @@ export default function CardCarrito(args) {
     const colorCorregido = (producto.color).replace(/\s+/g, '-');
 
     let codigo;
-    producto.tipo_prod == 'PERFIL' ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
+    marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
     const usarBlanco = (producto.color == 'Negro' ||
         producto.color == 'Azul' ||
@@ -61,7 +62,7 @@ export default function CardCarrito(args) {
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
                 <div className="codigoYDetalleCardCarritoContainer">
-                    <p className="codigoYDetalleCardCarrito"><span>{producto.cod_orig}</span> - {producto.detalle}</p>
+                    <p className="codigoYDetalleCardCarrito"><span>{producto.cod_orig}</span> - {producto.detalle} <span className="codOrig">{`${producto.cantidad > 1 ? ('(' + producto.cantidad + 'u.)') : ('')}`}</span></p>
                 </div>
             </div>
             <div className="restoCardCarrito">
@@ -88,10 +89,10 @@ export default function CardCarrito(args) {
                 <div className="precioContainer">
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
                     <div className="precioProductoCardCarrito">
-                        <p>${parseInt(producto.precio * (producto.kg || 1) * args.cantidadCarrito)}</p>
+                        <p>${parseInt(producto.precio * (producto.kg || 1) * args.cantidadCarrito * producto.cantidad)}</p>
                     </div>
                     <div className="precioUnitarioCardCarrito">
-                        <p>({args.cantidadCarrito} x ${parseInt(producto.precio * (producto.kg || 1))})</p>
+                        <p>({args.cantidadCarrito} x ${parseInt(producto.precio * (producto.kg || 1) * producto.cantidad)})</p>
                     </div>
                 </div>
             </div>

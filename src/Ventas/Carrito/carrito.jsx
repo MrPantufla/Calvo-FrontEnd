@@ -61,7 +61,7 @@ export default function Carrito() {
   const [mostrarHint, setMostrarHint] = useState(false);
 
   const calcularTotal = (elementos) => {
-    return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * (elemento.kg || 1) * elemento.cantidad), 0);
+    return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * (elemento.kg || 1) * elemento.cantidadCarrito * elemento.cantidad), 0);
   };
 
   const handleEnterCodigo = (e, nextInputRef) => {

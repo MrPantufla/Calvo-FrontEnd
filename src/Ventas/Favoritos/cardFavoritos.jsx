@@ -2,6 +2,7 @@ import './cardFavoritos.css';
 import { useFavoritos } from '../../contextFavoritos';
 import { useState } from 'react';
 import { useCarrito } from '../../contextCarrito';
+import { marcasUnicasPerfiles } from '../../rubros';
 
 export default function CardFavoritos(args) {
     const { toggleFavorito } = useFavoritos();
@@ -12,7 +13,7 @@ export default function CardFavoritos(args) {
     const colorCorregido = (args.producto.color).replace(/\s+/g, '-');
 
     let codigo;
-    args.producto.tipo_prod == 'PERFIL' ? (codigo = args.producto.cod_orig) : (codigo = args.producto.cod_int);
+    marcasUnicasPerfiles.find(marcaPerfil => args.producto.marca == marcaPerfil) ? (codigo = args.producto.cod_orig) : (codigo = args.producto.cod_int);
 
     const usarBlanco = (args.producto.color == 'Negro' ||
         args.producto.color == 'Azul' ||

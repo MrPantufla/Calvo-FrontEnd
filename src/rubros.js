@@ -106,6 +106,10 @@ export const marcasPerfiles = [ //Los universales se agregan en cada marca que q
    { nombre: 'MODENA ECO', items: [147, 146] }
 ]
 
+export const marcasUnicasPerfiles = [...new Set(marcasPerfiles.reduce((acc, marca) => {
+   return acc.concat(marca.items);
+}, []))];
+
 export const rubrosPerfiles = [58, 60, 2, 59, 61, 13, 28, 5, 21, 8, 39, 12, 70, 56]
 
 export const rubros = [
