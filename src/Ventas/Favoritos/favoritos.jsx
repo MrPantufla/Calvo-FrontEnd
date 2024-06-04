@@ -30,6 +30,8 @@ export default function Favoritos() {
         isTablet
     } = useTienda();
 
+    const { productosSueltos } = useProductos();
+
     const toggleFavoritos = () => {
         if (!state.logueado || !state.userInfo.email_confirmado) {
             setMostrarLogin(true);
@@ -96,7 +98,10 @@ export default function Favoritos() {
                 </div>
                 <div className="elementosFavoritos">
                     {state.logueado && favoritos ? (favoritos.map((favorito) => {
-                        const producto = productosIndexado[favorito];
+                        let producto = productosIndexado[favorito];
+                        if(!producto){
+                            producto = productosSueltos[favorito];
+                        }
                         if (producto) {
                             return (
                                 <div key={producto.id}>
