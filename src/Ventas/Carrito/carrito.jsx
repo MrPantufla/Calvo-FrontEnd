@@ -70,10 +70,10 @@ export default function Carrito() {
       const codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
       if (codigoIngresado !== '') {
         let productosEncontrados;
-        productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+        productosEncontrados = Object.values(productosSueltos).filter(producto => producto.cod_orig === codigoIngresado);
 
-        if(productosEncontrados == []){
-          productosEncontrados = Object.values(productosSueltos).filter(producto => producto.cod_orig === codigoIngresado);
+        if(productosEncontrados.length == 0){
+          productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
         }
 
         const productosEncontradosFiltrados = productosEncontrados.filter(producto => !productosEliminados.includes(producto.id));

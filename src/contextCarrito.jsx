@@ -42,8 +42,11 @@ function CarritoProvider({ children }) {
   const [precioTotal, setPrecioTotal] = useState(null);
   const [datosCorroborados, setDatosCorroborados] = useState(false);
   const [instanciaPedido, setInstanciaPedido] = useState('');
+  const [paqueteAñadir, setPaqueteAñadir] = useState(null);
+  const [elementoEliminar, setElementoEliminar] = useState(null);
 
   function añadirElemento(id, cantidadCarrito) {
+    setPaqueteAñadir(null);
     if (!state.userInfo.cliente && productosIndexado[id].tipo_prod == 'PERFIL') {
       mostrarCartel();
     }
@@ -53,6 +56,7 @@ function CarritoProvider({ children }) {
           if (productosIndexado && productosSueltos) {
             let producto;
             producto = productosIndexado[id];
+
             if (!producto) {
               producto = productosSueltos[id];
             }
@@ -64,31 +68,54 @@ function CarritoProvider({ children }) {
             const referenciaPaquete = producto.referenciaPaquete;
 
             let cantidadPaquete = -1;
-            if(referenciaPaquete){
+            if (referenciaPaquete) {
               cantidadPaquete = referenciaPaquete.cantidad;
             }
 
             const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
-            //console.log(producto)
             if (elementoExistente) {
               elementoExistente.cantidadCarrito += cantidadCarrito;
 
-              if(referenciaPaquete){
-                if(cantidadPaquete != -1){
-                  if(elementoExistente.cantidadCarrito >= cantidadPaquete){
+              if (referenciaPaquete) {
+                if (cantidadPaquete != -1) {
+                  if (elementoExistente.cantidadCarrito >= cantidadPaquete) {
                     const paquetesResultantes = Math.floor(elementoExistente.cantidadCarrito / cantidadPaquete);
 
-                    for(let i = 0; i<12*paquetesResultantes; i++){
-                      restarElemento(elementoExistente.id);
+                    if(elementoExistente.cantidadCarrito == cantidadPaquete * paquetesResultantes){
+                      setElementoEliminar(elementoExistente.id);
                     }
 
-                    añadirElemento(referenciaPaquete.id, paquetesResultantes);
+                    for (let i = 0; i < cantidadPaquete * paquetesResultantes; i++) {
+                      restarElemento(elementoExistente.id);
+                    }
+                    const idPaquete = referenciaPaquete.id;
+
+                    setPaqueteAñadir({ id: idPaquete, cant: paquetesResultantes });
                   }
                 }
               }
               // Si ya existe, solo actualiza la cantidad y deja que el useEffect maneje la actualización del carrito
               return [...prevElementos];
             } else {
+              if (referenciaPaquete) {
+                if (cantidadPaquete != -1) {
+                  if (cantidadCarrito >= cantidadPaquete) {
+                    const paquetesResultantes = Math.floor(cantidadCarrito / cantidadPaquete);
+                  
+                    for (let i = 0; i < cantidadPaquete * paquetesResultantes; i++) {
+                      cantidadCarrito --;
+                    }
+                    
+                    const idPaquete = referenciaPaquete.id;
+                    
+                    setPaqueteAñadir({id: idPaquete, cant: paquetesResultantes});
+
+                    if(cantidadCarrito == 0){
+                      return prevElementos;
+                    }
+                  }
+                }
+              }
               // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
               return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg }];
             }
@@ -97,6 +124,17 @@ function CarritoProvider({ children }) {
       }
     }
   }
+
+  useEffect(() => {
+    if (paqueteAñadir) {
+      añadirElemento(paqueteAñadir.id, paqueteAñadir.cant)
+    }
+
+    if(elementoEliminar){
+      eliminarElemento(elementoEliminar);
+      setElementoEliminar(null);
+    }
+  }, [añadirElemento])
 
   const mostrarCartel = () => {
     setMostrarCartelError(true);
@@ -112,12 +150,15 @@ function CarritoProvider({ children }) {
       elementoExistente.cantidadCarrito -= 1;
       setElementos([...elementos]);
     } else {
+      setElementoEliminar(id);
       eliminarElemento(id);
     }
   }
 
   function eliminarElemento(id) {
-    setElementos((prevElementos) => prevElementos.filter((elemento) => elemento.id !== id));
+      setElementos((prevElementos) => {
+      return prevElementos.filter((elemento) => elemento.id !== id);
+    });
   }
 
   function toggleCarrito() {
