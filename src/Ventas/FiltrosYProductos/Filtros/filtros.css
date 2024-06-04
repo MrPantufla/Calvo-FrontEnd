@@ -5,11 +5,11 @@
     border: none;
     color: var(--colorSecundario);
     background-color: white;
-    font-size: 2rem;
     right: 1.5rem;
     top: 11rem;
     transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
     font-weight: 600;
+    border-radius: 2px;
 }
 
 .botonMostrarFiltros.open {
@@ -19,6 +19,11 @@
 
 .botonMostrarFiltros:active {
     transform: scale(0.95);
+}
+
+.botonMostrarFiltros svg{
+    height: 8rem;
+    width: 8rem;
 }
 
 .filtros {
@@ -82,7 +87,6 @@
         top: 16rem;
         height: 10.8rem;
         width: 12rem;
-        font-size: 3rem;
     }
 
     .filtros {
