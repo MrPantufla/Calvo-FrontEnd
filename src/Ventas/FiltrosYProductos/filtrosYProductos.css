@@ -30,7 +30,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left 9rem;
-    min-height: calc(100vh - 3rem);
+    min-height: calc(100vh - 3.3rem);
     align-items: center;
 }
 
@@ -92,7 +92,7 @@
     }
 
     .productos {
-        min-height: calc(100vh - 17rem)
+        min-height: calc(100vh - 26.1rem)
     }
 
     .filtrosYBusqueda:not(.open) {
@@ -118,7 +118,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .productos {
-        min-height: calc(100vh - 9.5rem);
+        min-height: calc(100vh - 21rem);
     }
 
     .contenedorPrincipalMuestras {

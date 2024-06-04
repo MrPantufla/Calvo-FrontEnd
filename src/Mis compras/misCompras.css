@@ -9,7 +9,7 @@
 }
 
 .contenedorPrincipalMisCompras.vacio{
-    min-height: calc(100vh - 3rem);
+    min-height: calc(100vh - 3.3rem);
 }
 
 .decoracionMisCompras{
@@ -23,7 +23,7 @@
 .misComprasContainer{
     display: flex;
     flex-direction: row;
-    padding-top: 8rem;
+    padding-top: 10rem;
     justify-content: center;
     width: 100vw;
 }
@@ -32,6 +32,7 @@
     flex-direction: column;
     justify-content: left;
     align-items: center;
+    padding-top: 12rem;
 }
 
 .columnaImpar{
@@ -62,7 +63,7 @@
 }
 
 .historialVacioContainer{
-    height: calc(100% - 8rem);
+    height: calc(100% - 12rem);
     position: absolute;
     width: 100vw;
     display: flex;
@@ -93,5 +94,9 @@
 
     .contenedorPrincipalMisCompras.vacio .misComprasContainer .historialVacioContainer{
         padding: 0 4rem;
+    }
+
+    .historialVacioContainer{
+        height: calc(100% - 12rem);
     }
 }
