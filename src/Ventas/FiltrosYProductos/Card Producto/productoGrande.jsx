@@ -4,8 +4,28 @@ import { useCarrito } from '../../../contextCarrito.jsx';
 import { useAuth } from '../../../contextLogin.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
 import { useState } from 'react';
+import { marcasUnicasPerfiles } from '../../../rubros.js';
 
 export default function ProductoGrande(args) {
+
+    const {
+        id = { id },
+        cod_orig = { cod_orig },
+        tipo_prod = { tipo_prod },
+        srubro = { srubro },
+        detalle = { detalle },
+        precio = { precio },
+        marca = { marca },
+        rubro = { rubro },
+        color = { color },
+        kg = { kg },
+        cod_int = { cod_int },
+        pesos = { pesos },
+        dolar = { dolar },
+        referencia = { referencia },
+        cantidad = { cantidad },
+    } = args.producto;
+
     const [aptoParaCerrar, setAptoParaCerrar] = useState(false)
 
     const {
@@ -16,26 +36,27 @@ export default function ProductoGrande(args) {
     const { isMobile } = useTienda();
 
     const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
-    const elementoExistente = elementosCarrito.find((elemento) => elemento.id === args.id);
-    const cantidad = elementoExistente ? elementoExistente.cantidad : 0;
-    const colorCorregido = (args.color).replace(/\s+/g, '-');
+    const elementoExistente = elementosCarrito.find((elemento) => elemento.id === id);
+    const cantidadCarrito = elementoExistente ? elementoExistente.cantidadCarrito : 0;
+    const colorCorregido = (color).replace(/\s+/g, '-');
+    const [cantidadSeleccionada, setCantidadSeleccionada] = useState(null);
 
     let codigo;
-    args.tipo_prod == 'PERFIL' ? (codigo = args.cod_orig) : (codigo = args.cod_int);
+    marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ? (codigo = cod_orig) : (codigo = cod_int);
 
-    const usarBlanco = (args.color == 'Negro' ||
-        args.color == 'Azul' ||
-        args.color == 'Marron oscuro' ||
-        args.color == 'Bronce oscuro' ||
-        args.color == 'Simil madera' ||
-        args.color == 'Platil' ||
-        args.color == 'Peltre' ||
-        args.color == 'Fume'
+    const usarBlanco = (color == 'Negro' ||
+        color == 'Azul' ||
+        color == 'Marron oscuro' ||
+        color == 'Bronce oscuro' ||
+        color == 'Simil madera' ||
+        color == 'Platil' ||
+        color == 'Peltre' ||
+        color == 'Fume'
     );
 
     const sumarContador = () => {
         if (state.userInfo.email_confirmado) {
-            añadirElemento(args.id, 1);
+            añadirElemento(id, 1);
         }
         else {
             setMostrarLogin(true);
@@ -44,8 +65,8 @@ export default function ProductoGrande(args) {
 
     const restarContador = () => {
         if (state.userInfo.email_confirmado) {
-            if (cantidad > 0) {
-                restarElemento(args.id);
+            if (cantidadCarrito > 0) {
+                restarElemento(id);
             }
         }
         else {
@@ -83,20 +104,23 @@ export default function ProductoGrande(args) {
                             </svg>
                         </button>
                     }
-
                     <div className="informacion">
                         <h1>{codigo}</h1>
-                        <h2>{args.detalle}</h2>
+                        {referencia ?
+                            (<h2>{detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h2>)
+                            :
+                            (<h2>{detalle} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h2>)
+                        }
                     </div>
 
                     <div className="imagenProductoGrandeContainer">
                         <img
                             className="imagenProductoGrande"
                             onContextMenu={handleContextMenu}
-                            src={args.tipo_prod == 'PERFIL' ?
+                            src={tipo_prod == 'PERFIL' ?
                                 (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
                                 :
-                                (args.tipo_prod == 'ACCESORIO' ?
+                                (tipo_prod == 'ACCESORIO' ?
                                     (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
                                     :
                                     (`/PngsPuntuales/${codigo.trim().toUpperCase()}.png`)
@@ -110,17 +134,17 @@ export default function ProductoGrande(args) {
                     <div className="kgCantidadColorContainer">
                         <div className="kgProductoGrandeContainer">
                             <div className="textoPesoPromedio">
-                                {args.kg > 0 ? (<><p>PESO PROMEDIO</p>
-                                    <p className="valorKg">{args.kg}kg</p></>) : ('')}
+                                {kg > 0 ? (<><p>PESO PROMEDIO</p>
+                                    <p className="valorKg">{kg}kg</p></>) : ('')}
                             </div>
                         </div>
 
-                        {args.tipo_prod != 'MAQUINAS' ?
+                        {tipo_prod != 'MAQUINAS' ?
                             (<div className="conjuntoCantidad">
                                 {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
                                 <div className="cantidad">
                                     <button className="botonProductoGrande" onClick={restarContador}>-</button>
-                                    <p className="cantidadProductoGrande">{cantidad}</p>
+                                    <p className="cantidadProductoGrande">{cantidadCarrito}</p>
                                     <button className="botonProductoGrande" onClick={sumarContador}>+</button>
                                 </div>
                             </div>)
@@ -129,9 +153,9 @@ export default function ProductoGrande(args) {
                                 className="botonConsultarMaquina consultarMaquinaGrande"
                                 target="blank"
                                 href={isMobile ?
-                                    (`https://wa.me/5493456475294?text=Consulta%20sobre%20${codigo}%20-%20${args.detalle}:%20`)
+                                    (`https://wa.me/5493456475294?text=Consulta%20sobre%20${codigo}%20-%20${detalle}:%20`)
                                     :
-                                    (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${codigo}%20-%20${args.detalle}:%20`)
+                                    (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${codigo}%20-%20${detalle}:%20`)
                                 }
                             >
                                 CONSULTAR
@@ -139,10 +163,10 @@ export default function ProductoGrande(args) {
                         }
 
                         <div className="colorProductoGrandeContainer">
-                            {args.color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
+                            {color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
                                 <div className="muestraColorProductoGrande" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                                     <p className="colorAtributo" style={usarBlanco ? { color: 'white' } : {}}>
-                                        {args.color.toUpperCase()}
+                                        {color.toUpperCase()}
                                     </p>
                                 </div></>)}
                         </div>
