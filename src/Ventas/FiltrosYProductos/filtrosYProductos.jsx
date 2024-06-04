@@ -109,7 +109,7 @@ export default function FiltrosYProductos() {
   useEffect(() => {
     if (coloresActivos.length == 0) {
       setColoresUnicos(Array.from(new Set(
-        Object.values(listaFiltrada)
+        Object.values(listaPreFiltrada)
           .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
           .map(producto => producto.color)
       )))
@@ -119,7 +119,7 @@ export default function FiltrosYProductos() {
   useEffect(() => {
     if (rubroActivo == 'Perfiles' && marcaActiva) {
       setSrubrosUnicos(Array.from(new Set(
-        Object.values(listaFiltrada)
+        Object.values(listaPreFiltrada)
           .filter(producto =>
             marcaActiva.items.includes(producto.marca)
           )
@@ -217,7 +217,11 @@ export default function FiltrosYProductos() {
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
         <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
-          <button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>FILTROS</button>
+          <button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+              <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+            </svg>
+          </button>
         </div>
         {isTablet ?
           (<>
@@ -280,15 +284,8 @@ export default function FiltrosYProductos() {
 
       {productoSeleccionado && (
         <ProductoGrande
-          id={productoSeleccionado.id}
-          cod_orig={productoSeleccionado.cod_orig}
-          detalle={productoSeleccionado.detalle}
+          producto={productoSeleccionado}
           onClose={handleCloseProductoGrande}
-          tipo_prod={productoSeleccionado.tipo_prod}
-          precio={productoSeleccionado.precio}
-          color={productoSeleccionado.color}
-          kg={productoSeleccionado.kg}
-          cod_int={productoSeleccionado.cod_int}
           siguiente={siguienteProducto}
           anterior={productoAnterior}
         />
