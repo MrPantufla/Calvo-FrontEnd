@@ -281,6 +281,16 @@
         height: 4.5rem;
         font-size: 1.9rem;
     }
+
+    .colorCortina{
+        height: 4rem;
+    }
+
+    .colorCortina label{
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+    }
 }
 
 @media (max-width: 280px){
