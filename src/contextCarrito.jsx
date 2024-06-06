@@ -45,6 +45,7 @@ function CarritoProvider({ children }) {
   const [instanciaPedido, setInstanciaPedido] = useState('');
   const [paqueteAñadir, setPaqueteAñadir] = useState(null);
   const [elementoEliminar, setElementoEliminar] = useState(null);
+  const [respuestaRecibida, setRespuestaRecibida] = useState(true);
 
   function añadirElemento(id, cantidadCarrito) {
     setPaqueteAñadir(null);
@@ -226,6 +227,9 @@ function CarritoProvider({ children }) {
   }, [elementos]);
 
   const confirmarCompra = () => {
+    setRespuestaRecibida(false);
+    setCompraRealizadaAbierto(true);
+
     const nuevosElementos = elementos.map(({ id, cantidadCarrito, precioProducto }) => ({ id, cantidadCarrito, precioProducto }));
     const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
     const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion }
@@ -245,10 +249,10 @@ function CarritoProvider({ children }) {
       body: JSON.stringify(carritoRequest),
     })
       .then(response => {
+        setRespuestaRecibida(true);
         if (response.status == 500) {
           setErrorProductoEliminado(true);
         }
-        setCompraRealizadaAbierto(true);
       })
   }
 
@@ -291,7 +295,8 @@ function CarritoProvider({ children }) {
       setInstanciaPedido,
       eliminarElemento,
       errorProductoEliminado,
-      setErrorProductoEliminado
+      setErrorProductoEliminado,
+      respuestaRecibida
     }}>
       {children}
     </CarritoContext.Provider>

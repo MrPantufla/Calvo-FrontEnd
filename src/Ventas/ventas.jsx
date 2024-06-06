@@ -14,7 +14,8 @@ import { ProviderCortinas } from '../contextCortinas.jsx';
 export default function Ventas() {
   const {
     confirmarCompraAbierto,
-    compraRealizadaAbierto
+    compraRealizadaAbierto,
+    respuestaRecibida
   } = useCarrito();
 
   const { mostrarPagos } = useTienda();
@@ -26,10 +27,10 @@ export default function Ventas() {
         <DesplegablePerfil />
         <Catalogos />
         <Filtros />
-        {confirmarCompraAbierto ? (<ConfirmarCompra />) : (<></>)}
+        {confirmarCompraAbierto && <ConfirmarCompra />}
         <CartelError />
-        {compraRealizadaAbierto ? (<PedidoRealizado />) : (<></>)}
-        {mostrarPagos ? (<Pagos />) : (<></>)}
+        {compraRealizadaAbierto && <PedidoRealizado />}
+        {mostrarPagos && <Pagos />}
         <Footer />
       </ProviderCortinas>
     </>
