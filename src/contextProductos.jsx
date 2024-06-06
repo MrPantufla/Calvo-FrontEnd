@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useVariables } from './contextVariables';
 import Cookies from 'js-cookie';
 
@@ -9,14 +9,16 @@ function useProductos() {
 }
 
 function ProductosProvider({ children }) {
+
     const { backend } = useVariables();
 
-    const [ordenamientoActivo, setOrdenamientoActivo] = useState('null');
+    const [ordenamientoActivo, setOrdenamientoActivo] = useState(null);
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
     const [dataCargada, setDataCargada] = useState(false);
     const [productosSueltos, setProductosSueltos] = useState([]);
+    const [productosDestacados, setProductosDestacados] = useState([]);
 
     const nuevosColores = new Set();
 
@@ -49,29 +51,29 @@ function ProductosProvider({ children }) {
                         const baseCod = producto.cod_orig.slice(0, -2);
                         const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
 
-                        if(!productosSueltosTemporal[producto.id]){
+                        if (!productosSueltosTemporal[producto.id]) {
                             productosSueltosTemporal[producto.id] = [];
                         }
-                        productosSueltosTemporal[producto.id] = ({...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete})
+                        productosSueltosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete })
                         if (!referencias[baseCod]) {
                             referencias[baseCod] = [];
                         }
-                        referencias[baseCod].push({id: producto.id, color: producto.color});
+                        referencias[baseCod].push({ id: producto.id, color: producto.color });
                     }
                     else if (producto.cod_orig.endsWith('ES') && producto.tipo_prod == 'PERFIL') {
                         const baseCod = producto.cod_orig.slice(0, -1);
                         const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
 
-                        if(!productosSueltosTemporal[producto.id]){
+                        if (!productosSueltosTemporal[producto.id]) {
                             productosSueltosTemporal[producto.id] = [];
                         }
-                        productosSueltosTemporal[producto.id] = ({...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete})
+                        productosSueltosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete })
 
-                        
-                        if(!referencias[baseCod]){
+
+                        if (!referencias[baseCod]) {
                             referencias[baseCod] = [];
                         }
-                        referencias[baseCod].push({id: producto.id, color: producto.color});
+                        referencias[baseCod].push({ id: producto.id, color: producto.color });
                     }
                     else {
                         acumulador.push({ ...producto, precio: precioFinal, referencia: '' });
@@ -85,7 +87,7 @@ function ProductosProvider({ children }) {
 
                     if (referencias[el.cod_orig]) {
                         const productoColor = referencias[el.cod_orig].find(referencia => referencia.color == el.color);
-                        if(productoColor){
+                        if (productoColor) {
                             el.referencia = productoColor.id;
                         }
                     }
@@ -100,6 +102,7 @@ function ProductosProvider({ children }) {
 
                 setColoresArray([...nuevosColores]);
                 obtenerProductosEliminados();
+                obtenerProductosDestacados();
             } else {
                 console.error('Error al obtener productos filtrados:', response.statusText);
             }
@@ -117,7 +120,7 @@ function ProductosProvider({ children }) {
                 setProductosEliminados(data);
                 return true;
             } else {
-                console.error('Error');
+                console.error('Error obteniendo productos eliminados');
                 return false;
             }
         } catch (error) {
@@ -125,6 +128,57 @@ function ProductosProvider({ children }) {
             return false;
         }
     };
+
+    const obtenerProductosDestacados = async () => {
+        try {
+            const response = await fetch(`${backend}/api/obtenerProductosDestacados`);
+
+            if (response.ok) {
+                const data = await response.json();
+                setProductosDestacados(data);
+                return true;
+            }
+            else {
+                console.error('Error obteniendo productos destacados');
+                return false;
+            }
+        }
+        catch (error) {
+            console.log('Error desconocido: ', error);
+            return false;
+        }
+    }
+
+    const guardarDestacados = async () => {
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+        console.log(productosDestacados)
+        try {
+            const response = await fetch(`${backend}/api/guardarDestacados`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenParaEnviar,
+                },
+                body: JSON.stringify(productosDestacados),
+            });
+
+            if (response.ok) {
+                console.log("Produtos destacados exitosamente");
+                return true;
+            }
+            else {
+                console.log(response);
+                return false;
+            }
+        }
+        catch (error) {
+            return false;
+        }
+    }
 
     const eliminarProducto = async (idProducto) => {
         try {
@@ -158,6 +212,25 @@ function ProductosProvider({ children }) {
             console.error('Error desconocido:', error);
             return false;
         }
+    };
+
+    const ordenarPorDestacados = (productos, destacados) => {
+        const destacadosMap = new Map();
+        destacados.forEach((id, index) => {
+            // Mapeamos el índice en el array de destacados a una posición inversa
+            destacadosMap.set(id, destacados.length - 1 - index);
+        });
+    
+        return productos.sort((prodA, prodB) => {
+            const posA = destacadosMap.has(prodA.id) ? destacadosMap.get(prodA.id) : Infinity;
+            const posB = destacadosMap.has(prodB.id) ? destacadosMap.get(prodB.id) : Infinity;
+    
+            if (posA !== posB) {
+                return posA - posB; // Ordenar según la posición en el array de destacados invertido
+            } else {
+                return prodA.id - prodB.id; // Ordenar por ID si no están en destacados o tienen la misma posición
+            }
+        });
     };
 
     const ordenarPorPrecioAsc = (productos) => {
@@ -221,6 +294,15 @@ function ProductosProvider({ children }) {
         return nuevosProductos;
     }
 
+    useEffect(() => {
+        if (!ordenamientoActivo) {
+            if (productosDestacados) {
+                setOrdenamientoActivo('destacados');
+            }
+        }
+
+    }, [ordenamientoActivo])
+
     const ordenarProductos = (productos) => {
         switch (ordenamientoActivo) {
             case 'precioAsc':
@@ -235,6 +317,8 @@ function ProductosProvider({ children }) {
                 return ordenarPorCod_origAsc(productos);
             case 'cod_origDesc':
                 return ordenarPorCod_origDesc(productos);
+            case 'destacados':
+                return ordenarPorDestacados(productos, productosDestacados);
             default:
                 return productos;
         }
@@ -252,7 +336,11 @@ function ProductosProvider({ children }) {
             productosEliminados,
             eliminarProducto,
             dataCargada,
-            productosSueltos
+            productosSueltos,
+            productosDestacados,
+            guardarDestacados,
+            setProductosDestacados,
+            productosDestacados
         }}>
             {children}
         </ProductosContext.Provider>
