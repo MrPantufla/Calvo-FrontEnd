@@ -89,6 +89,8 @@ export default function ProductoGrande(args) {
         e.preventDefault();
     }
 
+    const imagenStyle = (kg <= 0 && color === 'Ind') ? { height: '35rem' } : {};
+
     return (
         <div className="contenedorPrincipalProductoGrande" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleClose}>
             <div className="parteUtilizableProductoGrande" onMouseDown={handleParteUtilizableClick} onMouseUp={handleParteUtilizableClick}>
@@ -113,17 +115,25 @@ export default function ProductoGrande(args) {
                         }
                     </div>
 
-                    <div className="imagenProductoGrandeContainer">
+                    <div className="imagenProductoGrandeContainer" style={imagenStyle}>
                         <img
                             className="imagenProductoGrande"
                             onContextMenu={handleContextMenu}
-                            src={tipo_prod == 'PERFIL' ?
+                            src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ?
                                 (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
                                 :
                                 (tipo_prod == 'ACCESORIO' ?
                                     (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
                                     :
-                                    (`/PngsPuntuales/${codigo.trim().toUpperCase()}.png`)
+                                    (tipo_prod == 'PUNTUAL' ?
+                                        (`/PngsPuntuales/${codigo.trim().toUpperCase()}.png`)
+                                        :
+                                        (tipo_prod == 'MAQUINAS' ?
+                                            (`/PngsMaquinas/${codigo.trim().toUpperCase()}.png`)
+                                            :
+                                            ('')
+                                        )
+                                    )
                                 )
                             }
                             alt="Imagen del producto"
@@ -132,14 +142,17 @@ export default function ProductoGrande(args) {
                     </div>
 
                     <div className="kgCantidadColorContainer">
-                        <div className="kgProductoGrandeContainer">
-                            <div className="textoPesoPromedio">
-                                {kg > 0 ? (<><p>PESO PROMEDIO</p>
-                                    <p className="valorKg">{kg}kg</p></>) : ('')}
-                            </div>
-                        </div>
+                        {kg > 0 &&
+                            <div className="kgProductoGrandeContainer">
+                                <div className="textoPesoPromedio">
+                                    <p>PESO PROMEDIO</p>
+                                    <p className="valorKg">{kg}kg</p>
+                                </div>
 
-                        {tipo_prod != 'MAQUINAS' ?
+                            </div>
+                        }
+
+                        {/*tipo_prod != 'MAQUINAS' ?
                             (<div className="conjuntoCantidad">
                                 {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
                                 <div className="cantidad">
@@ -160,7 +173,7 @@ export default function ProductoGrande(args) {
                             >
                                 CONSULTAR
                             </a>)
-                        }
+                        */}
 
                         <div className="colorProductoGrandeContainer">
                             {color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
