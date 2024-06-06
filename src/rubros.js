@@ -102,8 +102,8 @@ export const marcasPerfiles = [ //Los universales se agregan en cada marca que q
    { nombre: 'HERRERO', items: [1, 72, 144, 145] },
    { nombre: 'MODENA', items: [2, 108, 144, 145] },
    { nombre: 'A30', items: [65, 114, 144, 145] },
-   { nombre: 'HERRERO ECO', items: [105, 146] },
-   { nombre: 'MODENA ECO', items: [147, 146] }
+   { nombre: 'HERRERO ECO', items: [105, 146, 150] },
+   { nombre: 'MODENA ECO', items: [146, 147, 148, 149, 150] }
 ]
 
 export const marcasUnicasPerfiles = [...new Set(marcasPerfiles.reduce((acc, marca) => {
