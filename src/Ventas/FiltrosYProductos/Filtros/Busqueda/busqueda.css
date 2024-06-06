@@ -13,6 +13,7 @@
     height: 100%;
     font-weight: 550;
     color: var(--colorSecundario);
+    padding-left: 0.5rem;
 }
 
 .busquedaEIcono input:focus {
