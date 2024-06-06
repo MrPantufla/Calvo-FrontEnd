@@ -10,6 +10,7 @@
     transition: background-color 0.3s, color 0.3s, font-weight 0.3s;
     font-weight: 600;
     border-radius: 2px;
+    font-size: 2rem;
 }
 
 .botonMostrarFiltros.open {
@@ -53,6 +54,8 @@
     border-radius: 0px 0px 4px 4px;
     transition: scale 0.2s, fill 0.2s, background-color 0.2s;
     user-select: none;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .scrollerFiltros.enabled {
@@ -70,6 +73,20 @@
 
 .scrollerFiltros.disabled svg {
     fill: var(--colorTerciario);
+}
+
+.scrollerFiltros.admin{
+    cursor: pointer;
+    transition: transform 0.1s;
+    background-color: white;
+}
+
+.scrollerFiltros.admin:active{
+    transform: scale(0.95);
+}
+
+.guardarDestacados{
+    fill: black !important;
 }
 
 .ultimoLabel {
