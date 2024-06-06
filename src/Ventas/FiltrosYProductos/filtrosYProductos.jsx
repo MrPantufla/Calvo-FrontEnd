@@ -14,6 +14,7 @@ import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
 import { rubrosPerfiles, marcasPerfiles, srubrosPerfiles } from '../../rubros';
 import { useCortinas } from '../../contextCortinas';
+import { useAuth } from '../../contextLogin';
 
 export default function FiltrosYProductos() {
 
@@ -21,7 +22,8 @@ export default function FiltrosYProductos() {
     productosIndexado,
     ordenarProductos,
     productosEliminados,
-    dataCargada
+    dataCargada,
+    guardarDestacados
   } = useProductos();
 
   const {
@@ -36,6 +38,8 @@ export default function FiltrosYProductos() {
     srubroActivo,
     marcaActiva
   } = useTienda();
+
+  const { state } = useAuth();
 
   const { setMuestrasAbierto } = useCortinas();
 
@@ -222,11 +226,26 @@ export default function FiltrosYProductos() {
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
         <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
-          <button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={toggleFiltros}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-              <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-            </svg>
-          </button>
+          (<button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? (guardarDestacados) : (toggleFiltros)) : (toggleFiltros)}>
+            {state.userInfo ?
+              (
+                state.userInfo.tipo_usuario == 'admin' ?
+                  ('Guardar destacados')
+                  :
+                  (<svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fillRule="currentColor" className="bi bi-filter" viewBox="0 0 16 16">
+                    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                  </svg>)
+              )
+              :
+              (
+                <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fillRule="currentColor" className="bi bi-filter" viewBox="0 0 16 16">
+                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                </svg>
+              )
+            }
+
+          </button>)
+
         </div>
         {isTablet ?
           (<>
