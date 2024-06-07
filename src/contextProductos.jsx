@@ -19,6 +19,8 @@ function ProductosProvider({ children }) {
     const [dataCargada, setDataCargada] = useState(false);
     const [productosSueltos, setProductosSueltos] = useState([]);
     const [productosDestacados, setProductosDestacados] = useState([]);
+    const [procesosIndexado, setProcesosIndexado] = useState([]);
+    const [procesosRenderizar, setProcesosRenderizar] = useState([]);
 
     const nuevosColores = new Set();
 
@@ -34,6 +36,9 @@ function ProductosProvider({ children }) {
                 // Realizar actualizaciones según la categoría
                 const referencias = {};
                 const productosSueltosTemporal = {};
+                const procesosTemporal = {};
+                const procesosRenderizarTemporal = {};
+                const troqueladosTemporal = {};
 
                 const productosActualizados = productosObtenidos.reduce((acumulador, producto) => {
                     let precioFinal = producto.precio_vta1; // Precio inicial
@@ -41,48 +46,111 @@ function ProductosProvider({ children }) {
                         // Si es mayorista y hay precio mayorista, actualizar precio
                         precioFinal = producto.precio_vta2;
                     }
+
                     let copiaPrecio = precioFinal;
                     if (descuentos != null && descuentos[producto.rubro]) {
                         // Aplicar descuento si descuentos no es nulo y hay un valor en producto[rubro]
                         precioFinal -= parseInt(descuentos[producto.rubro] / 100 * copiaPrecio);
                     }
 
-                    if (producto.cod_orig.endsWith('-S')) {
-                        const baseCod = producto.cod_orig.slice(0, -2);
-                        const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
-
-                        if (!productosSueltosTemporal[producto.id]) {
-                            productosSueltosTemporal[producto.id] = [];
-                        }
-                        productosSueltosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete })
-                        if (!referencias[baseCod]) {
-                            referencias[baseCod] = [];
-                        }
-                        referencias[baseCod].push({ id: producto.id, color: producto.color });
+                    if(producto.tipo_prod == 'PUNTUAL' || producto.tipo_prod == 'MAQUINAS'){
+                        precioFinal = 0;
                     }
-                    else if (producto.cod_orig.endsWith('ES') && producto.tipo_prod == 'PERFIL') {
-                        const baseCod = producto.cod_orig.slice(0, -1);
-                        const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
 
-                        if (!productosSueltosTemporal[producto.id]) {
-                            productosSueltosTemporal[producto.id] = [];
+                    if (producto.tipo_prod != 'PROCESOS') {
+                        if (producto.cod_orig.endsWith('-S')) {
+                            const baseCod = producto.cod_orig.slice(0, -2);
+                            const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
+
+                            if (!productosSueltosTemporal[producto.id]) {
+                                productosSueltosTemporal[producto.id] = [];
+                            }
+                            productosSueltosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete })
+                            if (!referencias[baseCod]) {
+                                referencias[baseCod] = [];
+                            }
+                            referencias[baseCod].push({ id: producto.id, color: producto.color });
                         }
-                        productosSueltosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete })
+                        else if (producto.cod_orig.endsWith('ES') && producto.tipo_prod == 'PERFIL') {
+                            const baseCod = producto.cod_orig.slice(0, -1);
+                            const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
+
+                            if (!productosSueltosTemporal[producto.id]) {
+                                productosSueltosTemporal[producto.id] = [];
+                            }
+                            productosSueltosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referenciaPaquete: referenciaPaquete })
 
 
-                        if (!referencias[baseCod]) {
-                            referencias[baseCod] = [];
+                            if (!referencias[baseCod]) {
+                                referencias[baseCod] = [];
+                            }
+                            referencias[baseCod].push({ id: producto.id, color: producto.color });
                         }
-                        referencias[baseCod].push({ id: producto.id, color: producto.color });
+                        else {
+                            acumulador.push({ ...producto, precio: precioFinal, referencia: '' });
+                        }
                     }
                     else {
-                        acumulador.push({ ...producto, precio: precioFinal, referencia: '' });
+                        const codigo = producto.cod_orig.trim();
+                        const pintRegex = /^PINT\s\S+$/;
+                        const trozadoRegex = /\bTROZADO\b/i;
+                        const pdtRegex = /\bPDT\b/i;
+                        switch(producto.rubro){
+                            case 88:{
+                                if(codigo.slice(-2) != 'CL' && codigo.slice(-3) != 'BYC' && !trozadoRegex.test(producto.detalle)){
+                                    procesosTemporal[producto.id] = producto;
+
+                                    if(codigo.slice(-2) != 'LL'){
+                                        procesosRenderizarTemporal[producto.id] = producto;
+                                    }
+                                }
+                                break;
+                            }
+                            case 67:{
+                                if((codigo.slice(-2) == 'M2' || pintRegex.test(codigo) || codigo.slice(-2) == 'LL') && !pdtRegex.test(producto.detalle)){
+                                    procesosTemporal[producto.id] = producto;
+                                    if(codigo.slice(-2) != 'LL'){
+                                        procesosRenderizarTemporal[producto.id] = producto;
+                                    }
+                                }
+                                break;
+                            }
+                            case 78:{
+                                if(!trozadoRegex.test(producto.detalle)){
+                                    procesosRenderizarTemporal[producto.id] = producto;
+                                    procesosTemporal[producto.id] = producto;
+                                }
+                                break;
+                            }
+                            case 3:{
+                                if(pintRegex.test(codigo)){
+                                    procesosRenderizarTemporal[producto.id] = producto;
+                                }
+                                break;
+                            }
+                            case 73:{
+                                if(codigo.slice(-2) == 'M2' || pintRegex.test(codigo || codigo.slice(-2) == 'LL')){
+                                    procesosTemporal[producto.id] = producto;
+                                    if(codigo.slice(-2) != 'LL'){
+                                        procesosRenderizarTemporal[producto.id] = producto;
+                                    }
+                                }
+                                break;
+                            }
+                            default:{
+                                procesosTemporal[producto.id] = producto;
+                            }
+                        }
+                        
                     }
-                    setProductosSueltos(productosSueltosTemporal);
+
                     return acumulador;
                 }, []);
 
-                // Indexar los productos actualizados
+                setProductosSueltos(productosSueltosTemporal);
+                setProcesosIndexado(procesosTemporal);
+                setProcesosRenderizar(procesosRenderizarTemporal);
+
                 setProductosIndexado(productosActualizados.reduce((acc, el) => {
 
                     if (referencias[el.cod_orig]) {
@@ -220,11 +288,11 @@ function ProductosProvider({ children }) {
             // Mapeamos el índice en el array de destacados a una posición inversa
             destacadosMap.set(id, destacados.length - 1 - index);
         });
-    
+
         return productos.sort((prodA, prodB) => {
             const posA = destacadosMap.has(prodA.id) ? destacadosMap.get(prodA.id) : Infinity;
             const posB = destacadosMap.has(prodB.id) ? destacadosMap.get(prodB.id) : Infinity;
-    
+
             if (posA !== posB) {
                 return posA - posB; // Ordenar según la posición en el array de destacados invertido
             } else {
@@ -237,6 +305,14 @@ function ProductosProvider({ children }) {
         return productos.sort((prodA, prodB) => {
             const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
             const precioB = prodB.kg !== 0 ? prodB.precio * prodB.kg : prodB.precio;
+
+            if(precioA === 0 && precioB !== 0){
+                return 1
+            }
+            
+            if(precioB === 0 && precioA !== 0){
+                return -1;
+            }
 
             return precioA - precioB;
         });
@@ -252,13 +328,34 @@ function ProductosProvider({ children }) {
     };
 
     const ordenarPorKgAsc = (productos) => {
-        return productos.sort((prodA, prodB) => prodA.kg - prodB.kg);
-    }
+        return productos.sort((prodA, prodB) => {
+            // Si prodA tiene peso 0 y prodB no, prodA va al final
+            if (prodA.kg === 0 && prodB.kg !== 0) {
+                return 1;
+            }
+            // Si prodB tiene peso 0 y prodA no, prodB va al final
+            if (prodB.kg === 0 && prodA.kg !== 0) {
+                return -1;
+            }
+            // En cualquier otro caso, ordenar normalmente por peso ascendente
+            return prodA.kg - prodB.kg;
+        });
+    };
 
     const ordenarPorKgDesc = (productos) => {
-        const nuevosProductos = productos.sort((prodA, prodB) => prodB.kg - prodA.kg);
-        return nuevosProductos;
-    }
+        return productos.sort((prodA, prodB) => {
+            // Si prodA tiene peso 0 y prodB no, prodA va al final
+            if (prodA.kg === 0 && prodB.kg !== 0) {
+                return 1;
+            }
+            // Si prodB tiene peso 0 y prodA no, prodB va al final
+            if (prodB.kg === 0 && prodA.kg !== 0) {
+                return -1;
+            }
+            // En cualquier otro caso, ordenar normalmente por peso descendente
+            return prodB.kg - prodA.kg;
+        });
+    };
 
     const ordenarPorCod_origAsc = (productos) => {
         const nuevosProductos = productos.sort((prodA, prodB) => {
