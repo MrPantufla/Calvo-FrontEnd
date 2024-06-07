@@ -21,6 +21,7 @@ function TiendaProvider({ children }) {
   const [mostrarPagos, setMostrarPagos] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
+  const [procesosSelected, setProcesosSelected] = useState(false);
 
   const {
     setOrdenamientoActivo
@@ -61,6 +62,7 @@ function TiendaProvider({ children }) {
 
   const seleccionarEliminados = () => {
     setCortinasSelected(false);
+    setProcesosSelected(false);
 
     if (!eliminadosSelected) {
       setRubroActivo([]);
@@ -74,6 +76,7 @@ function TiendaProvider({ children }) {
 
   const seleccionarCortinas = () => {
     setEliminadosSelected(false);
+    setProcesosSelected(false);
 
     if (!cortinasSelected) {
       setRubroActivo([]);
@@ -81,6 +84,20 @@ function TiendaProvider({ children }) {
     }
     else {
       setCortinasSelected(false);
+      setRubroActivo(null);
+    }
+  }
+
+  const seleccionarProcesos = () =>{
+    setEliminadosSelected(false);
+    setCortinasSelected(false);
+
+    if(!procesosSelected){
+      setRubroActivo([]);
+      setProcesosSelected(true);
+    }
+    else{
+      setProcesosSelected(false);
       setRubroActivo(null);
     }
   }
@@ -141,7 +158,9 @@ function TiendaProvider({ children }) {
       togglearSrubro,
       salirDeTienda,
       marcaActiva,
-      togglearMarca
+      togglearMarca,
+      procesosSelected,
+      seleccionarProcesos
     }}>
       {children}
     </TiendaContext.Provider>
