@@ -13,6 +13,10 @@
     background-size: cover;
 }
 
+.contenedorPrincipalCardProducto.sinPrecio{
+    padding-bottom: 1rem;
+}
+
 .imagenContainerCardProducto {
     width: 100%;
     position: relative;

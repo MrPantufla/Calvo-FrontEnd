@@ -213,7 +213,7 @@ export default function CardProducto(args) {
   };
 
   return (
-    <div className="contenedorPrincipalCardProducto" >
+    <div className={`contenedorPrincipalCardProducto ${precio == 0 && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
           <img className="logoDecoracionCardProducto" src={logoBlanco} />
@@ -317,7 +317,7 @@ export default function CardProducto(args) {
               </>
             ) : (<></>)}
           </div>
-          {tipo_prod == 'MAQUINAS' || tipo_prod == 'PUNTUAL' ?
+          {precio == 0 ?
             (<a
               className="botonConsultarProducto"
               target="blank"
@@ -357,7 +357,7 @@ export default function CardProducto(args) {
           </div>
         </div>
       </div >
-      {tipo_prod != "MAQUINAS" &&
+      {precio != 0 &&
         < div className="precioContainerCardProducto">
           <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO ${referencia && 'UNITARIO'} ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (precioParaUsar * kg) : (precioParaUsar))}</p>
         </div>
