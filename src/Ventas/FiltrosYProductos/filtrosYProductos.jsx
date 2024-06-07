@@ -15,6 +15,7 @@ import Filtros from './Filtros/filtros';
 import { rubrosPerfiles, marcasPerfiles, srubrosPerfiles } from '../../rubros';
 import { useCortinas } from '../../contextCortinas';
 import { useAuth } from '../../contextLogin';
+import Procesos from './Pocesos/procesos';
 
 export default function FiltrosYProductos() {
 
@@ -36,7 +37,8 @@ export default function FiltrosYProductos() {
     setProductoSeleccionado,
     eliminadosSelected,
     srubroActivo,
-    marcaActiva
+    marcaActiva,
+    procesosSelected
   } = useTienda();
 
   const { state } = useAuth();
@@ -73,7 +75,7 @@ export default function FiltrosYProductos() {
       rubroActivo == null ||
       rubroActivo == p.rubro ||
       rubroActivo == 'Perfiles' && rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) ||
-      rubroActivo == 'Maquinas' && p.tipo_prod == 'MAQUINAS' && p.rubro == 39 ||
+      rubroActivo == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
       rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39;
 
     const colorCumple =
@@ -278,29 +280,31 @@ export default function FiltrosYProductos() {
             (eliminadosSelected ?
               (<Eliminados />)
               :
-              (<>
-                <BotonesOrdenamiento onClick={() => paginar(1)} />
-                <div className="row rowProductos">
-                  {dataCargada == true ?
-                    (<>
-                      {itemsActuales.map((producto) => (
-                        <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                          <CardProducto
-                            producto={producto}
-                            onClick={() => {
-                              seleccionarProducto(producto);
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </>)
-                    :
-                    (<div className="spinner-border cargandoProductos" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>)
-                  }
-                </div>
-              </>)
+              (
+                (<>
+                  <BotonesOrdenamiento onClick={() => paginar(1)} />
+                  <div className="row rowProductos">
+                    {dataCargada == true ?
+                      (<>
+                        {itemsActuales.map((producto) => (
+                          <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                            <CardProducto
+                              producto={producto}
+                              onClick={() => {
+                                seleccionarProducto(producto);
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </>)
+                      :
+                      (<div className="spinner-border cargandoProductos" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>)
+                    }
+                  </div>
+                </>)
+              )
             )
           }
         </div>
