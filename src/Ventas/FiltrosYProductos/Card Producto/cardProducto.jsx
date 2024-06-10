@@ -40,7 +40,6 @@ export default function CardProducto(args) {
     marca = { marca },
     detalle = { detalle },
     precio = { precio },
-    color = { color },
     kg = { kg },
     cod_int = { cod_int },
     pesos = { pesos },
@@ -50,6 +49,8 @@ export default function CardProducto(args) {
   } = args.producto;
 
   const isMobile = useTienda();
+
+  const color = args.color ? (args.color) : (args.producto.color);
 
   const mayorista = state.userInfo ? (state.userInfo.categoria == 'MAYORISTA') : (false);
 
@@ -348,7 +349,7 @@ export default function CardProducto(args) {
                 <p>COLOR</p>
                 <div className="muestraColorCardProducto" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                   <p className="pesoYColorTextoCardProducto" style={usarBlanco ? { color: 'white' } : {}}>
-                    {color.toUpperCase()}
+                    {`${args.anodizado ? 'ANODIZADO' : ''} ${color.toUpperCase()}`}
                   </p>
                 </div>
               </>
