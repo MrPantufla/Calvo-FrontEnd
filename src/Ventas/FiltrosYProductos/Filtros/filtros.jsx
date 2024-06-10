@@ -14,7 +14,9 @@ export default function Filtros(args) {
         seleccionarCortinas,
         eliminadosSelected,
         seleccionarEliminados,
-        rubroActivo
+        rubroActivo,
+        procesosSelected,
+        seleccionarProcesos,
     } = useTienda();
 
     const { guardarDestacados } = useProductos();
@@ -59,8 +61,8 @@ export default function Filtros(args) {
         <>
             <div className='filtros' id='filtros'>
                 <Rubros setPaginaActual={args.setPaginaActual} coloresUnicos={args.coloresUnicos} srubrosUnicos={args.srubrosUnicos} />
-
-                <div className={`labelRubros ${cortinasSelected ? 'checked' : ''} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
+                <div className={`labelRubros ${procesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarProcesos()}>PROCESOS</div>
+                <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros ultimoLabel`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
             </div>
             {!isMobile &&
