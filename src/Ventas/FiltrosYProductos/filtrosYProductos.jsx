@@ -12,10 +12,10 @@ import Eliminados from './Eliminados/eliminados';
 import Paginacion from './Paginacion/paginacion';
 import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
-import { rubrosPerfiles, marcasPerfiles, srubrosPerfiles } from '../../rubros';
+import { rubrosPerfiles, marcasPerfiles, marcasUnicasPerfiles, srubrosPerfiles, srubros85 } from '../../rubros';
 import { useCortinas } from '../../contextCortinas';
 import { useAuth } from '../../contextLogin';
-import Procesos from './Pocesos/procesos';
+import Procesos from './Procesos/procesos';
 
 export default function FiltrosYProductos() {
 
@@ -38,7 +38,9 @@ export default function FiltrosYProductos() {
     eliminadosSelected,
     srubroActivo,
     marcaActiva,
-    procesosSelected
+    procesosSelected,
+    tipoProceso,
+    stipoProceso
   } = useTienda();
 
   const { state } = useAuth();
@@ -76,7 +78,9 @@ export default function FiltrosYProductos() {
       rubroActivo == p.rubro ||
       rubroActivo == 'Perfiles' && rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) ||
       rubroActivo == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
-      rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39;
+      rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
+      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && rubrosPerfiles.includes(p.rubro) && p.color == 'Natural' ||
+      procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
 
     const colorCumple =
       coloresActivos.length === 0 ||
@@ -138,7 +142,6 @@ export default function FiltrosYProductos() {
       )))
     }
   }, [marcaActiva])
-
 
   const toggleFiltros = () => {
     setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
@@ -273,38 +276,41 @@ export default function FiltrosYProductos() {
           />
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
-
           {cortinasSelected ?
             (<Cortinas />)
             :
             (eliminadosSelected ?
               (<Eliminados />)
               :
-              (
-                (<>
-                  <BotonesOrdenamiento onClick={() => paginar(1)} />
-                  <div className="row rowProductos">
-                    {dataCargada == true ?
-                      (<>
-                        {itemsActuales.map((producto) => (
-                          <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                            <CardProducto
-                              producto={producto}
-                              onClick={() => {
-                                seleccionarProducto(producto);
-                              }}
-                            />
-                          </div>
-                        ))}
-                      </>)
-                      :
-                      (<div className="spinner-border cargandoProductos" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                      </div>)
-                    }
-                  </div>
-                </>)
-              )
+              (<>
+                {!(procesosSelected && !stipoProceso) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
+                {procesosSelected ?
+                  (<Procesos itemsActuales={itemsActuales} />)
+                  :
+                  (<>
+                    <div className="row rowProductos">
+                      {dataCargada == true ?
+                        (<>
+                          {itemsActuales.map((producto) => (
+                            <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                              <CardProducto
+                                producto={producto}
+                                onClick={() => {
+                                  seleccionarProducto(producto);
+                                }}
+                              />
+                            </div>
+                          ))}
+                        </>)
+                        :
+                        (<div className="spinner-border cargandoProductos" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>)
+                      }
+                    </div>
+                  </>)
+                }
+              </>)
             )
           }
         </div>
@@ -319,7 +325,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {!(cortinasSelected || eliminadosSelected) &&
+      {!(cortinasSelected || eliminadosSelected || (procesosSelected && stipoProceso == null)) &&
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}

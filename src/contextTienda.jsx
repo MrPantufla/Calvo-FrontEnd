@@ -22,7 +22,9 @@ function TiendaProvider({ children }) {
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
   const [procesosSelected, setProcesosSelected] = useState(false);
-
+  const [tipoProceso, setTipoProceso] = useState(null);
+  const [stipoProceso, setStipoProceso] = useState(null);
+  
   const {
     setOrdenamientoActivo
   } = useProductos();
@@ -91,6 +93,8 @@ function TiendaProvider({ children }) {
   const seleccionarProcesos = () =>{
     setEliminadosSelected(false);
     setCortinasSelected(false);
+    setTipoProceso(null);
+    setStipoProceso(null);
 
     if(!procesosSelected){
       setRubroActivo([]);
@@ -105,8 +109,12 @@ function TiendaProvider({ children }) {
   const togglearRubro = (rubro) => {
     setCortinasSelected(false);
     setEliminadosSelected(false);
+    setProcesosSelected(false);
     setSrubroActivo(null);
     setMarcaActiva(null);
+    setTipoProceso(null);
+    setStipoProceso(null);
+    
     if (rubroActivo == rubro) {
       setRubroActivo(null);
     }
@@ -160,7 +168,11 @@ function TiendaProvider({ children }) {
       marcaActiva,
       togglearMarca,
       procesosSelected,
-      seleccionarProcesos
+      seleccionarProcesos,
+      setTipoProceso,
+      tipoProceso,
+      stipoProceso,
+      setStipoProceso,
     }}>
       {children}
     </TiendaContext.Provider>

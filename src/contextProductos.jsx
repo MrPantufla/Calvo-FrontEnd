@@ -37,7 +37,7 @@ function ProductosProvider({ children }) {
                 const referencias = {};
                 const productosSueltosTemporal = {};
                 const procesosTemporal = {};
-                const procesosRenderizarTemporal = {};
+                let procesosRenderizarTemporal = {};
                 const troqueladosTemporal = {};
 
                 const productosActualizados = productosObtenidos.reduce((acumulador, producto) => {
@@ -149,7 +149,6 @@ function ProductosProvider({ children }) {
 
                 setProductosSueltos(productosSueltosTemporal);
                 setProcesosIndexado(procesosTemporal);
-                setProcesosRenderizar(procesosRenderizarTemporal);
 
                 setProductosIndexado(productosActualizados.reduce((acc, el) => {
 
@@ -165,6 +164,13 @@ function ProductosProvider({ children }) {
                     const colorEnMayusculas = el.color.trim().toUpperCase();
                     nuevosColores.add(colorEnMayusculas);
 
+                    return acc;
+                }, {}));
+
+                procesosRenderizarTemporal = Object.values(procesosRenderizarTemporal);
+
+                setProcesosRenderizar(procesosRenderizarTemporal.reduce((acc, el) => {
+                    acc[el.id] = el;
                     return acc;
                 }, {}));
 
@@ -437,7 +443,8 @@ function ProductosProvider({ children }) {
             productosDestacados,
             guardarDestacados,
             setProductosDestacados,
-            productosDestacados
+            productosDestacados,
+            procesosRenderizar
         }}>
             {children}
         </ProductosContext.Provider>
