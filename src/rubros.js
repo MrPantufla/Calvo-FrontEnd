@@ -33,7 +33,7 @@ const srubros12 = [
    { id: 56, nombre: 'Tecla' }
 ]
 
-const srubros85 = [
+export const srubros85 = [
    { id: 65, nombre: 'Lisa' },
 ]
 
@@ -129,5 +129,4 @@ export const rubros = [
    { id: 81, nombre: 'PUERTAS PLACAS', srubros: srubros81 },
    { id: 10, nombre: 'TEJIDOS MOSQUITEROS', srubros: srubros10 },
    { id: 'Maquinas', nombre: 'MÁQUINAS', srubros: srubros39 },
-   { id: 'Procesos', nombre: 'PROCESOS', srubros: rubrosProcesos}
 ];
