@@ -1,0 +1,63 @@
+.contenedorPrincipalProcesos{
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 0.5rem;
+}
+
+.tiposProcesoContainer{
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tipoProceso{
+    width: 30rem;
+    border: 1px solid red;
+    height: 20rem;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.tipoProceso h1{
+    width: 100%;
+    text-align: center;
+}
+
+.proceso{
+    height: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem;
+    padding-top: 1rem;
+}
+
+.proceso:first-child, .proceso:nth-child(2), .proceso:nth-child(3){
+    padding-top: 0.7rem;
+}
+
+.proceso:last-child .proceso{
+    padding-bottom: 1rem;
+}
+
+.cardProceso{
+    border: 1px solid red;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.cardProceso h1{
+    padding: 0 1rem;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
