@@ -47,6 +47,14 @@ function CarritoProvider({ children }) {
   const [elementoEliminar, setElementoEliminar] = useState(null);
   const [respuestaRecibida, setRespuestaRecibida] = useState(true);
 
+  const extraerAntesDeParentesis = (cadena) => {
+    const match = cadena.match(/^([^()]*)\(/);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return parseInt(cadena);
+  }
+
   function añadirElemento(id, cantidadCarrito) {
     setPaqueteAñadir(null);
     if (!state.userInfo.cliente && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
@@ -57,12 +65,16 @@ function CarritoProvider({ children }) {
         setElementos(prevElementos => {
           if (productosIndexado && productosSueltos) {
             let producto;
-            producto = productosIndexado[id];
+            
+            const idSinProceso = extraerAntesDeParentesis(id.toString());
+
+            producto = productosIndexado[idSinProceso];
 
             if (!producto) {
-              producto = productosSueltos[id];
+              producto = productosSueltos[idSinProceso];
             }
-
+            //LA LINEA DE ABAJO ES NUEVA, HAY QUE VER COMO AGREGAR EL PRODUCTO CON EL ID CON PROCESO AL CARRITO
+            const idProducto = id;
             const cod_origProducto = producto.cod_orig;
             const detalleProducto = producto.detalle;
             const precioProducto = producto.precio;
@@ -103,8 +115,8 @@ function CarritoProvider({ children }) {
               if (referenciaPaquete) {
                 if (cantidadPaquete != -1) {
                   if (cantidadCarrito >= cantidadPaquete) {
-                    const paquetesResultantes = Math.floor( cantidadCarrito * elementoExistente.cantidad / cantidadPaquete );
-                  
+                    const paquetesResultantes = Math.floor( cantidadCarrito * producto.cantidad / cantidadPaquete );
+
                     for (let i = 0; i < cantidadPaquete * paquetesResultantes; i++) {
                       cantidadCarrito --;
                     }
