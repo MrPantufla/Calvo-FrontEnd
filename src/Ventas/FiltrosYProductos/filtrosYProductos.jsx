@@ -56,7 +56,6 @@ export default function FiltrosYProductos() {
 
   const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
-    setProductoSeleccionado(producto);
     const productoEncontrado = listaFiltrada.find(productoSeleccionado => productoSeleccionado.id === producto.id);
     setPaginaActual(Math.floor((listaFiltrada.indexOf(productoEncontrado)) / 33) + 1);
   }
@@ -285,7 +284,7 @@ export default function FiltrosYProductos() {
               (<>
                 {!(procesosSelected && !stipoProceso) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
                 {procesosSelected ?
-                  (<Procesos itemsActuales={itemsActuales} />)
+                  (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
                   :
                   (<>
                     <div className="row rowProductos">
