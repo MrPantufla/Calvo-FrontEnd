@@ -54,26 +54,6 @@ export default function ProductoGrande(args) {
         color == 'Fume'
     );
 
-    const sumarContador = () => {
-        if (state.userInfo.email_confirmado) {
-            añadirElemento(id, 1);
-        }
-        else {
-            setMostrarLogin(true);
-        }
-    }
-
-    const restarContador = () => {
-        if (state.userInfo.email_confirmado) {
-            if (cantidadCarrito > 0) {
-                restarElemento(id);
-            }
-        }
-        else {
-            setMostrarLogin(true);
-        }
-    }
-
     const handleClose = () => {
         if (aptoParaCerrar == true) {
             args.onClose();
@@ -151,29 +131,6 @@ export default function ProductoGrande(args) {
 
                             </div>
                         }
-
-                        {/*tipo_prod != 'MAQUINAS' ?
-                            (<div className="conjuntoCantidad">
-                                {!isMobile ? (<p className="textoCantidad">CANTIDAD EN EL CARRITO</p>) : (<></>)}
-                                <div className="cantidad">
-                                    <button className="botonProductoGrande" onClick={restarContador}>-</button>
-                                    <p className="cantidadProductoGrande">{cantidadCarrito}</p>
-                                    <button className="botonProductoGrande" onClick={sumarContador}>+</button>
-                                </div>
-                            </div>)
-                            :
-                            (<a
-                                className="botonConsultarMaquina consultarMaquinaGrande"
-                                target="blank"
-                                href={isMobile ?
-                                    (`https://wa.me/5493456475294?text=Consulta%20sobre%20${codigo}%20-%20${detalle}:%20`)
-                                    :
-                                    (`https://web.whatsapp.com/send?phone=+5493456475294&text=Consulta%20sobre%20${codigo}%20-%20${detalle}:%20`)
-                                }
-                            >
-                                CONSULTAR
-                            </a>)
-                        */}
 
                         <div className="colorProductoGrandeContainer">
                             {color == "Ind" ? (<></>) : (<><p className="textoColorProductoGrande">COLOR </p>
