@@ -4,19 +4,23 @@ import { useProductos } from "../../../contextProductos";
 export default function Eliminados() {
   const {
     productosEliminados,
-    productosIndexado
+    productosIndexado,
+    procesos
   } = useProductos();
 
   return (
     <>
       <div className="row rowProductos">
-        {productosEliminados.map((producto) => (
-          <div key={producto} className="col-12 col-md-6 col-lg-4 producto">
-            <CardProducto
-              producto={productosIndexado[producto]}
-            />
-          </div>
-        ))}
+        {productosEliminados
+          .filter(producto => productosIndexado[producto] || procesos[producto])
+          .map((producto) => (
+            <div key={producto} className="col-12 col-md-6 col-lg-4 producto">
+              <CardProducto
+                producto={productosIndexado[producto] || procesos[producto]}
+              />
+            </div>
+          ))
+        }
       </div>
     </>
   );
