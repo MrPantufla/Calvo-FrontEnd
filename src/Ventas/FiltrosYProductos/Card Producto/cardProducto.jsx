@@ -15,7 +15,8 @@ export default function CardProducto(args) {
     productosSueltos,
     guardarDestacados,
     setProductosDestacados,
-    productosDestacados
+    productosDestacados,
+    procesos
   } = useProductos();
 
   const {
@@ -69,18 +70,22 @@ export default function CardProducto(args) {
   }
 
   let precioParaUsar;
+  let idAux;
   let idParaUsar;
 
   if (paqueteSeleccionado) {
     precioParaUsar = precio;
-    idParaUsar = id;
+    idAux = id;
   }
   else {
     precioParaUsar = productosSueltos[referencia].precio;
-    idParaUsar = productosSueltos[referencia].id;
+    idAux = productosSueltos[referencia].id;
   }
 
+  idParaUsar = args.proceso ? (id + '(' + args.proceso + ')') : (idAux);
+
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === idParaUsar);
+
   const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
 
   let codigo;
@@ -103,7 +108,6 @@ export default function CardProducto(args) {
   );
 
   const sumarContador = () => {
-    console.log(productosDestacados)
     if (state.logueado) {
       if (state.userInfo.email_confirmado) {
         if (referencia && !cantidadSeleccionada) {
@@ -111,10 +115,10 @@ export default function CardProducto(args) {
         }
         else {
           if (paqueteSeleccionado) {
-            añadirElemento(id, 1);
+            añadirElemento(idParaUsar, 1);
           }
           else {
-            añadirElemento(productosSueltos[referencia].id, 1);
+            añadirElemento(productosSueltos[referencia].idParaUsar, 1);
           }
         }
       }
@@ -136,10 +140,10 @@ export default function CardProducto(args) {
         else {
           if (cant > 0) {
             if (paqueteSeleccionado) {
-              restarElemento(id);
+              restarElemento(idParaUsar);
             }
             else {
-              restarElemento(productosSueltos[referencia].id);
+              restarElemento(productosSueltos[referencia].idParaUsar);
             }
           }
         }
@@ -189,21 +193,21 @@ export default function CardProducto(args) {
           arrayAux[posicionEnDestacados] = aux;
           setProductosDestacados(arrayAux);
         }
-        else{
+        else {
           const aux = arrayAux[0];
           arrayAux[0] = arrayAux[arrayAux.length - 1];
           arrayAux[arrayAux.length - 1] = aux;
           setProductosDestacados(arrayAux);
         }
       }
-      else{
-        if(posicionEnDestacados != 0){
+      else {
+        if (posicionEnDestacados != 0) {
           const aux = arrayAux[posicionEnDestacados - 1];
           arrayAux[posicionEnDestacados - 1] = arrayAux[posicionEnDestacados];
           arrayAux[posicionEnDestacados] = aux;
           setProductosDestacados(arrayAux);
         }
-        else{
+        else {
           const aux = arrayAux[0];
           arrayAux[0] = arrayAux[arrayAux.length - 1];
           arrayAux[arrayAux.length - 1] = aux;
@@ -306,7 +310,7 @@ export default function CardProducto(args) {
           {referencia ?
             (<h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
             :
-            (<h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
+            (<h3><span className="codOrig">{idParaUsar}</span> - {detalle} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
           }
         </div>
         <div className="kgCantidadYColorContainer">
@@ -349,7 +353,7 @@ export default function CardProducto(args) {
                 <p>COLOR</p>
                 <div className="muestraColorCardProducto" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                   <p className="pesoYColorTextoCardProducto" style={usarBlanco ? { color: 'white' } : {}}>
-                    {`${args.anodizado ? 'ANODIZADO' : ''} ${color.toUpperCase()}`}
+                    {`${(args.proceso && procesos[args.proceso].detalle.startsWith("ANODIZADO")) ? 'ANODIZADO' : color.toUpperCase()}`}
                   </p>
                 </div>
               </>
@@ -360,7 +364,7 @@ export default function CardProducto(args) {
       </div >
       {precio != 0 &&
         < div className="precioContainerCardProducto">
-          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO ${referencia && 'UNITARIO'} ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (precioParaUsar * kg) : (precioParaUsar))}</p>
+          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO ${referencia && 'UNITARIO'} ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (args.anodizado ? (precioParaUsar * kg + procesos[args.anodizado].precio * kg) : (args.pinturas ? (precioParaUsar * kg + procesos[args.pinturas].precio * kg) : (precioParaUsar * kg))) : (precioParaUsar))}</p>
         </div>
       }
     </div >
