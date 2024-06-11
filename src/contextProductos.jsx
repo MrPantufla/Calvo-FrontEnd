@@ -19,8 +19,7 @@ function ProductosProvider({ children }) {
     const [dataCargada, setDataCargada] = useState(false);
     const [productosSueltos, setProductosSueltos] = useState([]);
     const [productosDestacados, setProductosDestacados] = useState([]);
-    const [procesosIndexado, setProcesosIndexado] = useState([]);
-    const [procesosRenderizar, setProcesosRenderizar] = useState([]);
+    const [procesos, setProcesos] = useState([]);
 
     const nuevosColores = new Set();
 
@@ -36,8 +35,7 @@ function ProductosProvider({ children }) {
                 // Realizar actualizaciones según la categoría
                 const referencias = {};
                 const productosSueltosTemporal = {};
-                const procesosTemporal = {};
-                let procesosRenderizarTemporal = {};
+                let procesosTemporal = {};
                 const troqueladosTemporal = {};
 
                 const productosActualizados = productosObtenidos.reduce((acumulador, producto) => {
@@ -91,64 +89,13 @@ function ProductosProvider({ children }) {
                         }
                     }
                     else {
-                        const codigo = producto.cod_orig.trim();
-                        const pintRegex = /^PINT\s\S+$/;
-                        const trozadoRegex = /\bTROZADO\b/i;
-                        const pdtRegex = /\bPDT\b/i;
-                        switch(producto.rubro){
-                            case 88:{
-                                if(codigo.slice(-2) != 'CL' && codigo.slice(-3) != 'BYC' && !trozadoRegex.test(producto.detalle)){
-                                    procesosTemporal[producto.id] = producto;
-
-                                    if(codigo.slice(-2) != 'LL'){
-                                        procesosRenderizarTemporal[producto.id] = producto;
-                                    }
-                                }
-                                break;
-                            }
-                            case 67:{
-                                if((codigo.slice(-2) == 'M2' || pintRegex.test(codigo) || codigo.slice(-2) == 'LL') && !pdtRegex.test(producto.detalle)){
-                                    procesosTemporal[producto.id] = producto;
-                                    if(codigo.slice(-2) != 'LL'){
-                                        procesosRenderizarTemporal[producto.id] = producto;
-                                    }
-                                }
-                                break;
-                            }
-                            case 78:{
-                                if(!trozadoRegex.test(producto.detalle)){
-                                    procesosRenderizarTemporal[producto.id] = producto;
-                                    procesosTemporal[producto.id] = producto;
-                                }
-                                break;
-                            }
-                            case 3:{
-                                if(pintRegex.test(codigo)){
-                                    procesosRenderizarTemporal[producto.id] = producto;
-                                }
-                                break;
-                            }
-                            case 73:{
-                                if(codigo.slice(-2) == 'M2' || pintRegex.test(codigo || codigo.slice(-2) == 'LL')){
-                                    procesosTemporal[producto.id] = producto;
-                                    if(codigo.slice(-2) != 'LL'){
-                                        procesosRenderizarTemporal[producto.id] = producto;
-                                    }
-                                }
-                                break;
-                            }
-                            default:{
-                                procesosTemporal[producto.id] = producto;
-                            }
-                        }
-                        
+                        procesosTemporal[producto.id] = ({...producto, precio: precioFinal, referencia: ''});
                     }
 
                     return acumulador;
                 }, []);
 
                 setProductosSueltos(productosSueltosTemporal);
-                setProcesosIndexado(procesosTemporal);
 
                 setProductosIndexado(productosActualizados.reduce((acc, el) => {
 
@@ -167,9 +114,9 @@ function ProductosProvider({ children }) {
                     return acc;
                 }, {}));
 
-                procesosRenderizarTemporal = Object.values(procesosRenderizarTemporal);
+                procesosTemporal = Object.values(procesosTemporal);
 
-                setProcesosRenderizar(procesosRenderizarTemporal.reduce((acc, el) => {
+                setProcesos(procesosTemporal.reduce((acc, el) => {
                     acc[el.id] = el;
                     return acc;
                 }, {}));
@@ -444,7 +391,7 @@ function ProductosProvider({ children }) {
             guardarDestacados,
             setProductosDestacados,
             productosDestacados,
-            procesosRenderizar
+            procesos
         }}>
             {children}
         </ProductosContext.Provider>
