@@ -16,14 +16,18 @@ export default function Carrito() {
     setCompraRealizadaAbierto,
     confirmarCompra,
     setInstanciaPedido,
-    mostrarCartel
+    mostrarCartel,
+    extraerProducto,
+    extraerProceso,
+    extraerAcabado
   } = useCarrito();
 
   const {
     productosIndexado,
     coloresArray,
     productosEliminados,
-    productosSueltos
+    productosSueltos,
+    procesos
   } = useProductos();
 
   const {
@@ -61,7 +65,26 @@ export default function Carrito() {
   const [mostrarHint, setMostrarHint] = useState(false);
 
   const calcularTotal = (elementos) => {
-    return elementos.reduce((total, elemento) => parseInt(total + elemento.precioProducto * (elemento.kg || 1) * elemento.cantidadCarrito * elemento.cantidad), 0);
+    return elementos.reduce((total, elemento) => {
+      // Extraer el producto, proceso y acabado del elemento
+      const idProducto = extraerProducto(elemento.id);
+      const idProceso = extraerProceso(elemento.id);
+      const idAcabado = extraerAcabado(elemento.id);
+
+      const producto = productosIndexado[idProducto];
+      const proceso = procesos[idProceso];
+      const acabado = procesos[idAcabado];
+  
+      // Calcular el precio del elemento utilizando las funciones extraer
+      const precioElemento = parseInt(
+        elemento.kg > 0
+          ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
+          : producto.precio
+      );
+  
+      // Sumar el precio del elemento al total
+      return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
+    }, 0);
   };
 
   const handleEnterCodigo = (e, nextInputRef) => {

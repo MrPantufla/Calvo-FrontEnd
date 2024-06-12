@@ -40,7 +40,8 @@ export default function FiltrosYProductos() {
     marcaActiva,
     procesosSelected,
     tipoProceso,
-    stipoProceso
+    stipoProceso,
+    acabado
   } = useTienda();
 
   const { state } = useAuth();
@@ -177,11 +178,11 @@ export default function FiltrosYProductos() {
         const currentX = e.touches[0].clientX;
         const diffX = currentX - startX;
 
-        if (diffX < -70) { // Verifica si el movimiento es de derecha a izquierda
+        if (diffX < -100) { // Verifica si el movimiento es de derecha a izquierda
           productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false));
           cortinasSelected && (setMuestrasAbierto(true));
         }
-        else if (diffX > 70) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
+        else if (diffX > 100) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
           productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true));
           cortinasSelected && (setMuestrasAbierto(false));
         }
@@ -282,7 +283,7 @@ export default function FiltrosYProductos() {
               (<Eliminados />)
               :
               (<>
-                {!(procesosSelected && !stipoProceso) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
+                {!(procesosSelected && (!stipoProceso || !acabado)) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
                 {procesosSelected ?
                   (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
                   :
@@ -324,7 +325,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {!(cortinasSelected || eliminadosSelected || (procesosSelected && stipoProceso == null)) &&
+      {!(cortinasSelected || eliminadosSelected || (procesosSelected && (!acabado || !stipoProceso))) &&
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}

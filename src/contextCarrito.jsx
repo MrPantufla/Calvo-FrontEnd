@@ -47,12 +47,31 @@ function CarritoProvider({ children }) {
   const [elementoEliminar, setElementoEliminar] = useState(null);
   const [respuestaRecibida, setRespuestaRecibida] = useState(true);
 
-  const extraerAntesDeParentesis = (cadena) => {
-    const match = cadena.match(/^([^()]*)\(/);
+  const extraerProducto = (cadena) => {
+    const cadenaConvertida = cadena.toString();
+    const match = cadenaConvertida.match(/^([^()]*)\(/);
     if (match) {
-        return parseInt(match[1]);
+      return parseInt(match[1]);
     }
-    return parseInt(cadena);
+    return parseInt(cadenaConvertida);
+  }
+
+  const extraerProceso = (cadena) => {
+    const cadenaConvertida = cadena.toString();
+    const match = cadenaConvertida.match(/^[^()]*\(([^()]*)(\(|$)/);
+    if (match) {
+      return parseInt(match[1]);
+    }
+    return null; // Devuelve null si no se encuentra un proceso
+  }
+
+  const extraerAcabado = (cadena) => {
+    const cadenaConvertida = cadena.toString();
+    const match = cadenaConvertida.match(/\(([^()]*)\(([^()]*)\)\)/);
+    if (match) {
+      return match[2];
+    }
+    return null; // Devuelve null si no se encuentra un acabado
   }
 
   function añadirElemento(id, cantidadCarrito) {
@@ -64,23 +83,22 @@ function CarritoProvider({ children }) {
       if (Object.keys(productosIndexado).length !== 0) {
         setElementos(prevElementos => {
           if (productosIndexado && productosSueltos) {
-            let producto;
-            
-            const idSinProceso = extraerAntesDeParentesis(id.toString());
+            let productoReal;
 
-            producto = productosIndexado[idSinProceso];
+            const idSinProceso = extraerProducto(id.toString());
 
-            if (!producto) {
-              producto = productosSueltos[idSinProceso];
+            productoReal = productosIndexado[idSinProceso];
+
+            if (!productoReal) {
+              productoReal = productosSueltos[idSinProceso];
             }
-            //LA LINEA DE ABAJO ES NUEVA, HAY QUE VER COMO AGREGAR EL PRODUCTO CON EL ID CON PROCESO AL CARRITO
-            const idProducto = id;
-            const cod_origProducto = producto.cod_orig;
-            const detalleProducto = producto.detalle;
-            const precioProducto = producto.precio;
-            const kg = producto.kg;
-            const referenciaPaquete = producto.referenciaPaquete;
-            const cantidad = producto.cantidad;
+
+            const cod_origProducto = productoReal.cod_orig;
+            const detalleProducto = productoReal.detalle;
+            const precioProducto = productoReal.precio;
+            const kg = productoReal.kg;
+            const referenciaPaquete = productoReal.referenciaPaquete;
+            const cantidad = productoReal.cantidad;
 
             let cantidadPaquete = -1;
             if (referenciaPaquete) {
@@ -96,7 +114,7 @@ function CarritoProvider({ children }) {
                   if (elementoExistente.cantidadCarrito * elementoExistente.cantidad >= cantidadPaquete) {
                     const paquetesResultantes = Math.floor(elementoExistente.cantidadCarrito * elementoExistente.cantidad / cantidadPaquete);
 
-                    if(elementoExistente.cantidadCarrito * elementoExistente.cantidad == cantidadPaquete * paquetesResultantes){
+                    if (elementoExistente.cantidadCarrito * elementoExistente.cantidad == cantidadPaquete * paquetesResultantes) {
                       setElementoEliminar(elementoExistente.id);
                     }
 
@@ -115,17 +133,17 @@ function CarritoProvider({ children }) {
               if (referenciaPaquete) {
                 if (cantidadPaquete != -1) {
                   if (cantidadCarrito >= cantidadPaquete) {
-                    const paquetesResultantes = Math.floor( cantidadCarrito * producto.cantidad / cantidadPaquete );
+                    const paquetesResultantes = Math.floor(cantidadCarrito * productoReal.cantidad / cantidadPaquete);
 
                     for (let i = 0; i < cantidadPaquete * paquetesResultantes; i++) {
-                      cantidadCarrito --;
+                      cantidadCarrito--;
                     }
-                    
-                    const idPaquete = referenciaPaquete.id;
-                    
-                    setPaqueteAñadir({id: idPaquete, cant: paquetesResultantes});
 
-                    if(cantidadCarrito == 0){
+                    const idPaquete = referenciaPaquete.id;
+
+                    setPaqueteAñadir({ id: idPaquete, cant: paquetesResultantes });
+
+                    if (cantidadCarrito == 0) {
                       return prevElementos;
                     }
                   }
@@ -146,7 +164,7 @@ function CarritoProvider({ children }) {
       setCarritoAbierto(true);
     }
 
-    if(elementoEliminar){
+    if (elementoEliminar) {
       eliminarElemento(elementoEliminar);
       setElementoEliminar(null);
     }
@@ -172,7 +190,7 @@ function CarritoProvider({ children }) {
   }
 
   function eliminarElemento(id) {
-      setElementos((prevElementos) => {
+    setElementos((prevElementos) => {
       return prevElementos.filter((elemento) => elemento.id !== id);
     });
   }
@@ -270,7 +288,7 @@ function CarritoProvider({ children }) {
 
   useEffect(() => {
     if (state.logueado && state.userInfo.cantidades_carrito) {
-      const productosArray = state.userInfo.productos_carrito.split(' ').map(Number);
+      const productosArray = state.userInfo.productos_carrito.split(' ').map(String);
       const cantidadesArray = state.userInfo.cantidades_carrito.split(' ').map(Number);
 
       for (let i = 0; i < productosArray.length; i++) {
@@ -308,7 +326,10 @@ function CarritoProvider({ children }) {
       eliminarElemento,
       errorProductoEliminado,
       setErrorProductoEliminado,
-      respuestaRecibida
+      respuestaRecibida,
+      extraerProducto,
+      extraerProceso,
+      extraerAcabado
     }}>
       {children}
     </CarritoContext.Provider>

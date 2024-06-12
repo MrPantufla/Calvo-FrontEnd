@@ -113,7 +113,7 @@ function ProductosProvider({ children }) {
 
                     return acc;
                 }, {}));
-
+                procesosTemporal[0] = ({cantidad: 1, cod_int: 0, cod_orig: "SINACABADO", color: "Ind", costo_f: 0, detalle: "SIN ACABADO", dolar: 1, finalizar: "NO", id: 0, iva: 21, kg: 0, marca: 0, pesos: "NO", precio: 0, precio_vta1: 0, precio_vta2: 0, referencia: "", rubro: 89, srubro: 0, tipo_prod: "PROCESOS"})
                 procesosTemporal = Object.values(procesosTemporal);
 
                 setProcesos(procesosTemporal.reduce((acc, el) => {

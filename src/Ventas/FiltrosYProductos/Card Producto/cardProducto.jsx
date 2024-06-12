@@ -16,7 +16,8 @@ export default function CardProducto(args) {
     guardarDestacados,
     setProductosDestacados,
     productosDestacados,
-    procesos
+    procesos,
+    
   } = useProductos();
 
   const {
@@ -29,7 +30,8 @@ export default function CardProducto(args) {
   const {
     añadirElemento,
     restarElemento,
-    elementos: elementosCarrito
+    elementos: elementosCarrito,
+    extraerAcabado
   } = useCarrito();
 
   const {
@@ -82,9 +84,13 @@ export default function CardProducto(args) {
     idAux = productosSueltos[referencia].id;
   }
 
-  idParaUsar = args.proceso ? (id + '(' + args.proceso + ')') : (idAux);
+  idParaUsar = args.proceso ? (id + '(' + args.proceso + '(' + args.acabado + '))') : (idAux);
 
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === idParaUsar);
+
+  const proceso = procesos[args.proceso];
+
+  const acabado = procesos[args.acabado];
 
   const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
 
@@ -223,7 +229,7 @@ export default function CardProducto(args) {
         <div className="decoracionCardProducto">
           <img className="logoDecoracionCardProducto" src={logoBlanco} />
         </div>
-        {tipo_prod != 'MAQUINAS' &&
+        {(tipo_prod != 'MAQUINAS' && !proceso) &&
           <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(idParaFavoritos, e)}>
             {favoritos.esFavorito(idParaFavoritos) ?
               (<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fillRule="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -252,7 +258,7 @@ export default function CardProducto(args) {
           </div>
         }
         {state.userInfo &&
-          (state.userInfo.tipo_usuario == 'admin' &&
+          ((state.userInfo.tipo_usuario == 'admin' && !proceso) &&
             <>
               <button className="eliminarElemento" onClick={() => eliminarProducto(id)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -308,9 +314,9 @@ export default function CardProducto(args) {
         </div>
         <div className="detalleYCod_orig">
           {referencia ?
-            (<h3><span className="codOrig">{codigo}</span> - {detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
+            (<h3><span className="codOrig">{codigo}</span> - {`${detalle}`} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
             :
-            (<h3><span className="codOrig">{idParaUsar}</span> - {detalle} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
+            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabado.detalle)) : (``)}`} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
           }
         </div>
         <div className="kgCantidadYColorContainer">
@@ -350,10 +356,10 @@ export default function CardProducto(args) {
           <div className="colorCardProducto">
             {color != "Ind" &&
               <>
-                <p>COLOR</p>
+              <p>{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR') }`}</p>
                 <div className="muestraColorCardProducto" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                   <p className="pesoYColorTextoCardProducto" style={usarBlanco ? { color: 'white' } : {}}>
-                    {`${(args.proceso && procesos[args.proceso].detalle.startsWith("ANODIZADO")) ? 'ANODIZADO' : color.toUpperCase()}`}
+                    {args.proceso ? proceso.color.toUpperCase() : color.toUpperCase()}
                   </p>
                 </div>
               </>
@@ -363,8 +369,8 @@ export default function CardProducto(args) {
         </div>
       </div >
       {precio != 0 &&
-        < div className="precioContainerCardProducto">
-          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO ${referencia && 'UNITARIO'} ${!mayorista ? 'MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO ${!mayorista ? 'MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (args.anodizado ? (precioParaUsar * kg + procesos[args.anodizado].precio * kg) : (args.pinturas ? (precioParaUsar * kg + procesos[args.pinturas].precio * kg) : (precioParaUsar * kg))) : (precioParaUsar))}</p>
+        <div className="precioContainerCardProducto">
+          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO${referencia && ' UNITARIO'} ${!mayorista ? ' MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO${!mayorista ? ' MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (precioParaUsar * kg + (proceso ? (proceso.precio * kg) : (0)) + (acabado ? (acabado.precio * kg) : (0))) : (precioParaUsar))}</p>
         </div>
       }
     </div >
