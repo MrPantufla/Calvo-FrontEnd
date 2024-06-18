@@ -1,14 +1,14 @@
 import { useAuth } from '../../../../contextLogin';
+import { useProductos } from '../../../../contextProductos';
 import { useTienda } from '../../../../contextTienda';
 import './cardProcesos.css';
 
 export default function CardProcesos(args) {
     const { state } = useAuth();
 
-    const {
-        setStipoProceso,
-        eliminarProducto
-    } = useTienda();
+    const { setStipoProceso } = useTienda();
+
+    const { eliminarProducto } = useProductos();
 
     const eliminarProceso = (e, id) => {
         e.stopPropagation();
