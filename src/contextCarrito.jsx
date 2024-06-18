@@ -260,7 +260,7 @@ function CarritoProvider({ children }) {
     setRespuestaRecibida(false);
     setCompraRealizadaAbierto(true);
 
-    const nuevosElementos = elementos.map(({ id, cantidadCarrito, precioProducto }) => ({ id, cantidadCarrito, precioProducto }));
+    const nuevosElementos = elementos.map(({ id, cantidadCarrito }) => ({ id, cantidadCarrito }));
     const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
     const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion }
 
