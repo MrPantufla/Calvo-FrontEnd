@@ -60,7 +60,7 @@ export default function Procesos(args) {
                                 }
                             }))
                             :
-                            (acabado == null ?
+                            ((acabado == null && tipoProceso != 'pinturas') ?
                                 <>
                                     {Object.values(procesos).map((acabado) => {
                                         if (!productosEliminados.includes(acabado.id)) {
@@ -83,7 +83,7 @@ export default function Procesos(args) {
                                             producto={producto}
                                             color={stipoProceso.color}
                                             proceso={stipoProceso.id}
-                                            acabado={acabado.id}
+                                            acabado={acabado ? acabado.id : 0}
                                             onClick={() => {
                                                 args.seleccionarProducto(producto);
                                             }}
