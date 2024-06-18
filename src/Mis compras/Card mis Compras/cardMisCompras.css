@@ -100,7 +100,7 @@
 }
 
 .bodyCardMisCompras.open {
-    max-height: 100rem;
+    max-height: 100%;
 }
 
 .bodyCardMisCompras::-webkit-scrollbar {
