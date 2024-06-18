@@ -76,10 +76,10 @@ export default function FiltrosYProductos() {
     const tipoCumple =
       rubroActivo == null ||
       rubroActivo == p.rubro ||
-      rubroActivo == 'Perfiles' && rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) ||
+      rubroActivo == 'Perfiles' && marcasUnicasPerfiles.includes(p.marca) ||
       rubroActivo == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
       rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
-      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && rubrosPerfiles.includes(p.rubro) && p.color == 'Natural' ||
+      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicasPerfiles.includes(p.marca) && p.color == 'Natural' ||
       procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
 
     const colorCumple =
