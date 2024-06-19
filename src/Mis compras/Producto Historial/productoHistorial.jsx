@@ -6,7 +6,11 @@ import { useEffect, useState } from 'react';
 export default function ProductoHistorial(args) {
 
     const { productosIndexado } = useProductos();
+
+    const { procesos } = useProductos();
+
     const producto = productosIndexado[args.id];
+
     const [cod_orig, setCod_orig] = useState("CA");
     const [detalle, setDetalle] = useState("detalle");
     const [color, setColor] = useState("color");
@@ -19,7 +23,7 @@ export default function ProductoHistorial(args) {
             setColor(producto.color.toUpperCase())
             setKg(producto.kg);
         }
-        else{
+        else {
             setCod_orig("");
             setDetalle("PRODUCTO ELIMINADO");
             setColor("");
@@ -31,20 +35,35 @@ export default function ProductoHistorial(args) {
         e.preventDefault();
     }
 
-    useEffect (() => {
-        if(args.id == (-1)){
-            console.log(args.precio)
+    let colorCorregido = '';
+    if(producto){
+        colorCorregido = (producto.color).replace(/\s+/g, '-');
+        
+        if(args.proceso && procesos && procesos[args.proceso].rubro == 88){
+            colorCorregido = (procesos[args.proceso].color).replace(/\s+/g, '-');
         }
-    }, [])
+    }
 
     return (
         <div className="contenedorPrincipalProductoHistorial">
             <div className="imagenProductoHistorialContainer">
                 <img src={perfil1} onContextMenu={handleContextMenu} />
-                <p><span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle}</p>
+                <p>
+                    <span className="cod_origProductoHistorial">{cod_orig}</span> -
+                    {detalle && detalle}
+                    {args.acabado && procesos[args.acabado] ? ('- ' + procesos[args.acabado].detalle) : ''}
+                </p>
             </div>
             <div className="informacionProductoHistorialContainer">
-                {(color && color != 'IND') && <p>COLOR: {color}</p>}
+                {(color && color !== 'IND') && (
+                    <p style={{ backgroundColor: `var(--${colorCorregido})` }}>
+                        {args.proceso && procesos[args.proceso] && procesos[args.proceso].rubro === 88
+                            ? 'ANODIZADO: ' + (procesos[args.proceso].color ? procesos[args.proceso].color.toUpperCase() : '')
+                            : 'COLOR: ' + color
+                        }
+                    </p>
+                )}
+
                 <p>CANTIDAD: {args.cantidad}</p>
                 {<p>PRECIO: ${parseInt(args.precio * args.cantidad * (kg || 1))}<br /> ({args.cantidad} x ${parseInt(args.precio * (kg || 1))})</p>}
             </div>

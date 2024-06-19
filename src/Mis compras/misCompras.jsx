@@ -10,6 +10,7 @@ import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
 import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.png';
 import Cookies from 'js-cookie';
+import { useProductos } from '../contextProductos.jsx';
 
 export default function MisCompras() {
     const { backend } = useVariables();
@@ -21,6 +22,8 @@ export default function MisCompras() {
     } = useTienda();
 
     const { state } = useAuth();
+
+    const { procesos } = useProductos();
 
     const [historial, setHistorial] = useState([]);
     const [paginaActual, setPaginaActual] = useState(1);
@@ -74,6 +77,7 @@ export default function MisCompras() {
                         throw new Error(`Error: ${response.status} - ${response.statusText}`);
                     }
                     const data = await response.json();
+
                     setHistorial(data);
                 }
             } catch (error) {
@@ -85,7 +89,7 @@ export default function MisCompras() {
             fetchData();
         }
 
-    }, [state.logueado]);
+    }, [state.logueado, procesos]);
 
     return (
         <div className="contenedorPaginaMisCompras">
@@ -121,7 +125,7 @@ export default function MisCompras() {
                         </div>)}
                 </div>
             </div>
-            {historial.length > 0 ?
+            {historial.length > 0 &&
                 (<div className="paginacion">
                     <button
                         className="buttonPag paginaExtremo primeraPagina"
@@ -211,8 +215,6 @@ export default function MisCompras() {
                         </svg>
                     </button>
                 </div>)
-                :
-                ('')
             }
 
             <Footer />
