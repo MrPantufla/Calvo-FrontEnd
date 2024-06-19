@@ -30,11 +30,10 @@ export default function CardMisCompras(args) {
                 return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
             }
         }
-        else{
-            return accumulator;
+        else {
+            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
         }
     }, 0);
-
 
     const repetirCompra = () => {
         Array.from({ length: args.data.length }).map((_, index) => {
@@ -42,8 +41,12 @@ export default function CardMisCompras(args) {
             const producto = productosIndexado[args.data[index].producto];
 
             if (producto && typeof producto === 'object' && producto !== null) {
-
-                añadirElemento(producto.id, args.data[index].cantidad);
+                if(args.data[index].proceso){
+                    añadirElemento(`${producto.id}(${args.data[index].proceso}(${args.data[index].acabado || 0}))`, args.data[index].cantidad)
+                }
+                else{
+                    añadirElemento(producto.id, args.data[index].cantidad);
+                }
             }
 
             return null;
@@ -89,7 +92,7 @@ export default function CardMisCompras(args) {
             <div className={`bodyCardMisCompras ${cardComprasAbierto == true ? 'open' : ''}`}>
                 <div className="productosHistorialContainer">
                     {Array.from({ length: args.data.length }).map((_, index) => (
-                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} />
+                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado}/>
                     ))}
                 </div>
                 <div className="totalContainer">
