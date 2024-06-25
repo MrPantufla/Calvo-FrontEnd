@@ -4,6 +4,7 @@ import ProductoHistorial from '../Producto Historial/productoHistorial';
 import { useProductos } from '../../contextProductos';
 import { useCarrito } from '../../contextCarrito';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contextLogin';
 
 export default function CardMisCompras(args) {
     const [cardComprasAbierto, setCardComprasAbierto] = useState(false);
@@ -14,6 +15,8 @@ export default function CardMisCompras(args) {
         setCarritoAbierto,
         añadirElemento
     } = useCarrito();
+
+    const { state } = useAuth();
 
     const navigate = useNavigate();
 
@@ -91,7 +94,7 @@ export default function CardMisCompras(args) {
                     ))}
                 </div>
                 <div className="totalContainer">
-                    <h2 className="precioViejo">TOTAL: ${total}</h2>
+                    <h2 className="precioViejo">{`TOTAL: ${total} ${(state.userInfo && state.userInfo.categoria == 'MAYORISTA') && `- CON DESCUENTO: $${parseInt(total*97/100)}`}`}</h2>
                 </div>
             </div>
         </div>

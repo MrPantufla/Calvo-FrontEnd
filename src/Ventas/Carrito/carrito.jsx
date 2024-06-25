@@ -231,13 +231,13 @@ export default function Carrito() {
     if (carritoAbierto) {
       if (elementos.length > 0) {
         if (isMobile) {
-          setCarritoHeight(8 + 27 * elementos.length + 7.5);
+          setCarritoHeight(8 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 10.5 : 7.5));
         }
         else if (isTablet) {
-          setCarritoHeight(3 + 4 + 27 * elementos.length + 5);
+          setCarritoHeight(3 + 4 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 7 : 5));
         }
         else {
-          setCarritoHeight(0.5 + 5 + 20 * elementos.length + 3);
+          setCarritoHeight(0.5 + 5 + 20 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 6.1 : 3));
         }
       }
       else {
@@ -262,7 +262,7 @@ export default function Carrito() {
         <button
           type="button"
           className={`botonCarrito ${carritoAbierto ? 'open' : ''} ${!isTablet && 'desktop'}`}
-          onClick={() => { toggleCarrito(); setFavoritosAbierto(false) }}
+          onClick={() => { toggleCarrito(); setFavoritosAbierto(false); setMostrarHint(false) }}
           style={{ pointerEvents: 'auto' }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="white" className="bi bi-cart2" viewBox="0 0 16 16">
@@ -281,9 +281,9 @@ export default function Carrito() {
             <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
               {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
             </div>
-            {mostrarHint ? (<div className="hintCarrito">
+            {mostrarHint && (<div className="hintCarrito">
               <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PERFIL QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
-            </div>) : ('')}
+            </div>)}
           </div>
           <div className="elementosVisiblesCarrito">
             <form className="agregadoRapido">
@@ -354,7 +354,7 @@ export default function Carrito() {
                   />
                 ))}
                 <button
-                  className="confirmarCarrito"
+                  className={`confirmarCarrito ${state.userInfo.categoria == 'MAYORISTA' && 'mayorista'}`}
                   disabled={!elementos.length > 0}
                   onClick={() => {
                     if (!state.userInfo.cliente) {
@@ -368,7 +368,9 @@ export default function Carrito() {
                     }
                   }}
                 >
-                  CONFIRMAR PEDIDO (${calcularTotal(elementos)})
+                  CONFIRMAR PEDIDO: ${calcularTotal(elementos)}
+                  <br/>
+                  (CON DESCUENTO POR PAGO AL CONTADO: ${parseInt(calcularTotal(elementos)*97/100)})
                 </button>
               </>
             )}
