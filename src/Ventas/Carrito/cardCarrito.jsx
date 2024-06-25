@@ -16,7 +16,8 @@ export default function CardCarrito(args) {
 
     const {
         productosIndexado,
-        troquelados
+        troquelados,
+        extraerMetrosCuadrados
     } = useProductos();
 
     const { setProductoSeleccionado } = useTienda();
@@ -98,21 +99,6 @@ export default function CardCarrito(args) {
 
     const handleContextMenu = (e) => {
         e.preventDefault();
-    }
-
-    const extraerMetrosCuadrados = (cadena) => {
-        const regex = /\b(\d+)[Xx](\d+)[Xx]\d+(?:mm|MM)?\b/;
-
-        const resultado = cadena.match(regex);
-
-        if (resultado) {
-            const primerNumero = parseInt(resultado[1], 10);
-            const segundoNumero = parseInt(resultado[2], 10);
-
-            return primerNumero / 1000 * segundoNumero / 1000;
-        }
-
-        return null;
     }
 
     return (

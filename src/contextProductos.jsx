@@ -90,10 +90,10 @@ function ProductosProvider({ children }) {
                         }
                     }
                     else {
-                        if(producto.rubro != 65){
+                        if (producto.rubro != 65) {
                             procesosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referencia: '' });
                         }
-                        else{
+                        else {
                             troqueladosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referencia: '' });
                         }
                     }
@@ -386,6 +386,21 @@ function ProductosProvider({ children }) {
         }
     }
 
+    const extraerMetrosCuadrados = (cadena) => {
+        const regex = /\b(\d+)[Xx](\d+)[Xx]\d+(?:mm|MM)?\b/;
+
+        const resultado = cadena.match(regex);
+
+        if (resultado) {
+            const primerNumero = parseInt(resultado[1], 10);
+            const segundoNumero = parseInt(resultado[2], 10);
+
+            return primerNumero / 1000 * segundoNumero / 1000;
+        }
+
+        return null;
+    }
+
     return (
         <ProductosContext.Provider value={{
             ordenarProductos,
@@ -404,7 +419,8 @@ function ProductosProvider({ children }) {
             setProductosDestacados,
             productosDestacados,
             procesos,
-            troquelados
+            troquelados,
+            extraerMetrosCuadrados
         }}>
             {children}
         </ProductosContext.Provider>

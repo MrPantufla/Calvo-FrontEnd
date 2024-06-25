@@ -13,11 +13,11 @@ export default function CardProducto(args) {
   const {
     eliminarProducto,
     productosSueltos,
-    guardarDestacados,
     setProductosDestacados,
     productosDestacados,
     procesos,
-    troquelados
+    troquelados,
+    extraerMetrosCuadrados
   } = useProductos();
 
   const {
@@ -246,21 +246,6 @@ export default function CardProducto(args) {
       }
     }
   };
-
-  const extraerMetrosCuadrados = (cadena) => {
-    const regex = /\b(\d+)[Xx](\d+)[Xx]\d+(?:mm|MM)?\b/;
-
-    const resultado = cadena.match(regex);
-
-    if (resultado) {
-      const primerNumero = parseInt(resultado[1], 10);
-      const segundoNumero = parseInt(resultado[2], 10);
-
-      return primerNumero/1000 * segundoNumero/1000;
-    }
-
-    return null;
-  }
   
   return (
     <div className={`contenedorPrincipalCardProducto ${precio == 0 && 'sinPrecio'}`} >
