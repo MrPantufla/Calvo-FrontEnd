@@ -22,7 +22,7 @@ export default function CartelCliente() {
         <div className="contenedorPrincipalCartelCliente" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
             <div className="parteUtilizableCartelCliente" onMouseDown={noCerrar} onMouseUp={noCerrar}>
                 <h1>¡IMPORTANTE!</h1>
-                <p>Si ya sos cliente y estás viendo este texto, <a href="#contacto">comunicate con nosotros</a> para activar correctamente tu cuenta de cliente</p>
+                <p>Si ya sos cliente de la empresa y estás viendo este texto, <a href="#contacto">comunicate con nosotros</a> para activar correctamente tu cuenta de cliente</p>
                 <button className="botonAceptar" onClick={()=> setMostrarCartelCliente(false)}>Aceptar</button>
             </div>
         </div>
