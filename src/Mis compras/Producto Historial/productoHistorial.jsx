@@ -36,10 +36,10 @@ export default function ProductoHistorial(args) {
     }
 
     let colorCorregido = '';
-    if(producto){
+    if (producto) {
         colorCorregido = (producto.color).replace(/\s+/g, '-');
-        
-        if(args.proceso && procesos && procesos[args.proceso].rubro == 88){
+
+        if (args.proceso && procesos && procesos[args.proceso].rubro == 88) {
             colorCorregido = (procesos[args.proceso].color).replace(/\s+/g, '-');
         }
     }
@@ -63,7 +63,10 @@ export default function ProductoHistorial(args) {
                 )}
 
                 <p>CANTIDAD: {args.cantidad}</p>
-                {<p>PRECIO: ${parseInt(args.precio * args.cantidad * (kg || 1))}<br /> ({args.cantidad} x ${parseInt(args.precio * (kg || 1))})</p>}
+                <p>
+                    PRECIO: ${parseInt(args.precio * args.cantidad * ((producto && producto.rubro != 85) ? (kg || 1) : (1)))}<br/>
+                    ({args.cantidad} x ${parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg || 1) : (1)))})
+                </p>
             </div>
         </div>
     );
