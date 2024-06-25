@@ -49,9 +49,7 @@ export default function ProductoHistorial(args) {
             <div className="imagenProductoHistorialContainer">
                 <img src={perfil1} onContextMenu={handleContextMenu} />
                 <p>
-                    <span className="cod_origProductoHistorial">{cod_orig}</span> -
-                    {detalle && detalle}
-                    {args.acabado && procesos[args.acabado] ? ('- ' + procesos[args.acabado].detalle) : ''}
+                    <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''}
                 </p>
             </div>
             <div className="informacionProductoHistorialContainer">
