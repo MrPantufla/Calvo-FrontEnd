@@ -74,11 +74,10 @@ function CarritoProvider({ children }) {
     return null; // Devuelve null si no se encuentra un acabado
   }
 
-  console.log(state.userInfo)
-
   function añadirElemento(id, cantidadCarrito) {
     setPaqueteAñadir(null);
-    if (state.userInfo && !state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
+    if (state.userInfo && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
+      console.log(state.userInfo.categoria)
       setMostrarCartelError(true);
     }
     else {
