@@ -5,7 +5,6 @@ import { useProductos } from '../../../contextProductos';
 import CardProcesos from './CardsProcesosYAcabados/cardProcesos.jsx';
 import CardAcabados from './CardsProcesosYAcabados/cardAcabados.jsx';
 
-
 export default function Procesos(args) {
     const {
         tipoProceso,
@@ -20,8 +19,6 @@ export default function Procesos(args) {
     } = useProductos();
 
     const { procesos } = useProductos();
-
-    let primeraIteracion = true;
 
     return (
         <div className="contenedorPrincipalProcesos">
