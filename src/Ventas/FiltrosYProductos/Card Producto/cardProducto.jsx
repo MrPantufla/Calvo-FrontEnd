@@ -17,7 +17,7 @@ export default function CardProducto(args) {
     setProductosDestacados,
     productosDestacados,
     procesos,
-    
+    troquelados
   } = useProductos();
 
   const {
@@ -84,13 +84,37 @@ export default function CardProducto(args) {
     idAux = productosSueltos[referencia].id;
   }
 
-  idParaUsar = args.proceso ? (id + '(' + args.proceso + '(' + args.acabado + '))') : (idAux);
+  let proceso = procesos[args.proceso];
+
+  if (proceso && kg <= 1.8) {
+    const procesoLiviano = Object.values(procesos).find(p => (p.cod_orig.slice(-2) == 'LL' && p.cod_orig.slice(0, -3) == proceso.cod_orig));
+
+    if (procesoLiviano) {
+      proceso = procesoLiviano;
+    }
+  }
+
+  const troqueladoRegex = /^CA\d+T$/;
+  if (troqueladoRegex.test(cod_orig)) {
+    const codigoPerfil = cod_orig.substring(2, cod_orig.length - 1);
+    const troqueladoCorrespondiente = Object.values(troquelados).find(t => t.detalle.includes(codigoPerfil));
+
+    if (troqueladoCorrespondiente) {
+      proceso = troqueladoCorrespondiente;
+    }
+    else {
+      proceso = troquelados[4814];
+    }
+  }
+
+  let acabado = procesos[0];
+  if (args.acabado) {
+    acabado = procesos[args.acabado];
+  }
+
+  idParaUsar = proceso ? (id + '(' + proceso.id + '(' + acabado.id + '))') : (idAux);
 
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === idParaUsar);
-
-  const proceso = procesos[args.proceso];
-
-  const acabado = procesos[args.acabado];
 
   const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
 
@@ -223,6 +247,21 @@ export default function CardProducto(args) {
     }
   };
 
+  const extraerMetrosCuadrados = (cadena) => {
+    const regex = /\b(\d+)[Xx](\d+)[Xx]\d+(?:mm|MM)?\b/;
+
+    const resultado = cadena.match(regex);
+
+    if (resultado) {
+      const primerNumero = parseInt(resultado[1], 10);
+      const segundoNumero = parseInt(resultado[2], 10);
+
+      return primerNumero/1000 * segundoNumero/1000;
+    }
+
+    return null;
+  }
+  
   return (
     <div className={`contenedorPrincipalCardProducto ${precio == 0 && 'sinPrecio'}`} >
       <div className="informacionContainer">
@@ -258,7 +297,7 @@ export default function CardProducto(args) {
           </div>
         }
         {state.userInfo &&
-          ((state.userInfo.tipo_usuario == 'admin' && !proceso) &&
+          ((state.userInfo.tipo_usuario == 'admin') &&
             <>
               <button className="eliminarElemento" onClick={() => eliminarProducto(id)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -321,12 +360,12 @@ export default function CardProducto(args) {
         </div>
         <div className="kgCantidadYColorContainer">
           <div className="kgProducto">
-            {kg > 0 ? (
+            {kg > 0 && (
               <>
                 <p>PESO PROMEDIO</p>
                 <p><span className="pesoYColorTextoCardProducto">{kg}kg</span></p>
               </>
-            ) : (<></>)}
+            )}
           </div>
           {precio == 0 ?
             (<a
@@ -356,7 +395,7 @@ export default function CardProducto(args) {
           <div className="colorCardProducto">
             {color != "Ind" &&
               <>
-              <p>{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR') }`}</p>
+                <p>{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR')}`}</p>
                 <div className="muestraColorCardProducto" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                   <p className="pesoYColorTextoCardProducto" style={usarBlanco ? { color: 'white' } : {}}>
                     {args.proceso ? proceso.color.toUpperCase() : color.toUpperCase()}
@@ -370,7 +409,30 @@ export default function CardProducto(args) {
       </div >
       {precio != 0 &&
         <div className="precioContainerCardProducto">
-          <p className="precioCardProducto">{tipo_prod == 'PERFIL' ? (`PRECIO${referencia && ' UNITARIO'} ${!mayorista ? ' MINORISTA ' : ''}APROXIMADO: $`) : (`PRECIO${!mayorista ? ' MINORISTA' : ''}: $`)}{parseInt(kg > 0 ? (precioParaUsar * kg + (proceso ? (proceso.precio * kg) : (0)) + (acabado ? (acabado.precio * kg) : (0))) : (precioParaUsar))}</p>
+          <p className="precioCardProducto">
+            {tipo_prod == 'PERFIL' ? (
+              `PRECIO${referencia ?
+                ' UNITARIO' : ''
+              } 
+              ${!mayorista ?
+                ' MINORISTA ' : ''
+              } 
+              APROXIMADO: $`
+            ) : (
+              `PRECIO${!mayorista ? ' MINORISTA' : ''}: $`
+            )}
+            {parseInt(
+              rubro != 85 ?
+                (
+                  kg > 0 ?
+                    (precioParaUsar * kg + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0))
+                    :
+                    precioParaUsar
+                )
+                :
+                (precioParaUsar + (proceso ? proceso.precio * extraerMetrosCuadrados(detalle) : 0) /*+ (acabado ? acabado.precio * kg : 0)*/)
+            )}
+          </p>
         </div>
       }
     </div >

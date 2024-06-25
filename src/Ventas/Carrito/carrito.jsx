@@ -27,7 +27,8 @@ export default function Carrito() {
     coloresArray,
     productosEliminados,
     productosSueltos,
-    procesos
+    procesos,
+    troquelados
   } = useProductos();
 
   const {
@@ -72,17 +73,19 @@ export default function Carrito() {
       const idAcabado = extraerAcabado(elemento.id);
 
       const producto = productosIndexado[idProducto];
-      const proceso = procesos[idProceso];
-      const acabado = procesos[idAcabado];
-  
-      // Calcular el precio del elemento utilizando las funciones extraer
+      let proceso = procesos[idProceso];
+      let acabado = procesos[idAcabado];
+
+      if (!proceso) {
+        proceso = troquelados[idProceso]
+      }
+
       const precioElemento = parseInt(
-        elemento.kg > 0
+        (elemento.kg > 0 && (productosIndexado[elemento.id] && productosIndexado[elemento.id].rubro != 85))
           ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
           : producto.precio
       );
-  
-      // Sumar el precio del elemento al total
+
       return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
     }, 0);
   };
@@ -95,7 +98,7 @@ export default function Carrito() {
         let productosEncontrados;
         productosEncontrados = Object.values(productosSueltos).filter(producto => producto.cod_orig === codigoIngresado);
 
-        if(productosEncontrados.length == 0){
+        if (productosEncontrados.length == 0) {
           productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
         }
 

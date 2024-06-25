@@ -20,6 +20,7 @@ function ProductosProvider({ children }) {
     const [productosSueltos, setProductosSueltos] = useState([]);
     const [productosDestacados, setProductosDestacados] = useState([]);
     const [procesos, setProcesos] = useState([]);
+    const [troquelados, setTroquelados] = useState([]);
 
     const nuevosColores = new Set();
 
@@ -36,7 +37,7 @@ function ProductosProvider({ children }) {
                 const referencias = {};
                 const productosSueltosTemporal = {};
                 let procesosTemporal = {};
-                const troqueladosTemporal = {};
+                let troqueladosTemporal = {};
 
                 const productosActualizados = productosObtenidos.reduce((acumulador, producto) => {
                     let precioFinal = producto.precio_vta1; // Precio inicial
@@ -51,7 +52,7 @@ function ProductosProvider({ children }) {
                         precioFinal -= parseInt(descuentos[producto.rubro] / 100 * copiaPrecio);
                     }
 
-                    if(producto.tipo_prod == 'PUNTUAL' || producto.tipo_prod == 'MAQUINAS'){
+                    if (producto.tipo_prod == 'PUNTUAL' || producto.tipo_prod == 'MAQUINAS') {
                         precioFinal = 0;
                     }
 
@@ -89,7 +90,12 @@ function ProductosProvider({ children }) {
                         }
                     }
                     else {
-                        procesosTemporal[producto.id] = ({...producto, precio: precioFinal, referencia: ''});
+                        if(producto.rubro != 65){
+                            procesosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referencia: '' });
+                        }
+                        else{
+                            troqueladosTemporal[producto.id] = ({ ...producto, precio: precioFinal, referencia: '' });
+                        }
                     }
 
                     return acumulador;
@@ -113,10 +119,16 @@ function ProductosProvider({ children }) {
 
                     return acc;
                 }, {}));
-                procesosTemporal[0] = ({cantidad: 1, cod_int: 0, cod_orig: "SINACABADO", color: "Ind", costo_f: 0, detalle: "SIN ACABADO", dolar: 1, finalizar: "NO", id: 0, iva: 21, kg: 0, marca: 0, pesos: "NO", precio: 0, precio_vta1: 0, precio_vta2: 0, referencia: "", rubro: 89, srubro: 0, tipo_prod: "PROCESOS"})
+                procesosTemporal[0] = ({ cantidad: 1, cod_int: 0, cod_orig: "SINACABADO", color: "Ind", costo_f: 0, detalle: "SIN ACABADO", dolar: 1, finalizar: "NO", id: 0, iva: 21, kg: 0, marca: 0, pesos: "NO", precio: 0, precio_vta1: 0, precio_vta2: 0, referencia: "", rubro: 89, srubro: 0, tipo_prod: "PROCESOS" })
                 procesosTemporal = Object.values(procesosTemporal);
+                troqueladosTemporal = Object.values(troqueladosTemporal);
 
                 setProcesos(procesosTemporal.reduce((acc, el) => {
+                    acc[el.id] = el;
+                    return acc;
+                }, {}));
+
+                setTroquelados(troqueladosTemporal.reduce((acc, el) => {
                     acc[el.id] = el;
                     return acc;
                 }, {}));
@@ -259,11 +271,11 @@ function ProductosProvider({ children }) {
             const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
             const precioB = prodB.kg !== 0 ? prodB.precio * prodB.kg : prodB.precio;
 
-            if(precioA === 0 && precioB !== 0){
+            if (precioA === 0 && precioB !== 0) {
                 return 1
             }
-            
-            if(precioB === 0 && precioA !== 0){
+
+            if (precioB === 0 && precioA !== 0) {
                 return -1;
             }
 
@@ -391,7 +403,8 @@ function ProductosProvider({ children }) {
             guardarDestacados,
             setProductosDestacados,
             productosDestacados,
-            procesos
+            procesos,
+            troquelados
         }}>
             {children}
         </ProductosContext.Provider>

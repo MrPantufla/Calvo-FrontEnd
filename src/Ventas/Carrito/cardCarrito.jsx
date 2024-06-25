@@ -14,7 +14,10 @@ export default function CardCarrito(args) {
         extraerAcabado
     } = useCarrito();
 
-    const { productosIndexado } = useProductos();
+    const {
+        productosIndexado,
+        troquelados
+    } = useProductos();
 
     const { setProductoSeleccionado } = useTienda();
 
@@ -37,11 +40,24 @@ export default function CardCarrito(args) {
     let colorCorregido;
     let colorParaUsar;
 
-    const proceso = procesos[idProceso];
+    let proceso = procesos[idProceso];
+    let acabado = procesos[idAcabado];
 
-    const acabado = procesos[idAcabado];
+    if (!proceso) {
+        proceso = troquelados[idProceso]
+    }
 
     if (proceso) {
+        if (productosIndexado[producto.id].kg <= 1.8) {
+            const procesoLiviano = Object.values(procesos).find(p => (p.cod_orig.slice(-2) == 'LL' && p.cod_orig.slice(0, -3) == proceso.cod_orig));
+
+            if (procesoLiviano) {
+                proceso = procesoLiviano;
+            }
+        }
+    }
+
+    if (proceso && proceso.color && proceso.color != 'Ind') {
         colorCorregido = (proceso.color).replace(/\s+/g, '-');
         colorParaUsar = proceso.color;
     }
@@ -84,6 +100,21 @@ export default function CardCarrito(args) {
         e.preventDefault();
     }
 
+    const extraerMetrosCuadrados = (cadena) => {
+        const regex = /\b(\d+)[Xx](\d+)[Xx]\d+(?:mm|MM)?\b/;
+
+        const resultado = cadena.match(regex);
+
+        if (resultado) {
+            const primerNumero = parseInt(resultado[1], 10);
+            const segundoNumero = parseInt(resultado[2], 10);
+
+            return primerNumero / 1000 * segundoNumero / 1000;
+        }
+
+        return null;
+    }
+
     return (
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
@@ -103,7 +134,7 @@ export default function CardCarrito(args) {
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
                 <div className="codigoYDetalleCardCarritoContainer">
-                    <p className="codigoYDetalleCardCarrito"><span>{codigo}</span> - {`${producto.detalle} ${acabado ? (' - ' + (acabado.detalle)) : (``)}`} <span className="codOrig">{`${producto.cantidad > 1 ? ('(' + producto.cantidad + 'u.)') : ('')}`}</span></p>
+                    <p className="codigoYDetalleCardCarrito"><span>{codigo}</span> - {`${producto.detalle} ${(acabado && acabado.id != 0) ? (' - ' + (acabado.detalle)) : (``)}`} <span className="codOrig">{`${producto.cantidad > 1 ? ('(' + producto.cantidad + 'u.)') : ('')}`}</span></p>
                 </div>
             </div>
             <div className="restoCardCarrito">
@@ -121,7 +152,7 @@ export default function CardCarrito(args) {
                 </div>
                 <div className="colorCardCarritoContainer">
                     <>
-                        <p className="textoColorCardCarrito">{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR') }`}</p>
+                        <p className="textoColorCardCarrito">{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR')}`}</p>
                         <div className="muestraColorCardCarrito" style={{ backgroundColor: `var(--${colorCorregido})` }} >
                             <p className="colorCardCarrito" style={usarBlanco ? { color: 'white' } : {}}>
                                 {colorParaUsar == 'Ind' ? ('-') : (colorParaUsar.toUpperCase())}
@@ -132,10 +163,39 @@ export default function CardCarrito(args) {
                 <div className="precioContainer">
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
                     <div className="precioProductoCardCarrito">
-                        <p>${parseInt(producto.kg > 0 ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : (0)) + (acabado ? (acabado.precio * producto.kg) : (0))) : (producto.precio)) * args.cantidadCarrito}</p>
+                        <p>
+                            ${parseInt(
+                                producto.rubro == 85 ?
+                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+                                    :
+                                    ((producto.kg > 0) ?
+                                        (producto.precio * producto.kg +
+                                            (proceso ? proceso.precio * producto.kg : 0) +
+                                            (acabado ? acabado.precio * producto.kg : 0)
+                                        )
+                                        :
+                                        (producto.precio)
+                                    )
+                            ) * args.cantidadCarrito}
+                        </p>
                     </div>
                     <div className="precioUnitarioCardCarrito">
-                        <p>({args.cantidadCarrito} x ${parseInt(producto.kg > 0 ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : (0)) + (acabado ? (acabado.precio * producto.kg) : (0))) : (producto.precio))})</p>
+                        <p>({args.cantidadCarrito} x
+                            ${parseInt(
+                                producto.rubro == 85 ?
+                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+                                    :
+                                    ((producto.kg > 0) ?
+                                        (producto.precio * producto.kg +
+                                            (proceso ? proceso.precio * producto.kg : 0) +
+                                            (acabado ? acabado.precio * producto.kg : 0)
+                                        )
+                                        :
+                                        (producto.precio)
+                                    )
+                            )}
+                            )
+                        </p>
                     </div>
                 </div>
             </div>

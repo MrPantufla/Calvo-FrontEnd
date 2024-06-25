@@ -8,11 +8,10 @@ import { BotonesOrdenamiento } from './Ordenamiento/botonesOrdenamiento';
 import Carrito from '../Carrito/carrito';
 import Favoritos from '../Favoritos/favoritos';
 import Cortinas from './Cortinas/cortinas';
-import Eliminados from './Eliminados/eliminados';
 import Paginacion from './Paginacion/paginacion';
 import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
-import { rubrosPerfiles, marcasPerfiles, marcasUnicasPerfiles, srubrosPerfiles, srubros85 } from '../../rubros';
+import { rubrosPerfiles, marcasUnicasPerfiles, srubrosPerfiles, srubros85 } from '../../rubros';
 import { useCortinas } from '../../contextCortinas';
 import { useAuth } from '../../contextLogin';
 import Procesos from './Procesos/procesos';
@@ -24,7 +23,8 @@ export default function FiltrosYProductos() {
     ordenarProductos,
     productosEliminados,
     dataCargada,
-    guardarDestacados
+    guardarDestacados,
+    procesos
   } = useProductos();
 
   const {
@@ -39,9 +39,8 @@ export default function FiltrosYProductos() {
     srubroActivo,
     marcaActiva,
     procesosSelected,
-    tipoProceso,
     stipoProceso,
-    acabado
+    acabado,
   } = useTienda();
 
   const { state } = useAuth();
@@ -72,14 +71,14 @@ export default function FiltrosYProductos() {
     }, 350);
   }
 
-  const listaPreFiltrada = Object.values(productosIndexado).filter((p) => {
+  const listaPreFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-      rubroActivo == null ||
+      rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
       rubroActivo == p.rubro ||
       rubroActivo == 'Perfiles' && marcasUnicasPerfiles.includes(p.marca) ||
       rubroActivo == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
       rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
-      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicasPerfiles.includes(p.marca) && p.color == 'Natural' ||
+      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicasPerfiles.includes(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
       procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
 
     const colorCumple =
@@ -97,7 +96,13 @@ export default function FiltrosYProductos() {
     const eliminado =
       productosEliminados.includes(p.id);
 
-    return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado;
+    if (eliminadosSelected) {
+      return eliminado;
+    }
+    else {
+      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado;
+    }
+
   });
 
   const listaFiltrada = Object.values(listaPreFiltrada).filter((p) => {
@@ -279,39 +284,35 @@ export default function FiltrosYProductos() {
           {cortinasSelected ?
             (<Cortinas />)
             :
-            (eliminadosSelected ?
-              (<Eliminados />)
-              :
-              (<>
-                {!(procesosSelected && (!stipoProceso || !acabado)) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
-                {procesosSelected ?
-                  (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
-                  :
-                  (<>
-                    <div className="row rowProductos">
-                      {dataCargada == true ?
-                        (<>
-                          {itemsActuales.map((producto) => (
-                            <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                              <CardProducto
-                                producto={producto}
-                                onClick={() => {
-                                  seleccionarProducto(producto);
-                                }}
-                              />
-                            </div>
-                          ))}
-                        </>)
-                        :
-                        (<div className="spinner-border cargandoProductos" role="status">
-                          <span className="visually-hidden">Loading...</span>
-                        </div>)
-                      }
-                    </div>
-                  </>)
-                }
-              </>)
-            )
+            (<>
+              {!(procesosSelected && (!stipoProceso || !acabado)) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
+              {procesosSelected ?
+                (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
+                :
+                (<>
+                  <div className="row rowProductos">
+                    {dataCargada == true ?
+                      (<>
+                        {itemsActuales.map((producto) => (
+                          <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                            <CardProducto
+                              producto={producto}
+                              onClick={() => {
+                                seleccionarProducto(producto);
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </>)
+                      :
+                      (<div className="spinner-border cargandoProductos" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>)
+                    }
+                  </div>
+                </>)
+              }
+            </>)
           }
         </div>
       </div>
@@ -325,7 +326,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {!(cortinasSelected || eliminadosSelected || (procesosSelected && (!acabado || !stipoProceso))) &&
+      {!(cortinasSelected || (procesosSelected && (!acabado || !stipoProceso))) &&
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}
