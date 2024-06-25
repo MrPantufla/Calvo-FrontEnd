@@ -23,12 +23,7 @@ export default function CardMisCompras(args) {
 
     const total = args.data.reduce((accumulator, currentItem) => {
         if (productosIndexado[currentItem.producto]) {
-            if (productosIndexado[currentItem.producto].kg > 0) {
-                return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * productosIndexado[currentItem.producto].kg));
-            }
-            else {
-                return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
-            }
+            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * (productosIndexado[currentItem.producto].rubro != 85 ? (productosIndexado[currentItem.producto].kg || 1) : (1))));
         }
         else {
             return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
@@ -41,10 +36,10 @@ export default function CardMisCompras(args) {
             const producto = productosIndexado[args.data[index].producto];
 
             if (producto && typeof producto === 'object' && producto !== null) {
-                if(args.data[index].proceso){
+                if (args.data[index].proceso) {
                     añadirElemento(`${producto.id}(${args.data[index].proceso}(${args.data[index].acabado || 0}))`, args.data[index].cantidad)
                 }
-                else{
+                else {
                     añadirElemento(producto.id, args.data[index].cantidad);
                 }
             }
@@ -92,7 +87,7 @@ export default function CardMisCompras(args) {
             <div className={`bodyCardMisCompras ${cardComprasAbierto == true ? 'open' : ''}`}>
                 <div className="productosHistorialContainer">
                     {Array.from({ length: args.data.length }).map((_, index) => (
-                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado}/>
+                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado} />
                     ))}
                 </div>
                 <div className="totalContainer">
