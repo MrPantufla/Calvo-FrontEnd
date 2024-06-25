@@ -15,9 +15,9 @@ export default function CartelError(){
     }
 
     const navegarAContacto = () =>{
-        navigate('/home');
+        navigate('/');
         setTimeout(() => {
-            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('redesSocialesContainer').scrollIntoView({ behavior: 'smooth' });
         }, 200);
         ocultarCartel();
     }
@@ -25,7 +25,7 @@ export default function CartelError(){
     return(
         <div className={`contenedorPrincipalCartelError ${mostrarCartelError ? 'open' : ''}`} onClick={ocultarCartel}>
             <div className="parteUtilizableCartelError" onClick={(e) => clickParteUtilizable(e)}>
-                <h2>Hacete cliente para realizar pedidos de perfiles</h2>
+                <h2>Hacete cliente mayorista para realizar pedidos de perfiles</h2>
                 <a onClick={navegarAContacto}>Llama a nuestras oficinas o envianos un mensaje para consultar</a>
                 <button onClick={ocultarCartel}>
                     Aceptar
