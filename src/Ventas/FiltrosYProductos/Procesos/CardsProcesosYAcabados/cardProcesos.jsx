@@ -15,6 +15,11 @@ export default function CardProcesos(args) {
         eliminarProducto(id);
     }
 
+    let detalleArreglado = args.proceso.detalle;
+    if(detalleArreglado.slice(-2) == 'M2'){
+        detalleArreglado = detalleArreglado.substring(0, detalleArreglado.length - 2) + 'CHAPAS';
+    }
+
     return (
         <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={{ backgroundColor: `var(--${args.colorCorregido})` }}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
@@ -25,7 +30,7 @@ export default function CardProcesos(args) {
                 </button>
             }
 
-            <h1>{args.proceso.detalle}</h1>
+            <h1>{detalleArreglado}</h1>
         </div>
     );
 }
