@@ -79,7 +79,7 @@ function CarritoProvider({ children }) {
   function añadirElemento(id, cantidadCarrito) {
     setPaqueteAñadir(null);
     if (state.userInfo && !state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
-      mostrarCartel();
+      setMostrarCartelError(true);
     }
     else {
       if (Object.keys(productosIndexado).length !== 0) {
@@ -171,14 +171,6 @@ function CarritoProvider({ children }) {
       setElementoEliminar(null);
     }
   }, [añadirElemento])
-
-  const mostrarCartel = () => {
-    setMostrarCartelError(true);
-  }
-
-  const ocultarCartel = () => {
-    setMostrarCartelError(false);
-  }
 
   function restarElemento(id) {
     const elementoExistente = elementos.find((elemento) => elemento.id === id);
@@ -307,8 +299,6 @@ function CarritoProvider({ children }) {
       setPrecioTotal,
       compraRealizadaAbierto,
       setCompraRealizadaAbierto,
-      mostrarCartel,
-      ocultarCartel,
       mostrarCartelError,
       actualizarCarrito,
       confirmarCompraAbierto,
@@ -331,7 +321,9 @@ function CarritoProvider({ children }) {
       respuestaRecibida,
       extraerProducto,
       extraerProceso,
-      extraerAcabado
+      extraerAcabado,
+      mostrarCartelError,
+      setMostrarCartelError
     }}>
       {children}
     </CarritoContext.Provider>

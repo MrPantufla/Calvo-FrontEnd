@@ -15,7 +15,7 @@ export default function Ventas() {
   const {
     confirmarCompraAbierto,
     compraRealizadaAbierto,
-    respuestaRecibida
+    mostrarCartelError
   } = useCarrito();
 
   const { mostrarPagos } = useTienda();
@@ -28,7 +28,7 @@ export default function Ventas() {
         <Catalogos />
         <Filtros />
         {confirmarCompraAbierto && <ConfirmarCompra />}
-        <CartelError />
+        {mostrarCartelError && <CartelError />}
         {compraRealizadaAbierto && <PedidoRealizado />}
         {mostrarPagos && <Pagos />}
         <Footer />

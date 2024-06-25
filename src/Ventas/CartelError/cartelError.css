@@ -1,7 +1,7 @@
 .contenedorPrincipalCartelError{
     background-color: rgba(0, 0, 0, 50%);
-    width: 0;
-    height: 0;
+    width: 100vw;
+    height: 100vh;
     position: fixed;
     display: flex;
     align-items: center;
@@ -9,11 +9,6 @@
     z-index: 102;
     top: 0;
     overflow: hidden;
-}
-
-.contenedorPrincipalCartelError.open{
-    width: 100vw;
-    height: 100vh;
 }
 
 .parteUtilizableCartelError{

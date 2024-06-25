@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 export default function CartelError(){
     const {
         ocultarCartel,
-        mostrarCartelError
+        mostrarCartelError,
+        setMostrarCartelError
     } = useCarrito();
 
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function CartelError(){
     }
 
     return(
-        <div className={`contenedorPrincipalCartelError ${mostrarCartelError ? 'open' : ''}`} onClick={ocultarCartel}>
+        <div className={`contenedorPrincipalCartelError`} onClick={() => setMostrarCartelError(false)}>
             <div className="parteUtilizableCartelError" onClick={(e) => clickParteUtilizable(e)}>
                 <h2>Hacete cliente mayorista para realizar pedidos de perfiles</h2>
                 <a onClick={navegarAContacto}>Llama a nuestras oficinas o envianos un mensaje para consultar</a>
