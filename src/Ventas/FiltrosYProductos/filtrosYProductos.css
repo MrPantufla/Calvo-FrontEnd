@@ -17,7 +17,7 @@
 
 .productos {
     padding-right: 1rem;
-    /*min-height: calc(100vh - 19rem);*/
+    min-height: calc(100vh - 19rem);
 }
 
 .contenedorPrincipalFiltrosYProductos {
