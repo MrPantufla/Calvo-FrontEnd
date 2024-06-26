@@ -49,10 +49,12 @@
 @media (max-width: 767px) {
     .busquedaEIcono {
         height: 8rem;
+        overflow: hidden;
     }
 
     .busquedaEIcono input {
         font-size: 3.4rem;
+        padding-left: 1rem !important;
     }
 
     .busquedaEIcono input::placeholder {
