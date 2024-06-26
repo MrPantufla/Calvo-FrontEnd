@@ -4,6 +4,7 @@ import { useTienda } from '../../../contextTienda';
 
 export default function CardCategoria(args) {
     const navigate = useNavigate();
+    
     const {
         togglearRubro,
         seleccionarCortinas
