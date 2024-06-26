@@ -19,6 +19,11 @@ export default function CardAcabados(args) {
         eliminarProducto(id);
     }
 
+    let detalleArreglado = args.acabado.detalle;
+    if (detalleArreglado.slice(-2) == 'M2') {
+        detalleArreglado = detalleArreglado.slice(0, -5)
+    }
+
     return (
         <div className="cardProceso" onClick={() => setAcabado(args.acabado)} style={{ backgroundImage: `url(/ImagenesAcabados/${args.acabado.id}.jpg)`, backgroundSize: `cover`, backgroundColor: `white` }}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
@@ -29,7 +34,7 @@ export default function CardAcabados(args) {
                 </button>
             }
 
-            <h1>{args.acabado.detalle}</h1>
+            <h1>{detalleArreglado}</h1>
         </div>
     );
 }

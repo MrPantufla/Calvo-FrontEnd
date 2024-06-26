@@ -248,7 +248,17 @@ export default function CardProducto(args) {
   };
 
   const precioPerfil = precioParaUsar * kg + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0);
-  const precioChapa = precioParaUsar + (proceso ? proceso.precio * extraerMetrosCuadrados(detalle) : 0) /*+ (acabado ? acabado.precio * kg : 0)*/;
+  const precioChapa = precioParaUsar + (proceso ? proceso.precio * extraerMetrosCuadrados(detalle) : 0) + (acabado ? acabado.precio * extraerMetrosCuadrados(detalle) : 0);
+
+  let acabadoArreglado;
+
+  if (args.acabado) {
+    acabadoArreglado = acabado.detalle;
+    console.log(acabadoArreglado)
+    if (acabadoArreglado.slice(-2) == 'M2') {
+      acabadoArreglado = acabadoArreglado.slice(0, -3);
+    }
+  }
 
   return (
     <div className={`contenedorPrincipalCardProducto ${precio == 0 && 'sinPrecio'}`} >
@@ -343,7 +353,7 @@ export default function CardProducto(args) {
           {referencia ?
             (<h3><span className="codOrig">{codigo}</span> - {`${detalle}`} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
             :
-            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabado.detalle)) : (``)}`} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
+            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
           }
         </div>
         <div className="kgCantidadYColorContainer">
@@ -422,21 +432,21 @@ export default function CardProducto(args) {
               )}
             </p>
           </div>
-          {state.userInfo.categoria == 'MAYORISTA' && 
-          <div className="precioContainerCardProducto segundoContainer">
-          <p className="precioCardProducto">
-            {`CON DESCUENTO POR PAGO AL CONTADO: $${parseInt(
-              rubro != 85 ?
-                (kg > 0 ?
-                  (precioPerfil*97/100)
-                  :
-                  precioParaUsar*97/100
-                )
-                :
-                (precioChapa*97/100)
-            )}`}
-          </p>
-        </div>}
+          {(state.userInfo && state.userInfo.categoria == 'MAYORISTA') &&
+            <div className="precioContainerCardProducto segundoContainer">
+              <p className="precioCardProducto">
+                {`CON DESCUENTO POR PAGO AL CONTADO: $${parseInt(
+                  rubro != 85 ?
+                    (kg > 0 ?
+                      (precioPerfil * 97 / 100)
+                      :
+                      precioParaUsar * 97 / 100
+                    )
+                    :
+                    (precioChapa * 97 / 100)
+                )}`}
+              </p>
+            </div>}
         </>
       }
     </div >

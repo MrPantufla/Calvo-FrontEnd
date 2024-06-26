@@ -101,6 +101,15 @@ export default function CardCarrito(args) {
         e.preventDefault();
     }
 
+    let acabadoArreglado;
+
+    if(acabado){
+        acabadoArreglado = acabado.detalle;
+        if(acabadoArreglado.slice(-2) == 'M2'){
+            acabadoArreglado = acabadoArreglado.slice(0, -3);
+        }
+    }
+
     return (
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
@@ -120,7 +129,7 @@ export default function CardCarrito(args) {
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
                 <div className="codigoYDetalleCardCarritoContainer">
-                    <p className="codigoYDetalleCardCarrito"><span>{codigo}</span> - {`${producto.detalle} ${(acabado && acabado.id != 0) ? (' - ' + (acabado.detalle)) : (``)}`} <span className="codOrig">{`${producto.cantidad > 1 ? ('(' + producto.cantidad + 'u.)') : ('')}`}</span></p>
+                    <p className="codigoYDetalleCardCarrito"><span>{codigo}</span> - {`${producto.detalle} ${(acabado && acabado.id != 0) ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{`${producto.cantidad > 1 ? ('(' + producto.cantidad + 'u.)') : ('')}`}</span></p>
                 </div>
             </div>
             <div className="restoCardCarrito">
@@ -152,7 +161,7 @@ export default function CardCarrito(args) {
                         <p>
                             ${parseInt(
                                 producto.rubro == 85 ?
-                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
                                     :
                                     ((producto.kg > 0) ?
                                         (producto.precio * producto.kg +
@@ -169,7 +178,7 @@ export default function CardCarrito(args) {
                         <p>({args.cantidadCarrito} x
                             ${parseInt(
                                 producto.rubro == 85 ?
-                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+                                (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
                                     :
                                     ((producto.kg > 0) ?
                                         (producto.precio * producto.kg +

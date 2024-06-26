@@ -11,7 +11,8 @@ export default function Procesos(args) {
         setTipoProceso,
         stipoProceso,
         acabado,
-        setAcabado
+        setAcabado,
+        sTipoProceso
     } = useTienda();
 
     const {
@@ -63,11 +64,20 @@ export default function Procesos(args) {
                                         if (!productosEliminados.includes(acabado.id)) {
                                             const colorCorregido = (acabado.color).replace(/\s+/g, '-');
                                             if (acabado.rubro === 89) {
-                                                return (
-                                                    <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{paddingTop: '0.7rem '}}>
-                                                        <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
-                                                    </div>
-                                                );
+                                                if(stipoProceso && stipoProceso.detalle.slice(-2) == 'M2' && acabado.detalle.slice(-2) == 'M2'){
+                                                    return (
+                                                        <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{paddingTop: '0.7rem '}}>
+                                                            <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
+                                                        </div>
+                                                    );
+                                                }
+                                                else if (stipoProceso && stipoProceso.detalle.slice(-2) != 'M2' && acabado.detalle.slice(-2) != 'M2'){
+                                                    return (
+                                                        <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{paddingTop: '0.7rem '}}>
+                                                            <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
+                                                        </div>
+                                                    );
+                                                }
                                             }
                                             return null;
                                         }
