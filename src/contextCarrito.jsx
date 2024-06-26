@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useProductos } from './contextProductos';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
-import { useDireccion } from './contextDireccion';
 import Cookies from 'js-cookie';
 import { marcasUnicasPerfiles } from './rubros';
 
@@ -17,16 +16,13 @@ function CarritoProvider({ children }) {
 
   const {
     state,
-    setMostrarLogin
-  } = useAuth();
-
-  const {
+    setMostrarLogin,
     calle,
     numero,
     cp,
     localidad,
     provincia
-  } = useDireccion();
+  } = useAuth();
 
   const { productosSueltos } = useProductos();
 

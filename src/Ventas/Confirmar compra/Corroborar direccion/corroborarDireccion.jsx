@@ -1,6 +1,5 @@
 import './corroborarDireccion.css';
 import { useAuth } from "../../../contextLogin";
-import { useDireccion } from "../../../contextDireccion";
 import { useCarrito } from "../../../contextCarrito";
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +12,7 @@ export default function CorroborarDireccion() {
         cp,
         localidad,
         provincia
-    } = useDireccion();
+    } = useAuth();
 
     const {
         setInstanciaPedido

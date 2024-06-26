@@ -16,6 +16,12 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogin, setMostrarCartelLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
+  const [calle, setCalle] = useState('');
+  const [numero, setNumero] = useState('');
+  const [cp, setCp] = useState('');
+  const [localidad, setLocalidad] = useState('');
+  const [provincia, setProvincia] = useState('');
+  const [direccionConfirmada, setDireccionConfirmada] = useState(false);
 
   const [state, setState] = useState({
     logueado: false,
@@ -188,6 +194,7 @@ export const LoginProvider = ({ children }) => {
         obtenerProductosFiltrados(userData.categoria, userData.descuentos);
         login(userData);
         renovarToken({ email: userData.email })
+        obtenerDirecciones();
 
       } else {
         obtenerProductosFiltrados();
@@ -247,6 +254,53 @@ export const LoginProvider = ({ children }) => {
     return () => clearInterval(renewTokenInterval);
   }, [state.logueado]);
 
+  const obtenerDirecciones = () => {
+
+    let tokenParaEnviar = Cookies.get('jwtToken');
+
+    if (tokenParaEnviar == undefined) {
+      tokenParaEnviar = null;
+    }
+
+    fetch(`${backend}/api/direcciones/${state.userInfo.email}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': tokenParaEnviar,
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.text();
+        }
+      })
+      .then(data => {
+        if (typeof data === 'object') {
+          // La respuesta es un objeto, probablemente la dirección del usuario
+          setCalle(data.calle);
+          setNumero(data.numero);
+          setCp(data.cp);
+          setLocalidad(data.localidad);
+          setProvincia(data.provincia);
+          // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
+        } else {
+          setCalle('');
+          setNumero('');
+          setCp('');
+          setLocalidad('');
+          setProvincia('');
+          // La respuesta es un texto, probablemente un mensaje de error
+          setErrorMessage(data);
+        }
+      })
+      .catch(error => {
+        setErrorMessage('Ocurrió un error al realizar la solicitud:', error.message);
+      });
+
+  }
+
   return (
     <AuthContext.Provider value={{
       handleLogin,
@@ -268,6 +322,19 @@ export const LoginProvider = ({ children }) => {
       setMostrarCartelLogin,
       mostrarCartelCliente,
       setMostrarCartelCliente,
+      handleLogin,
+      direccionConfirmada,
+      setDireccionConfirmada,
+      setCalle,
+      setNumero,
+      setCp,
+      setLocalidad,
+      setProvincia,
+      calle,
+      numero,
+      cp,
+      localidad,
+      provincia,
     }}>
       {children}
     </AuthContext.Provider>

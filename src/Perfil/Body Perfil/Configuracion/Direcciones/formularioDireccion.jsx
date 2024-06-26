@@ -1,5 +1,4 @@
 import './formularioDireccion.css'
-import { useDireccion } from "../../../../contextDireccion";
 import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from "../../../../contextConfiguracion";
 import { useVariables } from '../../../../contextVariables';
@@ -8,7 +7,7 @@ import Cookies from 'js-cookie';
 export default function FormularioDireccion() {
     const { backend } = useVariables();
 
-    const {
+    const { auth,
         setDireccionConfirmada,
         calle,
         numero,
@@ -20,9 +19,7 @@ export default function FormularioDireccion() {
         setCp,
         setLocalidad,
         setProvincia
-    } = useDireccion();
-
-    const auth = useAuth();
+    } = useAuth();
 
     const {
         cerrarDireccion,

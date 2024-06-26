@@ -9,7 +9,6 @@ import { FavoritosProvider } from './contextFavoritos.jsx';
 import { LoginProvider } from './contextLogin.jsx';
 import { ProductosProvider } from './contextProductos.jsx';
 import { VariablesProvider } from './contextVariables.jsx';
-import { DireccionProvider } from './contextDireccion.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,13 +17,11 @@ root.render(
     <ProductosProvider>
       <LoginProvider>
         <ConfiguracionProvider>
-          <DireccionProvider>
             <CarritoProvider>
               <FavoritosProvider>
                 <App />
               </FavoritosProvider>
             </CarritoProvider>
-          </DireccionProvider>
         </ConfiguracionProvider>
       </LoginProvider>
     </ProductosProvider>

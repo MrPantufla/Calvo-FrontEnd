@@ -1,5 +1,5 @@
 import './confirmarCompra.css';
-import { useDireccion } from '../../contextDireccion';
+import { useAuth } from '../../contextLogin';
 import CorroborarDireccion from './Corroborar direccion/corroborarDireccion';
 import { useCarrito } from '../../contextCarrito';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export default function ConfirmarCompra() {
         cp,
         localidad,
         provincia
-    } = useDireccion();
+    } = useAuth();
 
     const {
         setConfirmarCompraAbierto,
