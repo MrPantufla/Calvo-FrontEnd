@@ -1,6 +1,6 @@
 .contenedorPrincipalMuestras{
     background-color: var(--colorSecundario);
-    height: calc(100vh - 12.5rem);
+    height: calc(100vh - 8.5 rem);
     width: 23.5%;
     overflow: auto;
     padding-bottom: 1.5rem;
@@ -30,16 +30,16 @@
 
 @media (max-width: 767px){
     .contenedorPrincipalMuestras{
-        position: absolute;
+        position: fixed;
         top: 0;
-        right: -1rem;
-        height: 100%;
+        right: 0;
+        height: 100vh;
         width: 0;
         z-index: 101;
         transition: width 0.2s;
     }
 
     .contenedorPrincipalMuestras.open{
-        width: 50%;
+        width: 60%;
     }
 }

@@ -72,18 +72,15 @@ export default function Cortinas() {
             <div className="parteMuestrasCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
                 <Muestras />
             </div>
-            <div className="botonMostrarMuestrasContainer">
-                <button
-                    style={{
-                        transform: muestrasAbierto ? 'scale(0.95)' : 'none',
-                        display: isMobile ? 'block' : 'none'
-                    }}
-                    className={`botonMostrarMuestras ${muestrasAbierto ? 'open' : ''}`}
-                    onClick={() => setMuestrasAbierto(!muestrasAbierto)}
-                >                    
-                    IMÁGENES DE REFERENCIA
-                </button>
-            </div>
+            <button
+                style={{
+                    display: isMobile ? 'block' : 'none'
+                }}
+                className={`botonMostrarMuestras ${muestrasAbierto ? 'open' : ''}`}
+                onClick={() => setMuestrasAbierto(!muestrasAbierto)}
+            >
+                {`${muestrasAbierto ? 'OCULTAR' : 'MOSTRAR'} IMÁGENES DE REFERENCIA`}
+            </button>
         </div>
     );
 }

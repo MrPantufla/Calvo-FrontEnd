@@ -45,7 +45,10 @@ export default function FiltrosYProductos() {
 
   const { state } = useAuth();
 
-  const { setMuestrasAbierto } = useCortinas();
+  const {
+    setMuestrasAbierto,
+    muestrasAbierto
+  } = useCortinas();
 
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
@@ -184,12 +187,12 @@ export default function FiltrosYProductos() {
         const diffX = currentX - startX;
 
         if (diffX < -100) { // Verifica si el movimiento es de derecha a izquierda
-          productoSeleccionado != null ? (siguienteProducto()) : (setFiltrosYBusquedaOpen(false));
-          cortinasSelected && (setMuestrasAbierto(true));
+          productoSeleccionado != null ? (siguienteProducto()) : (!muestrasAbierto && setFiltrosYBusquedaOpen(false));
+          (cortinasSelected && !filtrosYBusquedaOpen) && (setMuestrasAbierto(true));
         }
         else if (diffX > 100) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
-          productoSeleccionado != null ? (productoAnterior()) : (setFiltrosYBusquedaOpen(true));
-          cortinasSelected && (setMuestrasAbierto(false));
+          productoSeleccionado != null ? (productoAnterior()) : (!muestrasAbierto && setFiltrosYBusquedaOpen(true));
+          (cortinasSelected && !filtrosYBusquedaOpen) && (setMuestrasAbierto(false));
         }
       };
 
@@ -235,28 +238,6 @@ export default function FiltrosYProductos() {
     <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'}`}>
       <div className="decoracionTienda" />
       <div className="filtrosYProductosContainer">
-        <div className="botonMostrarFiltrosContainer" style={{ display: isMobile ? 'inline' : 'none' }}>
-          (<button style={filtrosYBusquedaOpen ? { transform: 'scale(0.95)' } : {}} className={`botonMostrarFiltros ${filtrosYBusquedaOpen ? 'open' : ''}`} onClick={state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? (guardarDestacados) : (toggleFiltros)) : (toggleFiltros)}>
-            {state.userInfo ?
-              (
-                state.userInfo.tipo_usuario == 'admin' ?
-                  ('Guardar destacados')
-                  :
-                  (<svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fillRule="currentColor" className="bi bi-filter" viewBox="0 0 16 16">
-                    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                  </svg>)
-              )
-              :
-              (
-                <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fillRule="currentColor" className="bi bi-filter" viewBox="0 0 16 16">
-                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-                </svg>
-              )
-            }
-
-          </button>)
-
-        </div>
         {isTablet ?
           (<>
             <Carrito />
@@ -279,6 +260,13 @@ export default function FiltrosYProductos() {
             coloresUnicos={coloresUnicos}
             setPaginaActual={setPaginaActual}
           />
+          {isMobile &&
+            <button className={`botonFiltros ${filtrosYBusquedaOpen && 'abierto'}`} onClick={() => setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+              </svg>
+            </button>
+          }
         </div>
         <div className="productos" style={isMobile ? ({ width: '100%' }) : ({ width: '80%' })}>
           {cortinasSelected ?
