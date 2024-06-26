@@ -154,9 +154,6 @@ export default function HeaderMobile() {
                             </>
                         ) : (
                             <>
-                                <a className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); state.logueado ? navigate("/misCompras") : setMostrarLogin(true) }}>
-                                    <p>MIS COMPRAS</p>
-                                </a>
                                 {location.pathname === '/tienda' && (
                                     <div className={`elemento catalogos  ${catalogosOpen ? 'open' : ''}`}>
                                         <div className="textoCatalogosHeaderMobileContainer" onClick={() => { toggleCatalogos() }}>
@@ -177,6 +174,9 @@ export default function HeaderMobile() {
 
                         {state.logueado ?
                             (<>
+                                <a className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); state.logueado ? navigate("/misCompras") : setMostrarLogin(true) }}>
+                                    <p>MIS COMPRAS</p>
+                                </a>
                                 {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a className="elemento" onClick={() => navigate("/editarUsuarios")}><p>EDITAR USUARIOS</p></a>)) : ''}
                                 <NavLink to={ruta} onClick={handleToggleLogin} className="miPerfilNavLink elemento"><p>MI PERFIL</p></NavLink>
                                 <a className="elemento" onClick={handleCerrarSesion} style={{ marginTop: '2.5rem' }}><p>CERRAR SESIÓN</p></a>
@@ -185,8 +185,8 @@ export default function HeaderMobile() {
                             (<>
                                 <a className="elemento" onClick={mostrarIniciarSesion} style={{ marginTop: '2.5rem' }}><p>INICIAR SESIÓN</p></a>
                                 <a className="elemento" onClick={mostrarRegistro}><p>REGISTRARME</p></a>
-                            </>
-                            )}
+                            </>)
+                        }
                     </div>
                 </div>
             </div>
