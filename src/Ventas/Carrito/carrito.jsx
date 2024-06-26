@@ -28,7 +28,8 @@ export default function Carrito() {
     productosEliminados,
     productosSueltos,
     procesos,
-    troquelados
+    troquelados,
+    extraerMetrosCuadrados
   } = useProductos();
 
   const {
