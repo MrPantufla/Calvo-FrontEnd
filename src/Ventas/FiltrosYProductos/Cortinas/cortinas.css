@@ -1,4 +1,4 @@
-.contenedorPrincipalCortinas{
+.contenedorPrincipalCortinas {
     display: flex;
     position: relative;
     margin-top: 0.6rem;
@@ -6,7 +6,7 @@
     height: 98.7%;
 }
 
-.parteFormulariosCortinas{
+.parteFormulariosCortinas {
     font-size: 1.5rem;
     position: relative;
     z-index: 20;
@@ -17,7 +17,7 @@
     background-color: white;
 }
 
-.formularioCortinasContainer{
+.formularioCortinasContainer {
     width: 70%;
     display: flex;
     justify-content: center;
@@ -28,27 +28,27 @@
     height: 8rem;
 }
 
-.decoracionCortinas{
+.decoracionCortinas {
     background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 46%, var(--colorCuaternario) 46%, var(--colorCuaternario) 48%, var(--colorSecundario) 48%, var(--colorSecundario) 100%);
 }
 
-.form-group-cortinas{
+.form-group-cortinas {
     display: flex;
     flex-direction: column;
     margin: 2rem 0;
 }
 
-.form-group-cortinas div{
+.form-group-cortinas div {
     display: flex;
     flex-direction: row;
 }
 
-.form-group-cortinas p{
+.form-group-cortinas p {
     font-weight: 600;
     color: var(--colorSecundario)
 }
 
-.especificacionCortina{
+.especificacionCortina {
     padding: 0 1rem;
     height: 3rem;
     background-color: var(--colorPrimario);
@@ -64,7 +64,7 @@
     border: none;
 }
 
-.milimetrosCortinas{
+.milimetrosCortinas {
     padding-right: 0.5rem;
     padding-left: 0;
     background-color: white;
@@ -75,16 +75,16 @@
     margin-left: 0;
 }
 
-.milimetrosCortinas p{
+.milimetrosCortinas p {
     width: 100%;
     text-align: left;
 }
 
-.textoEspecificacionCortina{
+.textoEspecificacionCortina {
     margin-right: 0;
 }
 
-.campotextoEspecificacionCortina{
+.campotextoEspecificacionCortina {
     border-style: solid;
     border-width: 2px 0 2px 0;
     border-color: var(--colorPrimario);
@@ -95,11 +95,11 @@
     padding-right: 0.2rem;
 }
 
-.campotextoEspecificacionCortina:focus{
+.campotextoEspecificacionCortina:focus {
     outline: none;
 }
 
-.campotextoAclaraciones{
+.campotextoAclaraciones {
     border: 2px solid var(--colorPrimario);
     height: 10rem;
     resize: none;
@@ -109,32 +109,32 @@
     width: 35rem;
 }
 
-.especificacionCortina:hover{
+.especificacionCortina:hover {
     color: black;
 }
 
-.especificacionCortina.checked:hover{
+.especificacionCortina.checked:hover {
     color: white;
 }
 
-.especificacionCortina.disabled{
+.especificacionCortina.disabled {
     background-color: var(--colorTerciario);
     cursor: default;
     color: var(--colorCuaternario)
 }
 
-.bodyFormGroupCortinas .checked{
+.bodyFormGroupCortinas .checked {
     background-color: var(--colorSecundario);
     color: var(--colorTerciario);
 }
 
-.botonEnviarConsultaContainer{
+.botonEnviarConsultaContainer {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.botonEnviarConsulta{
+.botonEnviarConsulta {
     border: none;
     width: 15rem;
     height: 3.5rem;
@@ -147,37 +147,37 @@
     transition: scale 0.2s;
 }
 
-.botonEnviarConsulta:active{
+.botonEnviarConsulta:active {
     transform: scale(0.97);
 }
 
-.parteMuestrasCortinas{
+.parteMuestrasCortinas {
     width: 31%;
     display: flex;
     justify-content: center;
 }
 
-.botonMostrarMuestras{
+.botonMostrarMuestras {
     position: absolute;
     width: 100%;
     top: 2.5rem;
     left: 0;
-    height: 5rem;
+    height: 6rem;
     border: none;
     color: white;
     background-color: var(--colorSecundario);
-    font-size: 2rem;
+    font-size: 2.5rem;
     transition: background-color 0.1s, color 0.1s, scale 0.1s;
     font-weight: 600;
 }
 
-.botonMostrarMuestras.open{
+.botonMostrarMuestras.open {
     background-color: white;
     color: black;
     transform: scale(0.99);
 }
 
-.colorCortina{
+.colorCortina {
     background-color: var(--colorPrimario);
     margin: 0 0.5rem;
     padding: 0.3rem;
@@ -185,22 +185,22 @@
     transition: background-color 0.2s;
 }
 
-.colorCortina.colorChecked{
+.colorCortina.colorChecked {
     background-color: var(--colorSecundario);
 }
 
-.colorCortina.colorChecked label{
+.colorCortina.colorChecked label {
     color: white;
 }
 
-.colorCortina input{
+.colorCortina input {
     background-size: cover;
     border: none;
     width: 4rem;
     margin-left: 0.3rem;
 }
 
-.colorCortina label{
+.colorCortina label {
     font-weight: 600;
     color: var(--colorSecundario);
     cursor: pointer;
@@ -209,102 +209,119 @@
     padding: 0 0.3rem;
 }
 
-.enviarCortinaDisabled{
+.enviarCortinaDisabled {
     background-color: #DAA2A2;
 }
 
-.textoEspecificacionCortina.conValue{
+.textoEspecificacionCortina.conValue {
     background-color: var(--colorSecundario);
     color: white;
 }
 
-.campotextoEspecificacionCortina.conValue{
+.campotextoEspecificacionCortina.conValue {
     border-color: var(--colorSecundario);
 }
 
-.milimetrosCortinas.conValue{
+.milimetrosCortinas.conValue {
     border-color: var(--colorSecundario)
 }
 
-@media (max-width: 767px){
-    .contenedorPrincipalCortinas{
-        padding-top: 6rem;
+@media (min-width: 768px) and (max-width: 1024px){
+    .parteFormulariosCortinas{
+        min-height: calc(100vh - 15.3rem);
+    }
+}
+
+@media (max-width: 767px) {
+    .contenedorPrincipalCortinas {
+        padding-top: 7rem;
         min-height: calc(100vh - 23.5rem);
         height: 97%;
     }
 
-    .parteMuestrasCortinas{
+    .parteMuestrasCortinas {
         width: 0;
         overflow: visible;
     }
 
-    .parteFormulariosCortinas{
+    .parteFormulariosCortinas {
         width: 100%;
         top: 2.5rem;
     }
 
-    .decoracionCortinas{
-        padding-right: 5rem;
-    }
-
-    .especificacionCortina{
-        height: 4rem;
-        font-size: 2rem;
-        margin: 0 0.5rem;
-    }
-
-    .textoEspecificacionCortina{
-        margin-right: 0;
-    }
-
-    .milimetrosCortinas{
-        margin-left: 0;
-        transition: border-color 0.2s;
-    }
-
-    .campotextoEspecificacionCortina{
-        font-size: 2rem;
-        transition: border-color 0.2s;
-    }
-
-    .form-group-cortinas p{
-        font-size: 2rem;
-    }
-
-    .campotextoAclaraciones{
-        width: 43rem;
-        font-size: 2rem;
-        height: 13rem;
-    }
-
-    .botonEnviarConsulta{
-        width: 23rem;
-        height: 4.5rem;
-        font-size: 1.9rem;
-    }
-
-    .colorCortina{
-        height: 4rem;
-    }
-
-    .colorCortina label{
-        font-size: 2rem;
-        display: flex;
-        align-items: center;
-    }
-}
-
-@media (max-width: 280px){
-    .rowTiposContainer{
+    .rowTiposContainer {
         display: flex;
         flex-direction: column !important;
     }
 
-    .divFold1{
+    .divFold1 {
         margin-bottom: 1rem;
     }
 
+    .especificacionCortina {
+        height: 6rem;
+        font-size: 2.5rem;
+        margin: 0 0.5rem;
+    }
+
+    .textoEspecificacionCortina {
+        margin-right: 0;
+    }
+
+    .milimetrosCortinas {
+        margin-left: 0;
+        transition: border-color 0.2s;
+    }
+
+    .campotextoEspecificacionCortina {
+        font-size: 2.5rem;
+        transition: border-color 0.2s;
+        width: 8rem;
+    }
+
+    .form-group-cortinas p {
+        font-size: 2.5rem;
+    }
+
+    .campotextoAclaraciones {
+        width: 50rem;
+        font-size: 2.5rem;
+        height: 16rem;
+    }
+
+    .botonEnviarConsulta {
+        width: 30rem;
+        height: 6rem;
+        font-size: 2.7rem;
+    }
+
+    .colorCortina {
+        height: 6rem;
+    }
+
+    .colorCortina label {
+        font-size: 2.5rem;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+    }
+
+    .colorCortina input {
+        width: 6rem;
+    }
+
+    .decoracionCortinasContainer {
+        height: 15rem;
+    }
+    
     .decoracionCortinas{
+        font-size: 3rem;
+        padding-right: 3.5rem;
+    }
+}
+
+@media (max-width: 280px) {
+    .decoracionCortinas {
         background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 28%, var(--colorCuaternario) 28%, var(--colorCuaternario) 30%, var(--colorSecundario) 30%, var(--colorSecundario) 100%);
     }
 }

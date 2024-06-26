@@ -1,6 +1,6 @@
 .contenedorPrincipalMuestras{
     background-color: var(--colorSecundario);
-    height: calc(100vh - 8.5 rem);
+    height: calc(100vh - 8.5rem);
     width: 23.5%;
     overflow: auto;
     padding-bottom: 1.5rem;

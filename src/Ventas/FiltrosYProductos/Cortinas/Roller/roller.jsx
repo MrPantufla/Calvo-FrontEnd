@@ -298,20 +298,22 @@ export default function Roller() {
                 <p>DIMENSIONES</p>
                 <div className="bodyFormGroupCortinas">
                     <label className={`especificacionCortina textoEspecificacionCortina ${ancho != '' && 'conValue'}`} htmlFor="ancho">Ancho</label>
-                    <input type="text"
+                    <input type="number"
                         id="ancho"
                         value={ancho}
                         onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
                         className={`campotextoEspecificacionCortina ${ancho != '' && 'conValue'}`}
+                        autoComplete='off'
                     />
                     <div id="textoAncho" className={`especificacionCortina milimetrosCortinas ${ancho != '' && 'conValue'}`}><p>mm.</p></div>
 
                     <label className={`especificacionCortina textoEspecificacionCortina ${alto != '' && 'conValue'}`} htmlFor="alto">Alto</label>
-                    <input type="text"
+                    <input type="number"
                         id="alto"
                         value={alto}
                         onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
                         className={`campotextoEspecificacionCortina ${alto != '' && 'conValue'}`}
+                        autoComplete='off'
                     />
                     <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${alto != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>

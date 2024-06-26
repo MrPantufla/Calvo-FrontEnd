@@ -161,20 +161,22 @@ export default function PersianaAluminio() {
                 <p>DIMENSIONES</p>
                 <div className="bodyFormGroupCortinas">
                     <label className={`especificacionCortina textoEspecificacionCortina ${ancho != '' && 'conValue'}`} htmlFor="ancho">Ancho</label>
-                    <input type="text"
+                    <input type="number"
                         id="ancho"
                         value={ancho}
                         onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
                         className={`campotextoEspecificacionCortina ${ancho != '' && 'conValue'}`}
+                        autoComplete='off'
                     />
                     <div id="textoAncho" className={`especificacionCortina milimetrosCortinas ${ancho != '' && 'conValue'}`}><p>mm.</p></div>
 
                     <label className={`especificacionCortina textoEspecificacionCortina ${alto != '' && 'conValue'}`} htmlFor="alto">Alto</label>
-                    <input type="text"
+                    <input type="number"
                         id="alto"
                         value={alto}
                         onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
                         className={`campotextoEspecificacionCortina ${alto != '' && 'conValue'}`}
+                        autoComplete='off'
                     />
                     <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${alto != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>
@@ -192,11 +194,12 @@ export default function PersianaAluminio() {
                 <p>INDICAR PROFUNDIDAD DE GUÍA</p>
                 <div className="bodyFormGroupCortinas">
                     <label className={`especificacionCortina textoEspecificacionCortina ${profundidadGuia != '' && 'conValue'}`} htmlFor="profundidadGuia">Profundidad de guía</label>
-                    <input type="text"
+                    <input type="number"
                         id="profundidadGuia"
                         value={profundidadGuia}
                         onChange={(e) => { setProfundidadGuia(e.target.value); deleteErrorMessage() }}
                         className={`campotextoEspecificacionCortina ${profundidadGuia != '' && 'conValue'}`}
+                        autoComplete='off'
                     />
                     <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${profundidadGuia != '' && 'conValue'}`}><p>mm.</p></div>
                 </div>
@@ -239,11 +242,12 @@ export default function PersianaAluminio() {
                                         <p>DIMENSIONES PARA CAJON COMPACTO</p>
                                         <div className="bodyFormGroupCortinas">
                                             <label className={`especificacionCortina textoEspecificacionCortina ${anchoCajon != '' && 'conValue'}`} htmlFor="anchoCajon">Ancho</label>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="anchoCajon"
                                                 value={anchoCajon}
                                                 onChange={(e) => { setAnchoCajon(e.target.value); deleteErrorMessage() }}
                                                 className={`campotextoEspecificacionCortina ${anchoCajon != '' && 'conValue'}`}
+                                                autoComplete='off'
                                             />
                                             <div id="textoAnchoCajon" className={`especificacionCortina milimetrosCortinas ${anchoCajon != '' && 'conValue'}`}><p>mm.</p></div>
                                         </div>
@@ -265,31 +269,34 @@ export default function PersianaAluminio() {
                                         <p>DIMENSIONES PARA CAJON EXTERIOR</p>
                                         <div className="bodyFormGroupCortinas dimensionesArriba">
                                             <label className={`especificacionCortina textoEspecificacionCortina ${anchoCajon != '' && 'conValue'}`} htmlFor="anchoCajon">Ancho</label>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="anchoCajon"
                                                 value={anchoCajon}
                                                 onChange={(e) => { setAnchoCajon(e.target.value); deleteErrorMessage() }}
                                                 className={`campotextoEspecificacionCortina ${anchoCajon != '' && 'conValue'}`}
+                                                autoComplete='off'
                                             />
                                             <div id="textoAnchoCajon" className={`especificacionCortina milimetrosCortinas ${anchoCajon != '' && 'conValue'}`}><p>mm.</p></div>
 
                                             <label className={`especificacionCortina textoEspecificacionCortina ${altoCajon != '' && 'conValue'}`} htmlFor="altoCajon">Alto</label>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="altoCajon"
                                                 value={altoCajon}
                                                 onChange={(e) => { setAltoCajon(e.target.value); deleteErrorMessage() }}
                                                 className={`campotextoEspecificacionCortina ${altoCajon != '' && 'conValue'}`}
+                                                autoComplete='off'
                                             />
                                             <div id="textoAltoCajon" className={`especificacionCortina milimetrosCortinas ${altoCajon != '' && 'conValue'}`}><p>mm.</p></div>
                                         </div>
 
                                         <div className="bodyFormGroupCortinas">
                                             <label className={`especificacionCortina textoEspecificacionCortina ${profundidadCajon != '' && 'conValue'}`} htmlFor="profundidadCajon">Profundidad</label>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="profundidadCajon"
                                                 value={profundidadCajon}
                                                 onChange={(e) => { setProfundidadCajon(e.target.value); deleteErrorMessage() }}
                                                 className={`campotextoEspecificacionCortina ${profundidadCajon != '' && 'conValue'}`}
+                                                autoComplete='off'
                                             />
                                             <div id="textoProfundidadCajon" className={`especificacionCortina milimetrosCortinas ${profundidadCajon != '' && 'conValue'}`}><p>mm.</p></div>
                                         </div>
