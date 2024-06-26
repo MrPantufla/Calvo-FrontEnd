@@ -584,7 +584,7 @@
     }
 
     .eliminarElemento {
-        top: 15rem;
+        top: 8rem;
         right: 3rem;
         height: 3rem;
         width: 3rem;
@@ -597,6 +597,10 @@
 }
 
 @media (max-width: 767px) {
+    .eliminarElemento {
+        top: 4rem;
+    }
+
     .contenedorPrincipalCardProducto {
         margin-top: 0;
         margin-bottom: 2rem;
