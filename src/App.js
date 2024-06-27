@@ -10,9 +10,14 @@ import { DesplegableProviderPerfil } from './contextDesplegablePerfil.jsx';
 import { TiendaProvider } from './contextTienda.jsx';
 import EditarUsuarios from './Editar usuarios/editarUsuarios.jsx';
 import LoginYRegistro from './Login y registro/loginYRegistro.jsx';
+import { useAuth } from './contextLogin.jsx';
+import CartelCliente from './Login y registro/Cartel cliente/cartelCliente.jsx';
 
 function App() {
   const apiUrl = "http://localhost:8080/api";
+
+  const { mostrarCartelCliente } = useAuth();
+
   return (
     <TiendaProvider>
       <DesplegableProviderCatalogos>
@@ -25,6 +30,7 @@ function App() {
               <Route path="/misCompras" element={<MisCompras />} />
               <Route path="/editarUsuarios" element={<EditarUsuarios />} />
             </Routes>
+            {mostrarCartelCliente == true && <CartelCliente />}
           </Router>
           <LoginYRegistro />
         </DesplegableProviderPerfil>
