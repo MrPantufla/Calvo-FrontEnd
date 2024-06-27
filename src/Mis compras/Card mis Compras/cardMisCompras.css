@@ -155,7 +155,7 @@
     }
 
     .cantidadYBotonesContainer{
-        height: 10rem;
+        height: 13rem;
     }
 
     .cantidadYPoliginosContainer div{
@@ -169,7 +169,7 @@
     }
 
     .botonesContainer button{
-        height: 3.5rem;
+        height: 5rem;
         width: 25rem;
         font-size: 2rem;
     }
