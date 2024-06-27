@@ -11,6 +11,8 @@ export default function Registro() {
     const [email, setEmail] = useState('');
     const [telefono, setTelefono] = useState('');
     const [cuit, setCuit] = useState('');
+    const [localidad, setLocalidad] = useState('');
+    const [provincia, setProvincia] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
 
@@ -70,6 +72,8 @@ export default function Registro() {
         email: email,
         contrasenia: contrasenia,
         cuit: cuit,
+        localidad: localidad,
+        provincia: provincia,
         telefono: parseInt(telefono, 10),
     };
 
@@ -121,7 +125,7 @@ export default function Registro() {
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="telefonoRegistro" required>TELÉFONO</label>
+                    <label htmlFor="telefonoRegistro" required>TELÉFONO (con característica)</label>
                     <input
                         type="tel"
                         id="telefonoRegistro"
@@ -137,6 +141,26 @@ export default function Registro() {
                         id="cuit"
                         value={cuit}
                         onChange={(e) => setCuit(e.target.value)}
+                        onFocus={() => auth.setErrorMessage('')}
+                        onKeyDown={presionarEnter}
+                    />
+                </div>
+                <div className="form-group-registro">
+                    <label htmlFor="localidad" required>LOCALIDAD</label>
+                    <input
+                        id="localidad"
+                        value={localidad}
+                        onChange={(e) => setLocalidad(e.target.value)}
+                        onFocus={() => auth.setErrorMessage('')}
+                        onKeyDown={presionarEnter}
+                    />
+                </div>
+                <div className="form-group-registro">
+                    <label htmlFor="provincia" required>PROVINCIA</label>
+                    <input
+                        id="provincia"
+                        value={provincia}
+                        onChange={(e) => setProvincia(e.target.value)}
                         onFocus={() => auth.setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />

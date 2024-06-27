@@ -8,6 +8,12 @@
     align-items: center;
     flex-direction: column;
     background-position: center;
+    max-height: calc(100vh - 10rem);
+    overflow: auto;
+}
+
+.registro-container::-webkit-scrollbar {
+    width: 0;
 }
 
 .form-group-registro label{
