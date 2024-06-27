@@ -81,11 +81,14 @@ export default function Carrito() {
         proceso = troquelados[idProceso]
       }
 
-      const precioElemento = parseInt(
-        (elemento.kg > 0 && (productosIndexado[elemento.id] && productosIndexado[elemento.id].rubro != 85))
+      const precioElemento = parseInt(producto.rubro == 85 ?
+        (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+        :
+        ((elemento.kg > 0 && (productosIndexado[elemento.id] && productosIndexado[elemento.id].rubro != 85))
           ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
           : producto.precio
-      );
+        )
+      )
 
       return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
     }, 0);
@@ -370,8 +373,8 @@ export default function Carrito() {
                   }}
                 >
                   CONFIRMAR PEDIDO: ${calcularTotal(elementos)}
-                  <br/>
-                  (CON DESCUENTO POR PAGO AL CONTADO: ${parseInt(calcularTotal(elementos)*97/100)})
+                  <br />
+                  (CON DESCUENTO POR PAGO AL CONTADO: ${parseInt(calcularTotal(elementos) * 97 / 100)})
                 </button>
               </>
             )}
