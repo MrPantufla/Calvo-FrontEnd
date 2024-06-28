@@ -16,13 +16,22 @@
     width: 0;
 }
 
+.form-group-registro{
+    display: flex;
+    font-size: 1.5rem;
+    color: var(--colorSecundario);
+    flex-direction: column;
+    margin: 0.5rem 0;
+    position: relative;
+}
+
 .form-group-registro label{
     font-size: 1.4rem;
     font-weight: bold;
     color: var(--colorSecundario);
 }
 
-.form-group-registro input{
+.form-group-registro input, .desplegarProvincias, .desplegarCiudades{
     display: block;
     width: 22rem;
     height: 2.7rem;
@@ -30,19 +39,29 @@
     padding: 0 0.5rem;
     font-weight: bold;
     color: var(--colorSecundario);
+    background-color: transparent;
     font-size: 1.5rem;
+}
+
+.desplegarProvincias, .desplegarCiudades{
+    cursor: pointer;
+}
+
+.desplegarCiudades.disabled{
+    cursor: default;
+}
+
+.desplegarCiudades.disabled p{
+    color: var(--colorTerciario);
+}
+
+.form-group-registro input:focus{
+    outline: none;
+    border-color: var(--colorSecundario);
 }
 
 .registro-container form{
     padding-top: 1rem;
-}
-
-.form-group-registro{
-    display: flex;
-    font-size: 1.5rem;
-    color: var(--colorSecundario);
-    flex-direction: column;
-    margin: 0.5rem 0;
 }
 
 .botonRegistroContainer{
@@ -66,16 +85,54 @@
     scale: 0.95;
 }
 
-.botonEnviarRegistro:hover{
-    background-color: var(--colorTerciario);
-}
-
 .botonRegistroContainer{
     padding-top: 1rem;
 }
 
 .botonRegistroContainer{
     margin-bottom: 2rem;
+}
+
+.provinciasDesplegadas, .ciudadesDesplegadas{
+    overflow: auto;
+    background-color: var(--colorTerciario);
+    width: 22rem;
+    position: absolute;
+    z-index: 10;
+    top: 4.6rem;
+    border: none;
+    transition: height 0.3s;
+    border: none;
+}
+
+.provinciasDesplegadas.abierto, .ciudadesDesplegadas.abierto{
+    border: 2px solid var(--colorSecundario);
+}
+
+.opcionProvincia, .opcionCiudad{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    height: 2.4rem;
+    overflow: hidden;
+}
+
+.opcionProvincia:hover, .opcionCiudad:hover{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.provinciasDesplegadas::-webkit-scrollbar, .ciudadesDesplegadas::-webkit-scrollbar{
+    width: 0;
+}
+
+.desplegarProvincias p, .desplegarCiudades p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @media (max-width: 912px){
@@ -102,6 +159,22 @@
     .errorFormulario{
         font-size: 2.1rem;
     }
+
+    .desplegarProvincias, .desplegarCiudades{
+        width: 35rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+
+    .provinciasDesplegadas, .ciudadesDesplegadas{
+        width: 35rem;
+        top: 5.5rem;
+    }
+
+    .opcionProvincia, .opcionCiudad{
+        font-size: 2rem;
+        height: 3.5rem;
+    }
 }
 
 @media (max-width: 540px){
@@ -124,5 +197,21 @@
         height: 5rem;
         width: 23rem;
         font-size: 2.6rem;
+    }
+
+    .desplegarProvincias, .desplegarCiudades{
+        width: 40rem;
+        height: 4.2rem;
+        font-size: 3rem;
+    }
+
+    .provinciasDesplegadas, .ciudadesDesplegadas{
+        width: 40rem;
+        top: 7.8rem;
+    }
+
+    .opcionProvincia, .opcionCiudad{
+        font-size: 3rem;
+        height: 4.2rem;
     }
 }

@@ -1,45 +1,84 @@
 import './registro.css';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../../contextLogin';
 import { useVariables } from '../../contextVariables';
+import { zonas, provincias, ciudades } from '../../ciudadesYProvincias.js';
+import { useTienda } from '../../contextTienda.jsx';
 
 export default function Registro() {
+    const { 
+        isTablet, 
+        isMobile 
+    } = useTienda();
+
     const { backend } = useVariables();
+    const { setErrorMessage, handleLogin, errorMessage } = useAuth();
 
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
     const [telefono, setTelefono] = useState('');
     const [cuit, setCuit] = useState('');
-    const [localidad, setLocalidad] = useState('');
+    const [ciudad, setCiudad] = useState('');
     const [provincia, setProvincia] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
 
-    const auth = useAuth();
+    const [provinciasDesplegado, setProvinciasDesplegado] = useState(false);
+    const [busquedaProvincias, setBusquedaProvincias] = useState('');
+    const provinciasRef = useRef(null);
+
+    const [ciudadesDesplegado, setCiudadesDesplegado] = useState(false);
+    const [busquedaCiudades, setBusquedaCiudades] = useState('');
+    const ciudadesRef = useRef(null);
 
     const handleRegistro = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const telefonoRegex = /[0-9]/;
+        const container = document.getElementById("registro-container");
 
-        if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono) {
-            auth.setErrorMessage('Por favor, completa todos los campos.');
+        if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono || !provincia || !ciudad) {
+            setErrorMessage('Por favor, completa todos los campos.');
+
             return;
+
         } else if (!emailRegex.test(email)) {
-            auth.setErrorMessage('Ingrese un formato de correo electrónico válido.');
+            setErrorMessage('Ingrese un formato de correo electrónico válido.');
             return;
+
         } else if (!telefonoRegex.test(telefono)) {
-            auth.setErrorMessage('En el campo de teléfono solo ingrese números');
+            setErrorMessage('En el campo de teléfono solo ingrese números');
             return;
+
         } else if (contrasenia !== confirmContrasenia) {
-            auth.setErrorMessage('Las contraseñas no coinciden.');
+            setErrorMessage('Las contraseñas no coinciden.');
             return;
+
         } else {
             confirmarRegistro();
         }
+
+        container.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     };
 
     const confirmarRegistro = async () => {
+        const zonaEncontrada = zonas.find((zona) => zona.items.includes(ciudad.id));
+
+        const usuario = {
+            nombre: nombre,
+            apellido: apellido,
+            email: email,
+            contrasenia: contrasenia,
+            cuit: cuit,
+            localidad: ciudad.nombre,
+            provincia: provincia.nombre,
+            telefono: parseInt(telefono, 10),
+            zona: zonaEncontrada.nro || 0
+        };
+
         const response = await fetch(`${backend}/api/registro`, {
             method: 'POST',
             headers: {
@@ -50,31 +89,20 @@ export default function Registro() {
         });
 
         if (response.ok) {
-            auth.handleLogin({ email: usuario.email, password: usuario.contrasenia });
+            handleLogin({ email: usuario.email, password: usuario.contrasenia });
             return null;
         } else {
             const data = await response.text();
             if (response.status === 401) {
                 if (data.includes('Email')) {
-                    auth.setErrorMessage('Email ya registrado');
+                    setErrorMessage('Email ya registrado');
                 } else if (data.includes('Cuit')) {
-                    auth.setErrorMessage('Cuit ya registrado');
+                    setErrorMessage('Cuit ya registrado');
                 } else if (data !== null) {
-                    auth.setErrorMessage(data);
+                    setErrorMessage(data);
                 }
             }
         }
-    };
-
-    const usuario = {
-        nombre: nombre,
-        apellido: apellido,
-        email: email,
-        contrasenia: contrasenia,
-        cuit: cuit,
-        localidad: localidad,
-        provincia: provincia,
-        telefono: parseInt(telefono, 10),
     };
 
     const presionarEnter = (e) => {
@@ -83,12 +111,74 @@ export default function Registro() {
         }
     };
 
+    const provinciasFiltradas = Object.values(provincias).filter((p) => {
+        return busquedaProvincias == '' || p.nombre.toUpperCase().includes(busquedaProvincias.toUpperCase());
+    })
+
+    const ciudadesFiltradas = Object.values(ciudades).filter((c) => {
+        return (c.provincia.nombre == provincia.nombre && (busquedaCiudades == '' || c.nombre.toUpperCase().includes(busquedaCiudades.toUpperCase())));
+    })
+
+    useEffect(() => {
+        if (provinciasDesplegado && provinciasRef.current) {
+            provinciasRef.current.focus();
+        }
+    }, [provinciasDesplegado]);
+
+    useEffect(() => {
+        if (ciudadesDesplegado && ciudadesRef.current) {
+            ciudadesRef.current.focus();
+        }
+    }, [ciudadesDesplegado]);
+
+    const handleBusquedaProvinciasChange = (e) => {
+        setBusquedaProvincias(e.target.value);
+    };
+
+    const handleBusquedaCiudadesChange = (e) => {
+        setBusquedaCiudades(e.target.value);
+    };
+
+    const handleProvinciaClick = (ciudad) => {
+        setProvincia(ciudad);
+        setBusquedaProvincias('');
+        setProvinciasDesplegado(false);
+    };
+
+    const handleCiudadClick = (ciudad) => {
+        setCiudad(ciudad);
+        setBusquedaCiudades('');
+        setCiudadesDesplegado(false);
+    };
+
+    const handleBlurProvincias = (e) => {
+        if (!provinciasRef.current.contains(e.relatedTarget)) {
+            setProvinciasDesplegado(false);
+        }
+    };
+
+    const handleBlurCiudades = (e) => {
+        if (!ciudadesRef.current.contains(e.relatedTarget)) {
+            setCiudadesDesplegado(false);
+        }
+    };
+
+    const heightProvinciasDesktop = provinciasDesplegado ? (provinciasFiltradas.length >= 5 ? (11) : (provinciasFiltradas.length * 2.4)) : 0;
+    const heightCiudadesDesktop = ciudadesDesplegado ? (ciudadesFiltradas.length >= 5 ? (11) : (ciudadesFiltradas.length * 2.4)) : 0;
+    const heightProvinciasTablet = provinciasDesplegado ? (provinciasFiltradas.length >= 5 ? (16) : (provinciasFiltradas.length * 3.5)) : 0;
+    const heightCiudadesTablet = ciudadesDesplegado ? (ciudadesFiltradas.length >= 5 ? (16) : (ciudadesFiltradas.length * 3.5)) : 0;
+    const heightProvinciasMobile = provinciasDesplegado ? (provinciasFiltradas.length >= 5 ? (20) : (provinciasFiltradas.length * 4.2)) : 0;
+    const heightCiudadesMobile = ciudadesDesplegado ? (ciudadesFiltradas.length >= 5 ? (20) : (ciudadesFiltradas.length * 4.2)) : 0;
+
     return (
-        <div className="registro-container">
+        <div className="registro-container" id="registro-container">
             <div className="errorRegistro errorFormulario">
-                {auth.errorMessage != ('') ? (<svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
-                    <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                </svg>) : (<></>)}{auth.errorMessage}
+                {errorMessage !== '' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                        <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+                )}
+                {errorMessage}
             </div>
             <form className="formRegistro">
                 <div className="form-group-registro">
@@ -98,7 +188,7 @@ export default function Registro() {
                         id="nombre"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
@@ -109,7 +199,7 @@ export default function Registro() {
                         id="apellido"
                         value={apellido}
                         onChange={(e) => setApellido(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
@@ -120,7 +210,7 @@ export default function Registro() {
                         id="emailRegistro"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
@@ -131,7 +221,7 @@ export default function Registro() {
                         id="telefonoRegistro"
                         value={telefono}
                         onChange={(e) => setTelefono(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
@@ -141,29 +231,103 @@ export default function Registro() {
                         id="cuit"
                         value={cuit}
                         onChange={(e) => setCuit(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="localidad" required>LOCALIDAD</label>
-                    <input
-                        id="localidad"
-                        value={localidad}
-                        onChange={(e) => setLocalidad(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
-                        onKeyDown={presionarEnter}
-                    />
+                    <label htmlFor="provinciaRegistro" required>PROVINCIA</label>
+                    {provinciasDesplegado ? (
+                        <>
+                            <input
+                                type="text"
+                                id="busquedaProvincias"
+                                ref={provinciasRef}
+                                value={busquedaProvincias}
+                                onChange={handleBusquedaProvinciasChange}
+                                onFocus={() => setErrorMessage('')}
+                                onBlur={handleBlurProvincias}
+                                autoComplete="something-unique"
+                            />
+                        </>
+                    ) : (
+                        <div
+                            className="desplegarProvincias"
+                            onClick={() => {
+                                setProvinciasDesplegado(true);
+                            }}
+                        >
+                            <p>
+                                {provincia ? provincia.nombre.slice(0, 27) : 'Seleccionar provincia'}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658c-.566-.683-.1-1.658.753-1.658h9.592c.852 0 1.32.975.753 1.658L8.753 11.14a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                            </p>
+                        </div>
+                    )}
+                    <div
+                        ref={provinciasRef}
+                        className={`provinciasDesplegadas ${provinciasDesplegado && 'abierto'}`}
+                        tabIndex="-1"
+                        style={{ height: `${isMobile ? (heightProvinciasMobile) : (isTablet ? (heightProvinciasTablet) : (heightProvinciasDesktop))}rem` }}
+                    >
+                        {provinciasFiltradas.map((provincia) => (
+                            <div
+                                key={provincia.id}
+                                className="opcionProvincia"
+                                onMouseDown={() => handleProvinciaClick(provincia)}
+                            >
+                                {provincia.nombre.slice(0, 27)}
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="provincia" required>PROVINCIA</label>
-                    <input
-                        id="provincia"
-                        value={provincia}
-                        onChange={(e) => setProvincia(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
-                        onKeyDown={presionarEnter}
-                    />
+                    <label htmlFor="ciudadRegistro" required>LOCALIDAD</label>
+                    {ciudadesDesplegado ? (
+                        <>
+                            <input
+                                type="text"
+                                id="busquedaCiudades"
+                                ref={ciudadesRef}
+                                value={busquedaCiudades}
+                                onChange={handleBusquedaCiudadesChange}
+                                onFocus={() => setErrorMessage('')}
+                                onBlur={handleBlurCiudades}
+                                autoComplete="something-unique"
+                            />
+                        </>
+                    ) : (
+                        <div
+                            className={`desplegarCiudades ${provincia == '' && 'disabled'}`}
+                            onClick={() => {
+                                { provincia != '' && setCiudadesDesplegado(true); }
+                            }}
+                        >
+                            <p>
+                                {ciudad ? ciudad.nombre.slice(0, 27) : 'Seleccionar localidad'}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658c-.566-.683-.1-1.658.753-1.658h9.592c.852 0 1.32.975.753 1.658L8.753 11.14a1 1 0 0 1-1.506 0z" />
+                                </svg>
+                            </p>
+                        </div>
+                    )}
+                    <div
+                        ref={ciudadesRef}
+                        className={`ciudadesDesplegadas ${ciudadesDesplegado && 'abierto'}`}
+                        tabIndex="-1"
+                        style={{ height: `${isMobile ? (heightCiudadesMobile) : (isTablet ? (heightCiudadesTablet) : (heightCiudadesDesktop))}rem` }}
+                    >
+                        {ciudadesFiltradas.map((ciudad) => (
+                            <div
+                                key={ciudad.id}
+                                className="opcionCiudad"
+                                onMouseDown={() => handleCiudadClick(ciudad)}
+                            >
+                                {ciudad.nombre.slice(0, 27)}
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="form-group-registro">
                     <label htmlFor="contrasenia" required>CONTRASEÑA</label>
@@ -172,18 +336,18 @@ export default function Registro() {
                         id="contrasenia"
                         value={contrasenia}
                         onChange={(e) => setContrasenia(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
                 <div className="form-group-registro">
-                    <label htmlFor="confirmContrasenia" required>REPETIR CONTRASEÑA</label>
+                    <label htmlFor="confirmContrasenia" required>CONFIRMAR CONTRASEÑA</label>
                     <input
                         type="password"
                         id="confirmContrasenia"
                         value={confirmContrasenia}
                         onChange={(e) => setConfirmContrasenia(e.target.value)}
-                        onFocus={() => auth.setErrorMessage('')}
+                        onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
                     />
                 </div>
