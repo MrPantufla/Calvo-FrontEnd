@@ -8,7 +8,9 @@ import { useCarrito } from '../../../contextCarrito';
 
 export default function DesplegablePerfil() {
     const location = useLocation();
+
     const navigate = useNavigate();
+
     const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
 
     const {
@@ -90,15 +92,15 @@ export default function DesplegablePerfil() {
             <div className="desplegablePerfilContainer">
                 {state.logueado ?
                     (<>
-                        <NavLink to={rutaPerfil} onClick={handleToggleLogin} className="perfilNavLink">MI PERFIL</NavLink>
-                        <NavLink to={rutaMisCompras} onClick={handleToggleLogin} className="perfilNavLink">MIS COMPRAS</NavLink>
-                        {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a onClick={() => navigate("/editarUsuarios")}>EDITAR USUARIOS</a>)) : ''}
-                        <a onClick={handleCerrarSesion}>CERRAR SESIÓN</a>
+                        <NavLink to={rutaPerfil} onClick={() => {handleToggleLogin(); cerrarPerfil()}} className="perfilNavLink">MI PERFIL</NavLink>
+                        <NavLink to={rutaMisCompras} onClick={() => {handleToggleLogin(); cerrarPerfil()}} className="perfilNavLink">MIS COMPRAS</NavLink>
+                        {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a onClick={() => {navigate("/editarUsuarios"); cerrarPerfil()}}>EDITAR USUARIOS</a>)) : ''}
+                        <a onClick={() => {handleCerrarSesion(); cerrarPerfil()}}>CERRAR SESIÓN</a>
                     </>)
                     :
                     (<>
-                        <a onClick={mostrarIniciarSesion}>INICIAR SESIÓN</a>
-                        <a onClick={mostrarRegistro}>REGISTRARME</a>
+                        <a onClick={() => {mostrarIniciarSesion(); cerrarPerfil()}}>INICIAR SESIÓN</a>
+                        <a onClick={() => {mostrarRegistro(); cerrarPerfil()}}>REGISTRARME</a>
                     </>
                     )}
             </div>
