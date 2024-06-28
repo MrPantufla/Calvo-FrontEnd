@@ -11,18 +11,14 @@ export default function LoginYRegistro() {
   const [aptoParaCerrar, setAptoParaCerrar] = useState(false);
 
   const {
-    setErrorMessage, 
+    setErrorMessage,
     mostrarLogin,
     opcionSeleccionada,
-    setOpcionSeleccionada, 
-    setMostrarLogin, 
+    setOpcionSeleccionada,
+    setMostrarLogin,
     setMostrarErrorCodigoConfirmacion,
     state
   } = useAuth();
-
-  useEffect(() => {
-    setErrorMessage('');
-  }, [mostrarLogin]);
 
   const handleOpcionClick = (opcion) => {
     setErrorMessage('');
@@ -30,7 +26,7 @@ export default function LoginYRegistro() {
   };
 
   const handleClose = () => {
-    if(aptoParaCerrar == true){
+    if (aptoParaCerrar == true) {
       setMostrarLogin(false);
       setMostrarErrorCodigoConfirmacion(false);
       setErrorMessage('');
@@ -38,7 +34,7 @@ export default function LoginYRegistro() {
     }
   }
 
-  const noCerrar = (event) =>{
+  const noCerrar = (event) => {
     setAptoParaCerrar(false);
     event.stopPropagation();
   }
@@ -54,51 +50,54 @@ export default function LoginYRegistro() {
               <ConfirmacionCodigo />
             )
           ) : (
-            opcionSeleccionada === 'restaurarContraseña' ? 
-            (<RestaurarContraseña/>) 
-            : 
-            (<div className="botonesYFormulariosContainer">
-            <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-              <input
-                type="radio"
-                className="btn-check"
-                name="btnradio"
-                id="btnradio1"
-                autoComplete="off"
-                checked={opcionSeleccionada === 'login'}
-                onChange={() => handleOpcionClick('login')}
-              />
-              <label className="btn btn-outline-secondary radioIniciarSesion" htmlFor="btnradio1">
-                INICIAR SESIÓN
-              </label>
-              <input
-                type="radio"
-                className="btn-check"
-                name="btnradio"
-                id="btnradio2"
-                autoComplete="off"
-                checked={opcionSeleccionada === 'registro'}
-                onChange={() => handleOpcionClick('registro')}
-              />
-              <label className="btn btn-outline-secondary radioRegistrarme" htmlFor="btnradio2">
-                REGISTRARME
-              </label>
-            </div>
-            <div className="contenedorFormularios">
-              <div
-                className="contenedorComponenteLogin"
-                style={{ display: opcionSeleccionada === 'login' ? 'block' : 'none' }}
-              >
-                <Login />
-              </div>
-              <div
-                className="contenedorComponenteRegistro"
-                style={{ display: opcionSeleccionada === 'registro' ? 'block' : 'none' }}
-              >
-                <Registro />
-              </div>
-            </div>
-          </div>)
+            opcionSeleccionada === 'restaurarContraseña' ?
+              (<RestaurarContraseña />)
+              :
+              (<div className="botonesYFormulariosContainer">
+                <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input
+                    type="radio"
+                    className="btn-check"
+                    name="btnradio"
+                    id="btnradio1"
+                    autoComplete="off"
+                    checked={opcionSeleccionada === 'login'}
+                    onChange={() => handleOpcionClick('login')}
+                    onClick={() => setErrorMessage('')}
+                  />
+                  <label className="btn btn-outline-secondary radioIniciarSesion" htmlFor="btnradio1">
+                    INICIAR SESIÓN
+                  </label>
+                  <input
+                    type="radio"
+                    className="btn-check"
+                    name="btnradio"
+                    id="btnradio2"
+                    autoComplete="off"
+                    checked={opcionSeleccionada === 'registro'}
+                    onChange={() => handleOpcionClick('registro')}
+                    onClick={() => setErrorMessage('')}
+                  />
+                  <label className="btn btn-outline-secondary radioRegistrarme" htmlFor="btnradio2">
+                    REGISTRARME
+                  </label>
+                </div>
+                <div className="contenedorFormularios">
+                  {opcionSeleccionada == 'login' ?
+                    (<div
+                      className="contenedorComponenteLogin"
+                    >
+                      <Login />
+                    </div>)
+                    :
+                    (<div
+                      className="contenedorComponenteRegistro"
+                    >
+                      <Registro />
+                    </div>)
+                  }
+                </div>
+              </div>)
           )}
         </div>
       </div>
