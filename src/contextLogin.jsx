@@ -59,7 +59,7 @@ export const LoginProvider = ({ children }) => {
         userInfo: null,
       });
       setMostrarCartelLogout(true);
-    }, 200); // Ajusta el valor del timeout según sea necesario
+    }, 200);
   };
 
   const updateEmailConfirmationStatus = () => {
@@ -195,6 +195,10 @@ export const LoginProvider = ({ children }) => {
         login(userData);
         renovarToken({ email: userData.email })
         obtenerDirecciones();
+        
+        if(state.userInfo && state.userInfo.email_confirmado == false){
+          setMostrarErrorCodigoConfirmacion();
+        }
 
       } else {
         obtenerProductosFiltrados();
@@ -250,7 +254,6 @@ export const LoginProvider = ({ children }) => {
       }
     }, 29 * 60 * 1000);
 
-    // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(renewTokenInterval);
   }, [state.logueado]);
 
