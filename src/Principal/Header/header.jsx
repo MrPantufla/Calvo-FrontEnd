@@ -11,8 +11,20 @@ import { useTienda } from '../../contextTienda';
 
 export default function Header() {
   const location = useLocation();
-  const desplegableCatalogos = useDesplegableCatalogos();
-  const desplegablePerfil = useDesplegablePerfil();
+
+  const {
+    hovered,
+    abrirHover,
+    cerrarHover,
+    setAnchoPerfil,
+    setAnchoCatalogos
+  } = useDesplegableCatalogos();
+
+  const {
+    perfilHovered,
+    abrirPerfil,
+    cerrarPerfil
+  } = useDesplegablePerfil();
 
   const { mobile } = useTienda();
 
@@ -40,16 +52,15 @@ export default function Header() {
     window.scrollTo(0, 0);
   };
 
-
   const handleResize = () => {
     const perfilElement = document.getElementById("perfilHeader");
     if (perfilElement) {
-      desplegableCatalogos.setAnchoPerfil(perfilElement.offsetWidth);
+      setAnchoPerfil(perfilElement.offsetWidth);
     }
 
     const catalogosElement = document.getElementById("catalogosHeader");
     if (catalogosElement) {
-      desplegableCatalogos.setAnchoCatalogos(catalogosElement.offsetWidth);
+      setAnchoCatalogos(catalogosElement.offsetWidth);
     }
   };
 
@@ -70,10 +81,10 @@ export default function Header() {
           <img onClick={() =>window.location.href = '/'} className="logo" src={logo} alt="logo_calvo_aluminios" />
         </div>
         <div className="col-12 col-sm-8 secciones columnas" style={{ paddingRight: location.pathname === '/tienda' ? '11rem' : '0' }}>
-          <NavLink to="/" className="seccion" onClick={handleInicioClick}>
+          <NavLink to="/" className="seccion" onClick={() => handleInicioClick()}>
             <p>INICIO</p>
           </NavLink>
-          <NavLink to="/tienda" className="seccion" onClick={handleInicioClick}>
+          <NavLink to="/tienda" className="seccion" onClick={() => handleInicioClick()}>
             <p>TIENDA</p>
           </NavLink>
           {location.pathname === '/' &&
@@ -87,7 +98,7 @@ export default function Header() {
             </a>)
             :
             (location.pathname === '/tienda' ?
-              (<div className={`catalogosYArrow seccion ${desplegableCatalogos.hovered ? 'hovered' : ''}`} onMouseEnter={desplegableCatalogos.abrirHover} onMouseLeave={desplegableCatalogos.cerrarHover} id="catalogosHeader">
+              (<div className={`catalogosYArrow seccion ${hovered ? 'hovered' : ''}`} onMouseEnter={abrirHover} onMouseLeave={cerrarHover} id="catalogosHeader">
                 <p>
                   CATÁLOGOS
                   <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="currentColor" className="bi bi-caret-down-fill flechaCatalogos" viewBox="0 0 16 16">
@@ -100,7 +111,7 @@ export default function Header() {
           }
           <div
             id="perfilHeader"
-            className={`perfil ${desplegablePerfil.perfilHovered ? 'perfilHovered' : ''}`} onMouseEnter={desplegablePerfil.abrirPerfil} onMouseLeave={desplegablePerfil.cerrarPerfil}
+            className={`perfil ${perfilHovered ? 'perfilHovered' : ''}`} onMouseEnter={abrirPerfil} onMouseLeave={cerrarPerfil}
             style={{ width: location.pathname === '/tienda' ? '15rem' : '23rem' }}
           >{state.logueado ?
             (<p>
