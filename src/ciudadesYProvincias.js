@@ -31,8 +31,7 @@ export const zonas = [
       300224, //Villa Paranacito
       300490, //Villaguay
     ]
-  },
-  {
+  }, {
     nro: 2,
     items: [
       540049, //Dos de Mayo
@@ -81,8 +80,7 @@ export const zonas = [
       540469, //Santo Pipó
       542323, //Villa Bonita
     ]
-  },
-  {
+  }, {
     nro: 3,
     items: [
       180112, //Caá Catí
@@ -106,8 +104,7 @@ export const zonas = [
       180210, //Santa Lucía
       180035, //Colonia Santa Rosa
     ]
-  },
-  {
+  }, {
     nro: 4,
     items: [
       180084, //Esquina
@@ -123,8 +120,7 @@ export const zonas = [
     items: [
       300105, //Chajarí
     ]
-  },
-  {
+  }, {
     nro: 12,
     items: [
       180098, //Alvear
@@ -136,7 +132,102 @@ export const zonas = [
   },
 ]
 
-export const municipios = [
+export const provincias = [
+  {
+    id: 6,
+    nombre: "Buenos Aires"
+  },
+  {
+    id: 10,
+    nombre: "Catamarca"
+  },
+  {
+    id: 22,
+    nombre: "Chaco"
+  },
+  {
+    id: 26,
+    nombre: "Chubut"
+  },
+  {
+    id: 14,
+    nombre: "Córdoba"
+  },
+  {
+    id: 18,
+    nombre: "Corrientes"
+  },
+  {
+    id: 30,
+    nombre: "Entre Ríos"
+  },
+  {
+    id: 34,
+    nombre: "Formosa"
+  },
+  {
+    id: 38,
+    nombre: "Jujuy"
+  },
+  {
+    id: 42,
+    nombre: "La Pampa"
+  },
+  {
+    id: 46,
+    nombre: "La Rioja"
+  },
+  {
+    id: 50,
+    nombre: "Mendoza"
+  },
+  {
+    id: 54,
+    nombre: "Misiones"
+  },
+  {
+    id: 58,
+    nombre: "Neuquén"
+  },
+  {
+    id: 62,
+    nombre: "Río Negro"
+  },
+  {
+    id: 66,
+    nombre: "Salta"
+  },
+  {
+    id: 70,
+    nombre: "San Juan"
+  },
+  {
+    id: 74,
+    nombre: "San Luis"
+  },
+  {
+    id: 76,
+    nombre: "Santa Cruz"
+  },
+  {
+    id: 82,
+    nombre: "Santa Fe"
+  },
+  {
+    id: 86,
+    nombre: "Santiago del Estero"
+  },
+  {
+    id: 94,
+    nombre: "Tierra del Fuego"
+  },
+  {
+    id: 90,
+    nombre: "Tucumán"
+  }
+]
+
+export const ciudades = [
   {
     id: 908063,
     nombre: "Benjamín Aráoz y El Tajamar",
@@ -5350,7 +5441,7 @@ export const municipios = [
     nombre: "Ushuaia",
     provincia: {
       id: 94,
-      nombre: "Tierra del Fuego, Antártida e Islas del Atlántico Sur"
+      nombre: "Tierra del Fuego"
     }
   }, {
     id: 820256,
@@ -5574,7 +5665,7 @@ export const municipios = [
     nombre: "Tolhuin",
     provincia: {
       id: 94,
-      nombre: "Tierra del Fuego, Antártida e Islas del Atlántico Sur"
+      nombre: "Tierra del Fuego"
     }
   }, {
     id: 143183,
@@ -5630,7 +5721,7 @@ export const municipios = [
     nombre: "Río Grande",
     provincia: {
       id: 94,
-      nombre: "Tierra del Fuego, Antártida e Islas del Atlántico Sur"
+      nombre: "Tierra del Fuego"
     }
   }, {
     id: 500105,
@@ -14718,5 +14809,306 @@ export const municipios = [
       id: 54,
       nombre: "Misiones"
     }
-  }
+  }, {
+    id: 760001,
+    nombre: "Caleta Olivia",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760002,
+    nombre: "Comandante Luis Piedrabuena",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760003,
+    nombre: "El Calafate",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760004,
+    nombre: "El Chaltén",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760005,
+    nombre: "Gobernador Gregores",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760006,
+    nombre: "Las Heras",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760007,
+    nombre: "Los Antiguos",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760008,
+    nombre: "Perito Moreno",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760009,
+    nombre: "Pico Truncado",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760010,
+    nombre: "Puerto Deseado",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760011,
+    nombre: "Puerto San Julián",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760012,
+    nombre: "Puerto Santa Cruz",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760013,
+    nombre: "Río Gallegos",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760014,
+    nombre: "Río Turbio",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 760015,
+    nombre: "Veintiocho de Noviembre",
+    provincia: {
+      id: 76,
+      nombre: "Santa Cruz"
+    }
+  }, {
+    id: 860001,
+    nombre: "Añatuya",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860002,
+    nombre: "Bandera",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860003,
+    nombre: "Beltrán",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860004,
+    nombre: "Campo Gallo",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860005,
+    nombre: "Clodomira",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860006,
+    nombre: "Colonia Dora",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860007,
+    nombre: "Fernández",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860008,
+    nombre: "Frías",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860009,
+    nombre: "Ingeniero Forres",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860010,
+    nombre: "La Banda",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860011,
+    nombre: "Loreto",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860012,
+    nombre: "Los Juríes",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860013,
+    nombre: "Los Telares",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860014,
+    nombre: "Monte Quemado",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860015,
+    nombre: "Nueva Esperanza",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860016,
+    nombre: "Pampa de los Guanacos",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860017,
+    nombre: "Pinto",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860018,
+    nombre: "Pozo Hondo",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860019,
+    nombre: "Quimilí",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860020,
+    nombre: "San Pedro de Guasayán",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860021,
+    nombre: "Santiago del Estero",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860022,
+    nombre: "Selva",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860023,
+    nombre: "Sumampa",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860024,
+    nombre: "Suncho Corral",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860025,
+    nombre: "Termas de Río Hondo",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860026,
+    nombre: "Tintina",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860027,
+    nombre: "Villa Atamisqui",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  }, {
+    id: 860028,
+    nombre: "Villa Ojo de Agua",
+    provincia:{
+      id: 86,
+      nombre: "Santiago del Estero"
+    }
+  },
 ]
