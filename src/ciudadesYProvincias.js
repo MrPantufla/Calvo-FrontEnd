@@ -1392,7 +1392,7 @@ export const ciudades = [
     }
   }, {
     id: 220322,
-    nombre: "Villa �?ngela",
+    nombre: "Villa Ángela",
     provincia: {
       id: 22,
       nombre: "Chaco"
@@ -5501,7 +5501,7 @@ export const ciudades = [
     }
   }, {
     id: 823365,
-    nombre: "�?lvarez",
+    nombre: "Álvarez",
     provincia: {
       id: 82,
       nombre: "Santa Fe"
@@ -7307,7 +7307,7 @@ export const ciudades = [
     }
   }, {
     id: 420011,
-    nombre: "Algarrobo del �?guila",
+    nombre: "Algarrobo del Águila",
     provincia: {
       id: 42,
       nombre: "La Pampa"
@@ -9239,7 +9239,7 @@ export const ciudades = [
     }
   }, {
     id: 460056,
-    nombre: "�?ngel Vicente Peñaloza",
+    nombre: "Ángel Vicente Peñaloza",
     provincia: {
       id: 46,
       nombre: "La Rioja"
@@ -10408,7 +10408,7 @@ export const ciudades = [
     }
   }, {
     id: 580035,
-    nombre: "Piedra del �?guila",
+    nombre: "Piedra del Águila",
     provincia: {
       id: 58,
       nombre: "Neuquén"
