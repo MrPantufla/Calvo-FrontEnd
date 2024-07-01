@@ -14,9 +14,9 @@ export default function Carrito() {
     añadirElemento,
     setConfirmarCompraAbierto,
     setCompraRealizadaAbierto,
+    setMostrarCartelError,
     confirmarCompra,
     setInstanciaPedido,
-    mostrarCartel,
     extraerProducto,
     extraerProceso,
     extraerAcabado
@@ -119,8 +119,8 @@ export default function Carrito() {
           setCodigoAgregadoRapido('');
         }
         else {
-          if (!state.userInfo.cliente) {
-            mostrarCartel();
+          if (!state.userInfo.categoria != 'MAYORISTA') {
+            setMostrarCartelError(true);
           }
           else {
             setProductosEncontrados(productosEncontradosFiltrados);
