@@ -28,7 +28,7 @@ export default function CartelError(){
             <div className="parteUtilizableCartelError" onClick={(e) => clickParteUtilizable(e)}>
                 <h2>Hacete cliente mayorista para realizar pedidos de perfiles</h2>
                 <a onClick={navegarAContacto}>Llama a nuestras oficinas o envianos un mensaje para consultar</a>
-                <button onClick={ocultarCartel}>
+                <button onClick={() => setMostrarCartelError(false)}>
                     Aceptar
                 </button>
             </div>
