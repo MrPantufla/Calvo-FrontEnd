@@ -116,8 +116,10 @@ export default function Registro() {
     })
 
     const ciudadesFiltradas = Object.values(ciudades).filter((c) => {
-        return (c.provincia.nombre == provincia.nombre && (busquedaCiudades == '' || c.nombre.toUpperCase().includes(busquedaCiudades.toUpperCase())));
-    })
+        return (
+            c.provincia.nombre == provincia.nombre && (busquedaCiudades == '' || c.nombre.toUpperCase().includes(busquedaCiudades.toUpperCase()))
+        );
+    }).sort((a, b) => a.nombre.localeCompare(b.nombre));
 
     useEffect(() => {
         if (provinciasDesplegado && provinciasRef.current) {
@@ -271,7 +273,7 @@ export default function Registro() {
                         tabIndex="-1"
                         style={{ height: `${isMobile ? (heightProvinciasMobile) : (isTablet ? (heightProvinciasTablet) : (heightProvinciasDesktop))}rem` }}
                     >
-                        {provinciasFiltradas.map((provincia) => (
+                        {provinciasFiltradas.sort().map((provincia) => (
                             <div
                                 key={provincia.id}
                                 className="opcionProvincia"
