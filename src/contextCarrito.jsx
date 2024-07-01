@@ -269,6 +269,10 @@ function CarritoProvider({ children }) {
     })
       .then(response => {
         setRespuestaRecibida(true);
+        if(response.ok){
+          //crearCliente();
+        }
+
         if (response.status == 500) {
           setErrorProductoEliminado(true);
         }
