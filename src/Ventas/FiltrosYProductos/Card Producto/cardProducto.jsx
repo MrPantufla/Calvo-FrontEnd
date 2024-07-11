@@ -254,7 +254,7 @@ export default function CardProducto(args) {
 
   if (args.acabado) {
     acabadoArreglado = acabado.detalle;
-    console.log(acabadoArreglado)
+    
     if (acabadoArreglado.slice(-2) == 'M2') {
       acabadoArreglado = acabadoArreglado.slice(0, -3);
     }

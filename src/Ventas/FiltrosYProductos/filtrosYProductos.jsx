@@ -23,7 +23,6 @@ export default function FiltrosYProductos() {
     ordenarProductos,
     productosEliminados,
     dataCargada,
-    guardarDestacados,
     procesos
   } = useProductos();
 
