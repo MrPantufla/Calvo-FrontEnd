@@ -76,7 +76,7 @@ export default function Registro() {
             localidad: ciudad.nombre,
             provincia: provincia.nombre,
             telefono: parseInt(telefono, 10),
-            zona: zonaEncontrada.nro || 0
+            zona: (zonaEncontrada && zonaEncontrada.nro ? ("ZONA " +(zonaEncontrada.nro < 10 ? ("0" + zonaEncontrada.nro) : (zonaEncontrada.nro))) : "S/ZONA")
         };
 
         const response = await fetch(`${backend}/api/registro`, {
