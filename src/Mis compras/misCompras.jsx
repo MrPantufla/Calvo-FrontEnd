@@ -89,7 +89,7 @@ export default function MisCompras() {
             fetchData();
         }
 
-    }, [state.logueado, procesos]);
+    }, []);
 
     return (
         <div className="contenedorPaginaMisCompras">
