@@ -150,7 +150,8 @@ function ProductosProvider({ children }) {
 
             if (response.ok) {
                 const data = await response.json();
-                setProductosEliminados(data);
+                const productos = data.map(item => item.producto);
+                setProductosEliminados(productos);
                 return true;
             } else {
                 console.error('Error obteniendo productos eliminados');
@@ -168,7 +169,7 @@ function ProductosProvider({ children }) {
 
             if (response.ok) {
                 const data = await response.json();
-                setProductosDestacados(data);
+                setProductosDestacados(Object.values(data).map(destacado => destacado.producto));
                 return true;
             }
             else {
@@ -248,16 +249,19 @@ function ProductosProvider({ children }) {
     };
 
     const ordenarPorDestacados = (productos, destacados) => {
+        // Crear un mapa para almacenar las posiciones de los productos destacados
         const destacadosMap = new Map();
+    
+        // Iterar sobre los IDs de productos destacados y agregar al mapa por su posición invertida
         destacados.forEach((id, index) => {
-            // Mapeamos el índice en el array de destacados a una posición inversa
             destacadosMap.set(id, destacados.length - 1 - index);
         });
-
+    
+        // Ordenar productos según la lógica establecida
         return productos.sort((prodA, prodB) => {
             const posA = destacadosMap.has(prodA.id) ? destacadosMap.get(prodA.id) : Infinity;
             const posB = destacadosMap.has(prodB.id) ? destacadosMap.get(prodB.id) : Infinity;
-
+    
             if (posA !== posB) {
                 return posA - posB; // Ordenar según la posición en el array de destacados invertido
             } else {
@@ -265,6 +269,7 @@ function ProductosProvider({ children }) {
             }
         });
     };
+
 
     const ordenarPorPrecioAsc = (productos) => {
         return productos.sort((prodA, prodB) => {
