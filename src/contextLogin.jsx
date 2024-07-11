@@ -194,9 +194,9 @@ export const LoginProvider = ({ children }) => {
         obtenerProductosFiltrados(userData.categoria, userData.descuentos);
         login(userData);
         renovarToken({ email: userData.email })
-        obtenerDirecciones();
-        
-        if(state.userInfo && state.userInfo.email_confirmado == false){
+        obtenerDirecciones(userData.email);
+
+        if (state.userInfo && state.userInfo.email_confirmado == false) {
           setMostrarErrorCodigoConfirmacion();
         }
 
@@ -257,52 +257,68 @@ export const LoginProvider = ({ children }) => {
     return () => clearInterval(renewTokenInterval);
   }, [state.logueado]);
 
-  const obtenerDirecciones = () => {
-
+  const obtenerDirecciones = (email) => {
     let tokenParaEnviar = Cookies.get('jwtToken');
 
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
+    // Función para enviar la solicitud API una vez que el token esté disponible
+    const enviarSolicitudAPI = (token) => {
+      fetch(`${backend}/api/direcciones/${email}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            return response.text();
+          }
+        })
+        .then(data => {
+          if (typeof data === 'object') {
+            // La respuesta es un objeto, probablemente la dirección del usuario
+            setCalle(data.calle);
+            setNumero(data.numero);
+            setCp(data.cp);
+            setLocalidad(data.localidad);
+            setProvincia(data.provincia);
+            // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos
+          } else {
+            setCalle('');
+            setNumero('');
+            setCp('');
+            setLocalidad('');
+            setProvincia('');
+            // La respuesta es un texto, probablemente un mensaje de error
+            setErrorMessage(data);
+          }
+        })
+        .catch(error => {
+          setErrorMessage('Ocurrió un error al realizar la solicitud:', error.message);
+        });
+    };
+
+    // Verificar si el token está definido y no está vacío
+    if (tokenParaEnviar) {
+      enviarSolicitudAPI(tokenParaEnviar);
+    } else {
+      // Si el token no está disponible, intentar obtenerlo y luego enviar la solicitud
+      const obtenerToken = () => {
+        tokenParaEnviar = Cookies.get('jwtToken');
+        if (tokenParaEnviar) {
+          enviarSolicitudAPI(tokenParaEnviar);
+        } else {
+          // Puedes manejar el caso según tu lógica de aplicación (por ejemplo, mostrar un mensaje de error al usuario)
+          setErrorMessage('El token de autorización no está disponible');
+        }
+      };
+
+      // Intentar obtener el token después de un pequeño tiempo de espera
+      setTimeout(obtenerToken, 500); // Espera 500 milisegundos antes de intentar obtener el token
     }
-
-    fetch(`${backend}/api/direcciones/${state.userInfo.email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': tokenParaEnviar,
-      }
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return response.text();
-        }
-      })
-      .then(data => {
-        if (typeof data === 'object') {
-          // La respuesta es un objeto, probablemente la dirección del usuario
-          setCalle(data.calle);
-          setNumero(data.numero);
-          setCp(data.cp);
-          setLocalidad(data.localidad);
-          setProvincia(data.provincia);
-          // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos, por ejemplo, mostrar la dirección en un componente
-        } else {
-          setCalle('');
-          setNumero('');
-          setCp('');
-          setLocalidad('');
-          setProvincia('');
-          // La respuesta es un texto, probablemente un mensaje de error
-          setErrorMessage(data);
-        }
-      })
-      .catch(error => {
-        setErrorMessage('Ocurrió un error al realizar la solicitud:', error.message);
-      });
-
-  }
+  };
 
   return (
     <AuthContext.Provider value={{
