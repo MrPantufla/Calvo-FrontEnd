@@ -39,7 +39,7 @@ export default function ProductoHistorial(args) {
     if (producto) {
         colorCorregido = (producto.color).replace(/\s+/g, '-');
 
-        if (args.proceso && procesos && procesos[args.proceso].rubro == 88) {
+        if (args.proceso && procesos[args.proceso] && procesos[args.proceso].rubro == 88) {
             colorCorregido = (procesos[args.proceso].color).replace(/\s+/g, '-');
         }
     }
