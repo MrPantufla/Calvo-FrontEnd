@@ -57,6 +57,12 @@
     align-items: center;
     margin-top: 1rem;
     font-size: 1.5rem;
+    width: 70%;
+}
+
+.errorLogin svg{
+    width: 2rem;
+    height: 2rem;
 }
 
 .botonEnviarLogin:hover {
