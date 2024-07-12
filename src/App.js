@@ -14,8 +14,6 @@ import { useAuth } from './contextLogin.jsx';
 import CartelCliente from './Login y registro/Cartel cliente/cartelCliente.jsx';
 
 function App() {
-  const apiUrl = "http://localhost:8080/api";
-
   const { mostrarCartelCliente } = useAuth();
 
   return (

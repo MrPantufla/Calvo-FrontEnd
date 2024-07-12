@@ -11,8 +11,6 @@ export default function Procesos(args) {
         setTipoProceso,
         stipoProceso,
         acabado,
-        setAcabado,
-        sTipoProceso
     } = useTienda();
 
     const {

@@ -1,7 +1,6 @@
 import { useCarrito } from '../../../contextCarrito';
 import { useState } from 'react';
 import './pedidoRealizado.css';
-import { useTienda } from '../../../contextTienda';
 
 export default function PedidoRealizado() {
   const [aptoParaCerrar, setAptoParaCerrar] = useState(false);

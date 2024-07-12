@@ -31,7 +31,6 @@ export default function CardProducto(args) {
     añadirElemento,
     restarElemento,
     elementos: elementosCarrito,
-    extraerAcabado
   } = useCarrito();
 
   const {
@@ -101,9 +100,6 @@ export default function CardProducto(args) {
 
     if (troqueladoCorrespondiente) {
       proceso = troqueladoCorrespondiente;
-    }
-    else {
-      proceso = troquelados[4814];
     }
   }
 
