@@ -23,8 +23,6 @@ export default function MisCompras() {
 
     const { state } = useAuth();
 
-    const { procesos } = useProductos();
-
     const [historial, setHistorial] = useState([]);
     const [paginaActual, setPaginaActual] = useState(1);
     const itemsPorPagina = 8;
@@ -77,7 +75,6 @@ export default function MisCompras() {
                         throw new Error(`Error: ${response.status} - ${response.statusText}`);
                     }
                     const data = await response.json();
-
                     setHistorial(data);
                 }
             } catch (error) {
@@ -88,7 +85,6 @@ export default function MisCompras() {
         if (state.logueado) {
             fetchData();
         }
-
     }, []);
 
     return (
@@ -99,30 +95,40 @@ export default function MisCompras() {
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
                 <div className={`misComprasContainer ${isMobile ? 'mobile' : ''} ${isFold ? 'fold' : ''}`}>
-                    {historial.length > 0 ?
-                        (<>
-                            <div className="columnaPar">
-                                {itemsActuales.map((item, index) => {
-                                    const posicionEnHistorial = historial.indexOf(item);
-                                    return (
-                                        index % 2 === 0 ? <CardMisCompras key={index} data={item} id={posicionEnHistorial} /> : null
-                                    );
-                                })}
-                            </div>
-                            <div className="columnaImpar">
-                                {itemsActuales.map((item, index) => {
-                                    const posicionEnHistorial = historial.indexOf(item);
-                                    return (
-                                        index % 2 !== 0 ? <CardMisCompras key={index} data={item} id={posicionEnHistorial} /> : null
-                                    );
-                                })}
-                            </div>
-                        </>)
+
+                    {historial.length ?
+                        (historial.length > 0 ?
+                            (<>
+                                <div className="columnaPar">
+                                    {itemsActuales.map((item, index) => {
+                                        const posicionEnHistorial = historial.indexOf(item);
+                                        return (
+                                            index % 2 === 0 ? <CardMisCompras key={index} data={item} id={posicionEnHistorial} /> : null
+                                        );
+                                    })}
+                                </div>
+                                <div className="columnaImpar">
+                                    {itemsActuales.map((item, index) => {
+                                        const posicionEnHistorial = historial.indexOf(item);
+                                        return (
+                                            index % 2 !== 0 ? <CardMisCompras key={index} data={item} id={posicionEnHistorial} /> : null
+                                        );
+                                    })}
+                                </div>
+                            </>)
+                            :
+                            (<div className="historialVacioContainer">
+                                <h1>TU HISTORIAL SE ENCUENTRA VACÍO</h1>
+                                <img src={carritoHistorialVacio} />
+                            </div>)
+                        )
                         :
                         (<div className="historialVacioContainer">
-                            <h1>TU HISTORIAL SE ENCUENTRA VACÍO</h1>
-                            <img src={carritoHistorialVacio} />
-                        </div>)}
+                            <div className="spinner-border cargandoRespuesta" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>)
+                    }
                 </div>
             </div>
             {historial.length > 0 &&
