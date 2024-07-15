@@ -5,7 +5,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     align-items: center;
-    padding: 0 4rem 2rem 4rem;
+    padding-bottom: 2rem;
 }
 
 .inputFormularioLogin {
@@ -58,11 +58,6 @@
     margin-top: 1rem;
     font-size: 1.5rem;
     width: 70%;
-}
-
-.errorLogin svg{
-    width: 2rem;
-    height: 2rem;
 }
 
 .botonEnviarLogin:hover {
@@ -125,6 +120,7 @@
     .errorLogin.errorFormulario {
         font-size: 2.6rem;
         padding: 2rem 0;
+        text-align: center;
     }
 
     .botonLoginContainer button{

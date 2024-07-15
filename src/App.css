@@ -19,7 +19,9 @@ html{
   font-weight: 600;
 }
 
-.errorFormulario .bi{
+.svgErrorFormulario{
+  width: 2rem;
+  height: 2rem;
   margin-right: 0.5rem;
 }
 
@@ -140,9 +142,14 @@ h1{
   }
 }
 
-@media (max-width: 768px){
+@media (max-width: 767px){
   html{
     font-size: 6.5px;
+  }
+
+  .svgErrorFormulario{
+    width: 3rem;
+    height: 3rem;
   }
 }
 

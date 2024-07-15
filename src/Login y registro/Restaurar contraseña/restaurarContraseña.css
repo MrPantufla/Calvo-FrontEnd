@@ -130,11 +130,6 @@
         padding-top: 0.5rem;
     }
 
-    .errorFormulario svg {
-        width: 2rem;
-        height: 2rem;
-    }
-
     .cambioDeContraseña {
         display: flex;
         flex-direction: column;
@@ -173,11 +168,6 @@
     .contenedorPrincipalRestaurarContraseña .errorFormulario{
         height: 4rem;
         font-size: 3rem;
-    }
-
-    .contenedorPrincipalRestaurarContraseña .errorFormulario svg{
-        width: 3rem;
-        height: 3rem;
     }
 
     .formularioRestaurarContraseña{

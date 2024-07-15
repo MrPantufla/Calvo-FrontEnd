@@ -48,13 +48,7 @@ export default function ConfirmarCompra() {
                     </>)
                     :
                     (<>
-                        {instanciaPedido == 'facturacion' ? 
-                            (<Facturacion/>) 
-                            : 
-                            (<>
-
-                            </>)
-                        }
+                        {instanciaPedido == 'facturacion' && <Facturacion/>}
                     </>)
                 }
             </div>
