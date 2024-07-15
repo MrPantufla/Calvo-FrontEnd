@@ -1,19 +1,17 @@
 import './cartelError.css';
 import { useCarrito } from '../../contextCarrito';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function CartelError(){
     const {
         ocultarCartel,
-        mostrarCartelError,
         setMostrarCartelError
     } = useCarrito();
 
     const navigate = useNavigate();
 
-    const clickParteUtilizable = (e) => {
-        e.stopPropagation();
-    }
+    const [aptoParaCerrar, setAptoParaCerrar] = useState(false);
 
     const navegarAContacto = () =>{
         navigate('/');
@@ -23,9 +21,20 @@ export default function CartelError(){
         ocultarCartel();
     }
 
+    const handleCloseCartel = () => {
+        if(aptoParaCerrar == true){
+            setMostrarCartelError(false)
+        }
+    }
+
+    const noCerrar = (event) =>{
+        setAptoParaCerrar(false);
+        event.stopPropagation();
+    }
+
     return(
-        <div className={`contenedorPrincipalCartelError`} onClick={() => setMostrarCartelError(false)}>
-            <div className="parteUtilizableCartelError" onClick={(e) => clickParteUtilizable(e)}>
+        <div className={`contenedorPrincipalCartelError`} onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
+            <div className="parteUtilizableCartelError" onMouseDown={noCerrar} onMouseUp={noCerrar}>
                 <h2>Hacete cliente mayorista para realizar pedidos de perfiles</h2>
                 <a onClick={navegarAContacto}>Llama a nuestras oficinas o envianos un mensaje para consultar</a>
                 <button onClick={() => setMostrarCartelError(false)}>
