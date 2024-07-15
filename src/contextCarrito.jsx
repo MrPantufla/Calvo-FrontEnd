@@ -73,7 +73,6 @@ function CarritoProvider({ children }) {
   function añadirElemento(id, cantidadCarrito) {
     setPaqueteAñadir(null);
     if (state.userInfo && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
-      console.log(state.userInfo.categoria)
       setMostrarCartelError(true);
     }
     else {
