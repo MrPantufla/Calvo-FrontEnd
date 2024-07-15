@@ -1,10 +1,13 @@
 import './restaurarContraseña.css';
 import { useState } from 'react';
 import { useVariables } from '../../contextVariables';
+import { useAuth } from '../../contextLogin';
 
 export default function RestaurarContraseña() {
     const { backend } = useVariables();
-    
+
+    const { state } = useAuth();
+
     const [emailAceptado, setEmailAceptado] = useState(false);
     const [codigoAceptado, setCodigoAceptado] = useState(false);
     const [email, setEmail] = useState('');
@@ -45,8 +48,8 @@ export default function RestaurarContraseña() {
         }
     }
 
-    const verificarContraseña = () => {
-        if (!nuevaContraseña || !repetirContraseña) {
+    const verificarContraseñaYCodigo = () => {
+        if (!nuevaContraseña || !repetirContraseña || !codigo) {
             setErrorMessage('Por favor, completa todos los campos')
             return
         }
@@ -58,33 +61,13 @@ export default function RestaurarContraseña() {
         }
     }
 
-    const verificarCodigo = async () => {
-        const response = await fetch(`${backend}/api/verificarCodigoRestaurarContraseña`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ codigo, email }),
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            setCodigoAceptado(true);
-            setErrorMessage('');
-            return null;
-        } else {
-            const data = await response.text();
-            setErrorMessage(data);
-        }
-    }
-
     const cambiarContraseña = async () => {
         const response = await fetch(`${backend}/api/cambiarContraseña`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ nuevaContraseña, email }),
+            body: JSON.stringify({ nuevaContraseña, email, codigo }),
             credentials: 'include',
         });
 
@@ -97,6 +80,20 @@ export default function RestaurarContraseña() {
             setErrorMessage(data);
         }
     }
+
+    const handleKeyDownEmail = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            verificarEmail();
+        }
+    };
+
+    const handleKeyDownContraseña = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            verificarContraseñaYCodigo();
+        }
+    };
 
     return (
         <div className="contenedorPrincipalRestaurarContraseña">
@@ -115,31 +112,33 @@ export default function RestaurarContraseña() {
                     (<></>)}
             </p>
             {!contraseñaCambiada ?
-                (!codigoAceptado ?
-                    (!emailAceptado ?
-                        (<div className="ingresarEmailRestaurarContraseña">
+                (!emailAceptado ?
+                    (<div className="ingresarEmailRestaurarContraseña">
+                        <form className="formularioRestaurarContraseña">
+                            <label htmlFor="email">Ingresa tu Email</label>
+                            <input
+                                className="emailRestaurarContraseña"
+                                type="text"
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                                onFocus={() => setErrorMessage('')}
+                                onKeyDown={(e) => handleKeyDownEmail(e)}
+                            />
+                        </form>
+                        <div className="botonAceptarContainer">
+                            <button className="botonAceptar" onClick={verificarEmail}>
+                                Aceptar
+                            </button>
+                        </div>
+                    </div>)
+                    :
+                    (<>
+                        <p className="envioEmail">{`Te enviamos un código de confirmación a ${email}`}</p>
+                        <div className="ingresarCodigoRestaurarContraseña">
                             <form className="formularioRestaurarContraseña">
-                                <label htmlFor="email">Ingresa tu Email</label>
-                                <input
-                                    className="emailRestaurarContraseña"
-                                    type="text"
-                                    value={email}
-                                    onChange={(e) => {
-                                        setEmail(e.target.value);
-                                    }}
-                                    onFocus={() => setErrorMessage('')}
-                                />
-                            </form>
-                            <div className="botonAceptarContainer">
-                                <button className="botonAceptar" onClick={verificarEmail}>
-                                    Aceptar
-                                </button>
-                            </div>
-                        </div>)
-                        :
-                        (<div className="ingresarCodigoRestaurarContraseña">
-                            <form className="formularioRestaurarContraseña">
-                                <label htmlFor="codigo">Ingresa el código que recibiste en tu email</label>
+                                <label htmlFor="codigo">Código de confirmación</label>
                                 <input
                                     className="codigoRestaurarContraseña"
                                     type="text"
@@ -148,42 +147,41 @@ export default function RestaurarContraseña() {
                                         setCodigo(e.target.value);
                                     }}
                                     onFocus={() => setErrorMessage('')}
+                                    onKeyDown={(e) => handleKeyDownContraseña(e)}
                                 />
                             </form>
-                            <div className="botonAceptarContainer">
-                                <button className="botonAceptar" onClick={verificarCodigo}>
-                                    Aceptar
+                        </div>
+                        <div className="cambioDeContraseña">
+                            <div className="formularioRestaurarContraseña">
+                                <label htmlFor="nuevaContraseña" id="nuevaContraseña">Nueva contraseña</label>
+                                <input
+                                    type="password"
+                                    id="nuevaContraseña"
+                                    value={nuevaContraseña}
+                                    onChange={(e) => setNuevaContraseña(e.target.value)}
+                                    onFocus={() => setErrorMessage('')}
+                                    onKeyDown={(e) => handleKeyDownContraseña(e)}
+                                />
+                            </div>
+                            <div className="formularioRestaurarContraseña">
+                                <label htmlFor="repetirContraseña" id="repetirContraseña" >Repetir contraseña</label>
+                                <input
+                                    type="password"
+                                    id="repetirContraseña"
+                                    value={repetirContraseña}
+                                    onChange={(e) => setRepetirContraseña(e.target.value)}
+                                    onFocus={() => setErrorMessage('')}
+                                    onKeyDown={(e) => handleKeyDownContraseña(e)}
+                                />
+                            </div>
+                            <div className="botonAceptarContainer" onClick={verificarContraseñaYCodigo}>
+                                <button className="botonAceptar">
+                                    Confirmar
                                 </button>
                             </div>
-                        </div>))
-                    :
-                    (<div className="cambioDeContraseña">
-                        <div className="formularioRestaurarContraseña">
-                            <label htmlFor="nuevaContraseña" id="nuevaContraseña">Nueva contraseña</label>
-                            <input
-                                type="password"
-                                id="nuevaContraseña"
-                                value={nuevaContraseña}
-                                onChange={(e) => setNuevaContraseña(e.target.value)}
-                                onFocus={() => setErrorMessage('')}
-                            />
                         </div>
-                        <div className="formularioRestaurarContraseña">
-                            <label htmlFor="repetirContraseña" id="repetirContraseña" >Repetir contraseña</label>
-                            <input
-                                type="password"
-                                id="repetirContraseña"
-                                value={repetirContraseña}
-                                onChange={(e) => setRepetirContraseña(e.target.value)}
-                                onFocus={() => setErrorMessage('')}
-                            />
-                        </div>
-                        <div className="botonNuevaContraseñaContainer" onClick={verificarContraseña}>
-                            <button className="botonAceptar">
-                                Confirmar
-                            </button>
-                        </div>
-                    </div>))
+                    </>)
+                )
                 :
                 (<div className="cambioExitoso">
                     <h2>Contraseña cambiada con éxito!</h2>

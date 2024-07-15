@@ -53,7 +53,8 @@ export default function Registro() {
         } else if (contrasenia !== confirmContrasenia) {
             setErrorMessage('Las contraseñas no coinciden.');
             return;
-
+        } else if (cuit.length > 11){
+            setErrorMessage('Cuit puede contener hasta 11 caracteres')
         } else {
             confirmarRegistro();
         }

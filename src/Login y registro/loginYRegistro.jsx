@@ -44,11 +44,7 @@ export default function LoginYRegistro() {
       <div className="contenedorLoginYRegistro" onMouseDown={noCerrar} onMouseUp={noCerrar}>
         <div className="content-container">
           {state.logueado ? (
-            state.userInfo.email_confirmado ? (
-              <></>
-            ) : (
-              <ConfirmacionCodigo />
-            )
+            !state.userInfo.email_confirmado && <ConfirmacionCodigo />
           ) : (
             opcionSeleccionada === 'restaurarContraseña' ?
               (<RestaurarContraseña />)
