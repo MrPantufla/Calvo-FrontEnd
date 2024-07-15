@@ -1,5 +1,5 @@
 import './quienesSomos.css';
-import imagenQuienesSomos from '../../../Imagenes/imagenDeposito.png';
+import imagenQuienesSomos from '../../../Imagenes/imagenDeposito.webp';
 import CAquienesSomos from '../../../Imagenes/CAquienesSomos.png';
 
 export default function QuienesSomos() {
