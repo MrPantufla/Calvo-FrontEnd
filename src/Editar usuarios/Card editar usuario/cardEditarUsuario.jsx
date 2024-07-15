@@ -1,5 +1,5 @@
 import './cardEditarUsuario.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useVariables } from '../../contextVariables';
 
@@ -14,6 +14,7 @@ export default function CardEditarUsuario(args) {
     const [eliminar, setEliminar] = useState(false);
     const { backend } = useVariables();
     const [respuesta, setRespuesta] = useState('');
+    const [emailOriginal, setEmailOriginal] = useState(email);
 
     const usuario = {
         id: args.usuario.id,
@@ -33,6 +34,12 @@ export default function CardEditarUsuario(args) {
 
     const modificarUsuario = async (usuario) => {
         setRespuesta('');
+
+        const body = {
+            usuario,
+            emailOriginal
+        };
+
         let tokenParaEnviar = Cookies.get('jwtToken');
 
         if (tokenParaEnviar == undefined) {
@@ -45,11 +52,12 @@ export default function CardEditarUsuario(args) {
                 'Content-Type': 'application/json',
                 'Authorization': tokenParaEnviar,
             },
-            body: JSON.stringify(usuario),
+            body: JSON.stringify(body),
         });
 
         if (response.ok) {
             setRespuesta('Listo')
+            setEmailOriginal(email);
             return true;
         } else {
             setRespuesta('Error')
