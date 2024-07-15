@@ -6,31 +6,24 @@ export default function Marcas(args) {
 
     const { marcaActiva } = useTienda();
 
+    const marcasOrdenadas = args.rubro.marcas.filter(marca => marca !== marcaActiva);
+
+    marcasOrdenadas.unshift(marcaActiva);
+
     return (
         <>
-            {marcaActiva ?
-                (<Marca
-                    marca={marcaActiva}
+            {(marcasOrdenadas.map((marca) => (
+                marca != null &&
+                <Marca
+                    marca={marca}
                     handleScrollClick={args.handleScrollClick}
                     setPaginaActual={args.setPaginaActual}
                     rubro={args.rubro}
                     coloresUnicos={args.coloresUnicos}
                     srubrosUnicos={args.srubrosUnicos}
-                    key={marcaActiva.nombre}
-                />)
-                :
-                (args.rubro.marcas.map((marca) => (
-                    <Marca
-                        marca={marca}
-                        handleScrollClick={args.handleScrollClick}
-                        setPaginaActual={args.setPaginaActual}
-                        rubro={args.rubro}
-                        coloresUnicos={args.coloresUnicos}
-                        srubrosUnicos={args.srubrosUnicos}
-                        key={marca.nombre}
-                    />
-                )))
-            }
+                    key={marca.nombre}
+                />
+            )))}
         </>
     );
 }
