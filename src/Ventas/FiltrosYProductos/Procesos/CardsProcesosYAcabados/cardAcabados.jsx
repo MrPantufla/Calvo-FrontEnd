@@ -25,7 +25,7 @@ export default function CardAcabados(args) {
     }
 
     return (
-        <div className="cardProceso" onClick={() => setAcabado(args.acabado)} style={{ backgroundImage: `url(/ImagenesAcabados/${args.acabado.id}.jpg)`, backgroundSize: `cover`, backgroundColor: `white` }}>
+        <div className="cardProceso" onClick={() => setAcabado(args.acabado)} style={{ backgroundImage: `url(/ImagenesAcabados/${args.acabado.id}.webp)`, backgroundSize: `cover`, backgroundColor: `white` }}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
                 <button className="eliminarElemento" onClick={(e) => eliminarProceso(e, args.acabado.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
