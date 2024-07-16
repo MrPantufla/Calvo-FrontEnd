@@ -2,7 +2,6 @@ import './misCompras.css';
 import { useAuth } from '../contextLogin';
 import { useEffect, useState } from 'react';
 import CardMisCompras from './Card mis Compras/cardMisCompras';
-import { useNavigate } from 'react-router-dom';
 import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegablePerfil';
 import Footer from '../Principal/Footer/footer.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
@@ -10,7 +9,6 @@ import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
 import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.webp';
 import Cookies from 'js-cookie';
-import { useProductos } from '../contextProductos.jsx';
 
 export default function MisCompras() {
     const { backend } = useVariables();
@@ -24,6 +22,7 @@ export default function MisCompras() {
 
     const [historial, setHistorial] = useState([]);
     const [paginaActual, setPaginaActual] = useState(1);
+    const [respuestaRecibida, setRespuestaRecibida] = useState(false);
     const itemsPorPagina = 8;
     const indexUltimoItem = paginaActual * itemsPorPagina;
     const indexPrimerItem = indexUltimoItem - itemsPorPagina;
@@ -37,54 +36,40 @@ export default function MisCompras() {
     const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
     const itemsActuales = historial.slice(indexPrimerItem, indexUltimoItem);
 
-    const navigate = useNavigate();
+    const fetchData = async () => {
+        try {
+            let tokenParaEnviar = Cookies.get('jwtToken');
 
-    /*useEffect(() => {
-        salirDeTienda();
-    }, [])
-
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            if (!state.logueado || !state.userInfo.email_confirmado) {
-                navigate("/");
+            if (tokenParaEnviar == undefined) {
+                tokenParaEnviar = null;
             }
-        }, 200);
 
-        return () => clearTimeout(timeoutId);
-    });*/
+            if (state.logueado) {
+                const response = await fetch(`${backend}/api/misCompras`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': tokenParaEnviar,
+                    },
+                });
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let tokenParaEnviar = Cookies.get('jwtToken');
-
-                if (tokenParaEnviar == undefined) {
-                    tokenParaEnviar = null;
-                }
-
-                if (state.logueado) {
-                    const response = await fetch(`${backend}/api/misCompras`, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': tokenParaEnviar,
-                        },
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-                    }
+                if(response.ok){
                     const data = await response.json();
                     setHistorial(data);
                 }
-            } catch (error) {
-                console.error("Ocurrió un error al enviar los datos: ", error);
+                else{
+                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
+                }
+                
+                setRespuestaRecibida(true);
             }
-        };
-
-        if (state.logueado) {
-            fetchData();
+        } catch (error) {
+            console.error("Ocurrió un error al enviar los datos: ", error);
         }
-    }, []);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [state.logueado]);
 
     return (
         <div className="contenedorPaginaMisCompras">
@@ -95,7 +80,7 @@ export default function MisCompras() {
                 <div className="decoracionDosBody decoracionDosMisCompras" />
                 <div className={`misComprasContainer ${isMobile ? 'mobile' : ''} ${isFold ? 'fold' : ''}`}>
 
-                    {historial.length ?
+                    {respuestaRecibida ?
                         (historial.length > 0 ?
                             (<>
                                 <div className="columnaPar">
