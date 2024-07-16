@@ -1,35 +1,54 @@
 import './rubros.css';
+import { useEffect, useRef } from 'react';
 import { useTienda } from '../../../../contextTienda';
 import Srubros from '../Srubros/srubros.jsx';
 import { rubros } from '../../../../rubros.js';
 import Marcas from '../Marcas/marcas.jsx';
 
 export default function Rubros(args) {
-
     const {
         rubroActivo,
         togglearRubro,
         setCortinasSelected,
         setEliminadosSelected,
-        setColoresActivos
+        setColoresActivos,
+        srubroActivo,
+        marcaActiva
     } = useTienda();
+
+    const rubroRefs = useRef([]);
 
     const handleScrollClick = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-    }
+    };
+
+    useEffect(() => {
+        if (rubroActivo !== null && rubroRefs.current[rubroActivo]) {
+            rubroRefs.current[rubroActivo].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            });
+        }
+    }, [rubroActivo, srubroActivo, marcaActiva]);
 
     return (
         <>
-            {rubros.map((rubro) => (
-                <label className={`labelRubros ${rubroActivo == rubro.id ? 'checked' : ''} label${rubro.nombre} desplegable`} key={rubro.nombre}>
+            {rubros.map((rubro, index) => (
+                <label
+                    className={`labelRubros ${rubroActivo === rubro.id ? 'checked' : ''} label${rubro.nombre} desplegable`}
+                    key={rubro.nombre}
+                    ref={el => {
+                        rubroRefs.current[rubro.id] = el;
+                    }}
+                >
                     <div>
                         <input
                             className="check"
                             type="checkbox"
-                            checked={rubroActivo == rubro.id}
+                            checked={rubroActivo === rubro.id}
                             onChange={() => {
                                 togglearRubro(rubro.id);
                             }}
@@ -51,7 +70,7 @@ export default function Rubros(args) {
                             </p>
                         </div>
                     </div>
-                    {rubroActivo == rubro.id &&
+                    {rubroActivo === rubro.id &&
                         (rubro.id === 'Perfiles' ?
                             (<Marcas
                                 rubro={rubro}

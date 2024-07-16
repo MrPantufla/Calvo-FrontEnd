@@ -17,6 +17,8 @@ export default function Filtros(args) {
         rubroActivo,
         procesosSelected,
         seleccionarProcesos,
+        srubroActivo,
+        marcaActiva
     } = useTienda();
 
     const { guardarDestacados } = useProductos();
@@ -28,31 +30,30 @@ export default function Filtros(args) {
             const elemento = document.getElementById('filtros');
 
             const handleScroll = () => {
-                let atEnd;
-                if (elemento.scrollTop == 0) {
-                    atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
+                if (elemento) {
+                    const atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
+                    setScrollDownFiltros(!atEnd);
                 }
-                else {
-                    atEnd = elemento.scrollTop + elemento.clientHeight >= elemento.scrollHeight;
-                }
-
-                setScrollDownFiltros(!atEnd);
             };
 
-            handleScroll(); // Para verificar el estado inicial
+            handleScroll(); // Verifica el estado inicial
 
-            elemento.addEventListener('scroll', handleScroll);
+            if (elemento) {
+                elemento.addEventListener('scroll', handleScroll);
+            }
 
             return () => {
-                elemento.removeEventListener('scroll', handleScroll);
+                if (elemento) {
+                    elemento.removeEventListener('scroll', handleScroll);
+                }
             };
         }
-    }, [rubroActivo]);
+    }, [rubroActivo, srubroActivo]);
 
-    const scrollearFiltros = () => {
+    const scrollearFiltros = (cant) => {
         const elemento = document.getElementById('filtros');
         elemento.scrollBy({
-            top: 200,
+            top: cant,
             behavior: 'smooth'
         });
     }
@@ -67,7 +68,7 @@ export default function Filtros(args) {
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros textoLabelRubros ultimoLabel`} onClick={() => guardarDestacados()}>GUARDAR DESTACADOS</div>))}
             </div>
             {!isMobile &&
-                <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={() => scrollearFiltros()}>
+                <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={() => scrollearFiltros(200)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" className="bi bi-arrow-down-short" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4" />
                     </svg>

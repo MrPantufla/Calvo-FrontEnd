@@ -20,6 +20,7 @@ export default function Srubros(args) {
             const nuevosSrubrosStruct = srubros.map(numeroSrubro => {
                 return srubrosPerfiles.find(srubro => srubro.id === numeroSrubro);
             });
+
             setSrubrosStruct(nuevosSrubrosStruct);
         } else {
             setSrubrosStruct(srubros);
@@ -31,28 +32,26 @@ export default function Srubros(args) {
         return null;
     }
 
+    let srubrosFinal = srubrosStruct;
+
+    if (srubroActivo) {
+        srubrosFinal = srubrosStruct.filter(srubro => srubro != undefined && (srubro.id != srubroActivo));
+        srubrosFinal.unshift(srubrosStruct.find(srubro => srubro != undefined && (srubro.id == srubroActivo)));
+    }
+
     return (
         <>
-            {srubroActivo ?
-                (<Srubro
-                    index={1}
-                    srubro={srubrosStruct.find(srubro => srubro.id == srubroActivo)}
+            {(srubrosFinal.map((srubro, index) => (
+                srubro !== undefined &&
+                <Srubro
+                    index={index}
+                    srubro={srubro}
+                    key={index}
                     rubro={args.rubro}
                     coloresUnicos={args.coloresUnicos}
                     setPaginaActual={args.setPaginaActual}
-                />)
-                :
-                (srubrosStruct.map((srubro, index) => (
-                    srubro !== undefined &&
-                    <Srubro
-                        index={index}
-                        srubro={srubro}
-                        key={index}
-                        rubro={args.rubro}
-                        coloresUnicos={args.coloresUnicos}
-                        setPaginaActual={args.setPaginaActual}
-                    />
-                )))}
+                />
+            )))}
         </>
     );
 }
