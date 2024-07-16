@@ -118,9 +118,9 @@ export default function CardCarrito(args) {
                         className="imagenCardCarrito"
                         onContextMenu={handleContextMenu}
                         src={producto.tipo_prod == 'PERFIL' ?
-                            (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
+                            (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
                             :
-                            (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
+                            (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
                         }
                         alt="Imagen del producto"
                         loading="lazy"

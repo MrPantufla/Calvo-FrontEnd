@@ -100,16 +100,16 @@ export default function ProductoGrande(args) {
                             className="imagenProductoGrande"
                             onContextMenu={handleContextMenu}
                             src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ?
-                                (`/PngsPerfiles/${codigo.slice(2).trim()}.png`)
+                                (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
                                 :
                                 (tipo_prod == 'ACCESORIO' ?
-                                    (`/PngsAccesorios/${codigo.trim().toUpperCase()}.png`)
+                                    (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
                                     :
                                     (tipo_prod == 'PUNTUAL' ?
-                                        (`/PngsPuntuales/${codigo.trim().toUpperCase()}.png`)
+                                        (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
                                         :
                                         (tipo_prod == 'MAQUINAS' ?
-                                            (`/PngsMaquinas/${codigo.trim().toUpperCase()}.png`)
+                                            (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
                                             :
                                             ('')
                                         )
