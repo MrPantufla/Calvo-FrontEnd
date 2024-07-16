@@ -1,5 +1,5 @@
 import './productoGrande.css';
-import ca from '../../../Imagenes/ca.png';
+import ca from '../../../Imagenes/ca.webp';
 import { useCarrito } from '../../../contextCarrito.jsx';
 import { useAuth } from '../../../contextLogin.jsx';
 import { useTienda } from '../../../contextTienda.jsx';

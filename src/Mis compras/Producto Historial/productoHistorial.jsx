@@ -1,5 +1,5 @@
 import './productoHistorial.css';
-import perfil1 from '../../Imagenes/perfil1.png';
+import perfil1 from '../../Imagenes/perfil1.webp';
 import { useProductos } from '../../contextProductos';
 import { useEffect, useState } from 'react';
 

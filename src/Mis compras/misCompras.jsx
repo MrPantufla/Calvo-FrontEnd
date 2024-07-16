@@ -8,7 +8,7 @@ import Footer from '../Principal/Footer/footer.jsx';
 import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
-import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.png';
+import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.webp';
 import Cookies from 'js-cookie';
 import { useProductos } from '../contextProductos.jsx';
 
@@ -18,7 +18,6 @@ export default function MisCompras() {
     const {
         isFold,
         isMobile,
-        salirDeTienda
     } = useTienda();
 
     const { state } = useAuth();
@@ -40,7 +39,7 @@ export default function MisCompras() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    /*useEffect(() => {
         salirDeTienda();
     }, [])
 
@@ -52,7 +51,7 @@ export default function MisCompras() {
         }, 200);
 
         return () => clearTimeout(timeoutId);
-    });
+    });*/
 
     useEffect(() => {
         const fetchData = async () => {

@@ -1,8 +1,8 @@
 import './headerMobile.css';
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import LogoCalvo from '../../Imagenes/logo calvo.png';
-import calvoNegativo from '../../Imagenes/calvoNegativo.png';
+import LogoCalvo from '../../Imagenes/logo_calvo.webp';
+import calvoNegativo from '../../Imagenes/calvoNegativo.webp';
 import { useTienda } from '../../contextTienda';
 import { useAuth } from '../../contextLogin';
 import { useNavigate } from 'react-router-dom';

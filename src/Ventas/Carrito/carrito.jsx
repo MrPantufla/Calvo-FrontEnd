@@ -5,7 +5,7 @@ import { useCarrito } from '../../contextCarrito.jsx';
 import { useProductos } from '../../contextProductos.jsx';
 import { useFavoritos } from '../../contextFavoritos.jsx';
 import { useTienda } from '../../contextTienda.jsx';
-import carritoVacioImg from '../../Imagenes/carritoVacio.png';
+import carritoVacioImg from '../../Imagenes/carritoVacio.webp';
 import { useAuth } from '../../contextLogin.jsx';
 
 export default function Carrito() {
@@ -86,8 +86,8 @@ export default function Carrito() {
         (producto && producto.kg > 0)
           ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
           : producto.precio
-        )
-      
+      )
+
 
       return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
     }, 0);
@@ -280,68 +280,72 @@ export default function Carrito() {
       <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
-            <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
-            <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
-              {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
-            </div>
+            <p className="tituloCarrito">CARRITO {!isTablet && (" - COMPRA RÁPIDA")}</p>
+            {!isTablet &&
+              <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
+                {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
+              </div>
+            }
             {mostrarHint && (<div className="hintCarrito">
               <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PERFIL QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
             </div>)}
           </div>
           <div className="elementosVisiblesCarrito">
-            <form className="agregadoRapido">
-              <input
-                ref={codigoInputRef}
-                className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
-                type="text"
-                placeholder={`${errorMessage != '' && inputFocused == 'codigo' ? errorMessage : 'CÓDIGO'}`}
-                value={codigoAgregadoRapido}
-                onChange={(e) => {
-                  setCodigoAgregadoRapido(e.target.value.toUpperCase());
-                  setCodigoValido();
-                  setErrorMessage('');
-                }}
-                onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
-                onFocus={() => setInputFocused('codigo')}
-                onBlur={leaveFocus}
-              />
-              <div className="colorAgregadoRapido">
-                {sugerenciaColor && (
-                  <div className="sugerenciaColor sugerencia">
-                    <p className="textoSugerencia"> {!colorValido ? (sugerenciaColor) : ('')}</p>
-                  </div>
-                )}
+            {!isTablet &&
+              <form className="agregadoRapido">
                 <input
-                  ref={colorInputRef}
-                  className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
+                  ref={codigoInputRef}
+                  className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
                   type="text"
-                  placeholder={`${errorMessage != '' && inputFocused == 'color' ? errorMessage : 'COLOR'}`}
-                  value={colorAgregadoRapido}
+                  placeholder={`${errorMessage != '' && inputFocused == 'codigo' ? errorMessage : 'CÓDIGO'}`}
+                  value={codigoAgregadoRapido}
                   onChange={(e) => {
-                    setColorAgregadoRapido(e.target.value.toUpperCase());
-                    setColorValido();
+                    setCodigoAgregadoRapido(e.target.value.toUpperCase());
+                    setCodigoValido();
                     setErrorMessage('');
                   }}
-                  onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
-                  onFocus={() => setInputFocused('color')}
+                  onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
+                  onFocus={() => setInputFocused('codigo')}
                   onBlur={leaveFocus}
                 />
-              </div>
-              <input
-                ref={cantidadInputRef}
-                className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
-                placeholder={`${errorMessage != '' && inputFocused == 'cantidad' ? errorMessage : 'CANT'}`}
-                value={cantidadAgregadoRapido}
-                onChange={(e) => {
-                  setCantidadAgregadoRapido(e.target.value.toUpperCase());
-                  setErrorMessage('');
-                  setCantidadValida();
-                }}
-                onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
-                onFocus={() => setInputFocused('cantidad')}
-                onBlur={leaveFocus}
-              />
-            </form>
+                <div className="colorAgregadoRapido">
+                  {sugerenciaColor && (
+                    <div className="sugerenciaColor sugerencia">
+                      <p className="textoSugerencia"> {!colorValido ? (sugerenciaColor) : ('')}</p>
+                    </div>
+                  )}
+                  <input
+                    ref={colorInputRef}
+                    className={`form-group-agregadoRapido ${colorValido ? 'valido' : colorValido === false ? 'invalido' : ''}`}
+                    type="text"
+                    placeholder={`${errorMessage != '' && inputFocused == 'color' ? errorMessage : 'COLOR'}`}
+                    value={colorAgregadoRapido}
+                    onChange={(e) => {
+                      setColorAgregadoRapido(e.target.value.toUpperCase());
+                      setColorValido();
+                      setErrorMessage('');
+                    }}
+                    onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
+                    onFocus={() => setInputFocused('color')}
+                    onBlur={leaveFocus}
+                  />
+                </div>
+                <input
+                  ref={cantidadInputRef}
+                  className={`cantidadAgregadoRapido form-group-agregadoRapido ${cantidadValida ? 'valido' : cantidadValida === false ? 'invalido' : ''}`}
+                  placeholder={`${errorMessage != '' && inputFocused == 'cantidad' ? errorMessage : 'CANT'}`}
+                  value={cantidadAgregadoRapido}
+                  onChange={(e) => {
+                    setCantidadAgregadoRapido(e.target.value.toUpperCase());
+                    setErrorMessage('');
+                    setCantidadValida();
+                  }}
+                  onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
+                  onFocus={() => setInputFocused('cantidad')}
+                  onBlur={leaveFocus}
+                />
+              </form>
+            }
             {elementos.length === 0 ? (
               <div className="carritoVacioContainer">
                 <img src={carritoVacioImg} />

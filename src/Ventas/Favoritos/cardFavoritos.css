@@ -15,7 +15,7 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    background-image: url("../../Imagenes/marcaDeAgua.png");
+    background-image: url("../../Imagenes/marcaDeAgua.webp");
     background-size: cover;
 }
 

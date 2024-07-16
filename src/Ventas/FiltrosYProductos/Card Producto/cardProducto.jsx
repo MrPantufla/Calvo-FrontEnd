@@ -1,5 +1,5 @@
 import './cardProducto.css';
-import logoBlanco from '../../../Imagenes/ca.png'
+import logoBlanco from '../../../Imagenes/ca.webp'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useCarrito } from '../../../contextCarrito.jsx';
