@@ -23,9 +23,8 @@ export default function Catalogos() {
             onMouseLeave={cerrarHover}
         >
             <div className="descargarCatalogosContainer">
-                <a onClick={() => handleDownload('perfiles')}>PERFILES</a>
-                <a onClick={() => handleDownload('accesorios')}>ACCESORIOS</a>
-                <a onClick={() => handleDownload('herramientas')}>HERRAMIENTAS</a>
+                <a onClick={() => handleDownload('Catálogo Perfiles Calvo')}>PERFILES</a>
+                <a onClick={() => handleDownload('Catálogo Accesorios Calvo')}>ACCESORIOS</a>
             </div>
         </div>
     );

@@ -145,7 +145,7 @@
 }
 
 .elemento.catalogos.open{
-    height: 23rem;
+    height: 17.8rem;
 }
 
 .elemento.catalogos:active{
@@ -181,7 +181,7 @@
 }
 
 .elemento.catalogos.open > .bodyElemento{
-    height: 10rem;
+    height: 6.5rem;
 }
 
 .textoCatalogosHeaderMobileContainer{

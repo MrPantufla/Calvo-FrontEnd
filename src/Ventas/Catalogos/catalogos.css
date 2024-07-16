@@ -13,7 +13,7 @@
 
 .desplegableCatalogos:hover,
 .desplegableCatalogos.open {
-    height: 10.5rem;
+    height: 7.5rem;
     transition-delay: 0.18s;
 }
 
