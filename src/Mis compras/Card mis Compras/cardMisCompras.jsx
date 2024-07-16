@@ -94,7 +94,7 @@ export default function CardMisCompras(args) {
                     ))}
                 </div>
                 <div className="totalContainer">
-                    <h2 className="precioViejo">{`TOTAL: $${total} ${(state.userInfo && state.userInfo.categoria == 'MAYORISTA') && `- CON DESCUENTO: $${parseInt(total*97/100)}`}`}</h2>
+                    <h2 className="precioViejo">{`TOTAL: $${total} ${(state.userInfo && state.userInfo.categoria == 'MAYORISTA') ? (`- CON DESCUENTO: $${parseInt(total*97/100)}`) : ('')}`}</h2>
                 </div>
             </div>
         </div>
