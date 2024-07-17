@@ -53,6 +53,7 @@
     text-align: center;
     font-size: 1.8rem;
     font-weight: 600;
+    min-height: 2.7rem;
 }
 
 .kgCantidadYColorContainer {
@@ -197,7 +198,7 @@
 
 .logoDecoracionCardProducto {
     position: relative;
-    max-height: 75%;
+    height: 1.4rem;
 }
 
 .botonAñadirFavoritos {
@@ -487,6 +488,10 @@
         height: 2.4rem;
     }
 
+    .logoDecoracionCardProducto{
+        height: 2rem;
+    }
+
     .imagenContainerCardProducto {
         height: 15rem;
     }
@@ -681,6 +686,10 @@
 
     .decoracionCardProducto {
         height: 3.2rem;
+    }
+
+    .logoDecoracionCardProducto{
+        height: 2.4rem;
     }
 
     .espacioCantidad{

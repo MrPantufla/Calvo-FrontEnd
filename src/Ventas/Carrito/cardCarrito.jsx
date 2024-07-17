@@ -117,10 +117,22 @@ export default function CardCarrito(args) {
                     <img
                         className="imagenCardCarrito"
                         onContextMenu={handleContextMenu}
-                        src={producto.tipo_prod == 'PERFIL' ?
+                        src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
                             (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
                             :
-                            (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                            (producto.tipo_prod == 'ACCESORIO' ?
+                              (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                              :
+                              (producto.tipo_prod == 'PUNTUAL' ?
+                                (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                :
+                                (producto.tipo_prod == 'MAQUINAS' ?
+                                  (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                  :
+                                  ('')
+                                )
+                              )
+                            )
                         }
                         alt="Imagen del producto"
                         loading="lazy"

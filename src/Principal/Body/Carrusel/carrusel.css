@@ -2,7 +2,8 @@
   display: flex;
   z-index: 1;
   padding-top: 12rem;
-  width: 89.5%;
+  width: 100rem;
+  height: 58rem;
 }
 
 .container {
@@ -216,5 +217,6 @@
 @media (max-width: 540px){
   .slide {
     width: 95.5%;
+    height: 46rem;
   }
 }

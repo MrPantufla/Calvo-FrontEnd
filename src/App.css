@@ -1,7 +1,7 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: rajdhani;
+  font-family: 'Rajdhani', sans-serif;
 }
 
 html{
@@ -44,7 +44,8 @@ h1{
   --colorAzulOscuro: #38647c;
   --colorAzulClaro: #5d8398;
 
-  --Natural: #989890;
+  --An-Natural: #b4bcbc;
+  --Natural: #b4bcbc;
   --Ind: white;
   --Varios: white;
   --Cristal: #a8d4dc;

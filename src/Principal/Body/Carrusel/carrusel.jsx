@@ -25,7 +25,7 @@ export default function Carrusel() {
       let tokenParaEnviar = Cookies.get('jwtToken');
 
       if (tokenParaEnviar == undefined) {
-          tokenParaEnviar = null;
+        tokenParaEnviar = null;
       }
 
       const response = await fetch(`${backend}/api/subirImagen`, {
@@ -65,7 +65,7 @@ export default function Carrusel() {
       let tokenParaEnviar = Cookies.get('jwtToken');
 
       if (tokenParaEnviar == undefined) {
-          tokenParaEnviar = null;
+        tokenParaEnviar = null;
       }
 
       const response = await fetch(`${backend}/api/eliminarImagen`, {
@@ -91,22 +91,29 @@ export default function Carrusel() {
       try {
         const response = await fetch(`${backend}/api/obtenerListaImagenes?folder=imagenesCarrusel`);
 
-        if (response) {
-          setImagenesCargadas(true);
-        }
-
         if (!response.ok) {
           throw new Error('Error al obtener la lista de imágenes');
         }
+
         const data = await response.json();
         setListaImagenes(data);
+
+        data.forEach(url => {
+          const link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = url;
+          document.head.appendChild(link);
+        });
+
+        setImagenesCargadas(true);
       } catch (error) {
         console.error(error);
       }
     };
 
     obtenerImagenes();
-  }, []);
+  }, [backend]);
 
   return (
     <div className="container">

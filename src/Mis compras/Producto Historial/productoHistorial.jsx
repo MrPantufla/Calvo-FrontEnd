@@ -1,7 +1,7 @@
 import './productoHistorial.css';
-import perfil1 from '../../Imagenes/perfil1.webp';
 import { useProductos } from '../../contextProductos';
 import { useEffect, useState } from 'react';
+import { marcasUnicasPerfiles } from '../../rubros';
 
 export default function ProductoHistorial(args) {
 
@@ -44,10 +44,31 @@ export default function ProductoHistorial(args) {
         }
     }
 
+    let codigo;
+    marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
+
     return (
         <div className="contenedorPrincipalProductoHistorial">
             <div className="imagenProductoHistorialContainer">
-                <img src={perfil1} onContextMenu={handleContextMenu} />
+                <img
+                    src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
+                        (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
+                        :
+                        (producto.tipo_prod == 'ACCESORIO' ?
+                            (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                            :
+                            (producto.tipo_prod == 'PUNTUAL' ?
+                                (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                :
+                                (producto.tipo_prod == 'MAQUINAS' ?
+                                    (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                    :
+                                    ('')
+                                )
+                            )
+                        )
+                    }
+                    onContextMenu={handleContextMenu} />
                 <p>
                     <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''}
                 </p>
@@ -64,7 +85,7 @@ export default function ProductoHistorial(args) {
 
                 <p>CANTIDAD: {args.cantidad}</p>
                 <p>
-                    PRECIO: ${parseInt(args.precio * args.cantidad * ((producto && producto.rubro != 85) ? (kg || 1) : (1)))}<br/>
+                    PRECIO: ${parseInt(args.precio * args.cantidad * ((producto && producto.rubro != 85) ? (kg || 1) : (1)))}<br />
                     ({args.cantidad} x ${parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg || 1) : (1)))})
                 </p>
             </div>

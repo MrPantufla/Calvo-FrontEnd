@@ -345,6 +345,7 @@
 
     .bodyCarrito.open{
         max-height: 200rem !important;
+        width: 100%;
     }
 
     .confirmarCarrito{
@@ -367,7 +368,7 @@
 
     .contenedorPrincipalCarrito{
         position: absolute;
-        right: 6.5rem;
+        right: 9rem;
         top: 2rem !important;
         max-height: 115rem;
     }
@@ -375,7 +376,6 @@
     .botonCarrito{
         width: 7rem;
         height: 7rem;
-        margin-right: 2.5rem;
     }
 
     .botonCarrito .bi{

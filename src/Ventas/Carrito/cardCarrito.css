@@ -136,7 +136,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 9rem;
+    max-width: 11rem;
+    min-width: 9rem;
 }
 
 .muestraColorCardCarrito{
@@ -236,7 +237,8 @@
     }
 
     .colorCardCarritoContainer{
-        width: 12rem;
+        max-width: 15rem;
+        min-width: 13rem;
     }
 
     .textoColorCardCarrito{
@@ -257,7 +259,7 @@
     }
 
     .precioProductoCardCarrito, .precioUnitarioCardCarrito{
-        width: 12rem;
+        min-width: 12rem;
     }
 
     .precioProductoCardCarrito p, .precioUnitarioCardCarrito p{

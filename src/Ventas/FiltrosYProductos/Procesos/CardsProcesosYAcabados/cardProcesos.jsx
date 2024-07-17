@@ -20,6 +20,8 @@ export default function CardProcesos(args) {
         detalleArreglado = detalleArreglado.substring(0, detalleArreglado.length - 2) + 'CHAPAS';
     }
 
+    console.log(args.colorCorregido)
+
     return (
         <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={{ backgroundColor: `var(--${args.colorCorregido})` }}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
