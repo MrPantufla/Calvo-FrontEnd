@@ -56,9 +56,6 @@ export default function MisCompras() {
                     const data = await response.json();
                     setHistorial(data);
                 }
-                else{
-                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
-                }
                 
                 setRespuestaRecibida(true);
             }
