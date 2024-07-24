@@ -67,12 +67,17 @@ export default function Carrito() {
 
   const calcularTotal = (elementos) => {
     return elementos.reduce((total, elemento) => {
-      // Extraer el producto, proceso y acabado del elemento
+
       const idProducto = extraerProducto(elemento.id);
       const idProceso = extraerProceso(elemento.id);
       const idAcabado = extraerAcabado(elemento.id);
 
-      const producto = productosIndexado[idProducto];
+      let producto = productosIndexado[idProducto];
+
+      if(producto == null){
+        producto = productosSueltos[idProducto];
+      }
+
       let proceso = procesos[idProceso];
       let acabado = procesos[idAcabado];
 
