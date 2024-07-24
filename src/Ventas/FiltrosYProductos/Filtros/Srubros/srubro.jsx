@@ -53,6 +53,7 @@ export default function Srubro(args) {
                         </p>
                     </div>
                 </div>
+                <div className="coloresSrubrosContainer">
                 {srubroActivo === args.srubro.id && (
                     args.coloresUnicos.length > 0 && (
                         args.coloresUnicos.map((color) => (
@@ -69,6 +70,7 @@ export default function Srubro(args) {
                             </label>
                         ))
                     ))}
+                    </div>
             </label>
         </div>
     );

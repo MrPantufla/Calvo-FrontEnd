@@ -11,7 +11,7 @@ export default function Marcas(args) {
     marcasOrdenadas.unshift(marcaActiva);
 
     return (
-        <>
+        <div className="marcasRender">
             {(marcasOrdenadas.map((marca) => (
                 marca != null &&
                 <Marca
@@ -24,6 +24,6 @@ export default function Marcas(args) {
                     key={marca.nombre}
                 />
             )))}
-        </>
+        </div>
     );
 }

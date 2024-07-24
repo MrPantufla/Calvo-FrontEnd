@@ -34,13 +34,16 @@ export default function Srubros(args) {
 
     let srubrosFinal = srubrosStruct;
 
-    if (srubroActivo) {
+    if (srubroActivo && (args.rubro.id !== 39 && args.rubro.id !== 81 && args.rubro.id !== 85 && args.rubro.id !== 12 && args.rubro.id !== 'Maquinas' && args.rubro.id !== 'Herramientas')) {
         srubrosFinal = srubrosStruct.filter(srubro => srubro != undefined && (srubro.id != srubroActivo));
         srubrosFinal.unshift(srubrosStruct.find(srubro => srubro != undefined && (srubro.id == srubroActivo)));
     }
+    else{
+        srubrosFinal = srubrosStruct;
+    }
 
     return (
-        <>
+        <div className="srubrosRender">
             {(srubrosFinal.map((srubro, index) => (
                 srubro !== undefined &&
                 <Srubro
@@ -52,6 +55,6 @@ export default function Srubros(args) {
                     setPaginaActual={args.setPaginaActual}
                 />
             )))}
-        </>
+        </div>
     );
 }

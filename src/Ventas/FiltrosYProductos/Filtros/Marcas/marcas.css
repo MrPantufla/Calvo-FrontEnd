@@ -1,5 +1,11 @@
+.marcasRender{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .labelMarcas{
-    width: 95%;
+    width: 100%;
     justify-content: center;
     display: flex;
     align-items: center;
