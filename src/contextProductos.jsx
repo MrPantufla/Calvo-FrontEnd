@@ -59,7 +59,7 @@ function ProductosProvider({ children }) {
                     if (producto.tipo_prod != 'PROCESOS') {
                         if (producto.cod_orig.endsWith('-S')) {
                             const baseCod = producto.cod_orig.slice(0, -2);
-                            const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
+                            const referenciaPaquete = productosObtenidos.find(p => (p.cod_orig == baseCod));
 
                             if (!productosSueltosTemporal[producto.id]) {
                                 productosSueltosTemporal[producto.id] = [];
@@ -72,7 +72,7 @@ function ProductosProvider({ children }) {
                         }
                         else if (producto.cod_orig.endsWith('ES') && producto.tipo_prod == 'PERFIL') {
                             const baseCod = producto.cod_orig.slice(0, -1);
-                            const referenciaPaquete = productosObtenidos.find(producto => producto.cod_orig == baseCod);
+                            const referenciaPaquete = productosObtenidos.find(p => ((p.cod_orig == baseCod)) && (producto.color == p.color));
 
                             if (!productosSueltosTemporal[producto.id]) {
                                 productosSueltosTemporal[producto.id] = [];
