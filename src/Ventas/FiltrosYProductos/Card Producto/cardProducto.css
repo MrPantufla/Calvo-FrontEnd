@@ -37,7 +37,6 @@
 
 .imagenProducto:hover {
     scale: 1.04;
-    z-index: 2;
 }
 
 .detalleYCod_orig {
