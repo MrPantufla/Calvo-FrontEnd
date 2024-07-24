@@ -6,9 +6,9 @@ import { zonas, provincias, ciudades } from '../../ciudadesYProvincias.js';
 import { useTienda } from '../../contextTienda.jsx';
 
 export default function Registro() {
-    const { 
-        isTablet, 
-        isMobile 
+    const {
+        isTablet,
+        isMobile
     } = useTienda();
 
     const { backend } = useVariables();
@@ -23,38 +23,43 @@ export default function Registro() {
     const [provincia, setProvincia] = useState('');
     const [contrasenia, setContrasenia] = useState('');
     const [confirmContrasenia, setConfirmContrasenia] = useState('');
-
     const [provinciasDesplegado, setProvinciasDesplegado] = useState(false);
     const [busquedaProvincias, setBusquedaProvincias] = useState('');
     const provinciasRef = useRef(null);
-
     const [ciudadesDesplegado, setCiudadesDesplegado] = useState(false);
     const [busquedaCiudades, setBusquedaCiudades] = useState('');
     const ciudadesRef = useRef(null);
+    const [respuestaCargando, setRespuestaCargando] = useState(true);
 
     const handleRegistro = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const telefonoRegex = /[0-9]/;
+        const numerosRegex = /^[0-9]+$/;
         const container = document.getElementById("registro-container");
 
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono || !provincia || !ciudad) {
             setErrorMessage('Por favor, completa todos los campos.');
-
             return;
 
         } else if (!emailRegex.test(email)) {
             setErrorMessage('Ingrese un formato de correo electrónico válido.');
             return;
 
-        } else if (!telefonoRegex.test(telefono)) {
-            setErrorMessage('En el campo de teléfono solo ingrese números');
+        } else if (!numerosRegex.test(telefono)) {
+            setErrorMessage('El campo de teléfono solo permite números');
             return;
 
         } else if (contrasenia !== confirmContrasenia) {
             setErrorMessage('Las contraseñas no coinciden.');
             return;
-        } else if (cuit.length > 11){
-            setErrorMessage('Cuit puede contener hasta 11 caracteres')
+
+        } else if (cuit.length > 11) {
+            setErrorMessage('CUIT puede contener hasta 11 caracteres')
+            return;
+
+        } else if (!numerosRegex.test(cuit)) {
+            setErrorMessage('El campo de CUIT solo permite números')
+            return;
+
         } else {
             confirmarRegistro();
         }
@@ -66,6 +71,7 @@ export default function Registro() {
     };
 
     const confirmarRegistro = async () => {
+        setRespuestaCargando(false);
         const zonaEncontrada = zonas.find((zona) => zona.items.includes(ciudad.id));
 
         const usuario = {
@@ -77,7 +83,7 @@ export default function Registro() {
             localidad: ciudad.nombre,
             provincia: provincia.nombre,
             telefono: parseInt(telefono, 10),
-            zona: (zonaEncontrada && zonaEncontrada.nro ? ("ZONA " +(zonaEncontrada.nro < 10 ? ("0" + zonaEncontrada.nro) : (zonaEncontrada.nro))) : "S/ZONA")
+            zona: (zonaEncontrada && zonaEncontrada.nro ? ("ZONA " + (zonaEncontrada.nro < 10 ? ("0" + zonaEncontrada.nro) : (zonaEncontrada.nro))) : "S/ZONA")
         };
 
 
@@ -92,6 +98,7 @@ export default function Registro() {
 
         if (response.ok) {
             handleLogin({ email: usuario.email, password: usuario.contrasenia });
+            setRespuestaCargando(true);
             return null;
         } else {
             const data = await response.text();
@@ -104,6 +111,7 @@ export default function Registro() {
                     setErrorMessage(data);
                 }
             }
+            setRespuestaCargando(true);
         }
     };
 
@@ -176,6 +184,13 @@ export default function Registro() {
 
     return (
         <div className="registro-container" id="registro-container">
+            {respuestaCargando == false &&
+                <div className="cargandoRegistroContainer">
+                    <div className="spinner-border cargandoRespuestaRegistro" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            }
             <div className="errorRegistro errorFormulario">
                 {errorMessage !== '' && (
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill svgErrorFormulario" viewBox="0 0 16 16">

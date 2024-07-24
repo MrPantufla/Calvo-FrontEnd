@@ -10,6 +10,7 @@
     background-position: center;
     max-height: calc(100vh - 10rem);
     overflow: auto;
+    position: relative;
 }
 
 .registro-container::-webkit-scrollbar {
@@ -133,6 +134,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.cargandoRegistroContainer{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.cargandoRegistroContainer div{
+    width: 10rem;
+    height: 10rem;
 }
 
 @media (max-width: 912px){
