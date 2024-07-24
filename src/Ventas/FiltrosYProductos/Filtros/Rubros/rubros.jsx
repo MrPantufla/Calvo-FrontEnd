@@ -29,7 +29,7 @@ export default function Rubros(args) {
         if (rubroActivo !== null && rubroRefs.current[rubroActivo]) {
             rubroRefs.current[rubroActivo].scrollIntoView({
                 behavior: 'smooth',
-                block: 'nearest',
+                block: 'start',
             });
         }
     }, [rubroActivo, srubroActivo, marcaActiva]);
