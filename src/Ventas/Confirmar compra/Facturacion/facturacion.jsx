@@ -119,7 +119,7 @@ export function Facturacion() {
                     <div className="botonRealizarPedidoContainer">
                         <button
                             className="enviarFormulario botonRealizarPedido"
-                            onClick={() => { confirmarCompra(); limpiarCarrito(); setConfirmarCompraAbierto(false); setMostrarPagos(true); setDatosCorroborados(true) }}
+                            onClick={() => { confirmarCompra(); limpiarCarrito(); setConfirmarCompraAbierto(false); setDatosCorroborados(true) }}
                         >
                             Realizar pedido
                         </button>
