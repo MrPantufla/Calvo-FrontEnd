@@ -18,7 +18,6 @@ export default function Filtros(args) {
         procesosSelected,
         seleccionarProcesos,
         srubroActivo,
-        marcaActiva
     } = useTienda();
 
     const { guardarDestacados } = useProductos();
