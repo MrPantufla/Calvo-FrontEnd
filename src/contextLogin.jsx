@@ -22,7 +22,7 @@ export const LoginProvider = ({ children }) => {
   const [localidad, setLocalidad] = useState('');
   const [provincia, setProvincia] = useState('');
   const [direccionConfirmada, setDireccionConfirmada] = useState(false);
-
+  
   const [state, setState] = useState({
     logueado: false,
     userInfo: {}
