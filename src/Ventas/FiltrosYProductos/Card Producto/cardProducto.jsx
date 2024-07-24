@@ -144,7 +144,7 @@ export default function CardProducto(args) {
             añadirElemento(idParaUsar, 1);
           }
           else {
-            añadirElemento(productosSueltos[referencia].idParaUsar, 1);
+            añadirElemento(productosSueltos[referencia].id, 1);
           }
         }
       }
@@ -293,23 +293,23 @@ export default function CardProducto(args) {
         {state.userInfo &&
           ((state.userInfo.tipo_usuario == 'admin') &&
             <>
-              <button className="eliminarElemento" onClick={() => eliminarProducto(id)}>
+              <button className="eliminarElemento" onClick={() => eliminarProducto(id)} aria-label='eliminarElemento'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                   <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                 </svg>
               </button>
               <div className="destacadosContenedor">
-                <button className="flechasDestacados" onClick={() => cambiarPosicionDestacado(1)}>
+                <button className="flechasDestacados" onClick={() => cambiarPosicionDestacado(1)} aria-label='subirPosicionDestacados'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                 </button>
-                <button className={`estrellaDestacados ${productosDestacados.includes(idParaUsar) && 'checked'}`} onClick={() => destacarProducto(idParaUsar)}>
+                <button className={`estrellaDestacados ${productosDestacados.includes(idParaUsar) && 'checked'}`} onClick={() => destacarProducto(idParaUsar)} aria-label='destacarProducto'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star" viewBox="0 0 16 16">
                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
                   </svg>
                 </button>
-                <button className="flechasDestacados" onClick={() => cambiarPosicionDestacado(-1)}>
+                <button className="flechasDestacados" onClick={() => cambiarPosicionDestacado(-1)} aria-label='bajarPosicionDestacados'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
