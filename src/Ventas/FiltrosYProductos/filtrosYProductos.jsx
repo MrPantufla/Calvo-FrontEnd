@@ -13,7 +13,6 @@ import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
 import { rubrosPerfiles, marcasUnicasPerfiles, srubrosPerfiles, srubros85 } from '../../rubros';
 import { useCortinas } from '../../contextCortinas';
-import { useAuth } from '../../contextLogin';
 import Procesos from './Procesos/procesos';
 
 export default function FiltrosYProductos() {
@@ -41,8 +40,6 @@ export default function FiltrosYProductos() {
     stipoProceso,
     acabado,
   } = useTienda();
-
-  const { state } = useAuth();
 
   const {
     setMuestrasAbierto,
@@ -149,10 +146,6 @@ export default function FiltrosYProductos() {
       )))
     }
   }, [marcaActiva])
-
-  const toggleFiltros = () => {
-    setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen);
-  }
 
   const siguienteProducto = () => {
     const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
