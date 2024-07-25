@@ -74,7 +74,7 @@ export default function Carrito() {
 
       let producto = productosIndexado[idProducto];
 
-      if(producto == null){
+      if (producto == null) {
         producto = productosSueltos[idProducto];
       }
 
@@ -354,7 +354,7 @@ export default function Carrito() {
             }
             {elementos.length === 0 ? (
               <div className="carritoVacioContainer">
-                <img src={carritoVacioImg} alt=""/>
+                <img src={carritoVacioImg} alt="" />
                 <p>TU CARRITO ESTÁ VACÍO</p>
               </div>
             ) : (
