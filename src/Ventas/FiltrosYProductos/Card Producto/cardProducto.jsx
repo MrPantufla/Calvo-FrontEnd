@@ -250,7 +250,7 @@ export default function CardProducto(args) {
 
   if (args.acabado) {
     acabadoArreglado = acabado.detalle;
-    
+
     if (acabadoArreglado.slice(-2) == 'M2') {
       acabadoArreglado = acabadoArreglado.slice(0, -3);
     }
@@ -260,7 +260,7 @@ export default function CardProducto(args) {
     <div className={`contenedorPrincipalCardProducto ${precio == 0 && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
-          <img className="logoDecoracionCardProducto" src={logoBlanco} alt=""/>
+          <img className="logoDecoracionCardProducto" src={logoBlanco} alt="" />
         </div>
         {(tipo_prod != 'MAQUINAS' && !proceso) &&
           <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(idParaFavoritos, e)} aria-label='añadirAFavoritos'>
@@ -327,16 +327,36 @@ export default function CardProducto(args) {
             src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ?
               (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
               :
-              (tipo_prod == 'ACCESORIO' ?
-                (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+              (rubro == 10 ?
+                (`/ImagenesMosquiteros/${codigo.trim().toUpperCase()}.webp`)
                 :
-                (tipo_prod == 'PUNTUAL' ?
-                  (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                (rubro == 85 ?
+                  (`/ImagenesChapas/${codigo.trim().toUpperCase()}.webp`)
                   :
-                  (tipo_prod == 'MAQUINAS' ?
-                    (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                  (rubro == 4 ?
+                    (`/ImagenesPoliestirenos/${codigo.trim().toUpperCase()}.webp`)
                     :
-                    ('')
+                    (rubro == 43 ?
+                      (`/ImagenesPaneles/${codigo.trim().toUpperCase()}.webp`)
+                      :
+                      (rubro == 31 ?
+                        (`/ImagenesPolicarbonatos/${codigo.trim().toUpperCase()}.webp`)
+                        :
+                        (tipo_prod == 'ACCESORIO' ?
+                          (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                          :
+                          (tipo_prod == 'PUNTUAL' ?
+                            (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                            :
+                            (tipo_prod == 'MAQUINAS' ?
+                              (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                              :
+                              ('')
+                            )
+                          )
+                        )
+                      )
+                    )
                   )
                 )
               )

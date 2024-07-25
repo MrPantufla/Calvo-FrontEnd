@@ -41,10 +41,42 @@ export default function CardFavoritos(args) {
                     <img
                         className="imagenCardFavoritos"
                         onContextMenu={handleContextMenu}
-                        src={args.producto.tipo_prod == 'PERFIL' ?
+                        src={marcasUnicasPerfiles.find(marcaPerfil => args.producto.marca == marcaPerfil) ?
                             (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
                             :
-                            (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                            (args.producto.rubro == 10 ?
+                                (`/ImagenesMosquiteros/${codigo.trim().toUpperCase()}.webp`)
+                                :
+                                (args.producto.rubro == 85 ?
+                                    (`/ImagenesChapas/${codigo.trim().toUpperCase()}.webp`)
+                                    :
+                                    (args.producto.rubro == 4 ?
+                                        (`/ImagenesPoliestirenos/${codigo.trim().toUpperCase()}.webp`)
+                                        :
+                                        (args.producto.rubro == 43 ?
+                                            (`/ImagenesPaneles/${codigo.trim().toUpperCase()}.webp`)
+                                            :
+                                            (args.producto.rubro == 31 ?
+                                                (`/ImagenesPolicarbonatos/${codigo.trim().toUpperCase()}.webp`)
+                                                :
+                                                (args.producto.tipo_prod == 'ACCESORIO' ?
+                                                    (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                                                    :
+                                                    (args.producto.tipo_prod == 'PUNTUAL' ?
+                                                        (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                                        :
+                                                        (args.producto.tipo_prod == 'MAQUINAS' ?
+                                                            (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                                            :
+                                                            ('')
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
                         }
                         alt="Imagen del producto"
                         loading="lazy"

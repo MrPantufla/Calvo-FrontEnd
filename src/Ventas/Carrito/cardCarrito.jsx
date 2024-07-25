@@ -103,9 +103,9 @@ export default function CardCarrito(args) {
 
     let acabadoArreglado;
 
-    if(acabado){
+    if (acabado) {
         acabadoArreglado = acabado.detalle;
-        if(acabadoArreglado.slice(-2) == 'M2'){
+        if (acabadoArreglado.slice(-2) == 'M2') {
             acabadoArreglado = acabadoArreglado.slice(0, -3);
         }
     }
@@ -120,18 +120,38 @@ export default function CardCarrito(args) {
                         src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
                             (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
                             :
-                            (producto.tipo_prod == 'ACCESORIO' ?
-                              (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
-                              :
-                              (producto.tipo_prod == 'PUNTUAL' ?
-                                (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                            (producto.rubro == 10 ?
+                                (`/ImagenesMosquiteros/${codigo.trim().toUpperCase()}.webp`)
                                 :
-                                (producto.tipo_prod == 'MAQUINAS' ?
-                                  (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
-                                  :
-                                  ('')
+                                (producto.rubro == 85 ?
+                                    (`/ImagenesChapas/${codigo.trim().toUpperCase()}.webp`)
+                                    :
+                                    (producto.rubro == 4 ?
+                                        (`/ImagenesPoliestirenos/${codigo.trim().toUpperCase()}.webp`)
+                                        :
+                                        (producto.rubro == 43 ?
+                                            (`/ImagenesPaneles/${codigo.trim().toUpperCase()}.webp`)
+                                            :
+                                            (producto.rubro == 31 ?
+                                                (`/ImagenesPolicarbonatos/${codigo.trim().toUpperCase()}.webp`)
+                                                :
+                                                (producto.tipo_prod == 'ACCESORIO' ?
+                                                    (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                                                    :
+                                                    (producto.tipo_prod == 'PUNTUAL' ?
+                                                        (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                                        :
+                                                        (producto.tipo_prod == 'MAQUINAS' ?
+                                                            (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                                            :
+                                                            ('')
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
                                 )
-                              )
                             )
                         }
                         alt="Imagen del producto"
@@ -190,7 +210,7 @@ export default function CardCarrito(args) {
                         <p>({args.cantidadCarrito} x
                             ${parseInt(
                                 producto.rubro == 85 ?
-                                (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
+                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
                                     :
                                     ((producto.kg > 0) ?
                                         (producto.precio * producto.kg +

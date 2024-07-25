@@ -1,7 +1,6 @@
 import './productoGrande.css';
 import ca from '../../../Imagenes/ca.webp';
 import { useCarrito } from '../../../contextCarrito.jsx';
-import { useAuth } from '../../../contextLogin.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
 import { useState } from 'react';
 import { marcasUnicasPerfiles } from '../../../rubros.js';
@@ -28,16 +27,10 @@ export default function ProductoGrande(args) {
 
     const [aptoParaCerrar, setAptoParaCerrar] = useState(false)
 
-    const {
-        state,
-        setMostrarLogin
-    } = useAuth();
-
     const { isMobile } = useTienda();
 
-    const { añadirElemento, restarElemento, elementos: elementosCarrito } = useCarrito();
+    const { elementos: elementosCarrito } = useCarrito();
     const elementoExistente = elementosCarrito.find((elemento) => elemento.id === id);
-    const cantidadCarrito = elementoExistente ? elementoExistente.cantidadCarrito : 0;
     const colorCorregido = (color).replace(/\s+/g, '-');
     const [cantidadSeleccionada, setCantidadSeleccionada] = useState(null);
 
@@ -75,7 +68,7 @@ export default function ProductoGrande(args) {
         <div className="contenedorPrincipalProductoGrande" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleClose}>
             <div className="parteUtilizableProductoGrande" onMouseDown={handleParteUtilizableClick} onMouseUp={handleParteUtilizableClick}>
                 <div className="logoProductoGrandeContainer">
-                    <img className="logoProductoGrande" src={ca} alt=""/>
+                    <img className="logoProductoGrande" src={ca} alt="" />
                 </div>
 
                 <div className="parteInternaUtilizableProductoGrande">
@@ -102,16 +95,36 @@ export default function ProductoGrande(args) {
                             src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ?
                                 (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
                                 :
-                                (tipo_prod == 'ACCESORIO' ?
-                                    (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                                (rubro == 10 ?
+                                    (`/ImagenesMosquiteros/${codigo.trim().toUpperCase()}.webp`)
                                     :
-                                    (tipo_prod == 'PUNTUAL' ?
-                                        (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                    (rubro == 85 ?
+                                        (`/ImagenesChapas/${codigo.trim().toUpperCase()}.webp`)
                                         :
-                                        (tipo_prod == 'MAQUINAS' ?
-                                            (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                        (rubro == 4 ?
+                                            (`/ImagenesPoliestirenos/${codigo.trim().toUpperCase()}.webp`)
                                             :
-                                            ('')
+                                            (rubro == 43 ?
+                                                (`/ImagenesPaneles/${codigo.trim().toUpperCase()}.webp`)
+                                                :
+                                                (rubro == 31 ?
+                                                    (`/ImagenesPolicarbonatos/${codigo.trim().toUpperCase()}.webp`)
+                                                    :
+                                                    (tipo_prod == 'ACCESORIO' ?
+                                                        (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                                                        :
+                                                        (tipo_prod == 'PUNTUAL' ?
+                                                            (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                                            :
+                                                            (tipo_prod == 'MAQUINAS' ?
+                                                                (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                                                :
+                                                                ('')
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
                                         )
                                     )
                                 )
