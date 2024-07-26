@@ -38,6 +38,7 @@ export default function FiltrosYProductos() {
     marcaActiva,
     procesosSelected,
     stipoProceso,
+    tipoProceso,
     acabado,
     setMenuAbierto
   } = useTienda();
@@ -316,7 +317,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {!(cortinasSelected || (procesosSelected && (!acabado || !stipoProceso))) &&
+      {!(cortinasSelected || (procesosSelected && (!tipoProceso || !stipoProceso || ((stipoProceso && stipoProceso.detalle.includes("ANODIZADO")) && !acabado)))) &&
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}
