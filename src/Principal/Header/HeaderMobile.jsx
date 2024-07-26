@@ -10,7 +10,10 @@ import { useFavoritos } from '../../contextFavoritos';
 import { useCarrito } from '../../contextCarrito';
 
 export default function HeaderMobile() {
-    const [menuAbierto, setMenuAbierto] = useState(false);
+    const {
+        menuAbierto, 
+        setMenuAbierto
+    } = useTienda();
 
     const location = useLocation();
 

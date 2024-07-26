@@ -25,6 +25,7 @@ function TiendaProvider({ children }) {
   const [tipoProceso, setTipoProceso] = useState(null);
   const [stipoProceso, setStipoProceso] = useState(null);
   const [acabado, setAcabado] = useState(null);
+  const [menuAbierto, setMenuAbierto] = useState(false);
   
   const {
     setOrdenamientoActivo
@@ -186,7 +187,9 @@ function TiendaProvider({ children }) {
       stipoProceso,
       setStipoProceso,
       acabado,
-      setAcabado
+      setAcabado,
+      menuAbierto,
+      setMenuAbierto
     }}>
       {children}
     </TiendaContext.Provider>

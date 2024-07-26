@@ -39,6 +39,7 @@ export default function FiltrosYProductos() {
     procesosSelected,
     stipoProceso,
     acabado,
+    setMenuAbierto
   } = useTienda();
 
   const {
@@ -169,7 +170,7 @@ export default function FiltrosYProductos() {
   useEffect(() => {
     if (isMobile) {
       const handleDocumentClick = (event) => {
-        if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer')) {
+        if (filtrosYBusquedaOpen && !event.target.closest('.filtrosYBusqueda') && !event.target.closest('.botonMostrarFiltrosContainer') && !event.target.closest('.labelSrubro')) {
           setFiltrosYBusquedaOpen(false)
         }
       }
@@ -183,7 +184,16 @@ export default function FiltrosYProductos() {
           (cortinasSelected && !filtrosYBusquedaOpen) && (setMuestrasAbierto(true));
         }
         else if (diffX > 100) { // Abre el menú si el movimiento es de izquierda a derecha y el menú está cerrado
-          productoSeleccionado != null ? (productoAnterior()) : (!muestrasAbierto && setFiltrosYBusquedaOpen(true));
+
+          if (productoSeleccionado != null) {
+            productoAnterior()
+          }
+          else {
+            if (!muestrasAbierto) {
+              setFiltrosYBusquedaOpen(true);
+              setMenuAbierto(false);
+            }
+          }
           (cortinasSelected && !filtrosYBusquedaOpen) && (setMuestrasAbierto(false));
         }
       };
@@ -227,9 +237,9 @@ export default function FiltrosYProductos() {
   };
 
   return (
-    <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'}`}>
+    <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'} ${procesosSelected && 'procesos'}`}>
       <div className="decoracionTienda" />
-      <div className="filtrosYProductosContainer">
+      <div className="filtrosYProductosContainer" style={{ minHeight: (procesosSelected && !isMobile) ? 'calc(100vh - 12rem)' : undefined }}>
         {isTablet ?
           (<>
             <Carrito />
