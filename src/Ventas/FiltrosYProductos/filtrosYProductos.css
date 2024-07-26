@@ -38,6 +38,10 @@
     padding-top: 10.1rem;
 }
 
+.contenedorPrincipalFiltrosYProductos.mobile.procesos {
+    justify-content: center;
+}
+
 .decoracionTienda {
     position: fixed;
     height: 100%;
