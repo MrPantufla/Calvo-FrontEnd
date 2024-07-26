@@ -43,7 +43,6 @@ const srubros39 = [
 ]
 
 const srubros43 = [
-   { id: 0, nombre: 'Armado' },
    { id: 65, nombre: 'Liso' },
    { id: 52, nombre: 'Moldurado' },
    { id: 92, nombre: 'Ranurado' }
