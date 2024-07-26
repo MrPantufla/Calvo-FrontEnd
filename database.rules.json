@@ -27,7 +27,7 @@
       ".indexOn": ["producto"]
     },
     "productos_eliminados_ecommerce":{
-      ".indexOn": ["producto"]
+      ".indexOn": ["producto", "id"]
     },
     "productos":{
       ".indexOn": ["cod_int", "id"]
