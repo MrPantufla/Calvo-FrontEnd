@@ -44,7 +44,8 @@ export default function ProductoGrande(args) {
         color == 'Simil madera' ||
         color == 'Platil' ||
         color == 'Peltre' ||
-        color == 'Fume'
+        color == 'Fume' ||
+        color == 'Gris azulado'
     );
 
     const handleClose = () => {

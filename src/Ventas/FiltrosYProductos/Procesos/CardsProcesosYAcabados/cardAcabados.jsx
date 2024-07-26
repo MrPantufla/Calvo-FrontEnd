@@ -24,6 +24,19 @@ export default function CardAcabados(args) {
         detalleArreglado = detalleArreglado.slice(0, -5)
     }
 
+    const usarBlanco = (args.colorCorregido == 'Negro' ||
+        args.colorCorregido == 'Azul' ||
+        args.colorCorregido == 'Marron-oscuro' ||
+        args.colorCorregido == 'Bronce-oscuro' ||
+        args.colorCorregido == 'Simil-madera' ||
+        args.colorCorregido == 'Platil' ||
+        args.colorCorregido == 'Peltre' ||
+        args.colorCorregido == 'Fume' ||
+        args.colorCorregido == 'Rojo' ||
+        args.colorCorregido == 'Gris-azulado' ||
+        args.colorCorregido == 'Bronce-medio'
+    );
+
     return (
         <div className="cardProceso" onClick={() => setAcabado(args.acabado)} style={{ backgroundImage: `url(/ImagenesAcabados/${args.acabado.id}.webp)`, backgroundSize: `cover`, backgroundColor: `white` }}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
@@ -34,7 +47,7 @@ export default function CardAcabados(args) {
                 </button>
             }
 
-            <h1>{detalleArreglado}</h1>
+            <h1 style={usarBlanco ? { color: 'white' } : {}}>{detalleArreglado}</h1>
         </div>
     );
 }

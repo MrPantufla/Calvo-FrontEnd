@@ -16,11 +16,22 @@ export default function CardProcesos(args) {
     }
 
     let detalleArreglado = args.proceso.detalle;
-    if(detalleArreglado.slice(-2) == 'M2'){
+    if (detalleArreglado.slice(-2) == 'M2') {
         detalleArreglado = detalleArreglado.substring(0, detalleArreglado.length - 2) + 'CHAPAS';
     }
 
-    console.log(args.colorCorregido)
+    const usarBlanco = (args.colorCorregido == 'Negro' ||
+        args.colorCorregido == 'Azul' ||
+        args.colorCorregido == 'Marron-oscuro' ||
+        args.colorCorregido == 'Bronce-oscuro' ||
+        args.colorCorregido == 'Simil-madera' ||
+        args.colorCorregido == 'Platil' ||
+        args.colorCorregido == 'Peltre' ||
+        args.colorCorregido == 'Fume' ||
+        args.colorCorregido == 'Rojo' ||
+        args.colorCorregido == 'Gris-azulado' ||
+        args.colorCorregido == 'Bronce-medio'
+    );
 
     return (
         <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={{ backgroundColor: `var(--${args.colorCorregido})` }}>
@@ -32,7 +43,7 @@ export default function CardProcesos(args) {
                 </button>
             }
 
-            <h1>{detalleArreglado}</h1>
+            <h1 style={usarBlanco ? { color: 'white' } : {}}>{detalleArreglado}</h1>
         </div>
     );
 }

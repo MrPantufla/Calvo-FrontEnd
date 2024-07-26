@@ -130,7 +130,10 @@ export default function CardProducto(args) {
     color == 'Platil' ||
     color == 'Peltre' ||
     color == 'Fume' ||
-    color == 'Rojo'
+    color == 'Rojo' ||
+    color == 'Gris azulado' ||
+    color == 'Bronce medio' ||
+    color == 'Bronce oscuro'
   );
 
   const sumarContador = () => {

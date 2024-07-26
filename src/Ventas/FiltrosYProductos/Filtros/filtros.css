@@ -6,9 +6,9 @@
     user-select: none;
     overflow: auto;
     width: 90%;
-    height: calc(100vh - 9rem - 8rem);
+    height: calc(100vh - 9rem - 8.1rem);
     background-color: rgba(229, 229, 229, 40%);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
 }
 
 .filtros::-webkit-scrollbar {

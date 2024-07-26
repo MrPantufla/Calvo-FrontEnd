@@ -54,7 +54,6 @@ h1{
   --Verde: green;
   --Oro: #d8b43c;
   --Negro: black;
-  --Bronce: #c06424;
   --Zinc: #988c8c;
   --Naranja: orange;
   --Acero: #88848c;
@@ -64,19 +63,21 @@ h1{
   --Varios: #FFFFFF;
   --Incoloro: #FFFFFF;
   --Rojo: red;
-  --Bronce-pulido: linear-gradient(#b47c3c, #fccc74, #b47c3c);
+  --Bronce-pulido: linear-gradient(#776b63, #b49c7c);
   --Satinado: #FFFFFF;
-  --Bronce-satinado: #c06424;
+  --Bronce-satinado: linear-gradient(#776b63, #b49c7c);
   --Simil-madera: #94542b;
   --Guatambu: #c39454;
   --Marron-claro: #d4a86c;
   --Marron-oscuro: #603414;
   --Peltre: #796e6d;
   --Champagne: #f0dcbc;
-  --Bronce: #c06424;
-  --Bronce-medio: #74634b;
-  --Bronce-oscuro: #544341;
+  --Bronce: #685c34;
+  --Bronce-medio: #40391d;
+  --Bronce-oscuro: #281c14;
   --Beige: #e5c096;
+  --Gris-azulado: #4b4e53;
+  --Opalina: #c8d0d6;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
