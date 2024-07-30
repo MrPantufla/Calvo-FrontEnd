@@ -44,8 +44,6 @@ export default function CardProducto(args) {
     precio = { precio },
     kg = { kg },
     cod_int = { cod_int },
-    pesos = { pesos },
-    dolar = { dolar },
     referencia = { referencia },
     cantidad = { cantidad },
   } = args.producto;
