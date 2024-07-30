@@ -79,8 +79,17 @@ export default function FiltrosYProductos() {
       rubroActivo == 'Perfiles' && marcasUnicasPerfiles.includes(p.marca) ||
       rubroActivo == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
       rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
+      rubroActivo == 'Accesorios' && p.rubro == 8 ||
+      rubroActivo == 'Automatismos' && p.rubro == 12 ||
+      rubroActivo == 'Chapas' && p.rubro == 85 ||
+      rubroActivo == 'Paneles' && p.rubro == 43 ||
+      rubroActivo == 'Policarbonatos' && p.rubro == 31 ||
+      rubroActivo == 'Poliestirenos' && p.rubro == 4 ||
+      rubroActivo == 'PuertasPlacas' && p.rubro == 81 ||
+      rubroActivo == 'TejidosMosquiteros' && p.rubro == 10 ||
       procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicasPerfiles.includes(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
       procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
+
 
     const colorCumple =
       coloresActivos.length === 0 ||
@@ -103,7 +112,6 @@ export default function FiltrosYProductos() {
     else {
       return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado;
     }
-
   });
 
   const listaFiltrada = Object.values(listaPreFiltrada).filter((p) => {
@@ -258,11 +266,13 @@ export default function FiltrosYProductos() {
             setBusqueda={setBusqueda}
             setPaginaActual={setPaginaActual}
           />
-          <Filtros
-            srubrosUnicos={srubrosUnicos}
-            coloresUnicos={coloresUnicos}
-            setPaginaActual={setPaginaActual}
-          />
+          {((marcaActiva && srubrosUnicos.length > 0) || marcaActiva == null || true) &&
+            <Filtros
+              srubrosUnicos={srubrosUnicos}
+              coloresUnicos={coloresUnicos}
+              setPaginaActual={setPaginaActual}
+            />
+          }
           {isMobile &&
             <button className={`botonFiltros ${filtrosYBusquedaOpen && 'abierto'}`} onClick={() => setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen)} aria-label='abrirOCerrarFiltros'>
               <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -280,28 +290,26 @@ export default function FiltrosYProductos() {
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
                 :
-                (<>
-                  <div className="row rowProductos">
-                    {dataCargada == true ?
-                      (<>
-                        {itemsActuales.map((producto) => (
-                          <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                            <CardProducto
-                              producto={producto}
-                              onClick={() => {
-                                seleccionarProducto(producto);
-                              }}
-                            />
-                          </div>
-                        ))}
-                      </>)
-                      :
-                      (<div className="spinner-border cargandoProductos" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                      </div>)
-                    }
-                  </div>
-                </>)
+                <div className="row rowProductos">
+                  {dataCargada == true ?
+                    (<>
+                      {itemsActuales.map((producto) => (
+                        <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                          <CardProducto
+                            producto={producto}
+                            onClick={() => {
+                              seleccionarProducto(producto);
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </>)
+                    :
+                    (<div className="spinner-border cargandoProductos" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>)
+                  }
+                </div>
               }
             </>)
           }
