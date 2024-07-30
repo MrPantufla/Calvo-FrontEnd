@@ -30,7 +30,7 @@ export default function Srubro(args) {
 
     return (
         <div className={`bodyFiltro bodyFiltroPerfil ${rubroActivo === args.rubro.id ? 'checked' : ''}`} key={`${args.srubro.id}.${args.index}`}>
-            <label id="labelSrubro" className={`labelSrubro ${srubroActivo === args.srubro.id ? 'checked' : ''} ${args.coloresUnicos.length > 0 && 'conColores'}`} key={`${args.rubro.id}.${args.srubro.id}`}>
+            <label id="labelSrubro" className={`labelSrubro ${parseInt(srubroActivo) === args.srubro.id ? 'checked' : ''} ${args.coloresUnicos.length > 0 && 'conColores'}`} key={`${args.rubro.id}.${args.srubro.id}`}>
                 <div className="nombreSrubro">
                     <input
                         className="srubroCheck"
