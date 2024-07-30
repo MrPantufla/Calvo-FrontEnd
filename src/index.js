@@ -25,7 +25,5 @@ root.render(
         </ConfiguracionProvider>
       </LoginProvider>
     </ProductosProvider>
-
-
   </VariablesProvider>
 );
