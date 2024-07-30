@@ -17,10 +17,10 @@ function App() {
   const { mostrarCartelCliente } = useAuth();
 
   return (
-    <TiendaProvider>
-      <DesplegableProviderCatalogos>
-        <DesplegableProviderPerfil>
-          <Router>
+    <DesplegableProviderCatalogos>
+      <DesplegableProviderPerfil>
+        <Router>
+          <TiendaProvider>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/tienda" element={<Ventas />} />
@@ -29,12 +29,11 @@ function App() {
               <Route path="/editarUsuarios" element={<EditarUsuarios />} />
             </Routes>
             {mostrarCartelCliente == true && <CartelCliente />}
-          </Router>
-          <LoginYRegistro />
-        </DesplegableProviderPerfil>
-      </DesplegableProviderCatalogos>
-    </TiendaProvider>
-
+          </TiendaProvider>
+        </Router>
+        <LoginYRegistro />
+      </DesplegableProviderPerfil>
+    </DesplegableProviderCatalogos>
   );
 }
 
