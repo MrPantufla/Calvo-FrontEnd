@@ -1,4 +1,4 @@
-export const srubros8 = [
+export const srubrosAccesorios = [
    { id: 102, nombre: 'Acrilico' },
    { id: 68, nombre: 'Antipánico' },
    { id: 86, nombre: 'Baranda' },
@@ -23,50 +23,50 @@ export const srubros8 = [
    { id: 60, nombre: 'Sellador' },
    { id: 90, nombre: 'Tapon/tope' },
    { id: 41, nombre: 'Tornillo' },
-   { id: 57, nombre: 'Vidriería' }
+   { id: 57, nombre: 'Vidriería' },
 ]
 
-const srubros12 = [
+const srubrosAutomatismos = [
    { id: 85, nombre: 'Central' },
    { id: 44, nombre: 'Control' },
    { id: 84, nombre: 'Motor' },
-   { id: 56, nombre: 'Tecla' }
+   { id: 56, nombre: 'Tecla' },
 ]
 
-export const srubros85 = [
+export const srubrosChapas = [
    { id: 65, nombre: 'Lisa' },
 ]
 
-const srubros39 = [
+const srubrosHerramientas = [
    { id: 67, nombre: 'Carpintería' },
-   { id: 57, nombre: 'Vidriería' }
+   { id: 57, nombre: 'Vidriería' },
 ]
 
-const srubros43 = [
+const srubrosPaneles = [
    { id: 65, nombre: 'Liso' },
    { id: 52, nombre: 'Moldurado' },
-   { id: 92, nombre: 'Ranurado' }
+   { id: 92, nombre: 'Ranurado' },
 ]
 
-const srubros31 = [
+const srubrosPolicarbonatos = [
    { id: 69, nombre: 'Alveolar' },
    { id: 66, nombre: 'Compacto' }
 ]
 
-const srubros4 = [
+const srubrosPoliestirenos = [
    { id: 35, nombre: 'Grabado' },
-   { id: 65, nombre: 'Liso' }
+   { id: 65, nombre: 'Liso' },
 ]
 
-const srubros81 = [
+const srubrosPuertasPlacas = [
    { id: 31, nombre: 'Hoja sola' },
    { id: 72, nombre: 'Marco de luminio' },
-   { id: 89, nombre: 'Puerta embutir' }
+   { id: 89, nombre: 'Puerta embutir' },
 ]
 
-const srubros10 = [
+const srubrosTejidosMosquiteros = [
    { id: 43, nombre: 'Aluminio' },
-   { id: 36, nombre: 'Fibra' }
+   { id: 36, nombre: 'Fibra' },
 ]
 
 export const srubrosPerfiles = [
@@ -94,12 +94,12 @@ export const srubrosPerfiles = [
    { id: 15, nombre: 'Tapajunta' },
    { id: 32, nombre: 'Tubo' },
    { id: 19, nombre: 'U' },
-   { id: 20, nombre: 'Vidrio repartido' }
+   { id: 20, nombre: 'Vidrio repartido' },
 ]
 
 export const rubrosProcesos = [
-   {nombre: 'Anodizados', items: [88]},
-   {nombre: 'Pinturas', items: [67, 78, 3, 73]},
+   { nombre: 'Anodizados', items: [88] },
+   { nombre: 'Pinturas', items: [67, 78, 3, 73] },
 ]
 
 export const marcasPerfiles = [ //Los universales se agregan en cada marca que queremos que aparezcan
@@ -107,7 +107,7 @@ export const marcasPerfiles = [ //Los universales se agregan en cada marca que q
    { nombre: 'MODENA', items: [2, 108, 144, 145] },
    { nombre: 'A30', items: [65, 114, 144, 145] },
    { nombre: 'HERRERO ECO', items: [105, 146, 148, 150] },
-   { nombre: 'MODENA ECO', items: [146, 147, 149, 150] }
+   { nombre: 'MODENA ECO', items: [146, 147, 149, 150] },
 ]
 
 export const marcasUnicasPerfiles = [...new Set(marcasPerfiles.reduce((acc, marca) => {
@@ -118,14 +118,14 @@ export const rubrosPerfiles = [58, 60, 2, 59, 61, 13, 28, 5, 21, 8, 39, 12, 70, 
 
 export const rubros = [
    { id: 'Perfiles', nombre: 'PERFILES', srubros: srubrosPerfiles, marcas: marcasPerfiles },
-   { id: 8, nombre: 'ACCESORIOS', srubros: srubros8 },
-   { id: 12, nombre: 'AUTOMATISMOS', srubros: srubros12 },
-   { id: 85, nombre: 'CHAPAS', srubros: srubros85 },
-   { id: 'Herramientas', nombre: 'HERRAMIENTAS', srubros: srubros39 },
-   { id: 43, nombre: 'PANELES', srubros: srubros43 },
-   { id: 31, nombre: 'POLICARBONATOS', srubros: srubros31 },
-   { id: 4, nombre: 'POLIESTIRENOS', srubros: srubros4 },
-   { id: 81, nombre: 'PUERTAS PLACAS', srubros: srubros81 },
-   { id: 10, nombre: 'TEJIDOS MOSQUITEROS', srubros: srubros10 },
-   { id: 'Maquinas', nombre: 'MÁQUINAS', srubros: srubros39 },
+   { id: 'Accesorios', nombre: 'ACCESORIOS', srubros: srubrosAccesorios },
+   { id: 'Automatismos', nombre: 'AUTOMATISMOS', srubros: srubrosAutomatismos },
+   { id: 'Chapas', nombre: 'CHAPAS', srubros: srubrosChapas },
+   { id: 'Herramientas', nombre: 'HERRAMIENTAS', srubros: srubrosHerramientas },
+   { id: 'Paneles', nombre: 'PANELES', srubros: srubrosPaneles },
+   { id: 'Policarbonatos', nombre: 'POLICARBONATOS', srubros: srubrosPolicarbonatos },
+   { id: 'Poliestirenos', nombre: 'POLIESTIRENOS', srubros: srubrosPoliestirenos },
+   { id: 'PuertasPlacas', nombre: 'PUERTAS PLACAS', srubros: srubrosPuertasPlacas },
+   { id: 'TejidosMosquiteros', nombre: 'TEJIDOS MOSQUITEROS', srubros: srubrosTejidosMosquiteros },
+   { id: 'Maquinas', nombre: 'MÁQUINAS', srubros: srubrosHerramientas },
 ];
