@@ -83,11 +83,11 @@ function TiendaProvider({ children }) {
       if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas') {
         setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === rubro));
       } else {
-        if (rubro === 'Cortinas') {
+        if (rubro == 'Cortinas') {
           setCortinasSelected(true);
-        } else if (rubro === 'Procesos') {
+        } else if (rubro == 'Procesos') {
           setProcesosSelected(true);
-        } else if (rubro === 'Eliminados') {
+        } else if (rubro == 'Eliminados') {
           setEliminadosSelected(true);
         }
       }
@@ -111,13 +111,15 @@ function TiendaProvider({ children }) {
   useEffect(() => {
     if (marcas.length > 0 && rubros.length > 0) {
       const params = new URLSearchParams();
+
       if (rubroActivo) {
         params.set('rubro', rubroActivo.id);
       }
       else if (procesosSelected && Object.keys(procesos).length > 0) {
         params.set('rubro', 'Procesos');
       }
-      else if (cortinasSelected) {
+
+      if (cortinasSelected) {
         params.set('rubro', 'Cortinas')
       }
       else if (eliminadosSelected) {
