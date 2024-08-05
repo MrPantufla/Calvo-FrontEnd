@@ -6,7 +6,8 @@ export default function CardCategoria(args) {
     const navigate = useNavigate();
     
     const {
-        togglearRubro,
+        rubros,
+        setRubroActivo,
         seleccionarCortinas
     } = useTienda();
 
@@ -14,18 +15,27 @@ export default function CardCategoria(args) {
         navigate('/tienda');
         setTimeout(() => {
             window.scrollTo(0, 0);
-            args.cat == 'POLICARBONATOS Y POLIESTIRENOS' ? (togglearRubro(31)) : (togglearRubro(args.referencia));
-            args.cat == 'CORTINAS' && (seleccionarCortinas())
+
+            let nav = args.referencia;
+
+            nav == 'PolicarbonatosYPoliestirenos' && (nav = 'Policarbonatos');
+            nav == 'Máquinas' && (nav = 'Maquinas');
+
+            if(nav == 'Cortinas'){
+                seleccionarCortinas(); 
+            }
+            else{
+                setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === nav));
+            }
         }, 100);
     };
-
 
     return (
         <div className="contenedorPrincipalCardCategoria" onClick={navegarACategoria}>
             <p className="nombreCategoria">{args.cat}</p>
             <div className="imagenContainerCategoria">
                 <div className="sombraInterna"></div>
-                <img className="imagenCategoria" src={/*imagen*/`/Categorias/${args.imagen}.jpeg`} alt="Imagen de la categoría" />
+                <img className="imagenCategoria" src={`/Categorias/${args.imagen}.webp`} alt="Imagen de la categoría" />
             </div>
         </div>
     );
