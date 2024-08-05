@@ -19,8 +19,6 @@ export default function ProductoGrande(args) {
         color = { color },
         kg = { kg },
         cod_int = { cod_int },
-        pesos = { pesos },
-        dolar = { dolar },
         referencia = { referencia },
         cantidad = { cantidad },
     } = args.producto;
