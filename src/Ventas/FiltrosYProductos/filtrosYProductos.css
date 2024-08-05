@@ -18,6 +18,7 @@
 .productos {
     padding-right: 1rem;
     min-height: calc(100vh - 19rem);
+    z-index: 1;
 }
 
 .contenedorPrincipalFiltrosYProductos {
@@ -36,10 +37,6 @@
 
 .contenedorPrincipalFiltrosYProductos.mobile {
     padding-top: 10.1rem;
-}
-
-.contenedorPrincipalFiltrosYProductos.mobile.procesos {
-    justify-content: center;
 }
 
 .decoracionTienda {
@@ -95,6 +92,20 @@
     flex-direction: row;
 }
 
+.textoPanelesPersonalizados{
+    background-color: var(--colorPrimario);
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 2.5rem;
+    font-weight: 500;
+}
+
+@media (max-width: 1023px){
+    .textoPanelesPersonalizados{
+        margin-top: 3rem;
+    }
+}
+
 @media (max-width: 767px) {
     .filtrosYBusqueda:not(.open) {
         border: none;
@@ -136,6 +147,11 @@
     
     .productos{
         min-height: calc(100vh - 26.5rem);
+    }
+
+    .textoPanelesPersonalizados{
+        font-size: 3rem;
+        margin-top: 4rem;
     }
 }
 

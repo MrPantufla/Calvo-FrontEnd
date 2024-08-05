@@ -2,7 +2,6 @@ import './rubros.css';
 import { useEffect, useRef } from 'react';
 import { useTienda } from '../../../../contextTienda';
 import Srubros from '../Srubros/srubros.jsx';
-import { rubros } from '../../../../rubros.js';
 import Marcas from '../Marcas/marcas.jsx';
 
 export default function Rubros(args) {
@@ -13,7 +12,8 @@ export default function Rubros(args) {
         setEliminadosSelected,
         setColoresActivos,
         srubroActivo,
-        marcaActiva
+        marcaActiva,
+        rubros
     } = useTienda();
 
     const rubroRefs = useRef([]);
@@ -26,8 +26,8 @@ export default function Rubros(args) {
     };
 
     useEffect(() => {
-        if (rubroActivo !== null && rubroRefs.current[rubroActivo]) {
-            rubroRefs.current[rubroActivo].scrollIntoView({
+        if (rubroActivo && rubroRefs.current[rubroActivo.id]) {
+            rubroRefs.current[rubroActivo.id].scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
             });
@@ -38,8 +38,8 @@ export default function Rubros(args) {
         <>
             {rubros.map((rubro, index) => (
                 <label
-                    className={`labelRubros ${rubroActivo === rubro.id ? 'checked' : ''} label${rubro.nombre} desplegable`}
-                    key={rubro.nombre}
+                    className={`labelRubros ${rubroActivo === rubro ? 'checked' : ''} label${rubro.nombre} desplegable`}
+                    key={rubro.id}
                     ref={el => {
                         rubroRefs.current[rubro.id] = el;
                     }}
@@ -48,9 +48,9 @@ export default function Rubros(args) {
                         <input
                             className="check"
                             type="checkbox"
-                            checked={rubroActivo === rubro.id}
+                            checked={rubroActivo === rubro}
                             onChange={() => {
-                                togglearRubro(rubro.id);
+                                togglearRubro(rubro);
                             }}
                             onClick={() => {
                                 handleScrollClick();
@@ -70,14 +70,12 @@ export default function Rubros(args) {
                             </p>
                         </div>
                     </div>
-                    {rubroActivo === rubro.id &&
+                    {rubroActivo === rubro &&
                         (rubro.id === 'Perfiles' ?
                             (<Marcas
                                 rubro={rubro}
                                 handleScrollClick={handleScrollClick}
                                 setPaginaActual={args.setPaginaActual}
-                                coloresUnicos={args.coloresUnicos}
-                                srubrosUnicos={args.srubrosUnicos}
                             />)
                             :
                             (<Srubros

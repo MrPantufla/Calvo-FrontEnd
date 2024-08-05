@@ -13,14 +13,25 @@
 }
 
 .atras{
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
+    position: fixed;
+    top: 10rem;
+    left: 21%;
     border: none;
     background-color: rgba(255, 255, 255, 70%);
     width: 10rem;
     height: 4rem;
     border-radius: 10px;
+    z-index: 2;
+    transition: transform 0.2s;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+}
+
+.atras:hover{
+    transform: scale(1.05);
+}
+
+.atras:active{
+    transform: scale(0.98);
 }
 
 .atras svg{
@@ -128,6 +139,12 @@
     margin-bottom: 0.6rem;
 }
 
+@media(max-width: 911px){
+    .atras{
+        top: 12rem;
+    }
+}
+
 @media(max-width: 767px){
     .tiposProcesoContainer{
         display: flex;
@@ -136,5 +153,12 @@
 
     .tipoProceso h1{
         font-size: 4rem;
+    }
+
+    .atras{
+        top: 15rem;
+        left: 3%;
+        width: 15rem;
+        height: 6rem;
     }
 }

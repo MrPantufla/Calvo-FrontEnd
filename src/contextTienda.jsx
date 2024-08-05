@@ -3,7 +3,7 @@ import { useCarrito } from './contextCarrito';
 import { useFavoritos } from './contextFavoritos';
 import { useProductos } from './contextProductos';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { marcasPerfiles, srubrosPerfiles } from './rubros';
+import { useVariables } from './contextVariables';
 
 const TiendaContext = createContext();
 
@@ -28,9 +28,13 @@ function TiendaProvider({ children }) {
   const [stipoProceso, setStipoProceso] = useState(null);
   const [acabado, setAcabado] = useState(null);
   const [menuAbierto, setMenuAbierto] = useState(false);
-
+  const [rubros, setRubros] = useState([]);
+  const [marcas, setMarcas] = useState([]);
+  
   const {
-    setOrdenamientoActivo
+    setOrdenamientoActivo,
+    procesos,
+    setProcesos
   } = useProductos();
 
   const {
@@ -40,6 +44,10 @@ function TiendaProvider({ children }) {
   const {
     setFavoritosAbierto
   } = useFavoritos();
+
+  const {
+    backend
+  } = useVariables();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -58,6 +66,11 @@ function TiendaProvider({ children }) {
     };
   }, []);
 
+  useEffect(() => {
+    obtenerMarcas();
+    obtenerRubros();
+  }, [])
+
   // Actualizar estados de los filtros basado en los parámetros de la URL
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -67,51 +80,57 @@ function TiendaProvider({ children }) {
     const colores = params.getAll('colores');
 
     if (rubro) {
-      if (rubro != 'Procesos' && rubro != 'Eliminados' && rubro != 'Cortinas') {
-        setRubroActivo(rubro);
-      }
-      else {
-        if (rubro == 'Cortinas') {
+      if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas') {
+        setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === rubro));
+      } else {
+        if (rubro === 'Cortinas') {
           setCortinasSelected(true);
-        }
-        else if (rubro == 'Procesos') {
+        } else if (rubro === 'Procesos') {
           setProcesosSelected(true);
-        }
-        else if (rubro == 'Eliminados') {
+        } else if (rubro === 'Eliminados') {
           setEliminadosSelected(true);
         }
       }
     }
 
-    if (marca) setMarcaActiva(marcasPerfiles.find(marcaPerfil => marcaPerfil.nombre == marca));
+    if (marca) {
+      setMarcaActiva(marcas.find(marcaPerfil => marcaPerfil.nombre == marca));
+    }
 
-    if (srubro) setSrubroActivo(srubro);
+    if (srubro && rubro) {
+      const rubroEncontrado = rubros.find(rubroActual => rubroActual.id == rubro);
+      if (rubroEncontrado && rubroEncontrado.srubros.length > 0) {
+        setSrubroActivo(rubroEncontrado.srubros.find(busquedaSrubro => busquedaSrubro.id == srubro));
+      }
+    }
+
     setColoresActivos(colores);
-  }, []);
-
+  }, [marcas, rubros, setProcesos]);
+  
   // Actualizar la URL cuando los filtros cambian
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (rubroActivo) {
-      params.set('rubro', rubroActivo);
-    }
+    if (marcas.length > 0 && rubros.length > 0) {
+      const params = new URLSearchParams();
+      if (rubroActivo) {
+        params.set('rubro', rubroActivo.id);
+      }
+      else if (procesosSelected && Object.keys(procesos).length > 0) {
+        params.set('rubro', 'Procesos');
+      }
+      else if (cortinasSelected) {
+        params.set('rubro', 'Cortinas')
+      }
+      else if (eliminadosSelected) {
+        params.set('rubro', 'Eliminados')
+      }
 
-    if (procesosSelected) {
-      params.set('rubro', 'Procesos');
-    }
-    else if (cortinasSelected) {
-      params.set('rubro', 'Cortinas')
-    }
-    else if (eliminadosSelected) {
-      params.set('rubro', 'Eliminados')
-    }
+      if (marcaActiva) params.set('marca', marcaActiva.nombre)
 
-    if (marcaActiva) params.set('marca', marcaActiva.nombre)
-
-    if (srubroActivo) params.set('srubro', srubroActivo);
-    coloresActivos.forEach(color => params.append('colores', color));
-    navigate({ search: params.toString() });
-  }, [rubroActivo, srubroActivo, coloresActivos, navigate]);
+      if (srubroActivo) params.set('srubro', srubroActivo.id);
+      coloresActivos.forEach(color => params.append('colores', color));
+      navigate({ search: params.toString() });
+    }
+  }, [marcaActiva, rubroActivo, srubroActivo, coloresActivos, procesosSelected, cortinasSelected, eliminadosSelected, tipoProceso, stipoProceso, procesos, navigate]);
 
   const salirDeTienda = () => {
     togglearRubro(null);
@@ -169,7 +188,9 @@ function TiendaProvider({ children }) {
     setAcabado(null);
 
     if (!procesosSelected) {
-      setRubroActivo([]);
+      setRubroActivo(null);
+      setSrubroActivo(null);
+      setMarcaActiva(null);
       setProcesosSelected(true);
     }
     else {
@@ -215,6 +236,23 @@ function TiendaProvider({ children }) {
     }
   }
 
+  const obtenerRubros = async () => {
+    const response = await fetch(`${backend}/api/rubros`);
+
+    if (response.ok) {
+      const rubros = await response.json();
+      setRubros(rubros);
+    }
+  }
+
+  const obtenerMarcas = async () => {
+    const response = await fetch(`${backend}/api/marcas`);
+    if (response.ok) {
+      const marcas = await response.json();
+      setMarcas(marcas);
+    }
+  }
+
   return (
     <TiendaContext.Provider value={{
       seleccionarCortinas,
@@ -249,7 +287,11 @@ function TiendaProvider({ children }) {
       acabado,
       setAcabado,
       menuAbierto,
-      setMenuAbierto
+      setMenuAbierto,
+      obtenerMarcas,
+      obtenerRubros,
+      marcas,
+      rubros
     }}>
       {children}
     </TiendaContext.Provider>

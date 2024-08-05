@@ -1,29 +1,34 @@
 import './marcas.css';
 import Marca from './marca.jsx';
 import { useTienda } from '../../../../contextTienda.jsx';
+import { useEffect, useState } from 'react';
 
 export default function Marcas(args) {
+    const { marcas, marcaActiva } = useTienda();
+    const [marcasRender, setMarcasRender] = useState(marcas);
 
-    const { marcaActiva } = useTienda();
-
-    const marcasOrdenadas = args.rubro.marcas.filter(marca => marca !== marcaActiva);
-
-    marcasOrdenadas.unshift(marcaActiva);
+    useEffect(() => {
+        if (marcaActiva) {
+            const updatedMarcas = marcas.filter(marca => marca !== marcaActiva);
+            updatedMarcas.unshift(marcaActiva);
+            setMarcasRender(updatedMarcas);
+        } else {
+            setMarcasRender(marcas);
+        }
+    }, [marcaActiva, marcas]);
 
     return (
         <div className="marcasRender">
-            {(marcasOrdenadas.map((marca) => (
+            {marcasRender.map((marca) => (
                 marca != null &&
                 <Marca
                     marca={marca}
                     handleScrollClick={args.handleScrollClick}
                     setPaginaActual={args.setPaginaActual}
                     rubro={args.rubro}
-                    coloresUnicos={args.coloresUnicos}
-                    srubrosUnicos={args.srubrosUnicos}
                     key={marca.nombre}
                 />
-            )))}
+            ))}
         </div>
     );
 }

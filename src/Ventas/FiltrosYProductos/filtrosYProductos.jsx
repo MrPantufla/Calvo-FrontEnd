@@ -11,9 +11,9 @@ import Cortinas from './Cortinas/cortinas';
 import Paginacion from './Paginacion/paginacion';
 import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
-import { rubrosPerfiles, marcasUnicasPerfiles, srubrosPerfiles, srubros85 } from '../../rubros';
 import { useCortinas } from '../../contextCortinas';
 import Procesos from './Procesos/procesos';
+import { useNavigate } from 'react-router-dom';
 
 export default function FiltrosYProductos() {
 
@@ -40,7 +40,9 @@ export default function FiltrosYProductos() {
     stipoProceso,
     tipoProceso,
     acabado,
-    setMenuAbierto
+    setMenuAbierto,
+    marcas,
+    rubros
   } = useTienda();
 
   const {
@@ -48,12 +50,12 @@ export default function FiltrosYProductos() {
     muestrasAbierto
   } = useCortinas();
 
+  const navigate = useNavigate();
+
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const [filtrosYBusquedaOpen, setFiltrosYBusquedaOpen] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [coloresUnicos, setColoresUnicos] = useState([]);
-  const [srubrosUnicos, setSrubrosUnicos] = useState([]);
 
   const seleccionarProducto = (producto) => {
     setProductoSeleccionado(producto);
@@ -72,24 +74,33 @@ export default function FiltrosYProductos() {
     }, 350);
   }
 
-  const listaPreFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
+  let rubrosPerfiles;
+  let srubrosPerfiles;
+
+  if (Object.keys(rubros).length > 0) {
+    rubrosPerfiles = rubros.find(rubro => rubro.id == 'Perfiles').num;
+    srubrosPerfiles = rubros.find(rubro => rubro.id == 'Perfiles').srubros;
+  }
+
+  const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
       rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
-      rubroActivo == p.rubro ||
-      rubroActivo == 'Perfiles' && marcasUnicasPerfiles.includes(p.marca) ||
-      rubroActivo == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
-      rubroActivo == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
-      rubroActivo == 'Accesorios' && p.rubro == 8 ||
-      rubroActivo == 'Automatismos' && p.rubro == 12 ||
-      rubroActivo == 'Chapas' && p.rubro == 85 ||
-      rubroActivo == 'Paneles' && p.rubro == 43 ||
-      rubroActivo == 'Policarbonatos' && p.rubro == 31 ||
-      rubroActivo == 'Poliestirenos' && p.rubro == 4 ||
-      rubroActivo == 'PuertasPlacas' && p.rubro == 81 ||
-      rubroActivo == 'TejidosMosquiteros' && p.rubro == 10 ||
-      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicasPerfiles.includes(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
+      (rubroActivo && (
+        rubroActivo == p.rubro ||
+        rubroActivo.id == 'Perfiles' && (marcas.some(marca => marca.items.includes(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca))) ||
+        rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
+        rubroActivo.id == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
+        rubroActivo.id == 'Accesorios' && p.rubro == 8 ||
+        rubroActivo.id == 'Automatismos' && p.rubro == 12 ||
+        rubroActivo.id == 'Chapas' && p.rubro == 85 ||
+        rubroActivo.id == 'Paneles' && p.rubro == 43 ||
+        rubroActivo.id == 'Policarbonatos' && p.rubro == 31 ||
+        rubroActivo.id == 'Poliestirenos' && p.rubro == 4 ||
+        rubroActivo.id == 'PuertasPlacas' && p.rubro == 81 ||
+        rubroActivo.id == 'TejidosMosquiteros' && p.rubro == 10
+      )) ||
+      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcas.includes(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
       procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
-
 
     const colorCumple =
       coloresActivos.length === 0 ||
@@ -97,11 +108,20 @@ export default function FiltrosYProductos() {
 
     const marcaCumple =
       marcaActiva == null ||
-      marcaActiva.items.includes(p.marca);
+      (marcaActiva && marcaActiva.items.includes(p.marca));
 
     const srubroCumple =
       srubroActivo == null ||
-      srubroActivo == p.srubro;
+      (srubroActivo && srubroActivo.id == p.srubro);
+
+    const buscarPorCodOrig =
+      rubrosPerfiles && rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) && p.cod_orig.toString().includes(busqueda);
+
+    const buscarPorCodInt =
+      p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda);
+
+    const buscarPorDetalle =
+      p.detalle.includes(busqueda);
 
     const eliminado =
       productosEliminados.includes(p.id);
@@ -110,21 +130,8 @@ export default function FiltrosYProductos() {
       return eliminado;
     }
     else {
-      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado;
+      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
     }
-  });
-
-  const listaFiltrada = Object.values(listaPreFiltrada).filter((p) => {
-    const buscarPorCodOrig =
-      rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) && p.cod_orig.toString().includes(busqueda);
-
-    const buscarPorCodInt =
-      p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda);
-
-    const buscarPorDetalle =
-      p.detalle.includes(busqueda);
-
-    return (busqueda === '') || buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle;
   });
 
   const productosOrdenados = ordenarProductos(listaFiltrada);
@@ -132,30 +139,6 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
-
-  useEffect(() => {
-    if (coloresActivos.length == 0) {
-      setColoresUnicos(Array.from(new Set(
-        Object.values(listaPreFiltrada)
-          .filter(producto => producto.rubro != 39 && producto.rubro != 81 && producto.rubro != 85 && producto.rubro != 12)
-          .map(producto => producto.color)
-      )))
-    }
-  }, [srubroActivo])
-
-  useEffect(() => {
-    if (rubroActivo == 'Perfiles' && marcaActiva) {
-      setSrubrosUnicos(Array.from(new Set(
-        Object.values(listaPreFiltrada)
-          .filter(producto =>
-            marcaActiva.items.includes(producto.marca)
-          )
-          .map(producto => {
-            return producto.srubro;
-          })
-      )))
-    }
-  }, [marcaActiva])
 
   const siguienteProducto = () => {
     const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
@@ -245,6 +228,17 @@ export default function FiltrosYProductos() {
     setStartX(e.touches[0].clientX);
   };
 
+  const handleNavigateContacto = () => {
+    navigate('/', { replace: true });
+
+    setTimeout(() => {
+      const contactoElement = document.getElementById('nuestrosHorarios');
+      if (contactoElement) {
+        contactoElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'} ${procesosSelected && 'procesos'}`}>
       <div className="decoracionTienda" />
@@ -266,13 +260,11 @@ export default function FiltrosYProductos() {
             setBusqueda={setBusqueda}
             setPaginaActual={setPaginaActual}
           />
-          {((marcaActiva && srubrosUnicos.length > 0) || marcaActiva == null || true) &&
-            <Filtros
-              srubrosUnicos={srubrosUnicos}
-              coloresUnicos={coloresUnicos}
-              setPaginaActual={setPaginaActual}
-            />
-          }
+
+          <Filtros
+            setPaginaActual={setPaginaActual}
+          />
+
           {isMobile &&
             <button className={`botonFiltros ${filtrosYBusquedaOpen && 'abierto'}`} onClick={() => setFiltrosYBusquedaOpen(!filtrosYBusquedaOpen)} aria-label='abrirOCerrarFiltros'>
               <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -287,6 +279,9 @@ export default function FiltrosYProductos() {
             :
             (<>
               {!(procesosSelected && (!stipoProceso || !acabado)) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
+              {(rubroActivo && rubroActivo.id == 'Paneles') && (
+                <h1 className="textoPanelesPersonalizados"><span style={{ color: 'var(--colorRojo)'}}>¡IMPORTANTE!</span> Para realizar encargos de paneles con medidas personalizadas, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
+              )}
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
                 :
@@ -298,7 +293,7 @@ export default function FiltrosYProductos() {
                           <CardProducto
                             producto={producto}
                             onClick={() => {
-                              seleccionarProducto(producto);
+                              !isMobile && seleccionarProducto(producto);
                             }}
                           />
                         </div>

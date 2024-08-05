@@ -60,7 +60,7 @@ export default function Filtros(args) {
     return (
         <>
             <div className='filtros' id='filtros'>
-                <Rubros setPaginaActual={args.setPaginaActual} coloresUnicos={args.coloresUnicos} srubrosUnicos={args.srubrosUnicos} />
+                <Rubros setPaginaActual={args.setPaginaActual}/>
                 <div className={`labelRubros ${procesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarProcesos()}>PROCESOS</div>
                 <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
