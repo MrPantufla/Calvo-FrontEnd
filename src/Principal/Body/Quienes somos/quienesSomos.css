@@ -1,41 +1,36 @@
 .contenedorPrincipalQuienesSomos{
     display: flex;
     justify-content: center;
-    height: 50rem;
+    width: 78.5%;
+    margin: auto;
+    flex-direction: column;
 }
 
 .fondoContainer{
     display: flex;
-    width: 75%;
-    height: 100%;
     flex-direction: column;
     background-color: white;
-}
-
-.logoQuienesSomosContainer{
-    display: flex;
-    justify-content: right;
-    height: 58%;
-    padding-right: 12%;
+    padding-bottom: 3rem;
+    position: relative;
+    justify-content: left;
 }
 
 .logoQuienesSomos{
-    height: 100%;
-    left: 30%;
-    object-fit: contain;
-}
-
-.imagenQuienesSomosContainer{
-    height: 42%;
-    width: 100%;
-    display: flex;
-    justify-content: left;
-    align-items: start;
+    object-fit: cover;
+    height: 70%;
+    align-self: flex-end;
+    padding-right: 17%;
 }
 
 .imagenQuienesSomos{
-    width: 88%;
-    object-fit: contain;
+    width: 83%;
+    height: 29.6%;
+    object-fit: cover;
+    left: 0;
+}
+
+.tituloYPoligono .poligono{
+    margin: 0;    
 }
 
 .tituloYPoligono h2{
@@ -45,10 +40,12 @@
 }
 
 .textoQuienesSomos{
-    width: 75%;
-    z-index: 2;
     padding: 4% 13% 0 10%;
-    position: absolute;
+    background-image: url(../../../Imagenes/CAquienesSomos.webp);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+    background-position: bottom right;
 }
 
 .parrafoQuienesSomos{
@@ -60,101 +57,16 @@
     margin-bottom: 3.8%;
 }
 
-@media (max-width: 767px){
-    .logoQuienesSomosContainer{
-        padding: 0;
+@media(max-width: 540px){
+    .tituloYPoligono h2{
+        font-size: 2.8rem;
+    }
+
+    .parrafoQuienesSomos{
+        font-size: 2.5rem;
     }
 
     .imagenQuienesSomos{
         width: 100%;
     }
-
-    .tituloYPoligono h2{
-        font-size: 2.4rem;
-    }
-
-    .parrafoQuienesSomos{
-        font-size: 2rem;
-    }
-
-    .contenedorPrincipalQuienesSomos{
-        height: 77rem;
-    }
-
-    .fondoContainer{
-        width: 90%;
-    }
-
-    .textoQuienesSomos{
-        width: 95%;
-    }
 }
-
-@media (max-width: 540px){
-    .imagenQuienesSomosContainer{
-        display: flex;
-        align-items: center;
-    }
-
-    
-}
-
-@media (max-width: 430px){
-    .logoQuienesSomos{
-        width: 90%;
-    }
-
-    .logoQuienesSomosContainer{
-        height: auto;
-    }
-
-    .imagenQuienesSomosContainer{
-        display: flex;
-        align-items: end;
-        padding-bottom: 3rem;
-    }
-
-    .fondoContainer{
-        justify-content: space-between;
-    }
-
-    .contenedorPrincipalQuienesSomos{
-        height: 64rem;
-    }
-}
-
-@media (max-width: 390px){
-    .tituloYPoligono h2{
-        font-size: 3rem;
-    }
-
-    .parrafoQuienesSomos{
-        font-size: 2.4rem;
-    }
-
-    .contenedorPrincipalQuienesSomos{
-        height: 76.5rem;
-    }
-}
-
-@media (max-width: 360px){
-    .tituloYPoligono h2{
-        font-size: 3rem;
-    }
-
-    .parrafoQuienesSomos{
-        font-size: 2.4rem;
-    }
-
-    .contenedorPrincipalQuienesSomos{
-        height: 86rem;
-    }
-}
-
-@media (max-width: 280px){
-    .contenedorPrincipalQuienesSomos{
-        height: 94rem;
-    }
-}
-
-
