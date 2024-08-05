@@ -264,6 +264,9 @@ export default function Carrito() {
     }
   }, [carritoAbierto, elementos.length]);
 
+  const precioParaMostrarString = calcularTotal ? calcularTotal(elementos).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+  const precioParaMostrarStringDescuento = calcularTotal ? (parseInt(calcularTotal(elementos) * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+
   return (
     <div className={`contenedorPrincipalCarrito`} style={{ pointerEvents: carritoAbierto ? 'auto' : 'none' }}>
       <div className="contenedorBotonCarrito">
@@ -381,9 +384,9 @@ export default function Carrito() {
                     }
                   }}
                 >
-                  CONFIRMAR PEDIDO: ${calcularTotal(elementos)}
+                  CONFIRMAR PEDIDO: ${precioParaMostrarString}
                   <br />
-                  (CON DESCUENTO POR PAGO AL CONTADO: ${parseInt(calcularTotal(elementos) * 97 / 100)})
+                  (CON DESCUENTO POR PAGO AL CONTADO: ${precioParaMostrarStringDescuento})
                 </button>
               </>
             )}

@@ -110,6 +110,23 @@ export default function CardCarrito(args) {
         }
     }
 
+    const precioParaMostrarInt = parseInt(
+        producto.rubro == 85 ?
+            (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
+            :
+            ((producto.kg > 0) ?
+                (producto.precio * producto.kg +
+                    (proceso ? proceso.precio * producto.kg : 0) +
+                    (acabado ? acabado.precio * producto.kg : 0)
+                )
+                :
+                (producto.precio)
+            )
+    );
+
+    const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidadCarrito).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+    const precioParaMostrarStringIndividual = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+
     return (
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
@@ -191,37 +208,11 @@ export default function CardCarrito(args) {
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
                     <div className="precioProductoCardCarrito">
                         <p>
-                            ${parseInt(
-                                producto.rubro == 85 ?
-                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
-                                    :
-                                    ((producto.kg > 0) ?
-                                        (producto.precio * producto.kg +
-                                            (proceso ? proceso.precio * producto.kg : 0) +
-                                            (acabado ? acabado.precio * producto.kg : 0)
-                                        )
-                                        :
-                                        (producto.precio)
-                                    )
-                            ) * args.cantidadCarrito}
+                            {precioParaMostrarString}
                         </p>
                     </div>
                     <div className="precioUnitarioCardCarrito">
-                        <p>({args.cantidadCarrito} x
-                            ${parseInt(
-                                producto.rubro == 85 ?
-                                    (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
-                                    :
-                                    ((producto.kg > 0) ?
-                                        (producto.precio * producto.kg +
-                                            (proceso ? proceso.precio * producto.kg : 0) +
-                                            (acabado ? acabado.precio * producto.kg : 0)
-                                        )
-                                        :
-                                        (producto.precio)
-                                    )
-                            )}
-                            )
+                        <p>({args.cantidadCarrito} x {precioParaMostrarStringIndividual})
                         </p>
                     </div>
                 </div>

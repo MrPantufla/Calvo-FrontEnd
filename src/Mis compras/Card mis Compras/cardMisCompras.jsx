@@ -53,13 +53,16 @@ export default function CardMisCompras(args) {
         setCarritoAbierto(true);
     };
 
-    const fechaString = args.data[0].fecha;
+    const fechaString = args.data[0] ? args.data[0].fecha : 'NaN';
     const partesFecha = fechaString.split('/');
     const fechaFormateada = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
 
     useEffect(() => {
         setCardComprasAbierto(false);
     }, [args.id])
+
+    const precioParaMostrarString = total ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+    const precioParaMostrarStringDescuento = total ? (parseInt(total * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
     return (
         <div className="contenedorPrincipalCardMisCompras" >
@@ -94,7 +97,7 @@ export default function CardMisCompras(args) {
                     ))}
                 </div>
                 <div className="totalContainer">
-                    <h2 className="precioViejo">{`TOTAL: $${total} ${(state.userInfo && state.userInfo.categoria == 'MAYORISTA') ? (`- CON DESCUENTO: $${parseInt(total*97/100)}`) : ('')}`}</h2>
+                    <h2 className="precioViejo">{`TOTAL: $${precioParaMostrarString} ${(state.userInfo && state.userInfo.categoria == 'MAYORISTA') ? (`- CON DESCUENTO: $${precioParaMostrarStringDescuento}`) : ('')}`}</h2>
                 </div>
             </div>
         </div>

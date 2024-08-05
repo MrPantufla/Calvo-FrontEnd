@@ -247,6 +247,20 @@ export default function CardProducto(args) {
   const precioPerfil = precioParaUsar * kg + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0);
   const precioChapa = precioParaUsar + (proceso ? proceso.precio * extraerMetrosCuadrados(detalle) : 0) + (acabado ? acabado.precio * extraerMetrosCuadrados(detalle) : 0);
 
+  const precioParaMostrarInt = parseInt(
+    rubro != 85 ?
+      (kg > 0 ?
+        (precioPerfil)
+        :
+        precioParaUsar
+      )
+      :
+      (precioChapa)
+  )
+
+  const precioParaMostrarString = precioParaMostrarInt ? precioParaMostrarInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+  const precioParaMostrarStringDescuento = precioParaMostrarInt ? (parseInt(precioParaMostrarInt * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+
   let acabadoArreglado;
 
   if (args.acabado) {
@@ -437,31 +451,13 @@ export default function CardProducto(args) {
               ) : (
                 `PRECIO${!mayorista ? ' MINORISTA' : ''}: $`
               )}
-              {parseInt(
-                rubro != 85 ?
-                  (kg > 0 ?
-                    (precioPerfil)
-                    :
-                    precioParaUsar
-                  )
-                  :
-                  (precioChapa)
-              )}
+              {precioParaMostrarString}
             </p>
           </div>
           {(state.userInfo && state.userInfo.categoria == 'MAYORISTA') &&
             <div className="precioContainerCardProducto segundoContainer">
               <p className="precioCardProducto">
-                {`CON DESCUENTO POR PAGO AL CONTADO: $${parseInt(
-                  rubro != 85 ?
-                    (kg > 0 ?
-                      (precioPerfil * 97 / 100)
-                      :
-                      precioParaUsar * 97 / 100
-                    )
-                    :
-                    (precioChapa * 97 / 100)
-                )}`}
+                {`CON DESCUENTO POR PAGO AL CONTADO: $${precioParaMostrarStringDescuento}`}
               </p>
             </div>}
         </>
