@@ -74,7 +74,7 @@ export default function Informacion() {
                 <div className="horariosDeAtencion divisorInfo">
                     <div className="poligono poligono3" />
                     <div className="contactosDiv">
-                        <h2>NUESTROS HORARIOS</h2>
+                        <h2 id="nuestrosHorarios">NUESTROS HORARIOS</h2>
                         <p>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.7rem" height="1.7rem" fill="currentColor" className="bi bi-clock" viewBox="0 0 16 16">
                                 <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
