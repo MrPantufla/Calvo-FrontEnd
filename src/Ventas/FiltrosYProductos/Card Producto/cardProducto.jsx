@@ -48,7 +48,7 @@ export default function CardProducto(args) {
     cantidad = { cantidad },
   } = args.producto;
 
-  const isMobile = useTienda();
+  const { isMobile } = useTienda();
 
   const color = args.color ? (args.color) : (args.producto.color);
 

@@ -15,14 +15,13 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [mostrarCartelLogin, setMostrarCartelLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
   const [calle, setCalle] = useState('');
   const [numero, setNumero] = useState('');
   const [cp, setCp] = useState('');
   const [localidad, setLocalidad] = useState('');
   const [provincia, setProvincia] = useState('');
   const [direccionConfirmada, setDireccionConfirmada] = useState(false);
-  
+
   const [state, setState] = useState({
     logueado: false,
     userInfo: {}
@@ -339,8 +338,6 @@ export const LoginProvider = ({ children }) => {
       setMostrarCartelLogout,
       mostrarCartelLogin,
       setMostrarCartelLogin,
-      mostrarCartelCliente,
-      setMostrarCartelCliente,
       handleLogin,
       direccionConfirmada,
       setDireccionConfirmada,
