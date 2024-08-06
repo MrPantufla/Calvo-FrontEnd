@@ -357,16 +357,20 @@ export default function CardProducto(args) {
                       (rubro == 31 ?
                         (`/ImagenesPolicarbonatos/${codigo.trim().toUpperCase()}.webp`)
                         :
-                        (tipo_prod == 'ACCESORIO' ?
-                          (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                        (tipo_prod == 'ACCESORIO' && rubro == 39 ?
+                          (`/ImagenesHerramientas/${codigo.trim().toUpperCase()}.webp`)
                           :
-                          (tipo_prod == 'PUNTUAL' ?
-                            (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                          (rubro == 12 ?
+                            (`/ImagenesAutomatismos/${codigo.trim().toUpperCase()}.webp`)
                             :
-                            (tipo_prod == 'MAQUINAS' ?
+                            (rubro == 39 ?
                               (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
                               :
+                              (tipo_prod == 'ACCESORIO' ?
+                              (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`) 
+                              : 
                               ('')
+                              )
                             )
                           )
                         )
