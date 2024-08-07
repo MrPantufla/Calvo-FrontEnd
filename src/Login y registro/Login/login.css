@@ -101,7 +101,7 @@
     }
 }
 
-@media (max-width: 540px){
+@media (max-width: 767px){
     .formularioLogin label{
         font-size: 2.6rem;
     }

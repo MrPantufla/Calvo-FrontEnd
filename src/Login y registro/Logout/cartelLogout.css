@@ -44,7 +44,7 @@
     transform: scale(0.95);
 }
 
-@media (max-width: 540px){
+@media (max-width: 767px){
     .contenedorCartelLogout{
         width: 50rem;
         height: 25rem;

@@ -49,7 +49,7 @@
     margin: 0.3rem 0;
 }
 
-@media (max-width: 540px){
+@media (max-width: 767px){
     .contenedorPrincipalProductoHistorial{
         height: 24rem;
     }

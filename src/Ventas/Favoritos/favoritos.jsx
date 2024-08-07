@@ -61,7 +61,7 @@ export default function Favoritos() {
                     setFavoritosHeight(3 + 25 * favoritos.length + 1)
                 }
                 else if (isTablet) {
-                    setFavoritosHeight(3 + 25 * favoritos.length + 0.5);
+                    setFavoritosHeight(3 + 25 * favoritos.length + 1);
                 }
                 else {
                     setFavoritosHeight(3 + favoritos.length * 20);

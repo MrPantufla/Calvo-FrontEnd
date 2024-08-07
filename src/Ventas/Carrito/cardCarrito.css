@@ -11,7 +11,7 @@
     flex-direction: row;
 }
 
-.imagenYCodigoCardCarrito{
+.imagenYCodigoCardCarrito {
     width: 60%;
     height: 100%;
     padding: 1rem;
@@ -21,7 +21,7 @@
     background-size: cover;
 }
 
-.imagenCardCarritoContainer{
+.imagenCardCarritoContainer {
     width: 100%;
     height: 55%;
     display: flex;
@@ -29,7 +29,7 @@
     justify-content: center;
 }
 
-.imagenCardCarrito{
+.imagenCardCarrito {
     width: auto;
     height: 100%;
     object-fit: contain;
@@ -39,32 +39,32 @@
     user-select: none;
 }
 
-.imagenCardCarrito:hover{
+.imagenCardCarrito:hover {
     scale: 1.05;
 }
 
-.kgCardCarrito{
+.kgCardCarrito {
     text-align: center;
     font-weight: 500;
 }
 
-.codigoYDetalleCardCarritoContainer{
+.codigoYDetalleCardCarritoContainer {
     height: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.codigoYDetalleCardCarrito{
+.codigoYDetalleCardCarrito {
     font-weight: 600;
     text-align: center;
 }
 
-.codigoYDetalleCardCarrito span{
+.codigoYDetalleCardCarrito span {
     color: var(--colorRojo);
 }
 
-.restoCardCarrito{
+.restoCardCarrito {
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -73,14 +73,14 @@
     justify-content: space-between;
 }
 
-.cantidadCardCarrito{
+.cantidadCardCarrito {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-left: 2.6rem;
 }
 
-.cantidadCardCarrito button{
+.cantidadCardCarrito button {
     width: 2rem;
     height: 2rem;
     border: none;
@@ -94,20 +94,20 @@
     transition: transform 0.08s;
 }
 
-.cantidadCardCarrito button:active{
+.cantidadCardCarrito button:active {
     transform: scale(0.95);
 }
 
-.botonSumarCardCarrito{
+.botonSumarCardCarrito {
     border-radius: 0 3px 3px 0;
     margin-right: 1rem;
 }
 
-.botonRestarCardCarrito{
+.botonRestarCardCarrito {
     border-radius: 3px 0 0 3px;
 }
 
-.cantidadCardCarrito div{
+.cantidadCardCarrito div {
     width: 2rem;
     height: 2rem;
     background-color: white;
@@ -116,22 +116,22 @@
     align-items: center;
 }
 
-.cantidadCardCarrito p{
+.cantidadCardCarrito p {
     font-weight: 600;
     font-size: 2rem;
 }
 
-.eliminarCardCarrito{
-    cursor:pointer;
+.eliminarCardCarrito {
+    cursor: pointer;
     transition: color 0.2s;
     padding-bottom: 0.2rem;
 }
 
-.eliminarCardCarrito:hover{
+.eliminarCardCarrito:hover {
     color: var(--colorRojo);
 }
 
-.colorCardCarritoContainer{
+.colorCardCarritoContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -140,7 +140,7 @@
     min-width: 9rem;
 }
 
-.muestraColorCardCarrito{
+.muestraColorCardCarrito {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,27 +148,27 @@
     height: 2.5rem;
 }
 
-.textoColorCardCarrito{
+.textoColorCardCarrito {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
-.colorCardCarrito{
+.colorCardCarrito {
     font-weight: 700;
 }
 
-.precioContainer{
+.precioContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.textoPrecioCardCarrito{
+.textoPrecioCardCarrito {
     font-size: 1.2rem;
     font-weight: 500;
 }
 
-.precioProductoCardCarrito{
+.precioProductoCardCarrito {
     font-weight: 700;
     font-size: 1.5rem;
     background-color: white;
@@ -179,7 +179,7 @@
     padding-top: 0.2rem;
 }
 
-.precioUnitarioCardCarrito{
+.precioUnitarioCardCarrito {
     font-weight: 500;
     font-size: 1.4rem;
     background-color: var(--colorTerciario);
@@ -190,84 +190,29 @@
     padding-top: 0.2rem;
 }
 
-@media (max-width: 820px){
-    .contenedorPrincipalCardCarrito{
+@media (max-width: 767px) {
+    .contenedorPrincipalCardCarrito {
         height: 27rem;
     }
 
-    .restoCardCarrito{
+    .restoCardCarrito {
         padding: 2rem 0;
     }
 
-    .kgCardCarrito{
+    .kgCardCarrito {
         font-size: 2rem;
     }
 
-    .codigoYDetalleCardCarrito{
+    .codigoYDetalleCardCarrito {
         font-size: 2.2rem;
     }
 
-    .cantidadCardCarrito{
+    .cantidadCardCarrito {
         padding-left: 3.5rem;
-    }
-
-    .cantidadCardCarrito button{
-        width: 3rem;
         height: 3rem;
         font-size: 3rem;
     }
 
-    .cantidadCardCarrito div{
-        height: 3rem;
-        width: 3rem;
-    }
-
-    .cantidadCardCarrito div p{
-        font-size: 2.3rem;
-    }
-
-    .eliminarCardCarrito{
-        height: 3rem;
-        width: 2.5rem;
-    }
-
-    .eliminarCardCarrito .bi{
-        height: 100%;
-        width: 100%;
-    }
-
-    .colorCardCarritoContainer{
-        max-width: 15rem;
-        min-width: 13rem;
-    }
-
-    .textoColorCardCarrito{
-        font-size: 1.8rem;
-    }
-
-    .muestraColorCardCarrito{
-        height: 3.5rem;
-        border-radius: 3px;
-    }
-
-    .muestraColorCardCarrito p{
-        font-size: 2rem;
-    }
-
-    .textoPrecioCardCarrito{
-        font-size: 1.8rem;
-    }
-
-    .precioProductoCardCarrito, .precioUnitarioCardCarrito{
-        min-width: 12rem;
-    }
-
-    .precioProductoCardCarrito p, .precioUnitarioCardCarrito p{
-        font-size: 2.2rem;
-    }
-}
-
-@media (max-width: 767px){
     .cantidadCardCarrito button {
         width: 4rem;
         height: 4rem;
@@ -279,17 +224,27 @@
         width: 4rem;
     }
 
-    .cantidadCardCarrito div p{
+    .cantidadCardCarrito div p {
         font-size: 3rem;
     }
 
-    .eliminarCardCarrito{
+    .eliminarCardCarrito {
         width: 3.5rem;
         height: 3.5rem;
     }
 
-    .textoColorCardCarrito{
+    .eliminarCardCarrito .bi {
+        height: 100%;
+        width: 100%;
+    }
+
+    .textoColorCardCarrito {
         font-size: 2.3rem;
+    }
+
+    .colorCardCarritoContainer {
+        max-width: 15rem;
+        min-width: 13rem;
     }
 
     .muestraColorCardCarrito {
@@ -297,30 +252,130 @@
         border-radius: 3px;
     }
 
-    .muestraColorCardCarrito p{
+    .muestraColorCardCarrito p {
         font-size: 2rem;
     }
 
-    .precioContainer .textoPrecioCardCarrito{
+    .precioContainer .textoPrecioCardCarrito {
         font-size: 2.2rem;
         font-weight: 600;
     }
 
-    .precioProductoCardCarrito p{
+    .precioProductoCardCarrito p {
         font-size: 2.3rem;
     }
 
-    .precioUnitarioCardCarrito p{
+    .precioUnitarioCardCarrito p {
         font-size: 2.3rem;
+    }
+
+    .precioProductoCardCarrito,
+    .precioUnitarioCardCarrito {
+        min-width: 12rem;
+    }
+
+    .precioProductoCardCarrito p,
+    .precioUnitarioCardCarrito p {
+        font-size: 2.2rem;
     }
 }
 
-@media (max-width: 280px){
-    .restoCardCarrito{
+@media (max-width: 540px) {
+    .contenedorPrincipalCardCarrito {
+        height: 27rem;
+    }
+
+    .restoCardCarrito {
+        padding: 2rem 0;
+    }
+
+    .kgCardCarrito {
+        font-size: 2rem;
+    }
+
+    .codigoYDetalleCardCarrito {
+        font-size: 2.2rem;
+    }
+
+    .cantidadCardCarrito {
+        padding-left: 3.5rem;
+        height: 3rem;
+        font-size: 3rem;
+    }
+
+    .cantidadCardCarrito button {
+        width: 4rem;
+        height: 4rem;
+        font-size: 4rem;
+    }
+
+    .cantidadCardCarrito div {
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .cantidadCardCarrito div p {
+        font-size: 3rem;
+    }
+
+    .eliminarCardCarrito {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .eliminarCardCarrito .bi {
+        height: 100%;
+        width: 100%;
+    }
+
+    .textoColorCardCarrito {
+        font-size: 2.3rem;
+    }
+
+    .colorCardCarritoContainer {
+        max-width: 15rem;
+        min-width: 13rem;
+    }
+
+    .muestraColorCardCarrito {
+        height: 3.6rem;
+        border-radius: 3px;
+    }
+
+    .muestraColorCardCarrito p {
+        font-size: 2rem;
+    }
+
+    .precioContainer .textoPrecioCardCarrito {
+        font-size: 2.2rem;
+        font-weight: 600;
+    }
+
+    .precioProductoCardCarrito p {
+        font-size: 2.3rem;
+    }
+
+    .precioUnitarioCardCarrito p {
+        font-size: 2.3rem;
+    }
+
+    .precioProductoCardCarrito,
+    .precioUnitarioCardCarrito {
+        min-width: 12rem;
+    }
+
+    .precioProductoCardCarrito p,
+    .precioUnitarioCardCarrito p {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 280px) {
+    .restoCardCarrito {
         background-color: var(--colorTerciario);
     }
 
-    .cantidadCardCarrito{
+    .cantidadCardCarrito {
         padding-left: 0.5rem;
     }
 }

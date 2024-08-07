@@ -55,7 +55,7 @@ function TiendaProvider({ children }) {
   useEffect(() => {
     const handleResize = () => {
       setIsTablet(window.innerWidth <= 820);
-      setIsMobile(window.innerWidth < 767);
+      setIsMobile(window.innerWidth <= 767);
       setIsFold(window.innerWidth <= 280);
     };
 

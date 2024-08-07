@@ -145,7 +145,7 @@
     background-color: var(--colorRojo);
 }
 
-@media(max-width: 540px){
+@media(max-width: 767px){
     .fechaCardMisComprasContainer{
         height: 4rem;
     }

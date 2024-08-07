@@ -13,7 +13,7 @@
     background-size: cover;
 }
 
-.contenedorPrincipalCardProducto.sinPrecio{
+.contenedorPrincipalCardProducto.sinPrecio {
     padding-bottom: 1rem;
 }
 
@@ -110,13 +110,13 @@
     margin-top: 0.5rem;
 }
 
-.segundoContainer{
+.segundoContainer {
     border-top: 1px solid;
     border-image: linear-gradient(to right, transparent 0%, transparent 6%, var(--colorSecundario) 7%, var(--colorSecundario) 94%, transparent 95%, transparent 100%);
     border-image-slice: 1;
 }
 
-.precioCardProducto {
+.precioContainerCardProducto p{
     width: calc(100%);
     background-color: white;
     border-radius: 3px;
@@ -354,7 +354,7 @@
     margin-bottom: 0.2rem;
 }
 
-.destacadosContenedor{
+.destacadosContenedor {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -363,19 +363,19 @@
     align-items: center;
 }
 
-.destacadosContenedor button{
+.destacadosContenedor button {
     border: none;
     background-color: transparent;
     cursor: pointer;
     z-index: 2;
 }
 
-.estrellaDestacados{
+.estrellaDestacados {
     height: 4rem;
     width: 4rem;
 }
 
-.flechasDestacados{
+.flechasDestacados {
     height: 2rem;
     width: 2rem;
     display: flex;
@@ -383,14 +383,14 @@
     justify-content: center;
 }
 
-.estrellaDestacados svg{
+.estrellaDestacados svg {
     height: 4rem;
     width: 4rem;
     fill: var(--colorSecundario);
     float: left;
 }
 
-.posicionEnDestacados{
+.posicionEnDestacados {
     position: relative;
     font-size: 2rem;
     font-weight: 600;
@@ -401,17 +401,17 @@
     top: 2.8rem;
 }
 
-.estrellaDestacados.checked svg{
+.estrellaDestacados.checked svg {
     fill: rgb(148, 148, 41);
 }
 
-.flechasDestacados svg{
+.flechasDestacados svg {
     width: 2rem;
     height: 2rem;
     fill: var(--colorSecundario);
 }
 
-.flechasDestacados:first-child{
+.flechasDestacados:first-child {
     transform: rotate(180deg)
 }
 
@@ -477,7 +477,7 @@
         height: 12rem;
     }
 
-    .precioCardProducto {
+    .precioContainerCardProducto p {
         font-size: 1.5rem;
     }
 }
@@ -487,7 +487,7 @@
         height: 2.4rem;
     }
 
-    .logoDecoracionCardProducto{
+    .logoDecoracionCardProducto {
         height: 2rem;
     }
 
@@ -545,7 +545,7 @@
         background-color: white;
     }
 
-    .precioCardProducto {
+    .precioContainerCardProducto p {
         font-size: 1.9rem;
         font-weight: 700;
     }
@@ -590,7 +590,7 @@
         height: 3.2rem;
     }
 
-    .precioCardProducto {
+    .precioContainerCardProducto p {
         font-size: 2rem;
     }
 
@@ -601,81 +601,16 @@
 }
 
 @media (max-width: 767px) {
-    .eliminarElemento{
-        top: 5rem;
-        right: 3rem;
-    }
-
     .contenedorPrincipalCardProducto {
         margin-top: 0;
         margin-bottom: 2rem;
     }
 
-    .botonConsultarProducto {
-        height: 4.5rem;
-        width: 20rem;
-        font-size: 3rem;
-        margin-top: 1.5rem;
-    }
-
-    .precioContainerCardProducto {
-        height: 5rem;
-    }
-
-    .precioCardProducto {
-        font-size: 3.1rem;
-    }
-
-    .eliminarElemento {
-        margin-top: 3rem;
-        margin-left: 2rem;
-        height: 4.5rem;
-        width: 4.5rem;
-    }
-
-    .eliminarElemento .bi-trash3-fill {
-        width: 100%;
-        height: 100%;
-    }
-
-    .destacadosContenedor{
-        top: 6rem;
-    }
-    
-    .estrellaDestacados{
-        height: 8rem;
-        width: 8rem;
-    }
-
-    .estrellaDestacados svg{
-        height: 8rem;
-        width: 8rem;
-    }
-    
-    .flechasDestacados{
-        height: 5rem;
-        width: 5rem;
-    }
-
-    .flechasDestacados svg{
-        width: 5rem;
-        height: 5rem;
-    }
-    
-    .posicionEnDestacados{
-        font-size: 4rem;
-        width: 4rem;
-        height: 8rem;
-        top: 6.5rem;
-    }
-}
-
-@media (max-width: 540px) {
     .dropdownCantidad {
         top: 5rem;
     }
 
-    .toggleDropdown{
+    .toggleDropdown {
         width: 21rem;
         height: 5rem;
         font-size: 2.2rem;
@@ -687,25 +622,25 @@
         height: 3.2rem;
     }
 
-    .logoDecoracionCardProducto{
+    .logoDecoracionCardProducto {
         height: 2.4rem;
     }
 
-    .espacioCantidad{
+    .espacioCantidad {
         width: 10rem;
     }
 
-    .toggleDropdown svg{
+    .toggleDropdown svg {
         width: 2rem;
         height: 2rem;
         padding-top: 0.5rem;
     }
 
-    .dropdownMenuCantidad.desplegado{
+    .dropdownMenuCantidad.desplegado {
         height: 5rem;
     }
 
-    .dropdownMenuCantidad li{
+    .dropdownMenuCantidad li {
         height: 5rem;
         width: 14rem;
         font-size: 2.2rem;
@@ -714,16 +649,112 @@
     .botonAñadirFavoritos {
         top: 2rem;
         right: 2rem;
+        height: 7rem;
+        width: 7rem;
+    }
+
+    .kgProducto p {
+        font-size: 3.5rem;
+    }
+
+    .kgCantidadYColorContainer{
+        height: 12rem;
+    }
+
+    .kgCantidadYColorContainer .boton {
+        height: 6.5rem;
+        width: 6.5rem;
+        font-size: 6.5rem;
+    }
+
+    .cantidadProducto {
+        font-size: 6rem;
+        margin: 0 2rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .colorCardProducto p {
+        font-size: 3.5rem;
+    }
+
+    .muestraColorCardProducto {
+        height: 5.5rem;
+        width: 20rem;
+    }
+
+    .botonConsultarProducto {
+        margin-top: 3rem;
+        height: 4.5rem;
+        width: 20rem;
+        font-size: 3rem;
+    }
+
+    .eliminarElemento {
+        top: 13rem;
+        right: 3rem;
+        margin-top: 3rem;
+        margin-left: 2rem;
+        height: 7rem;
+        width: 7rem;
+    }
+
+    .detalleYCod_orig h3 {
+        font-size: 4.5rem;
+    }
+
+    .eliminarElemento .bi-trash3-fill {
+        width: 100%;
+        height: 100%;
+    }
+
+    .precioContainerCardProducto {
+        height: 6rem;
+    }
+
+    .posicionEnDestacados {
+        font-size: 4rem;
+        width: 4rem;
+        height: 8rem;
+        top: 6.5rem;
+    }
+
+    .precioContainerCardProducto p{
+        font-size: 4rem;
+    }
+
+    .destacadosContenedor {
+        top: 6rem;
+    }
+
+    .estrellaDestacados {
+        height: 8rem;
+        width: 8rem;
+    }
+
+    .estrellaDestacados svg {
+        height: 8rem;
+        width: 8rem;
+    }
+
+    .flechasDestacados {
         height: 5rem;
         width: 5rem;
     }
 
-    .detalleYCod_orig h3 {
-        font-size: 3.2rem;
+    .flechasDestacados svg {
+        width: 5rem;
+        height: 5rem;
     }
 
-    .kgProducto p {
-        font-size: 2.5rem;
+    .imagenContainerCardProducto {
+        height: 40rem;
+    }
+}
+
+@media (max-width: 540px){
+    .detalleYCod_orig h3 {
+        font-size: 3.2rem;
     }
 
     .kgCantidadYColorContainer .boton {
@@ -734,8 +765,15 @@
 
     .cantidadProducto {
         font-size: 4.5rem;
-        display: flex;
-        justify-content: center;
+        margin: 0 1rem;
+    }
+
+    .precioContainerCardProducto {
+        height: 5rem;
+    }
+
+    .precioContainerCardProducto p{
+        font-size: 3.1rem;
     }
 
     .colorCardProducto p {
@@ -744,31 +782,26 @@
 
     .muestraColorCardProducto {
         height: 4rem;
-        width: 20rem;
     }
 
-    .botonConsultarProducto {
-        margin-top: 3rem;
+    .kgProducto p {
+        font-size: 2.5rem;
+    }
+
+    .botonAñadirFavoritos {
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .eliminarElemento {
+        height: 4.5rem;
+        width: 4.5rem;
     }
 }
 
-@media (max-width: 540px) and (min-width: 431px) {
-    .imagenContainerCardProducto {
-        height: 25rem;
-    }
-
+@media (max-width: 431px) {
     .detalleYCod_orig h3 {
         font-size: 3.8rem;
-    }
-
-    .precioContainerCardProducto {
-        height: 5.5rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .precioContainerCardProducto p {
-        font-size: 3.4rem;
     }
 
     .kgProducto p {
@@ -790,7 +823,13 @@
     }
 }
 
-@media (max-width: 540px) and (min-width: 412px) {
+@media (max-width: 430px) {
+    .imagenContainerCardProducto {
+        height: 28rem;
+    }
+}
+
+@media (max-width: 412px) {
     .botonConsultarProducto {
         margin-top: 1rem;
     }
@@ -800,14 +839,8 @@
     }
 }
 
-@media (max-width: 540px) and (min-width: 430px) {
-    .imagenContainerCardProducto {
-        height: 28rem;
-    }
-}
-
 @media (max-width: 360px) {
-    .precioCardProducto {
+    .precioContainerCardProducto p{
         font-size: 2.8rem;
         padding-top: 0.4rem;
     }
@@ -817,6 +850,12 @@
 @media (max-width: 411px) and (min-width: 281px) {
     .imagenContainerCardProducto {
         height: 21rem;
+    }
+}
+
+@media (max-width: 312px){
+    .precioContainerCardProducto p{
+        font-size: 2.7rem;
     }
 }
 

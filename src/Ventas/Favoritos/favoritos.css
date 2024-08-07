@@ -79,15 +79,15 @@
 
 .botonFavoritos.desktop:hover .bi-heart{
     fill: var(--colorRojo);
-}
+} 
 
-@media (max-width: 820px){
+@media (max-width: 767px){
     .contenedorPrincipalFavoritos{
+        max-height: 115rem;
         position: absolute;
         top: 2rem !important;
         right: 1.5rem;
         width: 55rem;
-        max-height: 130rem;
     }
 
     .bodyFavoritos{
@@ -96,28 +96,6 @@
 
     .tituloFavoritos{
         font-size: 2.2rem;
-    }
-
-    .botonFavoritos{
-        width: 5rem;
-        height: 5rem;
-    }
-
-    .botonFavoritos .bi{
-        width: 3rem;
-        height: 3rem;
-    }
-
-    .cantidadFavoritos{
-        width: 2rem;
-        height: 2rem;
-        font-size: 2rem;
-    }
-} 
-
-@media (max-width: 767px){
-    .contenedorPrincipalFavoritos{
-        max-height: 115rem;
     }
 
     .botonFavoritos{

@@ -87,7 +87,7 @@
     height: 30rem;
 }
 
-@media (max-width: 540px){
+@media (max-width: 767px){
     .contenedorPrincipalMisCompras.vacio{
         min-height: calc(100vh - 9rem);
     }

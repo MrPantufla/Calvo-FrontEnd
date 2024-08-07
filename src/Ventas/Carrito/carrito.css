@@ -273,88 +273,11 @@
     height: 6rem;
 }
 
-@media (max-width: 820px){
-    .sugerenciaColor{
-        font-size: 2.2rem;
-        font-weight: 600;
-        padding-bottom: 0.1rem;
-        color: var(--colorCuaternario);
-    }
-
-    .hintCarrito{
-        font-size: 2rem;
-    }
-
+@media (max-width: 767px){
     .tituloCarrito{
         font-size: 2rem;
     }
 
-    .contenedorPrincipalCarrito{
-        position: absolute;
-        right: 6.5rem;
-        top: 2rem !important;
-        max-height: 130rem;
-    }
-
-    .botonCarrito{
-        width: 5rem;
-        height: 5rem;
-    }
-
-    .botonCarrito .bi{
-        width: 3rem;
-        height: 3rem;
-    }
-
-    .botonHintCarrito{
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-
-    .cantidadEnCarrito{
-        width: 2rem;
-        height: 2rem;
-        font-size: 2rem;
-    }
-
-    .elementosVisiblesCarrito{
-        width: 55rem;
-    }
-
-    .codigoAgregadoRapido{
-        width: 41%;
-    }
-
-    .colorAgregadoRapido{
-        width: 40%;
-    }
-
-    .colorAgregadoRapido input{
-        width: 100%;
-    }
-
-    .form-group-agregadoRapido{
-        height: 4rem;
-        font-size: 2.2rem;
-        color: var(--colorSecundario);
-    }
-
-    .form-group-agregadoRapido::placeholder{
-        font-size: 2.2rem;
-    }
-
-    .bodyCarrito.open{
-        max-height: 200rem !important;
-        width: 100%;
-    }
-
-    .confirmarCarrito{
-        height: 4.5rem;
-        font-size: 2.2rem;
-    }
-}
-
-@media (max-width: 767px){
     .sugerenciaColor{
         font-size: 3rem;
         font-weight: 600;
@@ -418,10 +341,6 @@
 
     .form-group-agregadoRapido::placeholder{
         font-size: 2.8rem;
-    }
-
-    .bodyCarrito.open{
-        max-height: 200rem !important;
     }
 
     .confirmarCarrito{

@@ -1,22 +1,11 @@
 import { useState, useEffect } from 'react';
 import Header from './header.jsx';
 import HeaderMobile from './headerMobile.jsx';
+import { useTienda } from '../../contextTienda.jsx';
 
 export default function RenderHeader() {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 820);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 820);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
+    const { isMobile } = useTienda();
+    
     return (
         <>
             {isMobile ? <HeaderMobile /> : <Header />}

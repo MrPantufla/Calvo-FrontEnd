@@ -290,7 +290,7 @@ export default function CardProducto(args) {
             }
           </button>
         }
-        {referencia !== '' &&
+        {(referencia !== '' &&  precio != 0) &&
           <div className="dropdownCantidad">
             <button className={`toggleDropdown ${dropdownDesplegado && 'desplegado'}`} type="button" onClick={toggleDropdown}>
               {`CANTIDAD: `}

@@ -74,11 +74,9 @@
     .filtros {
         max-height: calc(100vh - 24rem);
     }
-}
 
-@media (max-width: 540px) {
     .filtrosYBusqueda.open {
-        width: 65%;
+        width: 40%;
     }
 
     .filtrosYBusqueda {
@@ -91,9 +89,8 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 820px) {
-    .filtrosYBusqueda {
-        padding-top: 0.6rem;
+@media (max-width: 540px){
+    .filtrosYBusqueda.open {
+        width: 65%;
     }
 }
-

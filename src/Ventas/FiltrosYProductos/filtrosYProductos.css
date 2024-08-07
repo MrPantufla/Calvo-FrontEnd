@@ -106,7 +106,7 @@
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 820px) {
     .filtrosYBusqueda:not(.open) {
         border: none;
     }
@@ -135,7 +135,7 @@
     }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 767px) {
     .contenedorPrincipalFiltrosYProductos {
         padding-left: 1rem;
         padding-bottom: 1rem;

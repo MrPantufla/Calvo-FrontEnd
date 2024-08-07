@@ -240,20 +240,19 @@ export default function FiltrosYProductos() {
   };
 
   return (
-    <div className={`contenedorPrincipalFiltrosYProductos ${isTablet && 'mobile'} ${procesosSelected && 'procesos'}`}>
+    <div className={`contenedorPrincipalFiltrosYProductos ${isMobile && 'mobile'} ${procesosSelected && 'procesos'}`}>
       <div className="decoracionTienda" />
-      <div className="filtrosYProductosContainer" style={{ minHeight: (procesosSelected && !isMobile) ? 'calc(100vh - 12rem)' : undefined }}>
-        {isTablet ?
+      <div className="filtrosYProductosContainer" style={{ minHeight: (procesosSelected && !isMobile) && 'calc(100vh - 12rem)' }}>
+        {isMobile &&
           (<>
             <Carrito />
             <Favoritos />
           </>)
-          :
-          (<></>)}
+        }
         <div
-          className={`filtrosYBusqueda ${filtrosYBusquedaOpen ? 'open' : ''}`}
+          className={`filtrosYBusqueda ${filtrosYBusquedaOpen && 'open'}`}
           id="filtrosYBusqueda"
-          style={isTablet ? {} : { top: '8.7rem' }}
+          style={isMobile ? {} : { top: '8.7rem' }}
         >
           <Busqueda
             busqueda={busqueda}
@@ -280,7 +279,7 @@ export default function FiltrosYProductos() {
             (<>
               {!(procesosSelected && (!stipoProceso || !acabado)) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
               {(rubroActivo && rubroActivo.id == 'Paneles') && (
-                <h1 className="textoPanelesPersonalizados"><span style={{ color: 'var(--colorRojo)'}}>¡IMPORTANTE!</span> Para realizar encargos de paneles con medidas personalizadas, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
+                <h1 className="textoPanelesPersonalizados"><span style={{ color: 'var(--colorRojo)' }}>¡IMPORTANTE!</span> Para realizar encargos de paneles con medidas personalizadas, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
               )}
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)

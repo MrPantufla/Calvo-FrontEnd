@@ -69,7 +69,7 @@ input[type="radio"].btn-check:checked+label.btn-outline-secondary {
   }
 }
  
-@media (max-width: 540px){
+@media (max-width: 767px){
   .btn-outline-secondary{
     height: 6rem;
     font-size: 3rem;
