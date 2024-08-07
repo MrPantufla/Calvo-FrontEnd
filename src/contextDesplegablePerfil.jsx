@@ -17,12 +17,17 @@ function DesplegableProviderPerfil({ children }) {
         setPerfilHovered(false);
     }
 
+    const togglePerfil = () =>{
+        setPerfilHovered(!perfilHovered);
+    }
+
     return (
         <DesplegablePerfilContext.Provider value={{
             perfilHovered,
             setPerfilHovered,
             abrirPerfil,
-            cerrarPerfil
+            cerrarPerfil,
+            togglePerfil
         }}>
             {children}
         </DesplegablePerfilContext.Provider>

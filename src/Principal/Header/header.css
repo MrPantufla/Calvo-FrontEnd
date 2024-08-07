@@ -24,6 +24,7 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
     overflow: hidden;
     z-index: 102;
+    user-select: none;
 }
 
 .perfil.perfilHovered {
@@ -84,6 +85,7 @@
     overflow: hidden;
     z-index: 102;
     justify-content: center;
+    user-select: none;
 }
 
 .seccion::before,
@@ -105,7 +107,7 @@
     transform: translateX(-200%);
 }
 
-.seccion:hover::before,
+.seccion:hover:not(.catalogosYArrow)::before,
 .seccion.hovered::before {
     transform: translateX(0);
 }
@@ -120,9 +122,8 @@
     transition: color 0.3s;
 }
 
-.seccion:hover p,
+.seccion:hover:not(.catalogosYArrow) p,
 .seccion.hovered p,
-.seccion:hover .catalogosYArrow,
 .seccion.hovered .catalogosYArrow{
     color: white;
     z-index: 1;

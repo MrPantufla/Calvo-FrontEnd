@@ -26,6 +26,10 @@ function DesplegableProviderCatalogos({ children }) {
         setHovered(false);
     }
 
+    const toggleHover = () => {
+        setHovered(!hovered)
+    }
+
     return (
         <DesplegableCatalogosContext.Provider value={{
             hovered,
@@ -34,7 +38,8 @@ function DesplegableProviderCatalogos({ children }) {
             anchoPerfil,
             setAnchoPerfil,
             anchoCatalogos,
-            setAnchoCatalogos
+            setAnchoCatalogos,
+            toggleHover
         }}>
             {children}
         </DesplegableCatalogosContext.Provider>
