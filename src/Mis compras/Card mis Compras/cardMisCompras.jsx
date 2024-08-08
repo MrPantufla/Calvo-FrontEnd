@@ -26,7 +26,8 @@ export default function CardMisCompras(args) {
 
     const total = args.data.reduce((accumulator, currentItem) => {
         if (productosIndexado[currentItem.producto]) {
-            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * (productosIndexado[currentItem.producto].rubro != 85 ? (productosIndexado[currentItem.producto].kg || 1) : (1))));
+            let producto = productosIndexado[currentItem.producto];
+            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : (1)) * producto.cantidad));
         }
         else {
             return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))

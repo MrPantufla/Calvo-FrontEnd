@@ -47,7 +47,7 @@ export default function ProductoHistorial(args) {
     let codigo;
     marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
-    const precioParaMostrarInt = parseInt(args.precio * args.cantidad * ((producto && producto.rubro != 85) ? (kg || 1) : (1)));
+    const precioParaMostrarInt = parseInt(args.precio * args.cantidad * ((producto && producto.rubro != 85) ? ((kg * producto.cantidad) || (1 * producto.cantidad)) : (1 * producto.cantidad)));
 
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
     const precioParaMostrarStringCant = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;

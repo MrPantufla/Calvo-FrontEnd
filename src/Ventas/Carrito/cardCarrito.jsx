@@ -112,7 +112,7 @@ export default function CardCarrito(args) {
 
     const precioParaMostrarInt = parseInt(
         producto.rubro == 85 ?
-            (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
+            (producto.precio * producto.cantidad + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
             :
             ((producto.kg > 0) ?
                 (producto.precio * producto.kg +
@@ -120,7 +120,7 @@ export default function CardCarrito(args) {
                     (acabado ? acabado.precio * producto.kg : 0)
                 )
                 :
-                (producto.precio)
+                (producto.precio * producto.cantidad)
             )
     );
 

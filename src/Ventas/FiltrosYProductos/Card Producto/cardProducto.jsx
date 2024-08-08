@@ -73,11 +73,11 @@ export default function CardProducto(args) {
   let idParaUsar;
 
   if (paqueteSeleccionado) {
-    precioParaUsar = precio;
+    precioParaUsar = precio * cantidad;
     idAux = id;
   }
   else {
-    precioParaUsar = productosSueltos[referencia].precio;
+    precioParaUsar = productosSueltos[referencia].precio * cantidad;
     idAux = productosSueltos[referencia].id;
   }
 
@@ -290,7 +290,7 @@ export default function CardProducto(args) {
             }
           </button>
         }
-        {(referencia !== '' &&  precio != 0) &&
+        {(referencia !== '' && precio != 0) &&
           <div className="dropdownCantidad">
             <button className={`toggleDropdown ${dropdownDesplegado && 'desplegado'}`} type="button" onClick={toggleDropdown}>
               {`CANTIDAD: `}
@@ -366,10 +366,14 @@ export default function CardProducto(args) {
                             (rubro == 39 ?
                               (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
                               :
-                              (tipo_prod == 'ACCESORIO' ?
-                              (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`) 
-                              : 
-                              ('')
+                              (rubro == 81 ?
+                                (`/ImagenesPuertasPlacas/${codigo.trim().toUpperCase()}.webp`)
+                                :
+                                (tipo_prod == 'ACCESORIO' ?
+                                  (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                                  :
+                                  ('')
+                                )
                               )
                             )
                           )
