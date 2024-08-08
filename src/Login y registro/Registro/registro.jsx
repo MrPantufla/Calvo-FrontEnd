@@ -52,8 +52,8 @@ export default function Registro() {
             setErrorMessage('Las contraseñas no coinciden.');
             return;
 
-        } else if (cuit.length > 11) {
-            setErrorMessage('CUIT puede contener hasta 11 caracteres')
+        } else if (cuit.length != 11) {
+            setErrorMessage('CUIT debe contener 11 caracteres')
             return;
 
         } else if (!numerosRegex.test(cuit)) {
