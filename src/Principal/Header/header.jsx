@@ -1,7 +1,7 @@
 import './header.css';
 import logo from '../../Imagenes/logo_calvo.webp';
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contextLogin';
 import { useDesplegableCatalogos } from '../../contextDesplegableCatalogos';
 import Carrito from '../../Ventas/Carrito/carrito';
@@ -10,12 +10,15 @@ import { useDesplegablePerfil } from '../../contextDesplegablePerfil';
 import { useTienda } from '../../contextTienda';
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const location = useLocation();
   const { hovered, abrirHover, cerrarHover, setAnchoPerfil, setAnchoCatalogos, toggleHover } = useDesplegableCatalogos();
   const { perfilHovered, abrirPerfil, cerrarPerfil, togglePerfil } = useDesplegablePerfil();
   const { mobile } = useTienda();
   const { state } = useAuth();
+
+  const params = new URLSearchParams(location.search);
 
   const headerStyle = {
     height: `${8}rem`,
@@ -34,6 +37,10 @@ export default function Header() {
   };
 
   const handleInicioClick = () => {
+    params.forEach((_, key) => {
+      params.delete(key);
+    });
+
     window.scrollTo(0, 0);
   };
 
@@ -92,12 +99,12 @@ export default function Header() {
           <img onClick={() => window.location.href = '/'} className="logo" src={logo} alt="logo_calvo_aluminios" />
         </div>
         <div className="col-12 col-sm-8 secciones columnas" style={{ paddingRight: location.pathname === '/tienda' ? '11rem' : '0' }}>
-          <NavLink to="/" className="seccion" onClick={handleInicioClick}>
+          <div className="seccion" onClick={() => { handleInicioClick(); navigate('/', { replace: true }) }}>
             <p>INICIO</p>
-          </NavLink>
-          <NavLink to="/tienda" className="seccion" onClick={handleInicioClick}>
+          </div>
+          <div className="seccion" onClick={() => { handleInicioClick(); navigate('/tienda', { replace: true }) }}>
             <p>TIENDA</p>
-          </NavLink>
+          </div>
           {location.pathname === '/' && (
             <a href="#quienesSomos" className="seccion">
               <p>QUIÉNES SOMOS</p>
