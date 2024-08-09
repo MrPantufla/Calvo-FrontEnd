@@ -88,6 +88,10 @@
     user-select: none;
 }
 
+.seccion:not(.catalogosYArrow){
+    cursor: pointer;
+}
+
 .seccion::before,
 .seccion::after {
     content: "";
