@@ -13,7 +13,7 @@ import Busqueda from './Filtros/Busqueda/busqueda';
 import Filtros from './Filtros/filtros';
 import { useCortinas } from '../../contextCortinas';
 import Procesos from './Procesos/procesos';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function FiltrosYProductos() {
 
@@ -27,7 +27,6 @@ export default function FiltrosYProductos() {
 
   const {
     cortinasSelected,
-    isTablet,
     isMobile,
     rubroActivo,
     coloresActivos,
@@ -51,6 +50,8 @@ export default function FiltrosYProductos() {
   } = useCortinas();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [busqueda, setBusqueda] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
@@ -238,6 +239,25 @@ export default function FiltrosYProductos() {
       }
     }, 100);
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+
+    if (params.get('pagina') !== paginaActual.toString()) {
+      params.set('pagina', paginaActual);
+      navigate({ search: params.toString() });
+    }
+  }, [paginar, navigate]);
+
+  useEffect (() => {
+    const params = new URLSearchParams(location.search);
+
+    const pagina = params.get('pagina');
+
+    if(pagina){
+      setPaginaActual(pagina);
+    }
+  }, [])
 
   return (
     <div className={`contenedorPrincipalFiltrosYProductos ${isMobile && 'mobile'} ${procesosSelected && 'procesos'}`}>

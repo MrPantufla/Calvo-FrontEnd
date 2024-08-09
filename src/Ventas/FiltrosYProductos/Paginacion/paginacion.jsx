@@ -63,7 +63,7 @@ export default function Paginacion(args) {
             <button
               key={numero}
               onClick={() => args.paginar(numero)}
-              className={args.paginaActual === numero ? 'pagina-actual botonPaginacion buttonPag' : 'buttonPag botonPaginacion'}
+              className={parseInt(args.paginaActual) === numero ? 'pagina-actual botonPaginacion buttonPag' : 'buttonPag botonPaginacion'}
             >
               {numero}
             </button>
