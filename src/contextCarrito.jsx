@@ -95,6 +95,7 @@ function CarritoProvider({ children }) {
             const kg = productoReal.kg;
             const referenciaPaquete = productoReal.referenciaPaquete;
             const cantidad = productoReal.cantidad;
+            const tipo_prod = productoReal.tipo_prod;
 
             let cantidadPaquete = -1;
             if (referenciaPaquete) {
@@ -146,7 +147,7 @@ function CarritoProvider({ children }) {
                 }
               }
               // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
-              return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg, cantidad }];
+              return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg, cantidad, tipo_prod }];
             }
           }
         });
