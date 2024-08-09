@@ -9,8 +9,13 @@ import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
 import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.webp';
 import Cookies from 'js-cookie';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function MisCompras() {
+    const location = useLocation();
+
+    const navigate = useNavigate();
+
     const { backend } = useVariables();
 
     const {
@@ -36,6 +41,8 @@ export default function MisCompras() {
     const numerosDePagina = Array.from({ length: totalPaginas }, (_, index) => index + 1);
     const itemsActuales = historial.slice(indexPrimerItem, indexUltimoItem);
 
+    const params = new URLSearchParams(location.search);
+
     const fetchData = async () => {
         try {
             let tokenParaEnviar = Cookies.get('jwtToken');
@@ -52,11 +59,11 @@ export default function MisCompras() {
                     },
                 });
 
-                if(response.ok){
+                if (response.ok) {
                     const data = await response.json();
                     setHistorial(data);
                 }
-                
+
                 setRespuestaRecibida(true);
             }
         } catch (error) {
@@ -67,6 +74,13 @@ export default function MisCompras() {
     useEffect(() => {
         fetchData();
     }, [state.logueado]);
+
+    useEffect(() => {
+        if (params.get('pagina') !== paginaActual.toString()) {
+            params.set('pagina', paginaActual);
+            navigate({ search: params.toString() });
+        }
+    }, [paginar, navigate]);
 
     return (
         <div className="contenedorPaginaMisCompras">
@@ -164,7 +178,7 @@ export default function MisCompras() {
                                 <button
                                     key={numero}
                                     onClick={() => paginar(numero)}
-                                    className={paginaActual === numero ? 'pagina-actual botonPaginacion buttonPag' : 'buttonPag botonPaginacion'}
+                                    className={parseInt(paginaActual) === numero ? 'pagina-actual botonPaginacion buttonPag' : 'buttonPag botonPaginacion'}
                                 >
                                     {numero}
                                 </button>

@@ -73,11 +73,11 @@ export default function CardProducto(args) {
   let idParaUsar;
 
   if (paqueteSeleccionado) {
-    precioParaUsar = precio * cantidad;
+    tipo_prod == 'PERFIL' && cod_orig.endsWith('E') ? (precioParaUsar = precio) : (precioParaUsar = precio * cantidad);
     idAux = id;
   }
   else {
-    precioParaUsar = productosSueltos[referencia].precio * cantidad;
+    precioParaUsar = productosSueltos[referencia].precio;
     idAux = productosSueltos[referencia].id;
   }
 
@@ -290,7 +290,7 @@ export default function CardProducto(args) {
             }
           </button>
         }
-        {(referencia !== '' && precio != 0) &&
+        {(referencia !== '') &&
           <div className="dropdownCantidad">
             <button className={`toggleDropdown ${dropdownDesplegado && 'desplegado'}`} type="button" onClick={toggleDropdown}>
               {`CANTIDAD: `}
@@ -462,7 +462,7 @@ export default function CardProducto(args) {
               {precioParaMostrarString}
             </p>
           </div>
-          {(state.userInfo && state.userInfo.categoria == 'MAYORISTA') &&
+          {(state.userInfo && state.userInfo.categoria == 'MAYORISTA' && !(tipo_prod == 'PERFIL' && cod_orig.endsWith('E'))) &&
             <div className="precioContainerCardProducto segundoContainer">
               <p className="precioCardProducto">
                 {`CON DESCUENTO POR PAGO AL CONTADO: $${precioParaMostrarStringDescuento}`}

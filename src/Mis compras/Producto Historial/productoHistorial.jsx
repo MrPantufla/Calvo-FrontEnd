@@ -5,11 +5,17 @@ import { marcasUnicasPerfiles } from '../../rubros';
 
 export default function ProductoHistorial(args) {
 
-    const { productosIndexado } = useProductos();
+    const { 
+        productosIndexado, 
+        productosSueltos 
+    } = useProductos();
 
     const { procesos } = useProductos();
 
-    const producto = productosIndexado[args.id];
+    let producto = productosIndexado[args.id];
+    if(!producto){
+        producto = productosSueltos[args.id];
+    }
 
     const [cod_orig, setCod_orig] = useState("CA");
     const [detalle, setDetalle] = useState("detalle");
@@ -47,7 +53,7 @@ export default function ProductoHistorial(args) {
     let codigo;
     marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
-    const precioParaMostrarInt = parseInt(args.precio * args.cantidad * ((producto && producto.rubro != 85) ? ((kg * producto.cantidad) || (1 * producto.cantidad)) : (1 * producto.cantidad)));
+    const precioParaMostrarInt = parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg) || (1) : (1)));
 
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
     const precioParaMostrarStringCant = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
@@ -75,7 +81,7 @@ export default function ProductoHistorial(args) {
                     }
                     onContextMenu={handleContextMenu} />
                 <p>
-                    <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''}
+                    <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} {producto.cantidad > 1 ? (<span className="cod_origProductoHistorial">({producto.cantidad}u.)</span>) : ('')}
                 </p>
             </div>
             <div className="informacionProductoHistorialContainer">

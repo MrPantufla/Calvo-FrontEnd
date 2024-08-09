@@ -65,7 +65,7 @@ export default function Carrito() {
   const [carritoHeight, setCarritoHeight] = useState(0);
   const [mostrarHint, setMostrarHint] = useState(false);
 
-  const calcularTotal = (elementos) => {
+  const calcularTotal = (elementos, conDescuento) => {
     return elementos.reduce((total, elemento) => {
 
       const idProducto = extraerProducto(elemento.id);
@@ -93,8 +93,13 @@ export default function Carrito() {
           : producto.precio
       )
 
-
-      return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
+        if(conDescuento && !(elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('E') || elemento.cod_origProducto.endsWith('ES')))){
+          
+          return total + ((precioElemento * elemento.cantidadCarrito * elemento.cantidad) * 97 / 100);
+        }
+        else{
+          return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
+        }
     }, 0);
   };
 
@@ -264,8 +269,8 @@ export default function Carrito() {
     }
   }, [carritoAbierto, elementos.length]);
 
-  const precioParaMostrarString = calcularTotal ? calcularTotal(elementos).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
-  const precioParaMostrarStringDescuento = calcularTotal ? (parseInt(calcularTotal(elementos) * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+  const precioParaMostrarString = calcularTotal ? calcularTotal(elementos, false).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+  const precioParaMostrarStringDescuento = calcularTotal ? (parseInt(calcularTotal(elementos, true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
   return (
     <div className={`contenedorPrincipalCarrito`} style={{ pointerEvents: carritoAbierto ? 'auto' : 'none' }}>

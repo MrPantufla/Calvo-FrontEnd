@@ -115,7 +115,7 @@ export default function CardCarrito(args) {
             (producto.precio * producto.cantidad + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
             :
             ((producto.kg > 0) ?
-                (producto.precio * producto.kg +
+                (producto.precio * producto.cantidad * producto.kg +
                     (proceso ? proceso.precio * producto.kg : 0) +
                     (acabado ? acabado.precio * producto.kg : 0)
                 )

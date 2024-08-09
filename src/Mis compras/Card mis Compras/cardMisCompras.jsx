@@ -9,7 +9,10 @@ import { useAuth } from '../../contextLogin';
 export default function CardMisCompras(args) {
     const [cardComprasAbierto, setCardComprasAbierto] = useState(false);
 
-    const { productosIndexado } = useProductos();
+    const {
+        productosIndexado,
+        productosSueltos
+    } = useProductos();
 
     const {
         setCarritoAbierto,
@@ -24,15 +27,25 @@ export default function CardMisCompras(args) {
         setCardComprasAbierto(!cardComprasAbierto);
     }
 
-    const total = args.data.reduce((accumulator, currentItem) => {
-        if (productosIndexado[currentItem.producto]) {
+    const total = (conDescuento) => {
+        return args.data.reduce((accumulator, currentItem) => {
             let producto = productosIndexado[currentItem.producto];
-            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : (1)) * producto.cantidad));
-        }
-        else {
-            return parseInt(accumulator + (currentItem.p_vta * currentItem.cantidad))
-        }
-    }, 0);
+
+            if (!producto) {
+                producto = productosSueltos[currentItem.producto]
+            }
+            
+            if (producto) {
+                if (conDescuento && !(producto.tipo_prod === 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES')))) {
+                    return accumulator + ((currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1)) * 97 / 100);
+                } else {
+                    return accumulator + (currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1));
+                }
+            } else {
+                return accumulator + (currentItem.p_vta * currentItem.cantidad);
+            }
+        }, 0);
+    }
 
     const repetirCompra = () => {
         Array.from({ length: args.data.length }).map((_, index) => {
@@ -62,8 +75,8 @@ export default function CardMisCompras(args) {
         setCardComprasAbierto(false);
     }, [args.id])
 
-    const precioParaMostrarString = total ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
-    const precioParaMostrarStringDescuento = total ? (parseInt(total * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+    const precioParaMostrarString = parseInt(total(false)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    const precioParaMostrarStringDescuento = (parseInt(total(true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     return (
         <div className="contenedorPrincipalCardMisCompras" >
