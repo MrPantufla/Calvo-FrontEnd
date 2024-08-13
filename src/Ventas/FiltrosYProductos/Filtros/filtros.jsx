@@ -4,6 +4,7 @@ import Rubros from './Rubros/rubros.jsx';
 import { useEffect, useState } from 'react';
 import './filtros.css';
 import { useProductos } from '../../../contextProductos.jsx';
+import Marcas from './Marcas/marca.jsx';
 
 export default function Filtros(args) {
     const { state } = useAuth();
@@ -18,6 +19,9 @@ export default function Filtros(args) {
         procesosSelected,
         seleccionarProcesos,
         srubroActivo,
+        softwareSelected,
+        seleccionarSoftware,
+        rubros
     } = useTienda();
 
     const { guardarDestacados } = useProductos();
@@ -57,12 +61,20 @@ export default function Filtros(args) {
         });
     }
 
+    const handleScrollClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     return (
         <>
             <div className='filtros' id='filtros'>
-                <Rubros setPaginaActual={args.setPaginaActual}/>
+                <Rubros setPaginaActual={args.setPaginaActual} />
                 <div className={`labelRubros ${procesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarProcesos()}>PROCESOS</div>
-                <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
+                <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
+                <div className={`labelRubros ${softwareSelected && 'checked'} textoLabelRubros} ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarSoftware()}>SOFTWARE</div>
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros textoLabelRubros ultimoLabel`} onClick={() => guardarDestacados()}>GUARDAR DESTACADOS</div>))}
             </div>
