@@ -108,10 +108,6 @@
     padding-top: 1rem;
 }
 
-.proceso:first-child, .proceso:nth-child(2), .proceso:nth-child(3){
-    padding-top: 0.7rem;
-}
-
 .proceso:last-child .proceso{
     padding-bottom: 1rem;
 }
@@ -139,6 +135,15 @@
     margin-bottom: 0.6rem;
 }
 
+.textoComunicateConNosotros.textoProcesos{
+    width: calc(100% - 1rem);
+    margin: 0.6rem auto 0 auto;
+    background-color: var(--colorRojo);
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 500;
+}
+
 @media(max-width: 911px){
     .atras{
         top: 12rem;
@@ -151,8 +156,8 @@
         flex-direction: column;
     }
 
-    .tipoProceso h1{
-        font-size: 4rem;
+    .cardProceso h1{
+        font-size: 3.3rem;
     }
 
     .atras{
@@ -160,5 +165,9 @@
         left: 3%;
         width: 15rem;
         height: 6rem;
+    }
+
+    .textoComunicateConNosotros.textoProcesos{
+        font-size: 3rem;
     }
 }

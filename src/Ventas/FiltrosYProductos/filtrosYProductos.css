@@ -92,16 +92,19 @@
     flex-direction: row;
 }
 
-.textoPanelesPersonalizados{
-    background-color: var(--colorPrimario);
+.textoComunicateConNostros{
+    background-color: var(--colorRojo);
     font-size: 2rem;
     text-align: center;
-    margin-top: 2.5rem;
     font-weight: 500;
 }
 
+.textoComunicateConNostros.textoPaneles{
+    margin-top: 2.5rem;
+}
+
 @media (max-width: 1023px){
-    .textoPanelesPersonalizados{
+    .textoComunicateConNostros{
         margin-top: 3rem;
     }
 }
@@ -149,7 +152,7 @@
         min-height: calc(100vh - 26.5rem);
     }
 
-    .textoPanelesPersonalizados{
+    .textoComunicateConNostros.textoPaneles{
         font-size: 3rem;
         margin-top: 4rem;
     }
