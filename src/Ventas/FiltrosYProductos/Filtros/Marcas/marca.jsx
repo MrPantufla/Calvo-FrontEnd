@@ -5,7 +5,8 @@ export default function Marcas(args) {
 
     const marca = args.marca;
 
-    const { togglearMarca,
+    const { 
+        togglearMarca,
         setColoresActivos,
         marcaActiva,
     } = useTienda();

@@ -4,7 +4,10 @@ import { useTienda } from '../../../../contextTienda.jsx';
 import { useEffect, useState } from 'react';
 
 export default function Marcas(args) {
-    const { marcas, marcaActiva } = useTienda();
+    const {
+        marcas,
+        marcaActiva
+    } = useTienda();
     const [marcasRender, setMarcasRender] = useState(marcas);
 
     useEffect(() => {
