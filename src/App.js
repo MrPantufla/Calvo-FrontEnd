@@ -18,9 +18,12 @@ import { FavoritosProvider } from './contextFavoritos.jsx';
 import { ProductosProvider } from './contextProductos.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { useVariables } from './contextVariables.jsx';
+import { Facturacion } from './Ventas/Confirmar compra/Facturacion/facturacion.jsx';
+import TerminosYCondiciones from './Terminos y condiciones/terminosYCondiciones.jsx';
 
 function App() {
   const { mostrarCartelCliente } = useVariables();
+  const { mostrarFacturacion } = useVariables();
 
   return (
     <ProductosProvider>
@@ -38,8 +41,10 @@ function App() {
                         <Route path="/perfil" element={<Perfil />} />
                         <Route path="/misCompras" element={<MisCompras />} />
                         <Route path="/editarUsuarios" element={<EditarUsuarios />} />
+                        <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
                       </Routes>
-                      {mostrarCartelCliente == true && <CartelCliente />}
+                      {mostrarCartelCliente && <CartelCliente />}
+                      {mostrarFacturacion && <Facturacion/>}
                       <LoginYRegistro />
                     </ConfiguracionProvider>
                   </TiendaProvider>
