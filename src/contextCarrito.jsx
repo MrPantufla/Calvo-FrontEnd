@@ -31,11 +31,11 @@ function CarritoProvider({ children }) {
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [carritoConfirmado, setCarritoConfirmado] = useState(false);
-  const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
+  //const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
   const [mostrarCartelError, setMostrarCartelError] = useState(false);
   const [primeraAccion, setPrimeraAccion] = useState(true);
   const [compraRealizadaAbierto, setCompraRealizadaAbierto] = useState(false);
-  const [errorProductoEliminado, setErrorProductoEliminado] = useState(false);
+  const [respuestaCompra, setRespuestaCompra] = useState(false);
   const [precioTotal, setPrecioTotal] = useState(null);
   const [datosCorroborados, setDatosCorroborados] = useState(false);
   const [instanciaPedido, setInstanciaPedido] = useState('');
@@ -245,13 +245,13 @@ function CarritoProvider({ children }) {
     }
   }, [elementos]);
 
-  const confirmarCompra = () => {
+  const confirmarCompra = (datosPedido) => {
     setRespuestaRecibida(false);
     setCompraRealizadaAbierto(true);
 
     const nuevosElementos = elementos.map(({ id, cantidadCarrito }) => ({ id, cantidadCarrito }));
     const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
-    const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion }
+    const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion, facturacion: datosPedido };
 
     let tokenParaEnviar = Cookies.get('jwtToken');
 
@@ -269,14 +269,17 @@ function CarritoProvider({ children }) {
     })
       .then(response => {
         setRespuestaRecibida(true);
-        if(response.ok){
-          //crearCliente();
-        }
-
-        if (response.status == 500) {
-          setErrorProductoEliminado(true);
+        return response.text();
+      })
+      .then(text => {
+        if (text) {
+          console.log(text);
+          setRespuestaCompra(text);
         }
       })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   useEffect(() => {
@@ -300,8 +303,8 @@ function CarritoProvider({ children }) {
       setCompraRealizadaAbierto,
       mostrarCartelError,
       actualizarCarrito,
-      confirmarCompraAbierto,
-      setConfirmarCompraAbierto,
+      //confirmarCompraAbierto,
+      //setConfirmarCompraAbierto,
       carritoConfirmado,
       setCarritoConfirmado,
       confirmarCompra,
@@ -315,8 +318,8 @@ function CarritoProvider({ children }) {
       instanciaPedido,
       setInstanciaPedido,
       eliminarElemento,
-      errorProductoEliminado,
-      setErrorProductoEliminado,
+      respuestaCompra,
+      setRespuestaCompra,
       respuestaRecibida,
       extraerProducto,
       extraerProceso,
