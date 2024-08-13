@@ -3,7 +3,7 @@ import './categorias.css';
 import { rubros } from '../../../rubros.js';
 
 export default function Categorias() {
-    const categorias = ["PERFILES", "ACCESORIOS", "AUTOMATISMOS", "CHAPAS", "HERRAMIENTAS", "PANELES", "POLICARBONATOS Y POLIESTIRENOS", "PUERTAS PLACAS", "TEJIDOS MOSQUITEROS", "MÁQUINAS", "CORTINAS", "SOFTWARE"];
+    const categorias = ["PERFILES", "ACCESORIOS", "AUTOMATISMOS", "CHAPAS", "MÁQUINAS Y HERRAMIENTAS", "PANELES", "POLICARBONATOS Y POLIESTIRENOS", "PUERTAS PLACAS", "TEJIDOS MOSQUITEROS", "PROCESOS", "CORTINAS", "SOFTWARE"];
 
     function convertString(input) {
         let words = input.split(' ').map(word => {

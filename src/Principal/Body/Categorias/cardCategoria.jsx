@@ -8,7 +8,8 @@ export default function CardCategoria(args) {
     const {
         rubros,
         setRubroActivo,
-        seleccionarCortinas
+        seleccionarCortinas,
+        seleccionarProcesos
     } = useTienda();
 
     const navegarACategoria = () => {
@@ -19,10 +20,13 @@ export default function CardCategoria(args) {
             let nav = args.referencia;
 
             nav == 'PolicarbonatosYPoliestirenos' && (nav = 'Policarbonatos');
-            nav == 'Máquinas' && (nav = 'Maquinas');
+            nav == 'MáquinasYHerramientas' && (nav = 'Maquinas');
 
             if(nav == 'Cortinas'){
                 seleccionarCortinas(); 
+            }
+            if(nav == 'Procesos'){
+                seleccionarProcesos();
             }
             else{
                 setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === nav));
