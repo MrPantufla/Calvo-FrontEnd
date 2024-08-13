@@ -23,6 +23,7 @@ function TiendaProvider({ children }) {
   const [mostrarPagos, setMostrarPagos] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
+  const [softwareSelected, setSoftwareSelected] = useState(false);
   const [procesosSelected, setProcesosSelected] = useState(false);
   const [tipoProceso, setTipoProceso] = useState(null);
   const [stipoProceso, setStipoProceso] = useState(null);
@@ -154,6 +155,7 @@ function TiendaProvider({ children }) {
     setTipoProceso(null);
     setStipoProceso(null);
     setAcabado(null);
+    setSoftwareSelected(false);
 
     if (!eliminadosSelected) {
       setRubroActivo([]);
@@ -171,6 +173,7 @@ function TiendaProvider({ children }) {
     setTipoProceso(null);
     setStipoProceso(null);
     setAcabado(null);
+    setSoftwareSelected(false);
 
     if (!cortinasSelected) {
       setRubroActivo([]);
@@ -188,6 +191,7 @@ function TiendaProvider({ children }) {
     setTipoProceso(null);
     setStipoProceso(null);
     setAcabado(null);
+    setSoftwareSelected(false);
 
     if (!procesosSelected) {
       setRubroActivo(null);
@@ -201,6 +205,24 @@ function TiendaProvider({ children }) {
     }
   }
 
+  const seleccionarSoftware = () =>{
+    setEliminadosSelected(false);
+    setCortinasSelected(false);
+    setProcesosSelected(false);
+    setTipoProceso(null);
+    setStipoProceso(null);
+    setAcabado(null);
+
+    if(!softwareSelected){
+      setRubroActivo([]);
+      setSoftwareSelected(true);
+    }
+    else{
+      setRubroActivo(null);
+      setSoftwareSelected(false);
+    }
+  }
+
   const togglearRubro = (rubro) => {
     setCortinasSelected(false);
     setEliminadosSelected(false);
@@ -210,6 +232,7 @@ function TiendaProvider({ children }) {
     setTipoProceso(null);
     setStipoProceso(null);
     setAcabado(null);
+    setSoftwareSelected(false);
 
     if (rubroActivo == rubro) {
       setRubroActivo(null);
@@ -250,8 +273,8 @@ function TiendaProvider({ children }) {
   const obtenerMarcas = async () => {
     const response = await fetch(`${backend}/api/marcas`);
     if (response.ok) {
-      const marcas = await response.json();
-      setMarcas(marcas);
+      const marcasResponse = await response.json();
+      setMarcas(marcasResponse);
     }
   }
 
@@ -293,7 +316,9 @@ function TiendaProvider({ children }) {
       obtenerMarcas,
       obtenerRubros,
       marcas,
-      rubros
+      rubros,
+      softwareSelected,
+      seleccionarSoftware
     }}>
       {children}
     </TiendaContext.Provider>
