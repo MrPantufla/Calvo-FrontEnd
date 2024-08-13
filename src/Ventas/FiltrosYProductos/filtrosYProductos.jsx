@@ -41,7 +41,8 @@ export default function FiltrosYProductos() {
     acabado,
     setMenuAbierto,
     marcas,
-    rubros
+    rubros,
+    softwareSelected
   } = useTienda();
 
   const {
@@ -85,9 +86,8 @@ export default function FiltrosYProductos() {
 
   const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-      rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
+      (rubroActivo == null && !procesosSelected && !eliminadosSelected) && p.tipo_prod != 'PROCESOS' ||
       (rubroActivo && (
-        rubroActivo == p.rubro ||
         rubroActivo.id == 'Perfiles' && (marcas.some(marca => marca.items.includes(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca))) ||
         rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
         rubroActivo.id == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
@@ -249,12 +249,12 @@ export default function FiltrosYProductos() {
     }
   }, [paginar, navigate]);
 
-  useEffect (() => {
+  useEffect(() => {
     const params = new URLSearchParams(location.search);
 
     const pagina = params.get('pagina');
 
-    if(pagina){
+    if (pagina) {
       setPaginaActual(pagina);
     }
   }, [])
@@ -297,9 +297,9 @@ export default function FiltrosYProductos() {
             (<Cortinas />)
             :
             (<>
-              {!(procesosSelected && (!stipoProceso || !acabado)) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
+              {!(softwareSelected || (procesosSelected && (!stipoProceso || !acabado))) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
               {(rubroActivo && rubroActivo.id == 'Paneles') && (
-                <h1 className="textoPanelesPersonalizados"><span style={{ color: 'var(--colorRojo)' }}>¡IMPORTANTE!</span> Para realizar encargos de paneles con medidas personalizadas, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
+                <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de paneles con medidas personalizadas, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
               )}
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
@@ -339,7 +339,7 @@ export default function FiltrosYProductos() {
         />
       )}
 
-      {!(cortinasSelected || (procesosSelected && (!tipoProceso || !stipoProceso || ((stipoProceso && stipoProceso.detalle.includes("ANODIZADO")) && !acabado)))) &&
+      {!(cortinasSelected || softwareSelected || (procesosSelected && (!tipoProceso || !stipoProceso || ((stipoProceso && stipoProceso.detalle.includes("ANODIZADO")) && !acabado)))) &&
         (<Paginacion
           paginar={paginar}
           paginaActual={paginaActual}
