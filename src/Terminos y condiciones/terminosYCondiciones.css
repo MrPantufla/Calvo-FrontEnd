@@ -1,0 +1,18 @@
+.contenedorPrincipalTerminosYCondiciones{
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    background-color: white;
+}
+
+.contenedorPrincipalTerminosYCondiciones p{
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family:'Times New Roman', Times, serif;
+}
+
+@media (max-width: 767px){
+    .contenedorPrincipalTerminosYCondiciones p{
+        font-size: 2.2rem;
+    }
+}

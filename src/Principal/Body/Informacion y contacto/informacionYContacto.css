@@ -58,6 +58,7 @@
     justify-content: center;
     align-items: center;
     height: 5rem;
+    position: relative;
 }
 
 .redesSocialesContainer .bi{
@@ -72,6 +73,13 @@
 
 .redesSocialesContainer .bi-instagram:hover{
     color: #f63b3e;
+}
+
+.linkTYC{
+    font-size: 1.5rem;
+    position: absolute;
+    right: 15rem;
+    bottom: 1rem;
 }
 
 @media (max-width: 912px){
@@ -120,5 +128,10 @@
     .redesSocialesContainer svg{
         width: 5rem;
         height: 5rem;
+    }
+
+    .linkTYC{
+        font-size: 2.5rem;
+        right: 1rem;
     }
 }

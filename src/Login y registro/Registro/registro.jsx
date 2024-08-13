@@ -370,6 +370,7 @@ export default function Registro() {
                         onKeyDown={presionarEnter}
                     />
                 </div>
+                <p className="terminosYCondicionesRegistro">*Al registrarse en este sitio web, usted está aceptando nuestros <a href="/terminosYCondiciones" target='blank'>términos y condiciones</a></p>
                 <div className="botonRegistroContainer">
                     <button className="botonEnviarRegistro" type="button" onClick={handleRegistro}>
                         Registrar
