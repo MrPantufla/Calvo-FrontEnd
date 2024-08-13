@@ -10,18 +10,18 @@ export default function Srubros(args) {
         srubroActivo
     } = useTienda();
 
-    const [srubrosRender, setSrubrosRender] = useState(rubro.srubros);
+    const [srubrosRender, setSrubrosRender] = useState(args.srubros);
 
     useEffect(() => {
         if (srubroActivo && rubro.id != 'Maquinas' && rubro.id != 'PuertasPlacas' && rubro.id != 'Automatismos' && rubro.id != 'Chapas' && rubro.id != 'Herramientas' && rubro.id != 'TejidosMosquiteros') {
-            const updatedSrubros = rubro.srubros.filter(srubro => srubro !== undefined && srubro !== srubroActivo);
-            const selectedSurbro = rubro.srubros.find(srubro => srubro !== undefined && srubro === srubroActivo);
+            const updatedSrubros = args.srubros.filter(srubro => srubro !== undefined && srubro !== srubroActivo);
+            const selectedSurbro = args.srubros.find(srubro => srubro !== undefined && srubro === srubroActivo);
             if (selectedSurbro) {
                 updatedSrubros.unshift(selectedSurbro);
             }
             setSrubrosRender(updatedSrubros);
         } else {
-            setSrubrosRender(rubro.srubros);
+            setSrubrosRender(args.srubros);
         }
     }, [srubroActivo, rubro]);
 

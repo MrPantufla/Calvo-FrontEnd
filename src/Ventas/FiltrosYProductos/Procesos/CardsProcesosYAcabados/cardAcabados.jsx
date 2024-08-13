@@ -21,7 +21,7 @@ export default function CardAcabados(args) {
 
     let detalleArreglado = args.acabado.detalle;
     if (detalleArreglado.slice(-2) == 'M2') {
-        detalleArreglado = detalleArreglado.slice(0, -5)
+        detalleArreglado = detalleArreglado.slice(0, -3)
     }
 
     const usarBlanco = (args.colorCorregido == 'Negro' ||
