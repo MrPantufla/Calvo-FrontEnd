@@ -23,7 +23,7 @@
     justify-content: center;
 }
 
-.decoracionCortinasContainer{
+.decoracionCortinasContainer {
     width: 100%;
     height: 8rem;
 }
@@ -62,6 +62,18 @@
     user-select: none;
     transition: color 0.2s;
     border: none;
+}
+
+.especificacionCortina:not(.textoEspecificacionCortina, .milimetrosCortinas) {
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
+.textoEspecificacionCortina{
+    /*box-shadow: -1px 0px 3px 0px rgba(0, 0, 0, 0.75);*/
+}
+
+.milimetrosCortinas{
+    /*box-shadow: 1px 0px 2px 0px rgba(0, 0, 0, 0.75);*/
 }
 
 .milimetrosCortinas {
@@ -226,8 +238,8 @@
     border-color: var(--colorSecundario)
 }
 
-@media (min-width: 768px) and (max-width: 1024px){
-    .parteFormulariosCortinas{
+@media (min-width: 768px) and (max-width: 1024px) {
+    .parteFormulariosCortinas {
         min-height: calc(100vh - 15.3rem);
     }
 }
@@ -255,7 +267,7 @@
     }
 
     .divFold1 {
-        margin-bottom: 1rem;
+        /*margin-bottom: 1rem;*/
     }
 
     .especificacionCortina {
@@ -311,10 +323,10 @@
     }
 
     .decoracionCortinasContainer {
-        height: 15rem;
+        height: 8rem;
     }
-    
-    .decoracionCortinas{
+
+    .decoracionCortinas {
         font-size: 3rem;
         padding-right: 3.5rem;
     }
