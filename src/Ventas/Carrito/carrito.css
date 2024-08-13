@@ -42,6 +42,30 @@
     padding-top: 0.2rem;
 }
 
+.botonDescargarPresupuesto{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--colorPrimario);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: scale 0.2s;
+    margin-left: 0.5rem;
+}
+
+.botonDescargarPresupuesto svg{
+    fill: var(--colorSecundario);
+    width: 80%;
+    height: 80%;
+}
+
+.botonDescargarPresupuesto.disabled svg{
+    fill: var(--colorCuaternario);
+    cursor: default;
+}
+
 .tituloCarrito{
     width: 90%;
     text-align: center;
@@ -58,6 +82,7 @@
     border-radius: 2px;
     cursor: pointer;
     transition: scale 0.2s;
+    margin-right: 0.5rem;
 }
 
 .botonHintCarrito:active{
@@ -276,6 +301,8 @@
 @media (max-width: 767px){
     .tituloCarrito{
         font-size: 2rem;
+        padding-left: 0;
+        margin-right: 3rem;
     }
 
     .sugerenciaColor{
@@ -287,6 +314,12 @@
 
     .hintCarrito{
         font-size: 2rem;
+    }
+
+    .botonDescargarPresupuesto{
+        width: 3.5rem;
+        height: 3.5rem;
+        margin-left: 0.5rem;
     }
 
     .contenedorPrincipalCarrito{

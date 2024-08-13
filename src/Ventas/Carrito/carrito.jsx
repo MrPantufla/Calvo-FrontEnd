@@ -7,12 +7,13 @@ import { useFavoritos } from '../../contextFavoritos.jsx';
 import { useTienda } from '../../contextTienda.jsx';
 import carritoVacioImg from '../../Imagenes/carritoVacio.webp';
 import { useAuth } from '../../contextLogin.jsx';
+import { useVariables } from '../../contextVariables.jsx';
 
 export default function Carrito() {
   const {
     elementos,
     añadirElemento,
-    setConfirmarCompraAbierto,
+    //setConfirmarCompraAbierto,
     setMostrarCartelError,
     confirmarCompra,
     setInstanciaPedido,
@@ -35,14 +36,14 @@ export default function Carrito() {
     carritoAbierto,
     toggleCarrito,
     setPrecioTotal,
-    limpiarCarrito,
-    setCarritoAbierto
   } = useCarrito();
 
   const {
     isMobile,
     isTablet
   } = useTienda();
+
+  const { setMostrarFacturacion } = useVariables();
 
   const { setFavoritosAbierto } = useFavoritos();
 
@@ -93,13 +94,13 @@ export default function Carrito() {
           : producto.precio
       )
 
-        if(conDescuento && !(elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('E') || elemento.cod_origProducto.endsWith('ES')))){
-          
-          return total + ((precioElemento * elemento.cantidadCarrito * elemento.cantidad) * 97 / 100);
-        }
-        else{
-          return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
-        }
+      if (conDescuento && !(elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('E') || elemento.cod_origProducto.endsWith('ES')))) {
+
+        return total + ((precioElemento * elemento.cantidadCarrito * elemento.cantidad) * 97 / 100);
+      }
+      else {
+        return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
+      }
     }, 0);
   };
 
@@ -128,7 +129,8 @@ export default function Carrito() {
           setCodigoAgregadoRapido('');
         }
         else {
-          if (!state.userInfo.categoria != 'MAYORISTA') {
+          console.log(state.userInfo)
+          if (state.userInfo.categoria != 'MAYORISTA') {
             setMostrarCartelError(true);
           }
           else {
@@ -261,7 +263,7 @@ export default function Carrito() {
           setCarritoHeight(3 + 4 + 10.5);
         }
         else {
-          setCarritoHeight(0.5 + 5 + 10);
+          setCarritoHeight(1 + 5 + 10);
         }
       }
     } else {
@@ -294,6 +296,12 @@ export default function Carrito() {
       <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
+            <div className={`botonDescargarPresupuesto ${elementos.length < 1 && 'disabled'}` /*AGREGAR FUNCIONALIDAD PARA DESCARGAR PRESUPUESTO*/}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+              </svg>
+            </div>
             <p className="tituloCarrito">CARRITO {!isTablet && (" - COMPRA RÁPIDA")}</p>
             {!isTablet &&
               <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
@@ -378,20 +386,18 @@ export default function Carrito() {
                   className={`confirmarCarrito ${state.userInfo.categoria == 'MAYORISTA' && 'mayorista'}`}
                   disabled={!elementos.length > 0}
                   onClick={() => {
-                    if (!state.userInfo.cliente) {
-                      setConfirmarCompraAbierto(true);
+                    if (state.userInfo.cliente) {
+                      //setConfirmarCompraAbierto(true);
                       setPrecioTotal(calcularTotal(elementos));
-                      setInstanciaPedido('envio');
+                      setMostrarFacturacion(true);
                     } else {
-                      confirmarCompra();
-                      limpiarCarrito();
-                      setCarritoAbierto(false);
+
                     }
                   }}
                 >
                   CONFIRMAR PEDIDO: ${precioParaMostrarString}
                   <br />
-                  (CON DESCUENTO POR PAGO AL CONTADO: ${precioParaMostrarStringDescuento})
+                  (CON PAGO AL CONTADO Y SIN SALDO: ${precioParaMostrarStringDescuento})
                 </button>
               </>
             )}
