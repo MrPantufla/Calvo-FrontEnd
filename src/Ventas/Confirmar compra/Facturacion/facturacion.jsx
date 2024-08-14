@@ -7,7 +7,8 @@ export function Facturacion() {
     const {
         confirmarCompra,
         limpiarCarrito,
-        setCarritoAbierto
+        setCarritoAbierto,
+        elementos
     } = useCarrito();
 
     const [tipoFacturacion, setTipoFacturacion] = useState('');
@@ -94,11 +95,13 @@ export function Facturacion() {
         datosPedido = 'Sin factura';
     }
     else if (tipoFacturacion == 'responsableInscripto') {
-        datosPedido = 'Facturar a' + cuit;
+        datosPedido = 'Facturar a ' + cuit;
     }
     else {
         datosPedido = 'Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni;
     }
+    
+    const tieneProceso = elementos.some(elemento => elemento.id.includes("("));
 
     return (
         <div className="contenedorGeneralFacturacion" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
@@ -108,8 +111,8 @@ export function Facturacion() {
                 </div>
                 <div className="botonesTipoFacturacion">
                     <button onClick={() => toggleTipoFacturacion('sinFacturar')} className={tipoFacturacion == 'sinFacturar' ? 'active' : ''}>Sin facturar</button>
-                    <button onClick={() => toggleTipoFacturacion('responsableInscripto')} className={tipoFacturacion == 'responsableInscripto' ? 'active' : ''}>Reponsable inscripto</button>
                     <button onClick={() => toggleTipoFacturacion('consumidorFinal')} className={tipoFacturacion == 'consumidorFinal' ? 'active' : ''}>Consumidor final</button>
+                    <button onClick={() => toggleTipoFacturacion('responsableInscripto')} className={tipoFacturacion == 'responsableInscripto' ? 'active' : ''}>Inscripto</button>
                 </div>
                 <div className="mensajeError" style={{ display: (tipoFacturacion == '' || tipoFacturacion == 'sinFacturar') && 'none' }}>
                     {errorMessage !== '' && (
@@ -199,7 +202,8 @@ export function Facturacion() {
                     Recordatorio de términos y condiciones:<br/>
                     -El precio listado de los perfiles es aproximado en base al peso estimativo de los mismos.<br/>
                     -Los productos están sujetos a disponibilidad.<br/>
-                    -Los precios pueden variar sin previo aviso.
+                    -Los precios pueden variar sin previo aviso.<br/>
+                    {tieneProceso && '-Para concretar un pedido de perfiles con procesos, se debe abonar una seña del 50% del valor estimativo del mismo. Una persona de ventas se comunicará para concretar dicha transacción.'}
                 </p>
             </div>
         </div>
