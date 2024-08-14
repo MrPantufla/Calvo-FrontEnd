@@ -31,7 +31,6 @@ function CarritoProvider({ children }) {
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [carritoConfirmado, setCarritoConfirmado] = useState(false);
-  //const [confirmarCompraAbierto, setConfirmarCompraAbierto] = useState(false);
   const [mostrarCartelError, setMostrarCartelError] = useState(false);
   const [primeraAccion, setPrimeraAccion] = useState(true);
   const [compraRealizadaAbierto, setCompraRealizadaAbierto] = useState(false);
@@ -67,7 +66,7 @@ function CarritoProvider({ children }) {
     if (match) {
       return match[2];
     }
-    return null; // Devuelve null si no se encuentra un acabado
+    return null;
   }
 
   function añadirElemento(id, cantidadCarrito) {
