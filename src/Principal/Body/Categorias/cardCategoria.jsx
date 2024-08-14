@@ -9,7 +9,8 @@ export default function CardCategoria(args) {
         rubros,
         setRubroActivo,
         seleccionarCortinas,
-        seleccionarProcesos
+        seleccionarProcesos,
+        seleccionarSoftware
     } = useTienda();
 
     const navegarACategoria = () => {
@@ -25,8 +26,11 @@ export default function CardCategoria(args) {
             if(nav == 'Cortinas'){
                 seleccionarCortinas(); 
             }
-            if(nav == 'Procesos'){
+            else if(nav == 'Procesos'){
                 seleccionarProcesos();
+            }
+            else if(nav == 'Software'){
+                seleccionarSoftware();
             }
             else{
                 setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === nav));
