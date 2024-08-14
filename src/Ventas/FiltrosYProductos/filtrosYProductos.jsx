@@ -14,6 +14,8 @@ import Filtros from './Filtros/filtros';
 import { useCortinas } from '../../contextCortinas';
 import Procesos from './Procesos/procesos';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Software from './Software/software';
+import ImagenGrandeSoftware from './Software/imagenGrandeSoftware';
 
 export default function FiltrosYProductos() {
 
@@ -42,7 +44,8 @@ export default function FiltrosYProductos() {
     setMenuAbierto,
     marcas,
     rubros,
-    softwareSelected
+    softwareSelected,
+    imagenSoftwareSeleccionada
   } = useTienda();
 
   const {
@@ -84,9 +87,11 @@ export default function FiltrosYProductos() {
     srubrosPerfiles = rubros.find(rubro => rubro.id == 'Perfiles').srubros;
   }
 
+  console.log(rubroActivo)
+
   const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-      (rubroActivo == null && !procesosSelected && !eliminadosSelected) && p.tipo_prod != 'PROCESOS' ||
+    rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
       (rubroActivo && (
         rubroActivo.id == 'Perfiles' && (marcas.some(marca => marca.items.includes(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca))) ||
         rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
@@ -235,7 +240,11 @@ export default function FiltrosYProductos() {
     setTimeout(() => {
       const contactoElement = document.getElementById('nuestrosHorarios');
       if (contactoElement) {
-        contactoElement.scrollIntoView({ behavior: 'smooth' });
+        contactoElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
       }
     }, 100);
   };
@@ -304,31 +313,38 @@ export default function FiltrosYProductos() {
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
                 :
-                <div className="row rowProductos">
-                  {dataCargada == true ?
-                    (<>
-                      {itemsActuales.map((producto) => (
-                        <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                          <CardProducto
-                            producto={producto}
-                            onClick={() => {
-                              !isMobile && seleccionarProducto(producto);
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </>)
-                    :
-                    (<div className="spinner-border cargandoProductos" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>)
-                  }
-                </div>
+                softwareSelected ?
+                  (<Software />)
+                  :
+                  (<div className="row rowProductos">
+                    {dataCargada == true ?
+                      (<>
+                        {itemsActuales.map((producto) => (
+                          <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                            <CardProducto
+                              producto={producto}
+                              onClick={() => {
+                                !isMobile && seleccionarProducto(producto);
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </>)
+                      :
+                      (<div className="spinner-border cargandoProductos" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>)
+                    }
+                  </div>)
               }
             </>)
           }
         </div>
       </div>
+
+      {imagenSoftwareSeleccionada &&
+        <ImagenGrandeSoftware/>
+      }
 
       {productoSeleccionado && (
         <ProductoGrande
