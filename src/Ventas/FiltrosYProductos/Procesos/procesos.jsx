@@ -7,8 +7,9 @@ import CardAcabados from './CardsProcesosYAcabados/cardAcabados.jsx';
 import { useNavigate } from 'react-router-dom';
 
 export default function Procesos(args) {
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
+    
     const {
         tipoProceso,
         setTipoProceso,
@@ -39,14 +40,18 @@ export default function Procesos(args) {
 
     const handleNavigateContacto = () => {
         navigate('/', { replace: true });
-
+    
         setTimeout(() => {
-            const contactoElement = document.getElementById('nuestrosHorarios');
-            if (contactoElement) {
-                contactoElement.scrollIntoView({ behavior: 'smooth' });
-            }
+          const contactoElement = document.getElementById('nuestrosHorarios');
+          if (contactoElement) {
+            contactoElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
         }, 100);
-    };
+      };
 
     return (
         <div className="contenedorPrincipalProcesos">
@@ -66,43 +71,43 @@ export default function Procesos(args) {
                     </div>
                 </div>)
                 :
-                (<>
-                    <div className="row rowProductos">
-                        {stipoProceso == null ? (
-                            tipoProceso == 'pinturas' ? (
-                                <>
-                                    <h1 className="textoComunicateConNosotros textoProcesos">
-                                        <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación,{' '}
-                                        <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleNavigateContacto()}>
-                                            comunicate con nosotros
-                                        </span>
-                                    </h1>
-                                    {Object.values(procesos).map((proceso) => {
-                                        if (!productosEliminados.includes(proceso.id)) {
-                                            const colorCorregido = proceso.color.replace(/\s+/g, '-');
-                                            if (tipoProceso == 'anodizados' && proceso.rubro === 88) {
-                                                return (
-                                                    <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso">
-                                                        <CardProcesos colorCorregido={colorCorregido} proceso={proceso} />
-                                                    </div>
-                                                );
-                                            } else if (tipoProceso == 'pinturas' && proceso.rubro !== 88 && proceso.rubro != 89) {
-                                                return (
-                                                    <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso">
-                                                        <CardProcesos colorCorregido={colorCorregido} proceso={proceso} />
-                                                    </div>
-                                                );
-                                            }
-                                            return null;
-                                        }
-                                    })}
-                                </>
-                            ) : null
-                        ) : acabado == null && tipoProceso != 'pinturas' ? (
+                (<div className="row rowProductos">
+                    {stipoProceso == null ?
+                        <>
+                        {tipoProceso == 'pinturas' && (
+                            <h1 className="textoComunicateConNosotros textoProcesos">
+                                <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación,{' '}
+                                <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleNavigateContacto()}>
+                                    comunicate con nosotros
+                                </span>
+                            </h1>
+                        )}
+                        {Object.values(procesos).map((proceso) => {
+                            if (!productosEliminados.includes(proceso.id)) {
+                                const colorCorregido = (proceso.color).replace(/\s+/g, '-');
+                                if (tipoProceso == 'anodizados' && proceso.rubro === 88) {
+                                    return (
+                                        <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso">
+                                            <CardProcesos colorCorregido={colorCorregido} proceso={proceso} />
+                                        </div>
+                                    );
+                                } else if (tipoProceso == 'pinturas' && proceso.rubro !== 88 && proceso.rubro != 89) {
+                                    return (
+                                        <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso">
+                                            <CardProcesos colorCorregido={colorCorregido} proceso={proceso} />
+                                        </div>
+                                    );
+                                }
+                                return null;
+                            }
+                        })}
+                    </>
+                        :
+                        ((acabado == null && tipoProceso != 'pinturas') ?
                             <>
                                 {Object.values(procesos).map((acabado) => {
                                     if (!productosEliminados.includes(acabado.id)) {
-                                        const colorCorregido = acabado.color.replace(/\s+/g, '-');
+                                        const colorCorregido = (acabado.color).replace(/\s+/g, '-');
                                         if (acabado.rubro === 89) {
                                             if (stipoProceso && stipoProceso.detalle.slice(-2) == 'M2' && (acabado.detalle.slice(-2) == 'M2' || acabado.id == 0)) {
                                                 return (
@@ -110,7 +115,8 @@ export default function Procesos(args) {
                                                         <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
                                                     </div>
                                                 );
-                                            } else if (stipoProceso && stipoProceso.detalle.slice(-2) != 'M2' && acabado.detalle.slice(-2) != 'M2') {
+                                            }
+                                            else if (stipoProceso && stipoProceso.detalle.slice(-2) != 'M2' && acabado.detalle.slice(-2) != 'M2') {
                                                 return (
                                                     <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{ paddingTop: '0.7rem ' }}>
                                                         <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
@@ -122,8 +128,8 @@ export default function Procesos(args) {
                                     }
                                 })}
                             </>
-                        ) : (
-                            Object.values(args.itemsActuales).map((producto) => (
+                            :
+                            (Object.values(args.itemsActuales).map((producto) => (
                                 <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
                                     <CardProducto
                                         producto={producto}
@@ -135,11 +141,10 @@ export default function Procesos(args) {
                                         }}
                                     />
                                 </div>
-                            ))
-                        )}
-                    </div>
-                </>
-                )
+                            )))
+                        )
+                    }
+                </div>)
             }
         </div>
     );
