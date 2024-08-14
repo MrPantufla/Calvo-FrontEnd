@@ -26,11 +26,13 @@ export default function TerminosYCondiciones() {
 
                 10- El precio listado de los perfiles es aproximado en base al peso estimativo de los mismos, pudiendo este variar una vez pesado el producto al momento de armar el pedido.<br/>
 
-                11- Los productos se encuentran sujetos a disponibilidad de la empresa, pudiendo darse el caso de se concrete la venta de un artículo falto de stock. La empresa se compromete en dicho caso a establecer una comunicación con el usuario para solventar el problema.<br/>
+                11- Los productos se encuentran sujetos a disponibilidad de la empresa, pudiendo darse el caso en el que se concrete la venta de un artículo falto de stock. La empresa se compromete en dicho caso a establecer una comunicación con el usuario por alguno de los medios mencionados en el punto número 2 para solventar el problema.<br/>
  
                 12- Los precios listados pueden variar sin previo aviso. <br/>
 
-                13- Este contrato se rige bajo la vigente legislación de la República Argentina, quedando cualquier conflicto relacionado con este contrato o el uso del sitio web subordinado a las leyes que rijan en el momento de producirse el percance.
+                13- Para concretar un pedido de perfiles con procesos, se debe abonar una seña del 50% del valor estimativo del mismo. Posterior a la realización del pedido, una persona de ventas se comunicará con el cliente por medio de uno de los medios mencionados en el punto número 2 para concretar el medio por el cual realizar dicha transacción e informar el plazo de demora del pedido.<br/>
+
+                14- Este contrato se rige bajo la vigente legislación de la República Argentina, quedando cualquier conflicto relacionado con este contrato o el uso del sitio web subordinado a las leyes que rijan en el momento de producirse el percance.
             </p>
         </div>
     );
