@@ -151,6 +151,10 @@
 }
 
 @media(max-width: 767px){
+    .contenedorPrincipalProcesos{
+        margin-top: 2.6rem;
+    }
+
     .tiposProcesoContainer{
         display: flex;
         flex-direction: column;
