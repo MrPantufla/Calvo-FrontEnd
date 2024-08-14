@@ -132,16 +132,13 @@
     .botonFiltros.abierto svg{
         transform: rotate(180deg);
     }
-
-    .contenedorPrincipalFiltrosYProductos{
-        min-height: calc(100vh - 9rem);
-    }
 }
 
 @media (max-width: 767px) {
     .contenedorPrincipalFiltrosYProductos {
         padding-left: 1rem;
         padding-bottom: 1rem;
+        min-height: calc(100vh - 9rem);
     }
 
     .rowProductos {
