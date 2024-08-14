@@ -31,6 +31,7 @@ function TiendaProvider({ children }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [rubros, setRubros] = useState([]);
   const [marcas, setMarcas] = useState([]);
+  const [imagenSoftwareSeleccionada, setImagenSoftwareSeleccionada] = useState(null);
   
   const {
     setOrdenamientoActivo,
@@ -81,13 +82,15 @@ function TiendaProvider({ children }) {
     const colores = params.getAll('colores');
 
     if (rubro) {
-      if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas') {
+      if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas' && rubro !== 'Software') {
         setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === rubro));
       } else {
         if (rubro == 'Cortinas') {
           setCortinasSelected(true);
         } else if (rubro == 'Procesos') {
           setProcesosSelected(true);
+        } else if (rubro == 'Software') {
+          setSoftwareSelected(true);
         } else if (rubro == 'Eliminados') {
           setEliminadosSelected(true);
         }
@@ -119,12 +122,14 @@ function TiendaProvider({ children }) {
       else if (procesosSelected && Object.keys(procesos).length > 0) {
         params.set('rubro', 'Procesos');
       }
-
       if (cortinasSelected) {
         params.set('rubro', 'Cortinas')
       }
       else if (eliminadosSelected) {
         params.set('rubro', 'Eliminados')
+      }
+      else if(softwareSelected){
+        params.set('rubro', 'Software')
       }
 
       if (marcaActiva) params.set('marca', marcaActiva.nombre)
@@ -318,7 +323,9 @@ function TiendaProvider({ children }) {
       marcas,
       rubros,
       softwareSelected,
-      seleccionarSoftware
+      seleccionarSoftware,
+      imagenSoftwareSeleccionada,
+      setImagenSoftwareSeleccionada
     }}>
       {children}
     </TiendaContext.Provider>
