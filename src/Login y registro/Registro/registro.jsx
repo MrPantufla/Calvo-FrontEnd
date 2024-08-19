@@ -38,36 +38,67 @@ export default function Registro() {
 
         if (!nombre || !apellido || !email || !contrasenia || !confirmContrasenia || !cuit || !telefono || !provincia || !ciudad) {
             setErrorMessage('Por favor, completa todos los campos.');
+
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
             return;
 
         } else if (!emailRegex.test(email)) {
             setErrorMessage('Ingrese un formato de correo electrónico válido.');
+            
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
             return;
 
         } else if (!numerosRegex.test(telefono)) {
             setErrorMessage('El campo de teléfono solo permite números');
+            
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
             return;
 
         } else if (contrasenia !== confirmContrasenia) {
             setErrorMessage('Las contraseñas no coinciden.');
+            
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
             return;
 
         } else if (cuit.length != 11) {
             setErrorMessage('CUIT debe contener 11 caracteres')
+            
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
             return;
 
         } else if (!numerosRegex.test(cuit)) {
             setErrorMessage('El campo de CUIT solo permite números')
+            
+            container.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
             return;
 
         } else {
             confirmarRegistro();
         }
-
-        container.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     };
 
     const confirmarRegistro = async () => {
