@@ -51,28 +51,40 @@ export default function ProductoHistorial(args) {
     }
 
     let codigo;
-    marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
+
+    const esPerfil = marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
+
+    esPerfil ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
     const precioParaMostrarInt = parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg) || (1) : (1)));
 
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
     const precioParaMostrarStringCant = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
+    let codigoImagen;
+
+    if(producto.referenciaPaquete){
+        codigoImagen = esPerfil ? (producto.referenciaPaquete.cod_orig) : (producto.referenciaPaquete.cod_int);
+    }
+    else{
+        codigoImagen = esPerfil ? (producto.cod_orig) : (producto.cod_int);
+    }
+
     return (
         <div className="contenedorPrincipalProductoHistorial">
             <div className="imagenProductoHistorialContainer">
                 <img
                     src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
-                        (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
+                        (`/ImagenesPerfiles/${codigoImagen.slice(2).trim()}.webp`)
                         :
                         (producto.tipo_prod == 'ACCESORIO' ?
-                            (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                            (`/ImagenesAccesorios/${codigoImagen.trim().toUpperCase()}.webp`)
                             :
                             (producto.tipo_prod == 'PUNTUAL' ?
-                                (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                (`/ImagenesPuntuales/${codigoImagen.trim().toUpperCase()}.webp`)
                                 :
                                 (producto.tipo_prod == 'MAQUINAS' ?
-                                    (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                    (`/ImagenesMaquinas/${codigoImagen.trim().toUpperCase()}.webp`)
                                     :
                                     ('')
                                 )
@@ -96,7 +108,7 @@ export default function ProductoHistorial(args) {
 
                 <p>CANTIDAD: {args.cantidad}</p>
                 <p>
-                    PRECIO: ${precioParaMostrarStringCant}<br />
+                    {`PRECIO${esPerfil ? ' APROXIMADO' : ''}: $${precioParaMostrarStringCant}`}<br />
                     ({args.cantidad} x ${precioParaMostrarString})
                 </p>
             </div>

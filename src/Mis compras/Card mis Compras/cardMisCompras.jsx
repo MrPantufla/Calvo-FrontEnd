@@ -1,18 +1,24 @@
 import './cardMisCompras.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useInsertionEffect } from 'react';
 import ProductoHistorial from '../Producto Historial/productoHistorial';
 import { useProductos } from '../../contextProductos';
 import { useCarrito } from '../../contextCarrito';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contextLogin';
+import { useTienda } from '../../contextTienda';
 
 export default function CardMisCompras(args) {
     const [cardComprasAbierto, setCardComprasAbierto] = useState(false);
 
     const {
         productosIndexado,
-        productosSueltos
+        productosSueltos,
+        marcasUnicas
     } = useProductos();
+
+    const {
+        isMobile
+    } = useTienda();
 
     const {
         setCarritoAbierto,
@@ -34,7 +40,7 @@ export default function CardMisCompras(args) {
             if (!producto) {
                 producto = productosSueltos[currentItem.producto]
             }
-            
+
             if (producto) {
                 if (conDescuento && !(producto.tipo_prod === 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES')))) {
                     return accumulator + ((currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1)) * 97 / 100);
@@ -78,6 +84,19 @@ export default function CardMisCompras(args) {
     const precioParaMostrarString = parseInt(total(false)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     const precioParaMostrarStringDescuento = (parseInt(total(true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
+    const hayPerfil = args.data.some(producto => {
+        const productoIndexado = productosIndexado[producto.producto];
+
+        if (!productoIndexado) {
+            return false;
+        }
+
+        const marcaProducto = productoIndexado.marca;
+        const marcaEnSet = marcasUnicas.has(marcaProducto);
+
+        return marcaEnSet;
+    });
+
     return (
         <div className="contenedorPrincipalCardMisCompras" >
             <div className="headCardMisCompras">
@@ -111,7 +130,15 @@ export default function CardMisCompras(args) {
                     ))}
                 </div>
                 <div className="totalContainer">
-                    <h2 className="precioViejo">{`TOTAL: $${precioParaMostrarString} ${(state.userInfo && state.userInfo.categoria == 'MAYORISTA') ? (`- CON DESCUENTO: $${precioParaMostrarStringDescuento}`) : ('')}`}</h2>
+                    <h2 className="precioViejo">
+                        {`TOTAL${hayPerfil ? ' APROXIMADO' : ''}: $${precioParaMostrarString} `}
+                        {(state.userInfo && state.userInfo.categoria == 'MAYORISTA') && (
+                            <>
+                                {isMobile && <br />}
+                                {`${!isMobile ? '- ' : ''}CON PAGO AL CONTADO Y SIN SALDO: $${precioParaMostrarStringDescuento}`}
+                            </>
+                        )}
+                    </h2>
                 </div>
             </div>
         </div>
