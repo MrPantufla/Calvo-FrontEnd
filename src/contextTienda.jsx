@@ -30,13 +30,13 @@ function TiendaProvider({ children }) {
   const [acabado, setAcabado] = useState(null);
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [rubros, setRubros] = useState([]);
-  const [marcas, setMarcas] = useState([]);
   const [imagenSoftwareSeleccionada, setImagenSoftwareSeleccionada] = useState(null);
   
   const {
     setOrdenamientoActivo,
     procesos,
-    setProcesos
+    setProcesos,
+    marcas
   } = useProductos();
 
   const {
@@ -69,7 +69,6 @@ function TiendaProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    obtenerMarcas();
     obtenerRubros();
   }, [])
 
@@ -275,14 +274,6 @@ function TiendaProvider({ children }) {
     }
   }
 
-  const obtenerMarcas = async () => {
-    const response = await fetch(`${backend}/api/marcas`);
-    if (response.ok) {
-      const marcasResponse = await response.json();
-      setMarcas(marcasResponse);
-    }
-  }
-
   return (
     <TiendaContext.Provider value={{
       seleccionarCortinas,
@@ -318,7 +309,6 @@ function TiendaProvider({ children }) {
       setAcabado,
       menuAbierto,
       setMenuAbierto,
-      obtenerMarcas,
       obtenerRubros,
       marcas,
       rubros,
