@@ -23,6 +23,9 @@
     "pedidos_det_web":{
       ".indexOn": ["nro_doc", "id_usuario", "id"]
     },
+    "precios_ocultos_ecommerce":{
+      ".indexOn": ["producto"]
+    },
     "productos_destacados_ecommerce":{
       ".indexOn": ["producto"]
     },
