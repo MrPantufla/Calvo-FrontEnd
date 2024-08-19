@@ -16,6 +16,9 @@ function ProductosProvider({ children }) {
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
+    const [preciosOcultos, setPreciosOcultos] = useState([]);
+    const [marcas, setMarcas] = useState([]);
+    const [marcasUnicas, setMarcasUnicas] = useState([]);
     const [dataCargada, setDataCargada] = useState(false);
     const [productosSueltos, setProductosSueltos] = useState([]);
     const [productosDestacados, setProductosDestacados] = useState([]);
@@ -135,6 +138,7 @@ function ProductosProvider({ children }) {
 
                 setColoresArray([...nuevosColores]);
                 obtenerProductosEliminados();
+                obtenerPreciosOcultos();
                 obtenerProductosDestacados();
             } else {
                 console.error('Error al obtener productos filtrados:', response.statusText);
@@ -162,6 +166,27 @@ function ProductosProvider({ children }) {
             return false;
         }
     };
+
+    const obtenerPreciosOcultos = async () => {
+        try {
+            const response = await fetch(`${backend}/api/obtenerPreciosOcultos`);
+
+            if (response.ok) {
+                const data = await response.json();
+                setPreciosOcultos(Object.values(data).map(precioOculto => precioOculto.producto));
+                return true;
+            }
+            else {
+                console.error('Error obteniendo precios ocultos');
+                return false;
+            }
+        }
+        catch (error) {
+            console.log('Error desconocido: ', error);
+            return false;
+        }
+    }
+
 
     const obtenerProductosDestacados = async () => {
         try {
@@ -248,6 +273,40 @@ function ProductosProvider({ children }) {
         }
     };
 
+    const ocultarPrecio = async (idProducto) => {
+        try {
+            let tokenParaEnviar = Cookies.get('jwtToken');
+
+            if (tokenParaEnviar == undefined) {
+                tokenParaEnviar = null;
+            }
+            const response = await fetch(`${backend}/api/ocultarPrecio`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenParaEnviar,
+                },
+                body: JSON.stringify(idProducto),
+            });
+
+            const responseBody = await response.text();
+
+            if (response.status == 200) {
+                if (responseBody.includes("ocultado")) {
+                    setPreciosOcultos(prevPreciosOcultos => [...prevPreciosOcultos, idProducto]);
+                } else if (responseBody.includes("restaurado")) {
+                    setPreciosOcultos(preciosOcultos.filter(id => id !== idProducto));
+                }
+            }
+            else {
+                console.error('Error ocultando el precio:', response);
+            }
+        } catch (error) {
+            console.error('Error desconocido:', error);
+            return false;
+        }
+    };
+
     const ordenarPorDestacados = (productos, destacados) => {
         // Crear un mapa para almacenar las posiciones de los productos destacados
         const destacadosMap = new Map();
@@ -327,15 +386,16 @@ function ProductosProvider({ children }) {
         });
     };
 
-    const ordenarPorCod_origAsc = (productos) => {
+    const ordenarPorCodigoAsc = (productos) => {
         const nuevosProductos = productos.sort((prodA, prodB) => {
-            const cod_origA = prodA.cod_orig.toLowerCase();
-            const cod_origB = prodB.cod_orig.toLowerCase();
 
-            if (cod_origA < cod_origB) {
+            const codigoA = (marcasUnicas.has(prodA.marca)) ? (prodA.cod_orig) : (prodA.cod_int);
+            const codigoB = (marcasUnicas.has(prodB.marca)) ? (prodB.cod_orig) : (prodB.cod_int);
+
+            if (codigoA < codigoB) {
                 return -1;
             }
-            if (cod_origA > cod_origB) {
+            if (codigoA > codigoB) {
                 return 1;
             }
             return 0;
@@ -344,21 +404,20 @@ function ProductosProvider({ children }) {
         return nuevosProductos;
     }
 
-    const ordenarPorCod_origDesc = (productos) => {
-        const nuevosProductos = productos.sort((prodA, prodB) => {
-            const cod_origA = prodA.cod_orig.toLowerCase();
-            const cod_origB = prodB.cod_orig.toLowerCase();
-
-            if (cod_origA > cod_origB) {
+    const ordenarPorCodigoDesc = (productos) => {
+        return productos.sort((prodA, prodB) => {
+            // Si prodA tiene peso 0 y prodB no, prodA va al final
+            const detalleA = prodA.detalle;
+            const detalleB = prodB.detalle;
+            // En cualquier otro caso, ordenar normalmente por peso descendente
+            if (detalleB > detalleA) {
                 return -1;
             }
-            if (cod_origA < cod_origB) {
+            if (detalleB < detalleA) {
                 return 1;
             }
             return 0;
         });
-
-        return nuevosProductos;
     }
 
     useEffect(() => {
@@ -367,7 +426,6 @@ function ProductosProvider({ children }) {
                 setOrdenamientoActivo('destacados');
             }
         }
-
     }, [ordenamientoActivo])
 
     const ordenarProductos = (productos) => {
@@ -381,9 +439,9 @@ function ProductosProvider({ children }) {
             case 'kgDesc':
                 return ordenarPorKgDesc(productos);
             case 'cod_origAsc':
-                return ordenarPorCod_origAsc(productos);
+                return ordenarPorCodigoAsc(productos);
             case 'cod_origDesc':
-                return ordenarPorCod_origDesc(productos);
+                return ordenarPorCodigoDesc(productos);
             case 'destacados':
                 return ordenarPorDestacados(productos, productosDestacados);
             default:
@@ -406,6 +464,24 @@ function ProductosProvider({ children }) {
         return null;
     }
 
+    const obtenerMarcas = async () => {
+        const response = await fetch(`${backend}/api/marcas`);
+        if (response.ok) {
+            const marcasResponse = await response.json();
+            setMarcas(marcasResponse);
+
+            let marcasSet = new Set();
+
+            marcasResponse.forEach(marca => marca.items.forEach(item => marcasSet.add(item)));
+            
+            setMarcasUnicas(marcasSet);
+        }
+    }
+
+    useEffect(() => {
+        obtenerMarcas();
+    }, [])
+
     return (
         <ProductosContext.Provider value={{
             ordenarProductos,
@@ -425,7 +501,11 @@ function ProductosProvider({ children }) {
             productosDestacados,
             procesos,
             troquelados,
-            extraerMetrosCuadrados
+            extraerMetrosCuadrados,
+            marcas,
+            marcasUnicas,
+            ocultarPrecio,
+            preciosOcultos
         }}>
             {children}
         </ProductosContext.Provider>
