@@ -24,7 +24,8 @@ export default function FiltrosYProductos() {
     ordenarProductos,
     productosEliminados,
     dataCargada,
-    procesos
+    procesos,
+    marcasUnicas
   } = useProductos();
 
   const {
@@ -87,13 +88,11 @@ export default function FiltrosYProductos() {
     srubrosPerfiles = rubros.find(rubro => rubro.id == 'Perfiles').srubros;
   }
 
-  console.log(rubroActivo)
-
   const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-    rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
+      rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
       (rubroActivo && (
-        rubroActivo.id == 'Perfiles' && (marcas.some(marca => marca.items.includes(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca))) ||
+        rubroActivo.id == 'Perfiles' && (marcasUnicas.has(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca)) ||
         rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
         rubroActivo.id == 'Herramientas' && p.tipo_prod == 'ACCESORIO' && p.rubro == 39 ||
         rubroActivo.id == 'Accesorios' && p.rubro == 8 ||
@@ -307,8 +306,25 @@ export default function FiltrosYProductos() {
             :
             (<>
               {!(softwareSelected || (procesosSelected && (!stipoProceso || !acabado))) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
-              {(rubroActivo && rubroActivo.id == 'Paneles') && (
-                <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de paneles con medidas personalizadas, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
+              {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
+                <h1 className="textoComunicateConNostros textoPaneles">
+                  <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
+                   Para realizar encargos de modelos y medidas que no se encuentren listados, 
+                  <a
+                    style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}
+                    href={isMobile ?
+                      (`https://wa.me/5493456475294`)
+                      :
+                      (`https://web.whatsapp.com/send?phone=+5493456475294`)
+                    }
+                    target='blank'
+                  >
+                    comunicate con nosotros
+                  </a>
+                </h1>
+              )}
+              {(rubroActivo && (rubroActivo.id == 'Maquinas')) && (
+                <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Por modelos o repuestos que no se encuentren listados, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
               )}
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
@@ -343,7 +359,7 @@ export default function FiltrosYProductos() {
       </div>
 
       {imagenSoftwareSeleccionada &&
-        <ImagenGrandeSoftware/>
+        <ImagenGrandeSoftware />
       }
 
       {productoSeleccionado && (
