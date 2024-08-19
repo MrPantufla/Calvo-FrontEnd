@@ -251,6 +251,25 @@
     transform: scale(1.1);
 }
 
+.ocultarPrecio {
+    position: absolute;
+    top: 12.5rem;
+    border: none;
+    cursor: pointer;
+    z-index: 99;
+    transition: transform 0.2s;
+    background-color: transparent;
+    left: 1.8rem;
+}
+
+.ocultarPrecio .bi {
+    fill: var(--colorSecundario);
+}
+
+.ocultarPrecio:hover {
+    transform: scale(1.1);
+}
+
 .botonConsultarProducto {
     width: 12rem;
     height: 2.8rem;
@@ -749,6 +768,18 @@
 
     .imagenContainerCardProducto {
         height: 40rem;
+    }
+
+    .ocultarPrecio {
+        width: 5rem;
+        height: 5rem;
+        top: 30rem;
+        left: 3rem;
+    }
+
+    .ocultarPrecio svg{
+        height: 100%;
+        width: 100%;
     }
 }
 

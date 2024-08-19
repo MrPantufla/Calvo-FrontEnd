@@ -12,12 +12,16 @@ import { marcasUnicasPerfiles } from '../../../rubros.js';
 export default function CardProducto(args) {
   const {
     eliminarProducto,
+    ocultarPrecio,
+    preciosOcultos,
     productosSueltos,
     setProductosDestacados,
     productosDestacados,
     procesos,
     troquelados,
-    extraerMetrosCuadrados
+    extraerMetrosCuadrados,
+    productosIndexado,
+    productosEliminados
   } = useProductos();
 
   const {
@@ -73,11 +77,11 @@ export default function CardProducto(args) {
   let idParaUsar;
 
   if (paqueteSeleccionado) {
-    tipo_prod == 'PERFIL' && cod_orig.endsWith('E') ? (precioParaUsar = precio) : (precioParaUsar = precio * cantidad);
+    (tipo_prod == 'PERFIL' && cod_orig.endsWith('E')) ? (precioParaUsar = precio) : (precioParaUsar = precio * cantidad);
     idAux = id;
   }
   else {
-    precioParaUsar = productosSueltos[referencia].precio;
+    precioParaUsar = productosSueltos[referencia].precio * productosSueltos[referencia].cantidad;
     idAux = productosSueltos[referencia].id;
   }
 
@@ -271,8 +275,10 @@ export default function CardProducto(args) {
     }
   }
 
+  const productoActual = productosIndexado[idParaUsar];
+
   return (
-    <div className={`contenedorPrincipalCardProducto ${precio == 0 && 'sinPrecio'}`} >
+    <div className={`contenedorPrincipalCardProducto ${(precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
           <img className="logoDecoracionCardProducto" src={logoBlanco} alt="" />
@@ -308,7 +314,7 @@ export default function CardProducto(args) {
         {state.userInfo &&
           ((state.userInfo.tipo_usuario == 'admin') &&
             <>
-              <button className="eliminarElemento" onClick={() => eliminarProducto(id)} aria-label='eliminarElemento'>
+              <button className="eliminarElemento" onClick={() => eliminarProducto(id)} aria-label='Eliminar elemento'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                   <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                 </svg>
@@ -331,6 +337,19 @@ export default function CardProducto(args) {
                 </button>
                 <p className="posicionEnDestacados">{posicionEnDestacados > -1 && posicionEnDestacados + 1}</p>
               </div>
+              <button className="ocultarPrecio" onClick={() => ocultarPrecio(id)} aria-label='Ocultar precio'>
+                {preciosOcultos.includes(id) ?
+                  (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                    <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
+                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
+                  </svg>)
+                  :
+                  (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                  </svg>)
+                }
+              </button>
             </>
           )
         }
@@ -369,7 +388,7 @@ export default function CardProducto(args) {
                               (rubro == 81 ?
                                 (`/ImagenesPuertasPlacas/${codigo.trim().toUpperCase()}.webp`)
                                 :
-                                (tipo_prod == 'ACCESORIO' ?
+                                (rubro == 8 ?
                                   (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
                                   :
                                   ('')
@@ -386,6 +405,9 @@ export default function CardProducto(args) {
             }
             alt="Imagen del producto"
             loading="lazy"
+          /*onError={() => {
+            console.log(`${codigo} - ${detalle}`);
+          }}*/
           />
         </div>
         <div className="detalleYCod_orig">
@@ -404,7 +426,7 @@ export default function CardProducto(args) {
               </>
             )}
           </div>
-          {precio == 0 ?
+          {(precio == 0 || preciosOcultos.includes(id)) ?
             (<a
               className="botonConsultarProducto"
               target="blank"
@@ -444,7 +466,7 @@ export default function CardProducto(args) {
           </div>
         </div>
       </div >
-      {precio != 0 &&
+      {!(precio == 0 || preciosOcultos.includes(id)) &&
         <>
           <div className="precioContainerCardProducto primerContainer">
             <p className="precioCardProducto">
@@ -465,7 +487,7 @@ export default function CardProducto(args) {
           {(state.userInfo && state.userInfo.categoria == 'MAYORISTA' && !(tipo_prod == 'PERFIL' && cod_orig.endsWith('E'))) &&
             <div className="precioContainerCardProducto segundoContainer">
               <p className="precioCardProducto">
-                {`CON DESCUENTO POR PAGO AL CONTADO: $${precioParaMostrarStringDescuento}`}
+                {`CON PAGO AL CONTADO Y SIN SALDO: $${precioParaMostrarStringDescuento}`}
               </p>
             </div>}
         </>
