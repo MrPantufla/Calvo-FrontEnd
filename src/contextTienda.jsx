@@ -36,7 +36,10 @@ function TiendaProvider({ children }) {
     setOrdenamientoActivo,
     procesos,
     setProcesos,
-    marcas
+    marcas,
+    ordenamientoActivo,
+    ordenarProductos,
+    productosIndexado
   } = useProductos();
 
   const {
@@ -79,6 +82,7 @@ function TiendaProvider({ children }) {
     const marca = params.get('marca');
     const srubro = params.get('srubro');
     const colores = params.getAll('colores');
+    const ordenamiento = params.getAll('ordenamiento');
 
     if (rubro) {
       if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas' && rubro !== 'Software') {
@@ -107,6 +111,8 @@ function TiendaProvider({ children }) {
       }
     }
 
+    setOrdenamientoActivo(ordenamiento)
+
     setColoresActivos(colores);
   }, [marcas, rubros, setProcesos]);
   
@@ -134,10 +140,13 @@ function TiendaProvider({ children }) {
       if (marcaActiva) params.set('marca', marcaActiva.nombre)
 
       if (srubroActivo) params.set('srubro', srubroActivo.id);
+
+      if(ordenamientoActivo != 'destacados') params.set('ordenamiento', ordenamientoActivo)
+
       coloresActivos.forEach(color => params.append('colores', color));
       navigate({ search: params.toString() });
     }
-  }, [marcaActiva, rubroActivo, srubroActivo, coloresActivos, procesosSelected, cortinasSelected, eliminadosSelected, tipoProceso, stipoProceso, procesos, navigate]);
+  }, [marcaActiva, rubroActivo, srubroActivo, coloresActivos, procesosSelected, cortinasSelected, eliminadosSelected, tipoProceso, stipoProceso, procesos, ordenamientoActivo,navigate]);
 
   const salirDeTienda = () => {
     togglearRubro(null);
