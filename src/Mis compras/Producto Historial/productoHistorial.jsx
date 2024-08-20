@@ -50,18 +50,18 @@ export default function ProductoHistorial(args) {
         }
     }
 
-    let codigo;
-
-    const esPerfil = marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
-
-    esPerfil ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
-
     const precioParaMostrarInt = parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg) || (1) : (1)));
 
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
     const precioParaMostrarStringCant = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
     let codigoImagen;
+
+    let codigo;
+
+    const esPerfil = marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
+
+    esPerfil ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
     if(producto.referenciaPaquete){
         codigoImagen = esPerfil ? (producto.referenciaPaquete.cod_orig) : (producto.referenciaPaquete.cod_int);
