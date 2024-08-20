@@ -13,6 +13,7 @@ function VariablesProvider({ children }) {
 
     const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
     const [mostrarFacturacion, setMostrarFacturacion] = useState(false);
+    const [mostrarCartelPresupuesto, setMostrarCartelPresupuesto] = useState(false);
 
     return (
         <VariablesContext.Provider value={{
@@ -20,8 +21,10 @@ function VariablesProvider({ children }) {
             mostrarCartelCliente,
             setMostrarCartelCliente,
             mostrarFacturacion,
-            setMostrarFacturacion
-        }}>
+            setMostrarFacturacion,
+            mostrarCartelPresupuesto,
+            setMostrarCartelPresupuesto
+            }}>
             {children}
         </VariablesContext.Provider>
     );
