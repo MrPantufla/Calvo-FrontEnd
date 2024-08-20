@@ -25,7 +25,8 @@ export default function FiltrosYProductos() {
     productosEliminados,
     dataCargada,
     procesos,
-    marcasUnicas
+    marcasUnicas,
+    ordenamientoActivo
   } = useProductos();
 
   const {
@@ -90,7 +91,7 @@ export default function FiltrosYProductos() {
 
   const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-      rubroActivo == null && p.tipo_prod != 'PROCESOS' ||
+      rubroActivo == null && p.tipo_prod != 'PROCESOS' && !procesosSelected ||
       (rubroActivo && (
         rubroActivo.id == 'Perfiles' && (marcasUnicas.has(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca)) ||
         rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
@@ -104,7 +105,7 @@ export default function FiltrosYProductos() {
         rubroActivo.id == 'PuertasPlacas' && p.rubro == 81 ||
         rubroActivo.id == 'TejidosMosquiteros' && p.rubro == 10
       )) ||
-      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcas.includes(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
+      procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicas.has(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
       procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
 
     const colorCumple =
@@ -139,7 +140,8 @@ export default function FiltrosYProductos() {
     }
   });
 
-  const productosOrdenados = ordenarProductos(listaFiltrada);
+  let productosOrdenados = ordenarProductos(listaFiltrada);
+
   const itemsPorPagina = 33;
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
@@ -233,21 +235,6 @@ export default function FiltrosYProductos() {
     setStartX(e.touches[0].clientX);
   };
 
-  const handleNavigateContacto = () => {
-    navigate('/', { replace: true });
-
-    setTimeout(() => {
-      const contactoElement = document.getElementById('nuestrosHorarios');
-      if (contactoElement) {
-        contactoElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
-        });
-      }
-    }, 100);
-  };
-
   useEffect(() => {
     const params = new URLSearchParams(location.search);
 
@@ -309,7 +296,7 @@ export default function FiltrosYProductos() {
               {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles">
                   <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
-                   Para realizar encargos de modelos y medidas que no se encuentren listados, 
+                  Para realizar encargos de modelos y medidas que no se encuentren listados,
                   <a
                     style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}
                     href={isMobile ?
@@ -324,7 +311,7 @@ export default function FiltrosYProductos() {
                 </h1>
               )}
               {(rubroActivo && (rubroActivo.id == 'Maquinas')) && (
-                <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Por modelos o repuestos que no se encuentren listados, <span style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => handleNavigateContacto()}>comunicate con nosotros</span></h1>
+                <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Por modelos o repuestos que no se encuentren listados, <a target='blank' href={isMobile ? (`https://wa.me/5493456475294`) : (`https://web.whatsapp.com/send?phone=+5493456475294`)} style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}>comunicate con nosotros</a></h1>
               )}
               {procesosSelected ?
                 (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)

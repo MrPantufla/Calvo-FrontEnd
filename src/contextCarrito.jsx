@@ -69,9 +69,14 @@ function CarritoProvider({ children }) {
     return null;
   }
 
-  function añadirElemento(idParametro, cantidadCarrito) {
+  function añadirElemento(id, cantidadCarrito) {
+
+    if(!(id.toString().includes("("))){
+      id = parseInt(id);
+    }
+    
     setPaqueteAñadir(null);
-    if (state.userInfo && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[idParametro].marca)) {
+    if (state.userInfo && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
       setMostrarCartelError(true);
     }
     else {
@@ -80,7 +85,7 @@ function CarritoProvider({ children }) {
           if (productosIndexado && productosSueltos) {
             let productoReal;
 
-            const idSinProceso = extraerProducto(idParametro.toString());
+            const idSinProceso = extraerProducto(id.toString());
 
             productoReal = productosIndexado[idSinProceso];
 
@@ -88,7 +93,7 @@ function CarritoProvider({ children }) {
               productoReal = productosSueltos[idSinProceso];
             }
 
-            const id = productoReal.id;
+            //const id = productoReal.id;
             const cod_origProducto = productoReal.cod_orig;
             const detalleProducto = productoReal.detalle;
             const precioProducto = productoReal.precio;
@@ -101,7 +106,8 @@ function CarritoProvider({ children }) {
             if (referenciaPaquete) {
               cantidadPaquete = referenciaPaquete.cantidad;
             }
-            const elementoExistente = prevElementos.find((elemento) => elemento.id === id);
+
+            const elementoExistente = prevElementos.find((elemento) => (elemento.id === id));
 
             if (elementoExistente) {
               elementoExistente.cantidadCarrito += cantidadCarrito;
@@ -154,8 +160,6 @@ function CarritoProvider({ children }) {
       }
     }
   }
-
-  //console.log(elementos)
 
   useEffect(() => {
     if (paqueteAñadir) {
