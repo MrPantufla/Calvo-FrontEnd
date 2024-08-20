@@ -100,8 +100,8 @@ export function Facturacion() {
     else {
         datosPedido = 'Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni;
     }
-    
-    const tieneProceso = elementos && elementos.some(elemento => (elemento.id.length>0 && elemento.id.includes("(")));
+
+    const tieneProceso = elementos && elementos.some(elemento => (elemento.id.length > 0 && elemento.id.includes("(")));
 
     return (
         <div className="contenedorGeneralFacturacion" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
@@ -199,15 +199,19 @@ export function Facturacion() {
                     )
                 }
                 <p className="terminosYCondicionesFacturacion">
-                    Recordatorio de términos y condiciones:<br/>
-                    -El precio listado de los perfiles es aproximado en base al peso estimativo de los mismos.<br/>
-                    -Los productos están sujetos a disponibilidad.<br/>
-                    -Los precios pueden variar sin previo aviso. <br/>
-                    -Ciertos precios se encuentran sujetos al valor dólar y el valor final del pedido se concreta al momento de la facturación.<br/>
-                    {tieneProceso && '-El plazo de entrega de los procesos puede variar.'/*SALTO DE LINEA*/}
-                    {tieneProceso && '-Para concretar un pedido con procesos, se debe abonar una seña del 50% del valor estimativo del los mismos. Una persona de ventas se comunicará para concretar dicha transacción e informar el plazo de entrega.'}
+                    Recordatorio de términos y condiciones:<br />
+                    -El precio listado de los perfiles es aproximado en base al peso estimativo de los mismos.<br />
+                    -Los productos están sujetos a disponibilidad.<br />
+                    -Los precios pueden variar sin previo aviso. <br />
+                    -Ciertos precios se encuentran sujetos al valor dólar y el valor final del pedido se concreta al momento de la facturación.<br />
+                    {tieneProceso && (
+                        <>
+                            -El plazo de entrega de los procesos puede variar.<br />
+                        </>
+                    )}
+                    {tieneProceso && '-Para concretar un pedido con procesos, se debe abonar una seña del 50% del valor estimativo de los mismos. Una persona de ventas se comunicará para concretar dicha transacción e informar el plazo de entrega.'}
                 </p>
             </div>
-        </div>
+        </div >
     );
 }
