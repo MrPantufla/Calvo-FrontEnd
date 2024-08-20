@@ -1,0 +1,61 @@
+.contenedorPrincipalCartelPresupuesto{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 50%);
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 101;
+}
+
+.parteUtilizableCartelPresupuesto{
+    width: 30rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.parteUtilizableCartelPresupuesto h1{
+    font-weight: 600;
+    color: var(--colorRojo);
+}
+
+.parteUtilizableCartelPresupuesto p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.parteUtilizableCartelPresupuesto .botonAceptar{
+    margin-top: 1rem;
+    transition: scale 0.2s;
+}
+
+.parteUtilizableCartelPresupuesto .botonAceptar:active{
+    transform: scale(0.95);
+}
+
+@media (max-width: 767px){
+    .parteUtilizableCartelPresupuesto{
+        width: 80%;
+    }
+
+    .parteUtilizableCartelPresupuesto h1{
+        font-size: 3rem;
+    }
+
+    .parteUtilizableCartelPresupuesto p{
+        font-size: 2rem;
+    }
+
+    .parteUtilizableCartelPresupuesto .botonAceptar{
+        width: 15rem;
+        height: 4rem;
+        font-size: 2rem;
+    }
+}
