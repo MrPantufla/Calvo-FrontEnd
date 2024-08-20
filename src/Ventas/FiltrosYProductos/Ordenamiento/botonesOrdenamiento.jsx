@@ -56,15 +56,15 @@ export function BotonesOrdenamiento() {
                     </div>
 
                     <div
-                        className={`ordenamiento ${ordenamientoActivo == 'cod_origAsc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { toggleOrdenar("cod_origAsc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'codigoAsc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar("codigoAsc") }}
                     >
                         <p>Código A-Z</p>
                     </div>
 
                     <div
-                        className={`ordenamiento ${ordenamientoActivo == 'cod_origDesc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
-                        onClick={() => { toggleOrdenar("cod_origDesc") }}
+                        className={`ordenamiento ${ordenamientoActivo == 'codigoDesc' && 'ordenamientoActivo'} ${!isTablet && 'desktop'}`}
+                        onClick={() => { toggleOrdenar("codigoDesc") }}
                     >
                         <p>Código Z-A</p>
                     </div>

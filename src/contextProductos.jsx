@@ -329,7 +329,6 @@ function ProductosProvider({ children }) {
         });
     };
 
-
     const ordenarPorPrecioAsc = (productos) => {
         return productos.sort((prodA, prodB) => {
             const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
@@ -438,9 +437,9 @@ function ProductosProvider({ children }) {
                 return ordenarPorKgAsc(productos);
             case 'kgDesc':
                 return ordenarPorKgDesc(productos);
-            case 'cod_origAsc':
+            case 'codigoAsc':
                 return ordenarPorCodigoAsc(productos);
-            case 'cod_origDesc':
+            case 'codigoDesc':
                 return ordenarPorCodigoDesc(productos);
             case 'destacados':
                 return ordenarPorDestacados(productos, productosDestacados);
