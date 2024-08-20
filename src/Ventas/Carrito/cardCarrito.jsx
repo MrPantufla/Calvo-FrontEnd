@@ -127,6 +127,21 @@ export default function CardCarrito(args) {
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidadCarrito).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
     const precioParaMostrarStringIndividual = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
+    let codigoImagen;
+
+    let codigoAux;
+
+    const esPerfil = marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
+
+    esPerfil ? (codigoAux = producto.cod_orig) : (codigoAux = producto.cod_int);
+
+    if(producto.referenciaPaquete){
+        codigoImagen = esPerfil ? (producto.referenciaPaquete.cod_orig) : (producto.referenciaPaquete.cod_int);
+    }
+    else{
+        codigoImagen = esPerfil ? (producto.cod_orig) : (producto.cod_int);
+    }
+
     return (
         <div className="contenedorPrincipalCardCarrito">
             <div className="imagenYCodigoCardCarrito">
@@ -135,31 +150,31 @@ export default function CardCarrito(args) {
                         className="imagenCardCarrito"
                         onContextMenu={handleContextMenu}
                         src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
-                            (`/ImagenesPerfiles/${codigo.slice(2).trim()}.webp`)
+                            (`/ImagenesPerfiles/${codigoImagen.slice(2).trim()}.webp`)
                             :
                             (producto.rubro == 10 ?
-                                (`/ImagenesMosquiteros/${codigo.trim().toUpperCase()}.webp`)
+                                (`/ImagenesMosquiteros/${codigoImagen.trim().toUpperCase()}.webp`)
                                 :
                                 (producto.rubro == 85 ?
-                                    (`/ImagenesChapas/${codigo.trim().toUpperCase()}.webp`)
+                                    (`/ImagenesChapas/${codigoImagen.trim().toUpperCase()}.webp`)
                                     :
                                     (producto.rubro == 4 ?
-                                        (`/ImagenesPoliestirenos/${codigo.trim().toUpperCase()}.webp`)
+                                        (`/ImagenesPoliestirenos/${codigoImagen.trim().toUpperCase()}.webp`)
                                         :
                                         (producto.rubro == 43 ?
-                                            (`/ImagenesPaneles/${codigo.trim().toUpperCase()}.webp`)
+                                            (`/ImagenesPaneles/${codigoImagen.trim().toUpperCase()}.webp`)
                                             :
                                             (producto.rubro == 31 ?
-                                                (`/ImagenesPolicarbonatos/${codigo.trim().toUpperCase()}.webp`)
+                                                (`/ImagenesPolicarbonatos/${codigoImagen.trim().toUpperCase()}.webp`)
                                                 :
                                                 (producto.tipo_prod == 'ACCESORIO' ?
-                                                    (`/ImagenesAccesorios/${codigo.trim().toUpperCase()}.webp`)
+                                                    (`/ImagenesAccesorios/${codigoImagen.trim().toUpperCase()}.webp`)
                                                     :
                                                     (producto.tipo_prod == 'PUNTUAL' ?
-                                                        (`/ImagenesPuntuales/${codigo.trim().toUpperCase()}.webp`)
+                                                        (`/ImagenesPuntuales/${codigoImagen.trim().toUpperCase()}.webp`)
                                                         :
                                                         (producto.tipo_prod == 'MAQUINAS' ?
-                                                            (`/ImagenesMaquinas/${codigo.trim().toUpperCase()}.webp`)
+                                                            (`/ImagenesMaquinas/${codigoImagen.trim().toUpperCase()}.webp`)
                                                             :
                                                             ('')
                                                         )
