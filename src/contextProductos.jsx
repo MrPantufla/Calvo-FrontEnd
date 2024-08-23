@@ -43,6 +43,7 @@ function ProductosProvider({ children }) {
                 let troqueladosTemporal = {};
 
                 const productosActualizados = productosObtenidos.reduce((acumulador, producto) => {
+
                     let precioFinal = producto.precio_vta1; // Precio inicial
                     if (categoria === 'MAYORISTA' && producto.precio_vta2) {
                         // Si es mayorista y hay precio mayorista, actualizar precio
@@ -310,17 +311,17 @@ function ProductosProvider({ children }) {
     const ordenarPorDestacados = (productos, destacados) => {
         // Crear un mapa para almacenar las posiciones de los productos destacados
         const destacadosMap = new Map();
-    
+
         // Iterar sobre los IDs de productos destacados y agregar al mapa por su posición invertida
         destacados.forEach((id, index) => {
             destacadosMap.set(id, destacados.length - 1 - index);
         });
-    
+
         // Ordenar productos según la lógica establecida
         return productos.sort((prodA, prodB) => {
             const posA = destacadosMap.has(prodA.id) ? destacadosMap.get(prodA.id) : Infinity;
             const posB = destacadosMap.has(prodB.id) ? destacadosMap.get(prodB.id) : Infinity;
-    
+
             if (posA !== posB) {
                 return posA - posB; // Ordenar según la posición en el array de destacados invertido
             } else {
@@ -334,23 +335,52 @@ function ProductosProvider({ children }) {
             const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
             const precioB = prodB.kg !== 0 ? prodB.precio * prodB.kg : prodB.precio;
 
-            if (precioA === 0 && precioB !== 0) {
-                return 1
+            const prodAOculto = preciosOcultos.includes(prodA.id);
+            const prodBOculto = preciosOcultos.includes(prodB.id);
+
+            if (precioA === 0 && (precioB !== 0 && !prodBOculto)) {
+                return 1;
+            }
+            if (precioB === 0 && (precioA !== 0 && !prodAOculto)) {
+                return -1;
             }
 
-            if (precioB === 0 && precioA !== 0) {
+            if (prodAOculto && !prodBOculto) {
+                return 1;
+            }
+            if (prodBOculto && !prodAOculto) {
                 return -1;
             }
 
             return precioA - precioB;
         });
-    }
+    };
 
     const ordenarPorPrecioDesc = (productos) => {
         return productos.sort((prodA, prodB) => {
             const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
             const precioB = prodB.kg !== 0 ? prodB.precio * prodB.kg : prodB.precio;
 
+            const prodAOculto = preciosOcultos.includes(prodA.id);
+            const prodBOculto = preciosOcultos.includes(prodB.id);
+
+            // Mover productos con precio 0 al final si el otro tiene un precio mayor a 0 y no está oculto
+            if (precioA === 0 && (precioB !== 0 && !prodBOculto)) {
+                return 1;
+            }
+            if (precioB === 0 && (precioA !== 0 && !prodAOculto)) {
+                return -1;
+            }
+
+            // Mover productos ocultos al final si el otro no está oculto
+            if (prodAOculto && !prodBOculto) {
+                return 1;
+            }
+            if (prodBOculto && !prodAOculto) {
+                return -1;
+            }
+
+            // Ordenar por precio de forma descendente
             return precioB - precioA;
         });
     };
@@ -472,7 +502,7 @@ function ProductosProvider({ children }) {
             let marcasSet = new Set();
 
             marcasResponse.forEach(marca => marca.items.forEach(item => marcasSet.add(item)));
-            
+
             setMarcasUnicas(marcasSet);
         }
     }
