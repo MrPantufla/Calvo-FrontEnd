@@ -159,7 +159,7 @@ export function Facturacion() {
                                             <label htmlFor="localidad">LOCALIDAD</label>
                                             <input id="localidad"
                                                 value={localidad}
-                                                onChange={(e) => setCp(e.target.value)}
+                                                onChange={(e) => setLocalidad(e.target.value)}
                                                 onFocus={() => setErrorMessage('')}
                                             />
                                         </div>
