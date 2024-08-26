@@ -84,7 +84,7 @@ export default function Carrito() {
         proceso = troquelados[idProceso]
       }
 
-      const precioElemento = parseInt(producto.rubro == 85 ?
+      const precioElemento = (producto.rubro == 85 ?
         (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
         :
         (producto && producto.kg > 0)
@@ -127,7 +127,6 @@ export default function Carrito() {
           setCodigoAgregadoRapido('');
         }
         else {
-          console.log(state.userInfo)
           if (state.userInfo.categoria != 'MAYORISTA') {
             setMostrarCartelError(true);
           }
