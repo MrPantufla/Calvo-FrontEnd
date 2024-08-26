@@ -7,23 +7,153 @@
 }
 
 #pdf-preview img{
-  width: 30rem;
+  width: 230px;
   position: absolute;
-  top: 3rem;
-  left: 8rem;
+  top: 30px;
+  left: 40px;
 }
 
-#pdf-preview h1{
-  position: absolute;
-  left: 40rem;
-  font-size: 4rem;
-  font-weight: 600;
-  top: 5rem;
+#pdf-preview *{
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-#pdf-preview h2{
+.tituloPdf{
   position: absolute;
-  top: 6rem;
-  right: 12rem;
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 550;
+  top: 40px;
+}
+
+.fechaPdf{
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.datosContenedorPdf{
+  position: absolute;
+  top: 115px;
+  flex-direction: column;
+}
+
+.datosContenedorPdf{
+  width: 100%;
+}
+
+.datosContenedorPdf div{
+  display: flex;
+  width: 84%;
+  margin: 0 auto;
+}
+
+.datosContenedorPdf div p{
+  font-size: 13px;
+}
+
+.datosContenedorPdf div p span{
+  font-weight: 700;
+}
+
+.datosContenedorPdf div{
+  justify-content: space-between;
+}
+
+.productosContenedorPdf{
+  width: 100%;
+}
+
+.productosContenedorPdf p{
+  width: 92%;
+  margin: 0 auto;
+  font-weight: 700;
+  font-size: 11.3px;
+}
+
+.productosContenedorPdf hr{
+  margin: 2px auto;
+  border: 1px solid black;
+  width: 93%;
+}
+
+.elementosPdf{
+  display: flex;
+  flex-direction: row;
+  width: 92%;
+  margin: 0 auto;
+  margin-bottom: 8px;
+}
+
+.elementosPdf p{
+  font-size: 11px;
+  font-weight: 500;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.elementosPdf p:first-child{
+  width: 700px;
+}
+
+.elementosPdf p:nth-child(2){
+  width: 2200px;
+  font-size: 9.5px;
+  display: flex;
+  align-items: end;
+}
+
+.elementosPdf p:nth-child(3){
+  text-align: end;
+  width: 280px;
+  padding-right: 10px;
+}
+
+.elementosPdf p:nth-child(4){
+  width: 500px;
+  padding-left: 10px;
+}
+
+.elementosPdf p:nth-child(5){
+  width: 280px;
+  text-align: center;
+}
+
+.elementosPdf p:nth-child(6){
+  width: 500px;
+  text-align: end;
+}
+
+.elementosPdf p:nth-child(7){
+  width: 500px;
+  text-align: end;
+}
+
+.elementosPdf p:nth-child(8){
+  text-align: end;
+  width: 500px;
+}
+
+.totalPresupuesto{
+  text-align: end;
+  width: 96%;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 17px;
+}
+
+.warningPresupuesto{
+  width: 88%;
+  margin: 0 auto;
+  font-size: 15px;
+  margin-top: 17px;
+}
+
+.warningPresupuesto span{
   font-weight: 600;
+  font-style: italic;
 }
