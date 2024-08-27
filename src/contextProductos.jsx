@@ -53,7 +53,7 @@ function ProductosProvider({ children }) {
                     let copiaPrecio = precioFinal;
                     if (descuentos != null && descuentos[producto.rubro]) {
                         // Aplicar descuento si descuentos no es nulo y hay un valor en producto[rubro]
-                        precioFinal -= parseInt(descuentos[producto.rubro] / 100 * copiaPrecio);
+                        precioFinal -= (descuentos[producto.rubro] / 100 * copiaPrecio);
                     }
 
                     if (producto.tipo_prod == 'PUNTUAL' || producto.tipo_prod == 'MAQUINAS') {

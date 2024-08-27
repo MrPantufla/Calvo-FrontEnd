@@ -27,7 +27,8 @@ export default function Carrito() {
     productosSueltos,
     procesos,
     troquelados,
-    extraerMetrosCuadrados
+    extraerMetrosCuadrados,
+    preciosOcultos
   } = useProductos();
 
   const {
@@ -114,7 +115,7 @@ export default function Carrito() {
           productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
         }
 
-        const productosEncontradosFiltrados = productosEncontrados.filter(producto => !productosEliminados.includes(producto.id));
+        const productosEncontradosFiltrados = productosEncontrados.filter(producto => (!productosEliminados.includes(producto.id) && !preciosOcultos.includes(producto.id) && !productosIndexado[producto.id].precio == 0));
 
         if (!productosEncontradosFiltrados.length > 0) {
           setErrorMessage("Código incorrecto");
@@ -268,7 +269,7 @@ export default function Carrito() {
     }
   }, [carritoAbierto, elementos.length]);
 
-  const precioParaMostrarString = calcularTotal ? calcularTotal(elementos, false).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+  const precioParaMostrarString = calcularTotal ? parseInt(calcularTotal(elementos, false)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
   const precioParaMostrarStringDescuento = calcularTotal ? (parseInt(calcularTotal(elementos, true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
   return (

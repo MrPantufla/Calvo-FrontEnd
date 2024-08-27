@@ -81,8 +81,8 @@ export default function CardMisCompras(args) {
         setCardComprasAbierto(false);
     }, [args.id])
 
-    const precioParaMostrarString = (total(false)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    const precioParaMostrarStringDescuento = ((total(true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    const precioParaMostrarString = parseInt((total(false))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    const precioParaMostrarStringDescuento = parseInt((total(true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     const hayPerfil = args.data.some(producto => {
         const productoIndexado = productosIndexado[producto.producto];
