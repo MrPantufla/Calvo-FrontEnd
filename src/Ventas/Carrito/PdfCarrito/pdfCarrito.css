@@ -4,6 +4,7 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
   position: relative;
+  color: black;
 }
 
 #pdf-preview img{
