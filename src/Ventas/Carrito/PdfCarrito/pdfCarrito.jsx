@@ -1,7 +1,5 @@
 import './pdfCarrito.css';
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import React, { useRef } from 'react';
 import { useCarrito } from '../../../contextCarrito';
 import { useAuth } from '../../../contextLogin';
@@ -17,7 +15,8 @@ export default function PdfCarrito() {
     elementos,
     extraerProceso,
     extraerProducto,
-    extraerAcabado
+    extraerAcabado,
+    setPdfRef
   } = useCarrito();
 
   const {
@@ -31,34 +30,12 @@ export default function PdfCarrito() {
 
   const { state } = useAuth();
 
-  const { backend } = useVariables();
+  const {
+    backend, 
+    obtenerFechaFormateada 
+  } = useVariables();
 
   const [clienteInfo, setClienteInfo] = useState(null);
-
-  const obtenerFechaFormateada = () => {
-    const fecha = new Date();
-
-    const dia = String(fecha.getDate()).padStart(2, '0');
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-    const anio = fecha.getFullYear();
-
-    return `${dia}/${mes}/${anio}`;
-  };
-
-  const generarPDF = async () => {
-    const element = pdfRef.current;
-
-    const canvas = await html2canvas(element, {
-      scale: 1,
-      useCORS: true,
-    });
-
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-
-    pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
-    pdf.save('presupuestoCalvo.pdf');
-  };
 
   const obtenerCliente = async () => {
     let tokenParaEnviar = Cookies.get('jwtToken');
@@ -168,6 +145,9 @@ export default function PdfCarrito() {
       procesosTemporal.push(productoAgregar);
       //-------------------------------
       procesoActual = procesos[extraerProceso(elemento.id)];
+      if(!procesoActual){
+        procesoActual = troquelados[extraerProceso(elemento.id)];
+      }
 
       procesoAgregar = {
         cantidad: elemento.cantidad,
@@ -175,7 +155,7 @@ export default function PdfCarrito() {
         cod_origProducto: procesoActual.cod_orig,
         detalleProducto: procesoActual.detalle,
         id: procesoActual.id,
-        kg: productoActual.rubro != 85 ? (elemento.kg * elemento.cantidadCarrito) : (extraerMetrosCuadrados(productoActual.detalle)),
+        kg: productoActual.rubro != 85 ? (elemento.kg * elemento.cantidadCarrito) : (extraerMetrosCuadrados(productoActual.detalle) * elemento.cantidadCarrito),
         precioProducto: procesoActual.precio,
         tipo_prod: procesoActual.tipo_prod
       }
@@ -191,7 +171,7 @@ export default function PdfCarrito() {
           cod_origProducto: acabadoActual.cod_orig,
           detalleProducto: acabadoActual.detalle,
           id: acabadoActual.id,
-          kg: productoActual.rubro != 85 ? (elemento.kg * elemento.cantidadCarrito) : (extraerMetrosCuadrados(productoActual.detalle)),
+          kg: productoActual.rubro != 85 ? (elemento.kg * elemento.cantidadCarrito) : (extraerMetrosCuadrados(productoActual.detalle) * elemento.cantidadCarrito),
           precioProducto: acabadoActual.precio,
           tipo_prod: acabadoActual.tipo_prod
         }
@@ -200,88 +180,76 @@ export default function PdfCarrito() {
       }
     })
 
-    console.log(procesosTemporal)
+    procesosTemporal.forEach((elementoActual, index) => {
+      // Verificar si el elemento es un proceso y no un acabado
+      if (procesos[elementoActual.id] && procesos[elementoActual.id].rubro !== 89) {
+        // Usamos un bucle for para encontrar todas las coincidencias después del índice actual
+        for (let j = index + 1; j < procesosTemporal.length; j++) {
+          const elementoComparado = procesosTemporal[j];
 
-    /*procesosTemporal.map((elemento) => {
-      const coincidencia = elementosFinal.find((e) => e.id == elemento.id);
+          // Comprobar si ambos elementos son el mismo proceso
+          if (elementoComparado.id === elementoActual.id) {
+            // Obtener el siguiente elemento para ambos procesos
+            const siguienteElementoActual = procesosTemporal[index + 1];
+            const siguienteElementoComparado = procesosTemporal[j + 1];
 
-      if (coincidencia) {
-        coincidencia.cantidadCarrito += elemento.cantidadCarrito;
-        if (coincidencia.tipo_prod == 'PROCESOS') {
-          coincidencia.kg += (elemento.kg);
-        }
-      }
-      else {
-        elementosFinal.push(elemento);
-      }
-    })*/
-  }
+            // Verificar si ambos productos no tienen acabado
+            const ambosSinAcabado =
+              (!siguienteElementoActual ||
+                !(procesos[siguienteElementoActual.id] && procesos[siguienteElementoActual.id].rubro === 89)) &&
+              (!siguienteElementoComparado ||
+                !(procesos[siguienteElementoComparado.id] && procesos[siguienteElementoComparado.id].rubro === 89));
 
-  procesosTemporal.forEach((elementoActual, index) => {
-    // Verificar si el elemento es un proceso y no un acabado
-    if (elementoActual.tipo_prod === 'PROCESOS' && elementoActual.rubro !== 89) {
-      // Buscar un elemento con el mismo id en la lista
-      const coincidencia = procesosTemporal.find((e, idx) => e.id === elementoActual.id && idx !== index);
-  
-      if (coincidencia) {
-        // Verificar si el siguiente elemento del elementoActual es un acabado
-        const siguienteElemento = procesosTemporal[index + 1];
-        const siguienteElementoCoincidente = procesosTemporal[procesosTemporal.indexOf(coincidencia) + 1];
+            // Verificar si ambos productos tienen el mismo acabado
+            const mismoAcabado =
+              siguienteElementoActual &&
+              siguienteElementoComparado &&
+              procesos[siguienteElementoActual.id] &&
+              procesos[siguienteElementoActual.id].rubro === 89 &&
+              siguienteElementoActual.id === siguienteElementoComparado.id;
 
-        if (siguienteElemento && siguienteElemento.rubro === 89) {
-          if (siguienteElemento.id === siguienteElementoCoincidente?.id) {
-            // Sumar cantidades y kg si los procesos y acabados coinciden
-            coincidencia.cantidadCarrito += elementoActual.cantidadCarrito;
-            coincidencia.kg += elementoActual.kg;
-            siguienteElementoCoincidente.cantidadCarrito += siguienteElemento.cantidadCarrito;
-            siguienteElementoCoincidente.kg += siguienteElemento.kg;
-  
-            // Eliminar los elementos coincidentes
-            procesosTemporal.splice(procesosTemporal.indexOf(coincidencia), 1);
-            procesosTemporal.splice(procesosTemporal.indexOf(siguienteElementoCoincidente), 1);
-            
-            // Reordenar la lista para posicionar el producto correspondiente antes del productoActual
-            // Encuentra el producto correspondiente a los acabados
-            const productoCoincidente = procesosTemporal.find(e => e.id === coincidencia.id && e.tipo_prod !== 'PROCESOS');
-            if (productoCoincidente) {
-              const indexProducto = procesosTemporal.indexOf(productoCoincidente);
-              // Mueve el productoCoincidente antes del elementoActual
-              procesosTemporal.splice(indexProducto, 1);
-              procesosTemporal.splice(index, 0, productoCoincidente);
+            if (ambosSinAcabado || mismoAcabado) {
+              // Sumar cantidades y kg si los procesos coinciden
+              elementoActual.cantidadCarrito += elementoComparado.cantidadCarrito;
+              elementoActual.kg += elementoComparado.kg;
+
+              // Si ambos tienen el mismo acabado, sumar cantidades y kg del acabado también
+              if (mismoAcabado) {
+                siguienteElementoActual.cantidadCarrito += siguienteElementoComparado.cantidadCarrito;
+                siguienteElementoActual.kg += siguienteElementoComparado.kg;
+              }
+
+              // Mover el producto actual justo antes del proceso con el que coincide
+              const indiceElementoComparado = procesosTemporal.indexOf(elementoComparado);
+
+              if (mismoAcabado) {
+                procesosTemporal.splice(indiceElementoComparado, 2)
+              }
+              else {
+                procesosTemporal.splice(indiceElementoComparado, 1)
+              }
+
+              const productoParaMover = procesosTemporal[indiceElementoComparado - 1];
+              procesosTemporal.splice(index, 0, productoParaMover)
+              procesosTemporal.splice(indiceElementoComparado, 1)
             }
           }
-        } else{
-          // Si no hay acabado siguiente, comprobar que el siguiente del proceso coincidente no sea un acabado
-          const siguienteElementoCoincidente = procesosTemporal[procesosTemporal.indexOf(coincidencia) + 1];
-          if (!siguienteElementoCoincidente || siguienteElementoCoincidente.rubro !== 89) {
-            // Sumar cantidades y kg
-            let indice = procesosTemporal.indexOf(coincidencia) -1;
-
-            const [elemento] = procesosTemporal.splice(indice, 1);
-
-            procesosTemporal.splice((index +1), 0, elemento);
-            //----------------------------------------------------------------------------------------------------------
-            //----------------------------------------------------------------------------------------------------------
-            //--------------SEGUIR TOCANDO POR ACÁ PARA INSERTAR EL ELEMENTO EN EL INDICE ACTUAL +1---------------------
-            //----------------------------------------------------------------------------------------------------------
-            //----------------------------------------------------------------------------------------------------------
-            coincidencia.cantidadCarrito += elementoActual.cantidadCarrito;
-            coincidencia.kg += elementoActual.kg;
-  
-            // Eliminar el proceso coincidente
-            procesosTemporal.splice(procesosTemporal.indexOf(coincidencia), 1);
-            procesosTemporal.splice()
-          }
         }
       }
-    }
-  });
+    });
+  }
 
-  console.log(procesosTemporal)
+  procesosTemporal.forEach((elementoActual) => {
+    elementosFinal.push(elementoActual);
+  })
+
+  useEffect(() =>{
+    setPdfRef(pdfRef)
+  }, [])
 
   return (
     <div>
-      <div id="pdf-preview" ref={pdfRef}>
+      <div id="pdf-preview" ref={pdfRef} style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
         <img src="/ImagenesExtra/logo_calvo.webp" />
         <h1 className="tituloPdf">PRESUPUESTO</h1>
         <h2 className="fechaPdf">{obtenerFechaFormateada()}</h2>
@@ -306,7 +274,7 @@ export default function PdfCarrito() {
           <p>     Código            Descripción                                                                   Cant.Unid.   P.x Unid.   Unid.Med.     Cantidad     P.Vta.             Total</p>
           <hr />
 
-          {elementosFinal.length > 0 && elementosFinal.map((elemento) => {
+          {elementosFinal.length > 0 && elementosFinal.map((elemento, index) => {
             if (!elemento) return null;
 
             let producto = productosIndexado[elemento.id];
@@ -323,7 +291,8 @@ export default function PdfCarrito() {
 
             const esProceso = producto.rubro && (producto.rubro === 67 || producto.rubro === 78 || producto.rubro === 3 || producto.rubro === 73 || producto.rubro === 89 || producto.rubro == 88);
 
-            // Verificamos que las propiedades necesarias existen antes de acceder a ellas
+            const cantUnid = (elemento.cantidadCarrito * (producto.cantidad || 1));
+
             const unidad = ((marcasUnicas && marcasUnicas.has(producto.marca)) || (esProceso && !producto.detalle.includes("M2"))) ?
               ("KG")
               :
@@ -334,7 +303,7 @@ export default function PdfCarrito() {
                   ('UNID')
               );
 
-            const totalUnidad = ((unidad === "KG" || unidad === 'M2') ?
+            const cantidad = ((unidad === "KG" || unidad === 'M2') ?
               marcasUnicas.has(producto.marca) ?
                 (elemento.cantidadCarrito ? producto.kg * elemento.cantidadCarrito : 0)
                 :
@@ -343,16 +312,16 @@ export default function PdfCarrito() {
               (producto.cantidad && elemento.cantidadCarrito ? producto.cantidad * elemento.cantidadCarrito : 0)
             );
 
-            const totalProducto = ((producto.cantidad || 1) * (producto.precio || 1) * ((elemento.kg > 0 && producto.rubro != 85) ? elemento.kg : 1) * (esProceso ? (1) : elemento.cantidadCarrito)).toFixed(2);
+            const totalProducto = (producto.precio * cantidad).toFixed(2);
 
             return (
-              <div className="elementosPdf" key={elemento.id}>
+              <div className="elementosPdf" key={`${elemento.id}-${index}`}>
                 <p className="primerP">{producto.cod_int}</p>{/*Código*/}
                 <p>{producto.cod_orig + " - " + (producto.detalle || '')}</p>{/*Descripción*/}
-                <p>{(elemento.cantidadCarrito * (producto.cantidad || 1)).toFixed(2)}</p>{/*Cant.Unid.*/}
-                <p>{(totalProducto / (totalUnidad)).toFixed(2)}</p>{/*P. X Unid.*/}
+                <p>{cantUnid.toFixed(2)}</p>{/*Cant.Unid.*/}
+                <p>{(totalProducto / (cantUnid)).toFixed(2)}</p>{/*P. X Unid.*/}
                 <p>{unidad}</p>{/*Unid.Med.*/}
-                <p>{totalUnidad.toFixed(2)}</p>{/*Cantidad*/}
+                <p>{cantidad.toFixed(2)}</p>{/*Cantidad*/}
                 <p>{(producto.precio || 0).toFixed(2)}</p>{/*P.Vta.*/}
                 <p>{totalProducto}</p>{/*Total*/}
               </div>
@@ -366,7 +335,6 @@ export default function PdfCarrito() {
           3- Los KG son a modo referencial, los mismo pueden variar al momento de preparar el pedido<br />
           <span>Corroborar el presupuesto al confirmar, la empresa no se responsabiliza de  diferencia alguna.</span>
         </p>
-        <button onClick={() => generarPDF()}>Generar pdf</button>
       </div>
     </div>
   );

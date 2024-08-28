@@ -4,6 +4,8 @@ import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
 import Cookies from 'js-cookie';
 import { marcasUnicasPerfiles } from './rubros';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const CarritoContext = createContext();
 
@@ -26,7 +28,11 @@ function CarritoProvider({ children }) {
 
   const { productosSueltos } = useProductos();
 
-  const { backend } = useVariables();
+  const {
+    backend,
+    obtenerFechaFormateada,
+    obtenerHoraFormateada
+  } = useVariables();
 
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
@@ -41,15 +47,27 @@ function CarritoProvider({ children }) {
   const [paqueteAñadir, setPaqueteAñadir] = useState(null);
   const [elementoEliminar, setElementoEliminar] = useState(null);
   const [respuestaRecibida, setRespuestaRecibida] = useState(true);
+  const [pdfRef, setPdfRef] = useState('');
 
   const extraerProducto = (cadena) => {
     const cadenaConvertida = cadena.toString();
-    const match = cadenaConvertida.match(/^([^()]*)\(/);
+    // Captura el primer código antes del guion o paréntesis
+    const match = cadenaConvertida.match(/^([^()-]+)/);
     if (match) {
       return parseInt(match[1]);
     }
-    return parseInt(cadenaConvertida);
-  }
+    return null; // Devuelve null si no se encuentra un código
+  };
+
+  const extraerTroquelado = (cadena) => {
+    const cadenaConvertida = cadena.toString();
+    // Captura el código después del guion
+    const match = cadenaConvertida.match(/-(\d+)/);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null; // Devuelve null si no se encuentra un código de troquelado
+};
 
   const extraerProceso = (cadena) => {
     const cadenaConvertida = cadena.toString();
@@ -70,11 +88,10 @@ function CarritoProvider({ children }) {
   }
 
   function añadirElemento(id, cantidadCarrito) {
-
-    if(!(id.toString().includes("("))){
+    if (!(id.toString().includes("(")) && !(id.toString().includes("-"))) {
       id = parseInt(id);
     }
-    
+
     setPaqueteAñadir(null);
     if (state.userInfo && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
       setMostrarCartelError(true);
@@ -299,6 +316,40 @@ function CarritoProvider({ children }) {
     }
   }, [productosIndexado]);
 
+  const generarPdf = async () => {
+    const element = pdfRef.current;
+
+    // Renderiza el elemento como una imagen de canvas
+    const canvas = await html2canvas(element, {
+      scale: 1.2, // Asegura una buena calidad de imagen
+      useCORS: true,
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+
+    const imgWidth = 210; // Ancho de A4 en mm
+    const pageHeight = 297; // Altura de A4 en mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calcula la altura de la imagen
+    let position = 0;
+    let heightLeft = imgHeight;
+
+    // Añade la primera página
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    // Añade páginas adicionales si es necesario
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    // Guardar el PDF
+    pdf.save(`Presupuesto Calvo ${obtenerFechaFormateada()} ${obtenerHoraFormateada()}.pdf`);
+  };
+
   return (
     <CarritoContext.Provider value={{
       datosCorroborados,
@@ -328,10 +379,13 @@ function CarritoProvider({ children }) {
       setRespuestaCompra,
       respuestaRecibida,
       extraerProducto,
+      extraerTroquelado,
       extraerProceso,
       extraerAcabado,
       mostrarCartelError,
-      setMostrarCartelError
+      setMostrarCartelError,
+      generarPdf,
+      setPdfRef
     }}>
       {children}
     </CarritoContext.Provider>
@@ -339,3 +393,4 @@ function CarritoProvider({ children }) {
 }
 
 export { CarritoContext, useCarrito, CarritoProvider };
+
