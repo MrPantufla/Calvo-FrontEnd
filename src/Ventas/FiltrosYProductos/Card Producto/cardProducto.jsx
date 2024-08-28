@@ -95,13 +95,15 @@ export default function CardProducto(args) {
     }
   }
 
+  let troquelado;
+
   const troqueladoRegex = /^CA\d+T$/;
   if (troqueladoRegex.test(cod_orig)) {
     const codigoPerfil = cod_orig.substring(2, cod_orig.length - 1);
     const troqueladoCorrespondiente = Object.values(troquelados).find(t => t.detalle.includes(codigoPerfil));
 
     if (troqueladoCorrespondiente) {
-      proceso = troqueladoCorrespondiente;
+      troquelado = troqueladoCorrespondiente;
     }
   }
 
@@ -110,7 +112,7 @@ export default function CardProducto(args) {
     acabado = procesos[args.acabado];
   }
 
-  idParaUsar = proceso ? (id + '(' + proceso.id + '(' + acabado.id + '))') : (idAux);
+  idParaUsar = proceso ? (id + (troquelado ? `-${troquelado.id}` : '') + '(' + proceso.id + '(' + acabado.id + '))') : (idAux + (troquelado ? `-${troquelado.id}` : ''));
 
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === idParaUsar);
 
@@ -248,7 +250,7 @@ export default function CardProducto(args) {
     }
   };
 
-  const precioPerfil = precioParaUsar * kg + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0);
+  const precioPerfil = precioParaUsar * kg + (troquelado ? troquelado.precio * kg : 0) + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0);
   const precioChapa = precioParaUsar + (proceso ? proceso.precio * extraerMetrosCuadrados(detalle) : 0) + (acabado ? acabado.precio * extraerMetrosCuadrados(detalle) : 0);
 
   const precioParaMostrarInt = parseInt(

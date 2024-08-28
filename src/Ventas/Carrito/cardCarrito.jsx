@@ -10,6 +10,7 @@ export default function CardCarrito(args) {
         restarElemento,
         eliminarElemento,
         extraerProducto,
+        extraerTroquelado,
         extraerProceso,
         extraerAcabado
     } = useCarrito();
@@ -28,6 +29,7 @@ export default function CardCarrito(args) {
     } = useProductos();
 
     const idSinProceso = extraerProducto(args.id.toString());
+    const idTroquelado = extraerTroquelado(args.id.toString());
     const idProceso = extraerProceso(args.id.toString());
     const idAcabado = extraerAcabado(args.id.toString());
 
@@ -43,10 +45,7 @@ export default function CardCarrito(args) {
 
     let proceso = procesos[idProceso];
     let acabado = procesos[idAcabado];
-
-    if (!proceso) {
-        proceso = troquelados[idProceso]
-    }
+    let troquelado = troquelados[idTroquelado]
 
     if (proceso) {
         if (productosIndexado[producto.id].kg <= 1.8) {
@@ -116,6 +115,7 @@ export default function CardCarrito(args) {
             :
             ((producto.kg > 0) ?
                 (producto.precio * producto.cantidad * producto.kg +
+                    (troquelado ? troquelado.precio * producto.kg : 0) +
                     (proceso ? proceso.precio * producto.kg : 0) +
                     (acabado ? acabado.precio * producto.kg : 0)
                 )
@@ -223,11 +223,11 @@ export default function CardCarrito(args) {
                     <p className="textoPrecioCardCarrito">{producto.tipo_prod == 'PERFIL' ? ('PRECIO APROX.') : ('PRECIO')}</p>
                     <div className="precioProductoCardCarrito">
                         <p>
-                            {precioParaMostrarString}
+                            {`$${precioParaMostrarString}`}
                         </p>
                     </div>
                     <div className="precioUnitarioCardCarrito">
-                        <p>({args.cantidadCarrito} x {precioParaMostrarStringIndividual})
+                        <p>({args.cantidadCarrito} x {`$${precioParaMostrarStringIndividual}`})
                         </p>
                     </div>
                 </div>
