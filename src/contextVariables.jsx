@@ -8,12 +8,32 @@ function useVariables() {
 }
 
 function VariablesProvider({ children }) {
-    const backend = "http://localhost:8080";
-    //const backend = "https://backend-calvo-415917.rj.r.appspot.com";
+    //const backend = "http://localhost:8080";
+    const backend = "https://backend-calvo-415917.rj.r.appspot.com";
 
     const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
     const [mostrarFacturacion, setMostrarFacturacion] = useState(false);
     const [mostrarCartelPresupuesto, setMostrarCartelPresupuesto] = useState(false);
+
+    const obtenerFechaFormateada = () => {
+        const fecha = new Date();
+
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+        const anio = fecha.getFullYear();
+
+        return `${dia}/${mes}/${anio}`;
+    };
+
+    const obtenerHoraFormateada = () => {
+        const fecha = new Date();
+    
+        const horas = String(fecha.getHours()).padStart(2, '0');
+        const minutos = String(fecha.getMinutes()).padStart(2, '0');
+        const segundos = String(fecha.getSeconds()).padStart(2, '0');
+    
+        return `${horas}.${minutos}.${segundos}`;
+    };
 
     return (
         <VariablesContext.Provider value={{
@@ -23,7 +43,9 @@ function VariablesProvider({ children }) {
             mostrarFacturacion,
             setMostrarFacturacion,
             mostrarCartelPresupuesto,
-            setMostrarCartelPresupuesto
+            setMostrarCartelPresupuesto,
+            obtenerFechaFormateada,
+            obtenerHoraFormateada
             }}>
             {children}
         </VariablesContext.Provider>

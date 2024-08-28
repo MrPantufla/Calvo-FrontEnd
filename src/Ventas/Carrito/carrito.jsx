@@ -8,6 +8,7 @@ import { useTienda } from '../../contextTienda.jsx';
 import carritoVacioImg from '../../Imagenes/carritoVacio.webp';
 import { useAuth } from '../../contextLogin.jsx';
 import { useVariables } from '../../contextVariables.jsx';
+import PdfCarrito from './PdfCarrito/pdfCarrito.jsx';
 
 export default function Carrito() {
   const {
@@ -16,8 +17,10 @@ export default function Carrito() {
     //setConfirmarCompraAbierto,
     setMostrarCartelError,
     extraerProducto,
+    extraerTroquelado,
     extraerProceso,
-    extraerAcabado
+    extraerAcabado,
+    generarPdf
   } = useCarrito();
 
   const {
@@ -69,6 +72,7 @@ export default function Carrito() {
     return elementos.reduce((total, elemento) => {
 
       const idProducto = extraerProducto(elemento.id);
+      const idTroquelado = extraerTroquelado(elemento.id);
       const idProceso = extraerProceso(elemento.id);
       const idAcabado = extraerAcabado(elemento.id);
 
@@ -78,18 +82,15 @@ export default function Carrito() {
         producto = productosSueltos[idProducto];
       }
 
+      let troquelado = troquelados[idTroquelado];
       let proceso = procesos[idProceso];
       let acabado = procesos[idAcabado];
-
-      if (!proceso) {
-        proceso = troquelados[idProceso]
-      }
 
       const precioElemento = (producto.rubro == 85 ?
         (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
         :
         (producto && producto.kg > 0)
-          ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
+          ? (producto.precio * producto.kg + (troquelado ? troquelado.precio * producto.kg : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
           : producto.precio
       )
 
@@ -294,7 +295,8 @@ export default function Carrito() {
       <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
-            <div className={`botonDescargarPresupuesto ${elementos.length < 1 && 'disabled'}`} onClick={() => setMostrarCartelPresupuesto(true)}>
+            <PdfCarrito/>
+            <div className={`botonDescargarPresupuesto ${elementos.length < 1 && 'disabled'}`} onClick={() => generarPdf()}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
@@ -385,7 +387,6 @@ export default function Carrito() {
                   disabled={!elementos.length > 0}
                   onClick={() => {
                     if (state.userInfo.cliente) {
-                      //setConfirmarCompraAbierto(true);
                       setPrecioTotal(calcularTotal(elementos));
                       setMostrarFacturacion(true);
                     } else {
