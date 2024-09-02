@@ -20,6 +20,7 @@ import { useVariables } from './contextVariables.jsx';
 import { Facturacion } from './Ventas/Confirmar compra/Facturacion/facturacion.jsx';
 import TerminosYCondiciones from './Terminos y condiciones/terminosYCondiciones.jsx';
 import CartelPresupuesto from './Ventas/Cartel presupuesto/cartelPresupuesto.jsx';
+import PdfCarrito from './Ventas/Carrito/PdfCarrito/pdfCarrito.jsx';
 
 function App() {
   const { mostrarCartelCliente, mostrarFacturacion, mostrarCartelPresupuesto } = useVariables();
@@ -41,6 +42,7 @@ function App() {
                           <Route path="/misCompras" element={<MisCompras />} />
                           <Route path="/editarUsuarios" element={<EditarUsuarios />} />
                           <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
+                          {/*<Route path="/pdf" element={<PdfCarrito/>} />*/}
                         </Routes>
                       {mostrarCartelCliente && <CartelCliente />}
                       {mostrarFacturacion && <Facturacion />}
