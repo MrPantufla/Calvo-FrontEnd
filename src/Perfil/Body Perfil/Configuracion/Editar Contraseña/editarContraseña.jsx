@@ -132,7 +132,7 @@ export default function EditarContraseña() {
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarContraseña">
-                        <label htmlFor="repetirContraseña" id="repetirContraseña" required onFocus={vaciarError}>REPETIR CONTRASEÑA</label>
+                        <label htmlFor="repetirContraseña" id="repetirContraseña" required onFocus={vaciarError}>REPETIR NUEVA CONTRASEÑA</label>
                         <input
                             type="password"
                             id="repetirContraseña"
