@@ -53,6 +53,20 @@ export default function ProductoHistorial(args) {
         }
     }
 
+    const usarBlanco = (colorParaUsar == 'NEGRO' ||
+        colorParaUsar == 'AZUL' ||
+        colorParaUsar == 'MARRON OSCURO' ||
+        colorParaUsar == 'BRONCE USCURO' ||
+        colorParaUsar == 'SIMIL MADERA' ||
+        colorParaUsar == 'PLATIL' ||
+        colorParaUsar == 'PELTRE' ||
+        colorParaUsar == 'FUME' ||
+        colorParaUsar == 'ROJO' ||
+        colorParaUsar == 'GRIS AZULADO' ||
+        colorParaUsar == 'BRONCE MEDIO' ||
+        colorParaUsar == 'BRONCE OSCURO'
+    );
+
     const precioParaMostrarInt = parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg) || (1) : (1)));
 
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
@@ -62,9 +76,9 @@ export default function ProductoHistorial(args) {
 
     let codigo;
 
-    const esPerfil = marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
+    const esPerfil = producto && marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
 
-    esPerfil ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
+    (producto && esPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
     if (producto.referenciaPaquete) {
         codigoImagen = esPerfil ? (producto.referenciaPaquete.cod_orig) : (producto.referenciaPaquete.cod_int);
@@ -129,7 +143,7 @@ export default function ProductoHistorial(args) {
             </div>
             <div className="informacionProductoHistorialContainer">
                 {(color && color !== 'IND') && (
-                    <p style={{ backgroundColor: `var(--${colorCorregido})` }}>
+                    <p style={{ backgroundColor: `var(--${colorCorregido})`, color: usarBlanco ? ('white') : ('black') }}>
                         {args.proceso && procesos[args.proceso] && procesos[args.proceso].rubro === 88
                             ? 'ANODIZADO: ' + (procesos[args.proceso].color ? procesos[args.proceso].color.toUpperCase() : '')
                             : 'COLOR: ' + colorParaUsar
