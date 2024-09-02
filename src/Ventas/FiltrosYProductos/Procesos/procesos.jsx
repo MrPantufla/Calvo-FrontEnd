@@ -62,7 +62,7 @@ export default function Procesos(args) {
                         <>
                             {tipoProceso == 'pinturas' && (
                                 <h1 className="textoComunicateConNosotros textoProcesos">
-                                    <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación,{' '}
+                                    <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación, 
                                     <a href={isMobile ?
                                         (`https://wa.me/5493456475294`)
                                         :
