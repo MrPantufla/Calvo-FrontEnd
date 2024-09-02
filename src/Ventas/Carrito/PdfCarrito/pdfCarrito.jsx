@@ -15,6 +15,7 @@ export default function PdfCarrito() {
     elementos,
     extraerProceso,
     extraerProducto,
+    extraerTroquelado,
     extraerAcabado,
     setPdfRef
   } = useCarrito();
@@ -31,8 +32,8 @@ export default function PdfCarrito() {
   const { state } = useAuth();
 
   const {
-    backend, 
-    obtenerFechaFormateada 
+    backend,
+    obtenerFechaFormateada
   } = useVariables();
 
   const [clienteInfo, setClienteInfo] = useState(null);
@@ -66,44 +67,6 @@ export default function PdfCarrito() {
     }
   }, [state.userInfo.cliente]);
 
-  const calcularTotal = (elementos, conDescuento) => {
-    return elementos.reduce((total, elemento) => {
-
-      const idProducto = extraerProducto(elemento.id);
-      const idProceso = extraerProceso(elemento.id);
-      const idAcabado = extraerAcabado(elemento.id);
-
-      let producto = productosIndexado[idProducto];
-
-      if (producto == null) {
-        producto = productosSueltos[idProducto];
-      }
-
-      let proceso = procesos[idProceso];
-      let acabado = procesos[idAcabado];
-
-      if (!proceso) {
-        proceso = troquelados[idProceso]
-      }
-
-      const precioElemento = (producto.rubro == 85 ?
-        (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
-        :
-        (producto && producto.kg > 0)
-          ? (producto.precio * producto.kg + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
-          : producto.precio
-      )
-
-      if (conDescuento && !(elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('E') || elemento.cod_origProducto.endsWith('ES')))) {
-
-        return total + ((precioElemento * elemento.cantidadCarrito * elemento.cantidad) * 97 / 100);
-      }
-      else {
-        return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
-      }
-    }, 0);
-  };
-
   let elementosConProcesos = [];
 
   let elementosSinProcesos = [];
@@ -115,8 +78,51 @@ export default function PdfCarrito() {
   if (elementos.length > 0) {
     elementosConProcesos = elementos.filter(elemento => typeof elemento.id === 'string' && elemento.id.includes('('));
     elementosSinProcesos = elementos.filter(objB => !elementosConProcesos.some(objA => objA.id === objB.id));
+    let elementosSinProcesosSeparados = [];
+    let perfilAgregar;
+    let troqueladoAgregarSinProceso;
 
-    elementosFinal = elementosSinProcesos;
+    if (elementosSinProcesos.length > 0) {
+      elementosSinProcesos.forEach(e => {
+        const perfil = productosIndexado[extraerProducto(e.id)];
+
+        perfilAgregar = {
+          cantidad: e.cantidad,
+          cantidadCarrito: e.cantidadCarrito,
+          cod_origProducto: perfil.cod_orig,
+          detalleProducto: perfil.detalle,
+          id: perfil.id,
+          kg: perfil.kg,
+          precioProducto: perfil.precio,
+          tipo_prod: perfil.tipo_prod,
+          rubro: perfil.rubro
+        }
+
+        elementosSinProcesosSeparados.push(perfilAgregar);
+
+        if(typeof(e.id) == "string" && e.id.includes("-")){
+          const troq = troquelados[extraerTroquelado(e.id)];
+
+          if(troq){
+            troqueladoAgregarSinProceso = {
+              cantidad: e.cantidad,
+              cantidadCarrito: e.cantidadCarrito,
+              cod_origProducto: troq.cod_orig,
+              detalleProducto: troq.detalle,
+              id: troq.id,
+              kg: perfil.kg,
+              precioProducto: troq.precio,
+              tipo_prod: troq.tipo_prod,
+              rubro: troq.rubro
+            }
+          }
+
+          elementosSinProcesosSeparados.push(troqueladoAgregarSinProceso);
+        }
+      })
+    }
+
+    elementosFinal = elementosSinProcesosSeparados;
 
     let productoActual;
     let productoAgregar;
@@ -139,13 +145,34 @@ export default function PdfCarrito() {
         id: productoActual.id,
         kg: elemento.kg,
         precioProducto: productoActual.precio,
-        tipo_prod: productoActual.tipo_prod
+        tipo_prod: productoActual.tipo_prod,
+        rubro: productoActual.rubro
       }
 
       procesosTemporal.push(productoAgregar);
       //-------------------------------
+      if(elemento.id.includes("-")){
+        const troq = troquelados[extraerTroquelado(elemento.id)];
+
+        if(troq){
+          troqueladoAgregarSinProceso = {
+            cantidad: elemento.cantidad,
+            cantidadCarrito: elemento.cantidadCarrito,
+            cod_origProducto: troq.cod_orig,
+            detalleProducto: troq.detalle,
+            id: troq.id,
+            kg: elemento.kg,
+            precioProducto: troq.precio,
+            tipo_prod: troq.tipo_prod,
+            rubro: troq.rubro
+          }
+        }
+
+        procesosTemporal.push(troqueladoAgregarSinProceso);
+      }
+      //-------------------------------
       procesoActual = procesos[extraerProceso(elemento.id)];
-      if(!procesoActual){
+      if (!procesoActual) {
         procesoActual = troquelados[extraerProceso(elemento.id)];
       }
 
@@ -157,7 +184,8 @@ export default function PdfCarrito() {
         id: procesoActual.id,
         kg: productoActual.rubro != 85 ? (elemento.kg * elemento.cantidadCarrito) : (extraerMetrosCuadrados(productoActual.detalle) * elemento.cantidadCarrito),
         precioProducto: procesoActual.precio,
-        tipo_prod: procesoActual.tipo_prod
+        tipo_prod: procesoActual.tipo_prod,
+        rubro: procesoActual.rubro
       }
 
       procesosTemporal.push(procesoAgregar);
@@ -173,7 +201,8 @@ export default function PdfCarrito() {
           id: acabadoActual.id,
           kg: productoActual.rubro != 85 ? (elemento.kg * elemento.cantidadCarrito) : (extraerMetrosCuadrados(productoActual.detalle) * elemento.cantidadCarrito),
           precioProducto: acabadoActual.precio,
-          tipo_prod: acabadoActual.tipo_prod
+          tipo_prod: acabadoActual.tipo_prod,
+          rubro: acabadoActual.rubro
         }
 
         procesosTemporal.push(acabadoAgregar);
@@ -243,9 +272,48 @@ export default function PdfCarrito() {
     elementosFinal.push(elementoActual);
   })
 
-  useEffect(() =>{
+  useEffect(() => {
     setPdfRef(pdfRef)
   }, [])
+
+  const calcularTotal = (elementos, conDescuento) => {
+    return elementos.reduce((total, elemento) => {
+
+      const idProducto = extraerProducto(elemento.id);
+      const idTroquelado = extraerTroquelado(elemento.id);
+      const idProceso = extraerProceso(elemento.id);
+      const idAcabado = extraerAcabado(elemento.id);
+
+      let producto = productosIndexado[idProducto];
+
+      if (producto == null) {
+        producto = productosSueltos[idProducto];
+      }
+
+      let troquelado = troquelados[idTroquelado];
+      let proceso = procesos[idProceso];
+      let acabado = procesos[idAcabado];
+
+      if (!proceso) {
+        proceso = troquelados[idProceso]
+      }
+
+      const precioElemento = (producto && producto.rubro == 85 ?
+        (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+        :
+        (producto && producto.precio && producto.kg > 0)
+          ? (producto.precio * producto.kg + (troquelado ? (troquelado.precio * producto.kg) : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
+          : producto.precio
+      )
+
+      if (conDescuento && !(elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('E') || elemento.cod_origProducto.endsWith('ES')))) {
+        return total + ((precioElemento * elemento.cantidadCarrito * elemento.cantidad) * 97 / 100);
+      }
+      else {
+        return total + (precioElemento * elemento.cantidadCarrito * elemento.cantidad);
+      }
+    }, 0);
+  };
 
   return (
     <div>
@@ -289,7 +357,7 @@ export default function PdfCarrito() {
               }
             }
 
-            const esProceso = producto.rubro && (producto.rubro === 67 || producto.rubro === 78 || producto.rubro === 3 || producto.rubro === 73 || producto.rubro === 89 || producto.rubro == 88);
+            const esProceso = producto.rubro && (producto.rubro === 65 || producto.rubro === 67 || producto.rubro === 78 || producto.rubro === 3 || producto.rubro === 73 || producto.rubro === 89 || producto.rubro == 88);
 
             const cantUnid = (elemento.cantidadCarrito * (producto.cantidad || 1));
 
