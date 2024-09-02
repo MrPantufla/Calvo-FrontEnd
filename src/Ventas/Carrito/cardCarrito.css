@@ -172,7 +172,7 @@
     font-weight: 700;
     font-size: 1.5rem;
     background-color: white;
-    width: 9rem;
+    width: 11rem;
     border-radius: 3px 3px 0 0;
     display: flex;
     justify-content: center;
@@ -183,7 +183,7 @@
     font-weight: 500;
     font-size: 1.4rem;
     background-color: var(--colorTerciario);
-    width: 9rem;
+    width: 11rem;
     display: flex;
     justify-content: center;
     border-radius: 0 0 3px 3px;
@@ -361,12 +361,12 @@
 
     .precioProductoCardCarrito,
     .precioUnitarioCardCarrito {
-        min-width: 12rem;
+        min-width: 16rem;
     }
 
     .precioProductoCardCarrito p,
     .precioUnitarioCardCarrito p {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
     }
 }
 
