@@ -114,6 +114,10 @@ export default function CardProducto(args) {
 
   idParaUsar = proceso ? (id + (troquelado ? `-${troquelado.id}` : '') + '(' + proceso.id + '(' + acabado.id + '))') : (idAux + (troquelado ? `-${troquelado.id}` : ''));
 
+  if(!proceso && !troquelado){
+    idParaUsar = parseInt(idParaUsar);
+  }
+
   const elementoExistente = elementosCarrito.find((elemento) => elemento.id === idParaUsar);
 
   const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
