@@ -12,7 +12,7 @@ export function BotonesOrdenamiento() {
 
     const toggleOrdenar = (prop) => {
         if (prop == ordenamientoActivo) {
-            setOrdenamientoActivo(null);
+            setOrdenamientoActivo('destacados');
         }
         else {
             setOrdenamientoActivo(prop);

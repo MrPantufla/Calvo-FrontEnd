@@ -4,6 +4,7 @@ import { useFavoritos } from './contextFavoritos';
 import { useProductos } from './contextProductos';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useVariables } from './contextVariables';
+import { rubrosPerfiles } from './rubros';
 
 const TiendaContext = createContext();
 
@@ -31,7 +32,7 @@ function TiendaProvider({ children }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [rubros, setRubros] = useState([]);
   const [imagenSoftwareSeleccionada, setImagenSoftwareSeleccionada] = useState(null);
-  
+
   const {
     setOrdenamientoActivo,
     procesos,
@@ -104,18 +105,27 @@ function TiendaProvider({ children }) {
       setMarcaActiva(marcas.find(marcaPerfil => marcaPerfil.nombre == marca));
     }
 
-    if (srubro && rubro) {
-      const rubroEncontrado = rubros.find(rubroActual => rubroActual.id == rubro);
-      if (rubroEncontrado && rubroEncontrado.srubros.length > 0) {
-        setSrubroActivo(rubroEncontrado.srubros.find(busquedaSrubro => busquedaSrubro.id == srubro));
+    if (rubro && srubro) {
+      if (marca) {
+        const marcaEncontrada = marcas.find(marcaActual => marcaActual.nombre == marca);
+
+        if (marcaEncontrada && marcaEncontrada.srubros.length > 0) {
+          setSrubroActivo(marcaEncontrada.srubros.find(busquedaSrubro => busquedaSrubro.id == srubro));
+        }
+      }
+      else {
+        const rubroEncontrado = rubros.find(rubroActual => rubroActual.id == rubro);
+        if (rubroEncontrado && rubroEncontrado.srubros.length > 0) {
+          setSrubroActivo(rubroEncontrado.srubros.find(busquedaSrubro => busquedaSrubro.id == srubro));
+        }
       }
     }
 
-    setOrdenamientoActivo(ordenamiento)
+    ordenamiento.length > 0 && setOrdenamientoActivo(ordenamiento)
 
     setColoresActivos(colores);
   }, [marcas, rubros, setProcesos]);
-  
+
   // Actualizar la URL cuando los filtros cambian
   useEffect(() => {
     if (marcas.length > 0 && rubros.length > 0) {
@@ -133,7 +143,7 @@ function TiendaProvider({ children }) {
       else if (eliminadosSelected) {
         params.set('rubro', 'Eliminados')
       }
-      else if(softwareSelected){
+      else if (softwareSelected) {
         params.set('rubro', 'Software')
       }
 
@@ -141,12 +151,12 @@ function TiendaProvider({ children }) {
 
       if (srubroActivo) params.set('srubro', srubroActivo.id);
 
-      if(ordenamientoActivo != 'destacados') params.set('ordenamiento', ordenamientoActivo)
+      if(ordenamientoActivo && ordenamientoActivo != 'destacados') params.set('ordenamiento', ordenamientoActivo)
 
       coloresActivos.forEach(color => params.append('colores', color));
       navigate({ search: params.toString() });
     }
-  }, [marcaActiva, rubroActivo, srubroActivo, coloresActivos, procesosSelected, cortinasSelected, eliminadosSelected, tipoProceso, stipoProceso, procesos, ordenamientoActivo,navigate]);
+  }, [marcaActiva, rubroActivo, srubroActivo, coloresActivos, procesosSelected, cortinasSelected, eliminadosSelected, tipoProceso, stipoProceso, procesos, ordenamientoActivo, navigate]);
 
   const salirDeTienda = () => {
     togglearRubro(null);
@@ -159,7 +169,7 @@ function TiendaProvider({ children }) {
     setColoresActivos([]);
     setCarritoAbierto(false);
     setFavoritosAbierto(false);
-    setOrdenamientoActivo('');
+    setOrdenamientoActivo('destacados');
   }
 
   const seleccionarEliminados = () => {
@@ -218,7 +228,7 @@ function TiendaProvider({ children }) {
     }
   }
 
-  const seleccionarSoftware = () =>{
+  const seleccionarSoftware = () => {
     setEliminadosSelected(false);
     setCortinasSelected(false);
     setProcesosSelected(false);
@@ -226,11 +236,11 @@ function TiendaProvider({ children }) {
     setStipoProceso(null);
     setAcabado(null);
 
-    if(!softwareSelected){
+    if (!softwareSelected) {
       setRubroActivo([]);
       setSoftwareSelected(true);
     }
-    else{
+    else {
       setRubroActivo(null);
       setSoftwareSelected(false);
     }

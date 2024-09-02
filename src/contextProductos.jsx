@@ -12,7 +12,7 @@ function ProductosProvider({ children }) {
 
     const { backend } = useVariables();
 
-    const [ordenamientoActivo, setOrdenamientoActivo] = useState(null);
+    const [ordenamientoActivo, setOrdenamientoActivo] = useState('destacados');
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
@@ -449,13 +449,13 @@ function ProductosProvider({ children }) {
         });
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (!ordenamientoActivo) {
             if (productosDestacados) {
                 setOrdenamientoActivo('destacados');
             }
         }
-    }, [ordenamientoActivo])
+    }, [ordenamientoActivo])*/
 
     const ordenarProductos = (productos) => {
         switch (ordenamientoActivo) {
