@@ -152,6 +152,12 @@
     padding: 0 0.5rem;
     padding-top: 0.2rem;
     border-radius: 2px;
+    max-width: 95%;
+}
+
+.muestraColorCardProducto p{
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .kgProducto,
@@ -170,6 +176,7 @@
 }
 
 .colorCardProducto p {
+    width: 100%;
     font-size: 1.3rem;
 }
 
