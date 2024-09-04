@@ -65,7 +65,7 @@ export default function PdfCarrito() {
     if (state.userInfo && state.userInfo.cliente) {
       obtenerCliente();
     }
-  }, [state.userInfo.cliente]);
+  }, [state.userInfo?.cliente]);
 
   let elementosConProcesos = [];
 
@@ -84,18 +84,22 @@ export default function PdfCarrito() {
 
     if (elementosSinProcesos.length > 0) {
       elementosSinProcesos.forEach(e => {
-        const perfil = productosIndexado[extraerProducto(e.id)];
+        let prod = productosIndexado[extraerProducto(e.id)];
+
+        if(!prod){
+          prod = productosSueltos[extraerProducto(e.id)]
+        }
 
         perfilAgregar = {
           cantidad: e.cantidad,
           cantidadCarrito: e.cantidadCarrito,
-          cod_origProducto: perfil.cod_orig,
-          detalleProducto: perfil.detalle,
-          id: perfil.id,
-          kg: perfil.kg,
-          precioProducto: perfil.precio,
-          tipo_prod: perfil.tipo_prod,
-          rubro: perfil.rubro
+          cod_origProducto: prod.cod_orig,
+          detalleProducto: prod.detalle,
+          id: prod.id,
+          kg: prod.kg,
+          precioProducto: prod.precio,
+          tipo_prod: prod.tipo_prod,
+          rubro: prod.rubro
         }
 
         elementosSinProcesosSeparados.push(perfilAgregar);
@@ -110,7 +114,7 @@ export default function PdfCarrito() {
               cod_origProducto: troq.cod_orig,
               detalleProducto: troq.detalle,
               id: troq.id,
-              kg: perfil.kg,
+              kg: prod.kg,
               precioProducto: troq.precio,
               tipo_prod: troq.tipo_prod,
               rubro: troq.rubro
@@ -118,6 +122,7 @@ export default function PdfCarrito() {
           }
 
           elementosSinProcesosSeparados.push(troqueladoAgregarSinProceso);
+          
         }
       })
     }
@@ -286,7 +291,7 @@ export default function PdfCarrito() {
 
       let producto = productosIndexado[idProducto];
 
-      if (producto == null) {
+      if (!producto) {
         producto = productosSueltos[idProducto];
       }
 
@@ -348,12 +353,15 @@ export default function PdfCarrito() {
             let producto = productosIndexado[elemento.id];
 
             if (!producto) {
-              producto = procesos[elemento.id];
+                producto = productosSueltos[elemento.id];
+              if(!producto){
+                producto = procesos[elemento.id];
               if (!producto) {
                 producto = troquelados[elemento.id];
                 if (!producto) {
                   return null;
                 }
+              }
               }
             }
 
