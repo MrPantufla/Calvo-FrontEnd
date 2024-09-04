@@ -10,6 +10,7 @@ import { useTienda } from '../../../contextTienda.jsx';
 import { marcasUnicasPerfiles } from '../../../rubros.js';
 
 export default function CardProducto(args) {
+
   const {
     eliminarProducto,
     ocultarPrecio,
@@ -37,6 +38,12 @@ export default function CardProducto(args) {
     elementos: elementosCarrito,
   } = useCarrito();
 
+  const { 
+    isMobile,
+    procesosSelected,
+    eliminadosDeProcesosSelected
+  } = useTienda();
+
   const {
     id = { id },
     cod_orig = { cod_orig },
@@ -51,8 +58,6 @@ export default function CardProducto(args) {
     referencia = { referencia },
     cantidad = { cantidad },
   } = args.producto;
-
-  const { isMobile } = useTienda();
 
   const color = args.color ? (args.color) : (args.producto.color);
 
@@ -319,7 +324,7 @@ export default function CardProducto(args) {
         {state.userInfo &&
           ((state.userInfo.tipo_usuario == 'admin') &&
             <>
-              <button className="eliminarElemento" onClick={() => eliminarProducto(id)} aria-label='Eliminar elemento'>
+              <button className="eliminarElemento" onClick={() => ((procesosSelected || eliminadosDeProcesosSelected) ? eliminarProducto(id, true) : eliminarProducto(id, false))} aria-label='Eliminar elemento'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                   <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                 </svg>

@@ -16,6 +16,7 @@ function ProductosProvider({ children }) {
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
     const [productosEliminados, setProductosEliminados] = useState([]);
+    const [productosDeProcesosEliminados, setProductosDeProcesosEliminados] = useState([]);
     const [preciosOcultos, setPreciosOcultos] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [marcasUnicas, setMarcasUnicas] = useState([]);
@@ -138,7 +139,8 @@ function ProductosProvider({ children }) {
                 }, {}));
 
                 setColoresArray([...nuevosColores]);
-                obtenerProductosEliminados();
+                obtenerProductosEliminados(false);
+                obtenerProductosEliminados(true);
                 obtenerPreciosOcultos();
                 obtenerProductosDestacados();
             } else {
@@ -149,14 +151,28 @@ function ProductosProvider({ children }) {
         }
     };
 
-    const obtenerProductosEliminados = async () => {
+    const obtenerProductosEliminados = async (proceso) => {
+        let endpoint;
+
+        if(proceso == true){
+            endpoint = 'obtenerProductosDeProcesosEliminados';
+        }
+        else{
+            endpoint = 'obtenerProductosEliminados'
+        }
+
         try {
-            const response = await fetch(`${backend}/api/obtenerProductosEliminados`);
+            const response = await fetch(`${backend}/api/${endpoint}`);
 
             if (response.ok) {
                 const data = await response.json();
                 const productos = data.map(item => item.producto);
-                setProductosEliminados(productos);
+                if(procesos == true){
+                    setProductosDeProcesosEliminados(productos);
+                }
+                else{
+                    setProductosEliminados(productos);
+                }
                 return true;
             } else {
                 console.error('Error obteniendo productos eliminados');
@@ -240,14 +256,23 @@ function ProductosProvider({ children }) {
         }
     }
 
-    const eliminarProducto = async (idProducto) => {
+    const eliminarProducto = async (idProducto, procesos) => {
+        let endpoint;
+        
+        if(procesos == true){
+            endpoint = 'eliminarProductoDeProceso';
+        }
+        else{
+            endpoint = 'eliminarProducto';
+        }
+
         try {
             let tokenParaEnviar = Cookies.get('jwtToken');
 
             if (tokenParaEnviar == undefined) {
                 tokenParaEnviar = null;
             }
-            const response = await fetch(`${backend}/api/eliminarProducto`, {
+            const response = await fetch(`${backend}/api/${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -260,9 +285,19 @@ function ProductosProvider({ children }) {
 
             if (response.status == 200) {
                 if (responseBody.includes("eliminado")) {
-                    setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, idProducto]);
+                    if(procesos == true){
+                        setProductosDeProcesosEliminados(prevProductosDeProcesosEliminados => [...prevProductosDeProcesosEliminados, idProducto]);
+                    }
+                    else{
+                        setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, idProducto]);
+                    }
                 } else if (responseBody.includes("restaurado")) {
-                    setProductosEliminados(productosEliminados.filter(id => id !== idProducto));
+                    if(procesos == true){
+                        setProductosDeProcesosEliminados(productosDeProcesosEliminados.filter(id => id != idProducto));
+                    }
+                    else{
+                        setProductosEliminados(productosEliminados.filter(id => id !== idProducto));
+                    }
                 }
             }
             else {
@@ -534,7 +569,8 @@ function ProductosProvider({ children }) {
             marcas,
             marcasUnicas,
             ocultarPrecio,
-            preciosOcultos
+            preciosOcultos,
+            productosDeProcesosEliminados
         }}>
             {children}
         </ProductosContext.Provider>

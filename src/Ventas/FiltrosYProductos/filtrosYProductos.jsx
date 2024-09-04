@@ -26,7 +26,7 @@ export default function FiltrosYProductos() {
     dataCargada,
     procesos,
     marcasUnicas,
-    ordenamientoActivo
+    productosDeProcesosEliminados
   } = useProductos();
 
   const {
@@ -37,6 +37,7 @@ export default function FiltrosYProductos() {
     productoSeleccionado,
     setProductoSeleccionado,
     eliminadosSelected,
+    eliminadosDeProcesosSelected,
     srubroActivo,
     marcaActiva,
     procesosSelected,
@@ -132,11 +133,17 @@ export default function FiltrosYProductos() {
     const eliminado =
       productosEliminados.includes(p.id);
 
+    const productoDeProcesoEliminado =
+      productosDeProcesosEliminados.includes(p.id);
+
     if (eliminadosSelected) {
       return eliminado;
     }
+    else if(eliminadosDeProcesosSelected){
+      return productoDeProcesoEliminado;
+    }
     else {
-      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
+      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && (procesosSelected ? !productoDeProcesoEliminado : true) && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
     }
   });
 
