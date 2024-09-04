@@ -36,6 +36,7 @@ export default function Srubros(args) {
                     rubro={args.rubro}
                     colores={srubro.colores}
                     setPaginaActual={args.setPaginaActual}
+                    sinColores={args.sinColores}
                 />
             )))}
         </div>

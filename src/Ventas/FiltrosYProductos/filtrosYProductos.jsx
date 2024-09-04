@@ -296,7 +296,7 @@ export default function FiltrosYProductos() {
               {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles">
                   <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
-                   Para realizar encargos de modelos y medidas que no se encuentren listados, 
+                  Para realizar encargos de modelos y medidas que no se encuentren listados,
                   <a
                     style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}
                     href={isMobile ?
@@ -314,7 +314,7 @@ export default function FiltrosYProductos() {
                 <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Por modelos o repuestos que no se encuentren listados, <a target='blank' href={isMobile ? (`https://wa.me/5493456475294`) : (`https://web.whatsapp.com/send?phone=+5493456475294`)} style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}>comunicate con nosotros</a></h1>
               )}
               {procesosSelected ?
-                (<Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />)
+                <Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />
                 :
                 softwareSelected ?
                   (<Software />)

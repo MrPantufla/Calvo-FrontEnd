@@ -8,6 +8,7 @@ export default function Marcas(args) {
         marcas,
         marcaActiva
     } = useTienda();
+
     const [marcasRender, setMarcasRender] = useState(marcas);
 
     useEffect(() => {
@@ -20,9 +21,17 @@ export default function Marcas(args) {
         }
     }, [marcaActiva, marcas]);
 
+    let marcasFiltradas = marcasRender;
+
+    if(args.sinEco){
+        marcasFiltradas = marcasRender.filter((marca) => !marca.nombre.includes('ECO'));
+    }
+
+    let sinColores = args.sinColores ? true : false;
+
     return (
-        <div className="marcasRender">
-            {marcasRender.map((marca) => (
+        <div className="marcasRender" onClick={(e) => e.stopPropagation()}>
+            {marcasFiltradas.map((marca) => (
                 marca != null &&
                 <Marca
                     marca={marca}
@@ -30,6 +39,7 @@ export default function Marcas(args) {
                     setPaginaActual={args.setPaginaActual}
                     rubro={args.rubro}
                     key={marca.nombre}
+                    sinColores={sinColores}
                 />
             ))}
         </div>

@@ -4,7 +4,7 @@ import Rubros from './Rubros/rubros.jsx';
 import { useEffect, useState } from 'react';
 import './filtros.css';
 import { useProductos } from '../../../contextProductos.jsx';
-import Marcas from './Marcas/marca.jsx';
+import Marcas from './Marcas/marcas.jsx';
 
 export default function Filtros(args) {
     const { state } = useAuth();
@@ -21,7 +21,10 @@ export default function Filtros(args) {
         srubroActivo,
         softwareSelected,
         seleccionarSoftware,
-        rubros
+        rubros,
+        tipoProceso,
+        stipoProceso,
+        acabado
     } = useTienda();
 
     const { guardarDestacados } = useProductos();
@@ -68,11 +71,16 @@ export default function Filtros(args) {
         });
     };
 
+    const rubroPerfiles = rubros.find(rubro => rubro.id == 'Perfiles');
+
     return (
         <>
             <div className='filtros' id='filtros'>
                 <Rubros setPaginaActual={args.setPaginaActual} />
-                <div className={`labelRubros ${procesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarProcesos()}>PROCESOS</div>
+                <div className={`labelRubros ${procesosSelected && 'checked'} textoLabelRubros ${(tipoProceso && stipoProceso && (tipoProceso == 'anodizados' ? acabado : !acabado) && !stipoProceso.detalle.includes('M2')) && 'desplegable'}`} onClick={() => seleccionarProcesos()}>
+                    PROCESOS
+                    {(tipoProceso && stipoProceso && (tipoProceso == 'anodizados' ? acabado : !acabado) && !stipoProceso.detalle.includes('M2')) && <Marcas setPaginaActual={args.setPaginaActual} handleScrollClick={handleScrollClick} rubro={rubroPerfiles} sinEco={true} sinColores={true}/>}
+                </div>
                 <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
                 <div className={`labelRubros ${softwareSelected && 'checked'} textoLabelRubros} ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarSoftware()}>SOFTWARE</div>
                 {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected ? 'checked' : ''} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}

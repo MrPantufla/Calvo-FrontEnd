@@ -43,6 +43,7 @@ export default function Marcas(args) {
                     marca={marca}
                     setPaginaActual={args.setPaginaActual}
                     srubros={marca.srubros}
+                    sinColores={args.sinColores}
                 />)
             }
         </label>
