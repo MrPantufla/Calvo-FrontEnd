@@ -132,16 +132,15 @@ export default function CardProducto(args) {
 
   const usarBlanco = (color == 'Negro' ||
     color == 'Azul' ||
-    color == 'Marron oscuro' ||
-    color == 'Bronce oscuro' ||
+    color == 'Marron osc' ||
+    color == 'Bronce osc' ||
     color == 'Simil madera' ||
     color == 'Platil' ||
     color == 'Peltre' ||
     color == 'Fume' ||
     color == 'Rojo' ||
     color == 'Gris azulado' ||
-    color == 'Bronce medio' ||
-    color == 'Bronce oscuro'
+    color == 'Bronce medio'
   );
 
   const sumarContador = () => {
@@ -412,7 +411,9 @@ export default function CardProducto(args) {
             alt="Imagen del producto"
             loading="lazy"
           /*onError={() => {
-            console.log(`${codigo} - ${detalle}`);
+            if(productoActual.precio <= 0){
+              console.log(`${codigo} - ${detalle}`);
+            }
           }}*/
           />
         </div>

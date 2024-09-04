@@ -17,13 +17,15 @@ export default function CardFavoritos(args) {
 
     const usarBlanco = (args.producto.color == 'Negro' ||
         args.producto.color == 'Azul' ||
-        args.producto.color == 'Marron oscuro' ||
-        args.producto.color == 'Bronce oscuro' ||
+        args.producto.color == 'Marron osc' ||
+        args.producto.color == 'Bronce osc' ||
         args.producto.color == 'Simil madera' ||
         args.producto.color == 'Platil' ||
         args.producto.color == 'Peltre' ||
         args.producto.color == 'Fume' ||
-        args.producto.color == 'Verde'
+        args.producto.color == 'Rojo' ||
+        args.producto.color == 'Gris azulado' ||
+        args.producto.color == 'Bronce medio'
     );
 
     const añadirAlCarrito = () => {

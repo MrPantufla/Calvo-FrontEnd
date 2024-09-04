@@ -74,20 +74,22 @@ export default function CardCarrito(args) {
     if (!proceso) {
         usarBlanco = (producto.color == 'Negro' ||
             producto.color == 'Azul' ||
-            producto.color == 'Marron oscuro' ||
-            producto.color == 'Bronce oscuro' ||
+            producto.color == 'Marron osc' ||
+            producto.color == 'Bronce osc' ||
             producto.color == 'Simil madera' ||
             producto.color == 'Platil' ||
             producto.color == 'Peltre' ||
             producto.color == 'Fume' ||
-            producto.color == 'Verde'
+            producto.color == 'Rojo' ||
+            producto.color == 'Gris azulado' ||
+            producto.color == 'Bronce medio'
         )
     }
     else {
         usarBlanco = (proceso.color == 'Negro' ||
             proceso.color == 'Azul' ||
-            proceso.color == 'Marron oscuro' ||
-            proceso.color == 'Bronce oscuro' ||
+            proceso.color == 'Marron osc' ||
+            proceso.color == 'Bronce osc' ||
             proceso.color == 'Simil madera' ||
             proceso.color == 'Platil' ||
             proceso.color == 'Peltre' ||
