@@ -332,8 +332,8 @@ function ProductosProvider({ children }) {
 
     const ordenarPorPrecioAsc = (productos) => {
         return productos.sort((prodA, prodB) => {
-            const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
-            const precioB = prodB.kg !== 0 ? prodB.precio * prodB.kg : prodB.precio;
+            const precioA = ((marcasUnicas.has(prodA.marca) && prodA.kg !== 0) ? (prodA.precio * prodA.kg) : (prodA.precio)) * prodA.cantidad;
+            const precioB = ((marcasUnicas.has(prodB.marca) && prodB.kg !== 0) ? (prodB.precio * prodB.kg) : (prodB.precio)) * prodB.cantidad;
 
             const prodAOculto = preciosOcultos.includes(prodA.id);
             const prodBOculto = preciosOcultos.includes(prodB.id);
@@ -358,8 +358,8 @@ function ProductosProvider({ children }) {
 
     const ordenarPorPrecioDesc = (productos) => {
         return productos.sort((prodA, prodB) => {
-            const precioA = prodA.kg !== 0 ? prodA.precio * prodA.kg : prodA.precio;
-            const precioB = prodB.kg !== 0 ? prodB.precio * prodB.kg : prodB.precio;
+            const precioA = ((marcasUnicas.has(prodA.marca) && prodA.kg !== 0) ? (prodA.precio * prodA.kg) : (prodA.precio)) * prodA.cantidad;
+            const precioB = ((marcasUnicas.has(prodB.marca) && prodB.kg !== 0) ? (prodB.precio * prodB.kg) : (prodB.precio)) * prodB.cantidad;
 
             const prodAOculto = preciosOcultos.includes(prodA.id);
             const prodBOculto = preciosOcultos.includes(prodB.id);
