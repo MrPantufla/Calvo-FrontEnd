@@ -106,9 +106,18 @@ export default function Carrito() {
 
   const handleEnterCodigo = (e, nextInputRef) => {
     if (e.key === 'Enter' || e.key === 'Tab') {
-      e.preventDefault();
-      const codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
+
+      if(e.key == 'Tab'){
+        e.preventDefault();
+      }
+
+      let codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
       if (codigoIngresado !== '') {
+
+        if (!(codigoIngresado.slice(0, 2) == 'CA')) {
+          codigoIngresado = "CA" + codigoIngresado;
+        }
+
         let productosEncontrados;
         productosEncontrados = Object.values(productosSueltos).filter(producto => producto.cod_orig === codigoIngresado);
 
@@ -145,6 +154,10 @@ export default function Carrito() {
   const handleEnterColor = (e, nextInputRef) => {
     let colorIngresado;
     if (e.key === 'Enter' || e.key === 'Tab') {
+      if(e.key == 'Tab'){
+        e.preventDefault();
+      }
+
       if (sugerenciaColor) {
         setColorAgregadoRapido(sugerenciaColor)
         colorIngresado = sugerenciaColor;
@@ -152,8 +165,6 @@ export default function Carrito() {
       else {
         colorIngresado = colorAgregadoRapido.toUpperCase().trim();
       }
-
-      e.preventDefault();
 
       if (colorIngresado == '') {
         colorIngresado = 'IND';
@@ -178,7 +189,6 @@ export default function Carrito() {
         else {
           setColorValido(false);
           setColorAgregadoRapido('');
-          setErrorMessage("Ingresa un producto antes");
           codigoInputRef.current.focus();
         }
       } else {
@@ -191,7 +201,10 @@ export default function Carrito() {
 
   const handleEnterCantidad = (e, nextInputRef) => {
     if (e.key === 'Enter' || e.key === 'Tab') {
-      e.preventDefault();
+      if(e.key == 'Tab'){
+        e.preventDefault();
+      }
+      
       if (cantidadAgregadoRapido > 0 || cantidadAgregadoRapido == ('')) {
         setCantidadValida(true);
         if (codigoValido && colorValido) {
@@ -212,7 +225,12 @@ export default function Carrito() {
           nextInputRef.current.focus();
         }
         else {
-          setErrorMessage('Corrige los campos inválidos')
+          if(!codigoValido){
+            nextInputRef.current.focus();
+          }
+          else if(codigoValido && !colorValido){
+            colorInputRef.current.focus()
+          }
         }
       }
       else {
@@ -230,6 +248,16 @@ export default function Carrito() {
     return (sugerenciasFiltradas.length > 0 && colorAgregadoRapido.length > 0) ? sugerenciasFiltradas[0] : '';
   };
 
+  const handleButtonClick = () => {
+    if (inputFocused === 'codigo') {
+      handleEnterCodigo({ type: 'keydown', key: 'Enter' }, colorInputRef);
+    } else if (inputFocused === 'color') {
+      handleEnterColor({ type: 'keydown', key: 'Enter' }, cantidadInputRef);
+    } else {
+      handleEnterCantidad({ type: 'keydown', key: 'Enter' }, codigoInputRef);
+    }
+  };
+
   useEffect(() => {
     setSugerenciaColor(obtenerSugerenciaColor().toUpperCase());
   }, [colorAgregadoRapido]);
@@ -245,7 +273,7 @@ export default function Carrito() {
     if (carritoAbierto) {
       if (elementos.length > 0) {
         if (isMobile) {
-          setCarritoHeight(8 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 10.5 : 7.5));
+          setCarritoHeight(10 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 10.5 : 7.5));
         }
         else if (isTablet) {
           setCarritoHeight(3 + 4 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 7 : 5));
@@ -256,7 +284,7 @@ export default function Carrito() {
       }
       else {
         if (isMobile) {
-          setCarritoHeight(11 + 18.1);
+          setCarritoHeight(13 + 18.1);
         }
         else if (isTablet) {
           setCarritoHeight(3 + 4 + 10.5);
@@ -295,14 +323,14 @@ export default function Carrito() {
       <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
-            <PdfCarrito/>
+            <PdfCarrito />
             <div className={`botonDescargarPresupuesto ${elementos.length < 1 && 'disabled'}`} onClick={() => generarPdf()}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
               </svg>
             </div>
-            <p className="tituloCarrito">CARRITO {!isTablet && (" - COMPRA RÁPIDA")}</p>
+            <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
             {!isTablet &&
               <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
                 {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
@@ -313,7 +341,7 @@ export default function Carrito() {
             </div>)}
           </div>
           <div className="elementosVisiblesCarrito">
-            {!isTablet &&
+            {
               <form className="agregadoRapido">
                 <input
                   ref={codigoInputRef}
@@ -327,8 +355,8 @@ export default function Carrito() {
                     setErrorMessage('');
                   }}
                   onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
-                  onFocus={() => setInputFocused('codigo')}
-                  onBlur={leaveFocus}
+                  onFocus={() => {setInputFocused('codigo'); setErrorMessage('')}}
+                  //onBlur={leaveFocus}
                 />
                 <div className="colorAgregadoRapido">
                   {sugerenciaColor && (
@@ -349,7 +377,7 @@ export default function Carrito() {
                     }}
                     onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
                     onFocus={() => setInputFocused('color')}
-                    onBlur={leaveFocus}
+                    //onBlur={leaveFocus}
                   />
                 </div>
                 <input
@@ -363,14 +391,21 @@ export default function Carrito() {
                     setCantidadValida();
                   }}
                   onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
-                  onFocus={() => setInputFocused('cantidad')}
-                  onBlur={leaveFocus}
+                  onFocus={() => {setInputFocused('cantidad'); setErrorMessage('')}}
+                  //onBlur={leaveFocus}
                 />
+                <div className="enviarCompraRapida">
+                  <div className="divInternoEnviarCompraRapida" onClick={() => handleButtonClick()}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.6rem" height="1.6rem" fill="var(--colorSecundario)" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                      <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                    </svg>
+                  </div>
+                </div>
               </form>
             }
             {elementos.length === 0 ? (
               <div className="carritoVacioContainer">
-                <img src={carritoVacioImg} alt="" />
+                <img src={carritoVacioImg} alt="Carrito vacío" />
                 <p>TU CARRITO ESTÁ VACÍO</p>
               </div>
             ) : (

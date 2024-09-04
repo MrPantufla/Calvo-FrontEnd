@@ -39,7 +39,7 @@
 
 .tituloYHintCarrito p{
     cursor: default;
-    padding-top: 0.8rem;
+    padding-top: 0.4rem;
 }
 
 .botonDescargarPresupuesto{
@@ -88,7 +88,6 @@
     cursor: pointer;
     transition: scale 0.2s;
     margin-right: 0.5rem;
-    padding-bottom: 0.6rem;
 }
 
 .botonHintCarrito:active{
@@ -140,12 +139,16 @@
     font-size: 1.4rem;
 }
 
-.valido{
+.form-group-agregadoRapido.valido{
     color: green;
 }
 
-.invalido{
+.form-group-agregadoRapido.invalido{
     color: var(--colorRojo);
+}
+
+.colorAgregadoRapido{
+    position: relative;
 }
 
 .sugerenciaColor {
@@ -213,17 +216,34 @@
     border-width: 1px 1px 0 1px;
 }
 
-.codigoAgregadorRapido{
-    width: 30%;
+.codigoAgregadoRapido{
+    width: 32%;
 }
 
-.colorAgregadoRapido{
-    width: 45%;
+.gadoRapido{
+    width: 40%;
     position: relative;
 }
 
 .cantidadAgregadoRapido{
-    width: 25%;
+    width: 16%;
+}
+
+.enviarCompraRapida{
+    width: 10%;
+    border: 1px solid var(--colorSecundario);
+    background-color: var(--colorSecundario);
+}
+
+.divInternoEnviarCompraRapida{
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
 }
 
 .total{
@@ -358,16 +378,8 @@
         width: 55rem;
     }
 
-    .codigoAgregadoRapido{
-        width: 41%;
-    }
-
     .colorAgregadoRapido{
-        width: 40%;
-    }
-
-    .colorAgregadoRapido input{
-        width: 100%;
+        width: 38%;
     }
 
     .form-group-agregadoRapido{
@@ -378,6 +390,10 @@
 
     .form-group-agregadoRapido::placeholder{
         font-size: 2.8rem;
+    }
+
+    .enviarCompraRapida{
+        width: 14%;
     }
 
     .confirmarCarrito{
@@ -408,6 +424,11 @@
 }
 
 @media (max-width: 540px){
+    .divInternoEnviarCompraRapida svg{
+        height: 2.6rem;
+        width: 2.6rem;
+    }
+    
     .carritoVacioContainer{
         height: 20rem;
     }

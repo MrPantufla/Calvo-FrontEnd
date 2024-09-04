@@ -351,14 +351,6 @@
         font-weight: 600;
     }
 
-    .precioProductoCardCarrito p {
-        font-size: 2.3rem;
-    }
-
-    .precioUnitarioCardCarrito p {
-        font-size: 2.3rem;
-    }
-
     .precioProductoCardCarrito,
     .precioUnitarioCardCarrito {
         min-width: 16rem;
@@ -366,7 +358,7 @@
 
     .precioProductoCardCarrito p,
     .precioUnitarioCardCarrito p {
-        font-size: 2.3rem;
+        font-size: 2.4rem;
     }
 }
 
