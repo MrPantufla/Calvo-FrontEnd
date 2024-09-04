@@ -351,6 +351,7 @@ export const LoginProvider = ({ children }) => {
       cp,
       localidad,
       provincia,
+      borrarCookie
     }}>
       {children}
     </AuthContext.Provider>

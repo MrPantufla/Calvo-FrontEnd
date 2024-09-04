@@ -5,12 +5,14 @@ import { useAuth } from '../../contextLogin.jsx';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
   const {
     handleLogin,
     mostrarLogin,
     setOpcionSeleccionada,
     setErrorMessage,
     errorMessage,
+    borrarCookie
   } = useAuth();
 
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function Login() {
   }, [mostrarLogin])
 
   const handleLoginSubmit = async () => {
+    await borrarCookie();
     const loginForm = document.querySelector('#formularioLogin');
     const emailValue = loginForm.querySelector('#email').value;
     const passwordValue = loginForm.querySelector('#password').value;
