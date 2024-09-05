@@ -15,7 +15,6 @@
 }
 
 .contenedorPrincipalCardMuestra img{
-    object-fit: contain;
+    object-fit: cover;
     width: 90%;
-    aspect-ratio: 1 / 1;
 }
