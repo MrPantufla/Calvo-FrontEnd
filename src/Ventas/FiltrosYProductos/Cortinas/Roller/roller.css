@@ -44,7 +44,7 @@
 }
 
 .parisBeige{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/parisBeige.jpg);
+    background-color: #eed7b8;
 }
 
 .parisCeleste{
@@ -108,46 +108,30 @@
 }
 
 .visionBlanco{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/visionBlanco.jpg);
-}
-
-.visionNegro{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/visionNegro.jpg);
-}
-
-.visionLila{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/visionLila.jpg);
-}
-
-.blackoutNegro{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/blackoutNegro.jpg);
-}
-
-.blackoutBlanco{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/blackoutBlanco.jpg);
-}
-
-.blackoutBeige{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/blackoutBeige.jpg);
-}
-
-.blackoutGris{
-    background-image: url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/coloresCortinas/blackoutGris.jpg);
-}
-
-.accesorioBlanco{
     background-color: white;
 }
 
-.accesorioGris{
+.visionNegro{
+    background-color: black;
+}
+
+.visionLila{
+    background-color: #664c9c;
+}
+
+.accesorioBlanco, .blackoutBlanco{
+    background-color: white;
+}
+
+.accesorioGris, .blackoutGris{
     background-color: #444b53;
 }
 
-.accesorioBeige{
+.accesorioBeige, .blackoutBeige{
     background-color: #eed7b8;
 }
 
-.accesorioNegro{
+.accesorioNegro, .blackoutNegro{
     background-color: black;
 }
 

@@ -111,15 +111,8 @@ export default function PersianaAluminio() {
                 (formato == 'completo' ?
                     ('Con cajón: ' + cajon.slice(5).toUpperCase() + "\n" +
                         (cajon == 'cajonSi' ?
-                            ('Tipo de cajón: ' + tipoCajon.toUpperCase() + "\n" +
-                                'ANCHO CAJON: ' + anchoCajon + 'mm\n' +
-                                (tipoCajon == 'exterior' ?
-                                    ('ALTO CAJON: ' + altoCajon + "mm\n" +
-                                        'PROFUNDIDAD CAJON' + profundidadCajon + 'mm\n' )
-                                    :
-                                    (''))) +
-                            'Referencia medida cajón: ' + (medidaIndicadaCajon == 'ras' ? 'RAS DE GUÍA' : 'FONDO DE GUÍA') + "\n" +
-                                (tipoCajon == 'exterior' ? ('Ubicación cajón exterior: ' + ubicacionCajon.toUpperCase() + " DEL VANO\n") : (''))
+                            ('Tipo de cajón: ' + tipoCajon.toUpperCase() + "\n") +
+                            (tipoCajon == 'exterior' ? ('Ubicación cajón exterior: ' + ubicacionCajon.toUpperCase() + " DEL VANO\n") : (''))
                             :
                             (''))
                     )
@@ -183,7 +176,7 @@ export default function PersianaAluminio() {
             </div>
 
             <div className="form-group-cortinas">
-                <p>REFERENCIA DE MEDIDA</p>
+                <p>{`REFERENCIA DE MEDIDA (desde donde se tomó)`}</p>
                 <div className="bodyFormGroupCortinas">
                     <button className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</button>
                     <button className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
@@ -238,7 +231,7 @@ export default function PersianaAluminio() {
 
                             {tipoCajon == 'compacto' &&
                                 <>
-                                    <div className="form-group-cortinas">
+                                    {/*<div className="form-group-cortinas">
                                         <p>DIMENSIONES PARA CAJON COMPACTO</p>
                                         <div className="bodyFormGroupCortinas">
                                             <label className={`especificacionCortina textoEspecificacionCortina ${anchoCajon != '' && 'conValue'}`} htmlFor="anchoCajon">Ancho</label>
@@ -259,13 +252,13 @@ export default function PersianaAluminio() {
                                             <button className={`especificacionCortina ${medidaIndicadaCajon == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicadaCajon('ras'); deleteErrorMessage() }}>Ras de guía</button>
                                             <button className={`especificacionCortina ${medidaIndicadaCajon == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicadaCajon('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
                                         </div>
-                                    </div>
+                                    </div>*/}
                                 </>
                             }
 
                             {tipoCajon == 'exterior' &&
                                 <>
-                                    <div className="form-group-cortinas">
+                                    {/*<div className="form-group-cortinas">
                                         <p>DIMENSIONES PARA CAJON EXTERIOR</p>
                                         <div className="bodyFormGroupCortinas dimensionesArriba">
                                             <label className={`especificacionCortina textoEspecificacionCortina ${anchoCajon != '' && 'conValue'}`} htmlFor="anchoCajon">Ancho</label>
@@ -308,7 +301,7 @@ export default function PersianaAluminio() {
                                             <button className={`especificacionCortina ${medidaIndicadaCajon == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicadaCajon('ras'); deleteErrorMessage() }}>Ras de guía</button>
                                             <button className={`especificacionCortina ${medidaIndicadaCajon == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicadaCajon('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
                                         </div>
-                                    </div>
+                                    </div>*/}
 
                                     <div className="form-group-cortinas">
                                         <p>UBICACIÓN CAJÓN EXTERIOR</p>

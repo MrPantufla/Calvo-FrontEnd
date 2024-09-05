@@ -94,7 +94,7 @@ export default function PortonAluminio() {
                 "Tipo de tablilla: " + tipoTablilla + "\n" +
                 "Alto: " + alto + "mm\n" +
                 "Ancho: " + ancho + "mm\n" +
-                "Referemcia de medida: " + (medidaIndicada == 'ras' ? 'RAS DE GUÍA' : 'FONDO DE GUÍA') + "\n" +
+                "Referencia de medida: " + (medidaIndicada == 'ras' ? 'RAS DE GUÍA' : 'FONDO DE GUÍA') + "\n" +
                 "Profundidad de guía: " + profundidadGuia + "mm\n" +
                 "Formato: " + (formato == 'completo' ? 'COMPLETO' : 'PAÑO SOLO') + "\n" +
                 (formato == 'completo' ? ("Tipo de motor: " + (tipoMotor == 'mecanico' ? 'MECÁNICO' : 'CON AYUDA MANUAL') + "\n") : '') +
@@ -144,7 +144,7 @@ export default function PortonAluminio() {
             </div>
 
             <div className="form-group-cortinas">
-                <p>REFERENCIA DE MEDIDA</p>
+                <p>{`REFERENCIA DE MEDIDA (desde donde se tomó)`}</p>
                 <div className="bodyFormGroupCortinas">
                     <button className={`especificacionCortina ${medidaIndicada == 'ras' && 'checked'}`} onClick={() => { setMedidaIndicada('ras'); deleteErrorMessage() }}>Ras de guía</button>
                     <button className={`especificacionCortina ${medidaIndicada == 'fondo' && 'checked'}`} onClick={() => { setMedidaIndicada('fondo'); deleteErrorMessage() }}>Fondo de guía</button>
