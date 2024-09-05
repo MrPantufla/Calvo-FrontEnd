@@ -41,7 +41,8 @@ export default function CardProducto(args) {
   const { 
     isMobile,
     procesosSelected,
-    eliminadosDeProcesosSelected
+    eliminadosDeProcesosSelected,
+    stipoProceso
   } = useTienda();
 
   const {
@@ -285,7 +286,13 @@ export default function CardProducto(args) {
     }
   }
 
-  const productoActual = productosIndexado[idParaUsar];
+  let idConProceso;
+  if(stipoProceso){
+    idConProceso = id + "(" + stipoProceso.id + "(0))";
+  }
+  else{
+    idConProceso = id + "(" + args.proceso + "(0))";
+  }
 
   return (
     <div className={`contenedorPrincipalCardProducto ${(precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
@@ -324,7 +331,7 @@ export default function CardProducto(args) {
         {state.userInfo &&
           ((state.userInfo.tipo_usuario == 'admin') &&
             <>
-              <button className="eliminarElemento" onClick={() => ((procesosSelected || eliminadosDeProcesosSelected) ? eliminarProducto(id, true) : eliminarProducto(id, false))} aria-label='Eliminar elemento'>
+              <button className="eliminarElemento" onClick={() => (((procesosSelected && stipoProceso && idConProceso) || eliminadosDeProcesosSelected) ? eliminarProducto(idConProceso, true) : eliminarProducto(id, false))} aria-label='Eliminar elemento'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                   <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                 </svg>
@@ -416,7 +423,7 @@ export default function CardProducto(args) {
             alt="Imagen del producto"
             loading="lazy"
           /*onError={() => {
-            if(productoActual.precio <= 0){
+            if(precio <= 0){
               console.log(`${codigo} - ${detalle}`);
             }
           }}*/

@@ -154,10 +154,10 @@ function ProductosProvider({ children }) {
     const obtenerProductosEliminados = async (proceso) => {
         let endpoint;
 
-        if(proceso == true){
+        if (proceso == true) {
             endpoint = 'obtenerProductosDeProcesosEliminados';
         }
-        else{
+        else {
             endpoint = 'obtenerProductosEliminados'
         }
 
@@ -167,10 +167,10 @@ function ProductosProvider({ children }) {
             if (response.ok) {
                 const data = await response.json();
                 const productos = data.map(item => item.producto);
-                if(procesos == true){
+                if (proceso == true) {
                     setProductosDeProcesosEliminados(productos);
                 }
-                else{
+                else {
                     setProductosEliminados(productos);
                 }
                 return true;
@@ -258,13 +258,17 @@ function ProductosProvider({ children }) {
 
     const eliminarProducto = async (idProducto, procesos) => {
         let endpoint;
-        
-        if(procesos == true){
+        let body;
+
+        if (procesos == true) {
             endpoint = 'eliminarProductoDeProceso';
-        }
-        else{
+            body = { idProducto: idProducto.toString() };
+        } else {
             endpoint = 'eliminarProducto';
+            body = { idProducto: parseInt(idProducto) };
         }
+
+        console.log(idProducto)
 
         try {
             let tokenParaEnviar = Cookies.get('jwtToken');
@@ -278,24 +282,24 @@ function ProductosProvider({ children }) {
                     'Content-Type': 'application/json',
                     'Authorization': tokenParaEnviar,
                 },
-                body: JSON.stringify(idProducto),
+                body: JSON.stringify(body),
             });
 
             const responseBody = await response.text();
 
             if (response.status == 200) {
                 if (responseBody.includes("eliminado")) {
-                    if(procesos == true){
+                    if (procesos == true) {
                         setProductosDeProcesosEliminados(prevProductosDeProcesosEliminados => [...prevProductosDeProcesosEliminados, idProducto]);
                     }
-                    else{
+                    else {
                         setProductosEliminados(prevProductosEliminados => [...prevProductosEliminados, idProducto]);
                     }
                 } else if (responseBody.includes("restaurado")) {
-                    if(procesos == true){
+                    if (procesos == true) {
                         setProductosDeProcesosEliminados(productosDeProcesosEliminados.filter(id => id != idProducto));
                     }
-                    else{
+                    else {
                         setProductosEliminados(productosEliminados.filter(id => id !== idProducto));
                     }
                 }

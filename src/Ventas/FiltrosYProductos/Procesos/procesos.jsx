@@ -121,7 +121,7 @@ export default function Procesos(args) {
                                 })}
                             </>
                             :
-                            (Object.values(args.itemsActuales).map((producto) => (
+                            (productosEliminados && productosEliminados.length > 0 && (Object.values(args.itemsActuales).map((producto) => (
                                 <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
                                     <CardProducto
                                         producto={producto}
@@ -133,7 +133,7 @@ export default function Procesos(args) {
                                         }}
                                     />
                                 </div>
-                            )))
+                            ))))
                         )
                     }
                 </div>)

@@ -16,6 +16,7 @@ import Procesos from './Procesos/procesos';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Software from './Software/software';
 import ImagenGrandeSoftware from './Software/imagenGrandeSoftware';
+import { useCarrito } from '../../contextCarrito';
 
 export default function FiltrosYProductos() {
 
@@ -28,6 +29,11 @@ export default function FiltrosYProductos() {
     marcasUnicas,
     productosDeProcesosEliminados
   } = useProductos();
+
+  const {
+    extraerProducto,
+    extraerProceso
+  } = useCarrito();
 
   const {
     cortinasSelected,
@@ -134,13 +140,10 @@ export default function FiltrosYProductos() {
       productosEliminados.includes(p.id);
 
     const productoDeProcesoEliminado =
-      productosDeProcesosEliminados.includes(p.id);
+      stipoProceso && productosDeProcesosEliminados.some(prod => prod.includes(p.id + "(" + stipoProceso.id));
 
     if (eliminadosSelected) {
       return eliminado;
-    }
-    else if(eliminadosDeProcesosSelected){
-      return productoDeProcesoEliminado;
     }
     else {
       return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && (procesosSelected ? !productoDeProcesoEliminado : true) && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
@@ -329,13 +332,24 @@ export default function FiltrosYProductos() {
                   (<div className="row rowProductos">
                     {dataCargada == true ?
                       (<>
-                        {itemsActuales.map((producto) => (
+                        {!eliminadosDeProcesosSelected && itemsActuales.map((producto) => (
                           <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
                             <CardProducto
                               producto={producto}
                               onClick={() => {
                                 !isMobile && seleccionarProducto(producto);
                               }}
+                            />
+                          </div>
+                        ))}
+                        {eliminadosDeProcesosSelected && productosDeProcesosEliminados.map((p) => (
+                          <div key={extraerProducto(p) + "-" + extraerProceso(p)} className="col-12 col-md-6 col-lg-4 producto">
+                            <CardProducto
+                              producto={productosIndexado[extraerProducto(p)]}
+                              onClick={() => {
+                                !isMobile && seleccionarProducto(p);
+                              }}
+                              proceso={extraerProceso(p)}
                             />
                           </div>
                         ))}

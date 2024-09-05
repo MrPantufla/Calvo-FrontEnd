@@ -12,7 +12,7 @@ export default function CardProcesos(args) {
 
     const eliminarProceso = (e, id) => {
         e.stopPropagation();
-        eliminarProducto(id);
+        eliminarProducto(id, false);
     }
 
     let detalleArreglado = args.proceso.detalle;
@@ -22,8 +22,8 @@ export default function CardProcesos(args) {
 
     const usarBlanco = (args.colorCorregido == 'Negro' ||
         args.colorCorregido == 'Azul' ||
-        args.colorCorregido == 'Marron-oscuro' ||
-        args.colorCorregido == 'Bronce-oscuro' ||
+        args.colorCorregido == 'Marron-osc' ||
+        args.colorCorregido == 'Bronce-osc' ||
         args.colorCorregido == 'Simil-madera' ||
         args.colorCorregido == 'Platil' ||
         args.colorCorregido == 'Peltre' ||
