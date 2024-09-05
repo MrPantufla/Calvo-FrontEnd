@@ -294,6 +294,8 @@ export default function CardProducto(args) {
     idConProceso = id + "(" + args.proceso + "(0))";
   }
 
+  const productoActual = productosIndexado[id];
+
   return (
     <div className={`contenedorPrincipalCardProducto ${(precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
       <div className="informacionContainer">
@@ -422,11 +424,11 @@ export default function CardProducto(args) {
             }
             alt="Imagen del producto"
             loading="lazy"
-          /*onError={() => {
-            if(precio <= 0){
+          onError={() => {
+            /*if(productoActual.precio > 0){
               console.log(`${codigo} - ${detalle}`);
-            }
-          }}*/
+            }*/
+          }}
           />
         </div>
         <div className="detalleYCod_orig">
