@@ -1,7 +1,7 @@
 .contenedorPrincipalFavoritos{
     width: 40rem;
     position: fixed;
-    z-index: 100;
+    z-index: 103;
     top: 10rem;
     max-height: 55rem;
     display: flex;

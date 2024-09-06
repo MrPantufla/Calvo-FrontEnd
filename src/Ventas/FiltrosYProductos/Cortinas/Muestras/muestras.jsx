@@ -7,8 +7,7 @@ export default function Muestras() {
     const {
         tipo,
         linea,
-        muestrasAbierto,
-        setMuestrasAbierto
+        muestrasAbierto
     } = useCortinas();
 
     const {
@@ -79,7 +78,7 @@ export default function Muestras() {
                         <CardMuestra titulo='LADO DEL MECANISMO' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/persianaAluminio/ladoDelMecanismo.webp' />
                     </>)
                     :
-                    (tipo == 'portonAluminio' && 
+                    (tipo == 'portonAluminio' &&
                         <>
                             <CardMuestra titulo='DAP-55 CON FELPA' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/portonAluminio/dap55.webp' />
                             <CardMuestra titulo='DAP-64' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/portonAluminio/dap64.webp' />
