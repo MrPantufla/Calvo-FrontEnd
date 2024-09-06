@@ -305,7 +305,7 @@ export default function FiltrosYProductos() {
               {!(softwareSelected || (procesosSelected && (!stipoProceso || !acabado))) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
               {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles">
-                  <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
+                  <span style={{ color: 'white' }}>¡IMPORTANTE!</span> 
                   Para realizar encargos de modelos y medidas que no se encuentren listados,
                   <a
                     style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}
