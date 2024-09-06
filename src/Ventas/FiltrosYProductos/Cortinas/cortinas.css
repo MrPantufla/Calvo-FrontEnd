@@ -305,6 +305,7 @@
         width: 30rem;
         height: 6rem;
         font-size: 2.7rem;
+        margin-bottom: 2rem;
     }
 
     .colorCortina {
@@ -323,12 +324,13 @@
     }
 
     .decoracionCortinasContainer {
-        height: 8rem;
+        height: 15rem;
     }
 
     .decoracionCortinas {
         font-size: 3rem;
         padding-right: 3.5rem;
+        height: 9rem;
     }
 }
 
