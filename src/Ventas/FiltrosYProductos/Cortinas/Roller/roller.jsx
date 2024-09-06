@@ -109,7 +109,7 @@ export default function Roller() {
                 <p>TIPO DE CORTINA</p>
                 <div className="bodyFormGroupCortinas">
                     <button className={`especificacionCortina ${linea == 'screen' && 'checked'}`} onClick={() => { setLinea('screen'); limpiarColor(); deleteErrorMessage() }}>Screen</button>
-                    <button className={`especificacionCortina ${linea == 'blackout' && 'checked'}`} onClick={() => { setLinea('blackout'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Black out</button>
+                    <button className={`especificacionCortina ${linea == 'blackout' && 'checked'}`} onClick={() => { setLinea('blackout'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Black Out</button>
                     <button className={`especificacionCortina ${linea == 'vision' && 'checked'}`} onClick={() => { setLinea('vision'); limpiarColor(); limpiarLineaScreen(); deleteErrorMessage() }}>Stripe Vision</button>
                 </div>
             </div>
