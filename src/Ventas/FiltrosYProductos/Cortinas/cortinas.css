@@ -68,14 +68,6 @@
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
 }
 
-.textoEspecificacionCortina{
-    /*box-shadow: -1px 0px 3px 0px rgba(0, 0, 0, 0.75);*/
-}
-
-.milimetrosCortinas{
-    /*box-shadow: 1px 0px 2px 0px rgba(0, 0, 0, 0.75);*/
-}
-
 .milimetrosCortinas {
     padding-right: 0.5rem;
     padding-left: 0;
@@ -264,10 +256,6 @@
     .rowTiposContainer {
         display: flex;
         flex-direction: column !important;
-    }
-
-    .divFold1 {
-        /*margin-bottom: 1rem;*/
     }
 
     .especificacionCortina {
