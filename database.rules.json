@@ -29,6 +29,9 @@
     "productos_destacados_ecommerce":{
       ".indexOn": ["producto"]
     },
+    "productosDeProcesos_eliminados_ecommerce":{
+      ".indexOn": ["producto"]
+    },
     "productos_eliminados_ecommerce":{
       ".indexOn": ["producto", "id"]
     },
