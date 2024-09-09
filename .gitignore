@@ -2617,3 +2617,8 @@ public/ImagenesAccesorios/08-073-0041-AC.webp
 public/ImagenesAccesorios/08-070-0144-NN.webp
 public/ImagenesAccesorios/08-070-0150-NN.webp
 public/ImagenesAccesorios/08-070-0155-NN.webp
+public/ImagenesAccesorios/T117 falta cod.webp
+.gitignore
+src/Imagenes/imagenDeposito.webp
+src/Imagenes/marcaDeAgua.webp
+public/ImagenesHerramientas/39-067-0024-NN.webp

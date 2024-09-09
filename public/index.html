@@ -4,14 +4,16 @@
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="./favicon.png" />
-  
+
   <!-- Preconexión única -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
   <!-- Preload de fuentes -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" as="style">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"></noscript>
+  
+  <!-- Cargar las fuentes con font-display: swap para evitar CLS -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=optional" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
@@ -19,7 +21,7 @@
   <title>Calvo Aluminios</title>
 
   <style>
-    *{
+    * {
       font-family: 'Rajdhani', sans-serif;
     }
   </style>

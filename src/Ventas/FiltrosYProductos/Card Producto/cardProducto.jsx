@@ -1,5 +1,4 @@
 import './cardProducto.css';
-import logoBlanco from '../../../Imagenes/ca.webp'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useCarrito } from '../../../contextCarrito.jsx';
@@ -300,7 +299,7 @@ export default function CardProducto(args) {
     <div className={`contenedorPrincipalCardProducto ${(precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
-          <img className="logoDecoracionCardProducto" src={logoBlanco} alt="" />
+          <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" />
         </div>
         {(tipo_prod != 'MAQUINAS' && !proceso) &&
           <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(idParaFavoritos, e)} aria-label='añadirAFavoritos'>
