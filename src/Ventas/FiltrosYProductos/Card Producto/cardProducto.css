@@ -97,32 +97,25 @@
     padding-top: 0.25rem;
 }
 
-.precioContainerCardProducto {
+.precioCardProducto{
+    margin-left: -1rem;
     width: calc(100% + 2rem);
     font-size: 1.6rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: -1rem;
-}
-
-.primerContainer {
-    margin-top: 0.5rem;
-}
-
-.segundoContainer {
-    border-top: 1px solid;
-    border-image: linear-gradient(to right, transparent 0%, transparent 6%, var(--colorSecundario) 7%, var(--colorSecundario) 94%, transparent 95%, transparent 100%);
-    border-image-slice: 1;
-}
-
-.precioContainerCardProducto p{
-    width: calc(100%);
     background-color: white;
     border-radius: 3px;
     z-index: 1;
     text-align: center;
     font-weight: 600;
+}
+
+.precioCardProducto.primerContainer{
+    margin-top: 0.5rem;
+}
+
+.precioCardProducto.segundoContainer {
+    border-top: 1px solid;
+    border-image: linear-gradient(to right, transparent 0%, transparent 6%, var(--colorSecundario) 7%, var(--colorSecundario) 94%, transparent 95%, transparent 100%);
+    border-image-slice: 1;
 }
 
 .cod_origContainer {
@@ -147,17 +140,14 @@
     width: 33%;
 }
 
-.muestraColorCardProducto {
+.muestraColorCardProducto{
+    text-overflow: ellipsis;
+    max-width: 100%;
     height: 2rem;
     padding: 0 0.5rem;
     padding-top: 0.2rem;
     border-radius: 2px;
     max-width: 95%;
-}
-
-.muestraColorCardProducto p{
-    text-overflow: ellipsis;
-    max-width: 100%;
 }
 
 .kgProducto,
@@ -503,7 +493,7 @@
         height: 12rem;
     }
 
-    .precioContainerCardProducto p {
+    .precioCardProducto {
         font-size: 1.5rem;
     }
 }
@@ -566,12 +556,9 @@
         height: 3rem;
     }
 
-    .precioContainerCardProducto {
+    .precioCardProducto {
         height: 3rem;
         background-color: white;
-    }
-
-    .precioContainerCardProducto p {
         font-size: 1.9rem;
         font-weight: 700;
     }
@@ -612,11 +599,8 @@
         font-size: 2rem;
     }
 
-    .precioContainerCardProducto {
+    .precioCardProducto {
         height: 3.2rem;
-    }
-
-    .precioContainerCardProducto p {
         font-size: 2rem;
     }
 
@@ -734,10 +718,6 @@
         height: 100%;
     }
 
-    .precioContainerCardProducto {
-        height: 6rem;
-    }
-
     .posicionEnDestacados {
         font-size: 4rem;
         width: 4rem;
@@ -745,8 +725,9 @@
         top: 6.5rem;
     }
 
-    .precioContainerCardProducto p{
+    .precioCardProducto{
         font-size: 4rem;
+        height: 6rem;
     }
 
     .destacadosContenedor {
@@ -806,11 +787,8 @@
         margin: 0 1rem;
     }
 
-    .precioContainerCardProducto {
+    .precioCardProducto{
         height: 5rem;
-    }
-
-    .precioContainerCardProducto p{
         font-size: 3.1rem;
     }
 
@@ -878,7 +856,7 @@
 }
 
 @media (max-width: 360px) {
-    .precioContainerCardProducto p{
+    .precioCardProducto{
         font-size: 2.8rem;
         padding-top: 0.4rem;
     }
@@ -892,7 +870,7 @@
 }
 
 @media (max-width: 312px){
-    .precioContainerCardProducto p{
+    .precioCardProducto{
         font-size: 2.7rem;
     }
 }

@@ -37,7 +37,7 @@ export default function CardProducto(args) {
     elementos: elementosCarrito,
   } = useCarrito();
 
-  const { 
+  const {
     isMobile,
     procesosSelected,
     eliminadosDeProcesosSelected,
@@ -119,7 +119,7 @@ export default function CardProducto(args) {
 
   idParaUsar = proceso ? (id + (troquelado ? `-${troquelado.id}` : '') + '(' + proceso.id + '(' + acabado.id + '))') : (idAux + (troquelado ? `-${troquelado.id}` : ''));
 
-  if(!proceso && !troquelado){
+  if (!proceso && !troquelado) {
     idParaUsar = parseInt(idParaUsar);
   }
 
@@ -286,10 +286,10 @@ export default function CardProducto(args) {
   }
 
   let idConProceso;
-  if(stipoProceso){
+  if (stipoProceso) {
     idConProceso = id + "(" + stipoProceso.id + "(0))";
   }
-  else{
+  else {
     idConProceso = id + "(" + args.proceso + "(0))";
   }
 
@@ -423,11 +423,11 @@ export default function CardProducto(args) {
             }
             alt="Imagen del producto"
             loading="lazy"
-          onError={() => {
-            /*if(productoActual.precio > 0){
-              console.log(`${codigo} - ${detalle}`);
-            }*/
-          }}
+            onError={() => {
+              /*if(productoActual.precio > 0){
+                console.log(`${codigo} - ${detalle}`);
+              }*/
+            }}
           />
         </div>
         <div className="detalleYCod_orig">
@@ -475,11 +475,9 @@ export default function CardProducto(args) {
             {color != "Ind" &&
               <>
                 <p>{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR')}`}</p>
-                <div className="muestraColorCardProducto" style={{ backgroundColor: `var(--${colorCorregido})` }} >
-                  <p className="pesoYColorTextoCardProducto" style={usarBlanco ? { color: 'white' } : {}}>
-                    {args.proceso ? proceso.color.toUpperCase() : color.toUpperCase()}
-                  </p>
-                </div>
+                <p className="pesoYColorTextoCardProducto muestraColorCardProducto" style={{ color: usarBlanco ? 'white' : undefined, backgroundColor: `var(--${colorCorregido})` }}>
+                  {args.proceso ? proceso.color.toUpperCase() : color.toUpperCase()}
+                </p>
               </>
             }
 
@@ -488,28 +486,24 @@ export default function CardProducto(args) {
       </div >
       {!(precio == 0 || preciosOcultos.includes(id)) &&
         <>
-          <div className="precioContainerCardProducto primerContainer">
-            <p className="precioCardProducto">
-              {tipo_prod == 'PERFIL' ? (
-                `PRECIO${referencia ?
-                  ' UNITARIO' : ''
-                } 
+          <p className="precioCardProducto primerContainer">
+            {tipo_prod == 'PERFIL' ? (
+              `PRECIO${referencia ?
+                ' UNITARIO' : ''
+              } 
               ${!mayorista ?
-                  ' MINORISTA ' : ''
-                } 
+                ' MINORISTA ' : ''
+              } 
               APROXIMADO: $`
-              ) : (
-                `PRECIO${!mayorista ? ' MINORISTA' : ''}: $`
-              )}
-              {precioParaMostrarString}
-            </p>
-          </div>
+            ) : (
+              `PRECIO${!mayorista ? ' MINORISTA' : ''}: $`
+            )}
+            {precioParaMostrarString}
+          </p>
           {(state.userInfo && state.userInfo.categoria == 'MAYORISTA' && !(tipo_prod == 'PERFIL' && cod_orig.endsWith('E'))) &&
-            <div className="precioContainerCardProducto segundoContainer">
-              <p className="precioCardProducto">
-                {`CON PAGO AL CONTADO Y SIN SALDO: $${precioParaMostrarStringDescuento}`}
-              </p>
-            </div>}
+            <p className="precioCardProducto segundoContainer">
+              {`CON PAGO AL CONTADO Y SIN SALDO: $${precioParaMostrarStringDescuento}`}
+            </p>}
         </>
       }
     </div >
