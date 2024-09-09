@@ -12,7 +12,6 @@
     background-color: var(--colorTerciario);
     color: var(--colorSecundario);
     padding-left: 0.7rem;
-    height: 0;
 }
 
 .contenedorImagen {
