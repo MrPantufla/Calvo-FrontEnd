@@ -48,3 +48,14 @@
     width: 90%;
     text-align: center;
 }
+
+@media (max-width: 767px){
+    .flechaMarca{
+        width: 10%;
+    }
+
+    .flechaMarca svg{
+        width: 3rem;
+        height: 3rem;
+    }
+}
