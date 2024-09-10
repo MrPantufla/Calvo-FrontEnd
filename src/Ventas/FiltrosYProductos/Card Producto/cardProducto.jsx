@@ -376,7 +376,7 @@ export default function CardProducto(args) {
             onClick={args.onClick}
             onContextMenu={handleContextMenu}
             className="imagenProducto"
-            src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ?
+            src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil && codigo) ?
               (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo.slice(2)}.webp`)
               :
               (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo}.webp`)
@@ -384,9 +384,9 @@ export default function CardProducto(args) {
             alt="Imagen del producto"
             loading="lazy"
             onError={() => {
-              /*if(productoActual.precio > 0){
+              if(productoActual.precio > 0){
                 console.log(`${codigo} - ${detalle}`);
-              }*/
+              }
             }}
           />
         </div>

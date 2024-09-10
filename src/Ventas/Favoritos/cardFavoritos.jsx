@@ -36,6 +36,11 @@ export default function CardFavoritos(args) {
         e.preventDefault();
     }
 
+    const timestamp = new Date().getTime();
+    const src = marcasUnicasPerfiles.find(marcaPerfil => args.producto.marca === marcaPerfil)
+        ? `https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo.slice(2)}.webp?t=${timestamp}`
+        : `https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo}.webp?t=${timestamp}`;
+
     return (
         <div className="contenedorPrincipalCardFavoritos">
             <div className="imagenYCodigoCardFavoritos">
@@ -43,13 +48,14 @@ export default function CardFavoritos(args) {
                     <img
                         className="imagenCardFavoritos"
                         onContextMenu={handleContextMenu}
-                        src={marcasUnicasPerfiles.find(marcaPerfil => args.producto.marca == marcaPerfil) ?
+                        src={marcasUnicasPerfiles.find(marcaPerfil => args.producto.marca == marcaPerfil && codigo) ?
                             (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo.slice(2)}.webp`)
                             :
                             (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo}.webp`)
-                          }
+                        }
                         alt="Imagen del producto"
                         loading="lazy"
+                        
                     />
                 </div>
                 <div className="codigoYDetalleCardFavoritosContainer">

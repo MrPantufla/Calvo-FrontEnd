@@ -151,7 +151,7 @@ export default function CardCarrito(args) {
                     <img
                         className="imagenCardCarrito"
                         onContextMenu={handleContextMenu}
-                        src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
+                        src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil && codigoImagen) ?
                             (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen.slice(2)}.webp`)
                             :
                             (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen}.webp`)

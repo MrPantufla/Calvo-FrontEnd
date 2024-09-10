@@ -90,7 +90,7 @@ export default function ProductoHistorial(args) {
         <div className="contenedorPrincipalProductoHistorial">
             <div className="imagenProductoHistorialContainer">
                 <img
-                    src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
+                    src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil && codigoImagen) ?
                         (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen.slice(2)}.webp`)
                         :
                         (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen}.webp`)

@@ -146,7 +146,7 @@ export default function FiltrosYProductos() {
       return eliminado;
     }
     else {
-      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && (procesosSelected ? !productoDeProcesoEliminado : true) && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
+      return p.precio > 0 && tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && (procesosSelected ? !productoDeProcesoEliminado : true) && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
     }
   });
 

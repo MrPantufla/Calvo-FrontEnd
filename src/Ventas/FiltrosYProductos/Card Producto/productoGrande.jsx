@@ -91,7 +91,7 @@ export default function ProductoGrande(args) {
                         <img
                             className="imagenProductoGrande"
                             onContextMenu={handleContextMenu}
-                            src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ?
+                            src={marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil && codigo) ?
                                 (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo.slice(2)}.webp`)
                                 :
                                 (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo}.webp`)
