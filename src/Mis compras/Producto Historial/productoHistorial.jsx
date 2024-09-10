@@ -91,50 +91,10 @@ export default function ProductoHistorial(args) {
             <div className="imagenProductoHistorialContainer">
                 <img
                     src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
-                        (`/ImagenesPerfiles/${codigoImagen.slice(2).trim()}.webp`)
+                        (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen.slice(2)}.webp`)
                         :
-                        (producto.rubro == 10 ?
-                            (`/ImagenesMosquiteros/${codigoImagen.trim().toUpperCase()}.webp`)
-                            :
-                            (producto.rubro == 85 ?
-                                (`/ImagenesChapas/${codigoImagen.trim().toUpperCase()}.webp`)
-                                :
-                                (producto.rubro == 4 ?
-                                    (`/ImagenesPoliestirenos/${codigoImagen.trim().toUpperCase()}.webp`)
-                                    :
-                                    (producto.rubro == 43 ?
-                                        (`/ImagenesPaneles/${codigoImagen.trim().toUpperCase()}.webp`)
-                                        :
-                                        (producto.rubro == 31 ?
-                                            (`/ImagenesPolicarbonatos/${codigoImagen.trim().toUpperCase()}.webp`)
-                                            :
-                                            (producto.tipo_prod == 'ACCESORIO' && producto.rubro == 39 ?
-                                                (`/ImagenesHerramientas/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                :
-                                                (producto.rubro == 12 ?
-                                                    (`/ImagenesAutomatismos/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                    :
-                                                    (producto.rubro == 39 ?
-                                                        (`/ImagenesMaquinas/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                        :
-                                                        (producto.rubro == 81 ?
-                                                            (`/ImagenesPuertasPlacas/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                            :
-                                                            (producto.rubro == 8 ?
-                                                                (`/ImagenesAccesorios/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                                :
-                                                                ('')
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    }
+                        (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen}.webp`)
+                      }
                     onContextMenu={handleContextMenu} />
                 <p>
                     <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} {producto.cantidad > 1 ? (<span className="cod_origProductoHistorial">({producto.cantidad}u.)</span>) : ('')}

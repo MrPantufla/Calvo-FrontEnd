@@ -152,42 +152,10 @@ export default function CardCarrito(args) {
                         className="imagenCardCarrito"
                         onContextMenu={handleContextMenu}
                         src={marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil) ?
-                            (`/ImagenesPerfiles/${codigoImagen.slice(2).trim()}.webp`)
+                            (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen.slice(2)}.webp`)
                             :
-                            (producto.rubro == 10 ?
-                                (`/ImagenesMosquiteros/${codigoImagen.trim().toUpperCase()}.webp`)
-                                :
-                                (producto.rubro == 85 ?
-                                    (`/ImagenesChapas/${codigoImagen.trim().toUpperCase()}.webp`)
-                                    :
-                                    (producto.rubro == 4 ?
-                                        (`/ImagenesPoliestirenos/${codigoImagen.trim().toUpperCase()}.webp`)
-                                        :
-                                        (producto.rubro == 43 ?
-                                            (`/ImagenesPaneles/${codigoImagen.trim().toUpperCase()}.webp`)
-                                            :
-                                            (producto.rubro == 31 ?
-                                                (`/ImagenesPolicarbonatos/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                :
-                                                (producto.tipo_prod == 'ACCESORIO' ?
-                                                    (`/ImagenesAccesorios/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                    :
-                                                    (producto.tipo_prod == 'PUNTUAL' ?
-                                                        (`/ImagenesPuntuales/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                        :
-                                                        (producto.tipo_prod == 'MAQUINAS' ?
-                                                            (`/ImagenesMaquinas/${codigoImagen.trim().toUpperCase()}.webp`)
-                                                            :
-                                                            ('')
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        }
+                            (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen}.webp`)
+                          }
                         alt="Imagen del producto"
                         loading="lazy"
                         onClick={() => setProductoSeleccionado(producto)}
