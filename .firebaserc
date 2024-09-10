@@ -1,8 +1,10 @@
 {
   "projects": {
     "default": "frontend-calvo123",
-    "frontendCalvo": "frontend-calvo123"
+    "frontendCalvo": "frontend-calvo123",
+    "FrontendCalvo": "frontend-calvo123"
   },
   "targets": {},
-  "etags": {}
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
