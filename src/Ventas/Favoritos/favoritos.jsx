@@ -64,7 +64,7 @@ export default function Favoritos() {
                     setFavoritosHeight(3 + 25 * favoritos.length + 1);
                 }
                 else {
-                    setFavoritosHeight(3 + favoritos.length * 20);
+                    setFavoritosHeight(3.5 + favoritos.length * 20);
                 }
             }
             else {
