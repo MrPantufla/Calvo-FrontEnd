@@ -59,10 +59,10 @@ export default function Muestras() {
                             <CardMuestra titulo='STRIPE VISION' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/stripevision.webp' />
                         </>
                     }
-                    <CardMuestra titulo='COMO TOMAR MEDIDAS' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/tomarMedidas.webp' />
+                    <CardMuestra titulo='COMÓ TOMAR MEDIDAS' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/tomarMedidas.webp' />
                     <CardMuestra titulo='LADO DEL MECANISMO' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/ladoDelMecanismo.webp' />
-                    <CardMuestra titulo='CAIDA INTERIOR' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/caidaInterior.webp' />
-                    <CardMuestra titulo='CAIDA EXTERIOR' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/caidaExterior.webp' />
+                    <CardMuestra titulo='CAÍDA INTERIOR' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/caidaInterior.webp' />
+                    <CardMuestra titulo='CAÍDA EXTERIOR' muestra='https://storage.googleapis.com/backend-calvo-415917.appspot.com/muestrasCortinas/roller/caidaExterior.webp' />
                 </>)
                 :
                 (tipo == 'persianaAluminio' ?
