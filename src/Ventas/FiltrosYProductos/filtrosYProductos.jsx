@@ -137,7 +137,7 @@ export default function FiltrosYProductos() {
       p.detalle.includes(busqueda);
 
     const eliminado =
-      productosEliminados.includes(p.id);
+      productosEliminados.includes(p.id) && (((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle)));
 
     const productoDeProcesoEliminado =
       stipoProceso && productosDeProcesosEliminados.some(prod => prod.includes(p.id + "(" + stipoProceso.id));
@@ -146,7 +146,7 @@ export default function FiltrosYProductos() {
       return eliminado;
     }
     else {
-      return p.precio > 0 && tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && (procesosSelected ? !productoDeProcesoEliminado : true) && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
+      return tipoCumple && marcaCumple && srubroCumple && colorCumple && !eliminado && (procesosSelected ? !productoDeProcesoEliminado : true) && ((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle));
     }
   });
 

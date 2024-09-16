@@ -296,7 +296,7 @@ export default function CardProducto(args) {
   const productoActual = productosIndexado[id];
 
   return (
-    <div className={`contenedorPrincipalCardProducto ${(precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
+    <div className={`contenedorPrincipalCardProducto ${(!precio || precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
           <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" />
@@ -383,11 +383,11 @@ export default function CardProducto(args) {
             }
             alt="Imagen del producto"
             loading="lazy"
-            onError={() => {
+            /*onError={() => {
               if(productoActual.precio > 0){
                 console.log(`${codigo} - ${detalle}`);
               }
-            }}
+            }}*/
           />
         </div>
         <div className="detalleYCod_orig">

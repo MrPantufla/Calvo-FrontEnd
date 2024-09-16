@@ -27,7 +27,7 @@ export default function Srubros(args) {
 
     return (
         <div className="srubrosRender">
-            {srubrosRender.length > 0 && (srubrosRender.map((srubro, index) => (
+            {srubrosRender && srubrosRender.length > 0 && (srubrosRender.map((srubro, index) => (
                 srubro !== undefined &&
                 <Srubro
                     index={index}
