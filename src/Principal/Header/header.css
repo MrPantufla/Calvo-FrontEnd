@@ -23,7 +23,7 @@
     align-items: center;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 2.5rem 100%);
     overflow: hidden;
-    z-index: 102;
+    z-index: 105;
     user-select: none;
 }
 
@@ -83,7 +83,7 @@
     align-items: center;
     clip-path: polygon(0 0, calc(100% - 2.5rem) 0, 100% 100%, 2.5rem 100%);
     overflow: hidden;
-    z-index: 102;
+    z-index: 105;
     justify-content: center;
     user-select: none;
 }
