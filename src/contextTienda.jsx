@@ -128,7 +128,7 @@ function TiendaProvider({ children }) {
 
     setColoresActivos(colores);
   }, [marcas, rubros, setProcesos]);
-
+  
   // Actualizar la URL cuando los filtros cambian
   useEffect(() => {
     if (marcas.length > 0 && rubros.length > 0) {
