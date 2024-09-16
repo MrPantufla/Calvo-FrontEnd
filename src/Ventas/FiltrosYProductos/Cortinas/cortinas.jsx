@@ -23,17 +23,9 @@ export default function Cortinas() {
         isMobile,
     } = useTienda();
 
-    const styleDesktop = {
-
-    };
-
-    const styleMobile = {
-
-    };
-
     return (
         <div className="contenedorPrincipalCortinas">
-            <div className="parteFormulariosCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
+            <div className="parteFormulariosCortinas">
                 <div className="decoracionCortinasContainer">
                     <div className="decoracion decoracionCortinas" >
                         Solicitá tu presupuesto
@@ -71,7 +63,7 @@ export default function Cortinas() {
                     {tipo == 'persianaAluminio' && <PersianaAluminio />}
                 </div>
             </div>
-            <div className="parteMuestrasCortinas" style={isFold ? styleMobile : (isMobile ? styleMobile : styleDesktop)}>
+            <div className="parteMuestrasCortinas">
                 <Muestras />
             </div>
             <button

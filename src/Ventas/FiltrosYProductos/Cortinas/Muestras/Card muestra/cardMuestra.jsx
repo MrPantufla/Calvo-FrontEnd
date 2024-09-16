@@ -4,8 +4,6 @@ import './cardMuestra.css';
 export default function CardMuestra(args) {
     const imgRef = useRef(null);
 
-    let isMobile = window.innerWidth <= 767;
-
     const handleMouseMove = (e) => {
         if (imgRef.current) {
             const img = imgRef.current;
