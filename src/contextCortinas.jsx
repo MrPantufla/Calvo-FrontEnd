@@ -10,10 +10,10 @@ function useCortinas() {
 }
 
 function ProviderCortinas({ children }) {
-    const {backend} = useVariables();
+    const { backend } = useVariables();
 
-    const {state} = useAuth();
-    
+    const { state } = useAuth();
+
     const [muestrasAbierto, setMuestrasAbierto] = useState(false);
 
     const [tipo, setTipo] = useState('roller');
@@ -52,13 +52,7 @@ function ProviderCortinas({ children }) {
 
     const [formularioEnviado, setFormularioEnviado] = useState(false);
 
-    const enviarCortina = (textoCortina) => {
-        
-        const textoUsuario =
-            "Nombre y apellido: " + state.userInfo.nombre + " " + state.userInfo.apellido + "\n" +
-            "Telefono: " + state.userInfo.telefono + "\n" +
-            "Email: " + state.userInfo.email
-        ;
+    const enviarCortina = async (textoCortina) => {
 
         let tokenParaEnviar = Cookies.get('jwtToken');
 
@@ -66,13 +60,40 @@ function ProviderCortinas({ children }) {
             tokenParaEnviar = null;
         }
 
+        const response = await fetch(`${backend}/api/obtenerCliente`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
+            },
+        });
+
+        let textoUsuario = "";
+        let cliente;
+        if (response.ok) {
+            console.log("ENCUENTRA CLIENTE")
+            cliente = await response.json();
+
+            textoUsuario =
+                "Cliente nro: " + cliente.codigo + "\n" +
+                "Nombre y apellido: " + cliente.razon + "\n" +
+                "Telefono: " + + state.userInfo.telefono + "\n" +
+                "Email: " + state.userInfo.email;
+        }
+        else {
+            textoUsuario =
+                "Nombre y apellido: " + state.userInfo.nombre + " " + state.userInfo.apellido + "\n" +
+                "Telefono: " + state.userInfo.telefono + "\n" +
+                "Email: " + state.userInfo.email;
+        }
+
         fetch(`${backend}/api/recibirCortina`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : tokenParaEnviar,
+                'Authorization': tokenParaEnviar,
             },
-            body: JSON.stringify({textoUsuario, textoCortina}),
+            body: JSON.stringify({ textoUsuario, textoCortina }),
         })
             .then(response => {
                 if (response.ok) {
@@ -90,27 +111,27 @@ function ProviderCortinas({ children }) {
             });
     }
 
-    const deleteErrorMessage = () =>{
+    const deleteErrorMessage = () => {
         setErrorMessage('');
     }
 
-    const limpiarLadoMecanismo = () =>{
+    const limpiarLadoMecanismo = () => {
         setLadoMecanismo('');
     }
 
-    const limpiarTipoAccionador = () =>{
+    const limpiarTipoAccionador = () => {
         setTipoAccionador('');
     }
 
-    const limpiarColor = () =>{
+    const limpiarColor = () => {
         setColor('');
     }
 
-    const limpiarLineaScreen = () =>{
+    const limpiarLineaScreen = () => {
         setLineaScreen('');
     }
 
-    const limpiarRoller = () =>{
+    const limpiarRoller = () => {
         setLinea('');
         setLineaScreen('');
         setAncho('');
@@ -123,13 +144,13 @@ function ProviderCortinas({ children }) {
         setAclaraciones('');
     }
 
-    const limpiarMecanismo = () =>{
+    const limpiarMecanismo = () => {
         setMecanismo('');
         setLadoMecanismo('');
         limpiarTipoAccionador();
     }
 
-    const limpiarTipoCajon = () =>{
+    const limpiarTipoCajon = () => {
         setAnchoCajon('');
         setAltoCajon('');
         setProfundidadCajon('');
@@ -137,7 +158,7 @@ function ProviderCortinas({ children }) {
         setUbicacionCajon('');
     }
 
-    const limpiarCajon = () =>{
+    const limpiarCajon = () => {
         setTipoCajon('');
         setAnchoCajon('');
         setAltoCajon('');
@@ -146,7 +167,7 @@ function ProviderCortinas({ children }) {
         setUbicacionCajon('');
     }
 
-    const limpiarMecanismoPersianaAluminio = () =>{
+    const limpiarMecanismoPersianaAluminio = () => {
         setCajon('');
         limpiarCajon();
         setMecanismo('');
@@ -154,7 +175,7 @@ function ProviderCortinas({ children }) {
         setLadoMecanismo('');
     }
 
-    const limpiarPersianaPvc = () =>{
+    const limpiarPersianaPvc = () => {
         setAncho('');
         setAlto('');
         setMedidaIndicada('');
@@ -165,12 +186,12 @@ function ProviderCortinas({ children }) {
         setAclaraciones('');
     }
 
-    const limpiarTipoMotor = () =>{
+    const limpiarTipoMotor = () => {
         setTipoMotor('');
         limpiarTipoAccionador();
     }
 
-    const limpiarPortonAluminio = () =>{
+    const limpiarPortonAluminio = () => {
         setTipoTablilla('');
         setAncho('');
         setAlto('');
@@ -181,7 +202,7 @@ function ProviderCortinas({ children }) {
         setTipoAccionador('');
     }
 
-    const limpiarPersianaAluminio = () =>{
+    const limpiarPersianaAluminio = () => {
         setTipoTablilla('');
         setAncho('');
         setAlto('');
@@ -195,7 +216,7 @@ function ProviderCortinas({ children }) {
         setAclaraciones('');
     }
 
-    const limpiarTodo = () =>{
+    const limpiarTodo = () => {
         limpiarRoller();
         limpiarPersianaPvc();
         limpiarPortonAluminio();
@@ -243,13 +264,13 @@ function ProviderCortinas({ children }) {
             setMuestrasAbierto,
             linea,
             setLinea,
-            lineaScreen, 
+            lineaScreen,
             setLineaScreen,
-            mecanismoRoller, 
+            mecanismoRoller,
             setMecanismoRoller,
-            colorAccesorios, 
+            colorAccesorios,
             setColorAccesorios,
-            ladoMecanismo, 
+            ladoMecanismo,
             setLadoMecanismo,
             profundidadGuia,
             setProfundidadGuia,
@@ -285,7 +306,7 @@ function ProviderCortinas({ children }) {
             limpiarPersianaAluminio,
             limpiarTipoCajon,
             limpiarCajon,
-            
+
             limpiarTodo
         }}>
             {children}
