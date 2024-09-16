@@ -18,10 +18,6 @@
     align-items: center;
     justify-content: center;
     background-color: var(--colorCuaternario);
-}
-
-.tituloMuestra p{
-    width: 100%;
     text-align: center;
     color: var(--colorSecundario);
     font-size: 2.5rem;
@@ -42,5 +38,10 @@
 
     .contenedorPrincipalMuestras.open{
         width: 60%;
+    }
+
+    .tituloMuestra{
+        height: 6rem;
+        font-size: 4rem;
     }
 }

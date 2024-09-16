@@ -15,31 +15,27 @@ export default function Muestras() {
         isMobile
     } = useTienda();
 
-    console.log(linea)
-
     return (
         <div className={`contenedorPrincipalMuestras ${muestrasAbierto ? 'open' : ''}`} style={isMobile == false ? ({ top: `${busquedaYFiltrosTop}rem` }) : {}}>
-            <div className="tituloMuestra">
-                <p>
-                    {tipo === 'roller' ?
-                        ('ROLLER')
+            <p className="tituloMuestra">
+                {tipo === 'roller' ?
+                    ('ROLLER')
+                    :
+                    (tipo === 'persianaPvc' ?
+                        ('PERSIANA PVC')
                         :
-                        (tipo === 'persianaPvc' ?
-                            ('PERSIANA PVC')
+                        (tipo === 'portonAluminio' ?
+                            ('PORTON DE ALUMINIO')
                             :
-                            (tipo === 'portonAluminio' ?
-                                ('PORTON DE ALUMINIO')
+                            (tipo === 'persianaAluminio' ?
+                                ('PERSIANA DE ALUMINIO')
                                 :
-                                (tipo === 'persianaAluminio' ?
-                                    ('PERSIANA DE ALUMINIO')
-                                    :
-                                    ('')
-                                )
+                                ('')
                             )
                         )
-                    }
-                </p>
-            </div>
+                    )
+                }
+            </p>
             {tipo == 'roller' ?
                 (<>
                     {linea == 'screen' &&
