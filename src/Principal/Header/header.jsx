@@ -11,11 +11,31 @@ import { useTienda } from '../../contextTienda';
 
 export default function Header() {
   const navigate = useNavigate();
+
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+
   const location = useLocation();
-  const { hovered, abrirHover, cerrarHover, setAnchoPerfil, setAnchoCatalogos, toggleHover } = useDesplegableCatalogos();
-  const { perfilHovered, abrirPerfil, cerrarPerfil, togglePerfil } = useDesplegablePerfil();
-  const { mobile } = useTienda();
+
+  const { 
+    hovered, 
+    abrirHover, 
+    cerrarHover, 
+    setAnchoPerfil, 
+    setAnchoCatalogos, 
+    toggleHover 
+  } = useDesplegableCatalogos();
+
+  const { 
+    perfilHovered, 
+    abrirPerfil, 
+    cerrarPerfil, 
+    togglePerfil 
+  } = useDesplegablePerfil();
+
+  const { 
+    mobile, 
+    salirDeTienda 
+  } = useTienda();
   const { state } = useAuth();
 
   const params = new URLSearchParams(location.search);
@@ -37,10 +57,11 @@ export default function Header() {
   };
 
   const handleInicioClick = () => {
-    params.forEach((_, key) => {
+    for (const key of params.keys()) {
       params.delete(key);
-    });
-
+    }
+    salirDeTienda();
+    
     window.scrollTo(0, 0);
   };
 
@@ -60,7 +81,7 @@ export default function Header() {
     window.addEventListener("resize", handleResize);
     window.addEventListener('load', handleResize);
     handleResize();
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener('load', handleResize);
