@@ -60,7 +60,7 @@ export default function CardMisCompras(args) {
 
             if (producto && typeof producto === 'object' && producto !== null) {
                 if (args.data[index].proceso) {
-                    añadirElemento(`${producto.id}(${args.data[index].proceso}(${args.data[index].acabado || 0}))`, args.data[index].cantidad)
+                    añadirElemento(`${producto.id}${args.data[index].troquelado ? (`-${args.data[index].troquelado}`) : ''}(${args.data[index].proceso}(${args.data[index].acabado || 0}))`, args.data[index].cantidad)
                 }
                 else {
                     añadirElemento(producto.id, args.data[index].cantidad);

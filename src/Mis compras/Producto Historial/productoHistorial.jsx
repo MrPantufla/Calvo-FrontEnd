@@ -77,7 +77,7 @@ export default function ProductoHistorial(args) {
 
     const esPerfil = producto && marcasUnicasPerfiles.find(marcaPerfil => producto.marca == marcaPerfil);
 
-    (producto && esPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
+    (producto && producto.cod_int && producto.cod_orig && esPerfil) ? (codigo = producto.cod_orig) : (codigo = producto.cod_int);
 
     if (producto.referenciaPaquete) {
         codigoImagen = esPerfil ? (producto.referenciaPaquete.cod_orig) : (producto.referenciaPaquete.cod_int);
