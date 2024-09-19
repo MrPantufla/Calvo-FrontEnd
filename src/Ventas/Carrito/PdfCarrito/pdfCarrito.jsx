@@ -1,15 +1,13 @@
 import './pdfCarrito.css';
 
-import React, { useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useEffect, useState } from 'react';
 import { useCarrito } from '../../../contextCarrito';
 import { useAuth } from '../../../contextLogin';
-import { useEffect, useState } from 'react';
 import { useVariables } from '../../../contextVariables';
 import Cookies from 'js-cookie';
 import { useProductos } from '../../../contextProductos';
 
-export default function PdfCarrito() {
-  const pdfRef = useRef(null);
+const PdfCarrito = forwardRef((props, ref) => {
 
   const {
     elementos,
@@ -29,7 +27,9 @@ export default function PdfCarrito() {
     extraerMetrosCuadrados
   } = useProductos();
 
-  const { state } = useAuth();
+  const {
+    state
+  } = useAuth();
 
   const {
     backend,
@@ -37,6 +37,8 @@ export default function PdfCarrito() {
   } = useVariables();
 
   const [clienteInfo, setClienteInfo] = useState(null);
+
+  const pdfRef = useRef();
 
   const obtenerCliente = async () => {
     let tokenParaEnviar = Cookies.get('jwtToken');
@@ -86,7 +88,7 @@ export default function PdfCarrito() {
       elementosSinProcesos.forEach(e => {
         let prod = productosIndexado[extraerProducto(e.id)];
 
-        if(!prod){
+        if (!prod) {
           prod = productosSueltos[extraerProducto(e.id)]
         }
 
@@ -104,10 +106,10 @@ export default function PdfCarrito() {
 
         elementosSinProcesosSeparados.push(perfilAgregar);
 
-        if(typeof(e.id) == "string" && e.id.includes("-")){
+        if (typeof (e.id) == "string" && e.id.includes("-")) {
           const troq = troquelados[extraerTroquelado(e.id)];
 
-          if(troq){
+          if (troq) {
             troqueladoAgregarSinProceso = {
               cantidad: e.cantidad,
               cantidadCarrito: e.cantidadCarrito,
@@ -122,7 +124,7 @@ export default function PdfCarrito() {
           }
 
           elementosSinProcesosSeparados.push(troqueladoAgregarSinProceso);
-          
+
         }
       })
     }
@@ -156,10 +158,10 @@ export default function PdfCarrito() {
 
       procesosTemporal.push(productoAgregar);
       //-------------------------------
-      if(elemento.id.includes("-")){
+      if (elemento.id.includes("-")) {
         const troq = troquelados[extraerTroquelado(elemento.id)];
 
-        if(troq){
+        if (troq) {
           troqueladoAgregarSinProceso = {
             cantidad: elemento.cantidad,
             cantidadCarrito: elemento.cantidadCarrito,
@@ -320,6 +322,13 @@ export default function PdfCarrito() {
     }, 0);
   };
 
+  let total = calcularTotal(elementos, false);
+
+  useImperativeHandle(ref, () => ({
+    elementosFinal,
+    totalPdf: total,
+  }));
+
   return (
     <div>
       <div id="pdf-preview" ref={pdfRef} style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
@@ -353,15 +362,15 @@ export default function PdfCarrito() {
             let producto = productosIndexado[elemento.id];
 
             if (!producto) {
-                producto = productosSueltos[elemento.id];
-              if(!producto){
-                producto = procesos[elemento.id];
+              producto = productosSueltos[elemento.id];
               if (!producto) {
-                producto = troquelados[elemento.id];
+                producto = procesos[elemento.id];
                 if (!producto) {
-                  return null;
+                  producto = troquelados[elemento.id];
+                  if (!producto) {
+                    return null;
+                  }
                 }
-              }
               }
             }
 
@@ -404,7 +413,7 @@ export default function PdfCarrito() {
             );
           })}
         </div>
-        <p className="totalPresupuesto">TOTAL<br />{calcularTotal(elementos, false).toFixed(2)}</p>
+        <p className="totalPresupuesto">TOTAL<br />{total.toFixed(2)}</p>
         <p className="warningPresupuesto">
           1- Para poder confirmar presupuestos en colores varios o anodizados se necesita una seña del 50%   del presupuesto. Dicha seña no congela el precio del presupuesto<br />
           2- Los precios pueden variar sin previo aviso<br />
@@ -414,4 +423,6 @@ export default function PdfCarrito() {
       </div>
     </div>
   );
-}
+});
+
+export default PdfCarrito;
