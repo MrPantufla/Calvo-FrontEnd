@@ -9,8 +9,9 @@ import carritoVacioImg from '../../Imagenes/carritoVacio.webp';
 import { useAuth } from '../../contextLogin.jsx';
 import { useVariables } from '../../contextVariables.jsx';
 import PdfCarrito from './PdfCarrito/pdfCarrito.jsx';
+import Cookies from 'js-cookie';
 
-export default function Carrito() {
+export default function Carrito(args) {
   const {
     elementos,
     añadirElemento,
@@ -20,7 +21,10 @@ export default function Carrito() {
     extraerTroquelado,
     extraerProceso,
     extraerAcabado,
-    generarPdf
+    generarPdf,
+    carritoAbierto,
+    toggleCarrito,
+    setPrecioTotal
   } = useCarrito();
 
   const {
@@ -35,15 +39,13 @@ export default function Carrito() {
   } = useProductos();
 
   const {
-    carritoAbierto,
-    toggleCarrito,
-    setPrecioTotal,
-  } = useCarrito();
-
-  const {
     isMobile,
     isTablet
   } = useTienda();
+
+  const {
+    backend
+  } = useVariables();
 
   const { setMostrarFacturacion, setMostrarCartelPresupuesto } = useVariables();
 
@@ -67,6 +69,7 @@ export default function Carrito() {
   const [inputFocused, setInputFocused] = useState('');
   const [carritoHeight, setCarritoHeight] = useState(0);
   const [mostrarHint, setMostrarHint] = useState(false);
+  const pdfCarritoRef = useRef(null);
 
   const calcularTotal = (elementos, conDescuento) => {
     return elementos.reduce((total, elemento) => {
@@ -107,7 +110,7 @@ export default function Carrito() {
   const handleEnterCodigo = (e, nextInputRef) => {
     if (e.key === 'Enter' || e.key === 'Tab') {
 
-      if(e.key == 'Tab'){
+      if (e.key == 'Tab') {
         e.preventDefault();
       }
 
@@ -154,7 +157,7 @@ export default function Carrito() {
   const handleEnterColor = (e, nextInputRef) => {
     let colorIngresado;
     if (e.key === 'Enter' || e.key === 'Tab') {
-      if(e.key == 'Tab'){
+      if (e.key == 'Tab') {
         e.preventDefault();
       }
 
@@ -201,10 +204,10 @@ export default function Carrito() {
 
   const handleEnterCantidad = (e, nextInputRef) => {
     if (e.key === 'Enter' || e.key === 'Tab') {
-      if(e.key == 'Tab'){
+      if (e.key == 'Tab') {
         e.preventDefault();
       }
-      
+
       if (cantidadAgregadoRapido > 0 || cantidadAgregadoRapido == ('')) {
         setCantidadValida(true);
         if (codigoValido && colorValido) {
@@ -225,10 +228,10 @@ export default function Carrito() {
           nextInputRef.current.focus();
         }
         else {
-          if(!codigoValido){
+          if (!codigoValido) {
             nextInputRef.current.focus();
           }
-          else if(codigoValido && !colorValido){
+          else if (codigoValido && !colorValido) {
             colorInputRef.current.focus()
           }
         }
@@ -301,6 +304,32 @@ export default function Carrito() {
   const precioParaMostrarString = calcularTotal ? parseInt(calcularTotal(elementos, false)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
   const precioParaMostrarStringDescuento = calcularTotal ? (parseInt(calcularTotal(elementos, true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
+  const enviarPresupuesto = async () => {
+    let tokenParaEnviar = Cookies.get('jwtToken');
+
+    if (tokenParaEnviar == undefined) {
+      tokenParaEnviar = null;
+    }
+
+    const bodyData = {
+      carritoElementosPdf: pdfCarritoRef.current.elementosFinal,
+      totalPdf: pdfCarritoRef.current.totalPdf
+    };
+
+    try {
+      await fetch(`${backend}/api/presupuesto`, {
+        method: 'POST',
+        headers: {
+          'Authorization': tokenParaEnviar,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bodyData)
+      })
+    } catch (error) {
+      console.error('Error al enviar presupuesto:', error);
+    }
+  };
+
   return (
     <div className={`contenedorPrincipalCarrito`} style={{ pointerEvents: carritoAbierto ? 'auto' : 'none' }}>
       <div className="contenedorBotonCarrito">
@@ -323,26 +352,24 @@ export default function Carrito() {
       <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
-            <PdfCarrito />
-            <div className={`botonDescargarPresupuesto ${elementos.length < 1 && 'disabled'}`} onClick={() => generarPdf()}>
+            <PdfCarrito ref={pdfCarritoRef} />
+            <div className={`botonDescargarPresupuesto ${elementos.length < 1 && 'disabled'}`} onClick={() => { generarPdf(); enviarPresupuesto() }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                 <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
                 <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
               </svg>
             </div>
             <p className="tituloCarrito">CARRITO - COMPRA RÁPIDA</p>
-            {!isTablet &&
-              <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
-                {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
-              </div>
-            }
+            <div className="botonHintCarrito" onClick={() => setMostrarHint(!mostrarHint)}>
+              {mostrarHint ? (<p>X</p>) : (<p>?</p>)}
+            </div>
             {mostrarHint && (<div className="hintCarrito">
-              <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PERFIL QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO <span>ENTER</span> O <span>TAB</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
+              <p>PARA UTILIZAR LA COMPRA RÁPIDA ESCRIBA EL CÓDIGO DEL PERFIL QUE DESEA AGREGAR, EL COLOR Y LA CANTIDAD. VALIDE LOS DATOS PRESIONANDO<span>{!isTablet ? (' ENTER, TAB O') : ('')} EL ÍCONO DE LA FLECHA</span> AL TERMINAR DE ESCRIBIR CADA UNO DE ELLOS</p>
             </div>)}
           </div>
           <div className="elementosVisiblesCarrito">
             {
-              <form className="agregadoRapido">
+              <form className="agregadoRapido" onClick={() => setMostrarHint(false)}>
                 <input
                   ref={codigoInputRef}
                   className={`codigoAgregadoRapido form-group-agregadoRapido ${codigoValido ? 'valido' : codigoValido === false ? 'invalido' : ''}`}
@@ -355,8 +382,8 @@ export default function Carrito() {
                     setErrorMessage('');
                   }}
                   onKeyDown={(e) => handleEnterCodigo(e, colorInputRef)}
-                  onFocus={() => {setInputFocused('codigo'); setErrorMessage('')}}
-                  //onBlur={leaveFocus}
+                  onFocus={() => { setInputFocused('codigo'); setErrorMessage('') }}
+                //onBlur={leaveFocus}
                 />
                 <div className="colorAgregadoRapido">
                   {sugerenciaColor && (
@@ -377,7 +404,7 @@ export default function Carrito() {
                     }}
                     onKeyDown={(e) => handleEnterColor(e, cantidadInputRef)}
                     onFocus={() => setInputFocused('color')}
-                    //onBlur={leaveFocus}
+                  //onBlur={leaveFocus}
                   />
                 </div>
                 <input
@@ -391,8 +418,8 @@ export default function Carrito() {
                     setCantidadValida();
                   }}
                   onKeyDown={(e) => handleEnterCantidad(e, codigoInputRef)}
-                  onFocus={() => {setInputFocused('cantidad'); setErrorMessage('')}}
-                  //onBlur={leaveFocus}
+                  onFocus={() => { setInputFocused('cantidad'); setErrorMessage('') }}
+                //onBlur={leaveFocus}
                 />
                 <div className="enviarCompraRapida">
                   <div className="divInternoEnviarCompraRapida" onClick={() => handleButtonClick()}>

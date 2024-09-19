@@ -26,6 +26,9 @@
     "precios_ocultos_ecommerce":{
       ".indexOn": ["producto"]
     },
+    "presupuestos":{
+      ".indexOn": ["nro_doc"]
+    },
     "productos_destacados_ecommerce":{
       ".indexOn": ["producto"]
     },

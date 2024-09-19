@@ -47,7 +47,9 @@ function CarritoProvider({ children }) {
   const [paqueteAñadir, setPaqueteAñadir] = useState(null);
   const [elementoEliminar, setElementoEliminar] = useState(null);
   const [respuestaRecibida, setRespuestaRecibida] = useState(true);
-  const [pdfRef, setPdfRef] = useState('');
+  const [pdfRef, setPdfRef] = useState(null);
+  const [elementosPdf, setElementosPdf] = useState([]);
+  const [totalPdf, setTotalPdf] = useState(0);
 
   const extraerProducto = (cadena) => {
     const cadenaConvertida = cadena.toString();
@@ -64,10 +66,10 @@ function CarritoProvider({ children }) {
     // Captura el código después del guion
     const match = cadenaConvertida.match(/-(\d+)/);
     if (match) {
-        return parseInt(match[1]);
+      return parseInt(match[1]);
     }
     return null; // Devuelve null si no se encuentra un código de troquelado
-};
+  };
 
   const extraerProceso = (cadena) => {
     const cadenaConvertida = cadena.toString();
@@ -385,7 +387,11 @@ function CarritoProvider({ children }) {
       mostrarCartelError,
       setMostrarCartelError,
       generarPdf,
-      setPdfRef
+      setPdfRef,
+      elementosPdf,
+      setElementosPdf,
+      totalPdf,
+      setTotalPdf
     }}>
       {children}
     </CarritoContext.Provider>
