@@ -19,8 +19,6 @@ import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { useVariables } from './contextVariables.jsx';
 import { Facturacion } from './Ventas/Confirmar compra/Facturacion/facturacion.jsx';
 import TerminosYCondiciones from './Terminos y condiciones/terminosYCondiciones.jsx';
-import CartelPresupuesto from './Ventas/Cartel presupuesto/cartelPresupuesto.jsx';
-import PdfCarrito from './Ventas/Carrito/PdfCarrito/pdfCarrito.jsx';
 
 function App() {
   const { mostrarCartelCliente, mostrarFacturacion, mostrarCartelPresupuesto } = useVariables();
@@ -46,7 +44,6 @@ function App() {
                         </Routes>
                       {mostrarCartelCliente && <CartelCliente />}
                       {mostrarFacturacion && <Facturacion />}
-                      {mostrarCartelPresupuesto && <CartelPresupuesto />}
                       <LoginYRegistro />
                     </ConfiguracionProvider>
                   </TiendaProvider>

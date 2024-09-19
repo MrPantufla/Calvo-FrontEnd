@@ -86,13 +86,13 @@ h1{
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
-@media (max-width: 4096px) and (orientation: landscape){
+@media (max-width: 4096px){
   html{
     font-size: 32px;
   }
 }
 
-@media (max-width: 3840px) and (orientation: landscape){
+@media (max-width: 3840px){
   html{
     font-size: 17px;
   }
