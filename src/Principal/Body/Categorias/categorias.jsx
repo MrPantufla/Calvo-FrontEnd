@@ -4,18 +4,18 @@ import { rubros } from '../../../rubros.js';
 
 export default function Categorias() {
     const categorias = [
-        "PERFILES", 
-        "ACCESORIOS", 
-        "AUTOMATISMOS", 
-        "CHAPAS", 
-        "MÁQUINAS Y HERRAMIENTAS", 
-        "PANELES", 
-        "POLICARBONATOS Y POLIESTIRENOS", 
-        "PUERTAS PLACAS", 
-        "TEJIDOS MOSQUITEROS", 
-        "PROCESOS", 
-        "CORTINAS", 
-        "SOFTWARE"
+        "Perfiles", 
+        "Accesorios", 
+        "Automatismos", 
+        "Chapas", 
+        "Máquinas y herramientas", 
+        "Paneles", 
+        "Policarbonatos y poliestirenos", 
+        "Puertas placas", 
+        "Tejidos mosquiteros", 
+        "Procesos", 
+        "Cortinas", 
+        "Software"
     ];
 
     function convertString(input) {
@@ -39,7 +39,7 @@ export default function Categorias() {
                             <CardCategoria
                                 referencia={convertString(categoria)}
                                 cat={categoria}
-                                imagen={categoria}
+                                imagen={categoria.toUpperCase()}
                             />
                         </div>
                     );

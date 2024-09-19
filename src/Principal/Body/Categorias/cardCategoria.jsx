@@ -4,7 +4,7 @@ import { useTienda } from '../../../contextTienda';
 
 export default function CardCategoria(args) {
     const navigate = useNavigate();
-    
+
     const {
         rubros,
         setRubroActivo,
@@ -23,16 +23,16 @@ export default function CardCategoria(args) {
             nav == 'PolicarbonatosYPoliestirenos' && (nav = 'Policarbonatos');
             nav == 'MáquinasYHerramientas' && (nav = 'Maquinas');
 
-            if(nav == 'Cortinas'){
-                seleccionarCortinas(); 
+            if (nav == 'Cortinas') {
+                seleccionarCortinas();
             }
-            else if(nav == 'Procesos'){
+            else if (nav == 'Procesos') {
                 seleccionarProcesos();
             }
-            else if(nav == 'Software'){
+            else if (nav == 'Software') {
                 seleccionarSoftware();
             }
-            else{
+            else {
                 setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === nav));
             }
         }, 100);
@@ -40,10 +40,10 @@ export default function CardCategoria(args) {
 
     return (
         <div className="contenedorPrincipalCardCategoria" onClick={navegarACategoria}>
-            
             <div className="imagenContainerCategoria">
                 <div className="sombraInterna"></div>
                 <img className="imagenCategoria" src={`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesCategorias/${args.imagen}.webp`} alt="Imagen de la categoría" />
+                <p className="nombreCategoria"><span className="poligono"/>{args.cat}</p>
             </div>
         </div>
     );
