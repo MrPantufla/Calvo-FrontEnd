@@ -127,8 +127,8 @@ export default function Header() {
             <p>TIENDA</p>
           </div>
           {location.pathname === '/' && (
-            <a href="#quienesSomos" className="seccion">
-              <p>QUIÉNES SOMOS</p>
+            <a href="#preguntasFrecuentes" className="seccion">
+              <p>PREGUNTAS FRECUENTES</p>
             </a>
           )}
           {location.pathname === '/' ? (
