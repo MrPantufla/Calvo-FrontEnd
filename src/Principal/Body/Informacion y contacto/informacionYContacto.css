@@ -103,7 +103,9 @@
         justify-content: end;
         width: 93%;
         background: linear-gradient(90deg, var(--colorTerciario) 0%, var(--colorTerciario) 51.79%, var(--colorCuaternario) 51.79%, var(--colorCuaternario) 52.51%, var(--colorSecundario) 52.51%, var(--colorSecundario) 100%);
-        padding-right: 11rem;
+        padding-right: 6rem;
+        font-size: 3.2rem;
+        height: 8.5rem;
     }
 
     .extraDecoracion{

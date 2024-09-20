@@ -74,6 +74,10 @@
 }
 
 @media (max-width: 767px){
+    .contenedorPrincipalInformacion {
+        padding: 4rem 0;
+    }
+
     .contenedorPrincipalInformacion p{
         font-size: 2.4rem;
     }
