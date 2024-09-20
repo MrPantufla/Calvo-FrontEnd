@@ -1,0 +1,21 @@
+.rowPreguntasFrecuentes {
+  max-width: 79.6%;
+  margin: 0 auto;
+}
+
+.colPar, .colImpar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 50%;
+}
+
+@media(max-width: 767px) {
+  .rowPreguntasFrecuentes {
+    max-width: 98%;
+  }
+
+  .colPar, .colImpar {
+    width: 80%;
+  }
+}

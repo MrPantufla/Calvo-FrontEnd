@@ -1,0 +1,84 @@
+.headCardPreguntasFrecuentes{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: white;
+  border-radius: 5px 5px 0px 0;
+  transition: background-color 0.2s;
+  height: 4.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.headCardPreguntasFrecuentes.active{
+  background-color: var(--colorSecundario);
+}
+
+.headCardPreguntasFrecuentes p{
+  font-size: 2.2rem;
+  width: 93%;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--colorSecundario);
+}
+
+.headCardPreguntasFrecuentes.active p{
+  color: white;
+}
+
+.headCardPreguntasFrecuentes button{
+  border: none;
+  color: var(--colorSecundario);
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.headCardPreguntasFrecuentes.active button{
+  color: white;
+  transform: rotate(90deg);
+}
+
+.headCardPreguntasFrecuentes button svg{
+  width: 2rem;
+  height: 2rem;
+}
+
+.bodyCardPreguntasFrecuentes{
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: padding 0.2s, height 0.2s;
+  padding: 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.bodyCardPreguntasFrecuentes.active{
+  height: 8rem;
+  padding: 1rem;
+}
+
+@media(max-width: 767px) {
+  .headCardPreguntasFrecuentes{
+    height: 6rem;
+  }
+
+  .headCardPreguntasFrecuentes p{
+    font-size: 2.8rem;
+  }
+
+  .bodyCardPreguntasFrecuentes{
+    font-size: 2.4rem;
+  }
+
+  .bodyCardPreguntasFrecuentes.active{
+    height: 20rem;
+  }
+}

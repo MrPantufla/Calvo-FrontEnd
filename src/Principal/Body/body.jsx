@@ -4,6 +4,7 @@ import Banner from './Banner/banner.jsx';
 import InformacionYContacto from './Informacion y contacto/informacionYContacto.jsx';
 import QuienesSomos from './Quienes somos/quienesSomos.jsx';
 import './body.css';
+import PreguntasFrecuentes from './Preguntas frecuentes/preguntasFrecuentes.jsx';
 
 export default function Body() {
 
@@ -17,8 +18,10 @@ export default function Body() {
                 <Categorias />
                 <Banner id="quienesSomos" texto="SOBRE NOSOTROS" />
                 <QuienesSomos />
+                <Banner id="preguntasFrecuentes" texto="PREGUNTAS FRECUENTES" />
+                <PreguntasFrecuentes/>
                 <Banner id="contacto" texto="CONTACTANOS" />
-                <InformacionYContacto />
+                <InformacionYContacto />                
             </div>
         </div>
     );
