@@ -7,7 +7,6 @@
   transition: background-color 0.2s;
   height: 4.5rem;
   align-items: center;
-  margin-bottom: 1.5rem;
 }
 
 .headCardPreguntasFrecuentes.active{
@@ -58,6 +57,7 @@
   padding: 0 1rem;
   font-size: 1.4rem;
   font-weight: 600;
+  margin-bottom: 1.5rem;
 }
 
 .bodyCardPreguntasFrecuentes.active{

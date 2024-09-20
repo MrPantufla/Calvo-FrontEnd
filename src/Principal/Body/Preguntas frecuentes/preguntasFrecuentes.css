@@ -12,10 +12,10 @@
 
 @media(max-width: 767px) {
   .rowPreguntasFrecuentes {
-    max-width: 98%;
+    max-width: 80%;
   }
 
   .colPar, .colImpar {
-    width: 80%;
+    width: 100%;
   }
 }
