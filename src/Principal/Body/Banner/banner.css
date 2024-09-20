@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     padding-top: 1rem;
-    padding-left: 15.5rem;
+    justify-content: center;
     border-top-right-radius: 3.5rem;
 }
 
@@ -30,4 +30,18 @@
     top: 1.6rem;
     left: 45.48rem;
     clip-path: polygon(0 0, 20% 0, 100% 100%, 0 100%);
+}
+
+@media(max-width: 767px) {
+    .contenedorh1 {
+        height: 10rem;
+    }
+
+    .contenedorPrincipalNuestrosProductos .corner {
+        height: 8.5rem;
+    }
+
+    .textoNuestrosProductos {
+        font-size: 3.2rem;
+    }
 }
