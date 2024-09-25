@@ -118,6 +118,7 @@
 
 .botonCollapseCardCompras {
     transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    background-color: var(--colorPrimario);
 }
 
 .botonCollapseCardCompras.open {
