@@ -56,7 +56,7 @@ export default function ProductoHistorial(args) {
     const usarBlanco = (colorParaUsar == 'NEGRO' ||
         colorParaUsar == 'AZUL' ||
         colorParaUsar == 'MARRON OSC' ||
-        colorParaUsar == 'BRONCE USCURO' ||
+        colorParaUsar == 'BRONCE OSC' ||
         colorParaUsar == 'SIMIL MADERA' ||
         colorParaUsar == 'PLATIL' ||
         colorParaUsar == 'PELTRE' ||
@@ -66,7 +66,7 @@ export default function ProductoHistorial(args) {
         colorParaUsar == 'BRONCE MEDIO'
     );
 
-    const precioParaMostrarInt = parseInt(args.precio * ((producto && producto.rubro != 85) ? (kg) || (1) : (1)));
+    const precioParaMostrarInt = parseInt(args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1)));
 
     const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
     const precioParaMostrarStringCant = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
