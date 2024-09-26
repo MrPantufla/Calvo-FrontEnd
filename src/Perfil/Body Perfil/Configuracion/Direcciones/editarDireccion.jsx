@@ -29,6 +29,7 @@ export default function Direcciones() {
             </div>
             <div className={`colapsableEditarDireccion editarInformacion ${direccionAbierto ? 'open' : ''}`}>
                 <FormularioDireccion/>
+                
             </div>
         </div>
     );

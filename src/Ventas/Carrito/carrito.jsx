@@ -44,10 +44,9 @@ export default function Carrito(args) {
   } = useTienda();
 
   const {
-    backend
+    backend,
+    setMostrarEnvios
   } = useVariables();
-
-  const { setMostrarFacturacion, setMostrarCartelPresupuesto } = useVariables();
 
   const { setFavoritosAbierto } = useFavoritos();
 
@@ -450,7 +449,7 @@ export default function Carrito(args) {
                   onClick={() => {
                     if (state.userInfo.cliente) {
                       setPrecioTotal(calcularTotal(elementos));
-                      setMostrarFacturacion(true);
+                      setMostrarEnvios(true);
                     } else {
 
                     }

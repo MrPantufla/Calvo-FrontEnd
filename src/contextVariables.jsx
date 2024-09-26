@@ -12,8 +12,10 @@ function VariablesProvider({ children }) {
     //const backend = "https://backend-calvo-415917.rj.r.appspot.com";
 
     const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
+    const [mostrarEnvios, setMostrarEnvios] = useState(false);
     const [mostrarFacturacion, setMostrarFacturacion] = useState(false);
     const [mostrarCartelPresupuesto, setMostrarCartelPresupuesto] = useState(false);
+    const [mostrarPagosTarjeta, setMostrarPagosTarjeta] = useState(false);
 
     const obtenerFechaFormateada = () => {
         const fecha = new Date();
@@ -45,7 +47,11 @@ function VariablesProvider({ children }) {
             mostrarCartelPresupuesto,
             setMostrarCartelPresupuesto,
             obtenerFechaFormateada,
-            obtenerHoraFormateada
+            obtenerHoraFormateada,
+            mostrarEnvios,
+            setMostrarEnvios,
+            mostrarPagosTarjeta,
+            setMostrarPagosTarjeta
             }}>
             {children}
         </VariablesContext.Provider>

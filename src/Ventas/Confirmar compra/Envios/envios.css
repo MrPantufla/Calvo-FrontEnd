@@ -1,0 +1,85 @@
+.contenedorPrincipalEnvios{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 105;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 50%);
+}
+
+.parteUtilizableEnvios{
+    background-color: white;
+    width: 40rem;
+    padding-bottom: 1rem;
+}
+
+.headEnvios{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.headEnvios p{
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+
+.botonesEnvios{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.botonesEnvios button{
+    background-color: var(--colorPrimario);
+    border: none;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0 0.5rem;
+    transition: color 0.2s, background-color 0.2s;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+}
+
+.botonesEnvios button.active, .botonesEnvios button:hover{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.aclaracionesEnvios{
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 0 1rem;
+}
+
+.contenedorConfirmarEnvio{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.confirmarEnvio{
+    border: none;
+    border-radius: 4px;
+    background-color: var(--colorRojo);
+    color: white;
+    font-weight: 600;
+    font-size: 1.6rem;
+    width: 20rem;
+    height: 3rem;
+    margin: 1rem 0;
+    transition: transform 0.1s;
+}
+
+.confirmarEnvio:active{
+    transform: scale(0.97);
+}
