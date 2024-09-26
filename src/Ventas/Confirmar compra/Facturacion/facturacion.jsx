@@ -110,9 +110,9 @@ export function Facturacion() {
                     <p>CONDICIÓN DE FACTURACIÓN</p>
                 </div>
                 <div className="botonesTipoFacturacion">
-                    <button onClick={() => toggleTipoFacturacion('sinFacturar')} className={tipoFacturacion == 'sinFacturar' ? 'active' : ''}>Sin facturar</button>
-                    <button onClick={() => toggleTipoFacturacion('consumidorFinal')} className={tipoFacturacion == 'consumidorFinal' ? 'active' : ''}>Consumidor final</button>
-                    <button onClick={() => toggleTipoFacturacion('responsableInscripto')} className={tipoFacturacion == 'responsableInscripto' ? 'active' : ''}>Inscripto</button>
+                    <button onClick={() => toggleTipoFacturacion('sinFacturar')} className={tipoFacturacion == 'sinFacturar' && 'active'}>Sin facturar</button>
+                    <button onClick={() => toggleTipoFacturacion('consumidorFinal')} className={tipoFacturacion == 'consumidorFinal' && 'active'}>Consumidor final</button>
+                    <button onClick={() => toggleTipoFacturacion('responsableInscripto')} className={tipoFacturacion == 'responsableInscripto' && 'active'}>Inscripto</button>
                 </div>
                 <div className="mensajeError" style={{ display: (tipoFacturacion == '' || tipoFacturacion == 'sinFacturar') && 'none' }}>
                     {errorMessage !== '' && (
