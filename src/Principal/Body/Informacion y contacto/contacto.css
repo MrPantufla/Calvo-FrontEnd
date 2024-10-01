@@ -29,6 +29,11 @@
     font-size: 1.5rem;
 }
 
+.inputContainer input:focus{
+    outline: none;
+    border-color: black;
+}
+
 .texto_mensaje{
     width: 30rem;
     display: block;
