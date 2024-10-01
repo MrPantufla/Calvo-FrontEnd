@@ -149,9 +149,14 @@ export default function HeaderMobile() {
                         </NavLink>
                         {location.pathname === "/" ? (
                             <>
-                                <a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
+                                {/*<a href="#quienesSomos" className="elemento" onClick={toggleMenu}>
                                     <p>QUIÉNES SOMOS</p>
+                                </a>*/}
+                                {
+                                <a href="#preguntasFrecuentes" className="elemento" onClick={toggleMenu}>
+                                    <p>PREGUNTAS FRECUENTES</p>
                                 </a>
+                                }
                                 <a href="#contacto" className="elemento" onClick={toggleMenu}>
                                     <p>CONTACTO</p>
                                 </a>
