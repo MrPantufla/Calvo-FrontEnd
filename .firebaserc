@@ -2,7 +2,8 @@
   "projects": {
     "default": "frontend-calvo123",
     "frontendCalvo": "frontend-calvo123",
-    "FrontendCalvo": "frontend-calvo123"
+    "FrontendCalvo": "frontend-calvo123",
+    "frontend calvo": "frontend-calvo123"
   },
   "targets": {},
   "etags": {},
