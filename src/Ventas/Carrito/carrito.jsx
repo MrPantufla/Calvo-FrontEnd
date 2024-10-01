@@ -45,7 +45,9 @@ export default function Carrito(args) {
 
   const {
     backend,
-    setMostrarEnvios
+    setMostrarEnvios,
+    setMostrarFacturacion,
+    setMostrarConfirmarCompra
   } = useVariables();
 
   const { setFavoritosAbierto } = useFavoritos();
@@ -449,6 +451,8 @@ export default function Carrito(args) {
                   onClick={() => {
                     if (state.userInfo.cliente) {
                       setPrecioTotal(calcularTotal(elementos));
+                      //setMostrarFacturacion(true);
+                      setMostrarConfirmarCompra(true);
                       setMostrarEnvios(true);
                     } else {
 

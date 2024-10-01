@@ -1,0 +1,29 @@
+.contenedorPrincipalSucursal{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 820px){
+    .contenedorPrincipalSucursal label{
+        font-size: 2.2rem;
+    }
+    
+    .contenedorPrincipalSucursal input{
+        width: 38.5rem;
+        height: 3.5rem;
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 767px){
+    .contenedorPrincipalSucursal label{
+        font-size: 2.5rem;
+    }
+
+    .contenedorPrincipalSucursal input{
+        width: 45.6rem;
+        height: 4.2rem;
+        font-size: 2.5rem;
+    }
+}

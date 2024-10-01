@@ -41,6 +41,9 @@
     "productos":{
       ".indexOn": ["cod_int", "id"]
     },
+    "sucursales":{
+      ".indexOn": ["usuario"]
+    },
     "usuarios":{
       ".indexOn": ["email", "cuit", "id"]
     }

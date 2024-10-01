@@ -17,12 +17,9 @@ import { FavoritosProvider } from './contextFavoritos.jsx';
 import { ProductosProvider } from './contextProductos.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { useVariables } from './contextVariables.jsx';
-import { Facturacion } from './Ventas/Confirmar compra/Facturacion/facturacion.jsx';
 import TerminosYCondiciones from './Terminos y condiciones/terminosYCondiciones.jsx';
-import Envios from './Ventas/Confirmar compra/Envios/envios.jsx';
 
 function App() {
-  const { mostrarCartelCliente, mostrarFacturacion, mostrarCartelPresupuesto, mostrarEnvios } = useVariables();
 
   return (
     <ProductosProvider>
@@ -43,9 +40,6 @@ function App() {
                           <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
                           {/*<Route path="/pdf" element={<PdfCarrito/>} />*/}
                         </Routes>
-                      {mostrarEnvios && <Envios/>}
-                      {mostrarCartelCliente && <CartelCliente />}
-                      {mostrarFacturacion && <Facturacion />}                      
                       <LoginYRegistro />
                     </ConfiguracionProvider>
                   </TiendaProvider>

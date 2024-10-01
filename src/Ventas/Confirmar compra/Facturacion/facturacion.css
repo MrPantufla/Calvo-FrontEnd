@@ -54,29 +54,6 @@
     transform: scale(0.95);
 }
 
-.botonesTipoFacturacion{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin: 1rem 0;
-}
-
-.botonesTipoFacturacion button{
-    background-color: var(--colorPrimario);
-    border: none;
-    height: 3rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    padding: 0 0.5rem;
-    transition: color 0.2s, background-color 0.2s;
-    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-}
-
-.botonesTipoFacturacion button.active{
-    background-color: var(--colorSecundario);
-    color: white;
-}
-
 .form-group-responsableInscripto, .form-group-consumidorFinal{
     width: 100%;
     display: flex;
@@ -101,23 +78,6 @@
     font-weight: 700;
     padding: 0 0.5rem;
     width: 80%;
-}
-
-.botonRealizarPedidoContainer{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
-.botonRealizarPedido{
-    width: 50%;
-}
-
-.botonRealizarPedido:hover{
-    transform: scale 0.98;
-    font-size: 1.4rem;
 }
 
 .terminosYCondicionesFacturacion{
@@ -147,11 +107,6 @@
 
     .form-group-responsableInscripto input, .form-group-consumidorFinal input{
         font-size: 2.5rem;
-    }
-
-    .botonRealizarPedido{
-        height: 5rem;
-        font-size: 2.2rem;
     }
 
     .terminosYCondicionesFacturacion{
@@ -187,10 +142,8 @@
         font-size: 2.8rem;
     }
 
-    .botonRealizarPedido{
-        height: 6rem;
+    .botonRealizarPedido:hover{
         font-size: 2.5rem;
-        margin-top: 0.5rem;
     }
 
     .terminosYCondicionesFacturacion{

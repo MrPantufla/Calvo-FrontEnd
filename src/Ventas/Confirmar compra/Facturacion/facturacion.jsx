@@ -104,12 +104,12 @@ export function Facturacion() {
     const tieneProceso = elementos && elementos.some(elemento => (elemento.id.length > 0 && elemento.id.includes("(")));
 
     return (
-        <div className="contenedorGeneralFacturacion" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
+        <div className="contenedoresConfirmarCompra" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
             <div className="parteUtilizableFacturacion" onMouseDown={noCerrar} onMouseUp={noCerrar}>
                 <div className="headFacturacion">
                     <p>CONDICIÓN DE FACTURACIÓN</p>
                 </div>
-                <div className="botonesTipoFacturacion">
+                <div className="botonesOpcionesConfirmarCompra">
                     <button onClick={() => toggleTipoFacturacion('sinFacturar')} className={tipoFacturacion == 'sinFacturar' && 'active'}>Sin facturar</button>
                     <button onClick={() => toggleTipoFacturacion('consumidorFinal')} className={tipoFacturacion == 'consumidorFinal' && 'active'}>Consumidor final</button>
                     <button onClick={() => toggleTipoFacturacion('responsableInscripto')} className={tipoFacturacion == 'responsableInscripto' && 'active'}>Inscripto</button>
@@ -187,9 +187,9 @@ export function Facturacion() {
                             </>)
                         }
 
-                        <div className="botonRealizarPedidoContainer">
+                        <div className="contenedorConfirmarBoton">
                             <button
-                                className="enviarFormulario botonRealizarPedido"
+                                className="confirmarBoton"
                                 onClick={(e) => { corroborarFormato(e) }}
                             >
                                 Realizar pedido
