@@ -15,22 +15,20 @@ export default function Tarjeta() {
     return (
         <>
             <div className="contenedorFormConfirmarCompra">
-                <div className="form-group-tarjeta">
+                <div className="contenedorEntradaConfirmarCompra">
                     <label htmlFor="numeroTarjeta">Número de tarjeta</label>
-                    <input id="numeroTarjeta" type="numer" />
+                    <input id="numeroTarjeta" type="number" />
                 </div>
 
-                <div className="form-group-tarjeta">
+                <div className="contenedorEntradaConfirmarCompra">
                     <label htmlFor="mesCaducidad" />
                     <input id="mesCaducidad" type="number" />
-                </div>
 
-                <div className="form-group-tarjeta">
                     <label htmlFor="anioCaducidad" />
                     <input id="anioCaducidad" type="number" />
                 </div>
 
-                <div className="form-group-tarjeta">
+                <div className="contenedorEntradaConfirmarCompra">
                     <label htmlFor="codigoSeguridad" />
                     <input id="codigoSeguridad" type="number" />
                 </div>

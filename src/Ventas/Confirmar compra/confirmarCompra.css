@@ -22,6 +22,7 @@
     flex-direction: row;
     background-color: var(--colorSecundario);
     color: white;
+    position: relative;
 }
 
 .headConfirmarCompra p{
@@ -30,10 +31,12 @@
     font-weight: 600;
     width: 100%;
     text-align: center;
+    padding-right: 2.5rem;
 }
 .headConfirmarCompra button{
     border: none;
     background-color: transparent;
+    margin-left: 0.5rem;
 }
 
 .botonesOpcionesConfirmarCompra{
@@ -109,14 +112,18 @@
     font-size: 1.5rem;
 }
 
-.contenedorFormConfirmarCompra label, .contenedorFormConfirmarCompra input, .contenedorFormConfirmarCompra div label, .contenedorFormConfirmarCompra div input{
+.contenedorFormConfirmarCompra input:focus, .contenedorFormConfirmarCompra div input:focus{
+    outline: none;
+    border-color: black;
+}
+
+.contenedorEntradaConfirmarCompra{
     width: 70%;
     margin: 0 auto;
 }
 
-.contenedorFormConfirmarCompra input:focus, .contenedorFormConfirmarCompra div input:focus{
-    outline: none;
-    border-color: black;
+.contenedorEntradaConfirmarCompra input{
+    max-width: 100%;
 }
 
 @media(max-width: 820px){

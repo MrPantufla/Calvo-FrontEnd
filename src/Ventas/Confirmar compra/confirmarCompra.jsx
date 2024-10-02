@@ -1,13 +1,49 @@
 import './confirmarCompra.css';
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useVariables } from '../../contextVariables';
+import { useCarrito } from '../../contextCarrito';
 
 export default function ConfirmarCompra(args) {
+
+    const { backend } = useVariables();
+
+    const { setCodigoSucursal } = useCarrito();
 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
     const toggleOpcion = (opcion) => {
         setOpcionSeleccionada(opcion)
     }
+
+    const obtenerSucursal = async () => {
+        try {
+            let tokenParaEnviar = Cookies.get('jwtToken');
+
+            if (tokenParaEnviar == undefined) {
+                tokenParaEnviar = null;
+            }
+
+            const response = await fetch(`${backend}/api/extraerSucursal`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenParaEnviar,
+                },
+            });
+
+            if (response.ok) {
+                const sucursal = await response.text();
+                setCodigoSucursal(sucursal);
+            }
+        } catch (error) {
+            return false;
+        }
+    }
+
+    useEffect(() => {
+        obtenerSucursal();
+    }, [])
 
     return (
         <div className="contenedoresConfirmarCompra">
