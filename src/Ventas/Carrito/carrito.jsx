@@ -118,18 +118,20 @@ export default function Carrito(args) {
       let codigoIngresado = codigoAgregadoRapido.toUpperCase().trim();
       if (codigoIngresado !== '') {
 
-        if (!(codigoIngresado.slice(0, 2) == 'CA')) {
+        if ((codigoIngresado.slice(0, 2) != 'CA')) {
           codigoIngresado = "CA" + codigoIngresado;
         }
 
         let productosEncontrados;
         productosEncontrados = Object.values(productosSueltos).filter(producto => producto.cod_orig === codigoIngresado);
+        let arrayCompleto = productosSueltos;
 
         if (productosEncontrados.length == 0) {
           productosEncontrados = Object.values(productosIndexado).filter(producto => producto.cod_orig === codigoIngresado);
+          arrayCompleto = productosIndexado;
         }
 
-        const productosEncontradosFiltrados = productosEncontrados.filter(producto => (!productosEliminados.includes(producto.id) && !preciosOcultos.includes(producto.id) && !productosIndexado[producto.id].precio == 0));
+        const productosEncontradosFiltrados = productosEncontrados.filter(producto => (!productosEliminados.includes(producto.id) && !preciosOcultos.includes(producto.id) && !arrayCompleto[producto.id].precio == 0));
 
         if (!productosEncontradosFiltrados.length > 0) {
           setErrorMessage("Código incorrecto");
@@ -449,7 +451,7 @@ export default function Carrito(args) {
                   className={`confirmarCarrito ${state.userInfo.categoria == 'MAYORISTA' && 'mayorista'}`}
                   disabled={!elementos.length > 0}
                   onClick={() => {
-                    if (state.userInfo.cliente) {
+                    if (/*state.userInfo.cliente*/true) {
                       setPrecioTotal(calcularTotal(elementos));
                       //setMostrarFacturacion(true);
                       setMostrarConfirmarCompra(true);
