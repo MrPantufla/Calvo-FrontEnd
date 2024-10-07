@@ -20,8 +20,15 @@ import { useState } from 'react';
 import SinFacturar from './Confirmar compra/Facturacion/sinFacturar.jsx';
 import ConsumidorFinal from './Confirmar compra/Facturacion/consumidorFinal.jsx';
 import Inscripto from './Confirmar compra/Facturacion/inscripto.jsx';
+import { useFinalizarCompra } from '../contextFinalizarCompra.jsx';
+import { useAuth } from '../contextLogin.jsx';
 
 export default function Ventas() {
+
+  const {
+    state
+  } = useAuth();
+
   const {
     mostrarCartelCliente,
     mostrarCartelPresupuesto,
@@ -51,6 +58,12 @@ export default function Ventas() {
     setTipoProceso
   } = useTienda();
 
+  const {
+    setMedioEnvio,
+    setMetodoPago,
+    setMetodoFacturacion
+  } = useFinalizarCompra();
+
   const atrasProcesos = () => {
     if (acabado != null && tipoProceso == 'anodizados') {
       setAcabado(null);
@@ -74,13 +87,13 @@ export default function Ventas() {
 
   const enviosArray = [
     {
-      nombre: 'Envío a domicilio', componente: <Domicilio key='domicilio' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
+      nombre: 'Envío a domicilio', set: () => setMedioEnvio('domicilio'), componente: <Domicilio key='domicilio' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Envío a sucursal', componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
+      nombre: 'Envío a sucursal', set: () => setMedioEnvio('sucursal'), componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Retira por su cuenta', componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
+      nombre: 'Retira por su cuenta', set: () => setMedioEnvio('retira'),componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
     }
   ];
 
@@ -90,14 +103,28 @@ export default function Ventas() {
     </p>
     ;
 
+  const aclaracionesPagoTarjeta = 
+  <p className="aclaracionesConfirmarCompra">
+    -La empresa no almacenará nignún dato relacionado con tarjetas de crédito o débito
+  </p>
+  ;
+
   const pagosArray = [
+    // Solo agregamos la opción de "Efectivo" si se cumple la condición
+    ...(state.userInfo.cliente ? [{
+      nombre: 'Efectivo', 
+      set: () => setMetodoPago('efectivo'), 
+      componente: <Efectivo siguiente={() => setMostrarFacturacion(true)} />, 
+      aclaraciones: aclaracionesPagoEfectivo
+    }] : []),  // Si la condición no se cumple, no se incluye este objeto
+
     {
-      nombre: 'Efectivo', componente: <Efectivo siguiente={() => setMostrarFacturacion(true)} />, aclaraciones: aclaracionesPagoEfectivo
-    },
-    {
-      nombre: 'Tarjeta de crédito/débito', componente: <Tarjeta siguiente={() => setMostrarFacturacion(true)} />, aclaraciones: ''
+      nombre: 'Tarjeta de crédito/débito', 
+      set: () => setMetodoPago('tarjeta'), 
+      componente: <Tarjeta siguiente={() => setMostrarFacturacion(true)} />, 
+      aclaraciones: aclaracionesPagoTarjeta
     }
-  ];
+];
 
   const aclaracionesFacturacion =
     <p className="aclaracionesConfirmarCompra">Recordatorio de términos y condiciones:<br />
@@ -118,13 +145,13 @@ export default function Ventas() {
 
   const facturacionArray = [
     {
-      nombre: 'Sin facturar', componente: <SinFacturar />, aclaraciones: aclaracionesFacturacion
+      nombre: 'Sin facturar', set: () => setMetodoFacturacion('sinFacturar'), componente: <SinFacturar />, aclaraciones: aclaracionesFacturacion
     },
     {
-      nombre: 'Consumidor final', componente: <ConsumidorFinal />, aclaraciones: aclaracionesFacturacion
+      nombre: 'Consumidor final', set: () => setMetodoFacturacion('consumidorFinal'), componente: <ConsumidorFinal />, aclaraciones: aclaracionesFacturacion
     },
     {
-      nombre: 'Inscripto', componente: <Inscripto />, aclaraciones: aclaracionesFacturacion
+      nombre: 'Inscripto', set: () => setMetodoFacturacion('inscripto'), componente: <Inscripto />, aclaraciones: aclaracionesFacturacion
     }
   ]
 

@@ -33,6 +33,7 @@
     text-align: center;
     padding-right: 2.5rem;
 }
+
 .headConfirmarCompra button{
     border: none;
     background-color: transparent;
@@ -114,7 +115,7 @@
 
 .contenedorFormConfirmarCompra input:focus, .contenedorFormConfirmarCompra div input:focus{
     outline: none;
-    border-color: black;
+    border-color: var(--colorSecundario);
 }
 
 .contenedorEntradaConfirmarCompra{
@@ -127,6 +128,10 @@
 }
 
 @media(max-width: 820px){
+    .parteUtilizableConfirmarCompra{
+        width: 60rem;
+    }
+
     .botonesOpcionesConfirmarCompra button{
         font-size: 2rem;
         height: 4.3rem;
@@ -159,6 +164,20 @@
 }
 
 @media(max-width: 767px){
+    .parteUtilizableConfirmarCompra{
+        width: 60rem;
+    }
+    
+    .headConfirmarCompra p{
+        font-size: 3.2rem;
+        padding-right: 3rem;
+    }
+    
+    .headConfirmarCompra button svg{
+        width: 3rem;
+        height: 3rem;
+    }
+
     .botonesOpcionesConfirmarCompra button{
         font-size: 2.5rem;
         height: 5rem;
@@ -173,6 +192,10 @@
         font-size: 2.5rem;
         margin-top: 0.5rem;
         width: 30rem;
+    }
+
+    .contenedorEntradaConfirmarCompra{
+        width: 75%;
     }
 
     .contenedorFormConfirmarCompra label, .contenedorFormConfirmarCompra div label{

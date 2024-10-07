@@ -18,6 +18,7 @@ import { ProductosProvider } from './contextProductos.jsx';
 import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { useVariables } from './contextVariables.jsx';
 import TerminosYCondiciones from './Terminos y condiciones/terminosYCondiciones.jsx';
+import { FinalizarCompraProvider } from './contextFinalizarCompra.jsx';
 
 function App() {
 
@@ -29,8 +30,9 @@ function App() {
             <LoginProvider>
               <CarritoProvider>
                 <FavoritosProvider>
-                  <TiendaProvider>
-                    <ConfiguracionProvider>
+                  <FinalizarCompraProvider>
+                    <TiendaProvider>
+                      <ConfiguracionProvider>
                         <Routes>
                           <Route path="/" element={<HomePage />} />
                           <Route path="/tienda" element={<Ventas />} />
@@ -40,9 +42,10 @@ function App() {
                           <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
                           {/*<Route path="/pdf" element={<PdfCarrito/>} />*/}
                         </Routes>
-                      <LoginYRegistro />
-                    </ConfiguracionProvider>
-                  </TiendaProvider>
+                        <LoginYRegistro />
+                      </ConfiguracionProvider>
+                    </TiendaProvider>
+                  </FinalizarCompraProvider>
                 </FavoritosProvider>
               </CarritoProvider>
             </LoginProvider>

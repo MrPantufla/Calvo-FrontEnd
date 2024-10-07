@@ -50,7 +50,6 @@ function CarritoProvider({ children }) {
   const [pdfRef, setPdfRef] = useState(null);
   const [elementosPdf, setElementosPdf] = useState([]);
   const [totalPdf, setTotalPdf] = useState(0);
-  const [codigoSucursal, setCodigoSucursal] = useState(null);
 
   const extraerProducto = (cadena) => {
     const cadenaConvertida = cadena.toString();
@@ -392,9 +391,7 @@ function CarritoProvider({ children }) {
       elementosPdf,
       setElementosPdf,
       totalPdf,
-      setTotalPdf,
-      codigoSucursal, 
-      setCodigoSucursal
+      setTotalPdf
     }}>
       {children}
     </CarritoContext.Provider>

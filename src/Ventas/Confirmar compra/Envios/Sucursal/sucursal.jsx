@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useAuth } from '../../../../contextLogin';
 import { useCarrito } from '../../../../contextCarrito';
+import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
 
 export default function Sucursal(args) {
 
@@ -13,7 +14,7 @@ export default function Sucursal(args) {
         setMostrarPagos
     } = useVariables();
 
-    const { codigoSucursal, setCodigoSucursal } = useCarrito();
+    const { codigoSucursal, setCodigoSucursal } = useFinalizarCompra();
 
     const guardarSucursal = async () => {
         try {

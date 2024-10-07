@@ -1,0 +1,78 @@
+.contenedorPequeñoTarjeta{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.contenedorPequeñoTarjeta div{
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+}
+
+.contenedorNumerosTarjeta div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.contenedorNumerosTarjeta div input{
+    width: 20%;
+    text-align: center;
+}
+
+.contenedorNumerosTarjeta div input:first-child{
+    border-width: 2px 0 2px 2px;
+}
+
+.contenedorNumerosTarjeta div input:nth-child(3), .contenedorNumerosTarjeta div input:nth-child(5){
+    border-width: 2px 0 2px 0;
+}
+
+.contenedorNumerosTarjeta div input:last-child{
+    border-width: 2px 2px 2px 0;
+}
+
+.contenedorInputCaducidad .inputPequeñoTarjeta:first-child{
+    border-width: 2px 0 2px 2px;
+    text-align: right;
+}
+
+.contenedorInputCaducidad .inputPequeñoTarjeta:last-child{
+    border-width: 2px 2px 2px 0px;
+}
+
+.contenedorInputCaducidad .focuseado, .contenedorNumerosTarjeta .focuseado{
+    border-color: var(--colorSecundario);
+}
+
+.contenedorInputCaducidad p, .contenedorNumerosTarjeta div p{
+    font-size: 2rem;
+    border-width: 2px 0 2px 0;
+    border-color: var(--colorTerciario);
+    border-style: solid;
+    height: 2.7rem;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: var(--colorSecundario);
+    transition: border-color 0.2s;
+    user-select: none;
+}
+
+.contenedorPequeñoTarjeta .labelTarjeta{
+    margin: 0;
+}
+
+.contenedorPequeñoTarjeta div .inputPequeñoTarjeta{
+    width: 30%;
+}
+
+@media (max-width: 767px){
+    .contenedorInputCaducidad p, .contenedorNumerosTarjeta div p{
+        height: 4.2rem;
+        font-size: 4rem;
+    }
+}

@@ -2,18 +2,19 @@ import './confirmarCompra.css';
 import { React, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useVariables } from '../../contextVariables';
-import { useCarrito } from '../../contextCarrito';
+import { useFinalizarCompra } from '../../contextFinalizarCompra';
 
 export default function ConfirmarCompra(args) {
 
     const { backend } = useVariables();
 
-    const { setCodigoSucursal } = useCarrito();
+    const { setCodigoSucursal } = useFinalizarCompra();
 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
     const toggleOpcion = (opcion) => {
-        setOpcionSeleccionada(opcion)
+        setOpcionSeleccionada(opcion);
+        opcion.set();
     }
 
     const obtenerSucursal = async () => {
@@ -58,8 +59,9 @@ export default function ConfirmarCompra(args) {
                 </div>
                 <div className="botonesOpcionesConfirmarCompra">
                     {args.componentesArray.map((seccion, index) => {
+
                         return (
-                            <button onClick={() => toggleOpcion(seccion)} className={opcionSeleccionada == seccion ? 'active' : ''} key={"boton" + index}>{seccion.nombre}</button>
+                            <button onClick={() => toggleOpcion(seccion)} className={opcionSeleccionada && opcionSeleccionada.nombre == seccion.nombre ? 'active' : ''} key={"boton" + index}>{seccion.nombre}</button>
                         )
                     })}
                 </div>
