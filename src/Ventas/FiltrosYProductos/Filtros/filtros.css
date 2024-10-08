@@ -82,7 +82,7 @@
     .filtrosYBusqueda {
         background-color: var(--colorTerciario);
         padding-top: 13rem;
-        z-index: 103;
+        z-index: 105;
         top: 0 !important;
         height: 140%;
         width: 0;

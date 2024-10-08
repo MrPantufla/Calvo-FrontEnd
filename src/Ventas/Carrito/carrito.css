@@ -1,6 +1,6 @@
 .contenedorPrincipalCarrito{
     position: fixed;
-    z-index: 101; 
+    z-index: 104; 
     font-size: 1.5rem;
     right: 4rem;
     display: flex;
