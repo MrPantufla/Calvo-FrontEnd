@@ -20,6 +20,7 @@ function FinalizarCompraProvider({ children }) {
     const [anioCaducidad, setAnioCaducidad] = useState('');
     const [codigoSeguridad, setCodigoSeguridad] = useState('');
     const [metodoFacturacion, setMetodoFacturacion] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     return (
         <FinalizaCompraContext.Provider value={{
@@ -44,7 +45,9 @@ function FinalizarCompraProvider({ children }) {
             codigoSeguridad,
             setCodigoSeguridad,
             metodoFacturacion,
-            setMetodoFacturacion
+            setMetodoFacturacion,
+            errorMessage,
+            setErrorMessage
         }}>
             {children}
         </FinalizaCompraContext.Provider>

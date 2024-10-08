@@ -126,9 +126,14 @@ export default function Header() {
           <div className="seccion" onClick={() => { handleInicioClick(); navigate('/tienda', { replace: true }) }}>
             <p>TIENDA</p>
           </div>
-          {location.pathname === '/' && (
+          {/*location.pathname === '/' && (
             <a href="#preguntasFrecuentes" className="seccion">
               <p>PREGUNTAS FRECUENTES</p>
+            </a>
+          )*/}
+          {location.pathname === '/' && (
+            <a href="#quienesSomos" className="seccion">
+              <p>QUIÉNES SOMOS</p>
             </a>
           )}
           {location.pathname === '/' ? (

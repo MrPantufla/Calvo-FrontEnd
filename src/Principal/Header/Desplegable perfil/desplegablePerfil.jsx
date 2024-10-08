@@ -13,7 +13,7 @@ export default function DesplegablePerfil() {
 
     const params = new URLSearchParams(location.search);
 
-    const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.2rem' : '0';
+    const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.4rem' : '0';
 
     const {
         perfilHovered,

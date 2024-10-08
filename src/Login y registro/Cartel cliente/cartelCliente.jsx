@@ -1,11 +1,12 @@
 import './cartelCliente.css';
 import { useAuth } from '../../contextLogin';
 import { useState } from 'react';
+import { useVariables } from '../../contextVariables';
 
 export default function CartelCliente() {
     const [aptoParaCerrar, setAptoParaCerrar] = useState(false);
 
-    const { setMostrarCartelCliente } = useAuth();
+    const { setMostrarCartelCliente } = useVariables();
 
     const handleCloseCartel = () => {
         if(aptoParaCerrar == true){
@@ -22,7 +23,7 @@ export default function CartelCliente() {
         <div className="contenedorPrincipalCartelCliente" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleCloseCartel}>
             <div className="parteUtilizableCartelCliente" onMouseDown={noCerrar} onMouseUp={noCerrar}>
                 <h1>¡IMPORTANTE!</h1>
-                <p>Si ya sos cliente de la empresa y estás viendo este texto, <a href="#contacto">comunicate con nosotros</a> para activar correctamente tu cuenta de cliente antes de hacer cualquier compra</p>
+                <p>Momentáneamente solo nuestros clientes pueden realizar compras desde la aplicación. Si ya sos cliente de la empresa y estás viendo este texto, <a href="#contacto">comunicate con nosotros</a> para activar correctamente tu cuenta de cliente</p>
                 <button className="botonAceptar" onClick={()=> setMostrarCartelCliente(false)}>Aceptar</button>
             </div>
         </div>

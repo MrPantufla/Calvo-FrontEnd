@@ -192,7 +192,7 @@ export function Facturacion() {
                                 className="confirmarBoton"
                                 onClick={(e) => { corroborarFormato(e) }}
                             >
-                                Realizar pedido
+                                Realizar compra
                             </button>
                         </div>
                     </form>

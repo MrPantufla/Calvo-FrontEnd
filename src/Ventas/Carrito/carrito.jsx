@@ -47,7 +47,9 @@ export default function Carrito(args) {
     backend,
     setMostrarEnvios,
     setMostrarFacturacion,
-    setMostrarConfirmarCompra
+    setMostrarConfirmarCompra,
+    setMostrarCartelCliente,
+    mostrarCartelCliente
   } = useVariables();
 
   const { setFavoritosAbierto } = useFavoritos();
@@ -451,13 +453,13 @@ export default function Carrito(args) {
                   className={`confirmarCarrito ${state.userInfo.categoria == 'MAYORISTA' && 'mayorista'}`}
                   disabled={!elementos.length > 0}
                   onClick={() => {
-                    if (/*state.userInfo.cliente*/true) {
+                    if (state.userInfo.cliente) {
                       setPrecioTotal(calcularTotal(elementos));
-                      //setMostrarFacturacion(true);
+                      setMostrarFacturacion(true);
                       setMostrarConfirmarCompra(true);
-                      setMostrarEnvios(true);
+                      //setMostrarEnvios(true);
                     } else {
-
+                      setMostrarCartelCliente(true);
                     }
                   }}
                 >

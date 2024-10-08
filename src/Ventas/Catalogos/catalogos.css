@@ -9,6 +9,7 @@
     transition: height 0.3s ease-in-out;
     transition-delay: 0s;
     top: 6.1rem;
+    box-shadow: 0px 2px 11px 0px rgba(122, 122, 122, 0.3);
 }
 
 .desplegableCatalogos:hover,

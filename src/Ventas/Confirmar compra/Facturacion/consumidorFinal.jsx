@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useCarrito } from "../../../contextCarrito";
+import { useVariables } from "../../../contextVariables";
+import { useFinalizarCompra } from '../../../contextFinalizarCompra';
 
 export default function ConsumidorFinal() {
 
@@ -7,10 +10,51 @@ export default function ConsumidorFinal() {
     const [localidad, setLocalidad] = useState('');
     const [direccion, setDireccion] = useState('');
     const [dni, setDni] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    
+    const { 
+        setErrorMessage 
+    } = useFinalizarCompra();
 
-    const confirmar = () =>{
-        
+    const {
+        confirmarCompra,
+        limpiarCarrito,
+        setCarritoAbierto
+    } = useCarrito();
+
+    const { setMostrarFacturacion } = useVariables();
+
+    const confirmar = (e) => {
+        e.preventDefault();
+
+        const numerosRegex = /^[0-9]+$/;
+
+        if (!nombreYApellido || !cp || !direccion || !dni || !localidad) {
+            setErrorMessage('Por favor, completa todos los campos')
+            return;
+        }
+        else if (!numerosRegex.test(cp)) {
+            setErrorMessage('CP solo puede contener números')
+            return;
+        }
+        else if (!numerosRegex.test(dni)) {
+            setErrorMessage('DNI solo puede contener números')
+            return;
+        }
+        else if (dni.length > 9) {
+            setErrorMessage('DNI demasiado largo')
+            return;
+        }
+
+        let datosPedido = 'Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni;
+
+        realizarPedido(datosPedido);
+    }
+
+    const realizarPedido = (datosPedido) => {
+        confirmarCompra(datosPedido);
+        limpiarCarrito();
+        setCarritoAbierto(false);
+        setMostrarFacturacion(false);
     }
 
     return (
@@ -62,7 +106,7 @@ export default function ConsumidorFinal() {
                 </div>
             </div>
             <div className="contenedorConfirmarBoton">
-                <button onClick={() => confirmar()} className="confirmarBoton">Confirmar</button>
+                <button onClick={(e) => confirmar(e)} className="confirmarBoton">Confirmar</button>
             </div>
         </>
     );

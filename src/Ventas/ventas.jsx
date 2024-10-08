@@ -36,9 +36,9 @@ export default function Ventas() {
     setMostrarConfirmarCompra,
     mostrarEnvios,
     setMostrarEnvios,
-    mostrarPagos, 
+    mostrarPagos,
     setMostrarPagos,
-    mostrarFacturacion, 
+    mostrarFacturacion,
     setMostrarFacturacion
   } = useVariables();
 
@@ -93,7 +93,7 @@ export default function Ventas() {
       nombre: 'Envío a sucursal', set: () => setMedioEnvio('sucursal'), componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Retira por su cuenta', set: () => setMedioEnvio('retira'),componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
+      nombre: 'Retira por su cuenta', set: () => setMedioEnvio('retira'), componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
     }
   ];
 
@@ -103,28 +103,28 @@ export default function Ventas() {
     </p>
     ;
 
-  const aclaracionesPagoTarjeta = 
-  <p className="aclaracionesConfirmarCompra">
-    -La empresa no almacenará nignún dato relacionado con tarjetas de crédito o débito
-  </p>
-  ;
+  const aclaracionesPagoTarjeta =
+    <p className="aclaracionesConfirmarCompra">
+      -La empresa no almacenará nignún dato relacionado con tarjetas de crédito o débito
+    </p>
+    ;
 
   const pagosArray = [
     // Solo agregamos la opción de "Efectivo" si se cumple la condición
-    ...(state.userInfo.cliente ? [{
-      nombre: 'Efectivo', 
-      set: () => setMetodoPago('efectivo'), 
-      componente: <Efectivo siguiente={() => setMostrarFacturacion(true)} />, 
+    ...(state.userInfo && state.userInfo.cliente ? [{
+      nombre: 'Efectivo',
+      set: () => setMetodoPago('efectivo'),
+      componente: <Efectivo siguiente={() => setMostrarFacturacion(true)} />,
       aclaraciones: aclaracionesPagoEfectivo
     }] : []),  // Si la condición no se cumple, no se incluye este objeto
 
     {
-      nombre: 'Tarjeta de crédito/débito', 
-      set: () => setMetodoPago('tarjeta'), 
-      componente: <Tarjeta siguiente={() => setMostrarFacturacion(true)} />, 
+      nombre: 'Tarjeta de crédito/débito',
+      set: () => setMetodoPago('tarjeta'),
+      componente: <Tarjeta siguiente={() => setMostrarFacturacion(true)} />,
       aclaraciones: aclaracionesPagoTarjeta
     }
-];
+  ];
 
   const aclaracionesFacturacion =
     <p className="aclaracionesConfirmarCompra">Recordatorio de términos y condiciones:<br />
@@ -177,8 +177,10 @@ export default function Ventas() {
               <ConfirmarCompra
                 titulo='ENVÍO'
                 componentesArray={enviosArray}
-                errorMessage=""
-                atras={() => {setMostrarEnvios(false); setMostrarConfirmarCompra(false)}}
+                atras={() => {
+                  setMostrarEnvios(false);
+                  setMostrarConfirmarCompra(false)
+                }}
               />
             )
               :
@@ -186,7 +188,6 @@ export default function Ventas() {
                 <ConfirmarCompra
                   titulo='MÉTODO DE PAGO'
                   componentesArray={pagosArray}
-                  errorMessage=""
                   atras={() => {
                     setMostrarPagos(false);
                     setMostrarEnvios(true);
@@ -198,10 +199,9 @@ export default function Ventas() {
                   <ConfirmarCompra
                     titulo='CONDICIÓN DE FACTURACIÓN'
                     componentesArray={facturacionArray}
-                    errorMessage=''
                     atras={() => {
                       setMostrarFacturacion(false);
-                      setMostrarPagos(true);
+                      //setMostrarPagos(true);
                     }}
                   />
                 ))
@@ -209,7 +209,7 @@ export default function Ventas() {
           </>
         )}
         {/* {mostrarConfirmarCompra && <ConfirmarCompra titulo={'ENVÍO'} componentesArray={enviosArray} errorMessage='' />} */}
-        {/* {mostrarCartelCliente && <CartelCliente />} */}
+        {mostrarCartelCliente && <CartelCliente />}
       </ProviderCortinas>
     </>
   );

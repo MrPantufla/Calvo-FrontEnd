@@ -7,6 +7,7 @@
     height: 0;
     transition: height 0.3s ease-in-out;
     transition-delay: 0s;
+    box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.3);
 }
 
 .desplegablePerfil:hover,
