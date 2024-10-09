@@ -11,8 +11,16 @@ export default function Registro() {
         isMobile
     } = useTienda();
 
-    const { backend } = useVariables();
-    const { setErrorMessage, handleLogin, errorMessage } = useAuth();
+    const { 
+        backend, 
+        setMostrarCartelCliente 
+    } = useVariables();
+
+    const { 
+        setErrorMessage, 
+        handleLogin, 
+        errorMessage 
+    } = useAuth();
 
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
@@ -130,6 +138,7 @@ export default function Registro() {
         if (response.ok) {
             handleLogin({ email: usuario.email, password: usuario.contrasenia });
             setRespuestaCargando(true);
+            
             return null;
         } else {
             const data = await response.text();

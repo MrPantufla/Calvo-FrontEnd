@@ -18,8 +18,8 @@ export default function Body() {
                 <Categorias />
                 <Banner id="quienesSomos" texto="SOBRE NOSOTROS" />
                 <QuienesSomos />
-                {/*<Banner id="preguntasFrecuentes" texto="PREGUNTAS FRECUENTES" />*/}
-                {/*<PreguntasFrecuentes/>*/}
+                {<Banner id="preguntasFrecuentes" texto="PREGUNTAS FRECUENTES" />}
+                {<PreguntasFrecuentes/>}
                 <Banner id="contacto" texto="CONTACTANOS" />
                 <InformacionYContacto />                
             </div>
