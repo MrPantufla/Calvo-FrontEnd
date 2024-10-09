@@ -6,6 +6,8 @@ import CartelLogout from '../Login y registro/Logout/cartelLogout.jsx';
 import { useAuth } from '../contextLogin.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import { useEffect } from 'react';
+import CartelCliente from '../Login y registro/Cartel cliente/cartelCliente.jsx';
+import { useVariables } from '../contextVariables.jsx';
 
 export default function HomePage() {
     const { salirDeTienda } = useTienda();
@@ -14,6 +16,8 @@ export default function HomePage() {
         salirDeTienda();
     }, [])
 
+    const { mostrarCartelCliente } = useVariables();
+
     return (
         <>
             <RenderHeader />
@@ -21,6 +25,7 @@ export default function HomePage() {
             <Body />
             <Footer />
             <CartelLogout />
+            {mostrarCartelCliente && <CartelCliente/>}
         </>
     );
 }
