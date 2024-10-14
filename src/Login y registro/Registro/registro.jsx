@@ -287,6 +287,7 @@ export default function Registro() {
                 <div className="form-group-registro">
                     <label htmlFor="cuit" required> CUIT</label>
                     <input
+                        type="number"
                         id="cuit"
                         value={cuit}
                         onChange={(e) => setCuit(e.target.value)}

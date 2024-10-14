@@ -261,8 +261,7 @@ export default function Roller() {
                                             <div className={`colorCortina ${color == 'blancoGris' && 'colorChecked'}`}>
                                                 <label htmlFor="okiataBlancoGris">Blanco Gris</label>
                                                 <input id="okiataBlancoGris" type="button" className="okiataBlancoGris" onClick={() => { setColor('blancoGris'); deleteErrorMessage() }} />
-                                            </div>
-                                            
+                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>)
@@ -302,7 +301,7 @@ export default function Roller() {
                         id="ancho"
                         value={ancho}
                         onChange={(e) => { setAncho(e.target.value); deleteErrorMessage() }}
-                        className={`campotextoEspecificacionCortina ${ancho != '' && 'conValue'}`}
+                        className={`campotextoEspecificacionCortina sinFocus ${ancho != '' && 'conValue'}`}
                         autoComplete='off'
                     />
                     <div id="textoAncho" className={`especificacionCortina milimetrosCortinas ${ancho != '' && 'conValue'}`}><p>mm.</p></div>
@@ -312,7 +311,7 @@ export default function Roller() {
                         id="alto"
                         value={alto}
                         onChange={(e) => { setAlto(e.target.value); deleteErrorMessage() }}
-                        className={`campotextoEspecificacionCortina ${alto != '' && 'conValue'}`}
+                        className={`campotextoEspecificacionCortina sinFocus ${alto != '' && 'conValue'}`}
                         autoComplete='off'
                     />
                     <div id="textoAlto" className={`especificacionCortina milimetrosCortinas ${alto != '' && 'conValue'}`}><p>mm.</p></div>
