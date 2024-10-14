@@ -202,10 +202,16 @@
     transition: height 0.3s;
     overflow: auto;
     margin-top: 1rem;
+    transition: height 0.3s;
+    interpolate-size: allow-keywords;
 }
 
 .bodyCarrito::-webkit-scrollbar{
     width: 0;
+}
+
+.bodyCarrito.open{
+    height: auto;
 }
 
 .agregadoRapido{

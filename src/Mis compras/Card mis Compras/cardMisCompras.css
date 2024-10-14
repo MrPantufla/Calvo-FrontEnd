@@ -98,13 +98,14 @@
     background-color: var(--colorPrimario);
     width: 97%;
     margin-left: 1.5%;
-    max-height: 1rem;
-    transition: max-height 0.3s;
+    height: 1rem;
+    transition: height 0.3s;
     overflow: hidden;
+    interpolate-size: allow-keywords;
 }
 
 .bodyCardMisCompras.open {
-    max-height: 100%;
+    height: auto;
 }
 
 .bodyCardMisCompras::-webkit-scrollbar {

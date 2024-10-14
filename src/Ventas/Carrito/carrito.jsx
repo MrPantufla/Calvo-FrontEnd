@@ -277,35 +277,6 @@ export default function Carrito(args) {
 
   const elementosReverse = [...elementos].reverse();
 
-  useEffect(() => {
-    if (carritoAbierto) {
-      if (elementos.length > 0) {
-        if (isMobile) {
-          setCarritoHeight(10 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 10.5 : 7.5));
-        }
-        else if (isTablet) {
-          setCarritoHeight(3 + 4 + 27 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 7 : 5));
-        }
-        else {
-          setCarritoHeight(0.5 + 5 + 20 * elementos.length + (state.userInfo.categoria == 'MAYORISTA' ? 6.1 : 3));
-        }
-      }
-      else {
-        if (isMobile) {
-          setCarritoHeight(13 + 18.1);
-        }
-        else if (isTablet) {
-          setCarritoHeight(3 + 4 + 10.5);
-        }
-        else {
-          setCarritoHeight(1 + 5 + 10);
-        }
-      }
-    } else {
-      setCarritoHeight(0);
-    }
-  }, [carritoAbierto, elementos.length]);
-
   const precioParaMostrarString = calcularTotal ? parseInt(calcularTotal(elementos, false)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
   const precioParaMostrarStringDescuento = calcularTotal ? (parseInt(calcularTotal(elementos, true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
@@ -354,7 +325,7 @@ export default function Carrito(args) {
         </span>
       </div>
 
-      <div className={`bodyCarrito ${carritoAbierto ? 'open' : ''}`} style={{ height: `${carritoHeight}rem` }}>
+      <div className={`bodyCarrito ${carritoAbierto && 'open'}`}>
         <div className="periferiaCarrito">
           <div className="tituloYHintCarrito">
             <PdfCarrito ref={pdfCarritoRef} />

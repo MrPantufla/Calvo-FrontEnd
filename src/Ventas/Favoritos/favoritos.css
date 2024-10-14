@@ -17,6 +17,12 @@
     transition: height 0.3s;
     overflow: auto;
     margin-top: 1rem;
+    transition: height 0.3s;
+    interpolate-size: allow-keywords;
+}
+
+.bodyFavoritos.open{
+    height: auto;
 }
 
 .bodyFavoritos::-webkit-scrollbar{

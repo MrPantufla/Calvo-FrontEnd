@@ -8,7 +8,6 @@ import { useCarrito } from '../../contextCarrito';
 import { useTienda } from '../../contextTienda';
 
 export default function Favoritos() {
-    const [favoritosHeight, setFavoritosHeight] = useState(0);
 
     const {
         setMostrarLogin,
@@ -26,7 +25,6 @@ export default function Favoritos() {
     const { setCarritoAbierto } = useCarrito();
 
     const {
-        isMobile,
         isTablet
     } = useTienda();
 
@@ -54,27 +52,6 @@ export default function Favoritos() {
         }
     }, [favoritos.length])
 
-    useEffect(() => {
-        if (favoritosAbierto) {
-            if (favoritos.length > 0) {
-                if (isMobile) {
-                    setFavoritosHeight(3 + 25 * favoritos.length + 1)
-                }
-                else if (isTablet) {
-                    setFavoritosHeight(3 + 25 * favoritos.length + 1);
-                }
-                else {
-                    setFavoritosHeight(3.5 + favoritos.length * 20);
-                }
-            }
-            else {
-                setFavoritosHeight(0);
-            }
-        } else {
-            setFavoritosHeight(0);
-        }
-    }, [favoritosAbierto, favoritos.length]);
-
     return (
         <div className="contenedorPrincipalFavoritos" style={{ pointerEvents: favoritosAbierto ? 'auto' : 'none' }}>
             <div className="contenedorBotonFavoritos">
@@ -93,7 +70,7 @@ export default function Favoritos() {
                     {favoritos.length}
                 </span>
             </div>
-            <div className={`bodyFavoritos ${favoritosAbierto ? 'open' : ''}`} style={{ height: `${favoritosHeight}rem` }}>
+            <div className={`bodyFavoritos ${favoritosAbierto && 'open'}`}>
                 <div className="tituloFavoritos">
                     <p>FAVORITOS</p>
                 </div>
