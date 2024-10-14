@@ -67,7 +67,7 @@ export default function FormularioDireccion() {
 
     const enviarDireccion = (event) => {
         event.preventDefault();
-        const letrasRegex = /^[A-Za-z\s]+$/;
+        const letrasRegex = /^[A-Za-zÀ-ÿ\s]+$/;
         const numerosRegex = /^[0-9]+$/;
         const letrasYNumerosRegex = /^[a-zA-Z0-9]+$/;
         if (!calle || !numero || !cp || !localidad || !provincia) {
