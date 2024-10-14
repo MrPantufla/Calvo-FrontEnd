@@ -17,6 +17,7 @@ function VariablesProvider({ children }) {
     const [mostrarEnvios, setMostrarEnvios] = useState(false);
     const [mostrarPagos, setMostrarPagos] = useState(false);
     const [mostrarFacturacion, setMostrarFacturacion] = useState(false);
+    const [agregarCardAbierto, setAgregarCardAbierto] = useState(false);
 
     const obtenerFechaFormateada = () => {
         const fecha = new Date();
@@ -54,7 +55,9 @@ function VariablesProvider({ children }) {
             mostrarPagos,
             setMostrarPagos,
             mostrarFacturacion,
-            setMostrarFacturacion
+            setMostrarFacturacion,
+            agregarCardAbierto, 
+            setAgregarCardAbierto
             }}>
             {children}
         </VariablesContext.Provider>
