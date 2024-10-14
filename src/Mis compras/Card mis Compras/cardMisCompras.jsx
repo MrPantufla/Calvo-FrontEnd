@@ -123,7 +123,7 @@ export default function CardMisCompras(args) {
                     </div>
                 </div>
             </div>
-            <div className={`bodyCardMisCompras ${cardComprasAbierto == true ? 'open' : ''}`}>
+            <div className={`bodyCardMisCompras ${cardComprasAbierto == true && 'open'}`}>
                 <div className="productosHistorialContainer">
                     {Array.from({ length: args.data.length }).map((_, index) => (
                         <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado} />

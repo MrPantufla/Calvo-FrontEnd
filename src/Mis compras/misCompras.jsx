@@ -89,7 +89,7 @@ export default function MisCompras() {
                 <RenderHeader />
                 <div className="decoracionBody decoracionMisCompras" />
                 <div className="decoracionDosBody decoracionDosMisCompras" />
-                <div className={`misComprasContainer ${isMobile ? 'mobile' : ''} ${isFold ? 'fold' : ''}`}>
+                <div className={`misComprasContainer ${isMobile ? 'mobile' : ''} ${isFold && 'fold'}`}>
 
                     {respuestaRecibida ?
                         (historial.length > 0 ?
