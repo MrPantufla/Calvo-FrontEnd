@@ -42,7 +42,7 @@ export default function EditarUsuarios() {
         const fetchData = async () => {
             const data = await obtenerUsuarios();
             if (data) {
-                setUsuarios(data);
+                setUsuarios(data.reverse());
             }
         };
 
