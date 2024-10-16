@@ -19,7 +19,8 @@ export default function Tarjeta() {
         anioCaducidad,
         setAnioCaducidad,
         codigoSeguridad,
-        setCodigoSeguridad
+        setCodigoSeguridad,
+        setErrorMessage
     } = useFinalizarCompra();
 
     const [caducidadFocus, setCaducidadFocus] = useState(false);
@@ -37,11 +38,6 @@ export default function Tarjeta() {
         setMostrarFacturacion
     } = useVariables();
 
-    const confirmar = () => {
-        setMostrarPagos(false);
-        setMostrarFacturacion(true);
-    };
-
     const obtenerUltimosDosDigitosAnioActual = () => {
         const fechaActual = new Date();
         const anioActual = fechaActual.getFullYear(); // Obtiene el año actual en formato de 4 dígitos
@@ -50,6 +46,31 @@ export default function Tarjeta() {
     };
 
     const anioActualTarjeta = obtenerUltimosDosDigitosAnioActual();
+
+    const confirmar = (e) => {
+        e.preventDefault();
+        
+        if(numeroTarjeta1 == '' || numeroTarjeta2 == '' || numeroTarjeta3 == '' || numeroTarjeta4 == '' || mesCaducidad == '' || anioCaducidad == '' || codigoSeguridad == ''){
+            setErrorMessage('Por favor, completa todos los campos')
+        }
+        else if(numeroTarjeta1.length != 4 || numeroTarjeta2.length != 4 || numeroTarjeta3.length != 4 || numeroTarjeta4.length != 4){
+            setErrorMessage('Número de tarjeta inválido');
+        }
+        else if(mesCaducidad < 1 || mesCaducidad > 12){
+            setErrorMessage('Mes de vencimiento inválido');
+        }
+        else if(anioCaducidad < anioActualTarjeta){
+            setErrorMessage('Año de vencimiento inválido')
+        }
+        else if(codigoSeguridad.length != 3){
+            setErrorMessage('Código de seguridad inválido');
+        }
+        else{
+            //fetch de tarjeta y si response.ok va lo de abajo
+            setMostrarPagos(false);
+            setMostrarFacturacion(true);
+        }
+    };
 
     const pasteNumeroTarjeta = (slot) => (event) => {
         event.preventDefault(); // Evita el comportamiento por defecto de pegar
@@ -212,8 +233,6 @@ export default function Tarjeta() {
         setCodigoSeguridad(nuevoValor)
     }
 
-    
-
     return (
         <>
             <div className="contenedorFormConfirmarCompra">
@@ -323,7 +342,7 @@ export default function Tarjeta() {
             </div>
 
             <div className="contenedorConfirmarBoton">
-                <button onClick={confirmar} className="confirmarBoton">Confirmar</button>
+                <button onClick={(e)=> confirmar(e)} className="confirmarBoton">Confirmar</button>
             </div>
         </>
     );

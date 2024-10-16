@@ -3,6 +3,7 @@ import { useAuth } from '../../../../contextLogin';
 import { useNavigate } from 'react-router-dom';
 import { useVariables } from '../../../../contextVariables';
 import { useConfiguracion } from '../../../../contextConfiguracion';
+import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
 
 export default function Domicilio() {
 
@@ -26,6 +27,11 @@ export default function Domicilio() {
         provincia
     } = useAuth();
 
+    const {
+        tipoEnvio,
+        setTipoEnvio
+    } = useFinalizarCompra();
+
     const direccionCargada = calle != '' && numero != '' && cp != '' && localidad != '' && provincia != '';
 
     const viajarEditarDireccion = () => {
@@ -41,6 +47,12 @@ export default function Domicilio() {
 
     return (
         <div className="contenedorPrincipalDomicilio">
+            {state.userInfo && state.userInfo.cliente &&
+                <div className="botonesOpcionesConfirmarCompra">
+                    <button className={`${tipoEnvio == "transportePropio" && 'active'}`} onClick={() => setTipoEnvio("transportePropio")}>Transporte Calvo (sin costo)</button>
+                    <button className={`${tipoEnvio == "correo" && 'active'}`} onClick={() => setTipoEnvio("correo")}>Servicio de correo</button>
+                </div>
+            }
             <div className="datosContenedor">
                 {direccionCargada ?
                     (<div className="datosDireccion">
@@ -57,7 +69,7 @@ export default function Domicilio() {
                 <button className="editarDireccion" onClick={() => viajarEditarDireccion()}>{direccionCargada ? 'Editar dirección' : 'Cargar dirección'}</button>
             </div>
             <div className="contenedorConfirmarBoton">
-                {direccionCargada && <button className="confirmarBoton" onClick={() => confirmar()}>Confirmar</button>}
+                {(direccionCargada && ((state.userInfo && !state.userInfo.cliente) || (state.userInfo && state.userInfo.cliente && tipoEnvio != ''))) && <button className="confirmarBoton" onClick={() => confirmar()}>Confirmar</button>}
             </div>
         </div>
     );

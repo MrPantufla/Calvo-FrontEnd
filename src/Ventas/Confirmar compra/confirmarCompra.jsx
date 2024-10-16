@@ -3,6 +3,7 @@ import { React, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useVariables } from '../../contextVariables';
 import { useFinalizarCompra } from '../../contextFinalizarCompra';
+import { useAuth } from '../../contextLogin';
 
 export default function ConfirmarCompra(args) {
 
@@ -11,8 +12,16 @@ export default function ConfirmarCompra(args) {
     const {
         setCodigoSucursal,
         errorMessage,
-        setErrorMessage
+        setErrorMessage,
+        setTipoEnvio,
+        medioEnvio,
+        metodoPago,
+        metodoFacturacion
     } = useFinalizarCompra();
+
+    const {
+        state
+    } = useAuth();
 
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
@@ -48,6 +57,10 @@ export default function ConfirmarCompra(args) {
 
     useEffect(() => {
         obtenerSucursal();
+
+        if(state.userInfo && !state.userInfo.cliente){
+            setTipoEnvio('correo')
+        }
     }, [])
 
     return (
@@ -65,12 +78,11 @@ export default function ConfirmarCompra(args) {
                     {args.componentesArray.map((seccion, index) => {
 
                         return (
-                            <button onClick={() => {toggleOpcion(seccion); setErrorMessage('')}} className={opcionSeleccionada && opcionSeleccionada.nombre == seccion.nombre ? 'active' : ''} key={"boton" + index}>{seccion.nombre}</button>
+                            <button onClick={() => {toggleOpcion(seccion); setErrorMessage('')}} className={(medioEnvio == seccion.comparador || metodoPago == seccion.comparador || metodoFacturacion == seccion.comparador) ? 'active' : ''} key={"boton" + index}>{seccion.nombre}</button>
                         )
                     })}
                 </div>
 
-                
                 {errorMessage !== '' && (
                     <p className="errorFinalizarCompra">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.3rem" height="1.3rem" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill svgErrorFormulario" viewBox="0 0 16 16">
@@ -80,12 +92,12 @@ export default function ConfirmarCompra(args) {
                     </p>
                 )}
 
-                {args.componentesArray && opcionSeleccionada &&
-                    args.componentesArray.find(comp => comp.nombre === opcionSeleccionada.nombre)?.componente
+                {args.componentesArray &&
+                    args.componentesArray.find(comp => (comp.comparador === medioEnvio || comp.comparador === metodoPago || comp.comparador === metodoFacturacion))?.componente
                 }
 
-                {args.componentesArray && opcionSeleccionada &&
-                    args.componentesArray.find(comp => comp.nombre === opcionSeleccionada.nombre)?.aclaraciones
+                {args.componentesArray &&
+                    args.componentesArray.find(comp => (comp.comparador === medioEnvio || comp.comparador === metodoPago || comp.comparador === metodoFacturacion))?.aclaraciones
                 }
 
             </div>

@@ -22,6 +22,7 @@ import ConsumidorFinal from './Confirmar compra/Facturacion/consumidorFinal.jsx'
 import Inscripto from './Confirmar compra/Facturacion/inscripto.jsx';
 import { useFinalizarCompra } from '../contextFinalizarCompra.jsx';
 import { useAuth } from '../contextLogin.jsx';
+import FinalizarPedido from './Confirmar compra/Finalizar pedido/finalizarPedido.jsx';
 
 export default function Ventas() {
 
@@ -39,7 +40,9 @@ export default function Ventas() {
     mostrarPagos,
     setMostrarPagos,
     mostrarFacturacion,
-    setMostrarFacturacion
+    setMostrarFacturacion,
+    mostrarFinalizarPedido,
+    setMostrarFinalizarPedido
   } = useVariables();
 
   const {
@@ -55,13 +58,18 @@ export default function Ventas() {
     acabado,
     tipoProceso,
     stipoProceso,
-    setTipoProceso
+    setTipoProceso,
+    isMobile
   } = useTienda();
 
   const {
     setMedioEnvio,
     setMetodoPago,
-    setMetodoFacturacion
+    setMetodoFacturacion,
+    tipoEnvio,
+    medioEnvio,
+    setTipoEnvio,
+    metodoPago
   } = useFinalizarCompra();
 
   const atrasProcesos = () => {
@@ -78,28 +86,41 @@ export default function Ventas() {
 
   const tieneProceso = elementos && elementos.some(elemento => (elemento.id.length > 0 && elemento.id.includes("(")));
 
-  const aclaracionesEnvio =
-    <p className="aclaracionesConfirmarCompra">
-      -Los envíos se realizan por medio del servicio de Correro Argentino<br />
-      -Podrás realizar un seguimiento del estado de tu envío en la sección <a href='/misCompras' target="blank">Mis compras</a>
-    </p>
-    ;
+  const aclaracionesEnvio = (
+    <div className="aclaracionesConfirmarCompra">
+      {(medioEnvio == 'domicilio' && tipoEnvio === 'transportePropio') && (
+        <>
+          -<a href={isMobile ? `https://wa.me/5493456475294` : `https://web.whatsapp.com/send?phone=+5493456475294`} target='_blank' rel='noopener noreferrer'>
+            Consultar
+          </a> con la empresa por disponibilidad del servicio de transporte propio en tu zona si no estás seguro
+          <br />
+        </>
+      )}
+      {(tipoEnvio === 'correo' || medioEnvio === 'sucursal') && (
+        <>
+          -Los envíos se realizan por medio del servicio de Correro Argentino
+          <br />
+          -Podrás realizar un seguimiento del estado de tu envío en la sección <a href='/misCompras' target="blank" rel='noopener noreferrer'>Mis compras</a>
+        </>
+      )}
+    </div>
+  );
 
   const enviosArray = [
     {
-      nombre: 'Envío a domicilio', set: () => setMedioEnvio('domicilio'), componente: <Domicilio key='domicilio' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
+      nombre: 'Envío a domicilio', comparador: 'domicilio', set: () => setMedioEnvio('domicilio'), componente: <Domicilio key='domicilio' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Envío a sucursal', set: () => setMedioEnvio('sucursal'), componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
+      nombre: 'Envío a sucursal', comparador: 'sucursal', set: () => {setMedioEnvio('sucursal'); setTipoEnvio('')}, componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Retira por su cuenta', set: () => setMedioEnvio('retira'), componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
+      nombre: 'Retira por su cuenta', comparador: 'retira', set: () => {setMedioEnvio('retira'); setTipoEnvio('')}, componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
     }
   ];
 
   const aclaracionesPagoEfectivo =
     <p className="aclaracionesConfirmarCompra">
-      -Al pagar en efectivo podes realizarlo en el local en caso de retirar personalmente tu mercadería o al transportista al momento de la entrega a domicilio
+      -Al pagar en efectivo podes realizarlo en el local en caso de retirar personalmente tu mercadería o a nuestro transportista al momento de la entrega a domicilio
     </p>
     ;
 
@@ -111,8 +132,9 @@ export default function Ventas() {
 
   const pagosArray = [
     // Solo agregamos la opción de "Efectivo" si se cumple la condición
-    ...(state.userInfo && state.userInfo.cliente ? [{
+    ...((state.userInfo && state.userInfo.cliente && (tipoEnvio == 'transportePropio' || medioEnvio == 'retira')) ? [{
       nombre: 'Efectivo',
+      comparador: 'efectivo',
       set: () => setMetodoPago('efectivo'),
       componente: <Efectivo siguiente={() => setMostrarFacturacion(true)} />,
       aclaraciones: aclaracionesPagoEfectivo
@@ -120,6 +142,7 @@ export default function Ventas() {
 
     {
       nombre: 'Tarjeta de crédito/débito',
+      comparador: 'tarjeta',
       set: () => setMetodoPago('tarjeta'),
       componente: <Tarjeta siguiente={() => setMostrarFacturacion(true)} />,
       aclaraciones: aclaracionesPagoTarjeta
@@ -144,16 +167,32 @@ export default function Ventas() {
   ;
 
   const facturacionArray = [
+    ...(metodoPago == 'efectivo'
+      ? [
+          {
+            nombre: 'Sin facturar',
+            comparador: 'sinFacturar',
+            set: () => setMetodoFacturacion('sinFacturar'),
+            componente: <SinFacturar />,
+            aclaraciones: aclaracionesFacturacion,
+          },
+        ]
+      : []),
     {
-      nombre: 'Sin facturar', set: () => setMetodoFacturacion('sinFacturar'), componente: <SinFacturar />, aclaraciones: aclaracionesFacturacion
+      nombre: 'Consumidor final',
+      comparador: 'consumidorFinal',
+      set: () => setMetodoFacturacion('consumidorFinal'),
+      componente: <ConsumidorFinal />,
+      aclaraciones: aclaracionesFacturacion,
     },
     {
-      nombre: 'Consumidor final', set: () => setMetodoFacturacion('consumidorFinal'), componente: <ConsumidorFinal />, aclaraciones: aclaracionesFacturacion
+      nombre: 'Inscripto',
+      comparador: 'inscripto',
+      set: () => setMetodoFacturacion('inscripto'),
+      componente: <Inscripto />,
+      aclaraciones: aclaracionesFacturacion,
     },
-    {
-      nombre: 'Inscripto', set: () => setMetodoFacturacion('inscripto'), componente: <Inscripto />, aclaraciones: aclaracionesFacturacion
-    }
-  ]
+  ];
 
   return (
     <>
@@ -195,20 +234,30 @@ export default function Ventas() {
                 />
               )
                 :
-                (mostrarFacturacion && (
+                (mostrarFacturacion ? (
                   <ConfirmarCompra
                     titulo='CONDICIÓN DE FACTURACIÓN'
                     componentesArray={facturacionArray}
                     atras={() => {
                       setMostrarFacturacion(false);
-                      //setMostrarPagos(true);
+                      setMostrarPagos(true);
+                    }}
+                  />
+                )
+                :
+                (mostrarFinalizarPedido && (
+                  <FinalizarPedido
+                    titulo='FINALIZAR PEDIDO'
+                    atras={() => {
+                      setMostrarFinalizarPedido(false);
+                      setMostrarFacturacion(true);
                     }}
                   />
                 ))
+              )
             }
           </>
         )}
-        {/* {mostrarConfirmarCompra && <ConfirmarCompra titulo={'ENVÍO'} componentesArray={enviosArray} errorMessage='' />} */}
         {mostrarCartelCliente && <CartelCliente />}
       </ProviderCortinas>
     </>

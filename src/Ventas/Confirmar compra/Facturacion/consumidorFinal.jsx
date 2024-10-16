@@ -5,14 +5,18 @@ import { useFinalizarCompra } from '../../../contextFinalizarCompra';
 
 export default function ConsumidorFinal() {
 
-    const [nombreYApellido, setNombreYApellido] = useState('');
-    const [cp, setCp] = useState('');
-    const [localidad, setLocalidad] = useState('');
-    const [direccion, setDireccion] = useState('');
-    const [dni, setDni] = useState('');
-    
-    const { 
-        setErrorMessage 
+    const {
+        setErrorMessage,
+        nombreYApellido,
+        setNombreYApellido,
+        cp,
+        setCp,
+        localidad,
+        setLocalidad,
+        direccion,
+        setDireccion,
+        dni,
+        setDni
     } = useFinalizarCompra();
 
     const {

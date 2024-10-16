@@ -14,6 +14,10 @@ export default function Sucursal(args) {
         setMostrarPagos
     } = useVariables();
 
+    const {
+        setErrorMessage
+    } = useFinalizarCompra();
+
     const { codigoSucursal, setCodigoSucursal } = useFinalizarCompra();
 
     const guardarSucursal = async () => {
@@ -45,9 +49,14 @@ export default function Sucursal(args) {
     }
 
     const confirmarEnvio = () => {
-        guardarSucursal();
-        setMostrarEnvios(false);
-        setMostrarPagos(true);
+        if (codigoSucursal != '') {
+            guardarSucursal();
+            setMostrarEnvios(false);
+            setMostrarPagos(true);
+        }
+        else {
+            setErrorMessage('Ingresa una sucursal válida');
+        }
     }
 
     return (

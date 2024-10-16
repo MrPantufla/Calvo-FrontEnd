@@ -424,19 +424,19 @@ export default function Carrito(args) {
                   className={`confirmarCarrito ${state.userInfo.categoria == 'MAYORISTA' && 'mayorista'}`}
                   disabled={!elementos.length > 0}
                   onClick={() => {
-                    if (state.userInfo.cliente) {
-                      setPrecioTotal(calcularTotal(elementos));
-                      setMostrarFacturacion(true);
-                      setMostrarConfirmarCompra(true);
-                      //setMostrarEnvios(true);
-                    } else {
-                      setMostrarCartelCliente(true);
-                    }
+                    setPrecioTotal(calcularTotal(elementos));
+                    //setMostrarFacturacion(true);
+                    setMostrarConfirmarCompra(true);
+                    setMostrarEnvios(true);
                   }}
                 >
                   CONFIRMAR PEDIDO: ${precioParaMostrarString}
-                  <br />
-                  (CON PAGO AL CONTADO Y SIN SALDO: ${precioParaMostrarStringDescuento})
+                  {(state.userInfo && state.userInfo.cliente) &&
+                    <>
+                      <br />
+                      (CON PAGO AL CONTADO Y SIN SALDO: ${precioParaMostrarStringDescuento})
+                    </>
+                  }
                 </button>
               </>
             )}

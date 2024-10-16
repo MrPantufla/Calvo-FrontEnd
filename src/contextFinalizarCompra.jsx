@@ -9,9 +9,10 @@ function useFinalizarCompra() {
 
 function FinalizarCompraProvider({ children }) {
 
-    const [medioEnvio, setMedioEnvio] = useState(null);
-    const [codigoSucursal, setCodigoSucursal] = useState(null);
-    const [metodoPago, setMetodoPago] = useState(null);
+    const [medioEnvio, setMedioEnvio] = useState('');
+    const [tipoEnvio, setTipoEnvio] = useState('');
+    const [codigoSucursal, setCodigoSucursal] = useState('');
+    const [metodoPago, setMetodoPago] = useState('');
     const [numeroTarjeta1, setNumeroTarjeta1] = useState('');
     const [numeroTarjeta2, setNumeroTarjeta2] = useState('');
     const [numeroTarjeta3, setNumeroTarjeta3] = useState('');
@@ -22,6 +23,29 @@ function FinalizarCompraProvider({ children }) {
     const [metodoFacturacion, setMetodoFacturacion] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    //Facturacion
+    const [nombreYApellido, setNombreYApellido] = useState('');
+    const [cp, setCp] = useState('');
+    const [localidad, setLocalidad] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const [dni, setDni] = useState('');
+    const [cuit, setCuit] = useState('');
+
+    const limpiarFinalizarCompra = () =>{
+        setMedioEnvio('');
+        setTipoEnvio('');
+        setMetodoPago('');
+        setNumeroTarjeta1('');
+        setNumeroTarjeta2('');
+        setNumeroTarjeta3('');
+        setNumeroTarjeta4('');
+        setMesCaducidad('');
+        setAnioCaducidad('');
+        setCodigoSeguridad('');
+        setMetodoFacturacion('');
+        setErrorMessage('');
+    }
+
     return (
         <FinalizaCompraContext.Provider value={{
             medioEnvio,
@@ -30,24 +54,38 @@ function FinalizarCompraProvider({ children }) {
             setCodigoSucursal,
             metodoPago,
             setMetodoPago,
-            numeroTarjeta1, 
+            numeroTarjeta1,
             setNumeroTarjeta1,
-            numeroTarjeta2, 
+            numeroTarjeta2,
             setNumeroTarjeta2,
-            numeroTarjeta3, 
+            numeroTarjeta3,
             setNumeroTarjeta3,
-            numeroTarjeta4, 
+            numeroTarjeta4,
             setNumeroTarjeta4,
             mesCaducidad,
             setMesCaducidad,
-            anioCaducidad, 
+            anioCaducidad,
             setAnioCaducidad,
             codigoSeguridad,
             setCodigoSeguridad,
             metodoFacturacion,
             setMetodoFacturacion,
             errorMessage,
-            setErrorMessage
+            setErrorMessage,
+            tipoEnvio,
+            setTipoEnvio, 
+            nombreYApellido, 
+            setNombreYApellido,
+            cp, 
+            setCp,
+            localidad, 
+            setLocalidad,
+            direccion, 
+            setDireccion,
+            dni, 
+            setDni,
+            cuit, 
+            setCuit
         }}>
             {children}
         </FinalizaCompraContext.Provider>

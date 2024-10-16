@@ -5,8 +5,6 @@ import { useVariables } from "../../../contextVariables";
 
 export default function Inscripto() {
 
-    const [cuit, setCuit] = useState('');
-
     const {
         confirmarCompra,
         limpiarCarrito,
@@ -14,7 +12,9 @@ export default function Inscripto() {
     } = useCarrito();
     
     const {
-        setErrorMessage
+        setErrorMessage,
+        cuit, 
+        setCuit
     } = useFinalizarCompra();
 
     const {
