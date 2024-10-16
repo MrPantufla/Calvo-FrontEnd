@@ -99,6 +99,7 @@ export const zonas = [
       180273, //Monte Caseros
       180070, //Perugorría
       180308, //Saladas
+      180182, //San Carlos
       180350, //San Luis del Palmar
       180420, //San Roque
       180210, //Santa Lucía
