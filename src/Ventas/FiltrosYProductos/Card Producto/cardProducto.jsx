@@ -381,7 +381,7 @@ export default function CardProducto(args) {
               :
               (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigo}.webp`)
             }
-            alt="Imagen del producto"
+            alt="Imagen no disponible"
             loading="lazy"
             /*onError={() => {
               if(productoActual.precio > 0){
