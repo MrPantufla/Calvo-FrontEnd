@@ -95,7 +95,7 @@ function CarritoProvider({ children }) {
     }
 
     setPaqueteAñadir(null);
-    if (state.userInfo && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
+    if (state.userInfo && productosIndexado && productosIndexado[id] && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
       setMostrarCartelError(true);
     }
     else {
@@ -298,7 +298,6 @@ function CarritoProvider({ children }) {
       })
       .then(text => {
         if (text) {
-          console.log(text);
           setRespuestaCompra(text);
         }
       })
