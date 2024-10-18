@@ -90,7 +90,7 @@ export default function Ventas() {
     <div className="aclaracionesConfirmarCompra">
       {(medioEnvio == 'domicilio' && tipoEnvio === 'transportePropio') && (
         <>
-          -<a href={isMobile ? `https://wa.me/5493456475294` : `https://web.whatsapp.com/send?phone=+5493456475294`} target='_blank' rel='noopener noreferrer'>
+          -<a href={isMobile ? `https://wa.me/5493456475294` : `https://web.whatsapp.com/send?phone=+5493456475294`} target='blank' rel='noopener noreferrer'>
             Consultar
           </a> con la empresa por disponibilidad del servicio de transporte propio en tu zona si no estás seguro
           <br />
@@ -111,10 +111,10 @@ export default function Ventas() {
       nombre: 'Envío a domicilio', comparador: 'domicilio', set: () => setMedioEnvio('domicilio'), componente: <Domicilio key='domicilio' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Envío a sucursal', comparador: 'sucursal', set: () => {setMedioEnvio('sucursal'); setTipoEnvio('')}, componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
+      nombre: 'Envío a sucursal', comparador: 'sucursal', set: () => { setMedioEnvio('sucursal'); setTipoEnvio('') }, componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
     {
-      nombre: 'Retira por su cuenta', comparador: 'retira', set: () => {setMedioEnvio('retira'); setTipoEnvio('')}, componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
+      nombre: 'Retira por su cuenta', comparador: 'retira', set: () => { setMedioEnvio('retira'); setTipoEnvio('') }, componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
     }
   ];
 
@@ -169,14 +169,14 @@ export default function Ventas() {
   const facturacionArray = [
     ...(metodoPago == 'efectivo'
       ? [
-          {
-            nombre: 'Sin facturar',
-            comparador: 'sinFacturar',
-            set: () => setMetodoFacturacion('sinFacturar'),
-            componente: <SinFacturar />,
-            aclaraciones: aclaracionesFacturacion,
-          },
-        ]
+        {
+          nombre: 'Sin facturar',
+          comparador: 'sinFacturar',
+          set: () => setMetodoFacturacion('sinFacturar'),
+          componente: <SinFacturar />,
+          aclaraciones: aclaracionesFacturacion,
+        },
+      ]
       : []),
     {
       nombre: 'Consumidor final',
@@ -244,17 +244,17 @@ export default function Ventas() {
                     }}
                   />
                 )
-                :
-                (mostrarFinalizarPedido && (
-                  <FinalizarPedido
-                    titulo='FINALIZAR PEDIDO'
-                    atras={() => {
-                      setMostrarFinalizarPedido(false);
-                      setMostrarFacturacion(true);
-                    }}
-                  />
-                ))
-              )
+                  :
+                  (mostrarFinalizarPedido && (
+                    <FinalizarPedido
+                      titulo='FINALIZAR PEDIDO'
+                      atras={() => {
+                        setMostrarFinalizarPedido(false);
+                        setMostrarFacturacion(true);
+                      }}
+                    />
+                  ))
+                )
             }
           </>
         )}
