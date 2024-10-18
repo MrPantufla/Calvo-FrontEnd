@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useVariables } from '../../../../contextVariables';
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
+import { useEffect } from 'react';
 
 export default function Domicilio() {
 
@@ -29,7 +30,8 @@ export default function Domicilio() {
 
     const {
         tipoEnvio,
-        setTipoEnvio
+        setTipoEnvio,
+        setKeyDownEnter
     } = useFinalizarCompra();
 
     const direccionCargada = calle != '' && numero != '' && cp != '' && localidad != '' && provincia != '';
@@ -41,8 +43,10 @@ export default function Domicilio() {
     }
 
     const confirmar = () => {
-        setMostrarEnvios(false);
-        setMostrarPagos(true);
+        if (direccionCargada && ((state.userInfo && !state.userInfo.cliente) || (state.userInfo && state.userInfo.cliente && tipoEnvio != ''))) {
+            setMostrarEnvios(false);
+            setMostrarPagos(true);
+        }
     }
 
     return (
@@ -56,10 +60,10 @@ export default function Domicilio() {
             <div className="datosContenedor">
                 {direccionCargada ?
                     (<div className="datosDireccion">
-                        <p>DOMICILIO: <span>{calle} {numero}</span></p>
-                        <p>CÓDIGO POSTAL: <span>{cp}</span></p>
-                        <p>LOCALIDAD: <span>{localidad}</span></p>
-                        <p>PROVINCIA: <span>{provincia}</span></p>
+                        <p><span>DOMICILIO:</span> {calle} {numero}</p>
+                        <p><span>CÓDIGO POSTAL:</span> {cp}</p>
+                        <p><span>LOCALIDAD:</span> {localidad}</p>
+                        <p><span>PROVINCIA:</span> {provincia}</p>
                     </div>)
                     :
                     (<p><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill svgErrorFormulario" viewBox="0 0 16 16">
