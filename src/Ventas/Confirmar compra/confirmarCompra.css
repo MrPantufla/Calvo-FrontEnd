@@ -23,6 +23,7 @@
     background-color: var(--colorSecundario);
     color: white;
     position: relative;
+    align-items: center;
 }
 
 .headConfirmarCompra p{
@@ -31,13 +32,20 @@
     font-weight: 600;
     width: 100%;
     text-align: center;
-    padding-right: 2.5rem;
 }
 
 .headConfirmarCompra button{
     border: none;
     background-color: transparent;
+}
+
+.headConfirmarCompra button{
     margin-left: 0.5rem;
+}
+
+.headConfirmarCompra button:last-child svg{
+    width: 3rem;
+    height: 3rem;
 }
 
 .botonesOpcionesConfirmarCompra{
@@ -173,12 +181,16 @@
 
     .headConfirmarCompra p{
         font-size: 2.6rem;
-        padding-right: 2.6rem;
     }
     
-    .headConfirmarCompra button svg{
+    .headConfirmarCompra button:first-child svg{
         width: 2.6rem;
         height: 2.6rem;
+    }
+
+    .headConfirmarCompra button:last-child svg{
+        width: 4.6rem;
+        height: 4.6rem;
     }
 }
 
@@ -186,15 +198,23 @@
     .parteUtilizableConfirmarCompra{
         width: 60rem;
     }
+
+    .headConfirmarCompra{
+        height: 6rem;
+    }
     
     .headConfirmarCompra p{
         font-size: 3.2rem;
-        padding-right: 3rem;
     }
     
-    .headConfirmarCompra button svg{
-        width: 3rem;
-        height: 3rem;
+    .headConfirmarCompra button:first-child svg{
+        width: 3.8rem;
+        height: 3.8rem;
+    }
+
+    .headConfirmarCompra button:last-child svg{
+        width: 6rem;
+        height: 6rem;
     }
 
     .botonesOpcionesConfirmarCompra button{
@@ -230,5 +250,9 @@
     .errorFinalizarCompra{
         font-size: 2.2rem;
         margin: 1rem 0;
+    }
+
+    .contenedorConfirmarBoton{
+        margin-top: 1rem;
     }
 }
