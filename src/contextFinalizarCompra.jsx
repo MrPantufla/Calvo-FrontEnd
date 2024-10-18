@@ -30,6 +30,7 @@ function FinalizarCompraProvider({ children }) {
     const [direccion, setDireccion] = useState('');
     const [dni, setDni] = useState('');
     const [cuit, setCuit] = useState('');
+    const [keyDownEnter, setKeyDownEnter] = useState(null);
 
     const limpiarFinalizarCompra = () =>{
         setMedioEnvio('');
@@ -85,7 +86,9 @@ function FinalizarCompraProvider({ children }) {
             dni, 
             setDni,
             cuit, 
-            setCuit
+            setCuit,
+            keyDownEnter, 
+            setKeyDownEnter
         }}>
             {children}
         </FinalizaCompraContext.Provider>

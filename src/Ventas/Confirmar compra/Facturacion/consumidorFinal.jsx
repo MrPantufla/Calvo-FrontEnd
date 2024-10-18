@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useCarrito } from "../../../contextCarrito";
 import { useVariables } from "../../../contextVariables";
 import { useFinalizarCompra } from '../../../contextFinalizarCompra';
 
@@ -19,13 +17,10 @@ export default function ConsumidorFinal() {
         setDni
     } = useFinalizarCompra();
 
-    const {
-        confirmarCompra,
-        limpiarCarrito,
-        setCarritoAbierto
-    } = useCarrito();
-
-    const { setMostrarFacturacion } = useVariables();
+    const { 
+        setMostrarFacturacion,
+        setMostrarFinalizarPedido
+    } = useVariables();
 
     const confirmar = (e) => {
         e.preventDefault();
@@ -51,14 +46,8 @@ export default function ConsumidorFinal() {
 
         let datosPedido = 'Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni;
 
-        realizarPedido(datosPedido);
-    }
-
-    const realizarPedido = (datosPedido) => {
-        confirmarCompra(datosPedido);
-        limpiarCarrito();
-        setCarritoAbierto(false);
         setMostrarFacturacion(false);
+        setMostrarFinalizarPedido(true);
     }
 
     return (

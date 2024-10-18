@@ -18,7 +18,8 @@ export default function Inscripto() {
     } = useFinalizarCompra();
 
     const {
-        setMostrarFacturacion
+        setMostrarFacturacion,
+        setMostrarFinalizarPedido
     } = useVariables();
 
     const confirmar = (e) =>{
@@ -42,14 +43,8 @@ export default function Inscripto() {
 
         let datosPedido = 'Facturar a ' + cuit;
         
-        realizarPedido(datosPedido);
-    }
-
-    const realizarPedido = (datosPedido) => {
-        confirmarCompra(datosPedido);
-        limpiarCarrito();
-        setCarritoAbierto(false);
         setMostrarFacturacion(false);
+        setMostrarFinalizarPedido(true);
     }
 
     return (

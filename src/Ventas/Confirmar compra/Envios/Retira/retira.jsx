@@ -1,6 +1,12 @@
+import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
 import { useVariables } from '../../../../contextVariables';
+import { useEffect } from 'react';
 
 export default function Retira(){
+
+    const {
+        setKeyDownEnter
+    } = useFinalizarCompra();
 
     const {
         setMostrarEnvios,

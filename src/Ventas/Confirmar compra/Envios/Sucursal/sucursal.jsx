@@ -15,7 +15,8 @@ export default function Sucursal(args) {
     } = useVariables();
 
     const {
-        setErrorMessage
+        setErrorMessage,
+        setKeyDownEnter
     } = useFinalizarCompra();
 
     const { codigoSucursal, setCodigoSucursal } = useFinalizarCompra();
@@ -48,7 +49,8 @@ export default function Sucursal(args) {
         }
     }
 
-    const confirmarEnvio = () => {
+    const confirmar = () => {
+        console.log("EJECUTA DESE SUCURSAL")
         if (codigoSucursal != '') {
             guardarSucursal();
             setMostrarEnvios(false);
@@ -66,7 +68,7 @@ export default function Sucursal(args) {
                 <input id="inputSucursal" type="text" value={codigoSucursal} onChange={(e) => setCodigoSucursal(e.target.value)} />
             </div>
             <div className="contenedorConfirmarBoton">
-                {<button className="confirmarBoton" onClick={() => confirmarEnvio()}>Confirmar</button>}
+                {<button className="confirmarBoton" onClick={() => confirmar()}>Confirmar</button>}
             </div>
         </div>
     );
