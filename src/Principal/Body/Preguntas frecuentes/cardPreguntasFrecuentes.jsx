@@ -2,6 +2,7 @@ import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
 import './cardPreguntasFrecuentes.css';
 import Cookies from 'js-cookie';
+import MapFAQ from './mapFAQ';
 
 export default function CardPreguntasFrecuentes(args) {
 
@@ -60,7 +61,7 @@ export default function CardPreguntasFrecuentes(args) {
       </div>
 
       <div className={`bodyCardPreguntasFrecuentes ${args.cardActiva == args.id && 'active'}`}>
-        <p>{args.respuesta}</p>
+        {args.respuesta == 'mapa' ? (<MapFAQ/>) : <p>{args.respuesta}</p>}
       </div>
     </>
   );
