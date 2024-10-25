@@ -207,6 +207,7 @@
     float: right;
     position: relative;
     z-index: 1;
+    transition: fill 0.2s, transform 0.1s;
 }
 
 .botonAñadirFavoritos:active {
@@ -429,36 +430,6 @@
 
 .flechasDestacados:first-child {
     transform: rotate(180deg)
-}
-
-@media (min-width: 1920px) {
-    .botonAñadirFavoritos {
-        width: 3rem;
-        height: 3rem;
-    }
-}
-
-@media (min-width: 1600px) {
-    .imagenContainerCardProducto {
-        height: 12rem;
-    }
-
-    .botonAñadirFavoritos {
-        width: 3.5rem;
-        height: 3.5rem;
-    }
-
-    .kgCantidadYColorContainer .boton {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 4px;
-        font-size: 2.5rem;
-    }
-
-    .cantidadProducto {
-        font-size: 2.5rem;
-        margin: 0 0.5rem;
-    }
 }
 
 @media (max-width: 1280px) {
