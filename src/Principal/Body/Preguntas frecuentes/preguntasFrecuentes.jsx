@@ -59,7 +59,7 @@ export default function PreguntasFrecuentes() {
               key={index}
             />
           ))}
-          
+
           {/* Componente CardEditable para agregar una nueva pregunta si se cumplen las condiciones */}
           {state.userInfo && state.userInfo.tipo_usuario === 'admin' && agregarCardAbierto && (
             <CardEditable
@@ -69,30 +69,30 @@ export default function PreguntasFrecuentes() {
           )}
         </>
       ) : (
-          // Renderizado en dos columnas para escritorio
-          <>
-            <div className="colPar">
-              {preguntasFrecuentes && preguntasFrecuentes.map((item, index) => {
-                return (
-                  index % 2 === 0 && <CardPreguntasFrecuentes obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} pregunta={item.pregunta} respuesta={item.respuesta} cardActiva={cardActiva} setCardActiva={setCardActiva} id={item.id} key={index} />
-                );
-              })}
-              {(state.userInfo && state.userInfo.tipo_usuario === 'admin' && agregarCardAbierto && preguntasFrecuentes && preguntasFrecuentes.length % 2 === 0) &&
-                <CardEditable setAgregarCardAbierto={setAgregarCardAbierto} obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} />
-              }
-            </div>
-            <div className="colImpar">
-              {preguntasFrecuentes && preguntasFrecuentes.map((item, index) => {
-                return (
-                  index % 2 !== 0 && <CardPreguntasFrecuentes obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} pregunta={item.pregunta} respuesta={item.respuesta} cardActiva={cardActiva} setCardActiva={setCardActiva} id={item.id} key={index} />
-                );
-              })}
-              {(state.userInfo && state.userInfo.tipo_usuario === 'admin' && agregarCardAbierto && preguntasFrecuentes && preguntasFrecuentes.length % 2 === 1) &&
-                <CardEditable setAgregarCardAbierto={setAgregarCardAbierto} obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} />
-              }
-            </div>
-          </>
-        )}
+        // Renderizado en dos columnas para escritorio
+        <>
+          <div className="colPar">
+            {preguntasFrecuentes && preguntasFrecuentes.map((item, index) => {
+              return (
+                index % 2 === 0 && <CardPreguntasFrecuentes obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} pregunta={item.pregunta} respuesta={item.respuesta} cardActiva={cardActiva} setCardActiva={setCardActiva} id={item.id} key={index} />
+              );
+            })}
+            {(state.userInfo && state.userInfo.tipo_usuario === 'admin' && agregarCardAbierto && preguntasFrecuentes && preguntasFrecuentes.length % 2 === 0) &&
+              <CardEditable setAgregarCardAbierto={setAgregarCardAbierto} obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} />
+            }
+          </div>
+          <div className="colImpar">
+            {preguntasFrecuentes && preguntasFrecuentes.map((item, index) => {
+              return (
+                index % 2 !== 0 && <CardPreguntasFrecuentes obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} pregunta={item.pregunta} respuesta={item.respuesta} cardActiva={cardActiva} setCardActiva={setCardActiva} id={item.id} key={index} />
+              );
+            })}
+            {(state.userInfo && state.userInfo.tipo_usuario === 'admin' && agregarCardAbierto && preguntasFrecuentes && preguntasFrecuentes.length % 2 === 1) &&
+              <CardEditable setAgregarCardAbierto={setAgregarCardAbierto} obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes} />
+            }
+          </div>
+        </>
+      )}
       {(state.userInfo && state.userInfo.tipo_usuario === 'admin' && agregarCardAbierto === false) &&
         (<button className='botonAgregarPreguntaFrecuente' onClick={() => setAgregarCardAbierto(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">

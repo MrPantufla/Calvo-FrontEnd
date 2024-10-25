@@ -231,7 +231,7 @@ function ProductosProvider({ children }) {
         if (tokenParaEnviar == undefined) {
             tokenParaEnviar = null;
         }
-        console.log(productosDestacados)
+
         try {
             const response = await fetch(`${backend}/api/guardarDestacados`, {
                 method: 'POST',
@@ -263,12 +263,11 @@ function ProductosProvider({ children }) {
         if (procesos == true) {
             endpoint = 'eliminarProductoDeProceso';
             body = { idProducto: idProducto.toString() };
+            
         } else {
             endpoint = 'eliminarProducto';
             body = { idProducto: parseInt(idProducto) };
         }
-
-        console.log(idProducto)
 
         try {
             let tokenParaEnviar = Cookies.get('jwtToken');

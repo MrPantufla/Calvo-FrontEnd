@@ -100,7 +100,8 @@
 
 @media(max-width: 767px) {
   .headCardPreguntasFrecuentes{
-    height: 6rem;
+    min-height: 6rem;
+    height: auto;
   }
 
   .headCardPreguntasFrecuentes p, .headCardPreguntasFrecuentes input{

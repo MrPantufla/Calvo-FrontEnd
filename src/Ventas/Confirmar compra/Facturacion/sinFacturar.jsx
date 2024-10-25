@@ -1,3 +1,4 @@
+import { useCarrito } from "../../../contextCarrito";
 import { useVariables } from "../../../contextVariables";
 
 export default function SinFacturar() {
@@ -7,11 +8,18 @@ export default function SinFacturar() {
         setMostrarFinalizarPedido
     } = useVariables();
 
+    const {
+        confirmarCompra,
+        limpiarCarrito
+    } = useCarrito();
+
     const confirmar = (e, datosPedido) => {
         e.preventDefault();
 
         setMostrarFacturacion(false);
-        setMostrarFinalizarPedido(true);
+        //setMostrarFinalizarPedido(true);
+        limpiarCarrito();
+        confirmarCompra('Sin facturar')
     }
 
     return (

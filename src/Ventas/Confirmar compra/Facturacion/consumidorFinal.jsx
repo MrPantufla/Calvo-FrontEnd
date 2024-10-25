@@ -1,5 +1,6 @@
 import { useVariables } from "../../../contextVariables";
 import { useFinalizarCompra } from '../../../contextFinalizarCompra';
+import { useCarrito } from "../../../contextCarrito";
 
 export default function ConsumidorFinal() {
 
@@ -22,6 +23,11 @@ export default function ConsumidorFinal() {
         setMostrarFinalizarPedido
     } = useVariables();
 
+    const {
+        confirmarCompra,
+        limpiarCarrito
+    } = useCarrito();
+
     const confirmar = (e) => {
         e.preventDefault();
 
@@ -29,10 +35,6 @@ export default function ConsumidorFinal() {
 
         if (!nombreYApellido || !cp || !direccion || !dni || !localidad) {
             setErrorMessage('Por favor, completa todos los campos')
-            return;
-        }
-        else if (!numerosRegex.test(cp)) {
-            setErrorMessage('CP solo puede contener números')
             return;
         }
         else if (!numerosRegex.test(dni)) {
@@ -47,7 +49,9 @@ export default function ConsumidorFinal() {
         let datosPedido = 'Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni;
 
         setMostrarFacturacion(false);
-        setMostrarFinalizarPedido(true);
+        limpiarCarrito();
+        //setMostrarFinalizarPedido(true);
+        confirmarCompra(datosPedido)
     }
 
     return (

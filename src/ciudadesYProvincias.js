@@ -46,7 +46,6 @@ export const zonas = [
       540364, //Campo Viera
       540294, //Capioví
       540259, //Cerro Azul
-      540525, //25 de Mayo
       541234, //Colonia Alicia
       540518, //Colonia Aurora
       540336, //Caraguatay
@@ -104,10 +103,11 @@ export const zonas = [
       180420, //San Roque
       180210, //Santa Lucía
       180035, //Colonia Santa Rosa
-    ]
-  }, {
-    nro: 4,
-    items: [
+      180098, //Alvear
+      180434, //Gobernador Virasoro
+      180371, //La Cruz
+      180294, //Paso de los Libres
+      180448, //Santo Tomé
       180084, //Esquina
       300245, //La Paz
       300115, //Los Conquistadores
@@ -120,15 +120,6 @@ export const zonas = [
     nro: 5,
     items: [
       300105, //Chajarí
-    ]
-  }, {
-    nro: 12,
-    items: [
-      180098, //Alvear
-      180434, //Gobernador Virasoro
-      180371, //La Cruz
-      180294, //Paso de los Libres
-      180448, //Santo Tomé
     ]
   },
 ]

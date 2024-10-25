@@ -44,7 +44,9 @@ export default function Inscripto() {
         let datosPedido = 'Facturar a ' + cuit;
         
         setMostrarFacturacion(false);
-        setMostrarFinalizarPedido(true);
+        //setMostrarFinalizarPedido(true);
+        limpiarCarrito();
+        confirmarCompra(datosPedido)
     }
 
     return (
