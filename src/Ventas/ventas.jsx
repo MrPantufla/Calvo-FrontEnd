@@ -167,7 +167,7 @@ export default function Ventas() {
   ;
 
   const facturacionArray = [
-    ...(metodoPago == 'efectivo'
+    ...(/*metodoPago == 'efectivo'*/true
       ? [
         {
           nombre: 'Sin facturar',
@@ -240,7 +240,7 @@ export default function Ventas() {
                     componentesArray={facturacionArray}
                     atras={() => {
                       setMostrarFacturacion(false);
-                      setMostrarPagos(true);
+                      //setMostrarPagos(true);
                     }}
                   />
                 )

@@ -29,13 +29,17 @@ export default function Sucursal(args) {
                 tokenParaEnviar = null;
             }
 
-            const response = await fetch(`${backend}/api/recibirSucursal`, {
+            const bodyData = {
+                sucursal: codigoSucursal
+            };
+
+            const response = await fetch(`${backend}/api/recibirFinzalizarCompra`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'text/plain',
+                    'Content-Type': 'application/json',
                     'Authorization': tokenParaEnviar,
-                },
-                body: codigoSucursal
+            },
+            body: JSON.stringify(bodyData)
             });
 
             if (response.ok) {
@@ -50,7 +54,6 @@ export default function Sucursal(args) {
     }
 
     const confirmar = () => {
-        console.log("EJECUTA DESE SUCURSAL")
         if (codigoSucursal != '') {
             guardarSucursal();
             setMostrarEnvios(false);
