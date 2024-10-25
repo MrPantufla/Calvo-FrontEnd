@@ -156,6 +156,7 @@ export default function FiltrosYProductos() {
   const indexUltimoItem = paginaActual * itemsPorPagina;
   const indexPrimerItem = indexUltimoItem - itemsPorPagina;
   const itemsActuales = productosOrdenados.slice(indexPrimerItem, indexUltimoItem);
+  const productosDeProcesosEliminadosPaginados = productosDeProcesosEliminados.reverse().slice(indexPrimerItem, indexUltimoItem);
 
   const siguienteProducto = () => {
     const indiceActual = listaFiltrada.indexOf(productoSeleccionado);
@@ -342,13 +343,10 @@ export default function FiltrosYProductos() {
                             />
                           </div>
                         ))}
-                        {eliminadosDeProcesosSelected && productosDeProcesosEliminados.map((p) => (
+                        {eliminadosDeProcesosSelected && productosDeProcesosEliminadosPaginados.map((p) => (
                           <div key={extraerProducto(p) + "-" + extraerProceso(p)} className="col-12 col-md-6 col-lg-4 producto">
                             <CardProducto
                               producto={productosIndexado[extraerProducto(p)]}
-                              onClick={() => {
-                                !isMobile && seleccionarProducto(p);
-                              }}
                               proceso={extraerProceso(p)}
                             />
                           </div>
@@ -376,6 +374,7 @@ export default function FiltrosYProductos() {
           onClose={handleCloseProductoGrande}
           siguiente={siguienteProducto}
           anterior={productoAnterior}
+          color={stipoProceso ? stipoProceso.color : ''}
         />
       )}
 
@@ -384,7 +383,7 @@ export default function FiltrosYProductos() {
           paginar={paginar}
           paginaActual={paginaActual}
           indexUltimoItem={indexUltimoItem}
-          listaFiltrada={listaFiltrada}
+          listaFiltrada={eliminadosDeProcesosSelected ? (productosDeProcesosEliminados) : (listaFiltrada)}
           itemsPorPagina={itemsPorPagina}
         />)
       }
