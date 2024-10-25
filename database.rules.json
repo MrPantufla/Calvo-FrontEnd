@@ -17,6 +17,9 @@
     "direcciones":{
       ".indexOn": ["id_usuario"]
     },
+    "finalizar_compra":{
+      ".indexOn": ["id_usuario"]
+    },
     "pedidos_web":{
       ".indexOn": ["nro_doc", "grupo", "id_usuario"]
     },
@@ -43,9 +46,6 @@
     },
     "productos":{
       ".indexOn": ["cod_int", "id"]
-    },
-    "sucursales":{
-      ".indexOn": ["usuario"]
     },
     "usuarios":{
       ".indexOn": ["email", "cuit", "id"]
