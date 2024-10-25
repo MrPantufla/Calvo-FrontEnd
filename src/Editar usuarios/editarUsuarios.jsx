@@ -54,7 +54,10 @@ export default function EditarUsuarios() {
             (u.nombre.toUpperCase() + " " + u.apellido.toUpperCase()).includes(busqueda.toUpperCase()) ||
             u.email.toUpperCase().includes(busqueda.toUpperCase()) ||
             u.telefono.toString().includes(busqueda) ||
-            u.cuit.toString().includes(busqueda);
+            u.cuit.toString().includes(busqueda) ||
+            u.localidad.toUpperCase().includes(busqueda.toUpperCase()) ||
+            u.provincia.toUpperCase().includes(busqueda.toUpperCase()) ||
+            u.zona.toUpperCase().includes(busqueda.toUpperCase());
 
         return busquedaCumple;
     });
@@ -69,7 +72,7 @@ export default function EditarUsuarios() {
                     <input
                         className="busqueda"
                         type="text"
-                        placeholder="Buscar nombre, email, cuit o teléfono"
+                        placeholder="Buscar nombre, email, cuit, teléfono, ciudad, provincia o zona"
                         value={busqueda}
                         onChange={(e) => {
                             setBusqueda(e.target.value);

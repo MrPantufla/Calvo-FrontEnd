@@ -11,6 +11,9 @@ export default function CardEditarUsuario(args) {
     const [telefono, setTelefono] = useState(args.usuario.telefono);
     const [emailConfirmado, setEmailConfirmado] = useState(args.usuario.email_confirmado);
     const [cliente, setCliente] = useState(args.usuario.cliente == true);
+    const [localidad, setLocalidad] = useState(args.usuario.localidad);
+    const [provincia, setProvincia] = useState(args.usuario.provincia);
+    const [zona, setZona] = useState(args.usuario.zona);
     const [eliminar, setEliminar] = useState(false);
     const { backend } = useVariables();
     const [respuesta, setRespuesta] = useState('');
@@ -25,6 +28,9 @@ export default function CardEditarUsuario(args) {
         telefono: telefono,
         emailConfirmado: emailConfirmado,
         cliente: cliente,
+        localidad: localidad,
+        provincia: provincia,
+        zona: zona
     }
 
     const toggleEliminar = (e) => {
@@ -126,6 +132,44 @@ export default function CardEditarUsuario(args) {
                                 id='cuit'
                                 value={cuit}
                                 onChange={(e) => setCuit(e.target.value)}
+                            >
+                            </input>
+                        </label>
+                    </div>
+
+                    <div className="parteMedioFormularioEditarUsuario">
+                    <label htmlFor='localidad'>
+                            Localidad
+                            <input
+                                className="inputTextoEditarUsuario"
+                                type='text'
+                                id='localidad'
+                                value={localidad}
+                                onChange={(e) => setLocalidad(e.target.value)}
+                            >
+                            </input>
+                        </label>
+
+                        <label htmlFor='provincia'>
+                            Provincia
+                            <input
+                                className="inputTextoEditarUsuario"
+                                type='text'
+                                id='provincia'
+                                value={provincia}
+                                onChange={(e) => setProvincia(e.target.value)}
+                            >
+                            </input>
+                        </label>
+
+                        <label htmlFor='zona'>
+                            Zona
+                            <input
+                                className="inputTextoEditarUsuario"
+                                type='text'
+                                id='zona'
+                                value={zona}
+                                onChange={(e) => setZona(e.target.value)}
                             >
                             </input>
                         </label>
