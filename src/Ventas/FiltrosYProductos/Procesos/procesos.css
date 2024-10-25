@@ -94,9 +94,22 @@
 }
 
 .tipoProceso h1{
+    font-weight: bold;
     width: 100%;
     text-align: center;
-    background-color: rgba(255, 255, 255, 50%);
+    background-color:rgba(255, 255, 255, 50%);
+    color: var(--colorSecundario);
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tipoProceso h1 span{
+    height: 1rem;
+    width: 2.5rem;
+    padding: 0;
+    margin: 0 0.5rem 0 0;
 }
 
 .proceso{
@@ -150,14 +163,24 @@
     }
 }
 
-@media(max-width: 767px){
-    .contenedorPrincipalProcesos{
-        margin-top: 2.6rem;
+@media(max-width: 820px){
+    .tipoProceso.anodizados{
+        border-radius: 5px 5px 0px 0px;
+    }
+    
+    .tipoProceso.pinturas{
+        border-radius: 0px 0px 5px 5px;
     }
 
     .tiposProcesoContainer{
         display: flex;
         flex-direction: column;
+    }
+}
+
+@media(max-width: 767px){
+    .contenedorPrincipalProcesos{
+        margin-top: 2.6rem;
     }
 
     .cardProceso h1{
@@ -173,5 +196,10 @@
 
     .textoComunicateConNosotros.textoProcesos{
         font-size: 3rem;
+    }
+
+    .tipoProceso h1 span{
+        height: 1rem;
+        width: 2.3rem;
     }
 }

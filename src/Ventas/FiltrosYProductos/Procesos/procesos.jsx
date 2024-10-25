@@ -30,11 +30,11 @@ export default function Procesos(args) {
             {tipoProceso == null ?
                 (<div className="tiposProcesoContainer">
                     <div className={`tipoProceso anodizados ${!isTablet ? 'desktop' : 'tablet'}`} onClick={() => setTipoProceso('anodizados')}>
-                        <h1>ANODIZADOS</h1>
+                        <h1><span className="poligono"/>Anodizados</h1>
                     </div>
 
                     <div className={`tipoProceso pinturas ${!isTablet ? 'desktop' : 'tablet'}`} onClick={() => setTipoProceso('pinturas')}>
-                        <h1>PINTURAS</h1>
+                        <h1><span className="poligono"/>Pinturas</h1>
                     </div>
                 </div>)
                 :
@@ -43,7 +43,7 @@ export default function Procesos(args) {
                         <>
                             {tipoProceso == 'pinturas' && (
                                 <h1 className="textoComunicateConNosotros textoProcesos">
-                                    <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación, 
+                                    <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación,
                                     <a href={isMobile ?
                                         (`https://wa.me/5493456475294`)
                                         :
@@ -76,45 +76,41 @@ export default function Procesos(args) {
                             })}
                         </>
                         :
-                        ((acabado == null && tipoProceso != 'pinturas') ?
+                        (acabado == null && tipoProceso !== 'pinturas') ? (
                             <>
-                                {Object.values(procesos).map((acabado) => {
-                                    if (!productosEliminados.includes(acabado.id)) {
-                                        const colorCorregido = (acabado.color).replace(/\s+/g, '-');
-                                        if (acabado.rubro === 89) {
-                                            if (stipoProceso && stipoProceso.detalle.slice(-2) == 'M2' && (acabado.detalle.slice(-2) == 'M2' || acabado.id == 0)) {
-                                                return (
+                                {Object.values(procesos).map((acabado) =>
+                                    !productosEliminados.includes(acabado.id) ? (
+                                        acabado.rubro === 89 && (
+                                            (stipoProceso && stipoProceso.detalle.slice(-2) === 'M2' && (acabado.detalle.slice(-2) === 'M2' || acabado.id === 0)) ? (
+                                                <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{ paddingTop: '0.7rem ' }}>
+                                                    <CardAcabados colorCorregido={acabado.color.replace(/\s+/g, '-')} acabado={acabado} />
+                                                </div>
+                                            ) : (
+                                                stipoProceso && stipoProceso.detalle.slice(-2) !== 'M2' && acabado.detalle.slice(-2) !== 'M2' && (
                                                     <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{ paddingTop: '0.7rem ' }}>
-                                                        <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
+                                                        <CardAcabados colorCorregido={acabado.color.replace(/\s+/g, '-')} acabado={acabado} />
                                                     </div>
-                                                );
-                                            }
-                                            else if (stipoProceso && stipoProceso.detalle.slice(-2) != 'M2' && acabado.detalle.slice(-2) != 'M2') {
-                                                return (
-                                                    <div key={acabado.id} className="col-12 col-md-6 col-lg-6 producto proceso" style={{ paddingTop: '0.7rem ' }}>
-                                                        <CardAcabados colorCorregido={colorCorregido} acabado={acabado} />
-                                                    </div>
-                                                );
-                                            }
-                                        }
-                                        return null;
-                                    }
-                                })}
+                                                )
+                                            )
+                                        )
+                                    ) : null
+                                )}
                             </>
-                            :
-                            (productosEliminados && productosEliminados.length > 0 && (Object.values(args.itemsActuales).map((producto) => (
-                                <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
-                                    <CardProducto
-                                        producto={producto}
-                                        color={stipoProceso.color}
-                                        proceso={stipoProceso.id}
-                                        acabado={acabado ? acabado.id : 0}
-                                        onClick={() => {
-                                            args.seleccionarProducto(producto);
-                                        }}
-                                    />
-                                </div>
-                            ))))
+                        ) : (
+                            productosEliminados && productosEliminados.length > 0 && (
+                                Object.values(args.itemsActuales).map((producto) => (
+                                    //console.log(`stipoProceso.id: ${stipoProceso?.id}`), // Imprime stipoProceso.id en cada render
+                                    <div key={producto.id} className="col-12 col-md-6 col-lg-4 producto">
+                                        <CardProducto
+                                            producto={producto}
+                                            color={stipoProceso?.color} // Uso de optional chaining para evitar errores si stipoProceso es undefined
+                                            proceso={stipoProceso?.id}  // Uso de optional chaining para evitar errores si stipoProceso es undefined
+                                            acabado={acabado ? acabado.id : 0}
+                                            onClick={() => args.seleccionarProducto(producto)}
+                                        />
+                                    </div>
+                                ))
+                            )
                         )
                     }
                 </div>)
