@@ -16,12 +16,20 @@ export default function ProductoGrande(args) {
         precio = { precio },
         marca = { marca },
         rubro = { rubro },
-        color = { color },
         kg = { kg },
         cod_int = { cod_int },
         referencia = { referencia },
         cantidad = { cantidad },
     } = args.producto;
+
+    let color;
+
+    if (args.color == '') {
+        color = args.producto.color;
+    }
+    else {
+        color = args.color;
+    }
 
     const [aptoParaCerrar, setAptoParaCerrar] = useState(false)
 
