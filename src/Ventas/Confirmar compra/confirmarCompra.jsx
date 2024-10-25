@@ -10,15 +10,18 @@ export default function ConfirmarCompra(args) {
     const { backend } = useVariables();
 
     const {
-        setCodigoSucursal,
         errorMessage,
         setErrorMessage,
         setTipoEnvio,
         medioEnvio,
         metodoPago,
         metodoFacturacion,
-        keyDownEnter,
-        setKeyDownEnter
+        setCodigoSucursal,
+        setNombreYApellido,
+        setCp,
+        setLocalidad,
+        setDireccion,
+        setDni
     } = useFinalizarCompra();
 
     const {
@@ -40,7 +43,7 @@ export default function ConfirmarCompra(args) {
         opcion.set();
     }
 
-    const obtenerSucursal = async () => {
+    const obtenerDatos = async () => {
         try {
             let tokenParaEnviar = Cookies.get('jwtToken');
 
@@ -48,7 +51,7 @@ export default function ConfirmarCompra(args) {
                 tokenParaEnviar = null;
             }
 
-            const response = await fetch(`${backend}/api/extraerSucursal`, {
+            const response = await fetch(`${backend}/api/extraerFinalizarCompra`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,8 +60,34 @@ export default function ConfirmarCompra(args) {
             });
 
             if (response.ok) {
-                const sucursal = await response.text();
-                setCodigoSucursal(sucursal);
+                const datos = await response.text();
+                
+                if(datos.sucursal != undefined){
+                    setCodigoSucursal(datos.sucursal);
+                }
+
+                if(datos.nombreYApellido != undefined){
+                    setNombreYApellido(datos.nombreYApellido);
+                }
+
+                if(datos.cp != undefined){
+                    setCp(datos.cp);
+                }
+
+                if(datos.localidad != undefined){
+                    setLocalidad(datos.localidad);
+                }
+
+                if(datos.direccion != undefined){
+                    setDireccion(datos.direccion);
+                }
+
+                if(datos.dni != null && datos.dni > 0){
+                    setDni(datos.dni);
+                }
+            }
+            else{
+                console.log(response)
             }
         } catch (error) {
             return false;
@@ -66,7 +95,7 @@ export default function ConfirmarCompra(args) {
     }
 
     useEffect(() => {
-        obtenerSucursal();
+        obtenerDatos();
 
         if (state.userInfo && !state.userInfo.cliente) {
             setTipoEnvio('correo')
