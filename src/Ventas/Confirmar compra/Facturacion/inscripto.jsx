@@ -14,7 +14,8 @@ export default function Inscripto() {
     const {
         setErrorMessage,
         cuit, 
-        setCuit
+        setCuit,
+        almacenarFacturacion
     } = useFinalizarCompra();
 
     const {
@@ -45,6 +46,7 @@ export default function Inscripto() {
         
         setMostrarFacturacion(false);
         //setMostrarFinalizarPedido(true);
+        almacenarFacturacion();
         limpiarCarrito();
         confirmarCompra(datosPedido)
     }

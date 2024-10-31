@@ -1,5 +1,7 @@
 import { createContext, useContext } from 'react';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useVariables } from './contextVariables';
 
 const FinalizaCompraContext = createContext();
 
@@ -32,7 +34,9 @@ function FinalizarCompraProvider({ children }) {
     const [cuit, setCuit] = useState('');
     const [keyDownEnter, setKeyDownEnter] = useState(null);
 
-    const limpiarFinalizarCompra = () =>{
+    const { backend } = useVariables();
+
+    const limpiarFinalizarCompra = () => {
         setMedioEnvio('');
         setTipoEnvio('');
         setMetodoPago('');
@@ -45,6 +49,32 @@ function FinalizarCompraProvider({ children }) {
         setCodigoSeguridad('');
         setMetodoFacturacion('');
         setErrorMessage('');
+    }
+
+    const almacenarFacturacion = async () => {
+        const objetoFacturacion = {
+            nombreYApellido: nombreYApellido,
+            cp: cp,
+            localidad: localidad,
+            direccion: direccion,
+            dni: dni,
+            cuit: cuit
+        }
+
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
+        fetch(`${backend}/facturacion/post`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
+            },
+            body: JSON.stringify(objetoFacturacion),
+        })
     }
 
     return (
@@ -74,21 +104,22 @@ function FinalizarCompraProvider({ children }) {
             errorMessage,
             setErrorMessage,
             tipoEnvio,
-            setTipoEnvio, 
-            nombreYApellido, 
+            setTipoEnvio,
+            nombreYApellido,
             setNombreYApellido,
-            cp, 
+            cp,
             setCp,
-            localidad, 
+            localidad,
             setLocalidad,
-            direccion, 
+            direccion,
             setDireccion,
-            dni, 
+            dni,
             setDni,
-            cuit, 
+            cuit,
             setCuit,
-            keyDownEnter, 
-            setKeyDownEnter
+            keyDownEnter,
+            setKeyDownEnter,
+            almacenarFacturacion
         }}>
             {children}
         </FinalizaCompraContext.Provider>

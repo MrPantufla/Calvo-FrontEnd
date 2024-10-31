@@ -51,7 +51,7 @@ export default function ConfirmarCompra(args) {
                 tokenParaEnviar = null;
             }
 
-            const response = await fetch(`${backend}/api/extraerFinalizarCompra`, {
+            const response = await fetch(`${backend}/finalizarCompra/get`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
