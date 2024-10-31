@@ -19,6 +19,7 @@ import { ConfiguracionProvider } from './contextConfiguracion.jsx';
 import { useVariables } from './contextVariables.jsx';
 import TerminosYCondiciones from './Terminos y condiciones/terminosYCondiciones.jsx';
 import { FinalizarCompraProvider } from './contextFinalizarCompra.jsx';
+import { ZonasProvider } from './contextZonas.jsx';
 
 function App() {
 
@@ -27,28 +28,30 @@ function App() {
       <DesplegableProviderCatalogos>
         <DesplegableProviderPerfil>
           <Router>
-            <LoginProvider>
-              <CarritoProvider>
-                <FavoritosProvider>
-                  <FinalizarCompraProvider>
-                    <TiendaProvider>
-                      <ConfiguracionProvider>
-                        <Routes>
-                          <Route path="/" element={<HomePage />} />
-                          <Route path="/tienda" element={<Ventas />} />
-                          <Route path="/perfil" element={<Perfil />} />
-                          <Route path="/misCompras" element={<MisCompras />} />
-                          <Route path="/editarUsuarios" element={<EditarUsuarios />} />
-                          <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
-                          {/*<Route path="/pdf" element={<PdfCarrito/>} />*/}
-                        </Routes>
-                        <LoginYRegistro />
-                      </ConfiguracionProvider>
-                    </TiendaProvider>
-                  </FinalizarCompraProvider>
-                </FavoritosProvider>
-              </CarritoProvider>
-            </LoginProvider>
+            <ZonasProvider>
+              <LoginProvider>
+                <CarritoProvider>
+                  <FavoritosProvider>
+                    <FinalizarCompraProvider>
+                      <TiendaProvider>
+                        <ConfiguracionProvider>
+                          <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/tienda" element={<Ventas />} />
+                            <Route path="/perfil" element={<Perfil />} />
+                            <Route path="/misCompras" element={<MisCompras />} />
+                            <Route path="/editarUsuarios" element={<EditarUsuarios />} />
+                            <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
+                            {/*<Route path="/pdf" element={<PdfCarrito/>} />*/}
+                          </Routes>
+                          <LoginYRegistro />
+                        </ConfiguracionProvider>
+                      </TiendaProvider>
+                    </FinalizarCompraProvider>
+                  </FavoritosProvider>
+                </CarritoProvider>
+              </LoginProvider>
+            </ZonasProvider>
           </Router>
         </DesplegableProviderPerfil>
       </DesplegableProviderCatalogos>
