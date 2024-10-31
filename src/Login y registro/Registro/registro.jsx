@@ -2,8 +2,8 @@ import './registro.css';
 import { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../../contextLogin';
 import { useVariables } from '../../contextVariables';
-import { zonas, provincias, ciudades } from '../../ciudadesYProvincias.js';
 import { useTienda } from '../../contextTienda.jsx';
+import { useZonas } from '../../contextZonas.jsx';
 
 export default function Registro() {
     const {
@@ -11,16 +11,25 @@ export default function Registro() {
         isMobile
     } = useTienda();
 
-    const { 
-        backend, 
-        setMostrarCartelCliente 
+    const {
+        backend,
+        setMostrarCartelCliente
     } = useVariables();
 
-    const { 
-        setErrorMessage, 
-        handleLogin, 
-        errorMessage 
+    const {
+        setErrorMessage,
+        handleLogin,
+        errorMessage
     } = useAuth();
+
+    const {
+        ciudades,
+        setCiudades,
+        provincias,
+        setProvincias,
+        zonas,
+        setZonas
+    } = useZonas();
 
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
@@ -56,58 +65,84 @@ export default function Registro() {
 
         } else if (!emailRegex.test(email)) {
             setErrorMessage('Ingrese un formato de correo electrónico válido.');
-            
+
             container.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-            
+
             return;
 
         } else if (!numerosRegex.test(telefono)) {
             setErrorMessage('El campo de teléfono solo permite números');
-            
+
             container.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-            
+
             return;
 
         } else if (contrasenia !== confirmContrasenia) {
             setErrorMessage('Las contraseñas no coinciden.');
-            
+
             container.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-            
+
             return;
 
         } else if (cuit.length != 11) {
             setErrorMessage('CUIT debe contener 11 caracteres')
-            
+
             container.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-            
+
             return;
 
         } else if (!numerosRegex.test(cuit)) {
             setErrorMessage('El campo de CUIT solo permite números')
-            
+
             container.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-            
+
             return;
 
         } else {
             confirmarRegistro();
         }
     };
+
+    const extraerZonas = async () => {
+        try {
+
+            const response = await fetch(`${backend}/api/ciudadesProvinciasYZonas`, {
+                method: 'GET',
+            });
+
+            if (response.ok) {
+                const zonas = await response.json();
+
+                setCiudades(zonas.ciudades);
+                setProvincias(zonas.provincias);
+                setZonas(zonas.zonas);
+
+            } else {
+                console.log("Error obteniendo provincias y ciudades. Por favor, intentalo más tarde")
+            }
+        } catch (error) {
+            console.error('Error al encontrar al usuario:', error);
+        }
+    }
+
+    useEffect(() => {
+        extraerZonas();
+    }, [])
 
     const confirmarRegistro = async () => {
         setRespuestaCargando(false);
@@ -138,7 +173,7 @@ export default function Registro() {
         if (response.ok) {
             handleLogin({ email: usuario.email, password: usuario.contrasenia });
             setRespuestaCargando(true);
-            
+
             return null;
         } else {
             const data = await response.text();
@@ -411,7 +446,7 @@ export default function Registro() {
                         onKeyDown={presionarEnter}
                     />
                 </div>
-                <p className="terminosYCondicionesRegistro">*Al registrarse en este sitio web, usted está aceptando nuestros <a href="/terminosYCondiciones" target='blank'>términos y condiciones</a></p>
+                <p className="terminosYCondicionesRegistro">Al registrarse en este sitio web, usted está aceptando nuestros <a href="/terminosYCondiciones" target='blank'>términos y condiciones</a></p>
                 <div className="botonRegistroContainer">
                     <button className="botonEnviarRegistro" type="button" onClick={handleRegistro}>
                         Registrar
