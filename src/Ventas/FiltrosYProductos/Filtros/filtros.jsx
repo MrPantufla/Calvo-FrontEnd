@@ -84,10 +84,10 @@ export default function Filtros(args) {
                     {(tipoProceso && stipoProceso && (tipoProceso == 'anodizados' ? acabado : !acabado) && !stipoProceso.detalle.includes('M2')) && <Marcas setPaginaActual={args.setPaginaActual} handleScrollClick={handleScrollClick} rubro={rubroPerfiles} sinEco={true} sinColores={true} />}
                 </div>
                 <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
-                <div className={`labelRubros ${softwareSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin') && 'ultimoLabel'}`} onClick={() => seleccionarSoftware()}>SOFTWARE</div>
-                {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
-                {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros ${eliminadosDeProcesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminadosDeProcesos()}>ELIMINADOS DE PROCESOS</div>))}
-                {state.userInfo && (state.userInfo.tipo_usuario == 'admin' && (<div className={`labelRubros textoLabelRubros ultimoLabel`} onClick={() => guardarDestacados()}>GUARDAR DESTACADOS</div>))}
+                <div className={`labelRubros ${softwareSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin' && state.userInfo.tipo_usuario != 'colaborador') && 'ultimoLabel'}`} onClick={() => seleccionarSoftware()}>SOFTWARE</div>
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros ${eliminadosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros ${eliminadosDeProcesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminadosDeProcesos()}>ELIMINADOS DE PROCESOS</div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros ultimoLabel`} onClick={() => guardarDestacados()}>GUARDAR DESTACADOS</div>))}
             </div>
             {!isMobile &&
                 <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={() => scrollearFiltros(200)}>

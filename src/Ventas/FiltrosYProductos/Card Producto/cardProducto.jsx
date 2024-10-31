@@ -330,7 +330,7 @@ export default function CardProducto(args) {
           </div>
         }
         {state.userInfo &&
-          ((state.userInfo.tipo_usuario == 'admin') &&
+          ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') &&
             <>
               <button className="eliminarElemento" onClick={() => (((procesosSelected && stipoProceso && idConProceso) || eliminadosDeProcesosSelected) ? eliminarProducto(idConProceso, true) : eliminarProducto(id, false))} aria-label='Eliminar elemento'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">

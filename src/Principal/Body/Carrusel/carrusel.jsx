@@ -128,7 +128,7 @@ export default function Carrusel() {
                     src={imageName}
                     alt={`Slide ${index}`}
                   />
-                  {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (
+                  {(state.userInfo && (state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador')) && (
                     <>
                       <div className="divSubirArchivoCarrusel storageCarrusel">
                         <label htmlFor="subirImagen" className="boton-personalizado">+</label>
@@ -146,7 +146,7 @@ export default function Carrusel() {
                         </div>
                       )}
                     </>
-                  )) : ('')}
+                  )}
 
                 </Carousel.Item>
               )
