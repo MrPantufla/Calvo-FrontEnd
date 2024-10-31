@@ -12,11 +12,11 @@ export default function CardEditable(args) {
   } = useVariables();
 
   const [cardAbierta, setCardAbierta] = useState(true);
-  const [pregunta, setPregunta] = useState('');
-  const [respuesta, setRespuesta] = useState('');
+  const [pregunta, setPregunta] = useState(args.pregunta ? args.pregunta : '');
+  const [respuesta, setRespuesta] = useState(args.respuesta ? args.respuesta : '');
 
   const cancelarAgregar = () => {
-    args.setAgregarCardAbierto(false);
+    args.editando ? (args.setEditando(false)) : (args.setAgregarCardAbierto(false));
   }
 
   const textareaRef = useRef(null);
@@ -63,9 +63,41 @@ export default function CardEditable(args) {
     }
   }
 
-  const tabInput = () =>{
-    return(event) => {
-      if(event.key == 'Tab'){
+  const editarPreguntaFrecuente = async () => {
+    try {
+      let tokenParaEnviar = Cookies.get('jwtToken');
+
+      if (tokenParaEnviar == undefined) {
+        tokenParaEnviar = null;
+      }
+
+      const bodyCard = { id: args.idEdicion, pregunta: pregunta, respuesta: respuesta }
+
+      const response = await fetch(`${backend}/api/editarPreguntaFrecuente`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': tokenParaEnviar,
+        },
+        body: JSON.stringify(bodyCard),
+      });
+
+      if (response.ok) {
+        args.obtenerPreguntasFrecuentes();
+        setAgregarCardAbierto(false);
+        args.setEditando(false);
+        return true;
+      }
+    } catch (error) {
+      console.error('Error al encontrar al usuario:', error);
+      setAgregarCardAbierto(false);
+      args.setEditando(false);
+    }
+  }
+
+  const tabInput = () => {
+    return (event) => {
+      if (event.key == 'Tab') {
         event.preventDefault()
         const nextInput = textareaRef.current;
         nextInput.focus();
@@ -89,7 +121,7 @@ export default function CardEditable(args) {
           onKeyDown={tabInput()}
         />
 
-        <button className="botonGuardarCard" onClick={() => guardarPreguntaFrecuente()}>
+        <button className="botonGuardarCard" onClick={() => (args.idEdicion ? editarPreguntaFrecuente() : guardarPreguntaFrecuente())}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />

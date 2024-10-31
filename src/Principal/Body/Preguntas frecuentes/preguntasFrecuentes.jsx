@@ -51,6 +51,7 @@ export default function PreguntasFrecuentes() {
           {preguntasFrecuentes && preguntasFrecuentes.map((item, index) => (
             <CardPreguntasFrecuentes
               obtenerPreguntasFrecuentes={obtenerPreguntasFrecuentes}
+              setAgregarCardAbierto={setAgregarCardAbierto}
               pregunta={item.pregunta}
               respuesta={item.respuesta}
               cardActiva={cardActiva}
