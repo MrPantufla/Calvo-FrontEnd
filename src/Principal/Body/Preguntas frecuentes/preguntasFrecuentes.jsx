@@ -23,7 +23,7 @@ export default function PreguntasFrecuentes() {
 
   const obtenerPreguntasFrecuentes = async () => {
     try {
-      const response = await fetch(`${backend}/api/preguntasFrecuentes`, {
+      const response = await fetch(`${backend}/preguntasFrecuentes/get`, {
         method: 'GET'
       });
 

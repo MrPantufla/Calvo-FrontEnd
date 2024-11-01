@@ -41,7 +41,7 @@ export default function ConfirmacionCodigo() {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/confirmacionCodigo`, {
+      const response = await fetch(`${backend}/confirmacionCodigo/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export default function ConfirmacionCodigo() {
       tokenParaEnviar = null;
     }
 
-    fetch(`${backend}/api/reenviarCodigo`, {
+    fetch(`${backend}/registro/postCodigo`, {
       method: 'POST',
       headers: {
         'Authorization': tokenParaEnviar

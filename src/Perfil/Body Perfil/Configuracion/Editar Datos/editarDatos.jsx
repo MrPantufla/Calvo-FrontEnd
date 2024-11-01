@@ -40,7 +40,7 @@ export default function EditarDatos() {
             tokenParaEnviar = null;
         }
 
-        fetch(`${backend}/api/editarDatos`, {
+        fetch(`${backend}/editarDatos/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

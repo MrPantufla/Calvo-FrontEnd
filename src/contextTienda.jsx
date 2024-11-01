@@ -316,7 +316,7 @@ function TiendaProvider({ children }) {
   }
 
   const obtenerRubros = async () => {
-    const response = await fetch(`${backend}/api/rubros`);
+    const response = await fetch(`${backend}/rubros/get`);
 
     if (response.ok) {
       const rubros = await response.json();

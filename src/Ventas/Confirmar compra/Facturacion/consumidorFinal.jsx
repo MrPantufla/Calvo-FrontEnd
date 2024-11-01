@@ -15,7 +15,8 @@ export default function ConsumidorFinal() {
         direccion,
         setDireccion,
         dni,
-        setDni
+        setDni,
+        almacenarFacturacion
     } = useFinalizarCompra();
 
     const { 
@@ -52,6 +53,7 @@ export default function ConsumidorFinal() {
         limpiarCarrito();
         //setMostrarFinalizarPedido(true);
         confirmarCompra(datosPedido)
+        almacenarFacturacion()
     }
 
     return (

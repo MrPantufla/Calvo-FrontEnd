@@ -22,7 +22,7 @@ export default function CardPreguntasFrecuentes(args) {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/eliminarPreguntaFrecuente`, {
+      const response = await fetch(`${backend}/preguntasFrecuentes/postEliminar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

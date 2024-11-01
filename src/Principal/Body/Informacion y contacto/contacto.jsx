@@ -61,7 +61,7 @@ export default function Contacto() {
     }
 
     const enviarFormulario = () => {
-        fetch(`${backend}/api/procesarFormulario`, {
+        fetch(`${backend}/formulario/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

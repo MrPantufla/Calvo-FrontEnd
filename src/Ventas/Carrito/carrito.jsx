@@ -293,7 +293,7 @@ export default function Carrito(args) {
     };
 
     try {
-      await fetch(`${backend}/api/presupuesto`, {
+      await fetch(`${backend}/presupuesto/post`, {
         method: 'POST',
         headers: {
           'Authorization': tokenParaEnviar,

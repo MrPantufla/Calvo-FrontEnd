@@ -44,7 +44,7 @@ export default function CardEditable(args) {
 
       const bodyCard = { pregunta: pregunta, respuesta: respuesta }
 
-      const response = await fetch(`${backend}/api/agregarPreguntaFrecuente`, {
+      const response = await fetch(`${backend}/preguntasFrecuentes/postAgregar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export default function CardEditable(args) {
 
       const bodyCard = { id: args.idEdicion, pregunta: pregunta, respuesta: respuesta }
 
-      const response = await fetch(`${backend}/api/editarPreguntaFrecuente`, {
+      const response = await fetch(`${backend}/preguntasFrecuentes/postEditar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

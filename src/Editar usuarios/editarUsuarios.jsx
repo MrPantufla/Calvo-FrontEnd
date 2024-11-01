@@ -19,7 +19,7 @@ export default function EditarUsuarios() {
                 tokenParaEnviar = null;
             }
 
-            const response = await fetch(`${backend}/api/usuarios`, {
+            const response = await fetch(`${backend}/usuarios/get`, {
                 headers: {
                     'Authorization': tokenParaEnviar,
                 },

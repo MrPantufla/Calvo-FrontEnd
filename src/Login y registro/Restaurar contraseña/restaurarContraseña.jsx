@@ -18,7 +18,7 @@ export default function RestaurarContraseña() {
     const [contraseñaCambiada, setContraseñaCambiada] = useState(false);
 
     const enviarEmail = async () => {
-        const response = await fetch(`${backend}/api/restaurarContraseña`, {
+        const response = await fetch(`${backend}/restaurarContrasena/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export default function RestaurarContraseña() {
     }
 
     const cambiarContraseña = async () => {
-        const response = await fetch(`${backend}/api/cambiarContraseña`, {
+        const response = await fetch(`${backend}/restaurarContrasena/postCambiar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

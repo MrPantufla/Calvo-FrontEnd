@@ -52,7 +52,7 @@ export default function MisCompras() {
             }
 
             if (state.logueado) {
-                const response = await fetch(`${backend}/api/misCompras`, {
+                const response = await fetch(`${backend}/misCompras/post`, {
                     method: 'POST',
                     headers: {
                         'Authorization': tokenParaEnviar,

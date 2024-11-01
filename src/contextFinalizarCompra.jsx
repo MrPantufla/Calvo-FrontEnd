@@ -58,7 +58,8 @@ function FinalizarCompraProvider({ children }) {
             localidad: localidad,
             direccion: direccion,
             dni: dni,
-            cuit: cuit
+            cuit: cuit,
+            codigoSucursal: codigoSucursal
         }
 
         let tokenParaEnviar = Cookies.get('jwtToken');
@@ -67,7 +68,7 @@ function FinalizarCompraProvider({ children }) {
             tokenParaEnviar = null;
         }
 
-        fetch(`${backend}/facturacion/post`, {
+        fetch(`${backend}/finalizarCompra/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

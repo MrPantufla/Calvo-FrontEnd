@@ -30,7 +30,7 @@ function ProductosProvider({ children }) {
 
     const obtenerProductosFiltrados = async (categoria, descuentos) => {
         try {
-            const response = await fetch(`${backend}/api/productos`);
+            const response = await fetch(`${backend}/productos/get`);
             if (response) {
                 setDataCargada(true);
             }
@@ -155,10 +155,10 @@ function ProductosProvider({ children }) {
         let endpoint;
 
         if (proceso == true) {
-            endpoint = 'obtenerProductosDeProcesosEliminados';
+            endpoint = 'getProcesos';
         }
         else {
-            endpoint = 'obtenerProductosEliminados'
+            endpoint = 'getProductos'
         }
 
         try {
@@ -186,7 +186,7 @@ function ProductosProvider({ children }) {
 
     const obtenerPreciosOcultos = async () => {
         try {
-            const response = await fetch(`${backend}/api/obtenerPreciosOcultos`);
+            const response = await fetch(`${backend}/preciosOcultos/get`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -207,7 +207,7 @@ function ProductosProvider({ children }) {
 
     const obtenerProductosDestacados = async () => {
         try {
-            const response = await fetch(`${backend}/api/obtenerProductosDestacados`);
+            const response = await fetch(`${backend}/productosDestacados/get`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -233,7 +233,7 @@ function ProductosProvider({ children }) {
         }
 
         try {
-            const response = await fetch(`${backend}/api/guardarDestacados`, {
+            const response = await fetch(`${backend}/productosDestacados/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -261,11 +261,11 @@ function ProductosProvider({ children }) {
         let body;
 
         if (procesos == true) {
-            endpoint = 'eliminarProductoDeProceso';
+            endpoint = 'postEliminarProceso';
             body = { idProducto: idProducto.toString() };
             
         } else {
-            endpoint = 'eliminarProducto';
+            endpoint = 'postEliminarProducto';
             body = { idProducto: parseInt(idProducto) };
         }
 
@@ -275,7 +275,7 @@ function ProductosProvider({ children }) {
             if (tokenParaEnviar == undefined) {
                 tokenParaEnviar = null;
             }
-            const response = await fetch(`${backend}/api/${endpoint}`, {
+            const response = await fetch(`${backend}/productosEliminados/${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -319,7 +319,7 @@ function ProductosProvider({ children }) {
             if (tokenParaEnviar == undefined) {
                 tokenParaEnviar = null;
             }
-            const response = await fetch(`${backend}/api/ocultarPrecio`, {
+            const response = await fetch(`${backend}/ocultarPrecio/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -532,7 +532,7 @@ function ProductosProvider({ children }) {
     }
 
     const obtenerMarcas = async () => {
-        const response = await fetch(`${backend}/api/marcas`);
+        const response = await fetch(`${backend}/marcas/get`);
         if (response.ok) {
             const marcasResponse = await response.json();
             setMarcas(marcasResponse);

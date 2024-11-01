@@ -222,7 +222,7 @@ function CarritoProvider({ children }) {
   }
 
   function limpiarCarrito() {
-    setElementos([]);
+    //setElementos([]);
   }
 
   const actualizarCarrito = () => {
@@ -240,7 +240,7 @@ function CarritoProvider({ children }) {
       tokenParaEnviar = null;
     }
 
-    fetch(`${backend}/api/actualizarCarrito`, {
+    fetch(`${backend}/carrito/postActualizar`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -284,7 +284,7 @@ function CarritoProvider({ children }) {
       tokenParaEnviar = null;
     }
 
-    fetch(`${backend}/api/recibirCarrito`, {
+    fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

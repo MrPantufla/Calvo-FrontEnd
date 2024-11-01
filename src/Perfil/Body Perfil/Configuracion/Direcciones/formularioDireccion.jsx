@@ -35,7 +35,7 @@ export default function FormularioDireccion() {
         }
 
         setDireccionConfirmada(true);
-        fetch(`${backend}/api/direcciones`, {
+        fetch(`${backend}/direccion/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

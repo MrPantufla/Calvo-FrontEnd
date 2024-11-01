@@ -48,7 +48,7 @@ const PdfCarrito = forwardRef((props, ref) => {
     }
 
     try {
-      const response = await fetch(`${backend}/api/obtenerCliente`, {
+      const response = await fetch(`${backend}/cliente/get`, {
         method: 'GET',
         headers: {
           'Authorization': tokenParaEnviar,

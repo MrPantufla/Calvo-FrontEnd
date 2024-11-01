@@ -28,7 +28,7 @@ export default function Carrusel() {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/subirImagen`, {
+      const response = await fetch(`${backend}/carousel/postSubir`, {
         method: 'POST',
         headers: {
           'Authorization': tokenParaEnviar,
@@ -68,7 +68,7 @@ export default function Carrusel() {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/eliminarImagen`, {
+      const response = await fetch(`${backend}/carousel/postEliminar`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -89,7 +89,7 @@ export default function Carrusel() {
   useEffect(() => {
     const obtenerImagenes = async () => {
       try {
-        const response = await fetch(`${backend}/api/obtenerListaImagenes?folder=imagenesCarrusel`);
+        const response = await fetch(`${backend}/carousel/getLista?folder=imagenesCarrusel`);
 
         if (!response.ok) {
           throw new Error('Error al obtener la lista de imágenes');

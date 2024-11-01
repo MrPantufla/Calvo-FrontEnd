@@ -52,7 +52,7 @@ export default function CardEditarUsuario(args) {
             tokenParaEnviar = null;
         }
 
-        const response = await fetch(`${backend}/api/modificarUsuario`, {
+        const response = await fetch(`${backend}/modificarUsuario/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export default function CardEditarUsuario(args) {
             tokenParaEnviar = null;
         }
 
-        const response = fetch(`${backend}/api/eliminarUsuario`, {
+        const response = fetch(`${backend}/modificarUsuario/postEliminarUsuario`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

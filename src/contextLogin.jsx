@@ -79,7 +79,7 @@ export const LoginProvider = ({ children }) => {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/verificarToken`, {
+      const response = await fetch(`${backend}/verificarToken/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export const LoginProvider = ({ children }) => {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/obtenerDescuentos`, {
+      const response = await fetch(`${backend}/descuento/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export const LoginProvider = ({ children }) => {
         tokenParaEnviar = null;
       }
 
-      const response = await fetch(`${backend}/api/login`, {
+      const response = await fetch(`${backend}/login/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ export const LoginProvider = ({ children }) => {
       tokenParaEnviar = null;
     }
 
-    const response = await fetch(`${backend}/api/renovarTokenAuth`, {
+    const response = await fetch(`${backend}/login/postRenovarToken`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -261,7 +261,7 @@ export const LoginProvider = ({ children }) => {
 
     // Función para enviar la solicitud API una vez que el token esté disponible
     const enviarSolicitudAPI = (token) => {
-      fetch(`${backend}/api/direcciones/${email}`, {
+      fetch(`${backend}/direccion/get/${email}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

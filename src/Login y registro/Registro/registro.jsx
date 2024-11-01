@@ -121,7 +121,7 @@ export default function Registro() {
     const extraerZonas = async () => {
         try {
 
-            const response = await fetch(`${backend}/api/ciudadesProvinciasYZonas`, {
+            const response = await fetch(`${backend}/ciudadesProvinciasYZonas/get`, {
                 method: 'GET',
             });
 
@@ -161,7 +161,7 @@ export default function Registro() {
         };
 
 
-        const response = await fetch(`${backend}/api/registro`, {
+        const response = await fetch(`${backend}/registro/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

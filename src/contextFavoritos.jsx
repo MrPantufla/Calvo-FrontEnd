@@ -66,7 +66,7 @@ function FavoritosProvider({ children }) {
       tokenParaEnviar = null;
     }
 
-    fetch(`${backend}/api/actualizarFavoritos`, {
+    fetch(`${backend}/favoritos/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/text',

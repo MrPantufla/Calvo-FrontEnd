@@ -47,7 +47,7 @@ export default function EditarContraseña() {
             tokenParaEnviar = null;
         }
 
-        fetch(`${backend}/api/editarContraseña`, {
+        fetch(`${backend}/editarContrasena/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

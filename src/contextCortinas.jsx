@@ -60,7 +60,7 @@ function ProviderCortinas({ children }) {
             tokenParaEnviar = null;
         }
 
-        const response = await fetch(`${backend}/api/obtenerCliente`, {
+        const response = await fetch(`${backend}/cliente/get`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ function ProviderCortinas({ children }) {
                 "Email: " + state.userInfo.email;
         }
 
-        fetch(`${backend}/api/recibirCortina`, {
+        fetch(`${backend}/cortinas/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
