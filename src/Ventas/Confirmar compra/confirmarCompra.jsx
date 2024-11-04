@@ -21,7 +21,9 @@ export default function ConfirmarCompra(args) {
         setCp,
         setLocalidad,
         setDireccion,
-        setDni
+        setDni,
+        cuit,
+        setCuit
     } = useFinalizarCompra();
 
     const {
@@ -60,8 +62,8 @@ export default function ConfirmarCompra(args) {
             });
 
             if (response.ok) {
-                const datos = await response.text();
-                
+                const datos = await response.json();
+
                 if(datos.sucursal != undefined){
                     setCodigoSucursal(datos.sucursal);
                 }
@@ -84,6 +86,10 @@ export default function ConfirmarCompra(args) {
 
                 if(datos.dni != null && datos.dni > 0){
                     setDni(datos.dni);
+                }
+
+                if(datos.cuit != null && datos.cuit > 0){
+                    setCuit(datos.cuit.toString());
                 }
             }
             else{

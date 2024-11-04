@@ -21,41 +21,8 @@ export default function Sucursal(args) {
 
     const { codigoSucursal, setCodigoSucursal } = useFinalizarCompra();
 
-    const guardarSucursal = async () => {
-        try {
-            let tokenParaEnviar = Cookies.get('jwtToken');
-
-            if (tokenParaEnviar == undefined) {
-                tokenParaEnviar = null;
-            }
-
-            const bodyData = {
-                sucursal: codigoSucursal
-            };
-
-            const response = await fetch(`${backend}/api/recibirFinzalizarCompra`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
-            },
-            body: JSON.stringify(bodyData)
-            });
-
-            if (response.ok) {
-                console.log("Sucursal guardada con éxito")
-            }
-            else {
-
-            }
-        } catch (error) {
-            return false;
-        }
-    }
-
     const confirmar = () => {
         if (codigoSucursal != '') {
-            guardarSucursal();
             setMostrarEnvios(false);
             setMostrarPagos(true);
         }
