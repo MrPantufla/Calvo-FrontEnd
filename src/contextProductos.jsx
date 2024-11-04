@@ -162,7 +162,7 @@ function ProductosProvider({ children }) {
         }
 
         try {
-            const response = await fetch(`${backend}/api/${endpoint}`);
+            const response = await fetch(`${backend}/productosEliminados/${endpoint}`);
 
             if (response.ok) {
                 const data = await response.json();

@@ -57,8 +57,8 @@ function FinalizarCompraProvider({ children }) {
             cp: cp,
             localidad: localidad,
             direccion: direccion,
-            dni: dni,
-            cuit: cuit,
+            dni: parseInt(dni),
+            cuit: parseInt(cuit),
             codigoSucursal: codigoSucursal
         }
 
