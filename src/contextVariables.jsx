@@ -9,8 +9,8 @@ function useVariables() {
 }
 
 function VariablesProvider({ children }) {
-    const backend = "http://localhost:8080";
-    //const backend = "https://backend-calvo-415917.rj.r.appspot.com";
+    //const backend = "http://localhost:8080";
+    const backend = "https://backend-calvo-415917.rj.r.appspot.com";
 
     const [mostrarCartelCliente, setMostrarCartelCliente] = useState(false);
     const [mostrarCartelPresupuesto, setMostrarCartelPresupuesto] = useState(false);

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useVariables } from '../../../../contextVariables';
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
-import { useEffect } from 'react';
 
 export default function Domicilio() {
 

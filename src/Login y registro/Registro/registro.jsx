@@ -133,7 +133,7 @@ export default function Registro() {
                 setZonas(zonas.zonas);
 
             } else {
-                console.log("Error obteniendo provincias y ciudades. Por favor, intentalo más tarde")
+                setErrorMessage("Error obteniendo provincias y ciudades. Por favor, intentalo más tarde")
             }
         } catch (error) {
             console.error('Error al encontrar al usuario:', error);
