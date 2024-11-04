@@ -103,7 +103,6 @@ export default function CardMisCompras(args) {
                 <div className="fechaCardMisComprasContainer">
                     <h1 className="fechaCardMisCompras">{fechaFormateada}</h1>
                 </div>
-                <div className="divisorHeadMisCompras" />
                 <div className="cantidadYBotonesContainer">
                     <div className="cantidadYPoliginosContainer">
                         <div className="poligono poligonoMisCompras" />

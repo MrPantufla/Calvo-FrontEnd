@@ -1,7 +1,6 @@
 .contenedorPrincipalCardProducto {
     margin-top: 15px;
     box-shadow: 0 0 6px 1px gray;
-    aspect-ratio: 3 / 2;
     padding: 1rem;
     padding-bottom: 0;
     background-color: var(--colorPrimario);
