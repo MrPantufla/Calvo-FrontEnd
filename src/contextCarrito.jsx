@@ -222,7 +222,7 @@ function CarritoProvider({ children }) {
   }
 
   function limpiarCarrito() {
-    //setElementos([]);
+    setElementos([]);
   }
 
   const actualizarCarrito = () => {
