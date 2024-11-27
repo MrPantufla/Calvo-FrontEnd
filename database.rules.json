@@ -20,6 +20,9 @@
     "finalizar_compra":{
       ".indexOn": ["id_usuario"]
     },
+    "ofertas":{
+      ".indexOn": ["idProducto"]
+    },
     "pedidos_web":{
       ".indexOn": ["nro_doc", "grupo", "id_usuario"]
     },

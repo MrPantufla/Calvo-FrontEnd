@@ -194,7 +194,7 @@ function CarritoProvider({ children }) {
 
   function restarElemento(id) {
     const elementoExistente = elementos.find((elemento) => elemento.id === id);
-    if (elementoExistente.cantidadCarrito > 1) {
+    if (elementoExistente && elementoExistente.cantidadCarrito > 1) {
       elementoExistente.cantidadCarrito -= 1;
       setElementos([...elementos]);
     } else {

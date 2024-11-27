@@ -125,7 +125,7 @@
 .botonCollapseCardCompras.open {
     background-color: var(--colorSecundario);
     color: white;
-    transform: scale(1.03);
+    transform: scale(0.98);
 }
 
 .totalContainer {
