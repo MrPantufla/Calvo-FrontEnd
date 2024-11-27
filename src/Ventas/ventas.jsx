@@ -85,6 +85,7 @@ export default function Ventas() {
   }
 
   const tieneProceso = elementos && elementos.some(elemento => (elemento.id.length > 0 && elemento.id.includes("(")));
+  const tieneEco = elementos && elementos.some(elemento => elemento.cod_origProducto && (elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('ES') || elemento.cod_origProducto.endsWith('E'))));
 
   const aclaracionesEnvio = (
     <div className="aclaracionesConfirmarCompra">
@@ -154,17 +155,25 @@ export default function Ventas() {
       -El precio listado de los perfiles es aproximado en base al peso estimativo de los mismos.<br />
       -Los productos están sujetos a disponibilidad.<br />
       -Los precios pueden variar sin previo aviso. <br />
-      -Ciertos precios se encuentran sujetos al valor dólar y el valor final del pedido se concreta al momento de la facturación.<br />
+      -Ciertos precios se encuentran sujetos al valor dólar y el valor final del pedido se concreta al momento de la facturación.
+
+
+      {tieneProceso && (
+        <>
+          <br />
+          -El plazo de entrega de los procesos puede variar.<br />
+          -Para concretar un pedido con procesos, se debe abonar una seña del 50% del valor estimativo de los mismos. Una persona de ventas se comunicará para concretar dicha transacción e informar el plazo de entrega.
+        </>
+      )}
+
+      {tieneEco && (
+        <>
+          <br />
+          -Los perfiles de la línea ECO no se facturan.
+        </>
+      )}
     </p>
-  {
-    tieneProceso && (
-      <>
-        -El plazo de entrega de los procesos puede variar.<br />
-        -Para concretar un pedido con procesos, se debe abonar una seña del 50% del valor estimativo de los mismos. Una persona de ventas se comunicará para concretar dicha transacción e informar el plazo de entrega.
-      </>
-    )
-  }
-  ;
+    ;
 
   const facturacionArray = [
     ...(/*metodoPago == 'efectivo'*/true
