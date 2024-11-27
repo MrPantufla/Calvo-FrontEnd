@@ -206,7 +206,11 @@
     float: right;
     position: relative;
     z-index: 1;
-    transition: fill 0.2s, transform 0.1s;
+    transition: transform 0.1s;
+}
+
+.botonAñadirFavoritos .bi-heart{
+    transition: fill 0.2s;
 }
 
 .botonAñadirFavoritos:active {
@@ -246,6 +250,42 @@
 
 .eliminarElemento:hover {
     transform: scale(1.1);
+}
+
+.ofertarProducto{
+    position: absolute;
+    top: 12rem;
+    border: none;
+    cursor: pointer;
+    z-index: 99;
+    background-color: transparent;
+    right: 1.2rem;
+}
+
+.ofertarProducto svg{
+    transition: fill 0.2s;
+}
+
+.ofertarProducto:hover svg, .ofertarProducto.active svg{
+    fill:rgb(42, 153, 32);    
+}
+
+.inputDescuento{
+    position: absolute;
+    top: 12rem;
+    right: 4rem;
+    height: 2rem;
+    width: 3rem;
+    z-index: 99;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    color: var(--colorSecundario);
+    border-radius: 0;
+    border-width: 2px;
+    border-color: var(--colorSecundario)
 }
 
 .ocultarPrecio {

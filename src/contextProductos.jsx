@@ -25,6 +25,7 @@ function ProductosProvider({ children }) {
     const [productosDestacados, setProductosDestacados] = useState([]);
     const [procesos, setProcesos] = useState([]);
     const [troquelados, setTroquelados] = useState([]);
+    const [ofertas, setOfertas] = useState([]);
 
     const nuevosColores = new Set();
 
@@ -303,9 +304,6 @@ function ProductosProvider({ children }) {
                     }
                 }
             }
-            else {
-                console.error('Error eliminando el producto:', response);
-            }
         } catch (error) {
             console.error('Error desconocido:', error);
             return false;
@@ -487,14 +485,6 @@ function ProductosProvider({ children }) {
         });
     }
 
-    /*useEffect(() => {
-        if (!ordenamientoActivo) {
-            if (productosDestacados) {
-                setOrdenamientoActivo('destacados');
-            }
-        }
-    }, [ordenamientoActivo])*/
-
     const ordenarProductos = (productos) => {
         switch (ordenamientoActivo) {
             case 'precioAsc':
@@ -547,7 +537,68 @@ function ProductosProvider({ children }) {
 
     useEffect(() => {
         obtenerMarcas();
+        obtenerOfertas();
     }, [])
+
+    const obtenerOfertas = async () =>{
+        const response = await fetch(`${backend}/ofertas/get`);
+
+        if(response.ok){
+            const asResponse = await response.json();
+
+            setOfertas(asResponse);
+        }
+    }
+
+    const ofertarProducto = async (idProducto, descuento) => {
+        let tokenParaEnviar = Cookies.get('jwtToken') || null;
+    
+        const Oferta = {
+            idProducto: idProducto,
+            descuento: descuento,
+        };
+    
+        try {
+            const response = await fetch(`${backend}/ofertas/post`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenParaEnviar,
+                },
+                body: JSON.stringify(Oferta),
+            });
+    
+            if (response.ok) {
+                setOfertas((prevOfertas) => [
+                    ...prevOfertas.filter((o) => o.idProducto !== idProducto),
+                    Oferta,
+                ]);
+            }
+        } catch (error) {
+            console.error('Error al ofertar producto:', error);
+        }
+    };
+
+    console.log(ofertas)
+
+    const eliminarOferta = async (idProducto) =>{
+        setOfertas(ofertas.filter(o => o.idProducto != idProducto))
+
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
+        const response = await fetch(`${backend}/ofertas/postEliminar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': tokenParaEnviar,
+            },
+            body: JSON.stringify(idProducto),
+        });
+    }
 
     return (
         <ProductosContext.Provider value={{
@@ -573,7 +624,11 @@ function ProductosProvider({ children }) {
             marcasUnicas,
             ocultarPrecio,
             preciosOcultos,
-            productosDeProcesosEliminados
+            productosDeProcesosEliminados,
+            ofertas,
+            setOfertas,
+            ofertarProducto,
+            eliminarOferta
         }}>
             {children}
         </ProductosContext.Provider>

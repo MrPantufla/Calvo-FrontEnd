@@ -21,7 +21,11 @@ export default function CardProducto(args) {
     troquelados,
     extraerMetrosCuadrados,
     productosIndexado,
-    productosEliminados
+    productosEliminados,
+    ofertas,
+    setOfertas,
+    ofertarProducto,
+    eliminarOferta
   } = useProductos();
 
   const {
@@ -41,7 +45,8 @@ export default function CardProducto(args) {
     isMobile,
     procesosSelected,
     eliminadosDeProcesosSelected,
-    stipoProceso
+    stipoProceso,
+    ofertasSelected
   } = useTienda();
 
   const {
@@ -67,6 +72,7 @@ export default function CardProducto(args) {
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState();
   const [dropdownDesplegado, setDropdownDesplegado] = useState(false);
   const [paqueteSeleccionado, setPaqueteSeleccionado] = useState(true);
+  const [descuento, setDescuento] = useState(null);
 
   const toggleDropdown = () => {
     setDropdownDesplegado(!dropdownDesplegado);
@@ -184,7 +190,7 @@ export default function CardProducto(args) {
               restarElemento(idParaUsar);
             }
             else {
-              restarElemento(productosSueltos[referencia].idParaUsar);
+              restarElemento(productosSueltos[referencia].id);
             }
           }
         }
@@ -272,9 +278,6 @@ export default function CardProducto(args) {
       (precioChapa)
   )
 
-  const precioParaMostrarString = precioParaMostrarInt ? precioParaMostrarInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
-  const precioParaMostrarStringDescuento = precioParaMostrarInt ? (parseInt(precioParaMostrarInt * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
-
   let acabadoArreglado;
 
   if (args.acabado) {
@@ -293,7 +296,16 @@ export default function CardProducto(args) {
     idConProceso = id + "(" + args.proceso + "(0))";
   }
 
-  const productoActual = productosIndexado[id];
+  const ofertaEncontrada = ofertas.find(p => p.idProducto == id);
+
+  const precioParaMostrarString = precioParaMostrarInt ? precioParaMostrarInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+  const precioParaMostrarStringDescuento = precioParaMostrarInt ? (parseInt((precioParaMostrarInt - (ofertaEncontrada ? (precioParaMostrarInt / 100 * ofertaEncontrada.descuento) : 0)) * 97 / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+
+  const precioParaMostrarOfertaString = (precioParaMostrarInt && ofertaEncontrada)
+    ? Math.round(precioParaMostrarInt - (precioParaMostrarInt * ofertaEncontrada.descuento / 100))
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    : "0";
 
   return (
     <div className={`contenedorPrincipalCardProducto ${(!precio || precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
@@ -337,17 +349,28 @@ export default function CardProducto(args) {
                   <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                 </svg>
               </button>
+
+              <input className="inputDescuento" defaultValue={ofertaEncontrada ? ofertaEncontrada.descuento : null} onChange={(e) => setDescuento(e.target.value)} />
+              <button className={`ofertarProducto ${ofertaEncontrada && 'active'}`} onClick={() => ((ofertasSelected || descuento <= 0) ? eliminarOferta(id) : ofertarProducto(id, descuento))}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+                  <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5M11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z" />
+                  <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118z" />
+                </svg>
+              </button>
+
               <div className="destacadosContenedor">
                 <button className="flechasDestacados" onClick={() => cambiarPosicionDestacado(1)} aria-label='subirPosicionDestacados'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                 </button>
+
                 <button className={`estrellaDestacados ${productosDestacados.includes(idParaUsar) && 'checked'}`} onClick={() => destacarProducto(idParaUsar)} aria-label='destacarProducto'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-star" viewBox="0 0 16 16">
                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
                   </svg>
                 </button>
+
                 <button className="flechasDestacados" onClick={() => cambiarPosicionDestacado(-1)} aria-label='bajarPosicionDestacados'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
@@ -355,6 +378,7 @@ export default function CardProducto(args) {
                 </button>
                 <p className="posicionEnDestacados">{posicionEnDestacados > -1 && posicionEnDestacados + 1}</p>
               </div>
+
               <button className="ocultarPrecio" onClick={() => ocultarPrecio(id)} aria-label='Ocultar precio'>
                 {preciosOcultos.includes(id) ?
                   (<svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="currentColor" className="bi bi-eye-slash-fill" viewBox="0 0 16 16">
@@ -383,11 +407,6 @@ export default function CardProducto(args) {
             }
             alt="Imagen no disponible"
             loading="lazy"
-            /*onError={() => {
-              if(productoActual.precio > 0){
-                console.log(`${codigo} - ${detalle}`);
-              }
-            }}*/
           />
         </div>
         <div className="detalleYCod_orig">
@@ -454,11 +473,20 @@ export default function CardProducto(args) {
               ${!mayorista ?
                 ' MINORISTA ' : ''
               } 
-              APROXIMADO: $`
+              APROXIMADO: `
             ) : (
-              `PRECIO${!mayorista ? ' MINORISTA' : ''}: $`
+              `PRECIO${!mayorista ? ' MINORISTA' : ''}: `
             )}
-            {precioParaMostrarString}
+
+            {ofertas.some(o => o.idProducto === id) ? (
+              <>
+                <span style={{ textDecoration: 'line-through' }}>${precioParaMostrarString}</span>
+                {' $'}{precioParaMostrarOfertaString}
+                <span style={{ color: 'green', fontWeight: '700' }}> -{ofertaEncontrada && ofertaEncontrada.descuento}%</span>
+              </>
+            ) : (
+              "$" + precioParaMostrarString
+            )}
           </p>
           {(state.userInfo && state.userInfo.categoria == 'MAYORISTA' && !(tipo_prod == 'PERFIL' && cod_orig.endsWith('E'))) &&
             <p className="precioCardProducto segundoContainer">

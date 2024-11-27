@@ -27,7 +27,8 @@ export default function FiltrosYProductos() {
     dataCargada,
     procesos,
     marcasUnicas,
-    productosDeProcesosEliminados
+    productosDeProcesosEliminados,
+    ofertas
   } = useProductos();
 
   const {
@@ -54,7 +55,8 @@ export default function FiltrosYProductos() {
     marcas,
     rubros,
     softwareSelected,
-    imagenSoftwareSeleccionada
+    imagenSoftwareSeleccionada,
+    ofertasSelected
   } = useTienda();
 
   const {
@@ -98,7 +100,7 @@ export default function FiltrosYProductos() {
 
   const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-      rubroActivo == null && p.tipo_prod != 'PROCESOS' && !procesosSelected ||
+      rubroActivo == null && p.tipo_prod != 'PROCESOS' && !procesosSelected && !ofertasSelected||
       (rubroActivo && (
         rubroActivo.id == 'Perfiles' && (marcasUnicas.has(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca)) ||
         rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
@@ -113,7 +115,8 @@ export default function FiltrosYProductos() {
         rubroActivo.id == 'TejidosMosquiteros' && p.rubro == 10
       )) ||
       procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicas.has(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
-      procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85;
+      procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85 ||
+      ofertasSelected && ofertas && ofertas.some(o => o.idProducto == p.id)
 
     const colorCumple =
       coloresActivos.length === 0 ||
@@ -127,11 +130,11 @@ export default function FiltrosYProductos() {
       srubroActivo == null ||
       (srubroActivo && srubroActivo.id == p.srubro);
 
-    const buscarPorCodOrig =
-      rubrosPerfiles && rubrosPerfiles.includes(p.rubro) && srubrosPerfiles.find(srubro => srubro.id == p.srubro) && p.cod_orig.toString().includes(busqueda);
-
+      const buscarPorCodOrig =
+      marcasUnicas && marcasUnicas.size > 0 && marcasUnicas.has(p.marca) && p.cod_orig.toString().includes(busqueda);
+    
     const buscarPorCodInt =
-      p.tipo_prod != 'PERFIL' && p.cod_int.toString().includes(busqueda);
+      marcasUnicas && marcasUnicas.size > 0 && !marcasUnicas.has(p.marca) && p.cod_int.toString().includes(busqueda);
 
     const buscarPorDetalle =
       p.detalle.includes(busqueda);

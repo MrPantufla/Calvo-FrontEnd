@@ -22,6 +22,7 @@ function TiendaProvider({ children }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isFold, setIsFold] = useState(window.innerWidth <= 280);
   const [mostrarPagos, setMostrarPagos] = useState(false);
+  const [ofertasSelected, setOfertasSelected] = useState(false);
   const [cortinasSelected, setCortinasSelected] = useState(false);
   const [eliminadosSelected, setEliminadosSelected] = useState(false);
   const [eliminadosDeProcesosSelected, setEliminadosDeProcesosSelected] = useState(false);
@@ -87,7 +88,7 @@ function TiendaProvider({ children }) {
     const ordenamiento = params.getAll('ordenamiento');
 
     if (rubro) {
-      if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas' && rubro !== 'Software') {
+      if (rubro !== 'Procesos' && rubro !== 'Eliminados' && rubro !== 'Cortinas' && rubro !== 'Software' && rubro != 'Ofertas') {
         setRubroActivo(rubros.find(rubroObjeto => rubroObjeto.id === rubro));
       } else {
         if (rubro == 'Cortinas') {
@@ -98,8 +99,10 @@ function TiendaProvider({ children }) {
           setSoftwareSelected(true);
         } else if (rubro == 'Eliminados') {
           setEliminadosSelected(true);
-        } else if (rubro == 'EliminadosDeProcesos'){
+        } else if (rubro == 'EliminadosDeProcesos') {
           setEliminadosDeProcesosSelected(true);
+        } else if (rubro == 'Ofertas') {
+          setOfertasSelected(true);
         }
       }
     }
@@ -128,7 +131,7 @@ function TiendaProvider({ children }) {
 
     setColoresActivos(colores);
   }, [marcas, rubros, setProcesos]);
-  
+
   // Actualizar la URL cuando los filtros cambian
   useEffect(() => {
     if (marcas.length > 0 && rubros.length > 0) {
@@ -146,18 +149,21 @@ function TiendaProvider({ children }) {
       else if (eliminadosSelected) {
         params.set('rubro', 'Eliminados')
       }
-      else if(eliminadosDeProcesosSelected){
+      else if (eliminadosDeProcesosSelected) {
         params.set('rubro', 'EliminadosDeProcesos')
       }
       else if (softwareSelected) {
         params.set('rubro', 'Software')
+      }
+      else if (ofertasSelected) {
+        params.set('rubro', 'Ofertas')
       }
 
       if (marcaActiva) params.set('marca', marcaActiva.nombre)
 
       if (srubroActivo) params.set('srubro', srubroActivo.id);
 
-      if(ordenamientoActivo && ordenamientoActivo != 'destacados') params.set('ordenamiento', ordenamientoActivo)
+      if (ordenamientoActivo && ordenamientoActivo != 'destacados') params.set('ordenamiento', ordenamientoActivo)
 
       coloresActivos.forEach(color => params.append('colores', color));
       navigate({ search: params.toString() });
@@ -177,6 +183,7 @@ function TiendaProvider({ children }) {
     setFavoritosAbierto(false);
     setEliminadosDeProcesosSelected(false);
     setOrdenamientoActivo('destacados');
+    setOfertasSelected(false);
   }
 
   const seleccionarEliminados = () => {
@@ -187,6 +194,7 @@ function TiendaProvider({ children }) {
     setAcabado(null);
     setSoftwareSelected(false);
     setEliminadosDeProcesosSelected(false);
+    setOfertasSelected(false);
 
     if (!eliminadosSelected) {
       setRubroActivo([]);
@@ -206,6 +214,7 @@ function TiendaProvider({ children }) {
     setAcabado(null);
     setSoftwareSelected(false);
     setEliminadosDeProcesosSelected(false);
+    setOfertasSelected(false);
 
     if (!cortinasSelected) {
       setRubroActivo([]);
@@ -225,6 +234,7 @@ function TiendaProvider({ children }) {
     setAcabado(null);
     setSoftwareSelected(false);
     setEliminadosDeProcesosSelected(false);
+    setOfertasSelected(false);
 
     if (!procesosSelected) {
       setRubroActivo(null);
@@ -246,6 +256,7 @@ function TiendaProvider({ children }) {
     setStipoProceso(null);
     setAcabado(null);
     setEliminadosDeProcesosSelected(false);
+    setOfertasSelected(false);
 
     if (!softwareSelected) {
       setRubroActivo([]);
@@ -257,7 +268,7 @@ function TiendaProvider({ children }) {
     }
   }
 
-  const seleccionarEliminadosDeProcesos = () =>{
+  const seleccionarEliminadosDeProcesos = () => {
     setEliminadosSelected(false);
     setCortinasSelected(false);
     setProcesosSelected(false);
@@ -265,14 +276,35 @@ function TiendaProvider({ children }) {
     setTipoProceso(null);
     setStipoProceso(null);
     setAcabado(null);
+    setOfertasSelected(false);
 
-    if(!eliminadosDeProcesosSelected){
+    if (!eliminadosDeProcesosSelected) {
       setRubroActivo([]);
       setEliminadosDeProcesosSelected(true);
     }
-    else{
+    else {
       setRubroActivo(null);
       setEliminadosDeProcesosSelected(false);
+    }
+  }
+
+  const seleccionarOfertas = () =>{
+    setEliminadosSelected(false);
+    setCortinasSelected(false);
+    setProcesosSelected(false);
+    setSoftwareSelected(false);
+    setTipoProceso(null);
+    setStipoProceso(null);
+    setAcabado(null);
+    setEliminadosDeProcesosSelected(false);
+
+    if (!ofertasSelected) {
+      setRubroActivo([]);
+      setOfertasSelected(true);
+    }
+    else {
+      setRubroActivo(null);
+      setOfertasSelected(false);
     }
   }
 
@@ -287,6 +319,7 @@ function TiendaProvider({ children }) {
     setAcabado(null);
     setSoftwareSelected(false);
     setEliminadosDeProcesosSelected(false);
+    setOfertasSelected(false);
 
     if (rubroActivo == rubro) {
       setRubroActivo(null);
@@ -367,7 +400,10 @@ function TiendaProvider({ children }) {
       imagenSoftwareSeleccionada,
       setImagenSoftwareSeleccionada,
       seleccionarEliminadosDeProcesos,
-      eliminadosDeProcesosSelected
+      eliminadosDeProcesosSelected,
+      ofertasSelected,
+      setOfertasSelected,
+      seleccionarOfertas
     }}>
       {children}
     </TiendaContext.Provider>

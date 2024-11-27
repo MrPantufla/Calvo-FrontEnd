@@ -26,10 +26,15 @@ export default function Filtros(args) {
         rubros,
         tipoProceso,
         stipoProceso,
-        acabado
+        acabado,
+        seleccionarOfertas,
+        ofertasSelected
     } = useTienda();
 
-    const { guardarDestacados } = useProductos();
+    const { 
+        guardarDestacados, 
+        ofertas 
+    } = useProductos();
 
     const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
 
@@ -78,6 +83,7 @@ export default function Filtros(args) {
     return (
         <>
             <div className='filtros' id='filtros'>
+                {(ofertas && ofertas.length > 0) && <div className={`labelRubros ${ofertasSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarOfertas()}>OFERTAS</div>}
                 <Rubros setPaginaActual={args.setPaginaActual} />
                 <div className={`labelRubros ${procesosSelected && 'checked'} textoLabelRubros ${(tipoProceso && stipoProceso && (tipoProceso == 'anodizados' ? acabado : !acabado) && !stipoProceso.detalle.includes('M2')) && 'desplegable'}`} onClick={() => seleccionarProcesos()}>
                     PROCESOS

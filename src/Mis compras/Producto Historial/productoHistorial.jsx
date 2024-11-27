@@ -66,10 +66,11 @@ export default function ProductoHistorial(args) {
         colorParaUsar == 'BRONCE MEDIO'
     );
 
-    const precioParaMostrarInt = parseInt(args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1)));
+    const precio = args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1));
+    const precioIntFinal = Math.round(precio - precio / 100 * (args.descuento || 0));
 
-    const precioParaMostrarString = precioParaMostrarInt ? (precioParaMostrarInt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
-    const precioParaMostrarStringCant = precioParaMostrarInt ? (precioParaMostrarInt * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+    const precioParaMostrarString = precioIntFinal ? (precioIntFinal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
+    const precioParaMostrarStringCant = precioIntFinal ? (precioIntFinal * args.cantidad).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
 
     let codigoImagen;
 

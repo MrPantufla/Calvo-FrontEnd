@@ -41,14 +41,18 @@ export default function CardMisCompras(args) {
                 producto = productosSueltos[currentItem.producto]
             }
 
-            if (producto) {
-                if (conDescuento && !(producto.tipo_prod === 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES')))) {
-                    return accumulator + ((currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1)) * 97 / 100);
-                } else {
-                    return accumulator + (currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1));
-                }
+            let precioProvisional = 0;
+
+            if (conDescuento && !(producto.tipo_prod === 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES')))) {
+                precioProvisional = ((currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1)) * 97 / 100);
             } else {
-                return accumulator + (currentItem.p_vta * currentItem.cantidad);
+                precioProvisional = (currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1));
+            }
+
+            if (producto) {
+                return accumulator + (precioProvisional - (precioProvisional / 100 * (currentItem.descuento || 0 )));
+            } else {
+                return accumulator + ((currentItem.p_vta * currentItem.cantidad) - ((currentItem.p_vta * currentItem.cantidad) / 100 * (currentItem.descuento || 0)));
             }
         }, 0);
     }
@@ -56,7 +60,11 @@ export default function CardMisCompras(args) {
     const repetirCompra = () => {
         Array.from({ length: args.data.length }).map((_, index) => {
 
-            const producto = productosIndexado[args.data[index].producto];
+            let producto = productosIndexado[args.data[index].producto];
+
+            if(!producto){
+                producto = productosSueltos[args.data[index].producto];
+            }
 
             if (producto && typeof producto === 'object' && producto !== null) {
                 if (args.data[index].proceso) {
@@ -81,8 +89,8 @@ export default function CardMisCompras(args) {
         setCardComprasAbierto(false);
     }, [args.id])
 
-    const precioParaMostrarString = parseInt((total(false))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    const precioParaMostrarStringDescuento = parseInt((total(true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    const precioParaMostrarString = Math.round((total(false))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    const precioParaMostrarStringDescuento = Math.round((total(true))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     const hayPerfil = args.data.some(producto => {
         const productoIndexado = productosIndexado[producto.producto];
@@ -125,7 +133,7 @@ export default function CardMisCompras(args) {
             <div className={`bodyCardMisCompras ${cardComprasAbierto == true && 'open'}`}>
                 <div className="productosHistorialContainer">
                     {Array.from({ length: args.data.length }).map((_, index) => (
-                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado} />
+                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado} descuento={args.data[index].descuento || 0}/>
                     ))}
                 </div>
                 <div className="totalContainer">
