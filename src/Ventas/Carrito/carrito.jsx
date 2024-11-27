@@ -35,7 +35,8 @@ export default function Carrito(args) {
     procesos,
     troquelados,
     extraerMetrosCuadrados,
-    preciosOcultos
+    preciosOcultos,
+    ofertas
   } = useProductos();
 
   const {
@@ -92,12 +93,16 @@ export default function Carrito(args) {
       let proceso = procesos[idProceso];
       let acabado = procesos[idAcabado];
 
+      const ofertaEncontrada = ofertas.find(o => o.idProducto == producto.id);
+
+      const productoPrecioFinal = producto.precio - (ofertaEncontrada ? (ofertaEncontrada.descuento / 100 * producto.precio) : 0);
+
       const precioElemento = (producto.rubro == 85 ?
-        (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
+        (productoPrecioFinal + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
         :
         (producto && producto.kg > 0)
-          ? (producto.precio * producto.kg + (troquelado ? troquelado.precio * producto.kg : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
-          : producto.precio
+          ? (productoPrecioFinal * producto.kg + (troquelado ? troquelado.precio * producto.kg : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
+          : productoPrecioFinal
       )
 
       if (conDescuento && !(elemento.tipo_prod == 'PERFIL' && (elemento.cod_origProducto.endsWith('E') || elemento.cod_origProducto.endsWith('ES')))) {

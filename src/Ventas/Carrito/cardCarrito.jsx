@@ -25,7 +25,8 @@ export default function CardCarrito(args) {
 
     const {
         productosSueltos,
-        procesos
+        procesos,
+        ofertas
     } = useProductos();
 
     const idSinProceso = extraerProducto(args.id.toString());
@@ -111,18 +112,22 @@ export default function CardCarrito(args) {
         }
     }
 
+    const ofertaEncontrada = ofertas.find(o => o.idProducto == producto.id);
+
+    const productoPrecioFinal = producto.precio - (ofertaEncontrada ? (ofertaEncontrada.descuento / 100 * producto.precio) : 0);
+
     const precioParaMostrarInt = parseInt(
         producto.rubro == 85 ?
-            (producto.precio * producto.cantidad + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0))
+            ((productoPrecioFinal * producto.cantidad + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : 0)))
             :
             ((producto.kg > 0) ?
-                (producto.precio * producto.cantidad * producto.kg +
+                (productoPrecioFinal * producto.cantidad * producto.kg +
                     (troquelado ? troquelado.precio * producto.kg : 0) +
                     (proceso ? proceso.precio * producto.kg : 0) +
                     (acabado ? acabado.precio * producto.kg : 0)
                 )
                 :
-                (producto.precio * producto.cantidad)
+                (productoPrecioFinal * producto.cantidad)
             )
     );
 
