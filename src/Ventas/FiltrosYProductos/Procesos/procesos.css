@@ -113,7 +113,6 @@
 }
 
 .proceso{
-    height: 20rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,6 +122,10 @@
 
 .proceso:last-child .proceso{
     padding-bottom: 1rem;
+}
+
+.colorProceso{
+    height: 20rem;
 }
 
 .cardProceso{
@@ -155,6 +158,10 @@
     font-size: 2rem;
     text-align: center;
     font-weight: 500;
+}
+
+.rowAcabados{
+    height: 100%;
 }
 
 @media(max-width: 911px){

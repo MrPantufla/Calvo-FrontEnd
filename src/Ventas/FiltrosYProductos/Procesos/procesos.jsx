@@ -38,12 +38,12 @@ export default function Procesos(args) {
                     </div>
                 </div>)
                 :
-                (<div className="row rowProductos">
+                (<div className={`row rowProductos ${(acabado == null && tipoProceso !== 'pinturas') && 'rowAcabados'}`}>
                     {stipoProceso == null ?
                         <>
                             {tipoProceso == 'pinturas' && (
                                 <h1 className="textoComunicateConNosotros textoProcesos">
-                                    <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación,
+                                    <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación, 
                                     <a href={isMobile ?
                                         (`https://wa.me/5493456475294`)
                                         :
@@ -60,13 +60,13 @@ export default function Procesos(args) {
                                     const colorCorregido = (proceso.color).replace(/\s+/g, '-');
                                     if (tipoProceso == 'anodizados' && proceso.rubro === 88) {
                                         return (
-                                            <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso">
+                                            <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso colorProceso">
                                                 <CardProcesos colorCorregido={colorCorregido} proceso={proceso} />
                                             </div>
                                         );
                                     } else if (tipoProceso == 'pinturas' && proceso.rubro !== 88 && proceso.rubro != 89) {
                                         return (
-                                            <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso">
+                                            <div key={proceso.id} className="col-12 col-md-6 col-lg-4 producto proceso colorProceso">
                                                 <CardProcesos colorCorregido={colorCorregido} proceso={proceso} />
                                             </div>
                                         );
