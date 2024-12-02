@@ -131,14 +131,14 @@ export default function HeaderMobile() {
                 </div>
                 <div className={`containerContainerLogoMobile ${isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
                     <div className="containerLogoMobile">
-                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={() => window.location.href = '/'} />
+                        <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={() => window.location.href = '/'} loading='lazy'/>
                     </div>
                 </div>
             </div>
             <div className={`containerMenuMobile ${menuAbierto ? 'menuAbierto' : ''}`}>
                 <div className="menu">
                     <div className="containerLogoMenu">
-                        <img src={calvoNegativo} />
+                        <img src={calvoNegativo} loading='lazy'/>
                     </div>
                     <div className="elementosMenu">
                         <NavLink to="/" className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); }}>

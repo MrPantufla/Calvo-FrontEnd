@@ -6,7 +6,10 @@ import './cardProcesos.css';
 export default function CardProcesos(args) {
     const { state } = useAuth();
 
-    const { setStipoProceso } = useTienda();
+    const { 
+        setStipoProceso, 
+        tipoProceso 
+    } = useTienda();
 
     const { eliminarProducto } = useProductos();
 
@@ -32,9 +35,9 @@ export default function CardProcesos(args) {
         args.colorCorregido == 'Gris-azulado' ||
         args.colorCorregido == 'Bronce-medio'
     );
-
+    
     return (
-        <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={{ backgroundColor: `var(--${args.colorCorregido})` }}>
+        <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={ tipoProceso == 'anodizados' ? {backgroundImage: `url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${args.proceso.id}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center'} : {backgroundColor: `var(--${args.colorCorregido})`}}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
                 <button className="eliminarElemento" onClick={(e) => eliminarProceso(e, args.proceso.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -43,7 +46,7 @@ export default function CardProcesos(args) {
                 </button>
             }
 
-            <h1 style={usarBlanco ? { color: 'white' } : {}}>{detalleArreglado}</h1>
+            <h1>{detalleArreglado}</h1>
         </div>
     );
 }

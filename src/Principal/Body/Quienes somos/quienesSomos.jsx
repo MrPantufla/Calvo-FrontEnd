@@ -20,7 +20,7 @@ export default function QuienesSomos() {
                 </div>
             </div>
             <div className="fondoContainer">
-                <img className="imagenQuienesSomos" src={imagenQuienesSomos} />
+                <img className="imagenQuienesSomos" src={imagenQuienesSomos} loading='lazy'/>
             </div>
         </div>
     );

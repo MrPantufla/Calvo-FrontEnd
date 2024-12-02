@@ -11,7 +11,7 @@ export default function Software() {
     return (
         <div className="contenedorPrincipalSoftware">
             <div className="headSoftware">
-                <img src="https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesSoftware/logo.webp"></img>
+                <img src="https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesSoftware/logo.webp"/>
                 <h1>WinMaker 10: La Solución Integral para Cotización de Aberturas de Aluminio</h1>
             </div>
             <p>WinMaker es la herramienta definitiva para simplificar el proceso de cotización de aberturas de aluminio. Diseñado específicamente para empresas del sector de la construcción y fabricantes de aberturas. Ofrece una solución integral que agiliza y mejora la precisión en la generación de presupuestos para proyectos de construcción.<br /></p>

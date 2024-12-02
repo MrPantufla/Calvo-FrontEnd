@@ -96,7 +96,7 @@ export default function ImagenSoftwareGrande() {
             }
 
             <div className="parteInternaImagenGrandeSoftware" onClick={clickParteInterna}>
-                <img src={`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesSoftware/winmaker${imagenSoftwareSeleccionada}.webp`} alt="Imagen winmaker grande" />
+                <img src={`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesSoftware/winmaker${imagenSoftwareSeleccionada}.webp`} alt="Imagen winmaker grande" loading='lazy'/>
             </div>
 
             {!isMobile &&

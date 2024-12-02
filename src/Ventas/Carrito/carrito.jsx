@@ -413,7 +413,7 @@ export default function Carrito(args) {
             }
             {elementos.length === 0 ? (
               <div className="carritoVacioContainer">
-                <img src={carritoVacioImg} alt="Carrito vacío" />
+                <img src={carritoVacioImg} alt="Carrito vacío" loading='lazy'/>
                 <p>TU CARRITO ESTÁ VACÍO</p>
               </div>
             ) : (

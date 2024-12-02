@@ -96,7 +96,9 @@ export default function ProductoHistorial(args) {
                         :
                         (`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${codigoImagen}.webp`)
                       }
-                    onContextMenu={handleContextMenu} />
+                    onContextMenu={handleContextMenu}
+                    loading='lazy'
+                />
                 <p>
                     <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} {producto.cantidad > 1 ? (<span className="cod_origProductoHistorial">({producto.cantidad}u.)</span>) : ('')}
                 </p>

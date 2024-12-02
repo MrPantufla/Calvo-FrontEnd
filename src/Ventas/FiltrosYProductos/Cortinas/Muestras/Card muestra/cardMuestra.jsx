@@ -31,6 +31,7 @@ export default function CardMuestra(args) {
                     src={args.muestra} 
                     alt={args.titulo} 
                     ref={imgRef}
+                    loading='lazy'
                 />
             </div>
         </div>

@@ -311,7 +311,7 @@ export default function CardProducto(args) {
     <div className={`contenedorPrincipalCardProducto ${(!precio || precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
-          <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" />
+          <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" loading='lazy'/>
         </div>
         {(tipo_prod != 'MAQUINAS' && !proceso) &&
           <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(idParaFavoritos, e)} aria-label='añadirAFavoritos'>

@@ -9,6 +9,7 @@ export default function CardAcabados(args) {
 
     const {
         setAcabado,
+        stipoProceso
     } = useTienda()
 
     const {
@@ -26,7 +27,7 @@ export default function CardAcabados(args) {
     }
 
     return (
-        <div className="cardProceso cardAcabado" onClick={() => setAcabado(args.acabado)} style={{ backgroundImage: `url(/ImagenesAcabados/${args.acabado.id}.webp)`, backgroundSize: `cover`, backgroundColor: `white` }}>
+        <div className="cardProceso cardAcabado" onClick={() => setAcabado(args.acabado)} style={{ backgroundImage: `url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${stipoProceso.id + (args.acabado.id != 0 ? "-" + args.acabado.id : '')}.webp)`, backgroundSize: `cover`, backgroundPosition: 'center', backgroundColor: `white` }}>
             {state.userInfo && state.userInfo.tipo_usuario === 'admin' &&
                 <button className="eliminarElemento" onClick={(e) => eliminarProceso(e, args.acabado.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">

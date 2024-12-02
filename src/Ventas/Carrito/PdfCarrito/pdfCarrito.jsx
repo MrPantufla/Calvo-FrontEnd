@@ -331,7 +331,7 @@ const PdfCarrito = forwardRef((props, ref) => {
 
   return (
     <div>
-      <div id="pdf-preview" ref={pdfRef} style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+      <div id="pdf-preview" ref={pdfRef} loading='lazy' style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
         <img src="/ImagenesExtra/logo_calvo.webp" />
         <h1 className="tituloPdf">PRESUPUESTO</h1>
         <h2 className="fechaPdf">{obtenerFechaFormateada()}</h2>

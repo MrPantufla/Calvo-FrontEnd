@@ -75,7 +75,7 @@ export default function ProductoGrande(args) {
         <div className="contenedorPrincipalProductoGrande" onMouseDown={() => setAptoParaCerrar(true)} onClick={handleClose}>
             <div className="parteUtilizableProductoGrande" onMouseDown={handleParteUtilizableClick} onMouseUp={handleParteUtilizableClick}>
                 <div className="logoProductoGrandeContainer">
-                    <img className="logoProductoGrande" src={ca} alt="" />
+                    <img className="logoProductoGrande" src={ca} alt="" loading='lazy'/>
                 </div>
 
                 <div className="parteInternaUtilizableProductoGrande">

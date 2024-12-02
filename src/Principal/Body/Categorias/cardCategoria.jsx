@@ -42,8 +42,12 @@ export default function CardCategoria(args) {
         <div className="contenedorPrincipalCardCategoria" onClick={navegarACategoria}>
             <div className="imagenContainerCategoria">
                 <div className="sombraInterna"></div>
-                <img className="imagenCategoria" src={`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesCategorias/${args.imagen}.webp`} alt="Imagen de la categoría" />
-                <p className="nombreCategoria"><span className="poligono"/>{args.cat}</p>
+                <img className="imagenCategoria"
+                    src={`https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesCategorias/${args.imagen}.webp`}
+                    alt="Imagen de la categoría"
+                    loading='lazy'
+                />
+                <p className="nombreCategoria"><span className="poligono" />{args.cat}</p>
             </div>
         </div>
     );
