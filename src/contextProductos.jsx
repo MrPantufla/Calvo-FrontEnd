@@ -264,7 +264,7 @@ function ProductosProvider({ children }) {
         if (procesos == true) {
             endpoint = 'postEliminarProceso';
             body = { idProducto: idProducto.toString() };
-            
+
         } else {
             endpoint = 'postEliminarProducto';
             body = { idProducto: parseInt(idProducto) };
@@ -521,6 +521,20 @@ function ProductosProvider({ children }) {
         return null;
     }
 
+    const extraerEspesor = (cadena) => {
+        // Ajustamos la regex para capturar el tercer número
+        const regex = /\b\d+[Xx]\d+[Xx](\d+)(?:mm|MM)?\b/;
+
+        const resultado = cadena.match(regex);
+
+        if (resultado) {
+            // El tercer número está en el grupo de captura 1
+            return parseInt(resultado[1], 10);
+        }
+
+        return null;
+    };
+
     const obtenerMarcas = async () => {
         const response = await fetch(`${backend}/marcas/get`);
         if (response.ok) {
@@ -540,10 +554,10 @@ function ProductosProvider({ children }) {
         obtenerOfertas();
     }, [])
 
-    const obtenerOfertas = async () =>{
+    const obtenerOfertas = async () => {
         const response = await fetch(`${backend}/ofertas/get`);
 
-        if(response.ok){
+        if (response.ok) {
             const asResponse = await response.json();
 
             setOfertas(asResponse);
@@ -552,12 +566,12 @@ function ProductosProvider({ children }) {
 
     const ofertarProducto = async (idProducto, descuento) => {
         let tokenParaEnviar = Cookies.get('jwtToken') || null;
-    
+
         const Oferta = {
             idProducto: idProducto,
             descuento: descuento,
         };
-    
+
         try {
             const response = await fetch(`${backend}/ofertas/post`, {
                 method: 'POST',
@@ -567,7 +581,7 @@ function ProductosProvider({ children }) {
                 },
                 body: JSON.stringify(Oferta),
             });
-    
+
             if (response.ok) {
                 setOfertas((prevOfertas) => [
                     ...prevOfertas.filter((o) => o.idProducto !== idProducto),
@@ -579,9 +593,7 @@ function ProductosProvider({ children }) {
         }
     };
 
-    console.log(ofertas)
-
-    const eliminarOferta = async (idProducto) =>{
+    const eliminarOferta = async (idProducto) => {
         setOfertas(ofertas.filter(o => o.idProducto != idProducto))
 
         let tokenParaEnviar = Cookies.get('jwtToken');
@@ -628,7 +640,8 @@ function ProductosProvider({ children }) {
             ofertas,
             setOfertas,
             ofertarProducto,
-            eliminarOferta
+            eliminarOferta,
+            extraerEspesor
         }}>
             {children}
         </ProductosContext.Provider>

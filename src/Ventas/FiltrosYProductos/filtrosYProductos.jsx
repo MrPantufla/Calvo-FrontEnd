@@ -28,7 +28,8 @@ export default function FiltrosYProductos() {
     procesos,
     marcasUnicas,
     productosDeProcesosEliminados,
-    ofertas
+    ofertas,
+    extraerEspesor
   } = useProductos();
 
   const {
@@ -100,7 +101,7 @@ export default function FiltrosYProductos() {
 
   const listaFiltrada = [...Object.values(productosIndexado), ...Object.values(procesos)].filter((p) => {
     const tipoCumple =
-      rubroActivo == null && p.tipo_prod != 'PROCESOS' && !procesosSelected && !ofertasSelected||
+      rubroActivo == null && p.tipo_prod != 'PROCESOS' && !procesosSelected && !ofertasSelected ||
       (rubroActivo && (
         rubroActivo.id == 'Perfiles' && (marcasUnicas.has(p.marca)) || (marcaActiva && marcaActiva.items.includes(p.marca)) ||
         rubroActivo.id == 'Maquinas' && (p.tipo_prod == 'MAQUINAS' || p.tipo_prod == 'PUNTUAL') && p.rubro == 39 ||
@@ -115,7 +116,7 @@ export default function FiltrosYProductos() {
         rubroActivo.id == 'TejidosMosquiteros' && p.rubro == 10
       )) ||
       procesosSelected && stipoProceso && !stipoProceso.detalle.includes('M2') && marcasUnicas.has(p.marca) && p.color == 'Natural' && p.cod_orig.slice(-1) != 'E' ||
-      procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85 ||
+      procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85 && !(acabado && acabado.detalle.includes("LIJADO") && extraerEspesor(p.detalle) < 2) ||
       ofertasSelected && ofertas && ofertas.some(o => o.idProducto == p.id)
 
     const colorCumple =
@@ -130,9 +131,9 @@ export default function FiltrosYProductos() {
       srubroActivo == null ||
       (srubroActivo && srubroActivo.id == p.srubro);
 
-      const buscarPorCodOrig =
+    const buscarPorCodOrig =
       marcasUnicas && marcasUnicas.size > 0 && marcasUnicas.has(p.marca) && p.cod_orig.toString().includes(busqueda);
-    
+
     const buscarPorCodInt =
       marcasUnicas && marcasUnicas.size > 0 && !marcasUnicas.has(p.marca) && p.cod_int.toString().includes(busqueda);
 
@@ -309,8 +310,8 @@ export default function FiltrosYProductos() {
               {!(softwareSelected || (procesosSelected && (!stipoProceso || !acabado))) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
               {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles">
-                  <span style={{ color: 'white' }}>¡IMPORTANTE!</span> 
-                  Para realizar encargos de modelos y medidas que no se encuentren listados,
+                  <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
+                  'Para realizar encargos de modelos y medidas que no se encuentren listados{' '}
                   <a
                     style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}
                     href={isMobile ?

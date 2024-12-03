@@ -8,7 +8,7 @@ export default function CardProcesos(args) {
 
     const { 
         setStipoProceso, 
-        tipoProceso 
+        tipoProceso
     } = useTienda();
 
     const { eliminarProducto } = useProductos();
@@ -19,22 +19,7 @@ export default function CardProcesos(args) {
     }
 
     let detalleArreglado = args.proceso.detalle;
-    if (detalleArreglado.slice(-2) == 'M2') {
-        detalleArreglado = detalleArreglado.substring(0, detalleArreglado.length - 2) + 'CHAPAS';
-    }
-
-    const usarBlanco = (args.colorCorregido == 'Negro' ||
-        args.colorCorregido == 'Azul' ||
-        args.colorCorregido == 'Marron-osc' ||
-        args.colorCorregido == 'Bronce-osc' ||
-        args.colorCorregido == 'Simil-madera' ||
-        args.colorCorregido == 'Platil' ||
-        args.colorCorregido == 'Peltre' ||
-        args.colorCorregido == 'Fume' ||
-        args.colorCorregido == 'Rojo' ||
-        args.colorCorregido == 'Gris-azulado' ||
-        args.colorCorregido == 'Bronce-medio'
-    );
+    detalleArreglado = detalleArreglado.replaceAll('M2', 'CHAPAS');
     
     return (
         <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={ tipoProceso == 'anodizados' ? {backgroundImage: `url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${args.proceso.id}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center'} : {backgroundColor: `var(--${args.colorCorregido})`}}>

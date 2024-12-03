@@ -156,9 +156,14 @@
     font-size: 2rem;
     text-align: center;
     font-weight: 500;
+    max-height: 3rem;
 }
 
-.rowAcabados{
+.rowConTexto{
+    height: calc(100% - 3rem);
+}
+
+.rowSinTexto{
     height: 100%;
 }
 
