@@ -41,7 +41,7 @@ export default function Procesos(args) {
                 (<>
                     {(stipoProceso && stipoProceso.detalle.includes("M2") && !acabado) && (
                         <h1 className="textoComunicateConNosotros textoProcesos">
-                            <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Al seleccionar acabado LIJADO solo se listarán las chapas con un espesor de 2mm o más
+                            <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Al seleccionar acabado LIJADO, solo se listarán las chapas con un espesor de 2mm o más
                         </h1>
                     )}
                     {(tipoProceso == 'pinturas' && !stipoProceso) && (
