@@ -63,6 +63,7 @@ export default function Login() {
             }}
             onFocus={() => setErrorMessage('')}
             onKeyDown={presionarEnter}
+            autoCapitalize='off'
           />
         </div>
         <div className="form-group inputFormularioLogin">
@@ -76,6 +77,7 @@ export default function Login() {
             }}
             onFocus={() => setErrorMessage('')}
             onKeyDown={presionarEnter}
+            autoCapitalize='off'
           />
           <a className="olvideMiContraseña" onClick={() => setOpcionSeleccionada('restaurarContraseña')}>Olvidé mi contraseña</a>
         </div>

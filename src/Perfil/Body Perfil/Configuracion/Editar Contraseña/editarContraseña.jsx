@@ -119,6 +119,7 @@ export default function EditarContraseña() {
                             value={contraseñaActual}
                             onChange={(e) => setContraseñaActual(e.target.value)}
                             onFocus={() => setErrorMessage('')}
+                            autoCapitalize="off"
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarContraseña">
@@ -129,6 +130,7 @@ export default function EditarContraseña() {
                             value={nuevaContraseña}
                             onChange={(e) => setNuevaContraseña(e.target.value)}
                             onFocus={() => setErrorMessage('')}
+                            autoCapitalize="off"
                         />
                     </div>
                     <div className="form-group-editarPerfil formEditarContraseña">
@@ -139,6 +141,7 @@ export default function EditarContraseña() {
                             value={repetirContraseña}
                             onChange={(e) => setRepetirContraseña(e.target.value)}
                             onFocus={() => setErrorMessage('')}
+                            autoCapitalize="off"
                         />
                     </div>
                     <div className="botonFormulariosPerfilContainer">

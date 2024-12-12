@@ -121,7 +121,7 @@ export default function FormularioDireccion() {
                                 type="text"
                                 id="numero"
                                 value={numero}
-                                onChange={(e) => setNumero(e.target.value)}
+                                onChange={(e) => setNumero(e.target.value.replace(/[^0-9]/g, ''))}
                                 onFocus={() => setErrorMessage('')}
                             />
                         </div>

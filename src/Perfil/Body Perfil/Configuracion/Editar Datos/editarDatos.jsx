@@ -148,11 +148,12 @@ export default function EditarDatos() {
                     <div className="form-group-editarPerfil formEditarDatos">
                         <label htmlFor="editarTelefono" id="editarTelefono" required>TELÉFONO</label>
                         <input
-                            type="tel"
+                            type="text"
                             id="editarTelefono"
                             value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
+                            onChange={(e) => setTelefono(e.target.value.replace(/[^0-9]/g, ''))}
                             onFocus={() => setErrorMessage('')}
+                            inputMode='numeric'
                         />
                     </div>
                     <div className="botonFormulariosPerfilContainer">

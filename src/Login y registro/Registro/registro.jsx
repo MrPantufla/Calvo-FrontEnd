@@ -303,9 +303,10 @@ export default function Registro() {
                         type="emailRegistro"
                         id="emailRegistro"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail((e.target.value).trim())}
                         onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
+                        autoCapitalize='off'
                     />
                 </div>
                 <div className="form-group-registro">
@@ -314,20 +315,23 @@ export default function Registro() {
                         type="tel"
                         id="telefonoRegistro"
                         value={telefono}
-                        onChange={(e) => setTelefono(e.target.value)}
+                        onChange={(e) => setTelefono(e.target.value.replace(/[^0-9]/g, ''))}
                         onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
+                        inputMode='numeric'
                     />
                 </div>
                 <div className="form-group-registro">
                     <label htmlFor="cuit" required> CUIT</label>
                     <input
-                        type="number"
+                        type="text"
                         id="cuit"
                         value={cuit}
-                        onChange={(e) => setCuit(e.target.value)}
+                        onChange={(e) => setCuit(e.target.value.replace(/[^0-9]/g, ''))}
                         onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
+                        inputMode='numeric'
+                        maxLength='11'
                     />
                 </div>
                 <div className="form-group-registro">
@@ -433,6 +437,7 @@ export default function Registro() {
                         onChange={(e) => setContrasenia(e.target.value)}
                         onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
+                        autoCapitalize='off'
                     />
                 </div>
                 <div className="form-group-registro">
@@ -444,6 +449,7 @@ export default function Registro() {
                         onChange={(e) => setConfirmContrasenia(e.target.value)}
                         onFocus={() => setErrorMessage('')}
                         onKeyDown={presionarEnter}
+                        autoCapitalize='off'
                     />
                 </div>
                 <p className="terminosYCondicionesRegistro">Al registrarse en este sitio web, usted está aceptando nuestros <a href="/terminosYCondiciones" target='blank'>términos y condiciones</a></p>

@@ -134,11 +134,11 @@ export default function Contacto() {
                         TELÉFONO{telefonoChecked ? ("*") : ("")}
                     </label>
                     <input
-                        type="tel"
+                        type="text"
                         name="telefono"
                         id="telefono"
                         onFocus={() => setErrorMessage('')}
-                        onChange={(e) => setTelefono(e.target.value)}
+                        onChange={(e) => setTelefono(e.target.value.replace(/[^0-9]/g, ''))}
                         disabled={formularioEnviado}
                     />
                 </div>

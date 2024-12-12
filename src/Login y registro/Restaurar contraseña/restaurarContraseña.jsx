@@ -125,6 +125,7 @@ export default function RestaurarContraseña() {
                                 }}
                                 onFocus={() => setErrorMessage('')}
                                 onKeyDown={(e) => handleKeyDownEmail(e)}
+                                autoCapitalize='off'
                             />
                         </form>
                         <div className="botonAceptarContainer">
@@ -148,6 +149,7 @@ export default function RestaurarContraseña() {
                                     }}
                                     onFocus={() => setErrorMessage('')}
                                     onKeyDown={(e) => handleKeyDownContraseña(e)}
+                                    inputMode='numeric'
                                 />
                             </form>
                         </div>
@@ -161,6 +163,7 @@ export default function RestaurarContraseña() {
                                     onChange={(e) => setNuevaContraseña(e.target.value)}
                                     onFocus={() => setErrorMessage('')}
                                     onKeyDown={(e) => handleKeyDownContraseña(e)}
+                                    autoCapitalize='off'
                                 />
                             </div>
                             <div className="formularioRestaurarContraseña">
@@ -172,6 +175,7 @@ export default function RestaurarContraseña() {
                                     onChange={(e) => setRepetirContraseña(e.target.value)}
                                     onFocus={() => setErrorMessage('')}
                                     onKeyDown={(e) => handleKeyDownContraseña(e)}
+                                    autoCapitalize='off'
                                 />
                             </div>
                             <div className="botonAceptarContainer" onClick={verificarContraseñaYCodigo}>

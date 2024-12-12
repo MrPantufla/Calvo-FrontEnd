@@ -163,6 +163,7 @@ export default function ConfirmacionCodigo() {
               }}
               placeholder='Código de confirmación'
               onKeyDown={(e) => enterPress(e)}
+              inputMode='numeric'
             />
           </div>
           <div className="botonContainerCodigo">
