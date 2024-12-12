@@ -22,7 +22,13 @@ function FinalizarCompraProvider({ children }) {
     const [mesCaducidad, setMesCaducidad] = useState('');
     const [anioCaducidad, setAnioCaducidad] = useState('');
     const [codigoSeguridad, setCodigoSeguridad] = useState('');
+    const [diaNacimiento, setDiaNacimiento] = useState('');
+    const [mesNacimiento, setMesNacimiento] = useState('');
+    const [anioNacimiento, setAnioNacimiento] = useState('');
     const [metodoFacturacion, setMetodoFacturacion] = useState('');
+    const [datosPedido, setDatosPedido] = useState('');
+    const [primerosDigitos, setPrimerosDigitos] = useState('');
+    const [ultimoDigito, setUltimoDigito] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     //Facturacion
@@ -36,7 +42,7 @@ function FinalizarCompraProvider({ children }) {
 
     const { backend } = useVariables();
 
-    const limpiarFinalizarCompra = () => {
+    const limpiarFinalizarCompra = async () => {
         setMedioEnvio('');
         setTipoEnvio('');
         setMetodoPago('');
@@ -52,14 +58,17 @@ function FinalizarCompraProvider({ children }) {
     }
 
     const almacenarFacturacion = async () => {
-        const objetoFacturacion = {
+        const objetoDatosCliente = {
             nombreYApellido: nombreYApellido,
             cp: cp,
             localidad: localidad,
             direccion: direccion,
             dni: parseInt(dni),
-            cuit: parseInt(cuit),
-            codigoSucursal: codigoSucursal
+            codigoSucursal: codigoSucursal,
+            nombreYApellido: nombreYApellido,
+            diaNacimiento: diaNacimiento,
+            mesNacimiento: mesNacimiento,
+            anioNacimiento: anioNacimiento
         }
 
         let tokenParaEnviar = Cookies.get('jwtToken');
@@ -74,7 +83,7 @@ function FinalizarCompraProvider({ children }) {
                 'Content-Type': 'application/json',
                 'Authorization': tokenParaEnviar,
             },
-            body: JSON.stringify(objetoFacturacion),
+            body: JSON.stringify(objetoDatosCliente),
         })
     }
 
@@ -120,7 +129,19 @@ function FinalizarCompraProvider({ children }) {
             setCuit,
             keyDownEnter,
             setKeyDownEnter,
-            almacenarFacturacion
+            diaNacimiento,
+            setDiaNacimiento,
+            mesNacimiento,
+            setMesNacimiento,
+            anioNacimiento,
+            setAnioNacimiento,
+            almacenarFacturacion,
+            datosPedido,
+            setDatosPedido,
+            primerosDigitos,
+            setPrimerosDigitos,
+            ultimoDigito,
+            setUltimoDigito
         }}>
             {children}
         </FinalizaCompraContext.Provider>
