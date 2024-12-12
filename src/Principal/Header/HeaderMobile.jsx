@@ -70,7 +70,6 @@ export default function HeaderMobile() {
         navigate('/');
         logout();
         setFavoritos('');
-        limpiarCarrito();
         setMenuAbierto(false);
     }
 
