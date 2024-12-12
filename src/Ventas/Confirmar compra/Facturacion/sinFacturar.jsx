@@ -5,7 +5,9 @@ export default function SinFacturar() {
 
     const {
         setMostrarFacturacion,
-        setMostrarFinalizarPedido
+        setMostrarFinalizarPedido,
+        setMostrarPagos,
+        setDatosPedido
     } = useVariables();
 
     const {
@@ -16,10 +18,13 @@ export default function SinFacturar() {
     const confirmar = (e, datosPedido) => {
         e.preventDefault();
 
+        setDatosPedido('Sin facturar')
+
         setMostrarFacturacion(false);
-        //setMostrarFinalizarPedido(true);
-        limpiarCarrito();
-        confirmarCompra('Sin facturar')
+        setMostrarFinalizarPedido(true);
+        //limpiarCarrito();
+        //setMostrarPagos(true);
+        //confirmarCompra('Sin facturar')
     }
 
     return (
