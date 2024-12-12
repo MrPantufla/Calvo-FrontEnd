@@ -133,7 +133,7 @@ export default function Ventas() {
 
   const pagosArray = [
     // Solo agregamos la opción de "Efectivo" si se cumple la condición
-    ...((state.userInfo && state.userInfo.cliente && (tipoEnvio == 'transportePropio' || medioEnvio == 'retira')) ? [{
+    ...(/*(state.userInfo && state.userInfo.cliente && (tipoEnvio == 'transportePropio' || medioEnvio == 'retira'))*/true ? [{
       nombre: 'Efectivo',
       comparador: 'efectivo',
       set: () => setMetodoPago('efectivo'),
@@ -176,7 +176,7 @@ export default function Ventas() {
     ;
 
   const facturacionArray = [
-    ...(/*metodoPago == 'efectivo'*/true
+    ...(metodoPago == 'efectivo'
       ? [
         {
           nombre: 'Sin facturar',
@@ -237,8 +237,10 @@ export default function Ventas() {
                   titulo='MÉTODO DE PAGO'
                   componentesArray={pagosArray}
                   atras={() => {
+                    /*setMostrarPagos(false);
+                    setMostrarEnvios(true);*/
+                    setMostrarConfirmarCompra(false);
                     setMostrarPagos(false);
-                    setMostrarEnvios(true);
                   }}
                 />
               )
@@ -249,7 +251,7 @@ export default function Ventas() {
                     componentesArray={facturacionArray}
                     atras={() => {
                       setMostrarFacturacion(false);
-                      //setMostrarPagos(true);
+                      setMostrarPagos(true);
                     }}
                   />
                 )

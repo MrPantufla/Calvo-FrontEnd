@@ -20,10 +20,24 @@ export default function Tarjeta() {
         setAnioCaducidad,
         codigoSeguridad,
         setCodigoSeguridad,
+        diaNacimiento,
+        setDiaNacimiento,
+        mesNacimiento,
+        setMesNacimiento,
+        anioNacimiento,
+        setAnioNacimiento,
+        dni,
+        setDni,
+        nombreYApellido,
+        setNombreYApellido,
+        primerosDigitos,
+        ultimoDigito,
+        setCuit,
         setErrorMessage
     } = useFinalizarCompra();
 
     const [caducidadFocus, setCaducidadFocus] = useState(false);
+    const [fechaNacimientoFocus, setFechaNacimientoFocus] = useState(false);
     const [numeroTarjetaFocus, setNumeroTarjetaFocus] = useState(false);
     const mesCaducidadRef = useRef(null);
     const anioCaducidadRef = useRef(null);
@@ -32,6 +46,9 @@ export default function Tarjeta() {
     const numeroTarjeta3Ref = useRef(null);
     const numeroTarjeta4Ref = useRef(null);
     const codigoSeguridadRef = useRef(null);
+    const diaNacimientoRef = useRef(null);
+    const mesNacimientoRef = useRef(null);
+    const anioNacimientoRef = useRef(null);
 
     const {
         setMostrarPagos,
@@ -49,24 +66,34 @@ export default function Tarjeta() {
 
     const confirmar = (e) => {
         e.preventDefault();
-        
-        if(numeroTarjeta1 == '' || numeroTarjeta2 == '' || numeroTarjeta3 == '' || numeroTarjeta4 == '' || mesCaducidad == '' || anioCaducidad == '' || codigoSeguridad == ''){
+
+        if (numeroTarjeta1 == '' || numeroTarjeta2 == '' || numeroTarjeta3 == '' || numeroTarjeta4 == '' || mesCaducidad == '' || anioCaducidad == '' || codigoSeguridad == '' || diaNacimiento == '' || mesNacimiento == ''|| anioNacimiento == '' || dni == '' || nombreYApellido == '') {
             setErrorMessage('Por favor, completa todos los campos')
         }
-        else if(numeroTarjeta1.length != 4 || numeroTarjeta2.length != 4 || numeroTarjeta3.length != 4 || numeroTarjeta4.length != 4){
+        else if (numeroTarjeta1.length != 4 || numeroTarjeta2.length != 4 || numeroTarjeta3.length != 4 || numeroTarjeta4.length != 4) {
             setErrorMessage('Número de tarjeta inválido');
         }
-        else if(mesCaducidad < 1 || mesCaducidad > 12){
+        else if (mesCaducidad < 1 || mesCaducidad > 12) {
             setErrorMessage('Mes de vencimiento inválido');
         }
-        else if(anioCaducidad < anioActualTarjeta){
+        else if (anioCaducidad < anioActualTarjeta) {
             setErrorMessage('Año de vencimiento inválido')
         }
-        else if(codigoSeguridad.length != 3){
+        else if (codigoSeguridad.length != 3) {
             setErrorMessage('Código de seguridad inválido');
         }
-        else{
+        else if(diaNacimiento <= 0 || diaNacimiento > 31 || mesNacimiento <= 0 && mesNacimiento > 12 || anioNacimiento >= new Date().getFullYear()){
+            setErrorMessage('Fecha de nacimiento inválida')
+        }
+        else {
             //fetch de tarjeta y si response.ok va lo de abajo
+            if(diaNacimiento.length == 1){
+                setDiaNacimiento('0' + diaNacimiento);
+            }
+
+            if(mesNacimiento.length == 1){
+                setMesNacimiento('0' + mesNacimiento);
+            }
             setMostrarPagos(false);
             setMostrarFacturacion(true);
         }
@@ -77,18 +104,18 @@ export default function Tarjeta() {
 
         // Obtiene el texto del portapapeles
         const pastedData = event.clipboardData.getData('text/plain').replace(/\D/g, '');
-    
+
         // Crea un array de los números a repartir
         const nuevosValores = [...Array(4)].map((_, index) => {
             return pastedData.slice(index * 4, index * 4 + 4); // Corta en grupos de 4
         });
-    
+
         // Actualiza los estados de los inputs
         setNumeroTarjeta1(nuevosValores[0]);
         setNumeroTarjeta2(nuevosValores[1]);
         setNumeroTarjeta3(nuevosValores[2]);
         setNumeroTarjeta4(nuevosValores[3]);
-    
+
         // Enfoca el último input que ha sido modificado
         if (nuevosValores[slot].length === 4 && slot < 3) {
             tarjetaInputs[slot + 1].focus();
@@ -185,23 +212,53 @@ export default function Tarjeta() {
         }
     }
 
+    const changeNacimiento = (slot, valor) => {
+        let nuevoValor = valor.replace(/\D/g, '');
+
+        if ((slot == 0 || slot == 1) && nuevoValor.length > 2) {
+            nuevoValor = nuevoValor.slice(0, 2);
+        }
+
+        if (slot == 2 && nuevoValor.length > 4) {
+            nuevoValor = nuevoValor.slice(0, 4);
+        }
+
+        if (nuevoValor.length === 2 && slot === 0) {
+            mesNacimientoRef.current.focus();
+        }
+        else if (nuevoValor.length === 2 && slot === 1) {
+            anioNacimientoRef.current.focus();
+        }
+
+        switch (slot) {
+            case 0:
+                setDiaNacimiento(nuevoValor);
+                break;
+            case 1:
+                setMesNacimiento(nuevoValor);
+                break;
+            case 2:
+                setAnioNacimiento(nuevoValor);
+        }
+    }
+
     const keyDownCaducidad = (slot, valor) => {
         return (event) => {
             let cursorPosition;
             let endPosition;
 
-            if(slot == 0){
+            if (slot == 0) {
                 cursorPosition = mesCaducidadRef.current.selectionStart;
                 endPosition = mesCaducidadRef.current.selectionEnd;
             }
-            else{
+            else {
                 cursorPosition = anioCaducidadRef.current.selectionStart;
                 endPosition = anioCaducidadRef.current.selectionEnd;
             }
 
             //Se verifica que no estemos seleccionando varios numeros, que no estemows en el primer input y que estemos en la posicion 0
             if (event.key === 'Backspace' || event.key === 'ArrowLeft') {
-                if((cursorPosition === endPosition) && (slot > 0) && (cursorPosition === 0 || valor.length === 0)){
+                if ((cursorPosition === endPosition) && (slot > 0) && (cursorPosition === 0 || valor.length === 0)) {
                     event.preventDefault();
                     const previousInput = mesCaducidadRef.current;
                     previousInput.focus();
@@ -209,8 +266,8 @@ export default function Tarjeta() {
                     previousInput.setSelectionRange(previousInput.value.length, previousInput.value.length); //Parar el cursor en el ultimo caracter
                 }
             }
-            else if(event.key == 'ArrowRight'){
-                if((slot < 1) && (cursorPosition === valor.length)){
+            else if (event.key == 'ArrowRight') {
+                if ((slot < 1) && (cursorPosition === valor.length)) {
                     const nextInput = anioCaducidadRef.current;
                     nextInput.focus();
 
@@ -222,20 +279,67 @@ export default function Tarjeta() {
         }
     }
 
-    const changeCodigoSeguridad = (valor) => {
-        let nuevoValor = valor.replace(/\D/g, '');
+    const keyDownNacimiento = (slot, valor) => {
+        return (event) => {
+            let cursorPosition;
+            let endPosition;
 
-        // Limitar el valor a 2 caracteres
-        if (nuevoValor.length > 3) {
-            nuevoValor = nuevoValor.slice(0, 3);
+            if (slot == 0) {
+                cursorPosition = diaNacimientoRef.current.selectionStart;
+                endPosition = diaNacimientoRef.current.selectionEnd;
+            }
+            else if (slot == 1) {
+                cursorPosition = mesNacimientoRef.current.selectionStart;
+                endPosition = mesNacimientoRef.current.selectionEnd;
+            }
+            else {
+                cursorPosition = anioNacimientoRef.current.selectionStart;
+                endPosition = anioNacimientoRef.current.selectionEnd;
+            }
+
+            //Se verifica que no estemos seleccionando varios numeros, que no estemows en el primer input y que estemos en la posicion 0
+            if (event.key === 'Backspace' || event.key === 'ArrowLeft') {
+                if ((cursorPosition === endPosition) && (slot > 0) && (cursorPosition === 0 || valor.length === 0)) {
+                    event.preventDefault();
+
+                    let previousInput;
+                    if (slot == 1) {
+                        previousInput = diaNacimientoRef.current;
+                    }
+                    else {
+                        previousInput = mesNacimientoRef.current;
+                    }
+                    previousInput.focus();
+
+                    previousInput.setSelectionRange(previousInput.value.length, previousInput.value.length); //Parar el cursor en el ultimo caracter
+                }
+            }
+            else if (event.key == 'ArrowRight') {
+                if ((slot < 2) && (cursorPosition === valor.length)) {
+
+                    let nextInput;
+
+                    if (slot == 1) {
+                        nextInput = anioNacimientoRef.current;
+                    }
+                    else {
+                        nextInput = mesNacimientoRef.current;
+                    }
+
+                    nextInput.focus();
+
+                    setTimeout(() => {
+                        nextInput.setSelectionRange(0, 0); // Posicionar el cursor al inicio del siguiente input
+                    }, 0);
+                }
+            }
         }
-
-        setCodigoSeguridad(nuevoValor)
     }
 
     return (
         <>
             <div className="contenedorFormConfirmarCompra">
+                <h1>DATOS DE LA TARJETA</h1>
                 <div className="contenedorEntradaConfirmarCompra contenedorNumerosTarjeta">
                     <label htmlFor="numeroTarjeta">Número de tarjeta</label>
                     <div>
@@ -250,6 +354,8 @@ export default function Tarjeta() {
                             onChange={(e) => changeNumeroTarjeta(0, e.target.value)}
                             onKeyDown={(e) => keyDownNumeroTarjeta(0, numeroTarjeta1)(e)}
                             onPaste={pasteNumeroTarjeta(0)}
+                            onClick={() => setErrorMessage('')}
+                            inputMode="numeric"
                         />
                         <p className={`${numeroTarjetaFocus && 'focuseado'}`} >-</p>
                         <input
@@ -263,6 +369,8 @@ export default function Tarjeta() {
                             onChange={(e) => changeNumeroTarjeta(1, e.target.value)}
                             onKeyDown={(e) => keyDownNumeroTarjeta(1, numeroTarjeta2)(e)}
                             onPaste={pasteNumeroTarjeta(0)}
+                            onClick={() => setErrorMessage('')}
+                            inputMode="numeric"
                         />
                         <p className={`${numeroTarjetaFocus && 'focuseado'}`} >-</p>
                         <input
@@ -276,6 +384,8 @@ export default function Tarjeta() {
                             onChange={(e) => changeNumeroTarjeta(2, e.target.value)}
                             onKeyDown={(e) => keyDownNumeroTarjeta(2, numeroTarjeta3)(e)}
                             onPaste={pasteNumeroTarjeta(0)}
+                            onClick={() => setErrorMessage('')}
+                            inputMode="numeric"
                         />
                         <p className={`${numeroTarjetaFocus && 'focuseado'}`} >-</p>
                         <input
@@ -289,6 +399,8 @@ export default function Tarjeta() {
                             onChange={(e) => changeNumeroTarjeta(3, e.target.value)}
                             onKeyDown={(e) => keyDownNumeroTarjeta(3, numeroTarjeta4)(e)}
                             onPaste={pasteNumeroTarjeta(0)}
+                            onClick={() => setErrorMessage('')}
+                            inputMode="numeric"
                         />
                     </div>
                 </div>
@@ -299,7 +411,7 @@ export default function Tarjeta() {
                             <label className="labelTarjeta" htmlFor="mesCaducidad">Fecha de caducidad</label>
                             <div className="contenedorInputCaducidad">
                                 <input
-                                    className={`inputPequeñoTarjeta ${caducidadFocus && 'focuseado'}`}
+                                    className={`inputPequeñoTarjeta inputDosNumeros ${caducidadFocus && 'focuseado'}`}
                                     id="mesCaducidad"
                                     type="text"
                                     ref={mesCaducidadRef}
@@ -308,10 +420,12 @@ export default function Tarjeta() {
                                     value={mesCaducidad}
                                     onChange={(e) => changeCaducidad(0, e.target.value)}
                                     onKeyDown={(e) => keyDownCaducidad(0, mesCaducidad)(e)}
+                                    onClick={() => setErrorMessage('')}
+                                    inputMode="numeric"
                                 />
                                 <p className={`separadorInputPequeñoTarjeta ${caducidadFocus && 'focuseado'}`}>/</p>
                                 <input
-                                    className={`inputPequeñoTarjeta ${caducidadFocus && 'focuseado'}`}
+                                    className={`inputPequeñoTarjeta inputDosNumeros ${caducidadFocus && 'focuseado'}`}
                                     id="anioCaducidad"
                                     type="text"
                                     ref={anioCaducidadRef}
@@ -320,6 +434,8 @@ export default function Tarjeta() {
                                     value={anioCaducidad}
                                     onChange={(e) => changeCaducidad(1, e.target.value)}
                                     onKeyDown={(e) => keyDownCaducidad(1, anioCaducidad)(e)}
+                                    onClick={() => setErrorMessage('')}
+                                    inputMode="numeric"
                                 />
                             </div>
                         </div>
@@ -333,16 +449,93 @@ export default function Tarjeta() {
                                     type="text"
                                     ref={codigoSeguridadRef}
                                     value={codigoSeguridad}
-                                    onChange={(e) => changeCodigoSeguridad(e.target.value)}
+                                    onChange={(e) => setCodigoSeguridad(e.target.value.replace(/[^0-9]/g, ''))}
+                                    maxLength="3"
+                                    onClick={() => setErrorMessage('')}
+                                    inputMode="numeric"
                                 />
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h1>DATOS DEL TITULAR</h1>
+
+                <div className="contenedorEntradaConfirmarCompra">
+                    <label htmlFor="nombreYApellido">Nombre y apellido</label>
+                    <input
+                        id="nombreYApellido"
+                        value={nombreYApellido}
+                        onChange={(e) => setNombreYApellido(e.target.value)}
+                        className="inputNombreYApellidoTarjeta"
+                    />
+
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <div className="contenedorPequeñoTarjeta">
+                            <label className="labelTarjeta" htmlFor="diaNacimiento">Fecha de nacimiento</label>
+                            <div className="contenedorInputCaducidad">
+                                <input
+                                    className={`inputPequeñoTarjeta inputDosNumeros ${fechaNacimientoFocus && 'focuseado'}`}
+                                    id="diaNacimiento"
+                                    type="text"
+                                    ref={diaNacimientoRef}
+                                    onFocus={() => setFechaNacimientoFocus(true)}
+                                    onBlur={() => { fechaNacimientoFocus && setFechaNacimientoFocus(false) }}
+                                    value={diaNacimiento}
+                                    onChange={(e) => changeNacimiento(0, e.target.value)}
+                                    onKeyDown={(e) => keyDownNacimiento(0, diaNacimiento)(e)}
+                                    onClick={() => setErrorMessage('')}
+                                    inputMode="numeric"
+                                />
+                                <p className={`separadorInputPequeñoTarjeta ${fechaNacimientoFocus && 'focuseado'}`}>/</p>
+                                <input
+                                    className={`inputPequeñoTarjeta inputDosNumeros inputMesNacimiento ${fechaNacimientoFocus && 'focuseado'}`}
+                                    id="mesNacimiento"
+                                    type="text"
+                                    ref={mesNacimientoRef}
+                                    onFocus={() => setFechaNacimientoFocus(true)}
+                                    onBlur={() => fechaNacimientoFocus && setFechaNacimientoFocus(false)}
+                                    value={mesNacimiento}
+                                    onChange={(e) => changeNacimiento(1, e.target.value)}
+                                    onKeyDown={(e) => keyDownNacimiento(1, mesNacimiento)(e)}
+                                    onClick={() => setErrorMessage('')}
+                                    inputMode="numeric"
+                                />
+                                <p className={`separadorInputPequeñoTarjeta ${fechaNacimientoFocus && 'focuseado'}`}>/</p>
+                                <input
+                                    className={`inputPequeñoTarjeta ${fechaNacimientoFocus && 'focuseado'}`}
+                                    id="anioNacimiento"
+                                    type="text"
+                                    ref={anioNacimientoRef}
+                                    onFocus={() => setFechaNacimientoFocus(true)}
+                                    onBlur={() => fechaNacimientoFocus && setFechaNacimientoFocus(false)}
+                                    value={anioNacimiento}
+                                    onChange={(e) => changeNacimiento(2, e.target.value)}
+                                    onKeyDown={(e) => keyDownNacimiento(2, anioNacimiento)(e)}
+                                    onClick={() => setErrorMessage('')}
+                                    inputMode="numeric"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="contenedorPequeñoTarjeta contenedorDniTarjeta">
+                            <label className="labelTarjeta" htmlFor="dni">DNI</label>
+                            <input
+                                className="inputPequeñoTarjeta"
+                                id="dni"
+                                value={dni}
+                                onChange={(e) => {setDni(e.target.value.replace(/[^0-9]/g, '')); setCuit(primerosDigitos + e.target.value.replace(/[^0-9]/g, '') + ultimoDigito)}}
+                                maxLength='8'
+                                onClick={() => setErrorMessage('')}
+                                inputMode="numeric"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="contenedorConfirmarBoton">
-                <button onClick={(e)=> confirmar(e)} className="confirmarBoton">Confirmar</button>
+                <button onClick={(e) => confirmar(e)} className="confirmarBoton">Confirmar</button>
             </div>
         </>
     );

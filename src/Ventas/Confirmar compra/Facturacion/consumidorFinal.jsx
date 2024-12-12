@@ -1,6 +1,7 @@
 import { useVariables } from "../../../contextVariables";
 import { useFinalizarCompra } from '../../../contextFinalizarCompra';
 import { useCarrito } from "../../../contextCarrito";
+import './facturacion.css';
 
 export default function ConsumidorFinal() {
 
@@ -16,7 +17,9 @@ export default function ConsumidorFinal() {
         setDireccion,
         dni,
         setDni,
-        almacenarFacturacion
+        almacenarFacturacion,
+        metodoPago,
+        setDatosPedido
     } = useFinalizarCompra();
 
     const { 
@@ -47,24 +50,25 @@ export default function ConsumidorFinal() {
             return;
         }
 
-        let datosPedido = 'Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni;
+       setDatosPedido('Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni);
 
         setMostrarFacturacion(false);
-        limpiarCarrito();
-        //setMostrarFinalizarPedido(true);
-        confirmarCompra(datosPedido)
+        //limpiarCarrito();
+        setMostrarFinalizarPedido(true);
+        //confirmarCompra(datosPedido)
         almacenarFacturacion()
     }
 
     return (
         <>
-            <div className="contenedorFormConfirmarCompra">
+            <div className="contenedorFormConfirmarCompra contenedorConsumidorFinal">
                 <div className="contenedorEntradaConfirmarCompra">
                     <label htmlFor="nombreYApellido">NOMBRE Y APELLIDO</label>
                     <input id="nombreYApellido"
                         value={nombreYApellido}
                         onChange={(e) => setNombreYApellido(e.target.value)}
                         onFocus={() => setErrorMessage('')}
+                        disabled={metodoPago == 'tarjeta'}
                     />
                 </div>
 
@@ -99,8 +103,11 @@ export default function ConsumidorFinal() {
                     <label htmlFor="dni">DNI</label>
                     <input id="dni"
                         value={dni}
-                        onChange={(e) => setDni(e.target.value)}
+                        onChange={(e) => setDni(e.target.value.replace(/[^0-9]/g, ''))}
                         onFocus={() => setErrorMessage('')}
+                        maxLength='8'
+                        inputMode="numeric"
+                        disabled={metodoPago == 'tarjeta'}
                     />
                 </div>
             </div>

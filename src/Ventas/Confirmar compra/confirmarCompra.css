@@ -106,7 +106,7 @@
     font-weight: 600;
     margin-right: 1rem;
     font-weight: bold;
-    color: var(--colorSecundario)
+    color: var(--colorSecundario);
 }
 
 .contenedorFormConfirmarCompra input, .contenedorFormConfirmarCompra div input{
@@ -121,6 +121,15 @@
     font-size: 1.5rem;
 }
 
+.contenedorFormConfirmarCompra.contenedorConsumidorFinal input{
+    margin-bottom: 1rem;
+}
+
+.contenedorFormConfirmarCompra.contenedorInscripto label{
+    width: 11.6rem;
+    margin: 0 auto;
+}
+
 .contenedorFormConfirmarCompra input:focus, .contenedorFormConfirmarCompra div input:focus{
     outline: none;
     border-color: var(--colorSecundario);
@@ -129,6 +138,9 @@
 .contenedorEntradaConfirmarCompra{
     width: 70%;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .contenedorEntradaConfirmarCompra input{

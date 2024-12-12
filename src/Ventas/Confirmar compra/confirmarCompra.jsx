@@ -23,7 +23,15 @@ export default function ConfirmarCompra(args) {
         setDireccion,
         setDni,
         cuit,
-        setCuit
+        setCuit,
+        diaNacimiento,
+        setDiaNacimiento,
+        mesNacimiento,
+        setMesNacimiento,
+        anioNacimiento,
+        setAnioNacimiento,
+        setPrimerosDigitos,
+        setUltimoDigito
     } = useFinalizarCompra();
 
     const {
@@ -64,35 +72,50 @@ export default function ConfirmarCompra(args) {
             if (response.ok) {
                 const datos = await response.json();
 
-                if(datos.sucursal != undefined){
+                if (datos.sucursal != undefined) {
                     setCodigoSucursal(datos.sucursal);
                 }
 
-                if(datos.nombreYApellido != undefined){
+                if (datos.nombreYApellido != undefined) {
                     setNombreYApellido(datos.nombreYApellido);
                 }
 
-                if(datos.cp != undefined){
+                if (datos.cp != undefined) {
                     setCp(datos.cp);
                 }
 
-                if(datos.localidad != undefined){
+                if (datos.localidad != undefined) {
                     setLocalidad(datos.localidad);
                 }
 
-                if(datos.direccion != undefined){
+                if (datos.direccion != undefined) {
                     setDireccion(datos.direccion);
                 }
 
-                if(datos.dni != null && datos.dni > 0){
+                if (datos.dni != null && datos.dni > 0) {
                     setDni(datos.dni);
                 }
 
-                if(datos.cuit != null && datos.cuit > 0){
-                    setCuit(datos.cuit.toString());
+                if (datos.cuit != null && datos.cuit > 0) {
+                    const stringCuit = datos.cuit.toString();
+                    setCuit(stringCuit);
+                    setPrimerosDigitos(stringCuit.slice(0,2));
+                    setUltimoDigito(stringCuit.slice(-1));
+                }
+
+                if(datos.diaNacimiento != null && datos.diaNacimiento > 0){
+                    setDiaNacimiento(datos.diaNacimiento.toString());
+                }
+
+                if(datos.mesNacimiento != null && datos.mesNacimiento > 0){
+                    setMesNacimiento(datos.mesNacimiento.toString());
+                }
+
+                if(datos.anioNacimiento != null && datos.anioNacimiento > 0){
+                    setAnioNacimiento(datos.anioNacimiento.toString());
                 }
             }
-            else{
+            else {
                 console.log(response)
             }
         } catch (error) {
