@@ -54,6 +54,7 @@
     transition: scale 0.2s;
     margin-left: 0.5rem;
     transition: transform 0.05s;
+    border: none;
 }
 
 .botonDescargarPresupuesto:active{
