@@ -57,10 +57,9 @@
     align-items: center;
     margin-top: 1rem;
     font-size: 1.5rem;
-    width: 70%;
 }
 
-.botonEnviarLogin:hover {
+.botonEnviarLogin:disabled {
     background-color: var(--colorTerciario);
 }
 
@@ -115,6 +114,16 @@
     .formularioLogin a{
         font-size: 2.5rem;
         margin-top: 1rem;
+    }
+
+    .errorLogin {
+        width: 90%;
+        margin: 2rem 0;
+    }
+
+    .errorLogin svg{
+        width: 3rem;
+        height: 3rem;
     }
 
     .errorLogin.errorFormulario {

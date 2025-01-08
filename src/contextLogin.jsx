@@ -21,6 +21,7 @@ export const LoginProvider = ({ children }) => {
   const [localidad, setLocalidad] = useState('');
   const [provincia, setProvincia] = useState('');
   const [direccionConfirmada, setDireccionConfirmada] = useState(false);
+  const [esperandoRespuesta, setEsperandoRepuesta] = useState(false);
 
   const [state, setState] = useState({
     logueado: false,
@@ -152,7 +153,11 @@ export const LoginProvider = ({ children }) => {
   };
 
   const handleLogin = async (args) => {
+
+    setEsperandoRepuesta(true);
+
     try {
+      
       let tokenParaEnviar = Cookies.get('tokenRenovacion');
 
       if (tokenParaEnviar == undefined) {
@@ -199,9 +204,12 @@ export const LoginProvider = ({ children }) => {
           setMostrarErrorCodigoConfirmacion();
         }
 
+        setEsperandoRepuesta(false);
+
       } else {
         obtenerProductosFiltrados();
         const data = await response.text();
+
         if (response.status === 401) {
           setErrorMessage(data)
         } else if (response.status === 500) {
@@ -210,6 +218,9 @@ export const LoginProvider = ({ children }) => {
           // Otros códigos de estado
           setErrorMessage("Error al intentar iniciar sesión");
         }
+
+        setEsperandoRepuesta(false);
+
       }
     } catch (error) {
       console.error('Error al intentar iniciar sesión:', error);
@@ -351,7 +362,8 @@ export const LoginProvider = ({ children }) => {
       cp,
       localidad,
       provincia,
-      borrarCookie
+      borrarCookie,
+      esperandoRespuesta
     }}>
       {children}
     </AuthContext.Provider>

@@ -12,7 +12,8 @@ export default function Login() {
     setOpcionSeleccionada,
     setErrorMessage,
     errorMessage,
-    borrarCookie
+    borrarCookie,
+    esperandoRespuesta
   } = useAuth();
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export default function Login() {
           <a className="olvideMiContraseña" onClick={() => setOpcionSeleccionada('restaurarContraseña')}>Olvidé mi contraseña</a>
         </div>
         <div className="botonLoginContainer">
-          <button className="botonEnviarLogin" type="button" id="botonLogin" onClick={handleLoginSubmit}>
+          <button className="botonEnviarLogin" disabled={esperandoRespuesta} type="button" id="botonLogin" onClick={handleLoginSubmit}>
             Ingresar
           </button>
         </div>
