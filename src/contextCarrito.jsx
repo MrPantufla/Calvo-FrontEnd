@@ -294,6 +294,11 @@ function CarritoProvider({ children }) {
     })
       .then(response => {
         setRespuestaRecibida(true);
+
+        if(response.ok){
+          limpiarCarrito();
+        }
+        
         return response.text();
       })
       .then(text => {
