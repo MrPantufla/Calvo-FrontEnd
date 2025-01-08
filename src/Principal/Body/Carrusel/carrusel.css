@@ -6,11 +6,6 @@
   height: 58rem;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-}
-
 .contenedorPrincipalCarrusel {
   display: flex;
   justify-content: center;
@@ -42,18 +37,44 @@
   opacity: 0.6;
 }
 
-.divSubirArchivoCarrusel {
+.divSubirArchivoCarrusel, .divEliminarArchivoCarrusel, .divPermisosCarrusel{
   position: absolute;
   z-index: 100;
-  left: 1rem;
   top: 1rem;
 }
 
+.divSubirArchivoCarrusel {
+  left: 1rem;
+}
+
 .divEliminarArchivoCarrusel {
-  position: absolute;
-  z-index: 100;
   right: 1rem;
-  top: 1rem;
+}
+
+.divPermisosCarrusel{
+  width: 30rem;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.divPermisosCarrusel button{
+  width: 10rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: none;
+  color: var(--colorSecundario);
+  background-color: var(--colorPrimario);
+  margin: 0 0.5rem;
+  height: 3rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.divPermisosCarrusel button.active{
+  background-color: var(--colorSecundario);
+  color: white;
 }
 
 .divEliminarArchivoCarrusel label {
@@ -97,8 +118,6 @@
   border-width: 4px;
   color: var(--colorSecundario);
 }
-
-
 
 @media (min-width: 1600px) {
 
