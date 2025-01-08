@@ -63,7 +63,8 @@ export default function ProductoHistorial(args) {
         colorParaUsar == 'FUME' ||
         colorParaUsar == 'ROJO' ||
         colorParaUsar == 'GRIS AZULADO' ||
-        colorParaUsar == 'BRONCE MEDIO'
+        colorParaUsar == 'BRONCE MEDIO' ||
+        colorParaUsar == 'BRONCE'
     );
 
     const precio = args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1));

@@ -57,7 +57,7 @@
     border: none;
 }
 
-.botonDescargarPresupuesto:active{
+.botonDescargarPresupuesto:not(.disabled):active{
     transform: scale(0.95);
 }
 
