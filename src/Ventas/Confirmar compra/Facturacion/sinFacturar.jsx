@@ -18,13 +18,12 @@ export default function SinFacturar() {
     const confirmar = (e, datosPedido) => {
         e.preventDefault();
 
-        setDatosPedido('Sin facturar')
+        //setDatosPedido('Sin facturar')
 
         setMostrarFacturacion(false);
-        setMostrarFinalizarPedido(true);
-        //limpiarCarrito();
+        //setMostrarFinalizarPedido(true);
         //setMostrarPagos(true);
-        //confirmarCompra('Sin facturar')
+        confirmarCompra('Sin facturar')
     }
 
     return (

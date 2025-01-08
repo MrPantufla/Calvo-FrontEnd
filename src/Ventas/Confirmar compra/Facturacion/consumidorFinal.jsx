@@ -50,12 +50,11 @@ export default function ConsumidorFinal() {
             return;
         }
 
-       setDatosPedido('Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni);
+        setDatosPedido('Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni);
 
         setMostrarFacturacion(false);
-        //limpiarCarrito();
-        setMostrarFinalizarPedido(true);
-        //confirmarCompra(datosPedido)
+        //setMostrarFinalizarPedido(true);
+        confirmarCompra('Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni)
         almacenarFacturacion()
     }
 

@@ -432,9 +432,9 @@ export default function Carrito(args) {
                   disabled={!elementos.length > 0}
                   onClick={() => {
                     setPrecioTotal(calcularTotal(elementos));
-                    //setMostrarFacturacion(true);
+                    setMostrarFacturacion(true);
                     setMostrarConfirmarCompra(true);
-                    setMostrarPagos(true);
+                    //setMostrarPagos(true);
                     //setMostrarEnvios(true);
                   }}
                 >

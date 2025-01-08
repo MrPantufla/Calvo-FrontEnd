@@ -57,14 +57,11 @@ export default function Inscripto() {
         setDatosPedido('Facturar a ' + cuit);
 
         setMostrarFacturacion(false);
-        setMostrarFinalizarPedido(true);
+        //setMostrarFinalizarPedido(true);
         almacenarFacturacion();
-        //limpiarCarrito();
-        //confirmarCompra(datosPedido)
+        confirmarCompra('Facturar a ' + cuit)
         setErrorMessage('');
     }
-
-    console.log(cuit)
 
     const keyDownCuit = (slot, valor) => {
         return (event) => {
@@ -112,9 +109,9 @@ export default function Inscripto() {
         <>
             <div className="contenedorFormConfirmarCompra contenedorInscripto">
                 <div className="contenedorEntradaConfirmarCompra">
-                    {metodoPago == 'tarjeta' ?
+                    <label htmlFor="primerosDigitos" className={`${metodoPago == 'tarjeta' ? 'izquierda' : 'medio'}`}>CUIT</label>
+                    {/*metodoPago == 'tarjeta'*/false ?
                         (<>
-                            <label htmlFor="primerosDigitos">CUIT</label>
                             <div className="contenedorCuitInscriptoTarjeta">
                                 <input
                                     className={`${inputsFocus && 'focuseado'}`}
@@ -148,6 +145,7 @@ export default function Inscripto() {
                             onChange={(e) => setCuit(e.target.value)}
                             onFocus={() => setErrorMessage('')}
                             inputMode="numeric"
+                            maxLength="11"
                         />)
                     }
                 </div>
