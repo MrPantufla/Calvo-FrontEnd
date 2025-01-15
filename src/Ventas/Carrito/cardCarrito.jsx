@@ -122,7 +122,7 @@ export default function CardCarrito(args) {
             :
             ((producto.kg > 0) ?
                 (productoPrecioFinal * producto.cantidad * producto.kg +
-                    (troquelado ? troquelado.precio * producto.kg : 0) +
+                    (troquelado ? troquelado.precio : 0) +
                     (proceso ? proceso.precio * producto.kg : 0) +
                     (acabado ? acabado.precio * producto.kg : 0)
                 )

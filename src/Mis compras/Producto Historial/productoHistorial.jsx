@@ -67,7 +67,7 @@ export default function ProductoHistorial(args) {
         colorParaUsar == 'BRONCE'
     );
 
-    const precio = args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1));
+    const precio = args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1)) + args.precioTroquelado;
     const precioIntFinal = Math.round(precio - precio / 100 * (args.descuento || 0));
 
     const precioParaMostrarString = precioIntFinal ? (precioIntFinal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
@@ -81,11 +81,11 @@ export default function ProductoHistorial(args) {
 
     (producto && producto.cod_int && producto.cod_orig && esPerfil) ? (codigo = producto.cod_orig) : (producto && (codigo = producto.cod_int));
 
-    if (producto.referenciaPaquete) {
+    if (producto && producto.referenciaPaquete) {
         codigoImagen = esPerfil ? (producto.referenciaPaquete.cod_orig) : (producto.referenciaPaquete.cod_int);
     }
     else {
-        codigoImagen = esPerfil ? (producto.cod_orig) : (producto.cod_int);
+        codigoImagen = (producto && esPerfil) ? (producto.cod_orig) : (producto.cod_int);
     }
 
     return (

@@ -264,7 +264,7 @@ export default function CardProducto(args) {
     }
   };
 
-  const precioPerfil = precioParaUsar * kg + (troquelado ? troquelado.precio * kg : 0) + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0);
+  const precioPerfil = precioParaUsar * kg + (troquelado ? troquelado.precio : 0) + (proceso ? proceso.precio * kg : 0) + (acabado ? acabado.precio * kg : 0);
   const precioChapa = precioParaUsar + (proceso ? proceso.precio * extraerMetrosCuadrados(detalle) : 0) + (acabado ? acabado.precio * extraerMetrosCuadrados(detalle) : 0);
 
   const precioParaMostrarInt = parseInt(

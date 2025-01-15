@@ -101,7 +101,7 @@ export default function Carrito(args) {
         (productoPrecioFinal + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
         :
         (producto && producto.kg > 0)
-          ? (productoPrecioFinal * producto.kg + (troquelado ? troquelado.precio * producto.kg : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
+          ? (productoPrecioFinal * producto.kg + (troquelado ? troquelado.precio : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
           : productoPrecioFinal
       )
 
