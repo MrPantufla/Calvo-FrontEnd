@@ -44,10 +44,10 @@ export default function CardMisCompras(args) {
 
             let precioProvisional = 0;
 
-            if (conDescuento && !(producto.tipo_prod === 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES')))) {
-                precioProvisional = ((currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1)) * 97 / 100);
+            if (conDescuento && !(producto && producto.tipo_prod === 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES')))) {
+                precioProvisional = ((currentItem.p_vta * currentItem.cantidad * ((producto && producto.rubro != 85) ? (producto.kg || 1) : 1) + currentItem.precioTroquelado) * 97 / 100);
             } else {
-                precioProvisional = (currentItem.p_vta * currentItem.cantidad * (producto.rubro != 85 ? (producto.kg || 1) : 1));
+                precioProvisional = (currentItem.p_vta * currentItem.cantidad * ((producto && producto.rubro != 85) ? (producto.kg || 1) : 1)  + currentItem.precioTroquelado);
             }
 
             if (producto) {
@@ -132,17 +132,24 @@ export default function CardMisCompras(args) {
     });
 
     function generarCSV(datos) {
-        // Obtener encabezados desde las claves del primer objeto
-        const encabezados = Object.keys(datos[0]).join(";");
+        // Agregar la columna "Fecha" al final de cada fila, pero solo llenar la primera fila
+        const encabezados = [...Object.keys(datos[0]), "Fecha"].join(";");
 
-        // Generar las filas de datos
-        const filas = datos.map(fila =>
-            Object.values(fila).map(valor => `"${valor}"`).join(";")
-        );
+        const filas = datos.map((fila, index) => {
+            const valores = Object.values(fila).map(valor => `"${valor}"`);
+            // Solo la primera fila tiene la fecha; las demás filas tienen una celda vacía
+            if (index === 0) {
+                valores.push(`"${fechaFormateada}"`);
+            } else {
+                valores.push('""');
+            }
+            return valores.join(";");
+        });
 
         // Combinar encabezados y filas
         return [encabezados, ...filas].join("\n");
     }
+
 
     const descargarArchivo = (nombreArchivo, contenido) => {
         const BOM = "\uFEFF";
@@ -183,12 +190,24 @@ export default function CardMisCompras(args) {
             </div>
             <div className={`bodyCardMisCompras ${cardComprasAbierto == true && 'open'}`}>
                 <div className="productosHistorialContainer">
-                    {Array.from({ length: args.data.length }).map((_, index) => (
-                        <ProductoHistorial key={index} id={args.data[index].producto} cantidad={args.data[index].cantidad} precio={args.data[index].p_vta} proceso={args.data[index].proceso} acabado={args.data[index].acabado} descuento={args.data[index].descuento || 0} />
-                    ))}
+                    {Array.from({ length: args.data.length }).map((_, index) => {
+                        const producto = args.data[index];
+                        return (
+                            <ProductoHistorial
+                                key={index}
+                                id={producto.producto}
+                                cantidad={producto.cantidad}
+                                precio={producto.p_vta}
+                                proceso={producto.proceso}
+                                precioTroquelado={producto.precioTroquelado || 0}
+                                acabado={producto.acabado}
+                                descuento={producto.descuento || 0}
+                            />
+                        );
+                    })}
                 </div>
                 <button onClick={() => descargarArchivo(`pedidoCalvo${fechaFormateada}.csv`, generarCSV(objetoCSV))}>
-                    Descargar pedido <svg xmlns="http://www.w3.org/2000/svg" width="1.8rem" height="1.8rem" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+                    Descargar pedido <svg xmlns="http://www.w3.org/2000/svg" width="1.8rem" height="1.8rem" fill="currentColor" className="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z" />
                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
                     </svg>
