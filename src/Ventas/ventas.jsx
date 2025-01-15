@@ -165,13 +165,6 @@ export default function Ventas() {
           -Para concretar un pedido con procesos, se debe abonar una seña del 50% del valor estimativo de los mismos. Una persona de ventas se comunicará para concretar dicha transacción e informar el plazo de entrega.
         </>
       )}
-
-      {tieneEco && (
-        <>
-          <br />
-          -Los perfiles de la línea ECO no se facturan.
-        </>
-      )}
     </p>
     ;
 
