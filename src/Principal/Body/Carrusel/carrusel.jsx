@@ -5,16 +5,20 @@ import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export default function Carrusel() {
   const [listaImagenes, setListaImagenes] = useState([]);
   const [imagenesCargadas, setImagenesCargadas] = useState(false);
-  const [visibilidad, setVisibilidad] = useState([]);
+  const [datosImagen, setDatosImagen] = useState([]);
   const [primeraCarga, setPrimeraCarga] = useState(true);
+  const [respuestas, setRespuestas] = useState([]);
 
   const { state } = useAuth();
 
   const { backend } = useVariables();
+
+  const navigate = useNavigate();
 
   const intervalo = state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? null : 2500) : 2500;
 
@@ -98,6 +102,7 @@ export default function Carrusel() {
         }
 
         const data = await response.json();
+
         setListaImagenes(data);
 
         data.forEach(url => {
@@ -117,11 +122,21 @@ export default function Carrusel() {
     obtenerImagenes();
   }, [backend]);
 
-  const cambiarVisibilidadDb = async (index, nuevaVisibilidad) => {
+  const cambiarDatos = async (index, dato, tipo) => {
 
-    const itemEnviar = {
-      index: index,
-      visibilidad: nuevaVisibilidad
+    let itemEnviar;
+
+    if (tipo == 'visibilidad') {
+      itemEnviar = {
+        index: index,
+        visibilidad: dato
+      }
+    }
+    else {
+      itemEnviar = {
+        index: index,
+        urlDestino: dato
+      }
     }
 
     let tokenParaEnviar = Cookies.get('jwtToken');
@@ -130,7 +145,7 @@ export default function Carrusel() {
       tokenParaEnviar = null;
     }
 
-    const response = await fetch(`${backend}/visibilidadCarrusel/post`, {
+    const response = await fetch(`${backend}/datosCarrusel/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -141,12 +156,37 @@ export default function Carrusel() {
     });
 
     if (response.ok) {
-      setVisibilidad((prevVisibilidad) => {
-        const nuevaVisibilidadArray = [...prevVisibilidad]; // Crear una copia del arreglo actual
-        nuevaVisibilidadArray[index - 1] = nuevaVisibilidad; // Asignar el nuevo valor al índice correspondiente
-        return nuevaVisibilidadArray; // Retornar el nuevo arreglo
-      });
-      console.log("Visibilidad cambiada con éxito")
+      if (tipo == 'visibilidad') {
+        setDatosImagen((prevDatos) => {
+          const nuevosDatosArray = [...prevDatos]; // Crear una copia del arreglo actual
+          nuevosDatosArray[index - 1][0] = dato; // Asignar el nuevo valor al índice correspondiente
+          return nuevosDatosArray; // Retornar el nuevo arreglo
+        });
+      }
+      else {
+        setDatosImagen((prevDatos) => {
+          const nuevosDatosArray = [...prevDatos]; // Crear una copia del arreglo actual
+          nuevosDatosArray[index - 1][1] = dato; // Asignar el nuevo valor al índice correspondiente
+          return nuevosDatosArray; // Retornar el nuevo arreglo
+        });
+
+        setRespuestas((prevRespuestas) => {
+          const nuevasRespuestasArray = [...prevRespuestas];
+          nuevasRespuestasArray[index - 1] = true;
+          return nuevasRespuestasArray;
+        })
+      }
+
+      console.log("Dato cambiado con éxito")
+    }
+    else {
+      if (tipo == 'url') {
+        setRespuestas((prevRespuestas) => {
+          const nuevasRespuestasArray = [...prevRespuestas];
+          nuevasRespuestasArray[index - 1] = false;
+          return nuevasRespuestasArray;
+        })
+      }
     }
   }
 
@@ -158,10 +198,12 @@ export default function Carrusel() {
 
           const arrayPermisos = listaImagenes.map((_, i) => {
             const permiso = permisosDb.find(p => p.index == i + 1);
-            return permiso ? [permiso.visibilidad] : ["clientes"];
+            return permiso
+              ? [permiso.visibilidad || 'clientes', permiso.urlDestino || '']
+              : ['clientes', '']; // Valores predeterminados si no se encuentra permiso
           });
 
-          setVisibilidad(arrayPermisos);
+          setDatosImagen(arrayPermisos);
         } catch (error) {
           console.error("Error al obtener permisos de visibilidad:", error);
         }
@@ -175,7 +217,7 @@ export default function Carrusel() {
 
   const obtenerListaVisilibilidad = async () => {
     try {
-      const response = await fetch(`${backend}/visibilidadCarrusel/get`);
+      const response = await fetch(`${backend}/datosCarrusel/get`);
 
       if (!response.ok) {
         throw new Error('Error al obtener la lista de visibilidades');
@@ -195,12 +237,25 @@ export default function Carrusel() {
         (<Carousel interval={intervalo}>
           {
             listaImagenes.map((imageName, index) => (
-              (index !== 0 && (visibilidad[index - 1]) == 'todos' || visibilidad[index - 1] == 'registrados' && state.userInfo || visibilidad[index - 1] == 'clientes' && state.userInfo && state.userInfo.cliente) && (
+              (index !== 0 &&
+                datosImagen[index - 1] &&
+                (
+                  datosImagen[index - 1][0] === 'todos' ||
+                  (datosImagen[index - 1][0] === 'registrados' && state.logueado) ||
+                  (datosImagen[index - 1][0] === 'clientes' && state.userInfo && state.userInfo.cliente)
+                )
+              ) && (
                 <Carousel.Item key={index}>
                   <img
-                    className="d-block w-100"
+                    className={`d-block w-100 ${datosImagen[index - 1][1] ? 'clickeable' : ''}`}
                     src={imageName}
                     alt={`Slide ${index}`}
+                    onClick={() => {
+                      const url = datosImagen[index - 1]?.[1]; 
+                      if (url && url.length > 0) {
+                        window.location.href = url;
+                      }
+                    }}
                   />
 
                   {(state.userInfo && (state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador')) &&
@@ -212,21 +267,58 @@ export default function Carrusel() {
                         </div>
 
                         <div className="divPermisosCarrusel">
-                          <button className={visibilidad[index - 1] == 'todos' ? 'active' : ''} onClick={() => cambiarVisibilidadDb(index, 'todos')}>{}Todos</button>
-                          <button className={visibilidad[index - 1] == 'registrados' ? 'active' : ''} onClick={() => cambiarVisibilidadDb(index, 'registrados')}>Registrados</button>
-                          <button className={visibilidad[index - 1] == 'clientes' ? 'active' : ''} onClick={() => cambiarVisibilidadDb(index, 'clientes')}>Clientes</button>
+                          <button className={datosImagen[index - 1][0] == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(index, 'todos', 'visibilidad')}>{ }Todos</button>
+                          <button className={datosImagen[index - 1][0] == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(index, 'registrados', 'visibilidad')}>Registrados</button>
+                          <button className={datosImagen[index - 1][0] == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(index, 'clientes', 'visibilidad')}>Clientes</button>
                         </div>
 
                         {listaImagenes.length > 2 &&
                           (
-                            <div className="divEliminarArchivoCarrusel storageCarrusel">
-                              <label htmlFor={`eliminarImagen_${index}`} className="boton-personalizado">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                                </svg>
-                              </label>
-                              <input id={`eliminarImagen_${index}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
-                            </div>
+                            <>
+                              <div className="divEliminarArchivoCarrusel storageCarrusel">
+                                <label htmlFor={`eliminarImagen_${index}`} className="boton-personalizado">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                  </svg>
+                                </label>
+                                <input id={`eliminarImagen_${index}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
+                              </div>
+
+                              <div className="urlDestinoContainer">
+                                <input
+                                  type="text"
+                                  value={(datosImagen[index - 1] && datosImagen[index - 1][1]) || ''}
+                                  onChange={(e) => {
+                                    if (datosImagen[index - 1]) {
+                                      const newDatosImagen = [...datosImagen];
+                                      newDatosImagen[index - 1][1] = e.target.value;
+                                      setDatosImagen(newDatosImagen);
+                                    }
+                                  }}
+                                  onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(index, datosImagen[index - 1][1], 'url')}
+                                />
+                                <button
+                                  className={(respuestas[index - 1] && respuestas[index - 1] === true) ? 'true' : respuestas[index - 1] === false ? 'false' : ''}
+                                  onClick={() => cambiarDatos(index, datosImagen[index - 1][1], 'url')}
+                                >
+                                  {respuestas[index - 1] && respuestas[index - 1] === true ?
+                                    (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-check-lg" viewBox="0 0 16 16">
+                                      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                                    </svg>)
+                                    :
+                                    (respuestas[index - 1] && respuestas[index - 1] === false ?
+                                      (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-exclamation" viewBox="0 0 16 16">
+                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
+                                      </svg>)
+                                      :
+                                      (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--colorSecundario)" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                      </svg>)
+                                    )
+                                  }
+                                </button>
+                              </div>
+                            </>
                           )}
                       </>
                     )}

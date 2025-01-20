@@ -6,6 +6,10 @@
   height: 58rem;
 }
 
+.d-block.w-100.clickeable{
+  cursor: pointer;
+}
+
 .contenedorPrincipalCarrusel {
   display: flex;
   justify-content: center;
@@ -37,7 +41,9 @@
   opacity: 0.6;
 }
 
-.divSubirArchivoCarrusel, .divEliminarArchivoCarrusel, .divPermisosCarrusel{
+.divSubirArchivoCarrusel,
+.divEliminarArchivoCarrusel,
+.divPermisosCarrusel {
   position: absolute;
   z-index: 100;
   top: 1rem;
@@ -51,7 +57,7 @@
   right: 1rem;
 }
 
-.divPermisosCarrusel{
+.divPermisosCarrusel {
   width: 30rem;
   margin: 0 auto;
   left: 0;
@@ -60,7 +66,7 @@
   flex-direction: row;
 }
 
-.divPermisosCarrusel button{
+.divPermisosCarrusel button {
   width: 10rem;
   font-size: 1.5rem;
   font-weight: 700;
@@ -72,7 +78,7 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.divPermisosCarrusel button.active{
+.divPermisosCarrusel button.active {
   background-color: var(--colorSecundario);
   color: white;
 }
@@ -105,7 +111,7 @@
   color: white;
 }
 
-.cargandoCarouselContainer{
+.cargandoCarouselContainer {
   padding-top: 14rem;
   display: flex;
   justify-content: center;
@@ -117,6 +123,48 @@
   height: 6rem;
   border-width: 4px;
   color: var(--colorSecundario);
+}
+
+.urlDestinoContainer {
+  position: absolute;
+  margin: 0 auto;
+  width: 100%;
+  top: 6rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.urlDestinoContainer input {
+  display: block;
+  width: 30rem;
+  height: 2.7rem;
+  border: 2px solid var(--colorTerciario);
+  padding: 0 0.5rem;
+  font-weight: bold;
+  color: var(--colorSecundario);
+  font-size: 1.5rem;
+}
+
+.urlDestinoContainer button{
+  width: 3rem;
+  border: 2px solid var(--colorTerciario);
+  margin-left: 1rem;
+  border-radius: 4px;
+}
+
+.urlDestinoContainer button:active{
+  transform: scale(0.95);
+}
+
+.urlDestinoContainer button.true{
+  background-color: green;
+  border: none;
+}
+
+.urlDestinoContainer button.false{
+  background-color: var(--colorRojo);
+  border: none;
 }
 
 @media (min-width: 1600px) {
@@ -231,9 +279,19 @@
   .carousel {
     padding-top: 14rem;
   }
+
+  .urlDestinoContainer input {
+    width: 35rem;
+    height: 4rem;
+    font-size: 2.3rem;
+  }
+  
+  .urlDestinoContainer button{
+    width: 4rem;
+  }
 }
 
-@media (max-width: 540px){
+@media (max-width: 540px) {
   .slide {
     width: 95.5%;
     height: 46rem;
