@@ -11,6 +11,9 @@
     "clientes_web":{
       ".indexOn": ["cuit"]
     },
+    "datosInternosCarrusel":{
+      ".indexOn": ["index"]
+    },
     "descuentos":{
       ".indexOn": ["cliente"]
     },
@@ -52,9 +55,6 @@
     },
     "usuarios":{
       ".indexOn": ["email", "cuit", "id"]
-    },
-    "visibilidadCarrusel":{
-      ".indexOn": ["index"]
     }
   }
 }
