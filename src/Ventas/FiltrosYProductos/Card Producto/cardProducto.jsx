@@ -413,7 +413,7 @@ export default function CardProducto(args) {
           {referencia ?
             (<h3><span className="codOrig">{codigo}</span> - {`${detalle}`} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
             :
-            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h3>)
+            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{cod_orig.slice(-2) == '-M' ? ("(" + cantidad + "m.)") : (cantidad > 1 && ("(" + cantidad + "u.)"))}</span></h3>)
           }
         </div>
         <div className="kgCantidadYColorContainer">

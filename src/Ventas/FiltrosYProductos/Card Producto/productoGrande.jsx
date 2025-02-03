@@ -91,7 +91,7 @@ export default function ProductoGrande(args) {
                         {referencia ?
                             (<h2>{detalle} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h2>)
                             :
-                            (<h2>{detalle} <span className="codOrig">{`${cantidad > 1 ? ('(' + cantidad + 'u.)') : ('')}`}</span></h2>)
+                            (<h2>{detalle} <span className="codOrig">{cod_orig.slice(-2) == '-M' ? ("(" + cantidad + "m.)") : (cantidad > 1 && ("(" + cantidad + "u.)"))}</span></h2>)
                         }
                     </div>
 
