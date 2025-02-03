@@ -97,7 +97,7 @@
     margin: 1rem auto;
 }
 
-.confirmarBoton:active{
+.confirmarBoton:not(.disabled):active{
     transform: scale(0.97);
 }
 
@@ -231,7 +231,9 @@
 
     .botonesOpcionesConfirmarCompra button{
         font-size: 2.5rem;
-        height: 5rem;
+        height: auto;
+        width: 20rem;
+        padding: 0.5rem;
     }
 
     .aclaracionesConfirmarCompra{

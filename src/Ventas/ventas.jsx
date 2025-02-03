@@ -23,6 +23,7 @@ import Inscripto from './Confirmar compra/Facturacion/inscripto.jsx';
 import { useFinalizarCompra } from '../contextFinalizarCompra.jsx';
 import { useAuth } from '../contextLogin.jsx';
 import FinalizarPedido from './Confirmar compra/Finalizar pedido/finalizarPedido.jsx';
+import Arregla from './Confirmar compra/Envios/Arregla/arregla.jsx';
 
 export default function Ventas() {
 
@@ -99,9 +100,8 @@ export default function Ventas() {
       )}
       {(tipoEnvio === 'correo' || medioEnvio === 'sucursal') && (
         <>
-          -Los envíos se realizan por medio del servicio de Correro Argentino
+          -El costo del envío se abona al transportista al llegar la mercadería
           <br />
-          -Podrás realizar un seguimiento del estado de tu envío en la sección <a href='/misCompras' target="blank" rel='noopener noreferrer'>Mis compras</a>
         </>
       )}
     </div>
@@ -111,17 +111,20 @@ export default function Ventas() {
     {
       nombre: 'Envío a domicilio', comparador: 'domicilio', set: () => setMedioEnvio('domicilio'), componente: <Domicilio key='domicilio' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
     },
-    {
+    /*{
       nombre: 'Envío a sucursal', comparador: 'sucursal', set: () => { setMedioEnvio('sucursal'); setTipoEnvio('') }, componente: <Sucursal key='sucursal' siguiente={() => setMostrarPagos(true)} />, aclaraciones: aclaracionesEnvio
-    },
+    },*/
     {
       nombre: 'Retira por su cuenta', comparador: 'retira', set: () => { setMedioEnvio('retira'); setTipoEnvio('') }, componente: <Retira key='retira' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
+    },
+    {
+      nombre: 'Coordina con ventas', comparador: 'arregla', set: () => { setMedioEnvio('arregla'); setTipoEnvio('') }, componente: <Arregla key='arregla' siguiente={() => setMostrarPagos(true)} />, aclaraciones: ''
     }
   ];
 
   const aclaracionesPagoEfectivo =
     <p className="aclaracionesConfirmarCompra">
-      -Al pagar en efectivo podes realizarlo en el local en caso de retirar personalmente tu mercadería o a nuestro transportista al momento de la entrega a domicilio
+      -Al pagar en efectivo podes realizarlo en el local al retirar tu mercadería o a nuestro transportista al momento de la entrega a domicilio
     </p>
     ;
 
@@ -133,7 +136,7 @@ export default function Ventas() {
 
   const pagosArray = [
     // Solo agregamos la opción de "Efectivo" si se cumple la condición
-    ...(/*(state.userInfo && state.userInfo.cliente && (tipoEnvio == 'transportePropio' || medioEnvio == 'retira'))*/true ? [{
+    ...((state.userInfo && ((state.userInfo.cliente && tipoEnvio == 'transportePropio' || medioEnvio == 'retira')))/*true*/ ? [{
       nombre: 'Efectivo',
       comparador: 'efectivo',
       set: () => setMetodoPago('efectivo'),
@@ -169,7 +172,7 @@ export default function Ventas() {
     ;
 
   const facturacionArray = [
-    ...(/*metodoPago == 'efectivo'*/true
+    ...(metodoPago == 'efectivo'/*true*/
       ? [
         {
           nombre: 'Sin facturar',
@@ -220,7 +223,7 @@ export default function Ventas() {
                 componentesArray={enviosArray}
                 atras={() => {
                   setMostrarEnvios(false);
-                  setMostrarConfirmarCompra(false)
+                  setMostrarConfirmarCompra(false);
                 }}
               />
             )
@@ -230,10 +233,8 @@ export default function Ventas() {
                   titulo='MÉTODO DE PAGO'
                   componentesArray={pagosArray}
                   atras={() => {
-                    /*setMostrarPagos(false);
-                    setMostrarEnvios(true);*/
-                    setMostrarConfirmarCompra(false);
                     setMostrarPagos(false);
+                    setMostrarEnvios(true);
                   }}
                 />
               )
@@ -244,8 +245,12 @@ export default function Ventas() {
                     componentesArray={facturacionArray}
                     atras={() => {
                       setMostrarFacturacion(false);
-                      setMostrarConfirmarCompra(false);
-                      //setMostrarPagos(true);
+                      if (state.userInfo && state.userInfo.cliente) {
+                        setMostrarEnvios(true);
+                      }
+                      else {
+                        setMostrarPagos(true);
+                      }
                     }}
                   />
                 )

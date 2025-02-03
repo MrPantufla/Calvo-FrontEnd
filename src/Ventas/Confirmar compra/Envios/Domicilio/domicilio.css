@@ -6,28 +6,27 @@
 
 .datosContenedor {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 1rem;
 }
 
-.datosContenedor p{
+.direccionYBotonContainer{
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .datosDireccion {
-    width: 70%;
+    width: 60%;
 }
 
-.contenedorPrincipalDomicilio p {
+.datosDireccion p {
     text-align: left;
     font-size: 1.5rem;
     font-weight: bold;
-    max-width: 70%;
 }
 
-.contenedorPrincipalDomicilio p span {
+.datosDireccion p span {
     color: var(--colorRojo);
 }
 
@@ -48,6 +47,157 @@
     transform: scale(0.97);
 }
 
+.opcionCorreo{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    height: 2.4rem;
+    overflow: hidden;
+    color: var(--colorSecundario);
+}
+
+.opcionCorreo:hover{
+    background-color: var(--colorSecundario);
+    color: white;
+}
+
+.opcionCorreo.admin{
+    width: 19.5rem;
+}
+
+.serviciosCorreo{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.correosDesplegable{
+    height: 0;
+    interpolate-size: allow-keywords;
+    overflow: auto;
+    transition: height 0.3s;
+    width: 22rem;
+    margin: 0 auto;
+}
+
+.correosDesplegable.abierto{
+    height: auto;
+    border-style: solid;
+    border-color: var(--colorTerciario);
+    border-width: 0 2px 2px 2px;
+}
+
+.correosDesplegable::-webkit-scrollbar{
+    width: 0;
+}
+
+.desplegarCorreos{
+    display: block;
+    width: 22rem;
+    height: 2.7rem;
+    border: 2px solid var(--colorTerciario);
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: var(--colorSecundario);
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 auto;
+    user-select: none;
+}
+
+.desplegarCorreos:focus{
+    border-color: black;
+}
+
+.desplegarCorreos p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desplegarCorreos p.active{
+    color: black;
+}
+
+.desplegarCorreos p.desplegado svg{
+    transform: rotate(-180deg);
+}
+
+.inputOtroCorreo, .inputCorreo{
+    border: none;
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: black;
+    font-size: 1.5rem;
+    transition: height 0.3s, border 0.2s;
+}
+
+.inputOtroCorreo{
+    height: 0;
+    margin: 1rem auto 0 auto;
+    width: 22rem;
+}
+
+.inputOtroCorreo::placeholder, .inputCorreo::placeholder{
+    font-size: 1.5rem;
+    color: gray;
+}
+
+.inputCorreo{
+    margin-top: 1rem;
+    width: 19.5rem;
+}
+
+.inputOtroCorreo.renderizado, .inputCorreo{
+    height: 2.5rem;
+    border: 2px solid var(--colorTerciario);
+}
+
+.contenedorAgregarServicio button{
+    width: 2.5rem;
+    border: none;
+    margin-top: 1rem;
+}
+
+.contenedorAgregarServicio button svg{
+    fill: var(--colorSecundario);
+    width: 2rem;
+    height: 2rem;
+}
+
+.desplegarCorreos.desplegado, .correosDesplegable.abierto{
+    border-color: var(--colorSecundario);
+}
+
+.contenedorAgregarServicio{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.botonEliminarCorreo{
+    border: none;
+    width: 2.5rem;
+}
+
+.botonEliminarCorreo:hover{
+    background-color: var(--colorSecundario);
+}
+
+.botonEliminarCorreo:hover svg{
+    fill: white;
+}
+
+.confirmarBoton.disabled{
+    background-color: var(--colorTerciario) !important;
+    cursor: default;
+}
+
 @media(max-width: 820px) {
     .contenedorPrincipalDomicilio p {
         font-size: 2.2rem;
@@ -58,16 +208,101 @@
         width: 15rem;
         font-size: 2.2rem;
     }
+
+    .desplegarCorreos, .correosDesplegable, .inputOtroCorreo, .contenedorAgregarServicio, .inputCorreo{
+        width: 30rem;
+    }
+
+    .inputOtroCorreo.renderizado, .inputCorreo{
+        height: 4rem;
+    }
+
+    .inputOtroCorreo.renderizado::placeholder, .inputCorreo::placeholder, .inputOtroCorreo.renderizado, .inputCorreo{
+        font-size: 2rem;
+    }
+
+    .contenedorAgregarServicio button{
+        width: 5rem;
+    }
+    
+    .contenedorAgregarServicio button svg{
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .opcionCorreo{
+        font-size: 2rem;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .desplegarCorreos, .opcionCorreo{
+        height: 3.8rem;
+    }
+    
+    .correoSeleccionado{
+        font-size: 1.8rem;
+    }
+
+    .botonEliminarCorreo{
+        width: 3rem;
+    }
+
+    .botonEliminarCorreo svg{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
 }
 
 @media(max-width: 767px) {
+
     .contenedorPrincipalDomicilio p {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
     .editarDireccion {
         height: 8rem;
         width: 15rem;
         font-size: 2.5rem;
+    }
+
+    .opcionCorreo{
+        font-size: 3rem;
+        height: 4.2rem;
+    }
+
+    .inputCorreo{
+        width: 33rem;
+        height: 5rem;
+    }
+
+    .inputOtroCorreo.renderizado, .desplegarCorreos{
+        height: 5rem;
+        width: 38rem;
+    }
+
+    .correosDesplegable{
+        width: 38rem;
+    }
+
+    .contenedorAgregarServicio button{
+        width: 5rem;
+    }
+    
+    .contenedorAgregarServicio button svg{
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .inputOtroCorreo::placeholder, .inputCorreo::placeholder, .inputOtroCorreo, .inputCorreo{
+        font-size: 2.8rem;
+    }
+
+    .opcionCorreo{
+        width: 38rem;
+    }
+
+    .opcionCorreo.admin{
+        width: 33rem;
     }
 }
