@@ -195,7 +195,7 @@ export const LoginProvider = ({ children }) => {
             })
         }
 
-        obtenerProductosFiltrados(userData.categoria, userData.descuentos);
+        obtenerProductosFiltrados(userData.categoria, userData.descuentos, userData.zona);
         login(userData);
         renovarToken({ email: userData.email })
         obtenerDirecciones(userData.email);
