@@ -84,7 +84,7 @@ export default function DesplegablePerfil() {
 
     return (
         <div
-            className={`desplegablePerfil ${perfilHovered ? 'open' : ''} ${state.logueado ? 'logueado' : ''} ${state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? 'admin' : '') : ''}`}
+            className={`desplegablePerfil ${perfilHovered ? 'open' : ''} ${state.logueado ? 'logueado' : ''} ${state.userInfo ? ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'ventas') ? 'admin' : '') : ''}`}
             onMouseEnter={() => {
                 abrirPerfil();
             }}
@@ -96,7 +96,7 @@ export default function DesplegablePerfil() {
                     (<>
                         <div onClick={() => { handleToggleLogin(); cerrarPerfil(); navigate(rutaPerfil, { replace: true }) }} className="perfilNavLink">MI PERFIL</div>
                         <div onClick={() => { handleToggleLogin(); cerrarPerfil(); navigate(rutaMisCompras, { replace: true }) }} className="perfilNavLink">MIS COMPRAS</div>
-                        {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<a onClick={() => { navigate("/editarUsuarios"); cerrarPerfil() }}>EDITAR USUARIOS</a>)) : ''}
+                        {state.userInfo ? ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'ventas') && (<a onClick={() => { navigate("/editarUsuarios"); cerrarPerfil() }}>EDITAR USUARIOS</a>)) : ''}
                         <a onClick={() => { handleCerrarSesion(); cerrarPerfil() }}>CERRAR SESIÓN</a>
                     </>)
                     :
