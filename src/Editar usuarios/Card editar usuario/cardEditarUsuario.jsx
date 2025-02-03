@@ -2,8 +2,12 @@ import './cardEditarUsuario.css';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useVariables } from '../../contextVariables';
+import { useTienda } from '../../contextTienda';
 
 export default function CardEditarUsuario(args) {
+
+    const { isMobile } = useTienda();
+
     const [nombre, setNombre] = useState(args.usuario.nombre);
     const [apellido, setApellido] = useState(args.usuario.apellido);
     const [cuit, setCuit] = useState(args.usuario.cuit);
@@ -18,6 +22,7 @@ export default function CardEditarUsuario(args) {
     const { backend } = useVariables();
     const [respuesta, setRespuesta] = useState('');
     const [emailOriginal, setEmailOriginal] = useState(email);
+    const [codigo_confirmacion, setCodigo_confirmacion] = useState(args.usuario.codigo_confirmacion);
 
     const usuario = {
         id: args.usuario.id,
@@ -30,7 +35,8 @@ export default function CardEditarUsuario(args) {
         cliente: cliente,
         localidad: localidad,
         provincia: provincia,
-        zona: zona
+        zona: zona,
+        codigo_confirmacion: codigo_confirmacion
     }
 
     const toggleEliminar = (e) => {
@@ -138,7 +144,7 @@ export default function CardEditarUsuario(args) {
                     </div>
 
                     <div className="parteMedioFormularioEditarUsuario">
-                    <label htmlFor='localidad'>
+                        <label htmlFor='localidad'>
                             Localidad
                             <input
                                 className="inputTextoEditarUsuario"
@@ -173,6 +179,19 @@ export default function CardEditarUsuario(args) {
                             >
                             </input>
                         </label>
+
+                        {!isMobile &&
+                            <label htmlFor='cliente' className="labelCheckboxEditarUsuario">
+                                Cliente
+                                <input
+                                    type='checkBox'
+                                    id='cliente'
+                                    checked={cliente}
+                                    onChange={() => setCliente(!cliente)}
+                                >
+                                </input>
+                            </label>
+                        }
                     </div>
 
                     <div className="parteAbajoFormularioEditarUsuario">
@@ -200,6 +219,18 @@ export default function CardEditarUsuario(args) {
                                 >
                                 </input>
                             </label>
+
+                            <label htmlFor='codigo_confirmacion'>
+                                Código
+                                <input
+                                    className="inputTextoEditarUsuario"
+                                    type='text'
+                                    id='codigo_confirmacion'
+                                    value={codigo_confirmacion}
+                                    onChange={(e) => setCodigo_confirmacion(e.target.value)}
+                                >
+                                </input>
+                            </label>
                         </div>
                         <div>
                             <label htmlFor='emailConfirmado' className="labelCheckboxEditarUsuario">
@@ -214,6 +245,7 @@ export default function CardEditarUsuario(args) {
                                 </input>
                             </label>
 
+                            {isMobile &&
                             <label htmlFor='cliente' className="labelCheckboxEditarUsuario">
                                 Cliente
                                 <input
@@ -224,6 +256,7 @@ export default function CardEditarUsuario(args) {
                                 >
                                 </input>
                             </label>
+                        }
                         </div>
                     </div>
                 </div>

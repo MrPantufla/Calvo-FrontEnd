@@ -182,7 +182,7 @@ export default function HeaderMobile() {
                                 <div className="elemento" onClick={() => { handleInicioClick(); toggleMenu(); state.logueado ? navigate("/misCompras") : setMostrarLogin(true) }}>
                                     <p>MIS COMPRAS</p>
                                 </div>
-                                {state.userInfo ? (state.userInfo.tipo_usuario == 'admin' && (<div className="elemento" onClick={() => navigate("/editarUsuarios")}><p>EDITAR USUARIOS</p></div>)) : ''}
+                                {state.userInfo ? ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'ventas') && (<div className="elemento" onClick={() => navigate("/editarUsuarios")}><p>EDITAR USUARIOS</p></div>)) : ''}
                                 <NavLink to={ruta} onClick={() => {handleToggleLogin(); toggleMenu();}} className="miPerfilNavLink elemento"><p>MI PERFIL</p></NavLink>
                                 <div className="elemento" onClick={handleCerrarSesion} style={{ marginTop: '2.5rem' }}><p>CERRAR SESIÓN</p></div>
                             </>)

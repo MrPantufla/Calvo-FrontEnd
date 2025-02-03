@@ -53,6 +53,10 @@
     width: 13rem;
 }
 
+.formularioEditarUsuario label #codigo_confirmacion{
+    width: 7rem;
+}
+
 .formularioEditarUsuario label #emailConfirmado, .formularioEditarUsuario label #cliente{
     width: 1.5rem;
     height: 1.5rem;
@@ -195,7 +199,7 @@
         width: 3.5rem;
     }
 
-    .formularioEditarUsuario label #cuit, .formularioEditarUsuario label #telefono, .formularioEditarUsuario label #email, .formularioEditarUsuario label #zona{
+    .formularioEditarUsuario label #cuit, .formularioEditarUsuario label #telefono, .formularioEditarUsuario label #email, .formularioEditarUsuario label #zona, .formularioEditarUsuario label #codigo_confirmacion{
         width: auto;
     }
 }
