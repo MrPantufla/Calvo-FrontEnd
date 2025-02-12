@@ -1,6 +1,5 @@
 import './cardEditarUsuario.css';
 import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 import { useVariables } from '../../contextVariables';
 import { useTienda } from '../../contextTienda';
 
@@ -19,10 +18,14 @@ export default function CardEditarUsuario(args) {
     const [provincia, setProvincia] = useState(args.usuario.provincia);
     const [zona, setZona] = useState(args.usuario.zona);
     const [eliminar, setEliminar] = useState(false);
-    const { backend } = useVariables();
     const [respuesta, setRespuesta] = useState('');
     const [emailOriginal, setEmailOriginal] = useState(email);
     const [codigo_confirmacion, setCodigo_confirmacion] = useState(args.usuario.codigo_confirmacion);
+
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const usuario = {
         id: args.usuario.id,
@@ -52,17 +55,11 @@ export default function CardEditarUsuario(args) {
             emailOriginal
         };
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         const response = await fetch(`${backend}/modificarUsuario/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(body),
         });
@@ -78,17 +75,12 @@ export default function CardEditarUsuario(args) {
     }
 
     const eliminarUsuario = (usuario) => {
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
 
         const response = fetch(`${backend}/modificarUsuario/postEliminarUsuario`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(usuario),
         });
@@ -246,17 +238,17 @@ export default function CardEditarUsuario(args) {
                             </label>
 
                             {isMobile &&
-                            <label htmlFor='cliente' className="labelCheckboxEditarUsuario">
-                                Cliente
-                                <input
-                                    type='checkBox'
-                                    id='cliente'
-                                    checked={cliente}
-                                    onChange={() => setCliente(!cliente)}
-                                >
-                                </input>
-                            </label>
-                        }
+                                <label htmlFor='cliente' className="labelCheckboxEditarUsuario">
+                                    Cliente
+                                    <input
+                                        type='checkBox'
+                                        id='cliente'
+                                        checked={cliente}
+                                        onChange={() => setCliente(!cliente)}
+                                    >
+                                    </input>
+                                </label>
+                            }
                         </div>
                     </div>
                 </div>

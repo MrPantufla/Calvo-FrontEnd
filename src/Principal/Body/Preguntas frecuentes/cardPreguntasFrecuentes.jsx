@@ -1,7 +1,6 @@
 import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
 import './cardPreguntasFrecuentes.css';
-import Cookies from 'js-cookie';
 import MapFAQ from './mapFAQ';
 import { useState } from 'react';
 import CardEditable from './cardEditable';
@@ -9,7 +8,10 @@ import React from 'react';
 
 export default function CardPreguntasFrecuentes(args) {
 
-  const { backend } = useVariables();
+  const {
+    backend,
+    obtenerToken
+  } = useVariables();
 
   const { state } = useAuth();
 
@@ -17,17 +19,12 @@ export default function CardPreguntasFrecuentes(args) {
 
   const eliminarPreguntaFrecuente = async (id) => {
     try {
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
 
       const response = await fetch(`${backend}/preguntasFrecuentes/postEliminar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         body: id,
       });

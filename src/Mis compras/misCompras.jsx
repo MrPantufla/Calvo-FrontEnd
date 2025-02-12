@@ -8,7 +8,6 @@ import RenderHeader from '../Principal/Header/renderHeader.jsx';
 import { useTienda } from '../contextTienda.jsx';
 import { useVariables } from '../contextVariables.jsx';
 import carritoHistorialVacio from '../Imagenes/carritoHistorialVacio.webp';
-import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function MisCompras() {
@@ -16,7 +15,10 @@ export default function MisCompras() {
 
     const navigate = useNavigate();
 
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const {
         isFold,
@@ -45,17 +47,12 @@ export default function MisCompras() {
 
     const fetchData = async () => {
         try {
-            let tokenParaEnviar = Cookies.get('jwtToken');
-
-            if (tokenParaEnviar == undefined) {
-                tokenParaEnviar = null;
-            }
 
             if (state.logueado) {
                 const response = await fetch(`${backend}/misCompras/post`, {
                     method: 'POST',
                     headers: {
-                        'Authorization': tokenParaEnviar,
+                        'Authorization': obtenerToken(),
                     },
                 });
 

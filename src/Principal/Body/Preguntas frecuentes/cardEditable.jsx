@@ -2,13 +2,13 @@ import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
 import './cardEditable.css';
 import { useState, useRef } from 'react';
-import Cookies from 'js-cookie';
 
 export default function CardEditable(args) {
 
   const {
     backend,
-    setAgregarCardAbierto
+    setAgregarCardAbierto,
+    obtenerToken
   } = useVariables();
 
   const [cardAbierta, setCardAbierta] = useState(true);
@@ -36,11 +36,6 @@ export default function CardEditable(args) {
 
   const guardarPreguntaFrecuente = async () => {
     try {
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
 
       const bodyCard = { pregunta: pregunta, respuesta: respuesta }
 
@@ -48,7 +43,7 @@ export default function CardEditable(args) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         body: JSON.stringify(bodyCard),
       });
@@ -65,11 +60,6 @@ export default function CardEditable(args) {
 
   const editarPreguntaFrecuente = async () => {
     try {
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
 
       const bodyCard = { id: args.idEdicion, pregunta: pregunta, respuesta: respuesta }
 
@@ -77,7 +67,7 @@ export default function CardEditable(args) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         body: JSON.stringify(bodyCard),
       });

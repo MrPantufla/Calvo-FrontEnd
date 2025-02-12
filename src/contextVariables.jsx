@@ -1,5 +1,6 @@
 import { createContext, useContext } from 'react';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 const VariablesContext = createContext();
 
@@ -41,6 +42,16 @@ function VariablesProvider({ children }) {
         return `${horas}.${minutos}.${segundos}`;
     };
 
+    const obtenerToken = () => {
+        let tokenParaEnviar = Cookies.get('jwtToken');
+
+        if (tokenParaEnviar == undefined) {
+            tokenParaEnviar = null;
+        }
+
+        return tokenParaEnviar;
+    }
+
     return (
         <VariablesContext.Provider value={{
             backend,
@@ -61,7 +72,8 @@ function VariablesProvider({ children }) {
             agregarCardAbierto, 
             setAgregarCardAbierto,
             mostrarFinalizarPedido, 
-            setMostrarFinalizarPedido
+            setMostrarFinalizarPedido,
+            obtenerToken
             }}>
             {children}
         </VariablesContext.Provider>

@@ -4,24 +4,22 @@ import DesplegablePerfil from '../Principal/Header/Desplegable perfil/desplegabl
 import { useVariables } from '../contextVariables';
 import { useEffect, useState } from 'react';
 import CardEditarUsuario from './Card editar usuario/cardEditarUsuario';
-import Cookies from 'js-cookie';
 
 export default function EditarUsuarios() {
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
+
     const [usuarios, setUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState('');
 
     const obtenerUsuarios = async () => {
         try {
-            let tokenParaEnviar = Cookies.get('jwtToken');
-
-            if (tokenParaEnviar == undefined) {
-                tokenParaEnviar = null;
-            }
 
             const response = await fetch(`${backend}/usuarios/get`, {
                 headers: {
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
             });
 
@@ -89,7 +87,7 @@ export default function EditarUsuarios() {
 
             <div className="bodyEditarUsuarios">
                 {usuariosFiltrada.map(usuario => (
-                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario}/>
+                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario} />
                 ))}
             </div>
         </div>

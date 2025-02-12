@@ -5,7 +5,11 @@ import { useVariables } from './contextVariables';
 const AuthContext = createContext();
 
 export const LoginProvider = ({ children }) => {
-  const { backend } = useVariables();
+  
+  const {
+    backend,
+    obtenerToken
+  } = useVariables();
 
   const { obtenerProductosFiltrados } = useProductos();
 
@@ -15,8 +19,7 @@ export const LoginProvider = ({ children }) => {
   const [mostrarCartelLogout, setMostrarCartelLogout] = useState(false);
   const [mostrarCartelLogin, setMostrarCartelLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [calle, setCalle] = useState('');
-  const [numero, setNumero] = useState('');
+  const [domicilio, setDomicilio] = useState('');
   const [cp, setCp] = useState('');
   const [localidad, setLocalidad] = useState('');
   const [provincia, setProvincia] = useState('');
@@ -74,17 +77,12 @@ export const LoginProvider = ({ children }) => {
 
   const verifyToken = async () => {
     try {
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
 
       const response = await fetch(`${backend}/verificarToken/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
       });
 
@@ -110,17 +108,12 @@ export const LoginProvider = ({ children }) => {
 
   const obtenerDescuentos = async (cuit) => {
     try {
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
 
       const response = await fetch(`${backend}/descuento/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         body: JSON.stringify(parseInt(cuit)),
       });
@@ -157,7 +150,7 @@ export const LoginProvider = ({ children }) => {
     setEsperandoRepuesta(true);
 
     try {
-      
+
       let tokenParaEnviar = Cookies.get('tokenRenovacion');
 
       if (tokenParaEnviar == undefined) {
@@ -268,7 +261,7 @@ export const LoginProvider = ({ children }) => {
   }, [state.logueado]);
 
   const obtenerDirecciones = (email) => {
-    let tokenParaEnviar = Cookies.get('jwtToken');
+    let tokenParaEnviar = obtenerToken();
 
     // Función para enviar la solicitud API una vez que el token esté disponible
     const enviarSolicitudAPI = (token) => {
@@ -289,15 +282,13 @@ export const LoginProvider = ({ children }) => {
         .then(data => {
           if (typeof data === 'object') {
             // La respuesta es un objeto, probablemente la dirección del usuario
-            setCalle(data.calle);
-            setNumero(data.numero);
+            setDomicilio(data.domicilio);
             setCp(data.cp);
             setLocalidad(data.localidad);
             setProvincia(data.provincia);
             // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos
           } else {
-            setCalle('');
-            setNumero('');
+            setDomicilio('');
             setCp('');
             setLocalidad('');
             setProvincia('');
@@ -314,17 +305,7 @@ export const LoginProvider = ({ children }) => {
     if (tokenParaEnviar) {
       enviarSolicitudAPI(tokenParaEnviar);
     } else {
-      // Si el token no está disponible, intentar obtenerlo y luego enviar la solicitud
-      const obtenerToken = () => {
-        tokenParaEnviar = Cookies.get('jwtToken');
-        if (tokenParaEnviar) {
-          enviarSolicitudAPI(tokenParaEnviar);
-        } else {
-          // Puedes manejar el caso según tu lógica de aplicación (por ejemplo, mostrar un mensaje de error al usuario)
-          setErrorMessage('El token de autorización no está disponible');
-        }
-      };
-
+      enviarSolicitudAPI(obtenerToken())
       // Intentar obtener el token después de un pequeño tiempo de espera
       setTimeout(obtenerToken, 500); // Espera 500 milisegundos antes de intentar obtener el token
     }
@@ -335,8 +316,8 @@ export const LoginProvider = ({ children }) => {
       handleLogin,
       opcionSeleccionada,
       setOpcionSeleccionada,
-      state, 
-      setState, 
+      state,
+      setState,
       errorMessage,
       setErrorMessage,
       login,
@@ -354,13 +335,11 @@ export const LoginProvider = ({ children }) => {
       handleLogin,
       direccionConfirmada,
       setDireccionConfirmada,
-      setCalle,
-      setNumero,
+      domicilio,
+      setDomicilio,
       setCp,
       setLocalidad,
       setProvincia,
-      calle,
-      numero,
       cp,
       localidad,
       provincia,

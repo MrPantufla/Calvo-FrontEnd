@@ -2,10 +2,12 @@ import "./editarContraseña.css"
 import { useState } from "react";
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useVariables } from "../../../../contextVariables";
-import Cookies from 'js-cookie';
 
 export default function EditarContraseña() {
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const {
         setErrorMessage,
@@ -41,17 +43,11 @@ export default function EditarContraseña() {
 
     const confirmarEditarContraseña = () => {
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         fetch(`${backend}/editarContrasena/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(contraseñaNueva),
         })

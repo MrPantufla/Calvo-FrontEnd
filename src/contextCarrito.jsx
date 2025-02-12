@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useProductos } from './contextProductos';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
-import Cookies from 'js-cookie';
 import { marcasUnicasPerfiles } from './rubros';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -19,8 +18,7 @@ function CarritoProvider({ children }) {
   const {
     state,
     setMostrarLogin,
-    calle,
-    numero,
+    domicilio,
     cp,
     localidad,
     provincia
@@ -31,7 +29,8 @@ function CarritoProvider({ children }) {
   const {
     backend,
     obtenerFechaFormateada,
-    obtenerHoraFormateada
+    obtenerHoraFormateada,
+    obtenerToken
   } = useVariables();
 
   const [elementos, setElementos] = useState([]);
@@ -234,17 +233,11 @@ function CarritoProvider({ children }) {
       cantidades: cantidades
     }
 
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
-
     fetch(`${backend}/carrito/postActualizar`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': tokenParaEnviar,
+        'Authorization': obtenerToken(),
       },
       body: JSON.stringify(ActualizacionCarrito),
     })
@@ -275,20 +268,14 @@ function CarritoProvider({ children }) {
     setCompraRealizadaAbierto(true);
 
     const nuevosElementos = elementos.map(({ id, cantidadCarrito }) => ({ id, cantidadCarrito }));
-    const direccion = { calle: calle, numero: numero, cp: cp, localidad: localidad, provincia: provincia };
+    const direccion = { domicilio: domicilio, cp: cp, localidad: localidad, provincia: provincia };
     const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion, facturacion: datosPedido };
-
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
 
     fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': tokenParaEnviar,
+        'Authorization': obtenerToken(),
       },
       body: JSON.stringify(carritoRequest),
     })

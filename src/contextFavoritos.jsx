@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
-import Cookies from 'js-cookie';
 
 const FavoritosContext = createContext();
 
@@ -10,7 +9,10 @@ function useFavoritos() {
 }
 
 function FavoritosProvider({ children }) {
-  const { backend } = useVariables();
+  const {
+    backend,
+    obtenerToken
+  } = useVariables();
 
   const { state } = useAuth();
 
@@ -60,17 +62,11 @@ function FavoritosProvider({ children }) {
     const listaFavoritos = [...favoritos];
     const listaFavoritosString = listaFavoritos.join(' ');
 
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
-
     fetch(`${backend}/favoritos/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/text',
-        'Authorization' : tokenParaEnviar,
+        'Authorization': obtenerToken(),
       },
       body: listaFavoritosString || ' ',
     })

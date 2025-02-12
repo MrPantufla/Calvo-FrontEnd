@@ -4,7 +4,6 @@ import { forwardRef, useImperativeHandle, useRef, useEffect, useState } from 're
 import { useCarrito } from '../../../contextCarrito';
 import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
-import Cookies from 'js-cookie';
 import { useProductos } from '../../../contextProductos';
 
 const PdfCarrito = forwardRef((props, ref) => {
@@ -33,7 +32,8 @@ const PdfCarrito = forwardRef((props, ref) => {
 
   const {
     backend,
-    obtenerFechaFormateada
+    obtenerFechaFormateada,
+    obtenerToken
   } = useVariables();
 
   const [clienteInfo, setClienteInfo] = useState(null);
@@ -41,17 +41,12 @@ const PdfCarrito = forwardRef((props, ref) => {
   const pdfRef = useRef();
 
   const obtenerCliente = async () => {
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
 
     try {
       const response = await fetch(`${backend}/cliente/get`, {
         method: 'GET',
         headers: {
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
       })
       if (response.ok) {

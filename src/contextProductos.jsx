@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useVariables } from './contextVariables';
-import Cookies from 'js-cookie';
 
 const ProductosContext = createContext();
 
@@ -10,7 +9,10 @@ function useProductos() {
 
 function ProductosProvider({ children }) {
 
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('destacados');
     const [productosIndexado, setProductosIndexado] = useState([]);
@@ -52,7 +54,7 @@ function ProductosProvider({ children }) {
                         precioFinal = producto.precio_vta2;
 
                         //Si es cliente mayorista sin zona, se le agrega 15% al precio de ECO
-                        if(zona == 'S/ZONA' && producto.tipo_prod == 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES'))){
+                        if (zona == 'S/ZONA' && producto.tipo_prod == 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES'))) {
                             precioFinal = precioFinal * 1.15;
                         }
                     }
@@ -232,18 +234,13 @@ function ProductosProvider({ children }) {
     }
 
     const guardarDestacados = async () => {
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
 
         try {
             const response = await fetch(`${backend}/productosDestacados/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
                 body: JSON.stringify(productosDestacados),
             });
@@ -276,16 +273,12 @@ function ProductosProvider({ children }) {
         }
 
         try {
-            let tokenParaEnviar = Cookies.get('jwtToken');
-
-            if (tokenParaEnviar == undefined) {
-                tokenParaEnviar = null;
-            }
+            
             const response = await fetch(`${backend}/productosEliminados/${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
                 body: JSON.stringify(body),
             });
@@ -317,16 +310,12 @@ function ProductosProvider({ children }) {
 
     const ocultarPrecio = async (idProducto) => {
         try {
-            let tokenParaEnviar = Cookies.get('jwtToken');
-
-            if (tokenParaEnviar == undefined) {
-                tokenParaEnviar = null;
-            }
+            
             const response = await fetch(`${backend}/ocultarPrecio/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
                 body: JSON.stringify(idProducto),
             });
@@ -570,7 +559,6 @@ function ProductosProvider({ children }) {
     }
 
     const ofertarProducto = async (idProducto, descuento) => {
-        let tokenParaEnviar = Cookies.get('jwtToken') || null;
 
         const Oferta = {
             idProducto: idProducto,
@@ -582,7 +570,7 @@ function ProductosProvider({ children }) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
                 body: JSON.stringify(Oferta),
             });
@@ -601,17 +589,11 @@ function ProductosProvider({ children }) {
     const eliminarOferta = async (idProducto) => {
         setOfertas(ofertas.filter(o => o.idProducto != idProducto))
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         const response = await fetch(`${backend}/ofertas/postEliminar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(idProducto),
         });

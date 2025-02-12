@@ -5,7 +5,6 @@ import { useVariables } from '../../../../contextVariables';
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
 import { useRef, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 export default function Domicilio() {
 
@@ -15,7 +14,8 @@ export default function Domicilio() {
         setMostrarEnvios,
         setMostrarPagos,
         setMostrarFacturacion,
-        backend
+        backend,
+        obtenerToken
     } = useVariables();
 
     const {
@@ -24,13 +24,11 @@ export default function Domicilio() {
 
     const {
         state,
-        calle,
-        numero,
+        domicilio,
         cp,
         localidad,
         provincia,
-        setCalle,
-        setNumero,
+        setDomicilio,
         setCp,
         setLocalidad,
         setProvincia
@@ -48,22 +46,17 @@ export default function Domicilio() {
     const [correoAñadir, setCorreoAñadir] = useState('');
     const desplegableRef = useRef();
     const [listaCorreos, setListaCorreos] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const direccionCargada = calle != '' && numero != '' && cp != '' && localidad != '' && provincia != '';
-
-    const viajarEditarDireccion = () => {
-        navigate('/perfil');
-        setMostrarEnvios(false);
-        abrirDireccion();
-    }
+    const direccionVacia = !domicilio || !cp || !localidad || !provincia;
 
     const confirmar = () => {
-        if (direccionCargada &&
-            (tipoEnvio == 'transportePropio' ||
-                (tipoEnvio == 'correo' && (correoSeleccionado.toUpperCase().startsWith('OTRO') ? correoSeleccionadoOtro.length > 0 : true))
-            ) &&
-            ((state.userInfo && !state.userInfo.cliente) ||
-                (state.userInfo && state.userInfo.cliente && tipoEnvio != ''))
+        if (!direccionVacia &&
+            tipoEnvio &&
+            tipoEnvio == 'correo' ?
+            (correoSeleccionado.toUpperCase().startsWith('OTRO') ? correoSeleccionadoOtro.length > 0 : correoSeleccionado)
+            :
+            (tipoEnvio == 'transportePropio')
         ) {
             setMostrarEnvios(false);
 
@@ -73,6 +66,9 @@ export default function Domicilio() {
             else {
                 setMostrarPagos(true);
             }
+        }
+        else {
+            setErrorMessage('Por favor, completa todos los campos')
         }
     }
 
@@ -108,12 +104,6 @@ export default function Domicilio() {
 
     const guardarNuevoServicioCorreo = async (servicio) => {
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         const entidad = {
             nombre: servicio
         }
@@ -123,7 +113,7 @@ export default function Domicilio() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
                 credentials: 'include',
                 body: JSON.stringify(entidad),
@@ -143,18 +133,12 @@ export default function Domicilio() {
 
     const deleteServicioCorreo = async (servicio) => {
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         try {
             const response = await fetch(`${backend}/servicioCorreo/delete`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
                 credentials: 'include',
                 body: JSON.stringify(servicio),
@@ -173,30 +157,47 @@ export default function Domicilio() {
 
     return (
         <div className="contenedorPrincipalDomicilio">
-            {state.userInfo && state.userInfo.cliente &&
-                <div className="botonesOpcionesConfirmarCompra">
-                    <button className={`${tipoEnvio == "transportePropio" && 'active'}`} onClick={() => setTipoEnvio("transportePropio")}>Transporte Calvo (sin costo)</button>
-                    <button className={`${tipoEnvio == "correo" && 'active'}`} onClick={() => setTipoEnvio("correo")}>Servicio de correo</button>
-                </div>
-            }
+            <div className="botonesOpcionesConfirmarCompra">
+                <button disabled={!(state.userInfo && state.userInfo.cliente)} className={`${tipoEnvio == "transportePropio" && 'active'}`} onClick={() => setTipoEnvio("transportePropio")}>Transporte Calvo (sin costo)</button>
+                <button className={`${tipoEnvio == "correo" && 'active'}`} onClick={() => setTipoEnvio("correo")}>Servicio de correo</button>
+            </div>
             <div className="datosContenedor">
-                <div className="direccionYBotonContainer">
-                    {direccionCargada ?
-                        (
-                            <div className="datosDireccion">
-                                <p><span>DOMICILIO:</span> {calle} {numero}</p>
-                                <p><span>CÓDIGO POSTAL:</span> {cp}</p>
-                                <p><span>LOCALIDAD:</span> {localidad}</p>
-                                <p><span>PROVINCIA:</span> {provincia}</p>
-                            </div>
-                        )
-                        :
-                        (<p><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="var(--colorRojo)" className="bi bi-exclamation-diamond-fill svgErrorFormulario" viewBox="0 0 16 16">
-                            <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                        </svg>No existe una dirección cargada en tu cuenta</p>)
-                    }
+                <div className="contenedorFormConfirmarCompra contenedorDireccion">
+                    <div className="contenedorEntradaConfirmarCompra">
+                        <label htmlFor="domicilio">DOMICILIO</label>
+                        <input id="domicilio"
+                            value={domicilio}
+                            onChange={(e) => setDomicilio(e.target.value)}
+                            onFocus={() => setErrorMessage('')}
+                        />
+                    </div>
 
-                    <button className="editarDireccion" onClick={() => viajarEditarDireccion()}>{direccionCargada ? 'Editar dirección' : 'Cargar dirección'}</button>
+                    <div className="contenedorEntradaConfirmarCompra">
+                        <label htmlFor="cp">CP</label>
+                        <input id="cp"
+                            value={cp}
+                            onChange={(e) => (setCp(e.target.value))}
+                            onFocus={() => setErrorMessage('')}
+                        />
+                    </div>
+
+                    <div className="contenedorEntradaConfirmarCompra">
+                        <label htmlFor="localidad">LOCALIDAD</label>
+                        <input id="localidad"
+                            value={localidad}
+                            onChange={(e) => (setLocalidad(e.target.value))}
+                            onFocus={() => setErrorMessage('')}
+                        />
+                    </div>
+
+                    <div className="contenedorEntradaConfirmarCompra">
+                        <label htmlFor="provincia">PROVINCIA</label>
+                        <input id="provincia"
+                            value={provincia}
+                            onChange={(e) => (setProvincia(e.target.value))}
+                            onFocus={() => setErrorMessage('')}
+                        />
+                    </div>
                 </div>
 
                 {tipoEnvio == 'correo' && <div className="serviciosCorreo">
@@ -221,7 +222,7 @@ export default function Domicilio() {
                         className={`correosDesplegable ${correosDesplegado && 'abierto'}`}
                     >
                         {(listaCorreos && listaCorreos.length > 0) && listaCorreos.map((correo, index) => (
-                            <div style={{ display: 'flex' }} key={index}>
+                            <div key={index}>
                                 <div
                                     className={`opcionCorreo ${correoSeleccionado == correo.nombre && 'selected'} ${state.userInfo.tipo_usuario == 'admin' && 'admin'}`}
                                     onClick={() => { setCorreoSeleccionado(correo.nombre); setCorreosDesplegado(false) }}
@@ -269,12 +270,19 @@ export default function Domicilio() {
                 </div>}
             </div>
             <div className="contenedorConfirmarBoton">
-                {(direccionCargada && ((state.userInfo && !state.userInfo.cliente) || (state.userInfo && state.userInfo.cliente && tipoEnvio != ''))) &&
-                    <button className={`confirmarBoton ${(tipoEnvio == 'correo' && correoSeleccionadoOtro.length == 0) && 'disabled'}`}
-                        onClick={() => confirmar()}
-                    >
-                        Confirmar
-                    </button>}
+                <button
+                    className={`confirmarBoton ${(tipoEnvio == 'correo' && correoSeleccionadoOtro.length == 0) && 'disabled'}`}
+                    onClick={() => confirmar()}
+                    disabled={!(!direccionVacia &&
+                        tipoEnvio &&
+                        tipoEnvio == 'correo' ?
+                        (correoSeleccionado.toUpperCase().startsWith('OTRO') ? correoSeleccionadoOtro.length > 0 : correoSeleccionado)
+                        :
+                        (tipoEnvio == 'transportePropio')
+                    )}
+                >
+                    Confirmar
+                </button>
             </div>
         </div>
     );

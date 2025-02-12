@@ -3,10 +3,12 @@ import { useAuth } from '../../../../contextLogin';
 import { useState, useEffect } from 'react';
 import { useConfiguracion } from '../../../../contextConfiguracion';
 import { useVariables } from '../../../../contextVariables';
-import Cookies from 'js-cookie';
 
 export default function EditarDatos() {
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const { state } = useAuth();
 
@@ -34,17 +36,11 @@ export default function EditarDatos() {
 
     const confirmarEditarDatos = () => {
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         fetch(`${backend}/editarDatos/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(usuario),
         })

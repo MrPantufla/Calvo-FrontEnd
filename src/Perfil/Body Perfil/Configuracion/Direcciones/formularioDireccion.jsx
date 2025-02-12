@@ -2,20 +2,20 @@ import './formularioDireccion.css'
 import { useAuth } from "../../../../contextLogin";
 import { useConfiguracion } from "../../../../contextConfiguracion";
 import { useVariables } from '../../../../contextVariables';
-import Cookies from 'js-cookie';
 
 export default function FormularioDireccion() {
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const { auth,
         setDireccionConfirmada,
-        calle,
-        numero,
+        domicilio,
         cp,
         provincia,
         localidad,
-        setCalle,
-        setNumero,
+        setDomicilio,
         setCp,
         setLocalidad,
         setProvincia
@@ -28,18 +28,13 @@ export default function FormularioDireccion() {
     } = useConfiguracion();
 
     const handleEnviarDireccion = () => {
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
 
         setDireccionConfirmada(true);
         fetch(`${backend}/direccion/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(direccionEstructura),
         })
@@ -70,11 +65,8 @@ export default function FormularioDireccion() {
         const letrasRegex = /^[A-Za-zÀ-ÿ\s]+$/;
         const numerosRegex = /^[0-9]+$/;
         const letrasYNumerosRegex = /^[a-zA-Z0-9]+$/;
-        if (!calle || !numero || !cp || !localidad || !provincia) {
+        if (!domicilio || !cp || !localidad || !provincia) {
             setErrorMessage('Por favor, completa todos los datos');
-        }
-        else if (!numerosRegex.test(numero)) {
-            setErrorMessage('Número solo puede contener números enteros');
         }
         else if (!letrasYNumerosRegex.test(cp)) {
             setErrorMessage('CP solo puede contener letras o números')
@@ -88,8 +80,7 @@ export default function FormularioDireccion() {
     }
 
     const direccionEstructura = {
-        calle: calle,
-        numero: numero,
+        domicilio: domicilio,
         cp: cp,
         localidad: localidad,
         provincia: provincia
@@ -106,22 +97,12 @@ export default function FormularioDireccion() {
                 <form onSubmit={enviarDireccion}>
                     <div className="calleYNumero seccionesDireccion">
                         <div className="form-group-editarPerfil direccionCalleInput">
-                            <label htmlFor="calle">CALLE</label>
+                            <label htmlFor="domicilio">DOMICILIO</label>
                             <input
                                 type="text"
-                                id="calle"
-                                value={calle}
-                                onChange={(e) => setCalle(e.target.value)}
-                                onFocus={() => setErrorMessage('')}
-                            />
-                        </div>
-                        <div className="form-group-editarPerfil direccionNumeroInput">
-                            <label htmlFor="numero">NÚMERO</label>
-                            <input
-                                type="text"
-                                id="numero"
-                                value={numero}
-                                onChange={(e) => setNumero(e.target.value.replace(/[^0-9]/g, ''))}
+                                id="domicilio"
+                                value={domicilio}
+                                onChange={(e) => setDomicilio(e.target.value)}
                                 onFocus={() => setErrorMessage('')}
                             />
                         </div>

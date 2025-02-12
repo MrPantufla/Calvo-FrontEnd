@@ -1,6 +1,5 @@
 import './confirmarCompra.css';
 import { React, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 import { useVariables } from '../../contextVariables';
 import { useFinalizarCompra } from '../../contextFinalizarCompra';
 import { useAuth } from '../../contextLogin';
@@ -39,7 +38,8 @@ export default function ConfirmarCompra(args) {
         setMostrarPagos,
         setMostrarFacturacion,
         setMostrarFinalizarPedido,
-        setMostrarConfirmarCompra
+        setMostrarConfirmarCompra,
+        obtenerToken
     } = useVariables();
 
     const {
@@ -55,17 +55,12 @@ export default function ConfirmarCompra(args) {
 
     const obtenerDatos = async () => {
         try {
-            let tokenParaEnviar = Cookies.get('jwtToken');
-
-            if (tokenParaEnviar == undefined) {
-                tokenParaEnviar = null;
-            }
 
             const response = await fetch(`${backend}/finalizarCompra/get`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': tokenParaEnviar,
+                    'Authorization': obtenerToken(),
                 },
             });
 

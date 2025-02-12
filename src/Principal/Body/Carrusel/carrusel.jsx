@@ -4,8 +4,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import { useAuth } from '../../../contextLogin';
 import { useVariables } from '../../../contextVariables';
 import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
 
 export default function Carrusel() {
   const [listaImagenes, setListaImagenes] = useState([]);
@@ -16,9 +14,10 @@ export default function Carrusel() {
 
   const { state } = useAuth();
 
-  const { backend } = useVariables();
-
-  const navigate = useNavigate();
+  const {
+    backend,
+    obtenerToken
+  } = useVariables();
 
   const intervalo = state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? null : 2500) : 2500;
 
@@ -28,16 +27,10 @@ export default function Carrusel() {
       formData.append('file', archivo);
       formData.append('carpeta', "imagenesCarrusel");
 
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
-
       const response = await fetch(`${backend}/carousel/postSubir`, {
         method: 'POST',
         headers: {
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         body: formData,
       });
@@ -68,17 +61,11 @@ export default function Carrusel() {
       formData.append('imageName', nombreImagen);
       formData.append('carpeta', "imagenesCarrusel");
 
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
-
       const response = await fetch(`${backend}/carousel/postEliminar`, {
         method: 'POST',
         body: formData,
         headers: {
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         credentials: 'include'
       });
@@ -139,17 +126,11 @@ export default function Carrusel() {
       }
     }
 
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
-
     const response = await fetch(`${backend}/datosCarrusel/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': tokenParaEnviar,
+        'Authorization': obtenerToken(),
       },
       credentials: 'include',
       body: JSON.stringify(itemEnviar),
@@ -159,20 +140,20 @@ export default function Carrusel() {
       if (tipo == 'visibilidad') {
         setDatosImagen((prevDatos) => {
           const nuevosDatosArray = [...prevDatos]; // Crear una copia del arreglo actual
-          nuevosDatosArray[index - 1][0] = dato; // Asignar el nuevo valor al índice correspondiente
+          nuevosDatosArray[index][0] = dato; // Asignar el nuevo valor al índice correspondiente
           return nuevosDatosArray; // Retornar el nuevo arreglo
         });
       }
       else {
         setDatosImagen((prevDatos) => {
           const nuevosDatosArray = [...prevDatos]; // Crear una copia del arreglo actual
-          nuevosDatosArray[index - 1][1] = dato; // Asignar el nuevo valor al índice correspondiente
+          nuevosDatosArray[index][1] = dato; // Asignar el nuevo valor al índice correspondiente
           return nuevosDatosArray; // Retornar el nuevo arreglo
         });
 
         setRespuestas((prevRespuestas) => {
           const nuevasRespuestasArray = [...prevRespuestas];
-          nuevasRespuestasArray[index - 1] = true;
+          nuevasRespuestasArray[index] = true;
           return nuevasRespuestasArray;
         })
       }
@@ -183,7 +164,7 @@ export default function Carrusel() {
       if (tipo == 'url') {
         setRespuestas((prevRespuestas) => {
           const nuevasRespuestasArray = [...prevRespuestas];
-          nuevasRespuestasArray[index - 1] = false;
+          nuevasRespuestasArray[index] = false;
           return nuevasRespuestasArray;
         })
       }
@@ -197,7 +178,7 @@ export default function Carrusel() {
           const permisosDb = await obtenerListaVisilibilidad();
 
           const arrayPermisos = listaImagenes.map((_, i) => {
-            const permiso = permisosDb.find(p => p.index == i + 1);
+            const permiso = permisosDb.find(p => p.index == i);
             return permiso
               ? [permiso.visibilidad || 'clientes', permiso.urlDestino || '']
               : ['clientes', '']; // Valores predeterminados si no se encuentra permiso
@@ -224,6 +205,7 @@ export default function Carrusel() {
       }
 
       const data = await response.json();
+
       return data;
 
     } catch (error) {
@@ -237,21 +219,21 @@ export default function Carrusel() {
         (<Carousel interval={intervalo}>
           {
             listaImagenes.map((imageName, index) => (
-              (index !== 0 &&
-                datosImagen[index - 1] &&
-                (
-                  datosImagen[index - 1][0] === 'todos' ||
-                  (datosImagen[index - 1][0] === 'registrados' && state.logueado) ||
-                  (datosImagen[index - 1][0] === 'clientes' && state.userInfo && state.userInfo.cliente)
-                )
-              ) && (
+
+              (index < listaImagenes.length - 1 && datosImagen[index]) &&
+              (
+                datosImagen[index][0] === 'todos' ||
+                (datosImagen[index][0] === 'registrados' && state.logueado) ||
+                (datosImagen[index][0] === 'clientes' && state.userInfo && state.userInfo.cliente)
+              )
+              && (
                 <Carousel.Item key={index}>
                   <img
-                    className={`d-block w-100 ${datosImagen[index - 1][1] ? 'clickeable' : ''}`}
+                    className={`d-block w-100 ${datosImagen[index][1] ? 'clickeable' : ''}`}
                     src={imageName}
                     alt={`Slide ${index}`}
                     onClick={() => {
-                      const url = datosImagen[index - 1]?.[1]; 
+                      const url = datosImagen[index]?.[1];
                       if (url && url.length > 0) {
                         window.location.href = url;
                       }
@@ -267,9 +249,9 @@ export default function Carrusel() {
                         </div>
 
                         <div className="divPermisosCarrusel">
-                          <button className={datosImagen[index - 1][0] == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(index, 'todos', 'visibilidad')}>{ }Todos</button>
-                          <button className={datosImagen[index - 1][0] == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(index, 'registrados', 'visibilidad')}>Registrados</button>
-                          <button className={datosImagen[index - 1][0] == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(index, 'clientes', 'visibilidad')}>Clientes</button>
+                          <button className={datosImagen[index][0] == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(index, 'todos', 'visibilidad')}>{ }Todos</button>
+                          <button className={datosImagen[index][0] == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(index, 'registrados', 'visibilidad')}>Registrados</button>
+                          <button className={datosImagen[index][0] == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(index, 'clientes', 'visibilidad')}>Clientes</button>
                         </div>
 
                         {listaImagenes.length > 2 &&
@@ -287,26 +269,26 @@ export default function Carrusel() {
                               <div className="urlDestinoContainer">
                                 <input
                                   type="text"
-                                  value={(datosImagen[index - 1] && datosImagen[index - 1][1]) || ''}
+                                  value={(datosImagen[index][0] && datosImagen[index][1]) || ''}
                                   onChange={(e) => {
-                                    if (datosImagen[index - 1]) {
+                                    if (datosImagen[index]) {
                                       const newDatosImagen = [...datosImagen];
-                                      newDatosImagen[index - 1][1] = e.target.value;
+                                      newDatosImagen[index][1] = e.target.value;
                                       setDatosImagen(newDatosImagen);
                                     }
                                   }}
-                                  onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(index, datosImagen[index - 1][1], 'url')}
+                                  onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(index, datosImagen[index][1], 'url')}
                                 />
                                 <button
-                                  className={(respuestas[index - 1] && respuestas[index - 1] === true) ? 'true' : respuestas[index - 1] === false ? 'false' : ''}
-                                  onClick={() => cambiarDatos(index, datosImagen[index - 1][1], 'url')}
+                                  className={(respuestas[index] && respuestas[index] === true) ? 'true' : respuestas[index] === false ? 'false' : ''}
+                                  onClick={() => cambiarDatos(index, datosImagen[index][1], 'url')}
                                 >
-                                  {respuestas[index - 1] && respuestas[index - 1] === true ?
+                                  {respuestas[index] && respuestas[index] === true ?
                                     (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-check-lg" viewBox="0 0 16 16">
                                       <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
                                     </svg>)
                                     :
-                                    (respuestas[index - 1] && respuestas[index - 1] === false ?
+                                    (respuestas[index] && respuestas[index] === false ?
                                       (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-exclamation" viewBox="0 0 16 16">
                                         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
                                       </svg>)

@@ -9,7 +9,6 @@ import carritoVacioImg from '../../Imagenes/carritoVacio.webp';
 import { useAuth } from '../../contextLogin.jsx';
 import { useVariables } from '../../contextVariables.jsx';
 import PdfCarrito from './PdfCarrito/pdfCarrito.jsx';
-import Cookies from 'js-cookie';
 
 export default function Carrito(args) {
   const {
@@ -51,7 +50,8 @@ export default function Carrito(args) {
     setMostrarConfirmarCompra,
     setMostrarCartelCliente,
     mostrarCartelCliente,
-    setMostrarPagos
+    setMostrarPagos,
+    obtenerToken
   } = useVariables();
 
   const { setFavoritosAbierto } = useFavoritos();
@@ -288,12 +288,6 @@ export default function Carrito(args) {
   const enviarPresupuesto = async (e) => {
     e.preventDefault();
 
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
-
     const bodyData = {
       carritoElementosPdf: pdfCarritoRef.current.elementosFinal,
       totalPdf: pdfCarritoRef.current.totalPdf
@@ -303,7 +297,7 @@ export default function Carrito(args) {
       await fetch(`${backend}/presupuesto/post`, {
         method: 'POST',
         headers: {
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(bodyData)

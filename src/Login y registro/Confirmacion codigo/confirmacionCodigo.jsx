@@ -3,12 +3,14 @@ import './confirmacionCodigo.css';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contextLogin';
 import { useVariables } from '../../contextVariables';
-import Cookies from 'js-cookie';
 
 export default function ConfirmacionCodigo() {
   const { state: userData, updateEmailConfirmationStatus } = useAuth();
 
-  const { backend } = useVariables();
+  const {
+    backend,
+    obtenerToken
+  } = useVariables();
 
   const {
     setMostrarErrorCodigoConfirmacion,
@@ -35,17 +37,12 @@ export default function ConfirmacionCodigo() {
 
   const enviarCodigo = async () => {
     try {
-      let tokenParaEnviar = Cookies.get('jwtToken');
-
-      if (tokenParaEnviar == undefined) {
-        tokenParaEnviar = null;
-      }
 
       const response = await fetch(`${backend}/confirmacionCodigo/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': tokenParaEnviar,
+          'Authorization': obtenerToken(),
         },
         body: JSON.stringify({
           codigoConfirmacion,
@@ -72,16 +69,10 @@ export default function ConfirmacionCodigo() {
 
   const reenviarCodigo = () => {
 
-    let tokenParaEnviar = Cookies.get('jwtToken');
-
-    if (tokenParaEnviar == undefined) {
-      tokenParaEnviar = null;
-    }
-
     fetch(`${backend}/registro/postCodigo`, {
       method: 'POST',
       headers: {
-        'Authorization': tokenParaEnviar
+        'Authorization': obtenerToken()
       },
       body: userData.userInfo.email
     })
@@ -119,8 +110,8 @@ export default function ConfirmacionCodigo() {
       });
   };
 
-  const enterPress = (e) =>{
-    if(e.keyCode === 13){
+  const enterPress = (e) => {
+    if (e.keyCode === 13) {
       e.preventDefault();
       enviarCodigo();
     }

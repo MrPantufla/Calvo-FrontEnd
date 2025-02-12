@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { useAuth } from './contextLogin';
 import { useVariables } from './contextVariables';
-import Cookies from 'js-cookie';
 
 const CortinasContext = createContext();
 
@@ -10,7 +9,10 @@ function useCortinas() {
 }
 
 function ProviderCortinas({ children }) {
-    const { backend } = useVariables();
+    const { 
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const { state } = useAuth();
 
@@ -54,17 +56,11 @@ function ProviderCortinas({ children }) {
 
     const enviarCortina = async (textoCortina) => {
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         const response = await fetch(`${backend}/cliente/get`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
         });
 
@@ -91,7 +87,7 @@ function ProviderCortinas({ children }) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify({ textoUsuario, textoCortina }),
         })

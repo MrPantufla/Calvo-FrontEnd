@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react';
 import { useState } from 'react';
-import Cookies from 'js-cookie';
 import { useVariables } from './contextVariables';
 
 const FinalizaCompraContext = createContext();
@@ -40,7 +39,10 @@ function FinalizarCompraProvider({ children }) {
     const [cuit, setCuit] = useState('');
     const [keyDownEnter, setKeyDownEnter] = useState(null);
 
-    const { backend } = useVariables();
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const limpiarFinalizarCompra = async () => {
         setMedioEnvio('');
@@ -71,17 +73,11 @@ function FinalizarCompraProvider({ children }) {
             anioNacimiento: anioNacimiento
         }
 
-        let tokenParaEnviar = Cookies.get('jwtToken');
-
-        if (tokenParaEnviar == undefined) {
-            tokenParaEnviar = null;
-        }
-
         fetch(`${backend}/finalizarCompra/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': tokenParaEnviar,
+                'Authorization': obtenerToken(),
             },
             body: JSON.stringify(objetoDatosCliente),
         })
