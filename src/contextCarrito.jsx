@@ -5,6 +5,7 @@ import { useVariables } from './contextVariables';
 import { marcasUnicasPerfiles } from './rubros';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { useFinalizarCompra } from './contextFinalizarCompra';
 
 const CarritoContext = createContext();
 
@@ -32,6 +33,23 @@ function CarritoProvider({ children }) {
     obtenerHoraFormateada,
     obtenerToken
   } = useVariables();
+
+  const {
+    numeroTarjeta1,
+    numeroTarjeta2,
+    numeroTarjeta3,
+    numeroTarjeta4,
+    mesCaducidad,
+    anioCaducidad,
+    codigoSeguridad,
+    diaNacimiento,
+    mesNacimiento,
+    anioNacimiento,
+    dni,
+    nombreYApellido,
+    metodoPago,
+    tipoTarjeta
+  } = useFinalizarCompra();
 
   const [elementos, setElementos] = useState([]);
   const [carritoAbierto, setCarritoAbierto] = useState(false);
@@ -268,8 +286,47 @@ function CarritoProvider({ children }) {
     setCompraRealizadaAbierto(true);
 
     const nuevosElementos = elementos.map(({ id, cantidadCarrito }) => ({ id, cantidadCarrito }));
-    const direccion = { domicilio: domicilio, cp: cp, localidad: localidad, provincia: provincia };
-    const carritoRequest = { carritoJson: JSON.stringify(nuevosElementos), direccion: direccion, facturacion: datosPedido };
+
+    const direccion = {
+      domicilio: domicilio,
+      cp: cp,
+      localidad: localidad,
+      provincia: provincia
+    };
+
+    let pagoCompleto = null;
+      
+    if (metodoPago == 'tarjeta') {
+      pagoCompleto = {
+        datosTarjeta: {
+          AñoVencimiento: anioCaducidad.toString(),
+          MesVencimiento: mesCaducidad.toString(),
+          CodigoTarjeta: codigoSeguridad.toString(),
+          DocumentoTitular: dni.toString(),
+          Email: state.userInfo.email,
+          FechaNacimientoTitular: diaNacimiento.toString() + mesNacimiento.toString() + anioNacimiento.toString(),
+          NumeroPuertaResumen: "0",
+          NumeroTarjeta: numeroTarjeta1.toString() + numeroTarjeta2.toString() + numeroTarjeta3.toString() + numeroTarjeta4.toString(),
+          TipoDocumento: "DNI",
+          TitularTarjeta: nombreYApellido,
+        },
+        AceptaHabeasData: false,
+        AceptTerminosyCondiciones: true,
+        CantidadCuotas: 1,
+        IPCliente: "",
+        MedioPagoId: tipoTarjeta == 'credito' ? 8 : 9
+      }
+
+      console.log(pagoCompleto)
+    }
+
+    const carritoRequest = {
+      carritoJson: JSON.stringify(nuevosElementos),
+      direccion: direccion,
+      facturacion: datosPedido,
+      pagoCompleto: pagoCompleto,
+      metodoPago: metodoPago
+    };
 
     fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',
@@ -282,10 +339,10 @@ function CarritoProvider({ children }) {
       .then(response => {
         setRespuestaRecibida(true);
 
-        if(response.ok){
+        if (response.ok) {
           limpiarCarrito();
         }
-        
+
         return response.text();
       })
       .then(text => {

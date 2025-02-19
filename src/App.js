@@ -31,9 +31,9 @@ function App() {
           <Router>
             <ZonasProvider>
               <LoginProvider>
-                <CarritoProvider>
-                  <FavoritosProvider>
-                    <FinalizarCompraProvider>
+                <FinalizarCompraProvider>
+                  <CarritoProvider>
+                    <FavoritosProvider>
                       <TiendaProvider>
                         <ConfiguracionProvider>
                           <Routes>
@@ -43,14 +43,14 @@ function App() {
                             <Route path="/misCompras" element={<MisCompras />} />
                             <Route path="/editarUsuarios" element={<EditarUsuarios />} />
                             <Route path="/terminosYCondiciones" element={<TerminosYCondiciones />} />
-                            {<Route path="/pdf" element={<PdfCarrito/>} />}
+                            {<Route path="/pdf" element={<PdfCarrito />} />}
                           </Routes>
                           <LoginYRegistro />
                         </ConfiguracionProvider>
                       </TiendaProvider>
-                    </FinalizarCompraProvider>
-                  </FavoritosProvider>
-                </CarritoProvider>
+                    </FavoritosProvider>
+                  </CarritoProvider>
+                </FinalizarCompraProvider>
               </LoginProvider>
             </ZonasProvider>
           </Router>

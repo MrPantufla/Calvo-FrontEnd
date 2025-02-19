@@ -222,7 +222,7 @@ export default function Domicilio() {
                         className={`correosDesplegable ${correosDesplegado && 'abierto'}`}
                     >
                         {(listaCorreos && listaCorreos.length > 0) && listaCorreos.map((correo, index) => (
-                            <div key={index}>
+                            <div key={index} className="opcionYEliminarContainer">
                                 <div
                                     className={`opcionCorreo ${correoSeleccionado == correo.nombre && 'selected'} ${state.userInfo.tipo_usuario == 'admin' && 'admin'}`}
                                     onClick={() => { setCorreoSeleccionado(correo.nombre); setCorreosDesplegado(false) }}

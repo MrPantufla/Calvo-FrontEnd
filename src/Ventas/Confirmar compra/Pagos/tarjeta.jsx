@@ -33,7 +33,9 @@ export default function Tarjeta() {
         primerosDigitos,
         ultimoDigito,
         setCuit,
-        setErrorMessage
+        setErrorMessage,
+        tipoTarjeta,
+        setTipoTarjeta
     } = useFinalizarCompra();
 
     const [caducidadFocus, setCaducidadFocus] = useState(false);
@@ -62,12 +64,14 @@ export default function Tarjeta() {
         return ultimosDosDigitos < 10 ? `0${ultimosDosDigitos}` : ultimosDosDigitos; // Agrega un cero delante si es menor que 10
     };
 
+    const camposVacios = !tipoTarjeta || !numeroTarjeta1 || !numeroTarjeta2 || !numeroTarjeta3 || !numeroTarjeta4 || !mesCaducidad || !anioCaducidad || !codigoSeguridad || !nombreYApellido || !diaNacimiento || !mesNacimiento || !anioNacimiento || !dni;
+
     const anioActualTarjeta = obtenerUltimosDosDigitosAnioActual();
 
     const confirmar = (e) => {
         e.preventDefault();
 
-        if (numeroTarjeta1 == '' || numeroTarjeta2 == '' || numeroTarjeta3 == '' || numeroTarjeta4 == '' || mesCaducidad == '' || anioCaducidad == '' || codigoSeguridad == '' || diaNacimiento == '' || mesNacimiento == ''|| anioNacimiento == '' || dni == '' || nombreYApellido == '') {
+        if (numeroTarjeta1 == '' || numeroTarjeta2 == '' || numeroTarjeta3 == '' || numeroTarjeta4 == '' || mesCaducidad == '' || anioCaducidad == '' || codigoSeguridad == '' || diaNacimiento == '' || mesNacimiento == '' || anioNacimiento == '' || dni == '' || nombreYApellido == '') {
             setErrorMessage('Por favor, completa todos los campos')
         }
         else if (numeroTarjeta1.length != 4 || numeroTarjeta2.length != 4 || numeroTarjeta3.length != 4 || numeroTarjeta4.length != 4) {
@@ -82,16 +86,19 @@ export default function Tarjeta() {
         else if (codigoSeguridad.length != 3) {
             setErrorMessage('Código de seguridad inválido');
         }
-        else if(diaNacimiento <= 0 || diaNacimiento > 31 || mesNacimiento <= 0 && mesNacimiento > 12 || anioNacimiento >= new Date().getFullYear()){
+        else if (diaNacimiento <= 0 || diaNacimiento > 31 || mesNacimiento <= 0 && mesNacimiento > 12 || anioNacimiento >= new Date().getFullYear()) {
             setErrorMessage('Fecha de nacimiento inválida')
+        }
+        else if(tipoTarjeta == ''){
+            setErrorMessage('Selecciona el tipo de tarjeta')
         }
         else {
             //fetch de tarjeta y si response.ok va lo de abajo
-            if(diaNacimiento.length == 1){
+            if (diaNacimiento.length == 1) {
                 setDiaNacimiento('0' + diaNacimiento);
             }
 
-            if(mesNacimiento.length == 1){
+            if (mesNacimiento.length == 1) {
                 setMesNacimiento('0' + mesNacimiento);
             }
             setMostrarPagos(false);
@@ -340,6 +347,21 @@ export default function Tarjeta() {
         <>
             <div className="contenedorFormConfirmarCompra">
                 <h1>DATOS DE LA TARJETA</h1>
+                <div className="botonesOpcionesConfirmarCompra">
+                    <button
+                        onClick={() => setTipoTarjeta('debito')}
+                        className={tipoTarjeta == 'debito' ? 'active' : ''}
+                    >
+                        Débito
+                    </button>
+
+                    <button
+                        onClick={() => setTipoTarjeta('credito')}
+                        className={tipoTarjeta == 'credito' ? 'active' : ''}
+                    >
+                        Crédito
+                    </button>
+                </div>
                 <div className="contenedorEntradaConfirmarCompra contenedorNumerosTarjeta">
                     <label htmlFor="numeroTarjeta">Número de tarjeta</label>
                     <div>
@@ -524,7 +546,7 @@ export default function Tarjeta() {
                                 className="inputPequeñoTarjeta"
                                 id="dni"
                                 value={dni}
-                                onChange={(e) => {setDni(e.target.value.replace(/[^0-9]/g, '')); setCuit(primerosDigitos + e.target.value.replace(/[^0-9]/g, '') + ultimoDigito)}}
+                                onChange={(e) => { setDni(e.target.value.replace(/[^0-9]/g, '')); setCuit(primerosDigitos + e.target.value.replace(/[^0-9]/g, '') + ultimoDigito) }}
                                 maxLength='8'
                                 onClick={() => setErrorMessage('')}
                                 inputMode="numeric"
@@ -535,7 +557,13 @@ export default function Tarjeta() {
             </div>
 
             <div className="contenedorConfirmarBoton">
-                <button onClick={(e) => confirmar(e)} className="confirmarBoton">Confirmar</button>
+                <button
+                    onClick={(e) => confirmar(e)}
+                    className="confirmarBoton"
+                    disabled={camposVacios}
+                >
+                    Confirmar
+                </button>
             </div>
         </>
     );

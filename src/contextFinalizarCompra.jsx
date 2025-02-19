@@ -28,6 +28,7 @@ function FinalizarCompraProvider({ children }) {
     const [datosPedido, setDatosPedido] = useState('');
     const [primerosDigitos, setPrimerosDigitos] = useState('');
     const [ultimoDigito, setUltimoDigito] = useState('');
+    const [tipoTarjeta, setTipoTarjeta] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     //Facturacion
@@ -137,7 +138,9 @@ function FinalizarCompraProvider({ children }) {
             primerosDigitos,
             setPrimerosDigitos,
             ultimoDigito,
-            setUltimoDigito
+            setUltimoDigito,
+            tipoTarjeta,
+            setTipoTarjeta
         }}>
             {children}
         </FinalizaCompraContext.Provider>

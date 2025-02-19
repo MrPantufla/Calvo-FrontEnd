@@ -7,7 +7,7 @@ export default function Configuracion(){
     return(
         <div className="contenedorPrincipalConfiguracion">
             <EditarDatos/>
-            <EditarDireccion/>
+            {/*<EditarDireccion/>*/}
             <EditarContraseña/>
         </div>
     );

@@ -131,6 +131,8 @@ export default function Ventas() {
   const aclaracionesPagoTarjeta =
     <p className="aclaracionesConfirmarCompra">
       -La empresa no almacenará nignún dato relacionado con tarjetas de crédito o débito
+<br/>
+      -Se almacenarán los siguientes datos para facilitar el proceso de futuras compras: nombre, apellido, fecha de nacimiento y DNI
     </p>
     ;
 

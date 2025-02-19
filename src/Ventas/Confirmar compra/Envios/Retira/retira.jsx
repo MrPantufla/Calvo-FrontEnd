@@ -1,4 +1,5 @@
 import { useFinalizarCompra } from '../../../../contextFinalizarCompra';
+import { useAuth } from '../../../../contextLogin';
 import { useVariables } from '../../../../contextVariables';
 import { useEffect } from 'react';
 
@@ -9,13 +10,24 @@ export default function Retira() {
     } = useFinalizarCompra();
 
     const {
+        state
+    } = useAuth();
+
+    const {
         setMostrarEnvios,
-        setMostrarPagos
+        setMostrarPagos,
+        setMostrarFacturacion
     } = useVariables();
 
     const confirmar = () => {
         setMostrarEnvios(false);
-        setMostrarPagos(true);
+        
+        if (state.userInfo.cliente) {
+            setMostrarFacturacion(true);
+        }
+        else {
+            setMostrarPagos(true);
+        }
     }
 
     return (

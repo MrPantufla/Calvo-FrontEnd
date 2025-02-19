@@ -97,8 +97,8 @@ export default function Inscripto() {
                     }, 0);
                 }
             }
-            else if(/^[0-9]$/.test(event.key)) {
-                if(slot == 0 && valor.length == 2){
+            else if (/^[0-9]$/.test(event.key)) {
+                if (slot == 0 && valor.length == 2) {
                     ultimoDigitoRef.current.focus()
                 }
             }
@@ -110,13 +110,13 @@ export default function Inscripto() {
             <div className="contenedorFormConfirmarCompra contenedorInscripto">
                 <div className="contenedorEntradaConfirmarCompra">
                     <label htmlFor="primerosDigitos" className={`${metodoPago == 'tarjeta' ? 'izquierda' : 'medio'}`}>CUIT</label>
-                    {/*metodoPago == 'tarjeta'*/false ?
+                    {metodoPago == 'tarjeta' ?
                         (<>
                             <div className="contenedorCuitInscriptoTarjeta">
                                 <input
                                     className={`${inputsFocus && 'focuseado'}`}
                                     value={primerosDigitos}
-                                    onChange={(e) => {e.target.value.length >= 2 && ultimoDigitoRef.current.focus(); setPrimerosDigitos(e.target.value.replace(/[^0-9]/g, '')); setCuit(e.target.value + dni + ultimoDigito)}}
+                                    onChange={(e) => { e.target.value.length >= 2 && ultimoDigitoRef.current.focus(); setPrimerosDigitos(e.target.value.replace(/[^0-9]/g, '')); setCuit(e.target.value + dni + ultimoDigito) }}
                                     onFocus={() => setInputsFocus(true)}
                                     onBlur={() => { inputsFocus && setInputsFocus(false) }}
                                     inputMode="numeric"
@@ -129,7 +129,7 @@ export default function Inscripto() {
                                 <input
                                     className={`${inputsFocus && 'focuseado'}`}
                                     value={ultimoDigito}
-                                    onChange={(e) => {setUltimoDigito(e.target.value); setCuit(primerosDigitos + dni + e.target.value.replace(/[^0-9]/g, ''))}}
+                                    onChange={(e) => { setUltimoDigito(e.target.value); setCuit(primerosDigitos + dni + e.target.value.replace(/[^0-9]/g, '')) }}
                                     onFocus={() => setInputsFocus(true)}
                                     onBlur={() => { inputsFocus && setInputsFocus(false) }}
                                     inputMode="numeric"
@@ -151,7 +151,13 @@ export default function Inscripto() {
                 </div>
             </div>
             <div className="contenedorConfirmarBoton">
-                <button onClick={(e) => confirmar(e)} className="confirmarBoton">Confirmar</button>
+                <button
+                    onClick={(e) => confirmar(e)}
+                    className="confirmarBoton"
+                    disabled={primerosDigitos.length != 2 || ultimoDigito.length != 1}
+                >
+                    Confirmar
+                </button>
             </div>
         </>
     );

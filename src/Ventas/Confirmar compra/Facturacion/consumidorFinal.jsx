@@ -22,7 +22,7 @@ export default function ConsumidorFinal() {
         setDatosPedido
     } = useFinalizarCompra();
 
-    const { 
+    const {
         setMostrarFacturacion,
         setMostrarFinalizarPedido
     } = useVariables();
@@ -57,6 +57,8 @@ export default function ConsumidorFinal() {
         confirmarCompra('Facturar a ' + nombreYApellido + ', CP: ' + cp + ', DIRECCION: ' + direccion + ", DNI: " + dni)
         almacenarFacturacion()
     }
+
+    const camposVacios = !nombreYApellido || !cp || !direccion || !dni || !localidad;
 
     return (
         <>
@@ -111,7 +113,13 @@ export default function ConsumidorFinal() {
                 </div>
             </div>
             <div className="contenedorConfirmarBoton">
-                <button onClick={(e) => confirmar(e)} className="confirmarBoton">Confirmar</button>
+                <button
+                    onClick={(e) => confirmar(e)}
+                    className="confirmarBoton"
+                    disabled={camposVacios}
+                >
+                    Confirmar
+                </button>
             </div>
         </>
     );
