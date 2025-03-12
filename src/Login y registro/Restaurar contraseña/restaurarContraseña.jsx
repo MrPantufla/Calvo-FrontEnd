@@ -121,7 +121,7 @@ export default function RestaurarContraseña() {
                                 type="text"
                                 value={email}
                                 onChange={(e) => {
-                                    setEmail(e.target.value);
+                                    setEmail(e.target.value.trim());
                                 }}
                                 onFocus={() => setErrorMessage('')}
                                 onKeyDown={(e) => handleKeyDownEmail(e)}
@@ -143,7 +143,7 @@ export default function RestaurarContraseña() {
                                 <input
                                     className="codigoRestaurarContraseña"
                                     type="text"
-                                    value={codigo}
+                                    value={codigo} 
                                     onChange={(e) => {
                                         setCodigo(e.target.value);
                                     }}

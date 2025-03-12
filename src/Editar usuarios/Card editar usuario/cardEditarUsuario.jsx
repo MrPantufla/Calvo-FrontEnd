@@ -32,7 +32,7 @@ export default function CardEditarUsuario(args) {
         nombre: nombre,
         apellido: apellido,
         cuit: cuit,
-        email: email,
+        email: email.trim(),
         telefono: telefono,
         emailConfirmado: emailConfirmado,
         cliente: cliente,
@@ -196,6 +196,7 @@ export default function CardEditarUsuario(args) {
                                     id='email'
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    autoCapitalize='off'
                                 >
                                 </input>
                             </label>

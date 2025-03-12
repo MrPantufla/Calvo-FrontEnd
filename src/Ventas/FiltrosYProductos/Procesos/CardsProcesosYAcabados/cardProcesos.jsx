@@ -1,6 +1,7 @@
 import { useAuth } from '../../../../contextLogin';
 import { useProductos } from '../../../../contextProductos';
 import { useTienda } from '../../../../contextTienda';
+import { useEffect } from 'react';
 import './cardProcesos.css';
 
 export default function CardProcesos(args) {
@@ -20,6 +21,12 @@ export default function CardProcesos(args) {
 
     let detalleArreglado = args.proceso.detalle;
     detalleArreglado = detalleArreglado.replaceAll('M2', 'CHAPAS');
+
+    useEffect(() => {
+        if(tipoProceso != 'anodizados'){
+            console.log(args.proceso.id)
+        }
+    }, [])
     
     return (
         <div className="cardProceso" onClick={() => setStipoProceso(args.proceso)} style={ tipoProceso == 'anodizados' ? {backgroundImage: `url(https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesProductos/${args.proceso.id}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center'} : {backgroundColor: `var(--${args.colorCorregido})`}}>

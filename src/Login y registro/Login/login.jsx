@@ -34,7 +34,7 @@ export default function Login() {
       setErrorMessage('Por favor, completa todos los campos')
     }
     else {
-      await handleLogin({ email: emailValue, password: passwordValue });
+      await handleLogin({ email: emailValue.trim(), password: passwordValue });
     }
   };
 

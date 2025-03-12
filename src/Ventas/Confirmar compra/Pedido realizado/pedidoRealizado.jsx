@@ -28,18 +28,16 @@ export default function PedidoRealizado() {
 
   return (
     <div className="contenedorPrincipalPedidoRealizado" onMouseDown={() => setAptoParaCerrar(true)} onClick={respuestaRecibida ? cerrarVentana : cargandoClick} style={{ display: compraRealizadaAbierto ? 'flex' : 'none' }}>
-      {respuestaRecibida ?
-        (<div className="parteUtilizablePedidoRealizado" onMouseDown={parteUtilizableClick} onMouseUp={parteUtilizableClick}>
-          {respuestaCompra &&
-            (<h2>{respuestaCompra}</h2>)
-          }
-          <button onClick={() => { setCompraRealizadaAbierto(false); setRespuestaCompra(false) }}>Aceptar</button>
-        </div>)
-        :
-        (<div className="spinner-border cargandoRespuesta" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>)
-      }
+      <div className="parteUtilizablePedidoRealizado" onMouseDown={parteUtilizableClick} onMouseUp={parteUtilizableClick}>
+        <h2>{respuestaCompra}</h2>
+        {respuestaCompra &&
+          (respuestaRecibida == false) &&
+          <div className="spinner-border cargandoRespuesta spinnerFinalizarCompra" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        }
+        <button onClick={() => { setCompraRealizadaAbierto(false); setRespuestaCompra(false) }}>Aceptar</button>
+      </div>
     </div >
   );
 }

@@ -168,7 +168,7 @@ export default function CardCarrito(args) {
                 </div>
                 <p className="kgCardCarrito">{producto.kg > 0 ? ('- ' + producto.kg + 'kg -') : ('')}</p>
                 <div className="codigoYDetalleCardCarritoContainer">
-                    <p className="codigoYDetalleCardCarrito"><span>{codigo}</span> - {`${producto.detalle} ${(acabado && acabado.id != 0) ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{producto.cod_orig.slice(-2) == '-M' ? ("(" + producto.cantidad + "m.)") : (producto.cantidad > 1 && ("(" + producto.cantidad + "u.)"))}</span></p>
+                    <p className="codigoYDetalleCardCarrito"><span>{codigo}</span> - {`${producto.detalle} ${(acabado && acabado.id != 0) ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{producto.cod_orig.slice(-2) == '-M' ? ("(" + producto.cantidad + " m.)") : (producto.cantidad > 1 && ("(" + producto.cantidad + " u.)"))}</span></p>
                 </div>
             </div>
             <div className="restoCardCarrito">

@@ -101,7 +101,7 @@ export default function ProductoHistorial(args) {
                     loading='lazy'
                 />
                 <p>
-                    <span className="cod_origProductoHistorial">{cod_orig}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} <span className="codOrig">{producto.cod_orig.slice(-2) == '-M' ? ("(" + producto.cantidad + "m.)") : (producto.cantidad > 1 && ("(" + producto.cantidad + "u.)"))}</span>
+                    <span className="cod_origProductoHistorial">{codigo}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} <span className="codOrig">{producto.cod_orig.slice(-2) == '-M' ? ("(" + producto.cantidad + " m.)") : (producto.cantidad > 1 && ("(" + producto.cantidad + " u.)"))}</span>
                 </p>
             </div>
             <div className="informacionProductoHistorialContainer">

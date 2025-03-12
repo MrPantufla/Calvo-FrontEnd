@@ -308,10 +308,8 @@ export default function Carrusel() {
                 </Carousel.Item>
               )
             ))
-
           }
-        </Carousel>
-        )
+        </Carousel>)
         :
         (<div className="cargandoCarouselContainer">
           <div className="spinner-border cargandoCarousel" role="status">

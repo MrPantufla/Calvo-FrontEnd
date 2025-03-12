@@ -295,7 +295,7 @@ function CarritoProvider({ children }) {
     };
 
     let pagoCompleto = null;
-      
+
     if (metodoPago == 'tarjeta') {
       pagoCompleto = {
         datosTarjeta: {
@@ -316,8 +316,6 @@ function CarritoProvider({ children }) {
         IPCliente: "",
         MedioPagoId: tipoTarjeta == 'credito' ? 8 : 9
       }
-
-      console.log(pagoCompleto)
     }
 
     const carritoRequest = {
@@ -327,6 +325,8 @@ function CarritoProvider({ children }) {
       pagoCompleto: pagoCompleto,
       metodoPago: metodoPago
     };
+
+    suscribirRespuestas();
 
     fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',
@@ -353,6 +353,27 @@ function CarritoProvider({ children }) {
       .catch(error => {
         console.error('Error:', error);
       });
+  }
+
+  const suscribirRespuestas = () => {
+    const token = encodeURIComponent(obtenerToken());
+    const eventSource = new EventSource(`${backend}/mensajes/subscribe?token=${token}`);
+
+    eventSource.onmessage = (event) => {
+      // Aquí actualizas el estado o la UI con el mensaje recibido:
+      setRespuestaCompra(event.data);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("Error en SSE:", error);
+      eventSource.close();
+    };
+
+    // Limpieza: cierra la conexión al desmontar el componente
+    return () => {
+      eventSource.close();
+      setRespuestaCompra('');
+    };
   }
 
   useEffect(() => {

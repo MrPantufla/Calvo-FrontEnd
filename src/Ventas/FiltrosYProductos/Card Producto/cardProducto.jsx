@@ -133,6 +133,14 @@ export default function CardProducto(args) {
 
   const cant = elementoExistente ? elementoExistente.cantidadCarrito : 0;
 
+  let cantOMensaje = cant;
+
+  if(referencia){
+    if(!cantidadSeleccionada){
+      cantOMensaje = '-';
+    }
+  }
+
   let codigo;
   marcasUnicasPerfiles.find(marcaPerfil => marca == marcaPerfil) ? (codigo = cod_orig) : (codigo = cod_int);
 
@@ -153,6 +161,21 @@ export default function CardProducto(args) {
     color == 'Gris azulado' ||
     color == 'Bronce medio'
   );
+
+  const cambiarTextoTemporal = () => {
+    cantOMensaje = 'Stock alcanzado'
+
+    setTimeout(() => {
+      if(referencia){
+        if(!cantidadSeleccionada){
+          cantOMensaje = '-';
+        }
+        else{
+          cantOMensaje = cant;
+        }
+      }
+    }, [1000])
+  }
 
   const sumarContador = () => {
     if (state.logueado) {
@@ -311,7 +334,7 @@ export default function CardProducto(args) {
     <div className={`contenedorPrincipalCardProducto ${(!precio || precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
-          <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" loading='lazy'/>
+          <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" loading='lazy' />
         </div>
         {(tipo_prod != 'MAQUINAS' && !proceso) &&
           <button className="botonAñadirFavoritos" onClick={(e) => toggleFavorito(idParaFavoritos, e)} aria-label='añadirAFavoritos'>
@@ -336,8 +359,8 @@ export default function CardProducto(args) {
               </svg>
             </button>
             <ul className={`dropdownMenuCantidad ${dropdownDesplegado && 'desplegado'}`}>
-              <li className={`dropdown-item ${cantidadSeleccionada == productosSueltos[referencia].cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(productosSueltos[referencia].cantidad); setPaqueteSeleccionado(false) }}>{`UNIDAD (${productosSueltos[referencia].cantidad}u.)`}</li>
-              <li className={`dropdown-item ${cantidadSeleccionada == cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(cantidad); setPaqueteSeleccionado(true) }}>{`PAQUETE (${cantidad}u.)`}</li>
+              <li className={`dropdown-item ${cantidadSeleccionada == productosSueltos[referencia].cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(productosSueltos[referencia].cantidad); setPaqueteSeleccionado(false) }}>{`UNIDAD (${productosSueltos[referencia].cantidad} u.)`}</li>
+              <li className={`dropdown-item ${cantidadSeleccionada == cantidad && 'selected'}`} onClick={() => { seleccionarCantidad(cantidad); setPaqueteSeleccionado(true) }}>{`PAQUETE (${cantidad} u.)`}</li>
             </ul>
           </div>
         }
@@ -411,9 +434,9 @@ export default function CardProducto(args) {
         </div>
         <div className="detalleYCod_orig">
           {referencia ?
-            (<h3><span className="codOrig">{codigo}</span> - {`${detalle}`} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + 'u.)') : ('')}`}</span></h3>)
+            (<h3><span className="codOrig">{codigo}</span> - {`${detalle}`} <span className="codOrig">{`${cantidadSeleccionada ? ('(' + cantidadSeleccionada + ' u.)') : ('')}`}</span></h3>)
             :
-            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{cod_orig.slice(-2) == '-M' ? ("(" + cantidad + "m.)") : (cantidad > 1 && ("(" + cantidad + "u.)"))}</span></h3>)
+            (<h3><span className="codOrig">{codigo}</span> - {`${detalle} ${args.acabado ? (' - ' + (acabadoArreglado)) : (``)}`} <span className="codOrig">{cod_orig.slice(-2) == '-M' ? ("(" + cantidad + " m.)") : (cantidad > 1 && ("(" + cantidad + " u.)"))}</span></h3>)
           }
         </div>
         <div className="kgCantidadYColorContainer">
@@ -425,7 +448,7 @@ export default function CardProducto(args) {
               </>
             )}
           </div>
-          {(precio == 0 || preciosOcultos.includes(id)) ?
+          {((precio == 0 || preciosOcultos.includes(id)) && !(referencia && productosSueltos[referencia].stock > 0)) ?
             (<a
               className="botonConsultarProducto"
               target="blank"
@@ -443,9 +466,9 @@ export default function CardProducto(args) {
                 <button className="boton" onClick={restarContador}>-</button>
                 <span className="cantidadProducto">
                   {referencia ?
-                    (cantidadSeleccionada ? (cant) : ('-'))
+                    (cantidadSeleccionada ? (cantOMensaje) : ('-'))
                     :
-                    (cant)}
+                    (cantOMensaje)}
                 </span>
                 <button className="boton" onClick={sumarContador}>+</button>
               </div>

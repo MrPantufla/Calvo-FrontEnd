@@ -3,6 +3,7 @@ import { useProductos } from '../../../../contextProductos';
 import { useTienda } from '../../../../contextTienda';
 import './cardProcesos.css';
 import './cardAcabados.css';
+import { useEffect } from 'react';
 
 export default function CardAcabados(args) {
     const { state } = useAuth();
