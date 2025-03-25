@@ -5,9 +5,16 @@ import { useEffect, useState } from 'react';
 import './filtros.css';
 import { useProductos } from '../../../contextProductos.jsx';
 import Marcas from './Marcas/marcas.jsx';
+import { useVariables } from '../../../contextVariables.jsx';
+import ImageCompressor from 'image-compressor.js';
 
 export default function Filtros(args) {
     const { state } = useAuth();
+
+    const {
+        backend,
+        obtenerToken
+    } = useVariables();
 
     const {
         isMobile,
@@ -31,9 +38,9 @@ export default function Filtros(args) {
         ofertasSelected
     } = useTienda();
 
-    const { 
-        guardarDestacados, 
-        ofertas 
+    const {
+        guardarDestacados,
+        ofertas
     } = useProductos();
 
     const [scrollDownFiltros, setScrollDownFiltros] = useState(false);
@@ -80,6 +87,57 @@ export default function Filtros(args) {
 
     const rubroPerfiles = rubros.find(rubro => rubro.id == 'Perfiles');
 
+    const subirImagenTienda = async (archivo) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', archivo, archivo.name);  // Usa el nombre original del archivo
+            formData.append('carpeta', "imagenesProductos");
+    
+            const response = await fetch(`${backend}/carousel/postSubir`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': obtenerToken(),
+                },
+                body: formData,
+            });
+    
+            if (response.ok) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error al intentar subir la imagen:', error);
+            return false;
+        }
+    };
+    
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+    
+        if (!file) {
+            alert("Por favor selecciona una imagen.");
+            return;
+        }
+    
+        const options = {
+            maxWidth: 800,   // Ajustar el tamaño máximo de la imagen
+            maxHeight: 800,  // Ajustar el tamaño máximo de la imagen
+            quality: 0.8,    // Calidad de la imagen (0 a 1)
+            mimeType: 'image/webp', // Convertir a WebP
+        };
+    
+        // Usar image-compressor.js para comprimir y convertir la imagen
+        new ImageCompressor(file, {
+            ...options,
+            success(result) {
+                // Asegúrate de mantener el nombre original del archivo cuando lo subas
+                subirImagenTienda(result);
+            },
+            error(err) {
+                console.error('Error al comprimir la imagen:', err);
+            },
+        });
+    };
+
     return (
         <>
             <div className='filtros' id='filtros'>
@@ -91,9 +149,13 @@ export default function Filtros(args) {
                 </div>
                 <div className={`labelRubros ${cortinasSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarCortinas()}>CORTINAS</div>
                 <div className={`labelRubros ${softwareSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin' && state.userInfo.tipo_usuario != 'colaborador') && 'ultimoLabel'}`} onClick={() => seleccionarSoftware()}>SOFTWARE</div>
-                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros ${eliminadosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
-                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros ${eliminadosDeProcesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminadosDeProcesos()}>ELIMINADOS DE PROCESOS</div>))}
-                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros ultimoLabel`} onClick={() => guardarDestacados()}>GUARDAR DESTACADOS</div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros labelAdmin ${eliminadosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros labelAdmin ${eliminadosDeProcesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminadosDeProcesos()}>ELIMINADOS DE PROCESOS</div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros labelAdmin`} onClick={() => subirImagenTienda()}>
+                    <label htmlFor="subirImagen" className="labelSubirImagenTienda">SUBIR IMAGEN</label>
+                    <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg, .webp" />
+                </div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros ultimoLabel labelAdmin`} onClick={() => handleFileUpload()}>GUARDAR DESTACADOS</div>))}
             </div>
             {!isMobile &&
                 <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={() => scrollearFiltros(200)}>

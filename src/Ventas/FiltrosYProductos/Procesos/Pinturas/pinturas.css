@@ -1,0 +1,16 @@
+.contenedorPrincipalPinturas{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.cardCategoriaPintura{
+    background-size: cover;
+}
+
+.cardColor{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

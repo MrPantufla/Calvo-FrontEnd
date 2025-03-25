@@ -13,7 +13,7 @@ export default function DesplegablePerfil() {
 
     const params = new URLSearchParams(location.search);
 
-    const rightDesplegablePerfil = location.pathname === '/tienda' ? '10.4rem' : '0';
+    const rightDesplegablePerfil = location.pathname === '/tienda' ? '10rem' : '0';
 
     const {
         perfilHovered,
@@ -62,7 +62,7 @@ export default function DesplegablePerfil() {
     const stylePerfil = {
         right: rightDesplegablePerfil,
         top: `${6.1}rem`,
-        width: location.pathname == "/tienda" ? `calc(var(--rightAnchoPerfil) - 2.7rem)` : `calc(var(--rightAnchoPerfil) - 3.4rem)`
+        width: location.pathname == "/tienda" ? `calc(var(--rightAnchoPerfil) - 2.7rem)` : `calc(var(--rightAnchoPerfil) - 4.5rem)`
     }
 
     const handleCerrarSesion = async () => {

@@ -9,7 +9,7 @@
     flex-direction: column;
     overflow: hidden;
     right: 1rem;
-    top: 2.2rem;
+    top: 2.25rem;
 }
 
 .bodyFavoritos{
@@ -67,7 +67,7 @@
     fill: var(--colorRojo);
 }
 
-.cantidadFavoritos{
+.cantidadFavoritos, .cantidadEnCarrito{
     width: 1.5rem;
     height: 1.5rem;
     background-color: var(--colorSecundario);
@@ -77,7 +77,6 @@
     align-items: center;
     font-size: 1.5rem;
     margin-left: 0.1rem;
-    padding-top: 0.2rem;
 }
 
 .botonFavoritos.desktop:hover{
@@ -115,7 +114,7 @@
         height: 4.5rem;
     }
 
-    .cantidadFavoritos{
+    .cantidadFavoritos, .cantidadEnCarrito{
         width: 3rem;
         height: 3rem;
         font-size: 3rem;

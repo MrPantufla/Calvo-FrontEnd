@@ -69,7 +69,7 @@ function ProductosProvider({ children }) {
                         precioFinal = 0;
                     }
 
-                    if (producto.tipo_prod != 'PROCESOS') {
+                    if (producto.tipo_prod != 'PROCESOS' && producto.tipo_prod != 'INSUMOS') {
                         if (producto.cod_orig.endsWith('-S')) {
                             const baseCod = producto.cod_orig.slice(0, -2);
                             const referenciaPaquete = productosObtenidos.find(p => (p.cod_orig == baseCod));

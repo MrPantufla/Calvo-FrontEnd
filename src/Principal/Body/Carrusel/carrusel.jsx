@@ -109,7 +109,7 @@ export default function Carrusel() {
     obtenerImagenes();
   }, [backend]);
 
-  const cambiarDatos = async (index, dato, tipo) => {
+  const cambiarDatos = async (nombreArchivo, index, dato, tipo) => {
 
     let itemEnviar;
 
@@ -231,7 +231,7 @@ export default function Carrusel() {
                   <img
                     className={`d-block w-100 ${datosImagen[index][1] ? 'clickeable' : ''}`}
                     src={imageName}
-                    alt={`Slide ${index}`}
+                    alt={`Slide ${imageName}`}
                     onClick={() => {
                       const url = datosImagen[index]?.[1];
                       if (url && url.length > 0) {
@@ -249,9 +249,9 @@ export default function Carrusel() {
                         </div>
 
                         <div className="divPermisosCarrusel">
-                          <button className={datosImagen[index][0] == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(index, 'todos', 'visibilidad')}>{ }Todos</button>
-                          <button className={datosImagen[index][0] == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(index, 'registrados', 'visibilidad')}>Registrados</button>
-                          <button className={datosImagen[index][0] == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(index, 'clientes', 'visibilidad')}>Clientes</button>
+                          <button className={datosImagen[index][0] == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(imageName, index, 'todos', 'visibilidad')}>{ }Todos</button>
+                          <button className={datosImagen[index][0] == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(imageName, index, 'registrados', 'visibilidad')}>Registrados</button>
+                          <button className={datosImagen[index][0] == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(imageName, index, 'clientes', 'visibilidad')}>Clientes</button>
                         </div>
 
                         {listaImagenes.length > 2 &&
@@ -277,7 +277,7 @@ export default function Carrusel() {
                                       setDatosImagen(newDatosImagen);
                                     }
                                   }}
-                                  onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(index, datosImagen[index][1], 'url')}
+                                  onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(imageName, index, datosImagen[index][1], 'url')}
                                 />
                                 <button
                                   className={(respuestas[index] && respuestas[index] === true) ? 'true' : respuestas[index] === false ? 'false' : ''}

@@ -64,11 +64,18 @@ export default function CardProducto(args) {
     cantidad = { cantidad },
   } = args.producto;
 
-  const color = args.color ? (args.color) : (args.producto.color);
+  let color = args.color ? (args.color) : (args.producto.color);
 
+  if (color.endsWith("1 CARA")) {
+    color = color.slice(0, -7);
+  } else if (color.endsWith("2 CARAS")) {
+    color = color.slice(0, -8);
+  }
+  
   const mayorista = state.userInfo ? (state.userInfo.categoria == 'MAYORISTA') : (false);
 
-  const colorCorregido = (color).replace(/\s+/g, '-');
+  const colorCorregido = (args.producto.color).replace(/\s+/g, '-');
+
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState();
   const [dropdownDesplegado, setDropdownDesplegado] = useState(false);
   const [paqueteSeleccionado, setPaqueteSeleccionado] = useState(true);
@@ -135,8 +142,8 @@ export default function CardProducto(args) {
 
   let cantOMensaje = cant;
 
-  if(referencia){
-    if(!cantidadSeleccionada){
+  if (referencia) {
+    if (!cantidadSeleccionada) {
       cantOMensaje = '-';
     }
   }
@@ -166,11 +173,11 @@ export default function CardProducto(args) {
     cantOMensaje = 'Stock alcanzado'
 
     setTimeout(() => {
-      if(referencia){
-        if(!cantidadSeleccionada){
+      if (referencia) {
+        if (!cantidadSeleccionada) {
           cantOMensaje = '-';
         }
-        else{
+        else {
           cantOMensaje = cant;
         }
       }
@@ -478,7 +485,7 @@ export default function CardProducto(args) {
               <>
                 <p>{`${(proceso && proceso.detalle.startsWith('ANODIZADO')) ? ('ANODIZADO') : ('COLOR')}`}</p>
                 <p className="pesoYColorTextoCardProducto muestraColorCardProducto" style={{ color: usarBlanco ? 'white' : undefined, backgroundColor: `var(--${colorCorregido})` }}>
-                  {args.proceso ? proceso.color.toUpperCase() : color.toUpperCase()}
+                  {args.anodizado ? proceso.color.toUpperCase() : color.toUpperCase()}
                 </p>
               </>
             }

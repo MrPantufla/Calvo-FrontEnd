@@ -167,6 +167,7 @@
 .colorCardProducto p {
     width: 100%;
     font-size: 1.3rem;
+    overflow: hidden;
 }
 
 

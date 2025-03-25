@@ -340,7 +340,7 @@ function CarritoProvider({ children }) {
         setRespuestaRecibida(true);
 
         if (response.ok) {
-          limpiarCarrito();
+          //limpiarCarrito();
         }
 
         return response.text();

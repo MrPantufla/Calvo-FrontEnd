@@ -67,7 +67,6 @@ function ProviderCortinas({ children }) {
         let textoUsuario = "";
         let cliente;
         if (response.ok) {
-            console.log("ENCUENTRA CLIENTE")
             cliente = await response.json();
 
             textoUsuario =

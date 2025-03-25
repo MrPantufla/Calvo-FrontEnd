@@ -60,7 +60,10 @@ export default function Ventas() {
     tipoProceso,
     stipoProceso,
     setTipoProceso,
-    isMobile
+    isMobile,
+    categoriaSeleccionadaPinturas,
+    setCategoriaSeleccionadaPinturas,
+    setColorSeleccionado
   } = useTienda();
 
   const {
@@ -73,15 +76,43 @@ export default function Ventas() {
     metodoPago
   } = useFinalizarCompra();
 
-  const atrasProcesos = () => {
+  const atras = () => {
     if (acabado != null && tipoProceso == 'anodizados') {
       setAcabado(null);
+    }
+    else if (categoriaSeleccionadaPinturas != null && tipoProceso == 'pinturas') {
+      setCategoriaSeleccionadaPinturas(null);
     }
     else if (stipoProceso != null) {
       setStipoProceso(null);
     }
     else if (tipoProceso != null) {
       setTipoProceso(null);
+    }
+  }
+
+  const atrasProcesos = () => {
+    if (tipoProceso == 'anodizados') {
+      if (acabado != null) {
+        setAcabado(null);
+      }
+      else if(stipoProceso != null) {
+        setStipoProceso(null);
+      }
+      else{
+        setTipoProceso(null);
+      }
+    }
+    else if (tipoProceso == 'pinturas') {
+      if (stipoProceso != null) {
+        setStipoProceso(null);
+      }
+      else if (categoriaSeleccionadaPinturas != null) {
+        setCategoriaSeleccionadaPinturas(null);
+      }
+      else{
+        setTipoProceso(null);
+      }
     }
   }
 
@@ -131,7 +162,7 @@ export default function Ventas() {
   const aclaracionesPagoTarjeta =
     <p className="aclaracionesConfirmarCompra">
       -La empresa no almacenará nignún dato relacionado con tarjetas de crédito o débito
-<br/>
+      <br />
       -Se almacenarán los siguientes datos para facilitar el proceso de futuras compras: nombre, apellido, fecha de nacimiento y DNI
     </p>
     ;

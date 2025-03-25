@@ -182,9 +182,9 @@ export default function CardMisCompras(args) {
                         <button className={`botonCollapseCardCompras ${cardComprasAbierto ? 'open' : ''}`} onClick={toggleCardCompras}>
                             VER COMPRA
                         </button>
-                        <button className="botonRepetirCompra" onClick={repetirCompra} >
+                        {/*<button className="botonRepetirCompra" onClick={repetirCompra} >
                             VOLVER A COMPRAR
-                        </button>
+                        </button>*/}
                     </div>
                 </div>
             </div>

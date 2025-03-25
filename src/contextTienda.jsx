@@ -34,6 +34,8 @@ function TiendaProvider({ children }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [rubros, setRubros] = useState([]);
   const [imagenSoftwareSeleccionada, setImagenSoftwareSeleccionada] = useState(null);
+  const [categoriaSeleccionadaPinturas, setCategoriaSeleccionadaPinturas] = useState(null);
+  const [colorSeleccionado, setColorSeleccionado] = useState(null);
 
   const {
     setOrdenamientoActivo,
@@ -238,6 +240,7 @@ function TiendaProvider({ children }) {
 
     if (!procesosSelected) {
       setRubroActivo(null);
+      setCategoriaSeleccionadaPinturas(null);
       setSrubroActivo(null);
       setMarcaActiva(null);
       setProcesosSelected(true);
@@ -403,7 +406,11 @@ function TiendaProvider({ children }) {
       eliminadosDeProcesosSelected,
       ofertasSelected,
       setOfertasSelected,
-      seleccionarOfertas
+      seleccionarOfertas,
+      categoriaSeleccionadaPinturas, 
+      setCategoriaSeleccionadaPinturas,
+      colorSeleccionado, 
+      setColorSeleccionado
     }}>
       {children}
     </TiendaContext.Provider>

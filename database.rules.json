@@ -1,6 +1,6 @@
 {
   "rules": {
-    ".read": "auth != null",
+    ".read": "true",
     ".write": "auth != null",
     "bloqueos": {
       ".indexOn": ["ip"]
@@ -27,10 +27,13 @@
       ".indexOn": ["idProducto"]
     },
     "pedidos_web":{
-      ".indexOn": ["nro_doc", "grupo", "id_usuario"]
+      ".indexOn": ["nro_doc", "grupo", "id_usuario", "cliente"]
+    },
+    "pedidos_web_temp":{
+      ".indexOn": ["nro_doc", "grupo", "id_usuario", "cliente"]
     },
     "pedidos_det_web":{
-      ".indexOn": ["nro_doc", "id_usuario", "id"]
+      ".indexOn": ["nro_doc", "id_usuario", "id", "grupo"]
     },
     "precios_ocultos_ecommerce":{
       ".indexOn": ["producto"]

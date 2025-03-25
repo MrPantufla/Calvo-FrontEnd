@@ -70,6 +70,14 @@
     left: 9%;
 }
 
+.labelAdmin{
+    background-color: var(--colorPrimario);
+}
+
+.labelSubirImagenTienda{
+    cursor: pointer;
+}
+
 @media (max-width: 767px) {
     .filtros {
         max-height: calc(100vh - 24rem);
