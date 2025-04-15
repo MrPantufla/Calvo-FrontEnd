@@ -37,7 +37,7 @@ function App() {
                       <TiendaProvider>
                         <ConfiguracionProvider>
                           <Routes>
-                            <Route path="/" element={<HomePage />} />
+                            <Route path="/" element={<HomePage />/*<h1>Nos encontramos con problemas en el servicio, volveremos pronto</h1>}*/} />
                             <Route path="/tienda" element={<Ventas />} />
                             <Route path="/perfil" element={<Perfil />} />
                             <Route path="/misCompras" element={<MisCompras />} />

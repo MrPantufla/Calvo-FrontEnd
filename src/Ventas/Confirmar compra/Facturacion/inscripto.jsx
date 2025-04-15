@@ -22,7 +22,7 @@ export default function Inscripto() {
         primerosDigitos,
         setPrimerosDigitos,
         ultimoDigito,
-        setUltimoDigito
+        setUltimoDigito,
     } = useFinalizarCompra();
 
     const {
@@ -154,9 +154,9 @@ export default function Inscripto() {
                 <button
                     onClick={(e) => confirmar(e)}
                     className="confirmarBoton"
-                    disabled={primerosDigitos.length != 2 || ultimoDigito.length != 1}
+                    disabled={metodoPago == 'tarjeta' ? (primerosDigitos.length != 2 || ultimoDigito.length != 1) : (cuit.length != 11)}
                 >
-                    Confirmar
+                    {metodoPago == 'tarjeta' ? 'Pagar y confirmar pedido' : 'Confirmar pedido'}
                 </button>
             </div>
         </>

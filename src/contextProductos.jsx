@@ -141,6 +141,8 @@ function ProductosProvider({ children }) {
                     return acc;
                 }, {}));
 
+                console.log(procesos)
+
                 setTroquelados(troqueladosTemporal.reduce((acc, el) => {
                     acc[el.id] = el;
                     return acc;

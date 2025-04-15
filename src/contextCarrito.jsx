@@ -107,12 +107,18 @@ function CarritoProvider({ children }) {
   }
 
   function añadirElemento(id, cantidadCarrito) {
+    let idProducto;
+
     if (!(id.toString().includes("(")) && !(id.toString().includes("-"))) {
       id = parseInt(id);
+      idProducto = id;
+    }
+    else {
+      idProducto = parseInt(id.split("(")[0].trim());
     }
 
     setPaqueteAñadir(null);
-    if (state.userInfo && productosIndexado && productosIndexado[id] && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[id].marca)) {
+    if (state.userInfo && productosIndexado && productosIndexado[idProducto] && state.userInfo.categoria != 'MAYORISTA' && marcasUnicasPerfiles.find(marcaPerfil => marcaPerfil == productosIndexado[idProducto].marca)) {
       setMostrarCartelError(true);
     }
     else {
@@ -326,7 +332,8 @@ function CarritoProvider({ children }) {
       metodoPago: metodoPago
     };
 
-    suscribirRespuestas();
+    
+    setRespuestaCompra("Almacenando pedido...");
 
     fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',
@@ -340,7 +347,7 @@ function CarritoProvider({ children }) {
         setRespuestaRecibida(true);
 
         if (response.ok) {
-          //limpiarCarrito();
+          limpiarCarrito();
         }
 
         return response.text();
@@ -357,24 +364,32 @@ function CarritoProvider({ children }) {
 
   const suscribirRespuestas = () => {
     const token = encodeURIComponent(obtenerToken());
+    console.log("Iniciando suscripción SSE con token:", token);
+
     const eventSource = new EventSource(`${backend}/mensajes/subscribe?token=${token}`);
 
+    eventSource.onopen = () => {
+      console.log("Conexión SSE establecida correctamente.");
+    };
+
     eventSource.onmessage = (event) => {
-      // Aquí actualizas el estado o la UI con el mensaje recibido:
+      console.log("Mensaje recibido:", event.data);
       setRespuestaCompra(event.data);
     };
 
     eventSource.onerror = (error) => {
       console.error("Error en SSE:", error);
       eventSource.close();
+      console.log("Conexión SSE cerrada por error.");
     };
 
     // Limpieza: cierra la conexión al desmontar el componente
     return () => {
+      console.log("Cerrando conexión SSE.");
       eventSource.close();
       setRespuestaCompra('');
     };
-  }
+  };
 
   useEffect(() => {
     if (state.logueado && state.userInfo.cantidades_carrito) {

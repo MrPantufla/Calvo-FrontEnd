@@ -118,7 +118,7 @@ export default function ConsumidorFinal() {
                     className="confirmarBoton"
                     disabled={camposVacios}
                 >
-                    Confirmar
+                    {metodoPago == 'tarjeta' ? 'Pagar y confirmar pedido' : 'Confirmar pedido'}
                 </button>
             </div>
         </>

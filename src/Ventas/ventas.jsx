@@ -96,10 +96,10 @@ export default function Ventas() {
       if (acabado != null) {
         setAcabado(null);
       }
-      else if(stipoProceso != null) {
+      else if (stipoProceso != null) {
         setStipoProceso(null);
       }
-      else{
+      else {
         setTipoProceso(null);
       }
     }
@@ -110,7 +110,7 @@ export default function Ventas() {
       else if (categoriaSeleccionadaPinturas != null) {
         setCategoriaSeleccionadaPinturas(null);
       }
-      else{
+      else {
         setTipoProceso(null);
       }
     }
@@ -169,7 +169,7 @@ export default function Ventas() {
 
   const pagosArray = [
     // Solo agregamos la opción de "Efectivo" si se cumple la condición
-    ...((state.userInfo && ((state.userInfo.cliente && tipoEnvio == 'transportePropio' || medioEnvio == 'retira')))/*true*/ ? [{
+    ...((state.userInfo && ((state.userInfo.cliente && tipoEnvio == 'transportePropio' || medioEnvio == 'retira' || medioEnvio == 'arregla'))) ? [{
       nombre: 'Efectivo',
       comparador: 'efectivo',
       set: () => setMetodoPago('efectivo'),
@@ -234,75 +234,75 @@ export default function Ventas() {
 
   return (
     <>
-      <ProviderCortinas>
-        <RenderHeader />
-        <DesplegablePerfil />
-        <Catalogos />
-        <Filtros />
-        {mostrarCartelError && <CartelError />}
-        {compraRealizadaAbierto && <PedidoRealizado />}
-        {tipoProceso && <button className="atrasProcesos" onClick={() => atrasProcesos()}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-            <path fillRule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
-          </svg>
-        </button>}
-        <Footer />
+        <ProviderCortinas>
+          <RenderHeader />
+          <DesplegablePerfil />
+          <Catalogos />
+          <Filtros />
+          {mostrarCartelError && <CartelError />}
+          {compraRealizadaAbierto && <PedidoRealizado />}
+          {tipoProceso && <button className="atrasProcesos" onClick={() => atrasProcesos()}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+              <path fillRule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z" />
+            </svg>
+          </button>}
+          <Footer />
 
-        {mostrarConfirmarCompra && (
-          <>
-            {mostrarEnvios ? (
-              <ConfirmarCompra
-                titulo='ENVÍO'
-                componentesArray={enviosArray}
-                atras={() => {
-                  setMostrarEnvios(false);
-                  setMostrarConfirmarCompra(false);
-                }}
-              />
-            )
-              :
-              mostrarPagos ? (
+          {mostrarConfirmarCompra && (
+            <>
+              {mostrarEnvios ? (
                 <ConfirmarCompra
-                  titulo='MÉTODO DE PAGO'
-                  componentesArray={pagosArray}
+                  titulo='ENVÍO'
+                  componentesArray={enviosArray}
                   atras={() => {
-                    setMostrarPagos(false);
-                    setMostrarEnvios(true);
+                    setMostrarEnvios(false);
+                    setMostrarConfirmarCompra(false);
                   }}
                 />
               )
                 :
-                (mostrarFacturacion ? (
+                mostrarPagos ? (
                   <ConfirmarCompra
-                    titulo='CONDICIÓN DE FACTURACIÓN'
-                    componentesArray={facturacionArray}
+                    titulo='MÉTODO DE PAGO'
+                    componentesArray={pagosArray}
                     atras={() => {
-                      setMostrarFacturacion(false);
-                      if (state.userInfo && state.userInfo.cliente) {
-                        setMostrarEnvios(true);
-                      }
-                      else {
-                        setMostrarPagos(true);
-                      }
+                      setMostrarPagos(false);
+                      setMostrarEnvios(true);
                     }}
                   />
                 )
                   :
-                  (mostrarFinalizarPedido && (
-                    <FinalizarPedido
-                      titulo='FINALIZAR PEDIDO'
+                  (mostrarFacturacion ? (
+                    <ConfirmarCompra
+                      titulo='CONDICIÓN DE FACTURACIÓN'
+                      componentesArray={facturacionArray}
                       atras={() => {
-                        setMostrarFinalizarPedido(false);
-                        setMostrarFacturacion(true);
+                        setMostrarFacturacion(false);
+                        if (state.userInfo && state.userInfo.cliente && !state.userInfo.tipo_usuario == 'admin') {
+                          setMostrarEnvios(true);
+                        }
+                        else {
+                          setMostrarPagos(true);
+                        }
                       }}
                     />
-                  ))
-                )
-            }
-          </>
-        )}
-        {mostrarCartelCliente && <CartelCliente />}
-      </ProviderCortinas>
+                  )
+                    :
+                    (mostrarFinalizarPedido && (
+                      <FinalizarPedido
+                        titulo='FINALIZAR PEDIDO'
+                        atras={() => {
+                          setMostrarFinalizarPedido(false);
+                          setMostrarFacturacion(true);
+                        }}
+                      />
+                    ))
+                  )
+              }
+            </>
+          )}
+          {mostrarCartelCliente && <CartelCliente />}
+        </ProviderCortinas>
     </>
   );
 }

@@ -8,9 +8,8 @@ import { useEffect, useState } from 'react';
 export default function Carrusel() {
   const [listaImagenes, setListaImagenes] = useState([]);
   const [imagenesCargadas, setImagenesCargadas] = useState(false);
-  const [datosImagen, setDatosImagen] = useState([]);
-  const [primeraCarga, setPrimeraCarga] = useState(true);
-  const [respuestas, setRespuestas] = useState([]);
+  const [listaVisibilidad, setListaVisibilidad] = useState([]);
+  const [estadoRespuestaCambioUrl, setEstadoRespuestaCambioUrl] = useState(null);
 
   const { state } = useAuth();
 
@@ -20,6 +19,37 @@ export default function Carrusel() {
   } = useVariables();
 
   const intervalo = state.userInfo ? (state.userInfo.tipo_usuario == 'admin' ? null : 2500) : 2500;
+  const prefijo = "https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesCarrusel/";
+
+  const obtenerListaVisilibilidad = async () => {
+    try {
+      const response = await fetch(`${backend}/datosCarrusel/get`);
+
+      if (!response.ok) {
+        throw new Error('Error al obtener la lista de visibilidades');
+      }
+
+      const data = await response.json();
+
+      const updatedData = data.map((v) => {
+        return {
+          ...v,
+          urlImagen: "https://storage.googleapis.com/backend-calvo-415917.appspot.com/imagenesCarrusel/" + v.imagen
+        };
+      });
+
+      setListaVisibilidad(updatedData);
+
+      return data;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    obtenerListaVisilibilidad();
+  }, [])
 
   const enviarImagen = async (archivo) => {
     try {
@@ -36,6 +66,7 @@ export default function Carrusel() {
       });
 
       if (response.ok) {
+        cambiarDatos(archivo.name, 'admin', 'visibilidad');
         window.location.reload()
       }
     } catch (error) {
@@ -49,16 +80,13 @@ export default function Carrusel() {
     enviarImagen(file);
   };
 
-  const eliminarImagen = async (linkArchivo) => {
+  const eliminarImagen = async (urlImagen) => {
     try {
-      const startIndex = linkArchivo.lastIndexOf('%2F') + 3;
-      const endIndex = linkArchivo.indexOf('?');
-      const fileNamePart = linkArchivo.substring(startIndex, endIndex);
 
-      const nombreImagen = decodeURIComponent(fileNamePart).replace(/%20/g, ' ');
+      const imagen = urlImagen.replace(prefijo, "");
 
       const formData = new FormData();
-      formData.append('imageName', nombreImagen);
+      formData.append('imageName', imagen);
       formData.append('carpeta', "imagenesCarrusel");
 
       const response = await fetch(`${backend}/carousel/postEliminar`, {
@@ -71,6 +99,7 @@ export default function Carrusel() {
       });
 
       if (response.ok) {
+        eliminarDatos(imagen);
         window.location.reload();
       }
     } catch (error) {
@@ -90,9 +119,18 @@ export default function Carrusel() {
 
         const data = await response.json();
 
-        setListaImagenes(data);
+        // Convertir URLs al formato público correcto
+        const urlsPublicas = data.map(url => {
+          const match = url.match(/\/o\/(.+?)\?/); // Extrae la parte del path después de "/o/" y antes de "?"
+          if (match && match[1]) {
+            const path = decodeURIComponent(match[1]); // Decodifica los caracteres especiales
+            return `https://storage.googleapis.com/backend-calvo-415917.appspot.com/${path}`;
+          }
+          return url; // Si no se puede procesar, devuelve la URL original
+        });
 
-        data.forEach(url => {
+        // Preload de imágenes
+        urlsPublicas.forEach(url => {
           const link = document.createElement('link');
           link.rel = 'preload';
           link.as = 'image';
@@ -100,6 +138,7 @@ export default function Carrusel() {
           document.head.appendChild(link);
         });
 
+        setListaImagenes(urlsPublicas);
         setImagenesCargadas(true);
       } catch (error) {
         console.error(error);
@@ -109,20 +148,22 @@ export default function Carrusel() {
     obtenerImagenes();
   }, [backend]);
 
-  const cambiarDatos = async (nombreArchivo, index, dato, tipo) => {
+  const cambiarDatos = async (urlImagen, dato, tipo) => {
 
     let itemEnviar;
 
+    const imagenFinal = urlImagen.replace(prefijo, "");
+
     if (tipo == 'visibilidad') {
       itemEnviar = {
-        index: index,
-        visibilidad: dato
+        visibilidad: dato,
+        imagen: imagenFinal
       }
     }
     else {
       itemEnviar = {
-        index: index,
-        urlDestino: dato
+        urlDestino: dato,
+        imagen: imagenFinal
       }
     }
 
@@ -137,177 +178,135 @@ export default function Carrusel() {
     });
 
     if (response.ok) {
-      if (tipo == 'visibilidad') {
-        setDatosImagen((prevDatos) => {
-          const nuevosDatosArray = [...prevDatos]; // Crear una copia del arreglo actual
-          nuevosDatosArray[index][0] = dato; // Asignar el nuevo valor al índice correspondiente
-          return nuevosDatosArray; // Retornar el nuevo arreglo
-        });
-      }
-      else {
-        setDatosImagen((prevDatos) => {
-          const nuevosDatosArray = [...prevDatos]; // Crear una copia del arreglo actual
-          nuevosDatosArray[index][1] = dato; // Asignar el nuevo valor al índice correspondiente
-          return nuevosDatosArray; // Retornar el nuevo arreglo
-        });
-
-        setRespuestas((prevRespuestas) => {
-          const nuevasRespuestasArray = [...prevRespuestas];
-          nuevasRespuestasArray[index] = true;
-          return nuevasRespuestasArray;
-        })
-      }
+      obtenerListaVisilibilidad();
 
       console.log("Dato cambiado con éxito")
+
+      if(tipo == 'url'){
+        setEstadoRespuestaCambioUrl(true);
+      }
     }
     else {
-      if (tipo == 'url') {
-        setRespuestas((prevRespuestas) => {
-          const nuevasRespuestasArray = [...prevRespuestas];
-          nuevasRespuestasArray[index] = false;
-          return nuevasRespuestasArray;
-        })
+      console.log(response.text)
+
+      if(tipo == 'url'){
+        setEstadoRespuestaCambioUrl(false);
       }
     }
   }
 
-  useEffect(() => {
-    const asignarVisibilidades = async () => {
-      if (!primeraCarga) {
-        try {
-          const permisosDb = await obtenerListaVisilibilidad();
+  const eliminarDatos = async (imagen) => {
+    const response = await fetch(`${backend}/datosCarrusel/delete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': obtenerToken(),
+      },
+      credentials: 'include',
+      body: imagen,
+    });
 
-          const arrayPermisos = listaImagenes.map((_, i) => {
-            const permiso = permisosDb.find(p => p.index == i);
-            return permiso
-              ? [permiso.visibilidad || 'clientes', permiso.urlDestino || '']
-              : ['clientes', '']; // Valores predeterminados si no se encuentra permiso
-          });
-
-          setDatosImagen(arrayPermisos);
-        } catch (error) {
-          console.error("Error al obtener permisos de visibilidad:", error);
-        }
-      } else {
-        setPrimeraCarga(false);
-      }
-    };
-
-    asignarVisibilidades();
-  }, [listaImagenes]);
-
-  const obtenerListaVisilibilidad = async () => {
-    try {
-      const response = await fetch(`${backend}/datosCarrusel/get`);
-
-      if (!response.ok) {
-        throw new Error('Error al obtener la lista de visibilidades');
-      }
-
-      const data = await response.json();
-
-      return data;
-
-    } catch (error) {
-      console.error(error);
+    if (response.ok) {
+      console.log("Datos eliminados con éxito")
+    }
+    else {
+      console.log(response.text)
     }
   }
 
   return (
     <div className="contenedorPrincipalCarrusel">
       {imagenesCargadas ?
-        (<Carousel interval={intervalo}>
+        (<Carousel interval={intervalo} onSelect={() => setEstadoRespuestaCambioUrl(null)}>
           {
-            listaImagenes.map((imageName, index) => (
+            listaImagenes.map((imageName, index) => {
 
-              (index < listaImagenes.length - 1 && datosImagen[index]) &&
-              (
-                datosImagen[index][0] === 'todos' ||
-                (datosImagen[index][0] === 'registrados' && state.logueado) ||
-                (datosImagen[index][0] === 'clientes' && state.userInfo && state.userInfo.cliente)
-              )
-              && (
-                <Carousel.Item key={index}>
-                  <img
-                    className={`d-block w-100 ${datosImagen[index][1] ? 'clickeable' : ''}`}
-                    src={imageName}
-                    alt={`Slide ${imageName}`}
-                    onClick={() => {
-                      const url = datosImagen[index]?.[1];
-                      if (url && url.length > 0) {
-                        window.location.href = url;
-                      }
-                    }}
-                  />
+              if (index != (listaImagenes.length - 1)) {
+                const visibilidadImagenArray = listaVisibilidad.find((i) => decodeURIComponent(i.urlImagen) === imageName);
 
-                  {(state.userInfo && (state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador')) &&
-                    (
-                      <>
-                        <div className="divSubirArchivoCarrusel storageCarrusel">
-                          <label htmlFor="subirImagen" className="boton-personalizado">+</label>
-                          <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg, .webp" />
-                        </div>
+                return (
+                  !visibilidadImagenArray ||
+                  visibilidadImagenArray.visibilidad === 'todos' ||
+                  visibilidadImagenArray.visibilidad === 'registrados' && state.logueado ||
+                  visibilidadImagenArray.visibilidad === 'clientes' && state.userInfo && state.userInfo.cliente ||
+                  visibilidadImagenArray.visibilidad === 'admin' && state.userInfo && state.userInfo.tipo_usuario == 'admin'
+                ) &&
+                  (
+                    <Carousel.Item key={imageName}>
+                      <img
+                        className={`d-block w-100 ${visibilidadImagenArray?.urlDestino ? 'clickeable' : ''}`}
+                        src={imageName}
+                        alt={`Slide ${imageName}`}
+                        onClick={() => {
+                          const url = visibilidadImagenArray.urlDestino || '';
+                          if (url && url.length > 0) {
+                            window.location.href = url;
+                          }
+                        }}
+                      />
+                      {(state.userInfo && (state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador')) &&
+                        (
+                          <>
+                            <div className="divSubirArchivoCarrusel storageCarrusel">
+                              <label htmlFor="subirImagen" className="boton-personalizado">+</label>
+                              <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg, .webp" />
+                            </div>
 
-                        <div className="divPermisosCarrusel">
-                          <button className={datosImagen[index][0] == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(imageName, index, 'todos', 'visibilidad')}>{ }Todos</button>
-                          <button className={datosImagen[index][0] == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(imageName, index, 'registrados', 'visibilidad')}>Registrados</button>
-                          <button className={datosImagen[index][0] == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(imageName, index, 'clientes', 'visibilidad')}>Clientes</button>
-                        </div>
+                            <div className="divPermisosCarrusel">
+                              <button className={visibilidadImagenArray?.visibilidad == 'todos' ? 'active' : ''} onClick={() => cambiarDatos(imageName, 'todos', 'visibilidad')}>Todos</button>
+                              <button className={visibilidadImagenArray?.visibilidad == 'registrados' ? 'active' : ''} onClick={() => cambiarDatos(imageName, 'registrados', 'visibilidad')}>Registrados</button>
+                              <button className={visibilidadImagenArray?.visibilidad == 'clientes' ? 'active' : ''} onClick={() => cambiarDatos(imageName, 'clientes', 'visibilidad')}>Clientes</button>
+                              <button className={visibilidadImagenArray?.visibilidad == 'admin' ? 'active' : ''} onClick={() => cambiarDatos(imageName, 'admin', 'visibilidad')}>Admin</button>
+                            </div>
 
-                        {listaImagenes.length > 2 &&
-                          (
-                            <>
-                              <div className="divEliminarArchivoCarrusel storageCarrusel">
-                                <label htmlFor={`eliminarImagen_${index}`} className="boton-personalizado">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                                  </svg>
-                                </label>
-                                <input id={`eliminarImagen_${index}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
-                              </div>
+                            {listaImagenes.length > 2 &&
+                              (
+                                <>
+                                  <div className="divEliminarArchivoCarrusel storageCarrusel">
+                                    <label htmlFor={`eliminarImagen_${imageName.replace(prefijo, "")}`} className="boton-personalizado">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="4.5rem" height="4.5rem" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                      </svg>
+                                    </label>
+                                    <input id={`eliminarImagen_${imageName.replace(prefijo, "")}`} onClick={() => eliminarImagen(imageName)} style={{ display: "none" }} />
+                                  </div>
 
-                              <div className="urlDestinoContainer">
-                                <input
-                                  type="text"
-                                  value={(datosImagen[index][0] && datosImagen[index][1]) || ''}
-                                  onChange={(e) => {
-                                    if (datosImagen[index]) {
-                                      const newDatosImagen = [...datosImagen];
-                                      newDatosImagen[index][1] = e.target.value;
-                                      setDatosImagen(newDatosImagen);
-                                    }
-                                  }}
-                                  onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(imageName, index, datosImagen[index][1], 'url')}
-                                />
-                                <button
-                                  className={(respuestas[index] && respuestas[index] === true) ? 'true' : respuestas[index] === false ? 'false' : ''}
-                                  onClick={() => cambiarDatos(index, datosImagen[index][1], 'url')}
-                                >
-                                  {respuestas[index] && respuestas[index] === true ?
-                                    (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-check-lg" viewBox="0 0 16 16">
-                                      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
-                                    </svg>)
-                                    :
-                                    (respuestas[index] && respuestas[index] === false ?
-                                      (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-exclamation" viewBox="0 0 16 16">
-                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
-                                      </svg>)
-                                      :
-                                      (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--colorSecundario)" className="bi bi-arrow-right" viewBox="0 0 16 16">
-                                        <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                      </svg>)
-                                    )
-                                  }
-                                </button>
-                              </div>
-                            </>
-                          )}
-                      </>
-                    )}
-
-                </Carousel.Item>
-              )
-            ))
+                                  <div className="urlDestinoContainer">
+                                    <input
+                                      type="text"
+                                      defaultValue={visibilidadImagenArray?.urlDestino}
+                                      onChange={(e) => visibilidadImagenArray.urlDestino = e.target.value}
+                                      onKeyDown={(e) => e.key === 'Enter' && cambiarDatos(imageName, visibilidadImagenArray.urlDestino, 'url')}
+                                    />
+                                    <button
+                                      className={estadoRespuestaCambioUrl == true ? 'true' : (estadoRespuestaCambioUrl == false ? 'false' : 'null')}
+                                      onClick={() => cambiarDatos(imageName, visibilidadImagenArray.urlDestino, 'url')}
+                                    >
+                                      {estadoRespuestaCambioUrl == null ?
+                                        (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--colorSecundario)" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                                          <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                        </svg>)
+                                        :
+                                        (estadoRespuestaCambioUrl == true ?                                          
+                                          (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                                          </svg>)
+                                          :
+                                          (<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" className="bi bi-exclamation" viewBox="0 0 16 16">
+                                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
+                                          </svg>)
+                                        )
+                                      }
+                                    </button>
+                                  </div>
+                                </>
+                              )}
+                          </>
+                        )}
+                    </Carousel.Item>
+                  )
+              }
+            })
           }
         </Carousel>)
         :

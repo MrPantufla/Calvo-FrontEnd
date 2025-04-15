@@ -36,7 +36,7 @@ export default function PedidoRealizado() {
             <span className="visually-hidden">Loading...</span>
           </div>
         }
-        <button onClick={() => { setCompraRealizadaAbierto(false); setRespuestaCompra(false) }}>Aceptar</button>
+        {respuestaRecibida && <button onClick={() => { setCompraRealizadaAbierto(false); setRespuestaCompra(false) }}>Aceptar</button>}
       </div>
     </div >
   );

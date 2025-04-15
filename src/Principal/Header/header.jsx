@@ -117,7 +117,9 @@ export default function Header() {
       </div>
       <div className="row filaHeader">
         <div className="col-12 col-sm-4 logoContainer columnas">
-          <img onClick={() => window.location.href = '/'} className="logo" src={logo} alt="logo_calvo_aluminios" loading='lazy'/>
+          <a href="/" className="logo" >
+            <img className="imagenLogo" src={logo} alt="logo_calvo_aluminios" loading='lazy'/>
+          </a>
         </div>
         <div className="col-12 col-sm-8 secciones columnas" style={{ paddingRight: location.pathname === '/tienda' ? '12rem' : '0' }}>
           <div className="seccion" onClick={() => { handleInicioClick(); navigate('/', { replace: true }) }}>

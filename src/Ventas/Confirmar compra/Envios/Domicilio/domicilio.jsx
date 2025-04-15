@@ -60,7 +60,7 @@ export default function Domicilio() {
         ) {
             setMostrarEnvios(false);
 
-            if (state.userInfo.cliente) {
+            if (state.userInfo.cliente && !state.userInfo.tipo_usuario == 'admin') {
                 setMostrarFacturacion(true);
             }
             else {
@@ -74,7 +74,7 @@ export default function Domicilio() {
 
     const handleBlurDesplegable = (e) => {
         setTimeout(() => {
-            if (desplegableRef && !desplegableRef.current.contains(e.relatedTarget) && state.userInfo.tipo_usuario != 'admin') {
+            if (desplegableRef?.current && !desplegableRef.current.contains(e.relatedTarget) && state.userInfo.tipo_usuario != 'admin') {
                 setCorreosDesplegado(false);
             }
         }, 100)
@@ -166,7 +166,7 @@ export default function Domicilio() {
                     <div className="contenedorEntradaConfirmarCompra">
                         <label htmlFor="domicilio">DOMICILIO</label>
                         <input id="domicilio"
-                            value={domicilio}
+                            value={domicilio || ""}
                             onChange={(e) => setDomicilio(e.target.value)}
                             onFocus={() => setErrorMessage('')}
                         />
@@ -175,7 +175,7 @@ export default function Domicilio() {
                     <div className="contenedorEntradaConfirmarCompra">
                         <label htmlFor="cp">CP</label>
                         <input id="cp"
-                            value={cp}
+                            value={cp || ""}
                             onChange={(e) => (setCp(e.target.value))}
                             onFocus={() => setErrorMessage('')}
                         />
@@ -184,7 +184,7 @@ export default function Domicilio() {
                     <div className="contenedorEntradaConfirmarCompra">
                         <label htmlFor="localidad">LOCALIDAD</label>
                         <input id="localidad"
-                            value={localidad}
+                            value={localidad || ""}
                             onChange={(e) => (setLocalidad(e.target.value))}
                             onFocus={() => setErrorMessage('')}
                         />
@@ -193,7 +193,7 @@ export default function Domicilio() {
                     <div className="contenedorEntradaConfirmarCompra">
                         <label htmlFor="provincia">PROVINCIA</label>
                         <input id="provincia"
-                            value={provincia}
+                            value={provincia || ""}
                             onChange={(e) => (setProvincia(e.target.value))}
                             onFocus={() => setErrorMessage('')}
                         />

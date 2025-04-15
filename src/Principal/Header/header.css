@@ -154,8 +154,12 @@
 
 .logo {
     width: 57%;
-    object-fit: contain;
     cursor: pointer;
+}
+
+.imagenLogo{
+    object-fit: contain;
+    max-height: 100%;
 }
 
 .bi-person-fill {

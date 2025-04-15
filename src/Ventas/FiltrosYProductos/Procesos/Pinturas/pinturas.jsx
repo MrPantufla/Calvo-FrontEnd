@@ -128,7 +128,7 @@ export default function Pinturas(args) {
     const mensajeColores = () => {
         return (
             <h1 className="textoComunicateConNosotros textoProcesos">
-                <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuacin,{' '}
+                <span style={{ color: 'white' }}>¡IMPORTANTE!</span> Para realizar encargos de colores que no se listan a continuación,{' '}
                 <a href={isMobile ?
                     (`https://wa.me/5493456475294`)
                     :

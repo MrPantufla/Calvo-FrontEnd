@@ -23,7 +23,8 @@ export default function CardMisCompras(args) {
 
     const {
         setCarritoAbierto,
-        añadirElemento
+        añadirElemento,
+        limpiarCarrito
     } = useCarrito();
 
     const { state } = useAuth();
@@ -59,6 +60,8 @@ export default function CardMisCompras(args) {
     }
 
     const repetirCompra = () => {
+        limpiarCarrito();
+
         Array.from({ length: args.data.length }).map((_, index) => {
 
             let producto = productosIndexado[args.data[index].producto];
@@ -182,9 +185,9 @@ export default function CardMisCompras(args) {
                         <button className={`botonCollapseCardCompras ${cardComprasAbierto ? 'open' : ''}`} onClick={toggleCardCompras}>
                             VER COMPRA
                         </button>
-                        {/*<button className="botonRepetirCompra" onClick={repetirCompra} >
+                        <button className="botonRepetirCompra" onClick={repetirCompra} >
                             VOLVER A COMPRAR
-                        </button>*/}
+                        </button>
                     </div>
                 </div>
             </div>

@@ -311,7 +311,7 @@ export default function FiltrosYProductos() {
               {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles">
                   <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
-                  'Para realizar encargos de modelos y medidas que no se encuentren listados{' '}
+                  {' '}Para realizar encargos de modelos y medidas que no se encuentren listados{' '}
                   <a
                     style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}
                     href={isMobile ?

@@ -12,7 +12,7 @@
       ".indexOn": ["cuit"]
     },
     "datosInternosCarrusel":{
-      ".indexOn": ["index"]
+      ".indexOn": ["imagen"]
     },
     "descuentos":{
       ".indexOn": ["cliente"]
@@ -44,6 +44,9 @@
     "presupuestos":{
       ".indexOn": ["nro_doc"]
     },
+    "presupuestos_temp":{
+      ".indexOn": ["nro_doc"]
+    },
     "productos_destacados_ecommerce":{
       ".indexOn": ["producto"]
     },
@@ -55,6 +58,9 @@
     },
     "productos":{
       ".indexOn": ["cod_int", "id"]
+    },
+    "serviciosCorreo":{
+      ".indexOn": ["nombre"]
     },
     "usuarios":{
       ".indexOn": ["email", "cuit", "id"]
