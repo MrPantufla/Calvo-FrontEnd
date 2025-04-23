@@ -288,6 +288,10 @@ function CarritoProvider({ children }) {
   }, [elementos]);
 
   const confirmarCompra = (datosPedido) => {
+    if(elementos.length <= 0){
+      return false;
+    }
+
     setRespuestaRecibida(false);
     setCompraRealizadaAbierto(true);
 
@@ -332,7 +336,6 @@ function CarritoProvider({ children }) {
       metodoPago: metodoPago
     };
 
-    
     setRespuestaCompra("Almacenando pedido...");
 
     fetch(`${backend}/carrito/postPedido`, {
