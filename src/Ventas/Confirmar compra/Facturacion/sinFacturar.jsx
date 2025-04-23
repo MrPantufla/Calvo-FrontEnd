@@ -15,7 +15,6 @@ export default function SinFacturar() {
 
     const {
         confirmarCompra,
-        limpiarCarrito
     } = useCarrito();
 
     const confirmar = (e, datosPedido) => {

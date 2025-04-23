@@ -29,7 +29,6 @@ export default function ConsumidorFinal() {
 
     const {
         confirmarCompra,
-        limpiarCarrito
     } = useCarrito();
 
     const confirmar = (e) => {

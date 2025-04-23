@@ -28,8 +28,6 @@ export default function HeaderMobile() {
 
     const { setFavoritos } = useFavoritos();
 
-    const { limpiarCarrito } = useCarrito();
-
     const navigate = useNavigate();
     const [catalogosOpen, setCatalogosOpen] = useState(false);
 
