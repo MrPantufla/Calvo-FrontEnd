@@ -238,7 +238,7 @@ function ProductosProvider({ children }) {
     const guardarDestacados = async () => {
 
         try {
-            const response = await fetch(`${backend}/productosDestacados/post`, {
+            const response = await fetch(`${backend}/productosDestacados/guardarDestacados`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ function ProductosProvider({ children }) {
             });
 
             if (response.ok) {
-                console.log("Produtos destacados exitosamente");
+                console.log("Productos destacados exitosamente");
                 return true;
             }
             else {

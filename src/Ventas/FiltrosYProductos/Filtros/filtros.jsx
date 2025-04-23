@@ -155,7 +155,7 @@ export default function Filtros(args) {
                     <label htmlFor="subirImagen" className="labelSubirImagenTienda">SUBIR IMAGEN</label>
                     <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg, .webp" />
                 </div>))}
-                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros ultimoLabel labelAdmin`} onClick={() => handleFileUpload()}>GUARDAR DESTACADOS</div>))}
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros ultimoLabel labelAdmin`} onClick={() => guardarDestacados()}>GUARDAR DESTACADOS</div>))}
             </div>
             {!isMobile &&
                 <div className={`scrollerFiltros ${scrollDownFiltros ? 'enabled' : 'disabled'}`} onClick={() => scrollearFiltros(200)}>
