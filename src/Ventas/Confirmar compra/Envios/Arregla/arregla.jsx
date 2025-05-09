@@ -18,7 +18,7 @@ export default function Arregla() {
 
         setMostrarEnvios(false);
 
-        if (state.userInfo.cliente && !state.userInfo.tipo_usuario == 'admin') {
+        if (state.userInfo.cliente && state.userInfo.zona != 'S/ZONA' && state.userInfo.tipo_usuario != 'admin') {
             setMostrarFacturacion(true);
         }
         else {

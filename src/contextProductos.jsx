@@ -65,9 +65,9 @@ function ProductosProvider({ children }) {
                         precioFinal -= (descuentos[producto.rubro] / 100 * copiaPrecio);
                     }
 
-                    if (producto.tipo_prod == 'PUNTUAL' || producto.tipo_prod == 'MAQUINAS') {
+                    /*if (producto.tipo_prod == 'PUNTUAL' || producto.tipo_prod == 'MAQUINAS') {
                         precioFinal = 0;
-                    }
+                    }*/
 
                     if (producto.tipo_prod != 'PROCESOS' && producto.tipo_prod != 'INSUMOS') {
                         if (producto.cod_orig.endsWith('-S')) {
@@ -140,8 +140,6 @@ function ProductosProvider({ children }) {
                     acc[el.id] = el;
                     return acc;
                 }, {}));
-
-                console.log(procesos)
 
                 setTroquelados(troqueladosTemporal.reduce((acc, el) => {
                     acc[el.id] = el;

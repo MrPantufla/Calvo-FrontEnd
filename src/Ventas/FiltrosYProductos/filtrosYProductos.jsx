@@ -119,17 +119,19 @@ export default function FiltrosYProductos() {
       procesosSelected && stipoProceso && stipoProceso.detalle.includes('M2') && p.rubro == 85 && !(acabado && acabado.detalle.includes("LIJADO") && extraerEspesor(p.detalle) < 2) ||
       ofertasSelected && ofertas && ofertas.some(o => o.idProducto == p.id)
 
+    //Ahora si estamos en el rubro perfiles, colores y srubros se dan vuelta y se intercambian entre ellos
     const colorCumple =
       coloresActivos.length === 0 ||
-      coloresActivos.includes(p.color);
+      (marcaActiva ? (coloresActivos.some((s) => s.id == p.srubro)) : coloresActivos.includes(p.color));
 
     const marcaCumple =
       marcaActiva == null ||
       (marcaActiva && marcaActiva.items.includes(p.marca));
 
+    //Ahora si estamos en el rubro perfiles, srubro equivale a color y viceversa, por eso se verifica si hay marca activa
     const srubroCumple =
       srubroActivo == null ||
-      (srubroActivo && srubroActivo.id == p.srubro);
+      (marcaActiva ? (srubroActivo && srubroActivo.nombre == p.color) : (srubroActivo && srubroActivo.id == p.srubro));
 
     const buscarPorCodOrig =
       marcasUnicas && marcasUnicas.size > 0 && marcasUnicas.has(p.marca) && p.cod_orig.toString().includes(busqueda);
@@ -307,7 +309,6 @@ export default function FiltrosYProductos() {
             (<Cortinas />)
             :
             (<>
-              {!(softwareSelected || (procesosSelected && (!stipoProceso || !acabado))) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
               {(rubroActivo && (rubroActivo.id == 'Paneles' || rubroActivo.id == 'PuertasPlacas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles">
                   <span style={{ color: 'white' }}>¡IMPORTANTE!</span>
@@ -328,6 +329,7 @@ export default function FiltrosYProductos() {
               {(rubroActivo && (rubroActivo.id == 'Maquinas')) && (
                 <h1 className="textoComunicateConNostros textoPaneles"><span style={{ color: 'white' }}>¡IMPORTANTE!</span> Por modelos o repuestos que no se encuentren listados, <a target='blank' href={isMobile ? (`https://wa.me/5493456475294`) : (`https://web.whatsapp.com/send?phone=+5493456475294`)} style={{ color: 'rgb(0, 60, 255)', cursor: 'pointer', textDecoration: 'underline' }}>comunicate con nosotros</a></h1>
               )}
+              {!(softwareSelected || (procesosSelected && (!stipoProceso || !acabado))) && <BotonesOrdenamiento onClick={() => paginar(1)} />}
               {procesosSelected ?
                 <Procesos seleccionarProducto={seleccionarProducto} itemsActuales={itemsActuales} />
                 :

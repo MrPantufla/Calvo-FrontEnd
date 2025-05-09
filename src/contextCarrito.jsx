@@ -336,7 +336,9 @@ function CarritoProvider({ children }) {
       metodoPago: metodoPago
     };
 
-    setRespuestaCompra("Almacenando pedido...");
+    //setRespuestaCompra("Almacenando pedido...");
+
+    suscribirRespuestas();
 
     fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',

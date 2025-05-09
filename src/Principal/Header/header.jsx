@@ -1,5 +1,5 @@
 import './header.css';
-import logo from '../../Imagenes/logo_calvo.webp';
+import logo from '../../Imagenes/calvo30.webp';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contextLogin';

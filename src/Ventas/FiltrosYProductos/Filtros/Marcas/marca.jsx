@@ -42,7 +42,7 @@ export default function Marcas(args) {
                     rubro={args.rubro}
                     marca={marca}
                     setPaginaActual={args.setPaginaActual}
-                    srubros={marca.srubros}
+                    srubros={marca.colores}
                     sinColores={args.sinColores}
                 />)
             }

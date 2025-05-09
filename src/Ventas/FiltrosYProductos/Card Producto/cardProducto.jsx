@@ -7,6 +7,7 @@ import { useFavoritos } from '../../../contextFavoritos.jsx';
 import { useProductos } from '../../../contextProductos.jsx';
 import { useTienda } from '../../../contextTienda.jsx';
 import { marcasUnicasPerfiles } from '../../../rubros.js';
+import sinStock from '../../../Imagenes/sinStock.png';
 
 export default function CardProducto(args) {
 
@@ -339,7 +340,7 @@ export default function CardProducto(args) {
     : "0";
 
   return (
-    <div className={`contenedorPrincipalCardProducto ${(!precio || precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`} >
+    <div className={`contenedorPrincipalCardProducto ${(!precio || precio == 0 || preciosOcultos.includes(id)) && 'sinPrecio'}`}>
       <div className="informacionContainer">
         <div className="decoracionCardProducto">
           <img className="logoDecoracionCardProducto" src="/caChico.webp" alt="" loading='lazy' />
@@ -428,6 +429,10 @@ export default function CardProducto(args) {
         }
         <div className="imagenContainerCardProducto">
           <img
+            className={`imagenSinStock ${(args.producto.stock <= 0 && (referencia ? productosSueltos[referencia].stock <= 0 : true)) && 'sinStock'}`}
+            src={sinStock}
+          />
+          <img
             onClick={args.onClick}
             onContextMenu={handleContextMenu}
             className="imagenProducto"
@@ -456,7 +461,7 @@ export default function CardProducto(args) {
               </>
             )}
           </div>
-          {((precio == 0 || preciosOcultos.includes(id)) && !(referencia && productosSueltos[referencia].stock > 0)) ?
+          {((precio == 0 || preciosOcultos.includes(id))) ?
             (<a
               className="botonConsultarProducto"
               target="blank"
@@ -512,8 +517,8 @@ export default function CardProducto(args) {
             {ofertas.some(o => o.idProducto === idParaUsar) ? (
               <>
                 <span style={{ textDecoration: 'line-through' }}>${precioParaMostrarString}</span>
-                {' $'}{precioParaMostrarOfertaString}
                 <span style={{ color: 'green', fontWeight: '700' }}> -{ofertaEncontrada && ofertaEncontrada.descuento}%</span>
+                {' $'}{precioParaMostrarOfertaString}
               </>
             ) : (
               "$" + precioParaMostrarString

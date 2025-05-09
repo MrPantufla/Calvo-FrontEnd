@@ -13,7 +13,7 @@ export default function Srubros(args) {
     const [srubrosRender, setSrubrosRender] = useState(args.srubros);
 
     useEffect(() => {
-        if (srubroActivo && rubro.id != 'Maquinas' && rubro.id != 'PuertasPlacas' && rubro.id != 'Automatismos' && rubro.id != 'Chapas' && rubro.id != 'Herramientas' && rubro.id != 'TejidosMosquiteros') {
+        if (args.marca ? (srubroActivo?.srubros?.length > 1) : (srubroActivo?.colores?.length > 1)) {
             const updatedSrubros = args.srubros.filter(srubro => srubro !== undefined && srubro !== srubroActivo);
             const selectedSurbro = args.srubros.find(srubro => srubro !== undefined && srubro === srubroActivo);
             if (selectedSurbro) {
@@ -25,9 +25,11 @@ export default function Srubros(args) {
         }
     }, [srubroActivo, rubro]);
 
+    //Si estamos en el rubro de perfiles, los srubros pasan a ser los colores y viceversa. Marca se envía como argumento para saber dentro del Srubro si nos encontramos con el rubro "Perfiles" activo
+
     return (
         <div className="srubrosRender">
-            {srubrosRender && srubrosRender.length > 0 && (srubrosRender.map((srubro, index) => (
+            {srubrosRender?.length > 0 && (srubrosRender.map((srubro, index) => (
                 srubro !== undefined &&
                 <Srubro
                     index={index}
@@ -37,6 +39,7 @@ export default function Srubros(args) {
                     colores={srubro.colores}
                     setPaginaActual={args.setPaginaActual}
                     sinColores={args.sinColores}
+                    marca={args.marca && args.marca}
                 />
             )))}
         </div>

@@ -10,18 +10,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Preload de fuentes -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" as="style">
-  
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    as="style">
+
   <!-- Cargar las fuentes con font-display: swap para evitar CLS -->
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=optional"
+    rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Todo para la carpintería de aluminio" />
   <title>Calvo Aluminios</title>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIFKoyaIQUJ499_br-rzpTCR4l1G1P6kE&callback=console.debug&libraries=maps,marker&v=beta"></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIFKoyaIQUJ499_br-rzpTCR4l1G1P6kE&callback=console.debug&libraries=maps,marker&v=beta"></script>
 
   <style>
+    @font-face {
+      font-family: 'AnsageBold';
+      src: url('/Fuentes/Ansage-Bold.woff2') format('woff2'),
+        url('/Fuentes/Ansage-Bold.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     * {
       font-family: 'Rajdhani', sans-serif;
     }

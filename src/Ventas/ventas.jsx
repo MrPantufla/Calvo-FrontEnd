@@ -278,7 +278,7 @@ export default function Ventas() {
                       componentesArray={facturacionArray}
                       atras={() => {
                         setMostrarFacturacion(false);
-                        if (state.userInfo && state.userInfo.cliente && !state.userInfo.tipo_usuario == 'admin') {
+                        if (state.userInfo.cliente && state.userInfo.zona != 'S/ZONA' && state.userInfo.tipo_usuario != 'admin') {
                           setMostrarEnvios(true);
                         }
                         else {

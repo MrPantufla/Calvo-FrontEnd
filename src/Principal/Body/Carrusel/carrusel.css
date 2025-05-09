@@ -6,7 +6,7 @@
   height: 58rem;
 }
 
-.d-block.w-100.clickeable{
+.d-block.w-100.clickeable {
   cursor: pointer;
 }
 
@@ -146,25 +146,92 @@
   font-size: 1.5rem;
 }
 
-.urlDestinoContainer button{
+.urlDestinoContainer button {
   width: 3rem;
   border: 2px solid var(--colorTerciario);
   margin-left: 1rem;
   border-radius: 4px;
 }
 
-.urlDestinoContainer button:active{
+.urlDestinoContainer button:active {
   transform: scale(0.95);
 }
 
-.urlDestinoContainer button.true{
+.urlDestinoContainer button.true {
   background-color: green;
   border: none;
 }
 
-.urlDestinoContainer button.false{
+.urlDestinoContainer button.false {
   background-color: var(--colorRojo);
   border: none;
+}
+
+input.tituloAviso{
+  top: 12.5%;
+}
+
+input.subtituloAviso{
+  top: 32%;
+  width: 70%;
+}
+
+textArea.textoAviso{
+  width: 52% !important;
+  height: 45%;
+}
+
+.tituloAviso, .subtituloAviso, .textoAviso{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: transparent;
+  user-select: none;
+}
+
+.tituloAviso{
+  top: 15%;
+  font-size: 5.5rem;
+  font-weight: 700;
+  font-family: AnsageBold;
+  color: var(--colorRojo);
+}
+
+.subtituloAviso {
+  border: none;
+  background-color: rgb(90, 128, 151);
+  color: white;
+  top: 33%;
+  font-size: 2.5rem;
+  width: auto;
+  padding: 0 1rem;
+  font-weight: 600;
+  font-family: AnsageBold;
+}
+
+.textoAviso{
+  top: 50%;
+  color: black;
+  max-width: 70%;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgb(111, 111, 111);
+}
+
+.sendCambios{
+  top: 12%;
+  position: absolute;
+  right: 8%;
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid var(--colorTerciario);
+  margin-left: 1rem;
+  border-radius: 4px;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--colorSecundario) !important;
 }
 
 @media (min-width: 1600px) {
@@ -285,9 +352,27 @@
     height: 4rem;
     font-size: 2.3rem;
   }
-  
-  .urlDestinoContainer button{
+
+  .urlDestinoContainer button {
     width: 4rem;
+  }
+
+  .tituloAviso{
+    top: 15%;
+    font-size: 4rem;
+    max-width: 70%;
+  }
+  
+  .subtituloAviso {
+    top: 33%;
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .textoAviso{
+    top: 45%;
+    max-width: 70%;
+    font-size: 2rem;
   }
 }
 

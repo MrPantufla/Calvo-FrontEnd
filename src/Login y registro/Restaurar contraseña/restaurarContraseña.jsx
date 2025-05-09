@@ -145,7 +145,7 @@ export default function RestaurarContraseña() {
                                     type="text"
                                     value={codigo} 
                                     onChange={(e) => {
-                                        setCodigo(e.target.value);
+                                        setCodigo(e.target.value.trim());
                                     }}
                                     onFocus={() => setErrorMessage('')}
                                     onKeyDown={(e) => handleKeyDownContraseña(e)}

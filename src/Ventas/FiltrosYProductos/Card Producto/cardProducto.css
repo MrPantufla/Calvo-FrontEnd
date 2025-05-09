@@ -38,6 +38,19 @@
     scale: 1.04;
 }
 
+.imagenSinStock{
+    position: absolute;
+    top: 0;
+    right: 0;
+    object-fit: contain;
+    height: 100%;
+    display: none;
+}
+
+.imagenSinStock.sinStock{
+    display: block;
+}
+
 .detalleYCod_orig {
     width: 100%;
     display: flex;

@@ -42,6 +42,9 @@
     display: flex;
     justify-content: center;
     height: 100%;
+}
+
+.logoTienda{
     padding-right: 6rem;
 }
 

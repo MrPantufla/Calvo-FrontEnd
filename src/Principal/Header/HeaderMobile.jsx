@@ -1,7 +1,7 @@
 import './headerMobile.css';
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import LogoCalvo from '../../Imagenes/logo_calvo.webp';
+import LogoCalvo from '../../Imagenes/calvo30.webp';
 import calvoNegativo from '../../Imagenes/calvoNegativo.webp';
 import { useTienda } from '../../contextTienda';
 import { useAuth } from '../../contextLogin';
@@ -126,7 +126,7 @@ export default function HeaderMobile() {
                         </svg>
                     </button>
                 </div>
-                <div className={`containerContainerLogoMobile ${isFold && location.pathname === '/tienda' ? 'foldTienda' : ''}`}>
+                <div className={`containerContainerLogoMobile ${isFold && location.pathname === '/tienda' ? 'foldTienda' : '', location.pathname === '/tienda' && 'logoTienda'}`}>
                     <div className="containerLogoMobile">
                         <img src={location.pathname === '/tienda' ? calvoNegativo : LogoCalvo} alt="Logo" onClick={() => window.location.href = '/'} loading='lazy'/>
                     </div>

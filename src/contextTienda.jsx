@@ -109,6 +109,8 @@ function TiendaProvider({ children }) {
       }
     }
 
+    const rubroEncontrado = rubros.find(rubroActual => rubroActual.id == rubro);
+
     if (marca) {
       setMarcaActiva(marcas.find(marcaPerfil => marcaPerfil.nombre == marca));
     }
@@ -117,21 +119,25 @@ function TiendaProvider({ children }) {
       if (marca) {
         const marcaEncontrada = marcas.find(marcaActual => marcaActual.nombre == marca);
 
-        if (marcaEncontrada && marcaEncontrada.srubros.length > 0) {
-          setSrubroActivo(marcaEncontrada.srubros.find(busquedaSrubro => busquedaSrubro.id == srubro));
+        if (marcaEncontrada && marcaEncontrada.colores && marcaEncontrada.colores.length > 0) {
+          const srubroEncontrado = marcaEncontrada.colores.find(busquedaColor => busquedaColor.nombre == srubro);
+
+          setSrubroActivo(srubroEncontrado);
+
+          setColoresActivos(srubroEncontrado.srubros.filter(s => colores.includes(s.nombre)));
         }
       }
       else {
-        const rubroEncontrado = rubros.find(rubroActual => rubroActual.id == rubro);
         if (rubroEncontrado && rubroEncontrado.srubros.length > 0) {
           setSrubroActivo(rubroEncontrado.srubros.find(busquedaSrubro => busquedaSrubro.id == srubro));
         }
+
+        setColoresActivos(colores);
       }
     }
 
-    ordenamiento.length > 0 && setOrdenamientoActivo(ordenamiento)
+    ordenamiento.length > 0 && setOrdenamientoActivo(ordenamiento);
 
-    setColoresActivos(colores);
   }, [marcas, rubros, setProcesos]);
 
   // Actualizar la URL cuando los filtros cambian
@@ -161,13 +167,20 @@ function TiendaProvider({ children }) {
         params.set('rubro', 'Ofertas')
       }
 
-      if (marcaActiva) params.set('marca', marcaActiva.nombre)
+      if (marcaActiva) params.set('marca', marcaActiva.nombre);
 
-      if (srubroActivo) params.set('srubro', srubroActivo.id);
+      if (srubroActivo) {
+        if (rubroActivo.id == 'Perfiles') {
+          params.set('srubro', srubroActivo.nombre)
+        }
+        else {
+          params.set('srubro', srubroActivo.id)
+        }
+      }
 
       if (ordenamientoActivo && ordenamientoActivo != 'destacados') params.set('ordenamiento', ordenamientoActivo)
 
-      coloresActivos.forEach(color => params.append('colores', color));
+      coloresActivos.forEach(color => params.append('colores', rubroActivo.id == 'Perfiles' ? (color.nombre) : (color)));
       navigate({ search: params.toString() });
     }
   }, [marcaActiva, rubroActivo, srubroActivo, coloresActivos, procesosSelected, cortinasSelected, eliminadosSelected, tipoProceso, stipoProceso, procesos, ordenamientoActivo, navigate]);
@@ -291,7 +304,7 @@ function TiendaProvider({ children }) {
     }
   }
 
-  const seleccionarOfertas = () =>{
+  const seleccionarOfertas = () => {
     setEliminadosSelected(false);
     setCortinasSelected(false);
     setProcesosSelected(false);
@@ -407,9 +420,9 @@ function TiendaProvider({ children }) {
       ofertasSelected,
       setOfertasSelected,
       seleccionarOfertas,
-      categoriaSeleccionadaPinturas, 
+      categoriaSeleccionadaPinturas,
       setCategoriaSeleccionadaPinturas,
-      colorSeleccionado, 
+      colorSeleccionado,
       setColorSeleccionado
     }}>
       {children}
