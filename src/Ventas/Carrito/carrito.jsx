@@ -354,7 +354,7 @@ export default function Carrito(args) {
                   placeholder={`${errorMessage != '' && inputFocused == 'codigo' ? errorMessage : 'CÓDIGO'}`}
                   value={codigoAgregadoRapido}
                   onChange={(e) => {
-                    setCodigoAgregadoRapido(e.target.value.toUpperCase());
+                    setCodigoAgregadoRapido(e.target.value);
                     setCodigoValido();
                     setErrorMessage('');
                   }}
@@ -375,7 +375,7 @@ export default function Carrito(args) {
                     placeholder={`${errorMessage != '' && inputFocused == 'color' ? errorMessage : 'COLOR'}`}
                     value={colorAgregadoRapido}
                     onChange={(e) => {
-                      setColorAgregadoRapido(e.target.value.toUpperCase());
+                      setColorAgregadoRapido(e.target.value);
                       setColorValido();
                       setErrorMessage('');
                     }}
@@ -390,7 +390,7 @@ export default function Carrito(args) {
                   placeholder={`${errorMessage != '' && inputFocused == 'cantidad' ? errorMessage : 'CANT'}`}
                   value={cantidadAgregadoRapido}
                   onChange={(e) => {
-                    setCantidadAgregadoRapido(e.target.value.toUpperCase());
+                    setCantidadAgregadoRapido(e.target.value);
                     setErrorMessage('');
                     setCantidadValida();
                   }}

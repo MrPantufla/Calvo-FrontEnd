@@ -7,15 +7,13 @@ export default function Busqueda(args) {
   const [tempBusqueda, setTempBusqueda] = useState(args.busqueda); // Estado temporal para la búsqueda
 
   useEffect(() => {
-    // Creamos un timeout de 0.5s (500 ms)
     const timer = setTimeout(() => {
-      args.setBusqueda(tempBusqueda.toUpperCase());
+      args.setBusqueda(tempBusqueda.toUpperCase()); // Solo transformas aquí
       args.setPaginaActual(1);
     }, 500);
 
-    // Limpiamos el timeout anterior si hay una nueva pulsación de tecla
     return () => clearTimeout(timer);
-  }, [tempBusqueda]); // Ejecuta el efecto cada vez que tempBusqueda cambie
+  }, [tempBusqueda]);
 
   return (
     <div className="busquedaEIcono">
@@ -24,7 +22,7 @@ export default function Busqueda(args) {
         type="text"
         placeholder="Buscar por código o nombre"
         value={tempBusqueda}
-        onChange={(e) => setTempBusqueda(e.target.value.toUpperCase())} // Cambiamos el valor temporal de búsqueda
+        onChange={(e) => setTempBusqueda(e.target.value)} // No toques el valor aquí
         style={isMobile && !filtrosYBusquedaOpen ? { padding: '0' } : {}}>
       </input>
       <div className="lupaContainer">

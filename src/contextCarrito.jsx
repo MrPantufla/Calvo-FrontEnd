@@ -336,9 +336,9 @@ function CarritoProvider({ children }) {
       metodoPago: metodoPago
     };
 
-    //setRespuestaCompra("Almacenando pedido...");
+    setRespuestaCompra("Almacenando pedido...");
 
-    suscribirRespuestas();
+    //suscribirRespuestas();
 
     fetch(`${backend}/carrito/postPedido`, {
       method: 'POST',
@@ -367,7 +367,7 @@ function CarritoProvider({ children }) {
       });
   }
 
-  const suscribirRespuestas = () => {
+  /*const suscribirRespuestas = () => {
     const token = encodeURIComponent(obtenerToken());
     console.log("Iniciando suscripción SSE con token:", token);
 
@@ -394,7 +394,7 @@ function CarritoProvider({ children }) {
       eventSource.close();
       setRespuestaCompra('');
     };
-  };
+  };*/
 
   useEffect(() => {
     if (state.logueado && state.userInfo.cantidades_carrito) {

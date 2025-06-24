@@ -130,6 +130,7 @@
     height: 2.5rem;
     padding-bottom: 0.2rem;
     padding-left: 0.06rem;
+    text-transform: uppercase;
 }
 
 .form-group-agregadoRapido:focus{
@@ -307,7 +308,6 @@
     background-color: var(--colorRojo);
     color: white;
     width: 100%;
-    height: 3rem;
     font-size: 1.7rem;
     font-weight: 600;
 }

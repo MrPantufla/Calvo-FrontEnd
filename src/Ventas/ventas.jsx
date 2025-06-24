@@ -205,7 +205,7 @@ export default function Ventas() {
     ;
 
   const facturacionArray = [
-    ...(metodoPago == 'efectivo'/*true*/
+    ...((metodoPago != 'tarjeta' && metodoPago != 'transferencia')/*true*/
       ? [
         {
           nombre: 'Sin facturar',

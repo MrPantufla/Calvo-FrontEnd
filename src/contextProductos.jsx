@@ -14,6 +14,8 @@ function ProductosProvider({ children }) {
         obtenerToken
     } = useVariables();
 
+
+
     const [ordenamientoActivo, setOrdenamientoActivo] = useState('destacados');
     const [productosIndexado, setProductosIndexado] = useState([]);
     const [coloresArray, setColoresArray] = useState([]);
@@ -52,8 +54,9 @@ function ProductosProvider({ children }) {
                     if (categoria === 'MAYORISTA' && producto.precio_vta2) {
                         // Si es mayorista y hay precio mayorista, actualizar precio
                         precioFinal = producto.precio_vta2;
-
-                        //Si es cliente mayorista sin zona, se le agrega 15% al precio de ECO
+                    }
+                    else{
+                        //Si es cliente minorista sin zona, se le agrega 15% al precio de ECO
                         if (zona == 'S/ZONA' && producto.tipo_prod == 'PERFIL' && (producto.cod_orig.endsWith('E') || producto.cod_orig.endsWith('ES'))) {
                             precioFinal = precioFinal * 1.15;
                         }

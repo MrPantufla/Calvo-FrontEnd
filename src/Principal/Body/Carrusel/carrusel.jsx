@@ -265,10 +265,6 @@ export default function Carrusel() {
               if (index != (listaImagenes.length - 1)) {
                 const visibilidadImagenArray = listaVisibilidad.find((i) => decodeURIComponent(i.urlImagen) === imageName);
 
-                if (visibilidadImagenArray?.imagen == 'imagenAviso.webp') {
-                  console.log(visibilidadImagenArray)
-                }
-
                 return (
                   !visibilidadImagenArray ||
                   visibilidadImagenArray.visibilidad === 'todos' ||

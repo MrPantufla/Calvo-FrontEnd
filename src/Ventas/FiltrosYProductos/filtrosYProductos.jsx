@@ -139,8 +139,9 @@ export default function FiltrosYProductos() {
     const buscarPorCodInt =
       marcasUnicas && marcasUnicas.size > 0 && !marcasUnicas.has(p.marca) && p.cod_int.toString().includes(busqueda);
 
-    const buscarPorDetalle =
-      p.detalle.includes(busqueda);
+    const buscarPorDetalle = busqueda
+      .split(' ')
+      .every(palabra => p.detalle.toUpperCase().includes(palabra));
 
     const eliminado =
       productosEliminados.includes(p.id) && (((busqueda === '') || (buscarPorCodOrig || buscarPorCodInt || buscarPorDetalle)));

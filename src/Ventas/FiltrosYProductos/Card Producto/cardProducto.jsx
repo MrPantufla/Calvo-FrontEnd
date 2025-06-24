@@ -72,7 +72,7 @@ export default function CardProducto(args) {
   } else if (color.endsWith("2 CARAS")) {
     color = color.slice(0, -8);
   }
-  
+
   const mayorista = state.userInfo ? (state.userInfo.categoria == 'MAYORISTA') : (false);
 
   const colorCorregido = (args.producto.color).replace(/\s+/g, '-');
@@ -194,9 +194,11 @@ export default function CardProducto(args) {
         else {
           if (paqueteSeleccionado) {
             añadirElemento(idParaUsar, 1);
+            console.log(args.producto);
           }
           else {
             añadirElemento(productosSueltos[referencia].id, 1);
+            console.log(productosSueltos[referencia]);
           }
         }
       }
@@ -506,12 +508,9 @@ export default function CardProducto(args) {
               `PRECIO${referencia ?
                 ' UNITARIO' : ''
               } 
-              ${!mayorista ?
-                ' MINORISTA ' : ''
-              } 
               APROXIMADO: `
             ) : (
-              `PRECIO${!mayorista ? ' MINORISTA' : ''}: `
+              `PRECIO: `
             )}
 
             {ofertas.some(o => o.idProducto === idParaUsar) ? (

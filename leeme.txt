@@ -1,0 +1,5 @@
+Este programa funciona poniendo todas las variables que no sean de paso directo en contextos
+contextCarrito tiene todo lo que es carrito y también el envío de pedidos, es el más importante y complejo junto a contextProductos
+en contextVariables está la línea de la que se toma el endpoint para toda la aplicación
+
+El renderizado de filtros antes era más o menos prolijo hasta que se invirtieron los colores y srubros de perfiles. Ahora es bastante mejor no tocarlo

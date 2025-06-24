@@ -1,6 +1,6 @@
 {
   "rules": {
-    ".read": "true",
+    ".read": "auth != null",
     ".write": "auth != null",
     "bloqueos": {
       ".indexOn": ["ip"]
@@ -22,6 +22,9 @@
     },
     "finalizar_compra":{
       ".indexOn": ["id_usuario"]
+    },
+    "intentosPago":{
+      ".indexOn": ["id"]
     },
     "ofertas":{
       ".indexOn": ["idProducto"]
