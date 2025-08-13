@@ -24,6 +24,8 @@ import { useFinalizarCompra } from '../contextFinalizarCompra.jsx';
 import { useAuth } from '../contextLogin.jsx';
 import FinalizarPedido from './Confirmar compra/Finalizar pedido/finalizarPedido.jsx';
 import Arregla from './Confirmar compra/Envios/Arregla/arregla.jsx';
+import MercadoPagoPaymentBrick from './Confirmar compra/Pagos/mercadoPago.jsx';
+import PaymentBrick from './Confirmar compra/Pagos/mercadoPago.jsx';
 
 export default function Ventas() {
 
@@ -183,7 +185,15 @@ export default function Ventas() {
       set: () => setMetodoPago('tarjeta'),
       componente: <Tarjeta siguiente={() => setMostrarFacturacion(true)} />,
       aclaraciones: aclaracionesPagoTarjeta
-    }
+    },
+
+    /*{
+      nombre: 'Mercado Pago',
+      comparador: 'mercadopago',
+      set: () => setMetodoPago('mercadopago'),
+      componente: <PaymentBrick />,
+      aclaraciones: aclaracionesPagoTarjeta
+    }*/
   ];
 
   const aclaracionesFacturacion =

@@ -36,14 +36,16 @@ export default function EditarUsuarios() {
         }
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await obtenerUsuarios();
-            if (data) {
-                setUsuarios(data.reverse());
-            }
-        };
 
+    const fetchData = async () => {
+
+        const data = await obtenerUsuarios();
+        if (data) {
+            setUsuarios(data.reverse());
+        }
+    };
+
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -87,7 +89,7 @@ export default function EditarUsuarios() {
 
             <div className="bodyEditarUsuarios">
                 {usuariosFiltrada.map(usuario => (
-                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario} />
+                    usuario.id !== 1 && <CardEditarUsuario key={usuario.id} usuario={usuario} fetchData={fetchData}/>
                 ))}
             </div>
         </div>

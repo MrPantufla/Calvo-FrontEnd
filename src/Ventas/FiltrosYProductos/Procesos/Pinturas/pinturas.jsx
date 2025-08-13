@@ -43,14 +43,19 @@ export default function Pinturas(args) {
     ];
 
     const similMaderaArray = [
+        ["ABETO M", "abetoM", 4882],
+        ["ACERO CORTEN N", "aceroCortenN", 4882],
         ["CEDRO C7", "cedroC7", 7467],
         ["CEDRO C8", "cedroC8", 7467],
         ["CEDRO F", "cedroF", 4882],
         ["CEREZO G7", "cerezoG7", 7467],
+        ["FRESNO L", "fresnoL", 4882],
+        ["HAYA J", "hayaJ", 4882],
         ["MARMOL CARRARA 111", "marmolCarrara111", 7467],
         ["NOGAL B7", "nogalB7", 7467],
         ["NOGAL D", "nogalD", 4882],
         ["NOGAL OSCURO H", "nogalOscuroH", 4882],
+        ["OREGON K", "oregonK", 4882],
         ["ROBLE CLARO E", "robleClaroE", 4882],
         ["ROBLE CLARO E7", "robleClaroE7", 7467],
         ["ROBLE MEDIO B", "robleMedioB", 4882],
@@ -104,14 +109,19 @@ export default function Pinturas(args) {
     ]
 
     const similMaderaChapasArray = [
+        ["ABETO M", "abetoM", 6964],
+        ["ACERO CORTEN N", "aceroCortenN", 6964],
         ["CEDRO C7", "cedroC7", 6964],
         ["CEDRO C8", "cedroC8", 6964],
         ["CEDRO F", "cedroF", 6964],
         ["CEREZO G7", "cerezoG7", 6964],
+        ["FRESNO L", "fresnoL", 6964],
+        ["HAYA J", "hayaJ", 6964],
         ["MARMOL CARRARA 111", "marmolCarrara111", 6964],
         ["NOGAL B7", "nogalB7", 6964],
         ["NOGAL D", "nogalD", 6964],
         ["NOGAL OSCURO H", "nogalOscuroH", 6964],
+        ["OREGON K", "oregonK", 6964],
         ["ROBLE CLARO E", "robleClaroE", 6964],
         ["ROBLE CLARO E7", "robleClaroE7", 6964],
         ["ROBLE MEDIO B", "robleMedioB", 6964],

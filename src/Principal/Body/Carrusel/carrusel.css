@@ -230,6 +230,17 @@ textArea.textoAviso{
   border-radius: 4px;
 }
 
+.previsualizarCambios{
+  top: 23%;
+  position: absolute;
+  right: 8%;
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid var(--colorTerciario);
+  margin-left: 1rem;
+  border-radius: 4px;
+}
+
 .carousel-indicators [data-bs-target] {
   background-color: var(--colorSecundario) !important;
 }

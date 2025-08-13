@@ -151,7 +151,7 @@ export default function Filtros(args) {
                 <div className={`labelRubros ${softwareSelected && 'checked'} textoLabelRubros ${(state.userInfo && state.userInfo.tipo_usuario !== 'admin' && state.userInfo.tipo_usuario != 'colaborador') && 'ultimoLabel'}`} onClick={() => seleccionarSoftware()}>SOFTWARE</div>
                 {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros labelAdmin ${eliminadosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminados()}>ELIMINADOS</div>))}
                 {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros labelAdmin ${eliminadosDeProcesosSelected && 'checked'} textoLabelRubros`} onClick={() => seleccionarEliminadosDeProcesos()}>ELIMINADOS DE PROCESOS</div>))}
-                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador' || state.userInfo.tipo_usuario == 'ventas') && (<div className={`labelRubros textoLabelRubros labelAdmin`} onClick={() => subirImagenTienda()}>
+                {state.userInfo && ((state.userInfo.tipo_usuario == 'admin' || state.userInfo.tipo_usuario == 'colaborador') && (<div className={`labelRubros textoLabelRubros labelAdmin`} onClick={() => subirImagenTienda()}>
                     <label htmlFor="subirImagen" className="labelSubirImagenTienda">SUBIR IMAGEN</label>
                     <input id="subirImagen" type="file" onChange={handleFileUpload} style={{ display: "none" }} accept=".png, .jpg, .jpeg, .svg, .webp" />
                 </div>))}

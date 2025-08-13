@@ -40,6 +40,9 @@ function FinalizarCompraProvider({ children }) {
     const [cuit, setCuit] = useState('');
     const [keyDownEnter, setKeyDownEnter] = useState(null);
 
+    //MercadoPago
+    const [preferenceId, setPreferenceId] = useState(null);
+
     const {
         backend,
         obtenerToken
@@ -140,7 +143,9 @@ function FinalizarCompraProvider({ children }) {
             ultimoDigito,
             setUltimoDigito,
             tipoTarjeta,
-            setTipoTarjeta
+            setTipoTarjeta,
+            preferenceId,
+            setPreferenceId
         }}>
             {children}
         </FinalizaCompraContext.Provider>

@@ -17,6 +17,8 @@ export default function CardPreguntasFrecuentes(args) {
 
   const [editando, setEditando] = useState(false);
 
+  const dominio = window.location.origin;
+
   const eliminarPreguntaFrecuente = async (id) => {
     try {
 
@@ -77,7 +79,7 @@ export default function CardPreguntasFrecuentes(args) {
           </div>
 
           <div className={`bodyCardPreguntasFrecuentes ${args.cardActiva == args.id && 'active'}`}>
-            {(args.respuesta == 'mapa' && backend != "http://localhost:8080") ? (
+            {(args.respuesta == 'mapa' && !dominio.startsWith("http://localhost:3000")) ? (
               <MapFAQ />
             ) : (
               <p>

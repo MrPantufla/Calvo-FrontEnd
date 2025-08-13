@@ -74,9 +74,11 @@ export default function CardEditarUsuario(args) {
         }
     }
 
-    const eliminarUsuario = (usuario) => {
+    const eliminarUsuario = async (e, usuario) => {
 
-        const response = fetch(`${backend}/modificarUsuario/postEliminarUsuario`, {
+        e.preventDefault();
+
+        const response = await fetch(`${backend}/modificarUsuario/postEliminarUsuario`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,6 +88,7 @@ export default function CardEditarUsuario(args) {
         });
 
         if (response.ok) {
+            args.fetchData();
             return true;
         } else {
             return false;
@@ -257,7 +260,7 @@ export default function CardEditarUsuario(args) {
                 <div className="contenedorBotonEnviarUsuario">
                     {eliminar === true ?
                         (<>
-                            <button className="enviarFormulario" onClick={() => eliminarUsuario(usuario)} >
+                            <button className="enviarFormulario" onClick={(e) => eliminarUsuario(e, usuario)} >
                                 ELIMINAR
                             </button>
                             <button className="enviarFormulario segundoBoton" onClick={toggleEliminar}>

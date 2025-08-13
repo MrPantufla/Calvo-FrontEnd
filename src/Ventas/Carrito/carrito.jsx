@@ -229,11 +229,27 @@ export default function Carrito(args) {
           setCodigoValido();
           setColorValido();
           setCantidadValida();
+
+          //------------ESTO ES PARA CONSEGUIR EL TROQUELADO SI ES QUE CORRESPONDE------------
+          let troquelado;
+
+          const troqueladoRegex = /^CA\d+T$/;
+          const cod_orig = productoSeleccionado.cod_orig;
+          if (troqueladoRegex.test(cod_orig)) {
+            const codigoPerfil = cod_orig.substring(2, cod_orig.length - 1);
+            const troqueladoCorrespondiente = Object.values(troquelados).find(t => t.detalle.includes(codigoPerfil));
+
+            if (troqueladoCorrespondiente) {
+              troquelado = troqueladoCorrespondiente;
+            }
+          }
+          //----------------------------------------------------------------------------------
+
           if (cantidadAgregadoRapido == ('')) {
-            añadirElemento(productoSeleccionado.id, 1);
+            añadirElemento(troquelado ? productoSeleccionado.id + "-" + troquelado.id : productoSeleccionado.id, 1);
           }
           else {
-            añadirElemento(productoSeleccionado.id, parseInt(cantidadAgregadoRapido));
+            añadirElemento(troquelado ? productoSeleccionado.id + "-" + troquelado.id : productoSeleccionado.id, parseInt(cantidadAgregadoRapido));
           }
           nextInputRef.current.focus();
         }
@@ -409,7 +425,7 @@ export default function Carrito(args) {
             }
             {elementos.length === 0 ? (
               <div className="carritoVacioContainer">
-                <img src={carritoVacioImg} alt="Carrito vacío" loading='lazy'/>
+                <img src={carritoVacioImg} alt="Carrito vacío" loading='lazy' />
                 <p>TU CARRITO ESTÁ VACÍO</p>
               </div>
             ) : (

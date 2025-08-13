@@ -194,7 +194,6 @@ function CarritoProvider({ children }) {
                   }
                 }
               }
-              // Si es un nuevo elemento, agrega y deja que el useEffect maneje la actualización del carrito
               return [...prevElementos, { id, cod_origProducto, cantidadCarrito, detalleProducto, precioProducto, kg, cantidad, tipo_prod }];
             }
           }
@@ -267,9 +266,7 @@ function CarritoProvider({ children }) {
     })
       .then(response => {
         if (response.ok) {
-          // Procesar la respuesta exitosa
         } else {
-          // Procesar la respuesta de error
           console.error('Error en el envío de carrito:', response.statusText);
         }
       })
@@ -288,7 +285,7 @@ function CarritoProvider({ children }) {
   }, [elementos]);
 
   const confirmarCompra = (datosPedido) => {
-    if(elementos.length <= 0){
+    if (elementos.length <= 0) {
       return false;
     }
 
@@ -337,6 +334,19 @@ function CarritoProvider({ children }) {
     };
 
     setRespuestaCompra("Almacenando pedido...");
+
+    /*
+    ({ formData }) => {
+              return fetch('/process_payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+              })
+                .then((res) => res.json())
+                .then((res) => console.log(res))
+                .catch((err) => console.error(err));
+            }
+                */
 
     //suscribirRespuestas();
 

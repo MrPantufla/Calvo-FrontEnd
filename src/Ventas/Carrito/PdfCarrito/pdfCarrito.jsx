@@ -111,13 +111,13 @@ const PdfCarrito = forwardRef((props, ref) => {
               cod_origProducto: troq.cod_orig,
               detalleProducto: troq.detalle,
               id: troq.id,
-              kg: prod.kg,
+              kg: 1,
               precioProducto: troq.precio,
               tipo_prod: troq.tipo_prod,
               rubro: troq.rubro
             }
           }
-
+          
           elementosSinProcesosSeparados.push(troqueladoAgregarSinProceso);
 
         }
@@ -163,7 +163,7 @@ const PdfCarrito = forwardRef((props, ref) => {
             cod_origProducto: troq.cod_orig,
             detalleProducto: troq.detalle,
             id: troq.id,
-            kg: elemento.kg,
+            kg: 1,
             precioProducto: troq.precio,
             tipo_prod: troq.tipo_prod,
             rubro: troq.rubro
@@ -191,6 +191,7 @@ const PdfCarrito = forwardRef((props, ref) => {
       }
 
       procesosTemporal.push(procesoAgregar);
+
       //-------------------------------
       if (extraerAcabado(elemento.id) != 0) {
         acabadoActual = procesos[extraerAcabado(elemento.id)];
@@ -207,7 +208,7 @@ const PdfCarrito = forwardRef((props, ref) => {
           rubro: acabadoActual.rubro
         }
 
-        procesosTemporal.push(acabadoAgregar);
+        acabadoActual.tipo_prod != 'INSUMOS' && procesosTemporal.push(acabadoAgregar);
       }
     })
 
@@ -304,7 +305,7 @@ const PdfCarrito = forwardRef((props, ref) => {
         (producto.precio + (proceso ? (proceso.precio * extraerMetrosCuadrados(producto.detalle)) : (0)) + (acabado ? (acabado.precio * extraerMetrosCuadrados(producto.detalle)) : (0)))
         :
         (producto && producto.precio && producto.kg > 0)
-          ? (producto.precio * producto.kg + (troquelado ? (troquelado.precio * producto.kg) : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
+          ? (producto.precio * producto.kg + (troquelado ? (troquelado.precio) : 0) + (proceso ? (proceso.precio * producto.kg) : 0) + (acabado ? (acabado.precio * producto.kg) : (0)))
           : producto.precio
       )
 
@@ -326,7 +327,7 @@ const PdfCarrito = forwardRef((props, ref) => {
 
   return (
     <div>
-      <div id="pdf-preview" ref={pdfRef} loading='lazy' style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+      <div id="pdf-preview" ref={pdfRef} loading='lazy' style={{ position: 'absolute', /*top: 0, left: -800, backgroundColor: 'white'*/left: '-9999px', top: '-9999px'}}>
         <img src="/ImagenesExtra/logo_calvo.webp" />
         <h1 className="tituloPdf">PRESUPUESTO</h1>
         <h2 className="fechaPdf">{obtenerFechaFormateada()}</h2>
@@ -373,23 +374,23 @@ const PdfCarrito = forwardRef((props, ref) => {
 
             const cantUnid = (elemento.cantidadCarrito * (producto.cantidad || 1));
 
-            const unidad = ((marcasUnicas && marcasUnicas.has(producto.marca)) || (esProceso && !producto.detalle.includes("M2"))) ?
+            const unidad = ((marcasUnicas && marcasUnicas.has(producto.marca)) || (esProceso && !producto.detalle.includes("M2") && producto.rubro != 65)) ?
               ("KG")
               :
               (
-                esProceso ?
+                esProceso && producto.rubro != 65?
                   ('M2')
                   :
                   ('UNID')
               );
-
+              
             const cantidad = ((unidad === "KG" || unidad === 'M2') ?
-              marcasUnicas.has(producto.marca) ?
+              (marcasUnicas.has(producto.marca)) ?
                 (elemento.cantidadCarrito ? producto.kg * elemento.cantidadCarrito : 0)
                 :
                 (elemento.kg)
               :
-              (producto.cantidad && elemento.cantidadCarrito ? producto.cantidad * elemento.cantidadCarrito : 0)
+              (producto.rubro != 65 ? (producto.cantidad && elemento.cantidadCarrito ? producto.cantidad * elemento.cantidadCarrito : 0) : elemento.cantidadCarrito)
             );
 
             const totalProducto = (producto.precio * cantidad).toFixed(2);
@@ -399,7 +400,7 @@ const PdfCarrito = forwardRef((props, ref) => {
                 <p className="primerP">{producto.cod_int}</p>{/*Código*/}
                 <p>{producto.cod_orig + " - " + (producto.detalle || '')}</p>{/*Descripción*/}
                 <p>{cantUnid.toFixed(2)}</p>{/*Cant.Unid.*/}
-                <p>{(totalProducto / (cantUnid)).toFixed(2)}</p>{/*P. X Unid.*/}
+                <p>{(producto.precio * elemento.kg).toFixed(2)}</p>{/*P. X Unid.*/}
                 <p>{unidad}</p>{/*Unid.Med.*/}
                 <p>{cantidad.toFixed(2)}</p>{/*Cantidad*/}
                 <p>{(producto.precio || 0).toFixed(2)}</p>{/*P.Vta.*/}

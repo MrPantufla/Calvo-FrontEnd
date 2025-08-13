@@ -17,31 +17,11 @@ export default function ProductoHistorial(args) {
         producto = productosSueltos[args.id];
     }
 
-    const [cod_orig, setCod_orig] = useState("CA");
-    const [detalle, setDetalle] = useState("detalle");
-    const [color, setColor] = useState("color");
-    const [kg, setKg] = useState('kg');
-
-    useEffect(() => {
-        if (producto && producto.cod_orig && producto.detalle) {
-            setCod_orig(producto.cod_orig);
-            setDetalle(producto.detalle);
-            setColor(producto.color.toUpperCase())
-            setKg(producto.kg);
-        }
-        else {
-            setCod_orig("");
-            setDetalle("PRODUCTO ELIMINADO");
-            setColor("");
-            setKg("");
-        }
-    }, []);
-
     const handleContextMenu = (e) => {
         e.preventDefault();
     }
 
-    let colorParaUsar = color;
+    let colorParaUsar = producto.color.toUpperCase();
 
     let colorCorregido = '';
     if (producto) {
@@ -67,7 +47,7 @@ export default function ProductoHistorial(args) {
         colorParaUsar == 'BRONCE'
     );
 
-    const precio = args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (kg) || (1) : (1)) + args.precioTroquelado;
+    const precio = args.precio * ((producto && marcasUnicasPerfiles.includes(producto.marca)) ? (producto.kg) || (1) : (1)) + args.precioTroquelado;
     const precioIntFinal = Math.round(precio - precio / 100 * (args.descuento || 0));
 
     const precioParaMostrarString = precioIntFinal ? (precioIntFinal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 0;
@@ -101,11 +81,11 @@ export default function ProductoHistorial(args) {
                     loading='lazy'
                 />
                 <p>
-                    <span className="cod_origProductoHistorial">{codigo}</span> - {detalle && detalle} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} <span className="codOrig">{producto.cod_orig.slice(-2) == '-M' ? ("(" + producto.cantidad + " m.)") : (producto.cantidad > 1 && ("(" + producto.cantidad + " u.)"))}</span>
+                    <span className="cod_origProductoHistorial">{codigo}</span> - {producto.detalle || 'PRODUCTO ELIMINADO'} {args.acabado && procesos[args.acabado] ? (' - ' + procesos[args.acabado].detalle) : ''} <span className="codOrig">{producto.cod_orig.slice(-2) == '-M' ? ("(" + producto.cantidad + " m.)") : (producto.cantidad > 1 && ("(" + producto.cantidad + " u.)"))}</span>
                 </p>
             </div>
             <div className="informacionProductoHistorialContainer">
-                {(color && color !== 'IND') && (
+                {(producto.color && producto.color !== 'IND') && (
                     <p style={{ backgroundColor: `var(--${colorCorregido})`, color: usarBlanco ? ('white') : ('black') }}>
                         {args.proceso && procesos[args.proceso] && procesos[args.proceso].rubro === 88
                             ? 'ANODIZADO: ' + (procesos[args.proceso].color ? procesos[args.proceso].color.toUpperCase() : '')

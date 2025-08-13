@@ -194,11 +194,9 @@ export default function CardProducto(args) {
         else {
           if (paqueteSeleccionado) {
             añadirElemento(idParaUsar, 1);
-            console.log(args.producto);
           }
           else {
             añadirElemento(productosSueltos[referencia].id, 1);
-            console.log(productosSueltos[referencia]);
           }
         }
       }

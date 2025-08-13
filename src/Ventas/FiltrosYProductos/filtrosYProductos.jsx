@@ -132,7 +132,7 @@ export default function FiltrosYProductos() {
     const srubroCumple =
       srubroActivo == null ||
       (marcaActiva ? (srubroActivo && srubroActivo.nombre == p.color) : (srubroActivo && srubroActivo.id == p.srubro));
-
+      
     const buscarPorCodOrig =
       marcasUnicas && marcasUnicas.size > 0 && marcasUnicas.has(p.marca) && p.cod_orig.toString().includes(busqueda);
 

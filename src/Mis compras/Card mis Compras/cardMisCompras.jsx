@@ -205,6 +205,7 @@ export default function CardMisCompras(args) {
                                 precioTroquelado={producto.precioTroquelado || 0}
                                 acabado={producto.acabado}
                                 descuento={producto.descuento || 0}
+                                fecha={fechaFormateada}
                             />
                         );
                     })}

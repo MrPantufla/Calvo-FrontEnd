@@ -94,19 +94,19 @@ export default function ConfirmarCompra(args) {
                 if (datos.cuit != null && datos.cuit > 0) {
                     const stringCuit = datos.cuit.toString();
                     setCuit(stringCuit);
-                    setPrimerosDigitos(stringCuit.slice(0,2));
+                    setPrimerosDigitos(stringCuit.slice(0, 2));
                     setUltimoDigito(stringCuit.slice(-1));
                 }
 
-                if(datos.diaNacimiento != null && datos.diaNacimiento > 0){
+                if (datos.diaNacimiento != null && datos.diaNacimiento > 0) {
                     setDiaNacimiento(datos.diaNacimiento.toString());
                 }
 
-                if(datos.mesNacimiento != null && datos.mesNacimiento > 0){
+                if (datos.mesNacimiento != null && datos.mesNacimiento > 0) {
                     setMesNacimiento(datos.mesNacimiento.toString());
                 }
 
-                if(datos.anioNacimiento != null && datos.anioNacimiento > 0){
+                if (datos.anioNacimiento != null && datos.anioNacimiento > 0) {
                     setAnioNacimiento(datos.anioNacimiento.toString());
                 }
             }
@@ -145,27 +145,6 @@ export default function ConfirmarCompra(args) {
             window.removeEventListener('keydown', escConfirmarCompra);
         };
     }, []);
-
-    /*ESTO QUEDA PARA AGREGAR ENVIAR FORMULARIOS CON ENTER
-    const enterConfirmarCompra = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            console.log(keyDownEnter)
-            if (typeof keyDownEnter === 'function') {
-                keyDownEnter();
-            }
-        }
-    };
-
-    useEffect(() => {
-        // Agregar el event listener al montar el componente
-        window.addEventListener('keydown', enterConfirmarCompra);
-
-        // Limpiar el event listener al desmontar el componente
-        return () => {
-            window.removeEventListener('keydown', enterConfirmarCompra);
-        };
-    }, []);*/
 
     return (
         <div className="contenedoresConfirmarCompra">
